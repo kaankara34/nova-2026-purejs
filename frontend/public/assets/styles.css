@@ -144,19 +144,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-left: 6px; flex-shrink: 0;
 }
 .logo-mark .logo-img {
-  height: clamp(157px, 17.5vw, 227px);
+  height: clamp(70px, 11vw, 195px);
   width: auto;
   object-fit: contain;
 }
 
 @media (max-width: 768px) {
+  .header-inner {
+    position: relative;
+  }
   .header-left {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
+  .menu-toggle {
+    position: relative;
+    z-index: 10;
+  }
+  .header-actions {
+    position: relative;
+    z-index: 10;
+  }
   .logo-mark {
     margin-left: 0;
+  }
+  .logo-mark .logo-img {
+    height: clamp(50px, 13vw, 70px);
   }
 }
 .logo-mark .dar-text {
