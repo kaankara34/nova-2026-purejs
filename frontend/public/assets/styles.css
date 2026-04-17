@@ -504,14 +504,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    ========================================================= */
 .section-aida {
   background: var(--c-aida-bg);
-  margin: 0 var(--gutter);
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--container) - 2 * var(--gutter));
+  margin: 0 auto;
   padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px);
   display: grid; grid-template-columns: 1fr 1.3fr;
   gap: clamp(24px, 4vw, 60px); align-items: center;
   border-radius: 2px;
 }
 @media (max-width: 900px) {
-  .section-aida { grid-template-columns: 1fr; margin: 0 14px; }
+  .section-aida { grid-template-columns: 1fr; }
 }
 .aida-left .aida-logo {
   font-family: var(--font-serif); letter-spacing: 0.4em;
@@ -636,13 +638,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    ========================================================= */
 .section-discover-dg {
   background: #eef1f2;
-  margin: 0 var(--gutter);
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--container) - 2 * var(--gutter));
+  margin: 0 auto;
   padding: clamp(34px, 5vw, 70px) clamp(24px, 5vw, 80px);
   display: grid; grid-template-columns: 1fr 1fr;
   gap: clamp(30px, 5vw, 80px); align-items: center;
 }
 @media (max-width: 900px) {
-  .section-discover-dg { grid-template-columns: 1fr; margin: 0 14px; }
+  .section-discover-dg { grid-template-columns: 1fr; }
 }
 .section-discover-dg h3 {
   font-size: clamp(14px, 1.1vw, 16px); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
