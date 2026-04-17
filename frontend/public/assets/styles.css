@@ -19,8 +19,8 @@
   --c-overlay: rgba(0,0,0,0.35);
   --font-serif: 'Cormorant Garamond', 'Playfair Display', 'Times New Roman', serif;
   --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --container: 1400px;
-  --gutter: clamp(16px, 3vw, 48px);
+  --container: 1800px;
+  --gutter: clamp(16px, 2.2vw, 40px);
   --header-h: 92px;
   --easing: cubic-bezier(.2, .7, .2, 1);
 }
