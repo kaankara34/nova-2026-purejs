@@ -137,11 +137,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .menu-toggle:hover span:nth-child(1) { transform: translateY(-1px); }
 .menu-toggle:hover span:nth-child(3) { transform: translateY(1px); }
 
-.header-left { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.header-left { 
+  display: flex; 
+  align-items: center; 
+  gap: clamp(12px, 2vw, 20px);
+  flex-shrink: 0; 
+}
 
 .logo-mark {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-left: 6px; flex-shrink: 0;
+  display: inline-flex; 
+  align-items: center; 
+  gap: 6px;
+  flex-shrink: 0;
 }
 .logo-mark .logo-img {
   height: clamp(120px, 12vw, 195px);
@@ -157,17 +164,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 768px) {
   .header-inner {
     padding: 0 clamp(14px, 4vw, 20px);
-    justify-content: space-between;
   }
   
   .header-left {
-    gap: 12px;
+    gap: clamp(10px, 3vw, 14px);
   }
   
-  .logo-mark {
-    margin-left: 0;
-    order: 2;
-  }
   .logo-mark .logo-img {
     height: clamp(70px, 18vw, 100px);
   }
