@@ -142,7 +142,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-left: 6px; flex-shrink: 0;
 }
 .logo-mark .logo-img {
-  height: clamp(32px, 3.5vw, 48px);
+  height: clamp(45px, 5vw, 65px);
   width: auto;
   object-fit: contain;
 }
@@ -657,7 +657,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    ========================================================= */
 .section-discover-dg {
   background: #eef1f2;
-  padding: clamp(50px, 8vw, 100px) 0;
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--container) - 2 * var(--gutter));
+  margin: 0 auto;
+  padding: clamp(34px, 5vw, 70px) clamp(24px, 5vw, 80px);
 }
 .discover-dg-grid {
   display: grid; grid-template-columns: 1fr 1fr;
