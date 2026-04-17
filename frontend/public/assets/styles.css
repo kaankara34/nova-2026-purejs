@@ -144,7 +144,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-left: 6px; flex-shrink: 0;
 }
 .logo-mark .logo-img {
-  height: clamp(70px, 11vw, 195px);
+  height: clamp(120px, 12vw, 195px);
   width: auto;
   object-fit: contain;
 }
@@ -152,6 +152,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 768px) {
   .header-inner {
     position: relative;
+    padding: 0 clamp(12px, 3vw, 20px);
   }
   .header-left {
     position: absolute;
@@ -170,7 +171,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     margin-left: 0;
   }
   .logo-mark .logo-img {
-    height: clamp(50px, 13vw, 70px);
+    height: clamp(85px, 22vw, 120px);
   }
 }
 .logo-mark .dar-text {
