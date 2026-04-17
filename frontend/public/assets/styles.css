@@ -505,37 +505,68 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
-  padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px);
-  display: grid; grid-template-columns: 1fr 1.3fr;
-  gap: clamp(24px, 4vw, 60px); align-items: center;
+  padding: clamp(34px, 4vw, 60px) clamp(26px, 3.5vw, 60px);
+  display: grid; grid-template-columns: 1fr 1.75fr;
+  gap: clamp(30px, 5vw, 80px); align-items: center;
   border-radius: 2px;
 }
 @media (max-width: 900px) {
-  .section-aida { grid-template-columns: 1fr; }
+  .section-aida {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 28px;
+  }
 }
+.aida-left { padding: clamp(20px, 3vw, 48px) 0 clamp(20px, 3vw, 48px) clamp(16px, 3vw, 48px); }
 .aida-left .aida-logo {
-  font-family: var(--font-serif); letter-spacing: 0.4em;
-  font-size: clamp(30px, 3vw, 42px); margin-bottom: 6px;
+  font-family: var(--font-serif);
+  letter-spacing: 0.42em;
+  font-size: clamp(44px, 4.2vw, 64px);
+  font-weight: 300;
+  line-height: 1; color: #3a4a56;
+  margin-bottom: 10px;
 }
 .aida-left .aida-sub {
-  font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #5a6974; margin-bottom: 40px;
+  font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: #4a5661; margin-bottom: clamp(60px, 8vw, 120px);
 }
 .aida-left h2 {
   font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(36px, 4vw, 54px); line-height: 1.05; margin-bottom: 24px;
+  font-size: clamp(32px, 3vw, 46px); line-height: 1.05;
+  margin-bottom: 20px; color: var(--c-gold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-.aida-left p { font-size: clamp(14px, 1.1vw, 16px); color: #2b3a44; line-height: 1.7; margin-bottom: 36px; max-width: 520px; }
+.aida-left p {
+  font-size: clamp(14px, 1vw, 15.5px);
+  color: #2b3a44; line-height: 1.65;
+  margin-bottom: clamp(40px, 6vw, 70px);
+  max-width: 460px;
+}
+.aida-right { height: 100%; }
 .aida-right .aida-image {
-  width: 100%; aspect-ratio: 16/11; object-fit: cover;
+  width: 100%; height: 100%;
+  aspect-ratio: 3 / 2; object-fit: cover;
+  display: block;
 }
 .btn-aida {
-  display: inline-flex; align-items: center; gap: 14px;
-  padding: 16px 34px;
-  background: var(--c-gold); color: #fff;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
-  transition: background .3s var(--easing), transform .3s var(--easing);
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px;
+  background: #6f6243; color: #fff;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+  transition: background .3s var(--easing);
 }
-.btn-aida:hover { background: var(--c-gold-dark); transform: translateY(-2px); }
+.btn-aida:hover { background: #574d33; }
+.btn-aida svg { width: 14px; height: 9px; }
+
+@media (max-width: 900px) {
+  .aida-left { padding: 10px 0 0; }
+  .aida-left h2 { white-space: normal; }
+  .aida-left .aida-sub { margin-bottom: 40px; }
+  .aida-left p { margin-bottom: 32px; }
+  .aida-right .aida-image { aspect-ratio: 16 / 10; }
+}
 
 /* =========================================================
    Exclusive Collaborations
