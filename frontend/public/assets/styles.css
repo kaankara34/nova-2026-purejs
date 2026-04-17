@@ -369,23 +369,28 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    Live All In section
    ========================================================= */
 .section-live-all-in {
-  padding: clamp(80px, 12vw, 160px) 0 clamp(60px, 8vw, 100px);
+  padding: clamp(50px, 7vw, 100px) 0 clamp(40px, 5vw, 70px);
   text-align: center;
 }
 .live-all-in-title {
   font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(52px, 10vw, 150px);
-  line-height: 0.95;
+  font-size: clamp(44px, 8.2vw, 120px);
+  line-height: 1;
   letter-spacing: 0.02em;
-  margin-bottom: clamp(28px, 4vw, 48px);
+  margin-bottom: clamp(36px, 5vw, 64px);
 }
 .live-all-in-desc {
-  max-width: 860px; margin: 0 auto;
-  color: #2a2a2a; font-size: clamp(14px, 1.2vw, 17px);
-  line-height: 1.75;
+  max-width: 1080px; margin: 0 auto;
+  color: #1f1f1f; font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.55;
+  padding: 0 16px;
 }
-.live-all-in-desc a { color: var(--c-text); text-decoration: underline; text-underline-offset: 4px; }
-.live-all-in-desc a:hover { color: var(--c-gold); }
+.live-all-in-desc a { color: var(--c-gold); text-decoration: none; padding-left: 4px; }
+.live-all-in-desc a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 640px) {
+  .live-all-in-desc { line-height: 1.6; }
+}
 
 /* =========================================================
    Latest Projects
