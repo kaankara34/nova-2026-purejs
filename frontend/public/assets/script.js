@@ -62,18 +62,22 @@
 
   $$('.reveal-up, .reveal-fade, .reveal-stagger').forEach(el => io.observe(el));
 
-  /* ========== Trump collab video (play on click) ========== */
-  const collab = $('#collabVideo');
-  const playBtn = $('#collabPlay');
+  /* ========== Trump collab video (autoplay on load) ========== */
   const muteBtn = $('#collabMute');
   const vid = $('#collabVid');
-  if (playBtn && vid) {
-    playBtn.addEventListener('click', () => {
-      collab.classList.add('playing');
-      vid.muted = false;
-      vid.play().catch(() => { vid.muted = true; vid.play(); });
-    });
+  
+  // Auto-start video when visible
+  if (vid) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          vid.play().catch(() => {});
+        }
+      });
+    }, { threshold: 0.5 });
+    observer.observe(vid);
   }
+  
   if (muteBtn && vid) {
     muteBtn.addEventListener('click', () => {
       vid.muted = !vid.muted;

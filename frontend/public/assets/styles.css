@@ -578,32 +578,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .section-collab .section-head-intro p { color: #3a3a3a; line-height: 1.7; margin-top: 12px; max-width: 620px; }
 
 .collab-video {
-  position: relative; aspect-ratio: 16 / 9;
+  position: relative; 
+  aspect-ratio: 3 / 1;
   background: #111;
   overflow: hidden;
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--container) - 2 * var(--gutter));
+  margin: 0 auto;
 }
-.collab-video video,
-.collab-video img {
+.collab-video video {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
-.collab-video-overlay {
-  position: absolute; inset: 0; z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.25));
-  transition: opacity .4s var(--easing);
-}
-.collab-video.playing .collab-video-overlay { opacity: 0; pointer-events: none; }
-.video-play {
-  width: 96px; height: 96px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.8);
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  transition: transform .3s var(--easing), background .3s var(--easing);
-}
-.video-play:hover { transform: scale(1.08); background: rgba(255,255,255,0.25); }
-.video-play svg { width: 28px; height: 28px; transform: translateX(2px); }
 .collab-trump-text {
   position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);
   color: #fff; text-align: center; letter-spacing: 0.2em; pointer-events: none;
@@ -618,6 +603,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: inline-flex; align-items: center; justify-content: center;
 }
 .video-mute svg { width: 18px; height: 18px; }
+
+@media (max-width: 900px) {
+  .collab-video { aspect-ratio: 16 / 10; }
+}
 
 /* =========================================================
    Articles & News
