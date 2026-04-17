@@ -118,8 +118,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .header-inner {
-  width: 100%; max-width: 1720px; margin: 0 auto;
-  padding: 0 clamp(14px, 3vw, 40px);
+  width: 100%; 
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
   display: flex; align-items: center; justify-content: space-between;
   gap: clamp(10px, 2vw, 20px);
 }
@@ -142,9 +144,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-left: 6px; flex-shrink: 0;
 }
 .logo-mark .logo-img {
-  height: clamp(112px, 12.5vw, 162px);
+  height: clamp(157px, 17.5vw, 227px);
   width: auto;
   object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .header-left {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .logo-mark {
+    margin-left: 0;
+  }
 }
 .logo-mark .dar-text {
   font-family: var(--font-serif);
