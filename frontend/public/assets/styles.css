@@ -142,7 +142,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-left: 6px; flex-shrink: 0;
 }
 .logo-mark .logo-img {
-  height: clamp(225px, 25vw, 325px);
+  height: clamp(112px, 12.5vw, 162px);
   width: auto;
   object-fit: contain;
 }
