@@ -171,7 +171,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   
   .logo-mark .logo-img {
-    height: clamp(70px, 18vw, 100px);
+    height: clamp(95px, 22vw, 140px);
   }
   
   /* Hide desktop actions on mobile */
@@ -198,8 +198,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .btn-bottom-register {
     flex: 1;
     padding: 14px 20px;
-    background: #c9a961;
-    color: #0b0b0b;
+    background: #574D33;
+    color: #fff;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -209,7 +209,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     transition: background 0.3s ease;
   }
   .btn-bottom-register:hover {
-    background: #b89550;
+    background: #6a5d3f;
   }
   
   .bottom-icons {
@@ -563,9 +563,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    Featured In - Logo marquee
    ========================================================= */
 .section-featured {
-  padding: clamp(60px, 8vw, 100px) 0;
+  padding: clamp(40px, 6vw, 70px) 0;
   text-align: center;
-  border-top: 1px solid #f0f0f0;
 }
 .section-featured .section-head-center {
   max-width: 820px; margin: 0 auto clamp(40px, 5vw, 60px);
@@ -602,7 +601,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: var(--c-aida-bg);
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
-  margin: 0 auto;
+  margin: clamp(40px, 6vw, 70px) auto;
   padding: clamp(24px, 2.8vw, 48px) clamp(22px, 2.8vw, 48px);
   display: grid; grid-template-columns: 1fr 1.55fr;
   gap: clamp(24px, 3vw, 50px); align-items: center;
@@ -669,7 +668,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* =========================================================
    Exclusive Collaborations
    ========================================================= */
-.section-collab { padding: clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px); }
+.section-collab { padding: clamp(40px, 6vw, 70px) 0; }
 .section-collab .section-head-intro {
   max-width: 780px; margin-bottom: 40px;
 }
@@ -706,7 +705,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* =========================================================
    Articles & News
    ========================================================= */
-.section-news { padding: clamp(60px, 8vw, 100px) 0 clamp(80px, 10vw, 140px); }
+.section-news { padding: clamp(40px, 6vw, 70px) 0; }
 .news-intro { max-width: 640px; margin-top: 14px; }
 .news-intro p { color: #3a3a3a; line-height: 1.7; }
 
@@ -753,7 +752,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: #eef1f2;
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
-  margin: 0 auto;
+  margin: clamp(40px, 6vw, 70px) auto;
   padding: clamp(34px, 5vw, 70px) clamp(24px, 5vw, 80px);
 }
 .discover-dg-grid {
@@ -943,4 +942,5 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .section-head { flex-direction: column; align-items: flex-start; }
   .hero-brand .big-logo .sub { letter-spacing: 0.4em; }
   .hero-tagline { padding: 10px 20px; }
+}
 }
