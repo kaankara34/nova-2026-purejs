@@ -176,11 +176,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   
   .header-left {
-    gap: clamp(10px, 3vw, 14px);
+    gap: clamp(12px, 3vw, 16px);
+    flex: 1;
+  }
+  
+  .logo-mark {
+    order: 3;
+    margin-left: auto;
   }
   
   .logo-mark .logo-img {
-    height: clamp(95px, 22vw, 140px);
+    height: clamp(190px, 44vw, 280px);
+  }
+  
+  .menu-toggle {
+    order: 1;
+  }
+  
+  .lang-switch {
+    order: 2;
   }
   
   /* Hide desktop actions on mobile */
