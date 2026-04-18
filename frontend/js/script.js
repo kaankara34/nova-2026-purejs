@@ -134,4 +134,45 @@
     closeMenu();
   }));
 
+  /* ========== Footer Accordion (Mobile Only) ========== */
+  function initFooterAccordion() {
+    const accordionHeaders = $$('.accordion-header');
+    
+    // Open first accordion on mobile by default
+    if (window.innerWidth <= 768 && accordionHeaders.length > 0) {
+      accordionHeaders[0].closest('.accordion-item')?.classList.add('active');
+    }
+    
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        // Only work on mobile/tablet (<=768px)
+        if (window.innerWidth <= 768) {
+          const item = header.closest('.accordion-item');
+          const isActive = item.classList.contains('active');
+          
+          // Close all accordions
+          $$('.accordion-item').forEach(i => i.classList.remove('active'));
+          
+          // Toggle current
+          if (!isActive) {
+            item.classList.add('active');
+          }
+        }
+      });
+    });
+  }
+  
+  initFooterAccordion();
+  
+  // Re-init on window resize to handle desktop/mobile switch
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (window.innerWidth > 768) {
+        $$('.accordion-item').forEach(i => i.classList.remove('active'));
+      }
+    }, 250);
+  });
+
 })();
