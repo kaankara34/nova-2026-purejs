@@ -1078,17 +1078,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     gap: 30px;
   }
 
+  /* Hide middle section (Globe + menu links) on mobile */
   .footer-middle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 25px;
+    display: none;
   }
 
-  .footer-menu-links {
-    flex-direction: column;
-    gap: 12px;
-  }
-
+  /* Keep social section visible on mobile */
   .footer-social-section {
     flex-direction: column;
     align-items: flex-start;
