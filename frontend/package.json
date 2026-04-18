@@ -1,0 +1,9 @@
+{
+  "name": "nova-website",
+  "version": "1.0.0",
+  "description": "Nova Konut İnşaat - Static Website",
+  "scripts": {
+    "start": "npx serve -s . -l 3000"
+  },
+  "dependencies": {}
+}
