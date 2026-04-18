@@ -230,9 +230,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 }
   
-  /* Show mobile bottom bar */
-/* Mobile Bottom Bar - only on small mobile devices */
-@media (max-width: 480px) {
+/* =========================================================
+   Mobile Bottom Bar - Phones only (not iPad/Desktop)
+   ========================================================= */
+@media (max-width: 767px) {
   .mobile-bottom-bar {
     display: flex;
     align-items: center;
