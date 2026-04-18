@@ -173,28 +173,35 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 768px) {
   .header-inner {
     padding: 0 clamp(14px, 4vw, 20px);
+    position: relative;
   }
   
   .header-left {
     gap: clamp(12px, 3vw, 16px);
-    flex: 1;
   }
   
   .logo-mark {
-    order: 3;
-    margin-left: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
   }
   
   .logo-mark .logo-img {
-    height: clamp(190px, 44vw, 280px);
+    height: clamp(152px, 35vw, 224px);
   }
   
   .menu-toggle {
     order: 1;
+    position: relative;
+    z-index: 10;
   }
   
   .lang-switch {
     order: 2;
+    position: relative;
+    z-index: 10;
   }
   
   /* Hide desktop actions on mobile */
