@@ -165,15 +165,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   vertical-align: middle;
 }
 
-/* Mobile Bottom Bar - Hidden by default */
+/* Mobile Bottom Bar */
 .mobile-bottom-bar {
   display: none;
 }
 
-/* Show on mobile phones only */
-@media (max-width: 767px) {
-  .mobile-bottom-bar {
-    display: flex !important;
+@media (max-width: 768px) {
   .header-inner {
     padding: 0 clamp(14px, 4vw, 20px);
     position: relative;
@@ -232,12 +229,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     height: clamp(220px, 24vw, 280px) !important;
   }
 }
-}
-
-/* =========================================================
-   Mobile Bottom Bar (ONLY on mobile phones)
-   ========================================================= */
-@media (max-width: 767px) {
+  
+  /* Show mobile bottom bar */
+/* Mobile Bottom Bar - only on small mobile devices */
+@media (max-width: 480px) {
   .mobile-bottom-bar {
     display: flex;
     align-items: center;
