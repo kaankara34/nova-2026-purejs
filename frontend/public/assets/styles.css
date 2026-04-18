@@ -108,11 +108,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .site-header .icon-link svg { stroke: #fff; }
 .site-header .lang-switch { color: #fff; }
 .site-header .btn.register {
-  background: #4F6B57; 
+  background: transparent; 
   color: #fff; 
-  border-color: #4F6B57;
+  border-color: #fff;
 }
-.site-header .btn.register:hover { background: #3d5444; color: #fff; }
+.site-header .btn.register:hover { background: #fff; color: #111; }
 .site-header.transparent {
   background: transparent;
   border-bottom-color: transparent;
@@ -786,7 +786,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    Register Your Interest
    ========================================================= */
 .section-register {
-  background: var(--c-maroon);
+  background: #4F6B57;
   color: #fff;
   padding: clamp(70px, 9vw, 120px) 0;
   margin-top: clamp(60px, 8vw, 100px);
