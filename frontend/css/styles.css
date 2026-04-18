@@ -1075,7 +1075,55 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 768px) {
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 0;
+  }
+
+  .footer-col {
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  /* Make headers clickable on mobile */
+  .footer-col h3 {
+    position: relative;
+    padding: 20px 0;
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Add arrow icon after header */
+  .footer-col h3::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #bdbdbd;
+    transition: transform .3s var(--easing);
+  }
+
+  /* Hide content by default on mobile */
+  .footer-col ul {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s var(--easing), padding-top .4s var(--easing);
+    padding-top: 0;
+  }
+
+  /* Show content when active */
+  .footer-col.active ul {
+    max-height: 500px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  /* Rotate arrow when active */
+  .footer-col.active h3::after {
+    transform: translateY(-50%) rotate(180deg);
   }
 
   /* Hide middle section (Globe + menu links) on mobile */

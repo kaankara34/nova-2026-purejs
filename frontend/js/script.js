@@ -134,4 +134,53 @@
     closeMenu();
   }));
 
+  /* ========== Footer Accordion (Mobile Only) ========== */
+  function initFooterAccordion() {
+    const footerCols = $$('.footer-col');
+    
+    // Open first accordion on mobile by default
+    if (window.innerWidth <= 768 && footerCols.length > 0) {
+      footerCols[0].classList.add('active');
+    }
+    
+    footerCols.forEach(col => {
+      const heading = col.querySelector('h3');
+      if (heading) {
+        heading.addEventListener('click', () => {
+          // Only work on mobile (<=768px)
+          if (window.innerWidth <= 768) {
+            const isActive = col.classList.contains('active');
+            
+            // Close all accordions
+            footerCols.forEach(c => c.classList.remove('active'));
+            
+            // Toggle current
+            if (!isActive) {
+              col.classList.add('active');
+            }
+          }
+        });
+      }
+    });
+  }
+  
+  initFooterAccordion();
+  
+  // Re-init on window resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const footerCols = $$('.footer-col');
+      if (window.innerWidth > 768) {
+        footerCols.forEach(c => c.classList.remove('active'));
+      } else if (window.innerWidth <= 768 && footerCols.length > 0) {
+        // Open first on mobile after resize
+        if (!$$('.footer-col.active').length) {
+          footerCols[0].classList.add('active');
+        }
+      }
+    }, 250);
+  });
+
 })();
