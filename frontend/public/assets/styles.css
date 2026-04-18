@@ -108,9 +108,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .site-header .icon-link svg { stroke: #fff; }
 .site-header .lang-switch { color: #fff; }
 .site-header .btn.register {
-  background: transparent; color: #fff; border-color: #fff;
+  background: #4F6B57; 
+  color: #fff; 
+  border-color: #4F6B57;
 }
-.site-header .btn.register:hover { background: #fff; color: #111; }
+.site-header .btn.register:hover { background: #3d5444; color: #fff; }
 .site-header.transparent {
   background: transparent;
   border-bottom-color: transparent;
@@ -205,7 +207,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .btn-bottom-register {
     flex: 1;
     padding: 14px 20px;
-    background: #574D33;
+    background: #4F6B57;
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -216,7 +218,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     transition: background 0.3s ease;
   }
   .btn-bottom-register:hover {
-    background: #6a5d3f;
+    background: #3d5444;
   }
   
   .bottom-icons {
