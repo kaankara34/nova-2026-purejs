@@ -189,25 +189,46 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   
   .logo-mark .logo-img {
-    height: clamp(152px, 35vw, 224px);
+    height: clamp(140px, 38vw, 180px);
   }
   
   .menu-toggle {
-    order: 1;
     position: relative;
     z-index: 10;
   }
   
-  .lang-switch {
-    order: 2;
-    position: relative;
-    z-index: 10;
-  }
-  
-  /* Hide desktop actions on mobile */
-  .header-actions {
+  /* Hide desktop actions except lang */
+  .header-actions .btn.register,
+  .header-actions .icon-links {
     display: none !important;
   }
+  
+  .header-actions {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+/* iPhone 14 Pro Max (430px - 768px) */
+@media (min-width: 430px) and (max-width: 768px) {
+  .logo-mark .logo-img {
+    height: clamp(160px, 40vw, 200px) !important;
+  }
+}
+
+/* iPad Mini (768px - 834px) */
+@media (min-width: 768px) and (max-width: 834px) {
+  .logo-mark .logo-img {
+    height: clamp(180px, 22vw, 240px) !important;
+  }
+}
+
+/* iPad Air & iPad Pro (834px - 1024px) */
+@media (min-width: 834px) and (max-width: 1024px) {
+  .logo-mark .logo-img {
+    height: clamp(220px, 24vw, 280px) !important;
+  }
+}
   
   /* Show mobile bottom bar */
   .mobile-bottom-bar {
