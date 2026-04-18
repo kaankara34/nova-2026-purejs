@@ -21,7 +21,7 @@
   --font-sans: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
   --container: 1536px;
   --gutter: clamp(16px, 2.2vw, 40px);
-  --header-h: 92px;
+  --header-h: 110px;
   --easing: cubic-bezier(.2, .7, .2, 1);
 }
 
@@ -305,7 +305,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .logo-mark .subtext { display: none; }
 }
 @media (max-width: 900px) {
-  :root { --header-h: 72px; }
+  :root { --header-h: 85px; }
   .btn.register { padding: 10px 16px; font-size: 10.5px; letter-spacing: 0.22em; }
   .icon-sep { display: none; }
   .icon-link { width: 28px; height: 28px; }
