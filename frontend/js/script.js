@@ -134,6 +134,178 @@
     closeMenu();
   }));
 
+  /* ========== Projects Carousel ========== */
+  function initProjectsCarousel() {
+    const carousel = $('#projectsCarousel');
+    const wrapper = $('.projects-carousel-wrapper');
+    const prevBtn = $('#carouselPrev');
+    const nextBtn = $('#carouselNext');
+    const dotsContainer = $('#carouselDots');
+    
+    if (!carousel || !wrapper) return;
+
+    const cards = $$('.project-card', carousel);
+    let currentIndex = 0;
+    let itemsPerView = 2; // iPad: 2 items, Mobile: 1 item
+    let autoplayInterval;
+
+    function updateItemsPerView() {
+      const width = window.innerWidth;
+      if (width > 1366) {
+        itemsPerView = 4; // Desktop: no carousel, show grid
+        return false; // Carousel disabled on desktop
+      } else if (width > 768) {
+        itemsPerView = 2; // Tablet: 2 items
+      } else {
+        itemsPerView = 1; // Mobile: 1 item
+      }
+      return true; // Carousel enabled
+    }
+
+    function getTotalPages() {
+      return Math.ceil(cards.length / itemsPerView);
+    }
+
+    function updateCarousel(smooth = true) {
+      if (!updateItemsPerView()) {
+        carousel.style.transform = '';
+        return;
+      }
+
+      const cardWidth = cards[0]?.offsetWidth || 0;
+      const gap = 26; // Match CSS gap
+      const offset = currentIndex * (cardWidth + gap) * itemsPerView;
+      
+      carousel.style.transition = smooth ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+      carousel.style.transform = `translateX(-${offset}px)`;
+
+      updateDots();
+    }
+
+    function createDots() {
+      if (!dotsContainer) return;
+      
+      dotsContainer.innerHTML = '';
+      const totalPages = getTotalPages();
+      
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+        if (i === currentIndex) dot.classList.add('active');
+        
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          updateCarousel();
+          resetAutoplay();
+        });
+        
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      const dots = $$('.carousel-dot', dotsContainer);
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    function nextSlide() {
+      const totalPages = getTotalPages();
+      currentIndex = (currentIndex + 1) % totalPages;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      const totalPages = getTotalPages();
+      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+      updateCarousel();
+    }
+
+    function startAutoplay() {
+      if (window.innerWidth <= 1366) {
+        autoplayInterval = setInterval(nextSlide, 4000); // Auto-slide every 4 seconds
+      }
+    }
+
+    function stopAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    }
+
+    function resetAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    // Event listeners
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAutoplay();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetAutoplay();
+      });
+    }
+
+    // Pause autoplay on hover
+    wrapper.addEventListener('mouseenter', stopAutoplay);
+    wrapper.addEventListener('mouseleave', startAutoplay);
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay();
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      resetAutoplay();
+    });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+      } else if (touchEndX > touchStartX + 50) {
+        prevSlide();
+      }
+    }
+
+    // Window resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        currentIndex = 0;
+        createDots();
+        updateCarousel(false);
+        stopAutoplay();
+        startAutoplay();
+      }, 200);
+    });
+
+    // Initialize
+    if (updateItemsPerView()) {
+      createDots();
+      updateCarousel(false);
+      startAutoplay();
+    }
+  }
+
+  initProjectsCarousel();
+
   /* ========== Footer Accordion (Mobile Only) ========== */
   function initFooterAccordion() {
     const footerCols = $$('.footer-col');
