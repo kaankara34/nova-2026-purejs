@@ -590,42 +590,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   grid-template-columns: repeat(4, 1fr);
 }
 
-/* Carousel navigation arrows - hidden by default */
+/* Carousel navigation arrows - REMOVED (hidden completely) */
 .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  color: #1a1a1a;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-.carousel-arrow:hover {
-  background: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-}
-
-.carousel-arrow.prev {
-  left: -26px;
-}
-
-.carousel-arrow.next {
-  right: -26px;
-}
-
-.carousel-arrow svg {
-  width: 24px;
-  height: 24px;
+  display: none !important;
 }
 
 /* Dots indicator */
@@ -656,22 +623,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 1366px) {
   .projects-carousel-wrapper {
     overflow: hidden;
-    padding: 0 65px;
+    padding: 0;
   }
 
   .projects-grid {
     display: flex;
-    gap: 26px;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 22px;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .project-card {
-    flex: 0 0 calc(50% - 13px);
-    min-width: calc(50% - 13px);
-  }
-
-  .carousel-arrow {
-    display: flex;
+    flex: 0 0 calc(48% - 11px);
+    min-width: calc(48% - 11px);
   }
 
   .carousel-dots {
@@ -681,51 +644,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* Smaller tablets (768px - 1024px) */
 @media (max-width: 1024px) {
-  .projects-carousel-wrapper {
-    padding: 0 55px;
-  }
-
   .projects-grid {
-    gap: 22px;
+    gap: 20px;
   }
 
   .project-card {
-    flex: 0 0 calc(50% - 11px);
-    min-width: calc(50% - 11px);
+    flex: 0 0 calc(48% - 10px);
+    min-width: calc(48% - 10px);
   }
 }
 
 /* Mobile phones */
 @media (max-width: 768px) {
-  .projects-carousel-wrapper {
-    padding: 0 45px;
-  }
-
   .projects-grid {
     gap: 18px;
   }
 
   .project-card {
-    flex: 0 0 100%;
-    min-width: 100%;
-  }
-
-  .carousel-arrow {
-    width: 44px;
-    height: 44px;
-  }
-
-  .carousel-arrow.prev {
-    left: -12px;
-  }
-
-  .carousel-arrow.next {
-    right: -12px;
-  }
-
-  .carousel-arrow svg {
-    width: 20px;
-    height: 20px;
+    flex: 0 0 calc(100% - 20px);
+    min-width: calc(100% - 20px);
   }
 }
 

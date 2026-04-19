@@ -138,8 +138,6 @@
   function initProjectsCarousel() {
     const carousel = $('#projectsCarousel');
     const wrapper = $('.projects-carousel-wrapper');
-    const prevBtn = $('#carouselPrev');
-    const nextBtn = $('#carouselNext');
     const dotsContainer = $('#carouselDots');
     
     if (!carousel || !wrapper) return;
@@ -173,10 +171,10 @@
       }
 
       const cardWidth = cards[0]?.offsetWidth || 0;
-      const gap = 26; // Match CSS gap
+      const gap = 22; // Match CSS gap
       const offset = currentIndex * (cardWidth + gap) * itemsPerView;
       
-      carousel.style.transition = smooth ? 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+      carousel.style.transition = smooth ? 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
       carousel.style.transform = `translateX(-${offset}px)`;
 
       updateDots();
@@ -217,15 +215,9 @@
       updateCarousel();
     }
 
-    function prevSlide() {
-      const totalPages = getTotalPages();
-      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-      updateCarousel();
-    }
-
     function startAutoplay() {
       if (window.innerWidth <= 1366) {
-        autoplayInterval = setInterval(nextSlide, 4000); // Auto-slide every 4 seconds
+        autoplayInterval = setInterval(nextSlide, 6000); // Slower: 6 seconds
       }
     }
 
@@ -239,21 +231,6 @@
     function resetAutoplay() {
       stopAutoplay();
       startAutoplay();
-    }
-
-    // Event listeners
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetAutoplay();
-      });
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetAutoplay();
-      });
     }
 
     // Pause autoplay on hover
@@ -279,7 +256,9 @@
       if (touchEndX < touchStartX - 50) {
         nextSlide();
       } else if (touchEndX > touchStartX + 50) {
-        prevSlide();
+        const totalPages = getTotalPages();
+        currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+        updateCarousel();
       }
     }
 
