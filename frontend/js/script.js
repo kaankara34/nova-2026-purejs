@@ -144,20 +144,23 @@
 
     const cards = $$('.project-card', carousel);
     let currentIndex = 0;
-    let itemsPerView = 2; // iPad: 2 items, Mobile: 1 item
+    let itemsPerView = 2;
     let autoplayInterval;
+    let isCarouselEnabled = false;
 
     function updateItemsPerView() {
       const width = window.innerWidth;
-      if (width > 1366) {
-        itemsPerView = 4; // Desktop: no carousel, show grid
-        return false; // Carousel disabled on desktop
-      } else if (width > 768) {
-        itemsPerView = 2; // Tablet: 2 items
-      } else {
-        itemsPerView = 1; // Mobile: 1 item
+      
+      // Disable carousel on desktop (>1366px) and mobile (<768px)
+      if (width > 1366 || width < 768) {
+        isCarouselEnabled = false;
+        return false;
       }
-      return true; // Carousel enabled
+      
+      // Enable carousel on tablets/iPad (768px - 1366px)
+      isCarouselEnabled = true;
+      itemsPerView = 2;
+      return true;
     }
 
     function getTotalPages() {
@@ -167,21 +170,23 @@
     function updateCarousel(smooth = true) {
       if (!updateItemsPerView()) {
         carousel.style.transform = '';
+        carousel.style.transition = '';
         return;
       }
 
       const cardWidth = cards[0]?.offsetWidth || 0;
-      const gap = 22; // Match CSS gap
+      const gap = 22;
       const offset = currentIndex * (cardWidth + gap) * itemsPerView;
       
-      carousel.style.transition = smooth ? 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+      // Smoother transition with better easing
+      carousel.style.transition = smooth ? 'transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
       carousel.style.transform = `translateX(-${offset}px)`;
 
       updateDots();
     }
 
     function createDots() {
-      if (!dotsContainer) return;
+      if (!dotsContainer || !isCarouselEnabled) return;
       
       dotsContainer.innerHTML = '';
       const totalPages = getTotalPages();
@@ -210,14 +215,15 @@
     }
 
     function nextSlide() {
+      if (!isCarouselEnabled) return;
       const totalPages = getTotalPages();
       currentIndex = (currentIndex + 1) % totalPages;
       updateCarousel();
     }
 
     function startAutoplay() {
-      if (window.innerWidth <= 1366) {
-        autoplayInterval = setInterval(nextSlide, 6000); // Slower: 6 seconds
+      if (isCarouselEnabled) {
+        autoplayInterval = setInterval(nextSlide, 6000);
       }
     }
 
@@ -233,32 +239,53 @@
       startAutoplay();
     }
 
-    // Pause autoplay on hover
-    wrapper.addEventListener('mouseenter', stopAutoplay);
-    wrapper.addEventListener('mouseleave', startAutoplay);
+    // Pause autoplay on hover (only if carousel enabled)
+    wrapper.addEventListener('mouseenter', () => {
+      if (isCarouselEnabled) stopAutoplay();
+    });
+    
+    wrapper.addEventListener('mouseleave', () => {
+      if (isCarouselEnabled) startAutoplay();
+    });
 
-    // Touch swipe support
+    // Touch swipe support with smooth animation
     let touchStartX = 0;
     let touchEndX = 0;
+    let isDragging = false;
 
     carousel.addEventListener('touchstart', (e) => {
+      if (!isCarouselEnabled) return;
       touchStartX = e.changedTouches[0].screenX;
+      isDragging = true;
       stopAutoplay();
     });
 
-    carousel.addEventListener('touchend', (e) => {
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isCarouselEnabled || !isDragging) return;
       touchEndX = e.changedTouches[0].screenX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      if (!isCarouselEnabled || !isDragging) return;
+      isDragging = false;
       handleSwipe();
       resetAutoplay();
     });
 
     function handleSwipe() {
-      if (touchEndX < touchStartX - 50) {
-        nextSlide();
-      } else if (touchEndX > touchStartX + 50) {
-        const totalPages = getTotalPages();
-        currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-        updateCarousel();
+      const swipeThreshold = 75;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - next
+          nextSlide();
+        } else {
+          // Swipe right - prev
+          const totalPages = getTotalPages();
+          currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+          updateCarousel();
+        }
       }
     }
 
@@ -267,12 +294,30 @@
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        currentIndex = 0;
-        createDots();
-        updateCarousel(false);
-        stopAutoplay();
-        startAutoplay();
-      }, 200);
+        const wasEnabled = isCarouselEnabled;
+        const nowEnabled = updateItemsPerView();
+        
+        if (!nowEnabled && wasEnabled) {
+          // Carousel disabled (desktop or mobile)
+          stopAutoplay();
+          carousel.style.transform = '';
+          carousel.style.transition = '';
+          if (dotsContainer) dotsContainer.innerHTML = '';
+        } else if (nowEnabled && !wasEnabled) {
+          // Carousel enabled (tablet)
+          currentIndex = 0;
+          createDots();
+          updateCarousel(false);
+          startAutoplay();
+        } else if (nowEnabled) {
+          // Still carousel, just resize
+          currentIndex = 0;
+          createDots();
+          updateCarousel(false);
+          stopAutoplay();
+          startAutoplay();
+        }
+      }, 250);
     });
 
     // Initialize
