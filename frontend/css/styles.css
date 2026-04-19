@@ -635,6 +635,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .project-card {
     flex: 0 0 calc(48% - 11px);
     min-width: calc(48% - 11px);
+    max-height: 480px;
+    min-height: 320px;
   }
 
   .carousel-dots {
@@ -651,6 +653,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .project-card {
     flex: 0 0 calc(48% - 10px);
     min-width: calc(48% - 10px);
+    max-height: 420px;
+    min-height: 300px;
   }
 }
 
@@ -663,6 +667,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .project-card {
     flex: 0 0 calc(100% - 20px);
     min-width: calc(100% - 20px);
+    max-height: 500px;
+    min-height: 380px;
   }
 }
 
