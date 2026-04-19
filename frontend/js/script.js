@@ -175,43 +175,29 @@
       }
 
       const cardWidth = cards[0]?.offsetWidth || 0;
-      const gap = 22;
+      const gap = 24;
+      const totalPages = getTotalPages();
+      
+      // Clamp currentIndex to valid range (prevent white space)
+      currentIndex = Math.max(0, Math.min(currentIndex, totalPages - 1));
+      
       const offset = currentIndex * (cardWidth + gap) * itemsPerView;
       
       // Smoother transition with better easing
       carousel.style.transition = smooth ? 'transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
-      carousel.style.transform = `translateX(-${offset}px)`;
+      carousel.style.transform = `translate3d(-${offset}px, 0, 0)`;
 
       updateDots();
     }
 
     function createDots() {
-      if (!dotsContainer || !isCarouselEnabled) return;
-      
-      dotsContainer.innerHTML = '';
-      const totalPages = getTotalPages();
-      
-      for (let i = 0; i < totalPages; i++) {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', `Go to page ${i + 1}`);
-        if (i === currentIndex) dot.classList.add('active');
-        
-        dot.addEventListener('click', () => {
-          currentIndex = i;
-          updateCarousel();
-          resetAutoplay();
-        });
-        
-        dotsContainer.appendChild(dot);
-      }
+      // Dots removed - no longer needed
+      return;
     }
 
     function updateDots() {
-      const dots = $$('.carousel-dot', dotsContainer);
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
-      });
+      // Dots removed - no longer needed
+      return;
     }
 
     function nextSlide() {
@@ -248,8 +234,9 @@
       if (isCarouselEnabled) startAutoplay();
     });
 
-    // Touch swipe support with smooth real-time dragging
+    // Touch swipe support with boundary check and no vertical scroll
     let touchStartX = 0;
+    let touchStartY = 0;
     let touchEndX = 0;
     let isDragging = false;
     let currentTranslate = 0;
@@ -259,6 +246,7 @@
     carousel.addEventListener('touchstart', (e) => {
       if (!isCarouselEnabled) return;
       touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
       isDragging = true;
       stopAutoplay();
       
@@ -275,18 +263,40 @@
     carousel.addEventListener('touchmove', (e) => {
       if (!isCarouselEnabled || !isDragging) return;
       
-      touchEndX = e.touches[0].clientX;
+      const touchCurrentX = e.touches[0].clientX;
+      const touchCurrentY = e.touches[0].clientY;
+      
+      // Check if horizontal swipe (prevent vertical scroll)
+      const diffX = Math.abs(touchCurrentX - touchStartX);
+      const diffY = Math.abs(touchCurrentY - touchStartY);
+      
+      if (diffX > diffY) {
+        // Horizontal swipe - prevent page scroll
+        e.preventDefault();
+      }
+      
+      touchEndX = touchCurrentX;
       const diff = touchEndX - touchStartX;
       
-      // Real-time dragging with parmak
-      const newTranslate = startTranslate + diff;
+      // Calculate boundaries
+      const cardWidth = cards[0]?.offsetWidth || 0;
+      const gap = 24;
+      const totalPages = getTotalPages();
+      const maxTranslate = 0;
+      const minTranslate = -(totalPages - 1) * (cardWidth + gap) * itemsPerView;
+      
+      // Real-time dragging with boundaries
+      let newTranslate = startTranslate + diff;
+      
+      // Clamp translate to valid range (prevent white space)
+      newTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
       
       // Apply transform immediately using requestAnimationFrame
       if (animationID) cancelAnimationFrame(animationID);
       animationID = requestAnimationFrame(() => {
         carousel.style.transform = `translate3d(${newTranslate}px, 0, 0)`;
       });
-    });
+    }, { passive: false });
 
     carousel.addEventListener('touchend', (e) => {
       if (!isCarouselEnabled || !isDragging) return;
@@ -303,20 +313,20 @@
       const swipeThreshold = 75;
       const diff = touchStartX - touchEndX;
       
+      const totalPages = getTotalPages();
+      
       if (Math.abs(diff) > swipeThreshold) {
         if (diff > 0) {
-          // Swipe left - next
-          nextSlide();
+          // Swipe left - next (but don't go beyond last page)
+          currentIndex = Math.min(currentIndex + 1, totalPages - 1);
         } else {
-          // Swipe right - prev
-          const totalPages = getTotalPages();
-          currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-          updateCarousel();
+          // Swipe right - prev (but don't go below 0)
+          currentIndex = Math.max(currentIndex - 1, 0);
         }
-      } else {
-        // Snap back to current position
-        updateCarousel();
       }
+      
+      // Snap to current position (within boundaries)
+      updateCarousel();
     }
 
     // Window resize handler
