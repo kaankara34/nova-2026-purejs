@@ -624,6 +624,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .projects-carousel-wrapper {
     overflow: hidden;
     padding: 0;
+    touch-action: pan-y pinch-zoom;
   }
 
   .projects-grid {
@@ -631,6 +632,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     gap: 24px;
     transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     scroll-behavior: smooth;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
   }
 
   .project-card {
@@ -641,6 +648,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     aspect-ratio: 3 / 4;
     min-height: 380px;
     max-height: 550px;
+    will-change: transform;
   }
 
   .carousel-dots {

@@ -248,26 +248,53 @@
       if (isCarouselEnabled) startAutoplay();
     });
 
-    // Touch swipe support with smooth animation
+    // Touch swipe support with smooth real-time dragging
     let touchStartX = 0;
     let touchEndX = 0;
     let isDragging = false;
+    let currentTranslate = 0;
+    let startTranslate = 0;
+    let animationID = null;
 
     carousel.addEventListener('touchstart', (e) => {
       if (!isCarouselEnabled) return;
-      touchStartX = e.changedTouches[0].screenX;
+      touchStartX = e.touches[0].clientX;
       isDragging = true;
       stopAutoplay();
+      
+      // Get current translate value
+      const style = window.getComputedStyle(carousel);
+      const matrix = new DOMMatrix(style.transform);
+      currentTranslate = matrix.m41;
+      startTranslate = currentTranslate;
+      
+      // Disable transition for real-time drag
+      carousel.style.transition = 'none';
     });
 
     carousel.addEventListener('touchmove', (e) => {
       if (!isCarouselEnabled || !isDragging) return;
-      touchEndX = e.changedTouches[0].screenX;
+      
+      touchEndX = e.touches[0].clientX;
+      const diff = touchEndX - touchStartX;
+      
+      // Real-time dragging with parmak
+      const newTranslate = startTranslate + diff;
+      
+      // Apply transform immediately using requestAnimationFrame
+      if (animationID) cancelAnimationFrame(animationID);
+      animationID = requestAnimationFrame(() => {
+        carousel.style.transform = `translate3d(${newTranslate}px, 0, 0)`;
+      });
     });
 
     carousel.addEventListener('touchend', (e) => {
       if (!isCarouselEnabled || !isDragging) return;
       isDragging = false;
+      
+      // Re-enable smooth transition
+      carousel.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      
       handleSwipe();
       resetAutoplay();
     });
@@ -286,6 +313,9 @@
           currentIndex = (currentIndex - 1 + totalPages) % totalPages;
           updateCarousel();
         }
+      } else {
+        // Snap back to current position
+        updateCarousel();
       }
     }
 
