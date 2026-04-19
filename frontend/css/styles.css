@@ -165,6 +165,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   vertical-align: middle;
 }
 
+/* iPad landscape responsive logo fixes */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .logo-mark .logo-img {
+    height: clamp(160px, 14vw, 220px) !important;
+  }
+}
+
 /* Mobile Bottom Bar */
 .mobile-bottom-bar {
   display: none;
@@ -226,7 +233,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* iPad Air & iPad Pro (834px - 1024px) */
 @media (min-width: 834px) and (max-width: 1024px) {
   .logo-mark .logo-img {
-    height: clamp(220px, 24vw, 280px) !important;
+    height: clamp(200px, 20vw, 260px) !important;
+  }
+}
+
+/* iPad landscape & small laptops (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .logo-mark .logo-img {
+    height: clamp(180px, 16vw, 240px) !important;
   }
 }
   
@@ -565,11 +579,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .projects-grid {
-  display: grid; gap: 18px;
+  display: grid; 
+  gap: clamp(18px, 2.2vw, 32px);
   grid-template-columns: repeat(4, 1fr);
 }
-@media (max-width: 1100px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 900px)  { .projects-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1100px) { 
+  .projects-grid { 
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 2.5vw, 30px);
+  } 
+}
+@media (max-width: 900px)  { 
+  .projects-grid { 
+    grid-template-columns: 1fr;
+    gap: 20px;
+  } 
+}
 
 .project-card {
   position: relative; overflow: hidden; aspect-ratio: 3 / 4;
