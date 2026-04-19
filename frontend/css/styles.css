@@ -605,14 +605,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .projects-carousel-wrapper {
     overflow: hidden;
     padding: 0;
-    touch-action: pan-x;
+    touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
   }
 
   .projects-grid {
     display: flex;
     gap: 24px;
-    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     scroll-behavior: smooth;
     will-change: transform;
     transform: translate3d(0, 0, 0);
