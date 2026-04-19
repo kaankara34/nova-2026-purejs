@@ -182,6 +182,11 @@
       
       // Maksimum kaydırma miktarı (negatif değer)
       const minTranslate = Math.min(0, containerWidth - totalWidth);
+      const scrollableWidth = Math.abs(minTranslate);
+      const maxIndex = scrollableWidth > 0 ? Math.ceil(scrollableWidth / (cardWidth + gap)) : 0;
+      
+      // currentIndex'i clamp et
+      currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
       
       // currentIndex'e göre offset hesapla (negatif)
       let offset = -(currentIndex * (cardWidth + gap));
@@ -189,8 +194,7 @@
       // Offset'i minTranslate ile sınırla (daha fazla sola gitmemesi için)
       offset = Math.max(offset, minTranslate);
       
-      // Ekranda gösterilecek pozitif offset
-      const positiveOffset = Math.abs(offset);
+      console.log('🎯 Carousel:', { currentIndex, maxIndex, offset, minTranslate, scrollableWidth });
       
       // Smooth slow transition (marquee gibi)
       carousel.style.transition = smooth ? 'transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)' : 'none';
@@ -229,7 +233,7 @@
       const containerWidth = wrapper.offsetWidth;
       const totalWidth = cardWidth * totalSlides + gap * (totalSlides - 1);
       const scrollableWidth = Math.max(0, totalWidth - containerWidth);
-      const maxIndex = scrollableWidth > 0 ? Math.floor(scrollableWidth / (cardWidth + gap)) : 0;
+      const maxIndex = scrollableWidth > 0 ? Math.ceil(scrollableWidth / (cardWidth + gap)) : 0;
       
       // Birer birer ilerle
       if (currentIndex < maxIndex) {
@@ -355,7 +359,7 @@
         const containerWidth = wrapper.offsetWidth;
         const totalWidth = cardWidth * totalSlides + gap * (totalSlides - 1);
         const scrollableWidth = Math.max(0, totalWidth - containerWidth);
-        const maxIndex = scrollableWidth > 0 ? Math.floor(scrollableWidth / (cardWidth + gap)) : 0;
+        const maxIndex = scrollableWidth > 0 ? Math.ceil(scrollableWidth / (cardWidth + gap)) : 0;
         
         if (Math.abs(diff) > swipeThreshold) {
           if (diff > 0) {
