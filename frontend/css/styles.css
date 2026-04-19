@@ -628,16 +628,19 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   .projects-grid {
     display: flex;
-    gap: 22px;
+    gap: 24px;
     transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     scroll-behavior: smooth;
   }
 
   .project-card {
-    flex: 0 0 calc(48% - 11px);
-    min-width: calc(48% - 11px);
-    max-height: 480px;
-    min-height: 320px;
+    /* Kartlar daralacak - dikdörtgen kalacak */
+    flex: 0 0 calc(42% - 12px);
+    min-width: calc(42% - 12px);
+    max-width: 400px;
+    aspect-ratio: 3 / 4;
+    min-height: 380px;
+    max-height: 550px;
   }
 
   .carousel-dots {
@@ -652,10 +655,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .project-card {
-    flex: 0 0 calc(48% - 10px);
-    min-width: calc(48% - 10px);
-    max-height: 420px;
-    min-height: 300px;
+    flex: 0 0 calc(43% - 10px);
+    min-width: calc(43% - 10px);
+    max-width: 360px;
+    min-height: 360px;
+    max-height: 500px;
   }
 }
 
