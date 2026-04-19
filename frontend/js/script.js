@@ -177,16 +177,24 @@
       const cardWidth = cards[0]?.offsetWidth || 0;
       const gap = 24;
       const totalSlides = getTotalSlides();
+      const containerWidth = wrapper.offsetWidth;
+      const totalWidth = cardWidth * totalSlides + gap * (totalSlides - 1);
       
-      // Clamp currentIndex (birer birer geçiş)
-      currentIndex = Math.max(0, Math.min(currentIndex, totalSlides - 2));
+      // Maksimum kaydırma miktarı (negatif değer)
+      const minTranslate = Math.min(0, containerWidth - totalWidth);
       
-      // Birer birer offset hesapla
-      const offset = currentIndex * (cardWidth + gap);
+      // currentIndex'e göre offset hesapla (negatif)
+      let offset = -(currentIndex * (cardWidth + gap));
+      
+      // Offset'i minTranslate ile sınırla (daha fazla sola gitmemesi için)
+      offset = Math.max(offset, minTranslate);
+      
+      // Ekranda gösterilecek pozitif offset
+      const positiveOffset = Math.abs(offset);
       
       // Smooth slow transition (marquee gibi)
       carousel.style.transition = smooth ? 'transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)' : 'none';
-      carousel.style.transform = `translate3d(-${offset}px, 0, 0)`;
+      carousel.style.transform = `translate3d(${offset}px, 0, 0)`;
 
       updateProgressBar();
     }
@@ -216,9 +224,15 @@
     function nextSlide() {
       if (!isCarouselEnabled) return;
       const totalSlides = getTotalSlides();
+      const cardWidth = cards[0]?.offsetWidth || 0;
+      const gap = 24;
+      const containerWidth = wrapper.offsetWidth;
+      const totalWidth = cardWidth * totalSlides + gap * (totalSlides - 1);
+      const scrollableWidth = Math.max(0, totalWidth - containerWidth);
+      const maxIndex = scrollableWidth > 0 ? Math.floor(scrollableWidth / (cardWidth + gap)) : 0;
       
       // Birer birer ilerle
-      if (currentIndex < totalSlides - 2) {
+      if (currentIndex < maxIndex) {
         currentIndex++;
       } else {
         // Son karta gelince başa dön
@@ -336,10 +350,16 @@
         const swipeThreshold = 50;
         const diff = touchStartX - touchEndX;
         const totalSlides = getTotalSlides();
+        const cardWidth = cards[0]?.offsetWidth || 0;
+        const gap = 24;
+        const containerWidth = wrapper.offsetWidth;
+        const totalWidth = cardWidth * totalSlides + gap * (totalSlides - 1);
+        const scrollableWidth = Math.max(0, totalWidth - containerWidth);
+        const maxIndex = scrollableWidth > 0 ? Math.floor(scrollableWidth / (cardWidth + gap)) : 0;
         
         if (Math.abs(diff) > swipeThreshold) {
           if (diff > 0) {
-            currentIndex = Math.min(currentIndex + 1, totalSlides - 2);
+            currentIndex = Math.min(currentIndex + 1, maxIndex);
           } else {
             currentIndex = Math.max(currentIndex - 1, 0);
           }
