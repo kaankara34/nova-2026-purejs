@@ -138,13 +138,12 @@
   function initProjectsCarousel() {
     const carousel = $('#projectsCarousel');
     const wrapper = $('.projects-carousel-wrapper');
-    const dotsContainer = $('#carouselDots');
+    const progressBar = $('#carouselProgress');
     
     if (!carousel || !wrapper) return;
 
     const cards = $$('.project-card', carousel);
     let currentIndex = 0;
-    let itemsPerView = 2;
     let autoplayInterval;
     let isCarouselEnabled = false;
 
@@ -159,56 +158,80 @@
       
       // Enable carousel on tablets/iPad (768px - 1366px)
       isCarouselEnabled = true;
-      itemsPerView = 2;
       return true;
     }
 
-    function getTotalPages() {
-      return Math.ceil(cards.length / itemsPerView);
+    function getTotalSlides() {
+      // Total individual cards (not pages)
+      return cards.length;
     }
 
     function updateCarousel(smooth = true) {
       if (!updateItemsPerView()) {
         carousel.style.transform = '';
         carousel.style.transition = '';
+        if (progressBar) progressBar.style.width = '0%';
         return;
       }
 
       const cardWidth = cards[0]?.offsetWidth || 0;
       const gap = 24;
-      const totalPages = getTotalPages();
+      const totalSlides = getTotalSlides();
       
-      // Clamp currentIndex to valid range
-      currentIndex = Math.max(0, Math.min(currentIndex, totalPages - 1));
+      // Clamp currentIndex (birer birer geçiş)
+      currentIndex = Math.max(0, Math.min(currentIndex, totalSlides - 2));
       
-      // Calculate offset correctly
-      const offset = currentIndex * (cardWidth + gap) * itemsPerView;
+      // Birer birer offset hesapla
+      const offset = currentIndex * (cardWidth + gap);
       
-      // Smoother and faster transition
-      carousel.style.transition = smooth ? 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
+      // Smooth slow transition (marquee gibi)
+      carousel.style.transition = smooth ? 'transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)' : 'none';
       carousel.style.transform = `translate3d(-${offset}px, 0, 0)`;
+
+      updateProgressBar();
     }
 
-    function createDots() {
-      // Dots removed - no longer needed
-      return;
-    }
-
-    function updateDots() {
-      // Dots removed - no longer needed
-      return;
+    function updateProgressBar() {
+      if (!progressBar || !isCarouselEnabled) return;
+      
+      const containerWidth = wrapper.offsetWidth;
+      const cardWidth = cards[0]?.offsetWidth || 0;
+      const gap = 24;
+      const totalWidth = cardWidth * cards.length + gap * (cards.length - 1);
+      const scrollableWidth = Math.max(0, totalWidth - containerWidth);
+      
+      if (scrollableWidth === 0) {
+        progressBar.style.width = '100%';
+        return;
+      }
+      
+      // Mevcut scroll pozisyonunu al
+      const currentOffset = currentIndex * (cardWidth + gap);
+      const progress = (currentOffset / scrollableWidth) * 100;
+      const clampedProgress = Math.max(0, Math.min(100, progress));
+      
+      progressBar.style.width = `${clampedProgress}%`;
     }
 
     function nextSlide() {
       if (!isCarouselEnabled) return;
-      const totalPages = getTotalPages();
-      currentIndex = (currentIndex + 1) % totalPages;
+      const totalSlides = getTotalSlides();
+      
+      // Birer birer ilerle
+      if (currentIndex < totalSlides - 2) {
+        currentIndex++;
+      } else {
+        // Son karta gelince başa dön
+        currentIndex = 0;
+      }
+      
       updateCarousel();
     }
 
     function startAutoplay() {
       if (isCarouselEnabled) {
-        autoplayInterval = setInterval(nextSlide, 4500); // Faster: 4.5 seconds
+        // Daha yavaş otomatik geçiş (5 saniye)
+        autoplayInterval = setInterval(nextSlide, 5000);
       }
     }
 
@@ -224,7 +247,7 @@
       startAutoplay();
     }
 
-    // Pause autoplay on hover (only if carousel enabled)
+    // Pause on hover
     wrapper.addEventListener('mouseenter', () => {
       if (isCarouselEnabled) stopAutoplay();
     });
@@ -233,7 +256,7 @@
       if (isCarouselEnabled) startAutoplay();
     });
 
-    // Touch swipe with improved vertical scroll and better boundaries
+    // Touch swipe with smooth scroll
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
@@ -251,7 +274,6 @@
       isHorizontalSwipe = false;
       stopAutoplay();
       
-      // Get current translate value
       const style = window.getComputedStyle(carousel);
       const matrix = new DOMMatrix(style.transform);
       currentTranslate = matrix.m41;
@@ -267,7 +289,6 @@
       const diffX = Math.abs(touchCurrentX - touchStartX);
       const diffY = Math.abs(touchCurrentY - touchStartY);
       
-      // Only start dragging if horizontal movement is clear (threshold: 15px)
       if (!isDragging && !isHorizontalSwipe) {
         if (diffX > 15 || diffY > 15) {
           isHorizontalSwipe = diffX > diffY;
@@ -278,27 +299,29 @@
         }
       }
       
-      // Only prevent scroll if definitely horizontal swipe
       if (isDragging && isHorizontalSwipe) {
         e.preventDefault();
         
         touchEndX = touchCurrentX;
         const diff = touchEndX - touchStartX;
         
-        // Calculate boundaries
         const containerWidth = wrapper.offsetWidth;
-        const totalWidth = (cards[0]?.offsetWidth || 0) * cards.length + 24 * (cards.length - 1);
+        const cardWidth = cards[0]?.offsetWidth || 0;
+        const gap = 24;
+        const totalWidth = cardWidth * cards.length + gap * (cards.length - 1);
         const maxTranslate = 0;
         const minTranslate = Math.min(0, containerWidth - totalWidth);
         
-        // Real-time dragging with strict boundaries
         let newTranslate = startTranslate + diff;
         newTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
         
-        // Apply transform with RAF
         if (animationID) cancelAnimationFrame(animationID);
         animationID = requestAnimationFrame(() => {
           carousel.style.transform = `translate3d(${newTranslate}px, 0, 0)`;
+          
+          // Update progress bar real-time
+          const progress = Math.abs(newTranslate) / Math.abs(minTranslate) * 100;
+          if (progressBar) progressBar.style.width = `${Math.min(100, progress)}%`;
         });
       }
     }, { passive: false });
@@ -308,28 +331,25 @@
       
       if (isDragging) {
         isDragging = false;
-        carousel.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        handleSwipe();
+        carousel.style.transition = 'transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        const totalSlides = getTotalSlides();
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            currentIndex = Math.min(currentIndex + 1, totalSlides - 2);
+          } else {
+            currentIndex = Math.max(currentIndex - 1, 0);
+          }
+        }
+        
+        updateCarousel();
       }
       
       resetAutoplay();
     });
-
-    function handleSwipe() {
-      const swipeThreshold = 60;
-      const diff = touchStartX - touchEndX;
-      const totalPages = getTotalPages();
-      
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          currentIndex = Math.min(currentIndex + 1, totalPages - 1);
-        } else {
-          currentIndex = Math.max(currentIndex - 1, 0);
-        }
-      }
-      
-      updateCarousel();
-    }
 
     // Window resize handler
     let resizeTimeout;
@@ -340,21 +360,16 @@
         const nowEnabled = updateItemsPerView();
         
         if (!nowEnabled && wasEnabled) {
-          // Carousel disabled (desktop or mobile)
           stopAutoplay();
           carousel.style.transform = '';
           carousel.style.transition = '';
-          if (dotsContainer) dotsContainer.innerHTML = '';
+          if (progressBar) progressBar.style.width = '0%';
         } else if (nowEnabled && !wasEnabled) {
-          // Carousel enabled (tablet)
           currentIndex = 0;
-          createDots();
           updateCarousel(false);
           startAutoplay();
         } else if (nowEnabled) {
-          // Still carousel, just resize
           currentIndex = 0;
-          createDots();
           updateCarousel(false);
           stopAutoplay();
           startAutoplay();
@@ -364,7 +379,6 @@
 
     // Initialize
     if (updateItemsPerView()) {
-      createDots();
       updateCarousel(false);
       startAutoplay();
     }
