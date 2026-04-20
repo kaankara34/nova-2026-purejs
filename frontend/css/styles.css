@@ -690,9 +690,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   .project-card {
     /* Kartlar küçültüldü - daha dengeli oran */
-    flex: 0 0 calc(30% - 12px);
-    min-width: calc(30% - 12px);
-    max-width: 300px;
+    flex: 0 0 calc(45% - 12px);
+    min-width: calc(45% - 12px);
+    max-width: 450px;
     aspect-ratio: 5 / 6;
     will-change: transform;
     pointer-events: auto;
@@ -710,9 +710,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .project-card {
-    flex: 0 0 calc(30% - 10px);
-    min-width: calc(30% - 10px);
-    max-width: 280px;
+    flex: 0 0 calc(45% - 10px);
+    min-width: calc(45% - 10px);
+    max-width: 420px;
     aspect-ratio: 5 / 6;
   }
   
