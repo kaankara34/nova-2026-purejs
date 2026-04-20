@@ -642,13 +642,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .project-card {
-    /* Kartlar küçültüldü - dikdörtgen kalacak */
+    /* Kartlar küçültüldü - daha dengeli oran */
     flex: 0 0 calc(30% - 12px);
     min-width: calc(30% - 12px);
     max-width: 300px;
-    aspect-ratio: 3 / 4;
-    min-height: 280px;
-    max-height: 400px;
+    aspect-ratio: 5 / 6;
     will-change: transform;
     pointer-events: auto;
   }
@@ -658,7 +656,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 }
 
-/* Smaller tablets (768px - 1024px) */
+/* Smaller tablets (768px - 1024px) - iPad Portrait */
 @media (min-width: 768px) and (max-width: 1024px) {
   .projects-grid {
     gap: 20px;
@@ -668,8 +666,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     flex: 0 0 calc(30% - 10px);
     min-width: calc(30% - 10px);
     max-width: 280px;
-    min-height: 260px;
-    max-height: 380px;
+    aspect-ratio: 5 / 6;
+  }
+  
+  /* Kart içindeki text'leri küçült */
+  .project-card .location {
+    font-size: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .project-card .name {
+    font-size: clamp(18px, 3vw, 24px);
+    margin-bottom: 4px;
+  }
+  
+  .project-card .tag {
+    font-size: 8.5px;
   }
 }
 
@@ -702,7 +714,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .project-card {
   position: relative; overflow: hidden; aspect-ratio: 3 / 4;
   display: block; color: #fff; isolation: isolate;
-  min-height: 420px;
 }
 .project-card .bg {
   position: absolute; inset: 0; background-size: cover; background-position: center;
