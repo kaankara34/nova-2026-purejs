@@ -586,7 +586,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Desktop: Normal grid (>1366px) */
 .projects-grid {
   display: grid; 
-  gap: clamp(18px, 2.2vw, 32px);
+  gap: clamp(18px, 2.2vw, 22px);
   grid-template-columns: repeat(4, 1fr);
 }
 
