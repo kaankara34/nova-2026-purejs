@@ -194,8 +194,6 @@
       // Offset'i minTranslate ile sınırla (daha fazla sola gitmemesi için)
       offset = Math.max(offset, minTranslate);
       
-      console.log('🎯 Carousel:', { currentIndex, maxIndex, offset, minTranslate, scrollableWidth });
-      
       // Smooth slow transition (marquee gibi)
       carousel.style.transition = smooth ? 'transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)' : 'none';
       carousel.style.transform = `translate3d(${offset}px, 0, 0)`;

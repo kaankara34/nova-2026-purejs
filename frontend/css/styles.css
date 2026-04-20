@@ -964,9 +964,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    Register Your Interest
    ========================================================= */
 .section-register {
-  background: #4F6B57;
+  background: #5a2c30;
   color: #fff;
-  padding: clamp(70px, 9vw, 120px) 0;
+  padding: clamp(50px, 5.5vw, 70px) 0;
   margin-top: clamp(60px, 8vw, 100px);
 }
 .register-grid {
@@ -977,7 +977,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 900px) { .register-grid { grid-template-columns: 1fr; } }
 .register-left h2 {
   font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(56px, 8vw, 110px); line-height: 0.95; letter-spacing: 0.01em;
+  font-size: clamp(42px, 5.5vw, 72px); line-height: 0.95; letter-spacing: 0.01em;
 }
 .register-left h2 .em { font-style: italic; color: #d9c6a1; display: block; font-size: 0.6em; margin-top: 14px; letter-spacing: 0.04em; }
 .register-right .intro {
