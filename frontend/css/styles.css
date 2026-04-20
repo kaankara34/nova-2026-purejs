@@ -586,7 +586,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Desktop: Normal grid (>1366px) */
 .projects-grid {
   display: grid; 
-  gap: clamp(18px, 2.2vw, 32px);
+  gap: clamp(16px, 1.8vw, 24px);
   grid-template-columns: repeat(4, 1fr);
 }
 
@@ -707,7 +707,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .project-card {
   position: relative; overflow: hidden; aspect-ratio: 3 / 4;
   display: block; color: #fff; isolation: isolate;
-  min-height: 420px;
+  min-height: 500px;
 }
 .project-card .bg {
   position: absolute; inset: 0; background-size: cover; background-position: center;
