@@ -977,8 +977,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: clamp(20px, 2.5vw, 40px) clamp(16px, 2vw, 30px);
   margin-top: clamp(36px, 5vw, 56px);
 }
-@media (max-width: 960px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } }
+@media (max-width: 960px) { 
+  .news-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 18px;
+  }
+  
+  .news-card h4 {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  
+  .news-card .date {
+    font-size: 9px;
+    margin-bottom: 10px;
+  }
+  
+  .news-card a {
+    font-size: 10px;
+  }
+}
 
 .news-card { display: block; color: inherit; }
 .news-card .img-wrap {
