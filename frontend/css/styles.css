@@ -626,11 +626,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     padding: 0;
     touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
-    /* Full-width carousel - container padding'inden kurtul */
-    margin-left: calc(-1 * var(--gutter));
-    margin-right: calc(-1 * var(--gutter));
-    padding-left: var(--gutter);
-    padding-right: var(--gutter);
   }
 
   .projects-grid {
@@ -647,13 +642,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .project-card {
-    /* Kartlar sabit genişlikte - dikdörtgen kalacak */
-    flex: 0 0 340px;
-    min-width: 340px;
-    max-width: 340px;
+    /* Kartlar daralacak - dikdörtgen kalacak */
+    flex: 0 0 calc(42% - 12px);
+    min-width: calc(42% - 12px);
+    max-width: 400px;
     aspect-ratio: 3 / 4;
     min-height: 380px;
-    max-height: 500px;
+    max-height: 550px;
     will-change: transform;
     pointer-events: auto;
   }
@@ -670,11 +665,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .project-card {
-    flex: 0 0 330px;
-    min-width: 330px;
-    max-width: 330px;
+    flex: 0 0 calc(43% - 10px);
+    min-width: calc(43% - 10px);
+    max-width: 360px;
     min-height: 360px;
-    max-height: 480px;
+    max-height: 500px;
   }
 }
 
@@ -707,7 +702,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .project-card {
   position: relative; overflow: hidden; aspect-ratio: 3 / 4;
   display: block; color: #fff; isolation: isolate;
-  min-height: 500px;
+  min-height: 420px;
 }
 .project-card .bg {
   position: absolute; inset: 0; background-size: cover; background-position: center;
