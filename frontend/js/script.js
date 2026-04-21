@@ -1,19 +1,3 @@
-/* =========================================================
-   Page Loader
-   ========================================================= */
-window.addEventListener('load', () => {
-  const loader = document.getElementById('pageLoader');
-  
-  // Minimum 1.5 saniye göster (premium hissi için)
-  setTimeout(() => {
-    loader.classList.add('fade-out');
-    
-    // Tamamen kaldır
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 800);
-  }, 1500);
-});
 
 
 /* DarGlobal Clone - Interactions */
