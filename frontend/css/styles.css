@@ -487,8 +487,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    Hero
    ========================================================= */
 .hero {
-  position: relative; 
-  height: 1180px;
+  position: relative; height: 100vh; min-height: 680px;
   overflow: hidden; color: #fff;
   display: flex; align-items: center; justify-content: center;
 }
@@ -520,9 +519,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .hero-brand .big-logo {
   font-family: var(--font-serif);
   font-weight: 300;
-  font-size: clamp(54px, 7vw, 106px);
+  font-size: clamp(54px, 9vw, 128px);
   letter-spacing: 0.18em;
-  line-height: 1.04;
+  line-height: 1;
   text-shadow: 0 2px 30px rgba(0,0,0,0.4);
 }
 .hero-brand .big-logo .globe-lg {
