@@ -596,7 +596,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* =========================================================
    Latest Projects - Carousel
    ========================================================= */
-.section-projects { padding: clamp(40px, 6vw, 80px) 0 clamp(60px, 8vw, 110px); }
+.section-projects { 
+  padding: clamp(40px, 6vw, 80px) 0 clamp(60px, 8vw, 110px); 
+}
 .section-head {
   display: flex; align-items: center; justify-content: space-between;
   gap: 24px; margin-bottom: clamp(30px, 4vw, 54px); flex-wrap: wrap;
@@ -933,7 +935,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* =========================================================
    Exclusive Collaborations
    ========================================================= */
-.section-collab { padding: clamp(40px, 6vw, 70px) 0; }
+.section-collab { 
+  padding: clamp(40px, 6vw, 70px) 0; 
+}
 .section-collab .section-head-intro {
   max-width: 780px; margin-bottom: 40px;
 }
@@ -970,7 +974,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* =========================================================
    Articles & News
    ========================================================= */
-.section-news { padding: clamp(40px, 6vw, 70px) 0; }
+.section-news { 
+  padding: clamp(40px, 6vw, 70px) 0; 
+}
 .news-intro { max-width: 640px; margin-top: 14px; }
 .news-intro p { color: #3a3a3a; line-height: 1.7; }
 
@@ -1035,7 +1041,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: #eef1f2;
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
-  margin: clamp(40px, 6vw, 70px) auto;
+  margin: 80px auto;
   padding: clamp(34px, 5vw, 70px) clamp(24px, 5vw, 80px);
 }
 .discover-dg-grid {
@@ -1460,5 +1466,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .section-head { flex-direction: column; align-items: flex-start; }
   .hero-brand .big-logo .sub { letter-spacing: 0.4em; }
   .hero-tagline { padding: 10px 20px; }
+}
+}
+tagline { padding: 10px 20px; }
 }
 }
