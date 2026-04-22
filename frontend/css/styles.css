@@ -844,7 +844,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     gap: 24px;
   }
 }
-.aida-left { padding: 0 0 0 clamp(10px, 2vw, 32px); }
+.aida-left { padding: 0; }
 .aida-left .aida-logo {
   font-family: var(--font-serif);
   letter-spacing: 0.36em;
