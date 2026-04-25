@@ -659,25 +659,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative; overflow: hidden; aspect-ratio: 3 / 4;
   display: block; color: #fff; isolation: isolate;
 }
-
-/* Premium Brand Logo Overlay */
-.project-brand-logo {
-  position: absolute;
-  top: 22px;
-  left: 22px;
-  width: auto;
-  height: 42px;
-  z-index: 3;
-  opacity: 0.95;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-  transition: all 0.4s ease;
-}
-
-.project-card:hover .project-brand-logo {
-  opacity: 1;
-  transform: translateY(-2px);
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5));
-}
 .project-card .bg {
   position: absolute; inset: 0; background-size: cover; background-position: center;
   transform: scale(1.04); transition: transform 1.2s var(--easing), filter 1.2s var(--easing);
