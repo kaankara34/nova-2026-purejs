@@ -685,7 +685,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .project-card .name {
   font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(26px, 2.2vw, 34px); line-height: 1.05;
+  font-size: clamp(26px, 2.2vw, 26px); line-height: 1.05;
   margin: 0 0 6px;
 }
 .project-card .tag {
