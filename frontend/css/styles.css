@@ -730,20 +730,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     90deg,
     #6F6243 0%,
     #6F6243 35%,
-    #d4c79a 50%,
+    #c9b988 46%,
+    #f0e2b3 50%,
+    #c9b988 54%,
     #6F6243 65%,
     #6F6243 100%
   );
-  background-size: 200% 100%;
-  background-position: 100% 0;
+  background-size: 300% 100%;
+  background-position: 0% 0;
+  background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: tagShine 2.6s linear infinite;
+  animation: tagShine 3.4s linear infinite;
 }
 @keyframes tagShine {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -100% 0; }
+  0%   { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
 }
 .project-card .reveal {
   opacity: 0; max-height: 0; overflow: hidden;
