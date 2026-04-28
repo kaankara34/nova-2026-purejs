@@ -686,18 +686,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .project-card .name {
   font-family: var(--font-serif); font-weight: 400;
   font-size: clamp(26px, 2.2vw, 26px); line-height: 1.05;
-  margin: 0 0 10px;
-  min-height: 0;
-}
-.project-card .name .project-name-logo {
-  display: block;
-  width: 78%;
-  max-width: 240px;
-  height: auto;
-  /* Logos already use cream/gold tones; preserve crispness */
-  user-select: none;
-  pointer-events: none;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+  margin: 0 0 6px;
 }
 .project-card .tag {
   font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; opacity: .9;
@@ -769,10 +758,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .project-card .name {
     font-size: clamp(18px, 3vw, 24px);
     margin-bottom: 4px;
-  }
-  .project-card .name .project-name-logo {
-    width: 72%;
-    max-width: 180px;
   }
   
   .project-card .tag {
