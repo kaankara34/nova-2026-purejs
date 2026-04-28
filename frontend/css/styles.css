@@ -737,7 +737,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     #6F6243 100%
   );
   background-size: 300% 100%;
-  background-position: 0% 0;
+  background-position: 100% 0;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
@@ -745,8 +745,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   animation: tagShine 3.4s linear infinite;
 }
 @keyframes tagShine {
-  0%   { background-position: 0% 0; }
-  100% { background-position: 100% 0; }
+  0%   { background-position: 100% 0; }
+  100% { background-position: 0% 0; }
 }
 .project-card .reveal {
   opacity: 0; max-height: 0; overflow: hidden;
