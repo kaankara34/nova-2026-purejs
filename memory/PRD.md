@@ -22,10 +22,13 @@ Create a pixel-perfect clone of `https://darglobal.co.uk/` homepage using ONLY v
 ```
 
 ## What's Implemented (latest session — Feb 2026)
-- Project card SVG logos (THE RESIDENCES / THE APARTMENTS) — transparent, properly sized, readable on all viewports.
-  - Cleaned SVG files (`*-clean.svg`): removed white & black covering background rects, recolored black glyphs to cream `#f5e9d2`.
-  - Discovered the user-provided SVG filenames were swapped vs content; renamed accordingly so HTML semantics are correct.
-  - CSS: `.project-card .name .project-name-logo` width 78% (max 240px desktop, 180px iPad), drop-shadow for crispness.
+- **Project card SVG logos (final, user-supplied set)** — 4 distinct combined logos applied to 4 cards, transparent zemin, krem-altın renkler, sıkı viewBox:
+  - Çiftehavuzlar → `EASTWEST_logo-tight.svg` (THE RESIDENCES / EAST WEST)
+  - Selamiçeşme → `TAC_logo-tight.svg` (THE APARTMENTS / TAÇ)
+  - Göztepe → `ANA_logo-tight.svg` (THE APARTMENTS / ANA) — kart altyazısı "Taç"tan "Ana"ya güncellendi
+  - Kalamış → `GUR_logo-tight.svg` (THE APARTMENTS / GÜR)
+  - Source SVGs are clean (no white/black bg rects), only fills `#f5f4ee` + `#a8997a`. Tight viewBoxes computed via `getBBox()` so içerik dış boşluksuz oturuyor.
+  - CSS `.project-card .name .project-name-logo`: width 70%/240px desktop, 78%/200px iPad, 62%/240px mobile, drop-shadow.
 - iPad carousel touch/mouse logic + horizontal progress bar (#6F6243).
 - Register Interest section recolored (`#4F6B57` bg, `#D6E3EB` text).
 - Desktop project grid gap 22px; iPad cards 5:6 ratio + 30% smaller landscape, 1.5× portrait.
