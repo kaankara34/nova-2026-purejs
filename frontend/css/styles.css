@@ -684,18 +684,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 0 0 14px; line-height: 1.2;
 }
 .project-card .name {
-  font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(26px, 2.2vw, 26px); line-height: 1.05;
-  margin: 0 0 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 78%;
+  max-width: 280px;
+  margin: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .project-card .name .project-name-logo {
   display: block;
-  width: 70%;
-  max-width: 240px;
+  width: 100%;
   height: auto;
   user-select: none;
   pointer-events: none;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.55));
 }
 .project-card .tag {
   font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; opacity: .9;
@@ -765,12 +773,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   
   .project-card .name {
-    font-size: clamp(18px, 3vw, 24px);
-    margin-bottom: 4px;
-  }
-  .project-card .name .project-name-logo {
     width: 78%;
-    max-width: 200px;
+    max-width: 220px;
   }
   
   .project-card .tag {
@@ -800,8 +804,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
 
   .project-card .name .project-name-logo {
-    width: 62%;
-    max-width: 240px;
+    width: 100%;
+    max-width: none;
+  }
+  .project-card .name {
+    width: 70%;
+    max-width: 280px;
   }
 
   .carousel-progress {

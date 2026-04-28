@@ -28,7 +28,8 @@ Create a pixel-perfect clone of `https://darglobal.co.uk/` homepage using ONLY v
   - Göztepe → `ANA_logo-tight.svg` (THE APARTMENTS / ANA) — kart altyazısı "Taç"tan "Ana"ya güncellendi
   - Kalamış → `GUR_logo-tight.svg` (THE APARTMENTS / GÜR)
   - Source SVGs are clean (no white/black bg rects), only fills `#f5f4ee` + `#a8997a`. Tight viewBoxes computed via `getBBox()` so içerik dış boşluksuz oturuyor.
-  - CSS `.project-card .name .project-name-logo`: width 70%/240px desktop, 78%/200px iPad, 62%/240px mobile, drop-shadow.
+  - **Logo konumu:** Kart merkezi (absolute, top:50% left:50% transform translate(-50%,-50%)). `.name` artık `.info` dışında, doğrudan `.project-card` çocuğu. Konum/etiket altta kalmaya devam.
+  - **Boyutlar:** desktop %78 (max 280px), iPad %78 (max 220px), mobile %70 (max 280px), drop-shadow `0 2px 8px rgba(0,0,0,0.55)` (gradient üzerinde okunabilirlik için).
 - iPad carousel touch/mouse logic + horizontal progress bar (#6F6243).
 - Register Interest section recolored (`#4F6B57` bg, `#D6E3EB` text).
 - Desktop project grid gap 22px; iPad cards 5:6 ratio + 30% smaller landscape, 1.5× portrait.
