@@ -1173,10 +1173,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     text-align: left;
   }
   .section-leed .leed-left {
-    justify-content: flex-start;
+    justify-content: center;
   }
   .section-leed .leed-logo-mark {
-    max-width: 200px;
+    max-width: 110px;
+    margin: 0 auto;
   }
 }
 
