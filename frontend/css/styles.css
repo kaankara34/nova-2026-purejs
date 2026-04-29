@@ -1111,8 +1111,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .section-leed .leed-logo-mark {
   width: 100%;
-  max-width: 260px;
+  max-width: 220px;
 }
+.section-leed .leed-logo-mark img,
 .section-leed .leed-logo-mark svg {
   width: 100%;
   height: auto;
