@@ -951,44 +951,34 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
-  padding: 40px 48px;
+  padding: clamp(48px, 5vw, 80px) clamp(40px, 5vw, 72px);
   display: grid; grid-template-columns: 1fr 1.55fr;
-  gap: 48px; align-items: center;
+  gap: clamp(40px, 5vw, 72px);
+  align-items: center;
   border-radius: 0;
 }
-@media (max-width: 900px) {
-  .section-aida {
-    grid-template-columns: 1fr;
-    padding: 28px 22px;
-    gap: 24px;
-  }
+.aida-left {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-.aida-left { padding: 0; }
 .aida-left .aida-logo {
-  font-family: var(--font-serif);
-  letter-spacing: 0.36em;
-  font-size: clamp(28px, 2.2vw, 34px);
-  font-weight: 300;
-  line-height: 1; color: #3a4a56;
-  margin-bottom: 6px;
+  margin: 0 0 clamp(40px, 6vw, 88px);
+  line-height: 1;
 }
-.aida-left .aida-sub {
-  font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
-  color: #4a5661; margin-bottom: clamp(28px, 3.5vw, 56px);
-}
-.aida-left h2 {
-  font-family: var(--font-serif); font-weight: 400;
-  font-size: clamp(28px, 2.4vw, 38px); line-height: 1.05;
-  margin-bottom: 14px; color: var(--c-gold);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  white-space: nowrap;
+.aida-left .aida-logo-img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin-left: -6px;
 }
 .aida-left p {
-  font-size: clamp(13px, 0.95vw, 15px);
-  color: #2b3a44; line-height: 1.55;
-  margin-bottom: clamp(24px, 3vw, 40px);
-  max-width: 420px;
+  font-size: clamp(14px, 1.05vw, 16px);
+  color: #1f2d36; line-height: 1.85;
+  margin: 0 0 clamp(36px, 5vw, 72px);
+  max-width: 440px;
 }
 .aida-right { height: 100%; }
 .aida-right .aida-image {
@@ -998,10 +988,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .btn-aida {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 30px;
+  padding: 16px 36px;
   background: #6f6243; color: #fff;
-  font-size: 10.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
   transition: background .3s var(--easing);
+  align-self: flex-start;
 }
 .btn-aida:hover { background: #574d33; }
 .btn-aida svg { width: 14px; height: 9px; }
@@ -1009,43 +1000,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 900px) {
   .section-aida {
     grid-template-columns: 1fr;
-    padding: 28px 22px;
-    gap: 0;
-    position: relative;
+    padding: 32px 24px;
+    gap: 28px;
   }
-  
-  /* Resmi üste al */
-  .aida-right {
-    order: -1;
-    position: relative;
-    margin-bottom: 32px;
-  }
-  
-  /* Logo ve location'ı resmin üzerine overlay yap */
-  .aida-left .aida-logo,
-  .aida-left .aida-sub {
-    position: absolute;
-    z-index: 2;
-    color: #fff;
-  }
-  
+  .aida-right { order: -1; }
   .aida-left .aida-logo {
-    top: 28px;
-    left: 28px;
-    margin-bottom: 0;
+    margin-bottom: 28px;
   }
-  
-  .aida-left .aida-sub {
-    top: 68px;
-    left: 28px;
-    margin-bottom: 0;
+  .aida-left .aida-logo-img {
+    width: 70%;
+    max-width: 260px;
+    margin-left: 0;
   }
-  
-  .aida-left { 
-    padding: 6px 0 0;
+  .aida-left p {
+    font-size: 14px;
+    margin-bottom: 28px;
+    max-width: none;
   }
-  .aida-left h2 { white-space: normal; font-size: 26px; }
-  .aida-left p { margin-bottom: 22px; font-size: 14px; }
   .aida-right .aida-image { aspect-ratio: 16 / 10; }
 }
 
