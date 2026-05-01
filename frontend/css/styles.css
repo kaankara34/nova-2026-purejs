@@ -951,20 +951,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
-  padding: clamp(32px, 3.5vw, 56px) clamp(32px, 4vw, 60px);
+  padding: 0 0 0 clamp(32px, 4vw, 60px);
   display: grid; grid-template-columns: 1fr 1.55fr;
   gap: clamp(32px, 4vw, 60px);
-  align-items: center;
+  align-items: stretch;
   border-radius: 0;
+  min-height: 360px;
 }
 .aida-left {
-  padding: 0;
+  padding: clamp(28px, 3vw, 48px) 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .aida-left .aida-logo {
-  margin: 0 0 clamp(22px, 2.2vw, 32px);
+  margin: 0 0 10px;
   line-height: 1;
 }
 .aida-left .aida-logo-img {
@@ -980,10 +981,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 0 0 clamp(22px, 2.2vw, 36px);
   max-width: 460px;
 }
-.aida-right { height: 100%; }
+.aida-right {
+  display: block;
+  align-self: stretch;
+}
 .aida-right .aida-image {
-  width: 100%; height: 100%;
-  aspect-ratio: 2 / 1; object-fit: cover;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
   display: block;
 }
 .btn-aida {
