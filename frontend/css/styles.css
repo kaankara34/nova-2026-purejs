@@ -953,43 +953,44 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin: 0 auto;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
+  grid-template-columns: 0.82fr 1fr;
   gap: 0;
   align-items: stretch;
   border-radius: 0;
+  min-height: clamp(640px, 52vw, 820px);
 }
 .aida-left {
-  padding: clamp(48px, 5vw, 80px) clamp(40px, 4.5vw, 72px);
+  padding: clamp(70px, 7vw, 110px) clamp(60px, 6.5vw, 100px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .aida-logo-small {
-  margin: 0 0 clamp(40px, 5vw, 72px);
+  margin: 0 0 auto;
 }
 .aida-logo-small img {
   display: block;
   width: 100%;
-  max-width: 180px;
+  max-width: 240px;
   height: auto;
 }
 .aida-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 400;
-  font-size: clamp(30px, 3.2vw, 48px);
-  line-height: 1.05;
-  letter-spacing: 0.02em;
+  font-weight: 300;
+  font-size: clamp(38px, 4.6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: 0.015em;
   color: #6f6243;
-  margin: 0 0 clamp(20px, 2vw, 32px);
+  margin: clamp(48px, 5vw, 80px) 0 clamp(28px, 3vw, 44px);
   text-transform: uppercase;
 }
 .aida-left p {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: clamp(14px, 1vw, 15px);
+  font-size: clamp(14px, 1.05vw, 16px);
   color: #1f2d36;
-  line-height: 1.8;
-  margin: 0 0 clamp(36px, 4vw, 56px);
-  max-width: 460px;
+  line-height: 1.95;
+  margin: 0 0 clamp(48px, 5vw, 80px);
+  max-width: 480px;
 }
 .aida-right {
   display: block;
@@ -999,6 +1000,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .aida-right .aida-image {
   width: 100%;
   height: 100%;
+  min-height: 100%;
   aspect-ratio: auto;
   object-fit: cover;
   display: block;
@@ -1007,13 +1009,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 16px 36px;
+  padding: 22px 52px;
   background: #6f6243;
   color: #fff;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   transition: background .3s var(--easing);
   align-self: flex-start;
@@ -1026,29 +1028,37 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     grid-template-columns: 1fr;
     padding: 0;
     gap: 0;
+    min-height: 0;
   }
   .aida-left {
-    padding: 28px 24px 32px;
+    padding: 40px 28px 44px;
     order: 2;
+    justify-content: flex-start;
   }
   .aida-right { order: 1; }
   .aida-logo-small {
-    margin-bottom: 24px;
+    margin-bottom: 44px;
   }
   .aida-logo-small img {
-    max-width: 150px;
+    max-width: 170px;
   }
   .aida-title {
-    font-size: 28px;
-    margin-bottom: 16px;
+    font-size: 32px;
+    margin-bottom: 22px;
   }
   .aida-left p {
     font-size: 14px;
-    margin-bottom: 24px;
+    line-height: 1.8;
     max-width: none;
+    margin-bottom: 34px;
+  }
+  .btn-aida {
+    padding: 18px 42px;
+    font-size: 10.5px;
   }
   .aida-right .aida-image {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 16 / 12;
+    min-height: auto;
     height: auto;
   }
 }
