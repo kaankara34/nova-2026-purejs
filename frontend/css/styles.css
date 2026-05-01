@@ -943,6 +943,169 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* =========================================================
+   DISCOVER AIDA — pixel clone of darglobal.co.uk
+   Mirrors live measurements (1440px desktop / 390px mobile):
+     Desktop: flex-row, items-start
+       container 1456 / left 407 / right banner 949×384 fill
+       logo 100×51 / title 50/50 LS 1px #6B5E43
+       desc 18/24 #6B5E43 fw500 / btn brown pill, white LS 2px
+     Mobile: flex-column-reverse
+       banner first ~310×245 / title 40/40 / desc 14/20
+   ========================================================= */
+.aida-section-wrap {
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--container) - 2 * var(--gutter));
+  margin: clamp(40px, 5vw, 80px) auto 0;
+  background: #D7E3EB;
+}
+.aida-landing {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: clamp(48px, 4vw, 56px) clamp(40px, 4vw, 56px);
+  gap: clamp(48px, 6.5vw, 100px);
+}
+.aida-content {
+  flex: 0 0 auto;
+  width: clamp(300px, 28vw, 407px);
+  display: flex;
+  flex-direction: column;
+}
+.aida-image-div {
+  margin: 0 0 clamp(48px, 5vw, 80px);
+}
+.aida-image-div img {
+  display: block;
+  width: 100px;
+  height: auto;
+}
+.aida-flex-col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.aida-title-wrap { margin: 0; }
+.aida-title {
+  font-family: 'Cormorant Garamond', 'Louize Display', Georgia, serif;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 50px;
+  letter-spacing: 1px;
+  color: #6B5E43;
+  margin: 0;
+  text-transform: uppercase;
+}
+.aida-desc-btn {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+}
+.aida-desc-resimg {
+  display: flex;
+  flex-direction: column;
+}
+.aida-desc {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #6B5E43;
+  margin: 0;
+  padding: 0 0 60px;
+  max-width: 360px;
+}
+.aida-responsive-img {
+  display: none;
+}
+.aida-btn-div { display: block; }
+.aida-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #6B5E43;
+  color: #fff;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  text-decoration: none;
+  transition: background .3s var(--easing);
+}
+.aida-btn:hover { background: #574d33; }
+.aida-banner-div {
+  flex: 1 1 auto;
+  align-self: stretch;
+  overflow: hidden;
+}
+.aida-banner-div img {
+  display: block;
+  width: 100%;
+  height: 384px;
+  object-fit: fill;
+}
+
+@media (max-width: 768px) {
+  .aida-section-wrap {
+    margin: 40px auto 0;
+    padding: 0;
+  }
+  .aida-landing {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .aida-content { width: 100%; }
+  .aida-image-div { display: none; }
+  .aida-title {
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: 1px;
+  }
+  .aida-desc-btn { margin-top: 24px; }
+  .aida-desc {
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 20px;
+    max-width: none;
+  }
+  .aida-responsive-img {
+    display: block;
+    margin: 0 0 24px;
+  }
+  .aida-responsive-img img {
+    display: block;
+    width: 100px;
+    height: auto;
+  }
+  .aida-btn {
+    padding: 14px 32px;
+    font-size: 14px;
+  }
+  .aida-banner-div { width: 100%; }
+  .aida-banner-div img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 16 / 12;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .aida-landing { gap: 40px; padding: 40px; }
+  .aida-content { width: clamp(280px, 32vw, 360px); }
+  .aida-image-div { margin-bottom: 48px; }
+  .aida-title { font-size: 40px; line-height: 40px; }
+  .aida-desc { font-size: 16px; line-height: 22px; padding-bottom: 40px; }
+  .aida-banner-div img { height: 320px; }
+}
+
+/* =========================================================
    Exclusive Collaborations
    ========================================================= */
 .section-collab { 
