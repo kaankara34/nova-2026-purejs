@@ -944,59 +944,75 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* =========================================================
-   Discover Aida
+   Discover Aida — mirrors darglobal.co.uk layout
    ========================================================= */
 .section-aida {
   background: var(--c-aida-bg);
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
-  padding: 0 0 0 clamp(32px, 4vw, 60px);
-  display: grid; grid-template-columns: 1fr 1.55fr;
-  gap: clamp(32px, 4vw, 60px);
-  align-items: stretch;
+  padding: clamp(48px, 5vw, 80px) clamp(40px, 4.5vw, 72px);
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: clamp(48px, 5vw, 80px);
+  align-items: center;
   border-radius: 0;
-  min-height: 360px;
 }
 .aida-left {
-  padding: clamp(28px, 3vw, 48px) 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.aida-left .aida-logo {
-  margin: 0 0 10px;
-  line-height: 1;
+.aida-logo-small {
+  margin: 0 0 clamp(48px, 6vw, 88px);
 }
-.aida-left .aida-logo-img {
+.aida-logo-small img {
   display: block;
   width: 100%;
-  max-width: 540px;
+  max-width: 180px;
   height: auto;
-  margin-left: -6px;
+}
+.aida-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(40px, 4.2vw, 64px);
+  line-height: 1.04;
+  letter-spacing: 0.005em;
+  color: #6f6243;
+  margin: 0 0 clamp(20px, 2vw, 30px);
+  text-transform: none;
 }
 .aida-left p {
-  font-size: clamp(14px, 1.05vw, 16px);
-  color: #1f2d36; line-height: 1.75;
-  margin: 0 0 clamp(22px, 2.2vw, 36px);
-  max-width: 460px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: clamp(14px, 1vw, 15px);
+  color: #1f2d36;
+  line-height: 1.75;
+  margin: 0 0 clamp(28px, 3vw, 44px);
+  max-width: 440px;
 }
 .aida-right {
   display: block;
-  align-self: stretch;
 }
 .aida-right .aida-image {
   width: 100%;
-  height: 100%;
-  aspect-ratio: auto;
+  height: auto;
+  aspect-ratio: 16 / 11;
   object-fit: cover;
   display: block;
 }
 .btn-aida {
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 16px 36px;
-  background: #6f6243; color: #fff;
-  font-size: 10.5px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+  background: #6f6243;
+  color: #fff;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
   transition: background .3s var(--easing);
   align-self: flex-start;
 }
@@ -1006,28 +1022,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 900px) {
   .section-aida {
     grid-template-columns: 1fr;
-    padding: 20px 20px 24px;
-    gap: 18px;
+    padding: 32px 24px;
+    gap: 28px;
   }
   .aida-right { order: -1; }
-  .aida-left .aida-logo {
-    margin-bottom: 14px;
+  .aida-logo-small {
+    margin-bottom: 22px;
   }
-  .aida-left .aida-logo-img {
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
+  .aida-logo-small img {
+    max-width: 150px;
+  }
+  .aida-title {
+    font-size: 34px;
+    margin-bottom: 16px;
   }
   .aida-left p {
     font-size: 14px;
-    line-height: 1.65;
-    margin-bottom: 18px;
+    margin-bottom: 22px;
     max-width: none;
   }
-  .btn-aida {
-    padding: 14px 30px;
-  }
-  .aida-right .aida-image { aspect-ratio: 16 / 10; }
+  .aida-right .aida-image { aspect-ratio: 16 / 11; }
 }
 
 /* =========================================================
