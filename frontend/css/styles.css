@@ -951,21 +951,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: calc(100% - 2 * var(--gutter));
   max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
-  padding: clamp(48px, 5vw, 80px) clamp(40px, 4.5vw, 72px);
+  padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: clamp(48px, 5vw, 80px);
-  align-items: center;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 0;
+  align-items: stretch;
   border-radius: 0;
 }
 .aida-left {
-  padding: 0;
+  padding: clamp(48px, 5vw, 80px) clamp(40px, 4.5vw, 72px);
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .aida-logo-small {
-  margin: 0 0 clamp(48px, 6vw, 88px);
+  margin: 0 0 clamp(40px, 5vw, 72px);
 }
 .aida-logo-small img {
   display: block;
@@ -976,28 +976,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .aida-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 400;
-  font-size: clamp(40px, 4.2vw, 64px);
-  line-height: 1.04;
-  letter-spacing: 0.005em;
+  font-size: clamp(30px, 3.2vw, 48px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   color: #6f6243;
-  margin: 0 0 clamp(20px, 2vw, 30px);
-  text-transform: none;
+  margin: 0 0 clamp(20px, 2vw, 32px);
+  text-transform: uppercase;
 }
 .aida-left p {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: clamp(14px, 1vw, 15px);
   color: #1f2d36;
-  line-height: 1.75;
-  margin: 0 0 clamp(28px, 3vw, 44px);
-  max-width: 440px;
+  line-height: 1.8;
+  margin: 0 0 clamp(36px, 4vw, 56px);
+  max-width: 460px;
 }
 .aida-right {
   display: block;
+  align-self: stretch;
+  overflow: hidden;
 }
 .aida-right .aida-image {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 11;
+  height: 100%;
+  aspect-ratio: auto;
   object-fit: cover;
   display: block;
 }
@@ -1022,26 +1024,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 900px) {
   .section-aida {
     grid-template-columns: 1fr;
-    padding: 32px 24px;
-    gap: 28px;
+    padding: 0;
+    gap: 0;
   }
-  .aida-right { order: -1; }
+  .aida-left {
+    padding: 28px 24px 32px;
+    order: 2;
+  }
+  .aida-right { order: 1; }
   .aida-logo-small {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
   .aida-logo-small img {
     max-width: 150px;
   }
   .aida-title {
-    font-size: 34px;
+    font-size: 28px;
     margin-bottom: 16px;
   }
   .aida-left p {
     font-size: 14px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     max-width: none;
   }
-  .aida-right .aida-image { aspect-ratio: 16 / 11; }
+  .aida-right .aida-image {
+    aspect-ratio: 16 / 11;
+    height: auto;
+  }
 }
 
 /* =========================================================
