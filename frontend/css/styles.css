@@ -473,8 +473,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 24px;
+  padding: 0 32px;
   scrollbar-width: thin;
+  position: relative;
+}
+.side-menu-col:first-child { padding-left: 0; }
+/* Vertical separators between columns */
+.col-sub {
+  border-left: 1px solid #e5e5e5;
+}
+.side-menu.expanded-2 .col-projects {
+  border-left: 1px solid #e5e5e5;
 }
 .side-menu-col::-webkit-scrollbar { width: 4px; }
 .side-menu-col::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
@@ -495,19 +504,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #111; text-decoration: none;
   transition: color .25s var(--easing);
   position: relative;
+  text-align: left;
 }
-.col-main .menu-link svg { width: 11px; height: 11px; opacity: .7; }
+.col-main .menu-link svg { width: 11px; height: 11px; opacity: .7; flex-shrink: 0; }
+.col-main .menu-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 6px;
+  width: 0;
+  height: 1px;
+  background: #6f6243;
+  transition: width .35s var(--easing);
+}
 .col-main .menu-link:hover { color: #6f6243; }
+.col-main .menu-link:hover::after,
 .col-main .menu-item.active .menu-link::after {
-  content: ''; position: absolute; left: 0; bottom: 6px;
-  width: 38px; height: 1px; background: #6f6243;
+  width: 38px;
 }
 .col-main .menu-item.active .menu-link { color: #6f6243; }
 
 /* Column 2: submenu */
 .col-sub {
-  padding-left: 0;
-  border-left: 0;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -532,19 +549,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   transition: color .25s var(--easing);
 }
-.col-sub .submenu a svg { width: 11px; height: 11px; opacity: .7; }
-.col-sub .submenu a:hover { color: #6f6243; }
-.col-sub .submenu li.has-projects.active a { color: #6f6243; }
-.col-sub .submenu li.has-projects.active a::after {
-  content: ''; position: absolute; left: 0; bottom: 6px;
-  width: 38px; height: 1px; background: #6f6243;
+.col-sub .submenu a svg { width: 11px; height: 11px; opacity: .7; flex-shrink: 0; }
+.col-sub .submenu a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 6px;
+  width: 0;
+  height: 1px;
+  background: #6f6243;
+  transition: width .35s var(--easing);
 }
+.col-sub .submenu a:hover { color: #6f6243; }
+.col-sub .submenu a:hover::after,
+.col-sub .submenu li.has-projects.active a::after { width: 38px; }
+.col-sub .submenu li.has-projects.active a { color: #6f6243; }
 
 /* Column 3: projects preview */
 .col-projects {
   opacity: 0; visibility: hidden; pointer-events: none;
   transition: opacity .35s var(--easing);
-  padding-left: 36px;
 }
 .side-menu.expanded-2 .col-projects {
   opacity: 1; visibility: visible; pointer-events: auto;

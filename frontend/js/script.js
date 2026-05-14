@@ -38,40 +38,57 @@
   closeBtn && closeBtn.addEventListener('click', closeMenu);
   overlay && overlay.addEventListener('click', closeMenu);
 
-  // Main menu items: click to reveal submenu
+  // Main menu items: HOVER to reveal submenu (also click for mobile)
+  let hoverTimer = null;
   $$('.col-main .menu-item').forEach(item => {
     const link = item.querySelector('.menu-link');
     if (!link) return;
+    const target = item.dataset.target;
+
+    const showSub = () => {
+      if (!item.classList.contains('has-sub') || !target) return;
+      clearTimeout(hoverTimer);
+      $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
+      $$('.col-sub .submenu').forEach(s => s.classList.remove('active'));
+      $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('active'));
+      $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      const sub = $('.col-sub .submenu[data-id="' + target + '"]');
+      if (sub) sub.classList.add('active');
+      menu.classList.add('expanded-1');
+      menu.classList.remove('expanded-2');
+      if (window.innerWidth <= 900) $('.col-sub').classList.add('mobile-show');
+    };
+
+    // Desktop: hover opens
+    item.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 900) showSub();
+    });
+
+    // Click: for mobile + for direct nav on non-sub items
     link.addEventListener('click', e => {
-      const target = item.dataset.target;
       if (item.classList.contains('has-sub') && target) {
         e.preventDefault();
-        const isActive = item.classList.contains('active');
-        // reset
-        $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
-        $$('.col-sub .submenu').forEach(s => s.classList.remove('active'));
-        $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('active'));
-        $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
-        if (isActive) {
-          // toggle off
-          menu.classList.remove('expanded-1', 'expanded-2');
-          if (window.innerWidth <= 900) $('.col-sub').classList.remove('mobile-show');
+        if (window.innerWidth <= 900) {
+          // Mobile: toggle
+          const isActive = item.classList.contains('active');
+          if (isActive) {
+            item.classList.remove('active');
+            $('.col-sub').classList.remove('mobile-show');
+            menu.classList.remove('expanded-1', 'expanded-2');
+          } else {
+            showSub();
+          }
         } else {
-          item.classList.add('active');
-          const sub = $('.col-sub .submenu[data-id="' + target + '"]');
-          if (sub) sub.classList.add('active');
-          menu.classList.add('expanded-1');
-          menu.classList.remove('expanded-2');
-          if (window.innerWidth <= 900) $('.col-sub').classList.add('mobile-show');
+          showSub();
         }
       } else {
-        // plain link — close menu
         closeMenu();
       }
     });
   });
 
-  // Submenu items with projects: hover/click reveals 3rd column
+  // Submenu items with projects: HOVER reveals 3rd column
   $$('.col-sub .submenu li.has-projects').forEach(li => {
     const reveal = () => {
       $$('.col-sub .submenu li.has-projects').forEach(x => x.classList.remove('active'));
