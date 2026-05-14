@@ -62,42 +62,91 @@
   <!-- ============================= SIDE MENU ============================= -->
   <div class="side-menu-overlay" id="sideMenuOverlay"></div>
   <aside class="side-menu" id="sideMenu" aria-label="Main menu">
-    <div class="side-menu-head">
-      <button class="side-menu-close" id="menuClose" aria-label="Close menu">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-      <a href="#top" class="logo-mark">
-        <img src="media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" />
-      </a>
-    </div>
+    <button class="side-menu-close" id="menuClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
 
-    <nav class="side-menu-nav">
-      <a href="#top">HOME</a>
-      <a href="#projects">PROJECTS<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a>
-      <a href="#">COMMUNITIES<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a>
-      <a href="#">COLLABORATIONS<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a>
-      <a href="#">PREMIERE EDITION COLLECTION<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a>
-      <a href="#">ABOUT US</a>
-      <a href="#liveAllIn">LIVE ALL IN</a>
-      <a href="#">WHY INVEST</a>
-      <a href="#news">MEDIA AND INSIGHTS<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a>
-      <a href="#">HOSPITALITY</a>
-      <a href="#">COMMERCIAL</a>
-      <a href="#">TOKENIZATION</a>
-      <a href="#">INVESTOR RELATIONS</a>
-      <a href="#">CAREERS</a>
-      <a href="#">AGENTS<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a>
-      <a href="#register">GET IN TOUCH</a>
-    </nav>
+    <div class="side-menu-grid">
+      <!-- Column 1: Main menu -->
+      <nav class="side-menu-col col-main">
+        <ul class="menu-list">
+          <li class="menu-item has-sub" data-target="building-communities">
+            <button class="menu-link">BUILDING COMMUNITIES<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></button>
+          </li>
+          <li class="menu-item has-sub" data-target="real-estate">
+            <button class="menu-link">REAL ESTATE DEVELOPMENTS<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></button>
+          </li>
+          <li class="menu-item has-sub" data-target="asset-management">
+            <button class="menu-link">ASSET MANAGEMENT<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></button>
+          </li>
+          <li class="menu-item has-sub" data-target="newsroom">
+            <button class="menu-link">NEWSROOM<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></button>
+          </li>
+          <li class="menu-item"><a class="menu-link" href="#">GOLF</a></li>
+          <li class="menu-item"><a class="menu-link" href="#">HOSPITALITY</a></li>
+          <li class="menu-item"><a class="menu-link" href="#">COMMERCIAL</a></li>
+          <li class="menu-item"><a class="menu-link" href="#">TOKENIZATION</a></li>
+          <li class="menu-item"><a class="menu-link" href="#">INVESTOR RELATIONS</a></li>
+          <li class="menu-item"><a class="menu-link" href="#">ABOUT US</a></li>
+          <li class="menu-item"><a class="menu-link" href="#register">CONTACT US</a></li>
+        </ul>
+      </nav>
+
+      <!-- Column 2: Sub-menus (only one visible at a time) -->
+      <div class="side-menu-col col-sub">
+        <ul class="submenu" data-id="building-communities">
+          <li><a href="#projects">VIEW ALL</a></li>
+          <li><a href="#projects">İSTANBUL</a></li>
+          <li><a href="#projects">BAĞDAT CADDESİ</a></li>
+        </ul>
+        <ul class="submenu" data-id="real-estate">
+          <li><a href="#projects">VIEW ALL</a></li>
+          <li class="has-projects" data-projects="istanbul"><a href="#projects">İSTANBUL<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2l5 4-5 4"/></svg></a></li>
+          <li><a href="#projects">ANATOLIAN SIDE</a></li>
+          <li><a href="#projects">EUROPEAN SIDE</a></li>
+        </ul>
+        <ul class="submenu" data-id="asset-management">
+          <li><a href="#">OVERVIEW</a></li>
+          <li><a href="#">SERVICES</a></li>
+          <li><a href="#">PORTFOLIO</a></li>
+        </ul>
+        <ul class="submenu" data-id="newsroom">
+          <li><a href="#news">VIEW ALL</a></li>
+          <li><a href="#news">PRESS RELEASES</a></li>
+          <li><a href="#news">MEDIA COVERAGE</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Project cards preview -->
+      <div class="side-menu-col col-projects">
+        <div class="projects-preview" data-id="istanbul">
+          <a href="#projects" class="proj-card">
+            <img src="./media/images/dogubati_render.png" alt="The Residences East West" loading="lazy" />
+            <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
+            <div class="proj-name">The Residences East West</div>
+          </a>
+          <a href="#projects" class="proj-card">
+            <img src="./media/images/tac-ai-render.jpg" alt="The Apartments Taç" loading="lazy" />
+            <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
+            <div class="proj-name">The Apartments Taç</div>
+          </a>
+          <a href="#projects" class="proj-card">
+            <img src="./media/images/tac_render.jpeg" alt="The Apartments Ana" loading="lazy" />
+            <div class="proj-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
+            <div class="proj-name">The Apartments Ana</div>
+          </a>
+        </div>
+      </div>
+    </div>
 
     <div class="side-menu-foot">
       <div class="terms">TERMS AND CONDITIONS</div>
-      <div class="socials" style="margin-top:22px;">
+      <div class="socials">
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.3-1.9 2-1.9h2V2.1C16.7 2 15.6 2 14.4 2 11.7 2 10 3.7 10 6.7V10H7v4h3v8h3z"/></svg></a>
         <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.4 8.5L23 22h-6.8l-5.3-7-6.1 7H1.7l7.9-9.1L1 2h6.9l4.8 6.4L18.9 2zm-2.4 18h1.9L7.6 4H5.6l10.9 16z"/></svg></a>
         <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
-        <a href="#" aria-label="Linktree"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 3-3 3-3-3 3-3zm0 11v9m-5-5l5-5 5 5M5 10h14"/></svg></a>
+        <a href="#" aria-label="Linktree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v8M12 22v-8M5 6l7 6 7-6M5 18l7-6 7 6"/></svg></a>
       </div>
     </div>
   </aside>

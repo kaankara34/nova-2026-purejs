@@ -7,11 +7,21 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ========== Side Menu ========== */
+  /* ========== Side Menu — 3-column expanding ========== */
   const menu = $('#sideMenu');
   const overlay = $('#sideMenuOverlay');
   const openBtn = $('#menuToggle');
   const closeBtn = $('#menuClose');
+
+  function resetMenuState() {
+    menu.classList.remove('expanded-1', 'expanded-2');
+    $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
+    $$('.col-sub .submenu').forEach(s => s.classList.remove('active'));
+    $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('active'));
+    $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
+    const subCol = $('.col-sub');
+    if (subCol) subCol.classList.remove('mobile-show');
+  }
 
   function openMenu() {
     menu.classList.add('open');
@@ -22,11 +32,65 @@
     menu.classList.remove('open');
     overlay.classList.remove('show');
     document.body.style.overflow = '';
+    setTimeout(resetMenuState, 500);
   }
   openBtn && openBtn.addEventListener('click', openMenu);
   closeBtn && closeBtn.addEventListener('click', closeMenu);
   overlay && overlay.addEventListener('click', closeMenu);
-  $$('.side-menu-nav a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Main menu items: click to reveal submenu
+  $$('.col-main .menu-item').forEach(item => {
+    const link = item.querySelector('.menu-link');
+    if (!link) return;
+    link.addEventListener('click', e => {
+      const target = item.dataset.target;
+      if (item.classList.contains('has-sub') && target) {
+        e.preventDefault();
+        const isActive = item.classList.contains('active');
+        // reset
+        $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
+        $$('.col-sub .submenu').forEach(s => s.classList.remove('active'));
+        $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('active'));
+        $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
+        if (isActive) {
+          // toggle off
+          menu.classList.remove('expanded-1', 'expanded-2');
+          if (window.innerWidth <= 900) $('.col-sub').classList.remove('mobile-show');
+        } else {
+          item.classList.add('active');
+          const sub = $('.col-sub .submenu[data-id="' + target + '"]');
+          if (sub) sub.classList.add('active');
+          menu.classList.add('expanded-1');
+          menu.classList.remove('expanded-2');
+          if (window.innerWidth <= 900) $('.col-sub').classList.add('mobile-show');
+        }
+      } else {
+        // plain link — close menu
+        closeMenu();
+      }
+    });
+  });
+
+  // Submenu items with projects: hover/click reveals 3rd column
+  $$('.col-sub .submenu li.has-projects').forEach(li => {
+    const reveal = () => {
+      $$('.col-sub .submenu li.has-projects').forEach(x => x.classList.remove('active'));
+      $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
+      li.classList.add('active');
+      const id = li.dataset.projects;
+      const preview = $('.col-projects .projects-preview[data-id="' + id + '"]');
+      if (preview) preview.classList.add('active');
+      menu.classList.add('expanded-2');
+    };
+    li.addEventListener('mouseenter', reveal);
+    li.addEventListener('click', e => { e.preventDefault(); reveal(); });
+  });
+
+  // Plain submenu links without projects: close menu on click
+  $$('.col-sub .submenu li:not(.has-projects) a').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+  $$('.col-projects .proj-card').forEach(c => c.addEventListener('click', closeMenu));
 
   /* ========== Header transparency on scroll ========== */
   const header = $('.site-header');
