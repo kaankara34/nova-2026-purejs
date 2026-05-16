@@ -513,7 +513,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   text-align: left;
 }
-.col-main .menu-link svg { width: 11px; height: 11px; opacity: .7; flex-shrink: 0; }
+.col-main .menu-link svg { width: 12px; height: 12px; opacity: 1; flex-shrink: 0; stroke-width: 1.8; }
 .col-main .menu-link .label {
   position: relative;
   display: inline-block;
@@ -563,7 +563,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   transition: color .25s var(--easing);
 }
-.col-sub .submenu a svg { width: 11px; height: 11px; opacity: .7; flex-shrink: 0; }
+.col-sub .submenu a svg { width: 12px; height: 12px; opacity: 1; flex-shrink: 0; stroke-width: 1.8; }
 .col-sub .submenu a .label {
   position: relative;
   display: inline-block;
