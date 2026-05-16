@@ -502,7 +502,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .col-main .menu-link {
   width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: flex-start;
   background: transparent; border: 0; cursor: pointer;
   padding: 14px 0;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
@@ -514,15 +514,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   text-align: left;
 }
 .col-main .menu-link svg { width: 12px; height: 12px; opacity: 1; flex-shrink: 0; stroke-width: 1.8; }
-.col-main .menu-link .chev {
-  display: inline-block;
-  font-size: 22px;
-  line-height: 1;
-  color: #111;
+.col-main .menu-link .chev,
+.col-sub .submenu a .chev {
+  display: inline-block !important;
+  box-sizing: content-box !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-top: 1.6px solid #111 !important;
+  border-right: 1.6px solid #111 !important;
+  border-left: 0 !important;
+  border-bottom: 0 !important;
+  transform: rotate(45deg);
   flex-shrink: 0;
-  margin-left: 16px;
-  font-weight: 400;
-  font-family: 'Arial', sans-serif;
+  margin-left: 12px;
+  margin-right: 0;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+  transition: border-color .25s var(--easing);
+  align-self: center;
+  background: transparent;
+}
+.col-main .menu-link:hover .chev,
+.col-main .menu-item.active .menu-link .chev,
+.col-sub .submenu a:hover .chev,
+.col-sub .submenu li.has-projects.active a .chev {
+  border-top-color: #6f6243;
+  border-right-color: #6f6243;
 }
 .col-main .menu-link .label {
   position: relative;
@@ -564,7 +582,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .col-sub .submenu.active { display: flex; flex-direction: column; }
 .col-sub .submenu a {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: flex-start;
   padding: 14px 0;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: 13px; font-weight: 600;
@@ -574,20 +592,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: color .25s var(--easing);
 }
 .col-sub .submenu a svg { width: 12px; height: 12px; opacity: 1; flex-shrink: 0; stroke-width: 1.8; }
-.col-sub .submenu a .chev {
-  display: inline-block;
-  font-size: 22px;
-  line-height: 1;
-  color: #111;
-  flex-shrink: 0;
-  margin-left: 16px;
-  font-weight: 400;
-  font-family: 'Arial', sans-serif;
-}
-.col-sub .submenu a:hover .chev,
-.col-sub .submenu li.has-projects.active a .chev { color: #6f6243; }
-.col-main .menu-link:hover .chev,
-.col-main .menu-item.active .menu-link .chev { color: #6f6243; }
+.col-sub .submenu li.has-projects.active a { color: #6f6243; }
 .col-sub .submenu a .label {
   position: relative;
   display: inline-block;
