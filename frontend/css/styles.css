@@ -517,20 +517,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .col-main .menu-link .label {
   position: relative;
   display: inline-block;
+  width: fit-content;
+  flex: 0 0 auto;
 }
 .col-main .menu-link .label::after {
   content: '';
   position: absolute;
-  left: 0; bottom: -4px;
-  width: 0;
+  left: 0; right: 0; bottom: -4px;
+  transform: scaleX(0);
+  transform-origin: left center;
   height: 1px;
   background: #6f6243;
-  transition: width .35s var(--easing);
+  transition: transform .35s var(--easing);
 }
 .col-main .menu-link:hover { color: #6f6243; }
 .col-main .menu-link:hover .label::after,
 .col-main .menu-item.active .menu-link .label::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 .col-main .menu-item.active .menu-link { color: #6f6243; }
 
@@ -564,19 +567,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .col-sub .submenu a .label {
   position: relative;
   display: inline-block;
+  width: fit-content;
+  flex: 0 0 auto;
 }
 .col-sub .submenu a .label::after {
   content: '';
   position: absolute;
-  left: 0; bottom: -4px;
-  width: 0;
+  left: 0; right: 0; bottom: -4px;
+  transform: scaleX(0);
+  transform-origin: left center;
   height: 1px;
   background: #6f6243;
-  transition: width .35s var(--easing);
+  transition: transform .35s var(--easing);
 }
 .col-sub .submenu a:hover { color: #6f6243; }
 .col-sub .submenu a:hover .label::after,
-.col-sub .submenu li.has-projects.active a .label::after { width: 100%; }
+.col-sub .submenu li.has-projects.active a .label::after { transform: scaleX(1); }
 .col-sub .submenu li.has-projects.active a { color: #6f6243; }
 
 /* Column 3: projects preview */
