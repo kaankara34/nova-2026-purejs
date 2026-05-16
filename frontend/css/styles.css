@@ -626,6 +626,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: none;
   flex-direction: column;
   gap: 22px;
+  max-width: 280px;
 }
 .col-projects .projects-preview.active { display: flex; }
 .proj-card {
@@ -639,6 +640,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: #1a1a1a;
+  max-height: 280px;
 }
 .proj-card .proj-img > img {
   display: block;
@@ -667,9 +669,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .proj-card .proj-logo-overlay img {
   display: block;
   width: 70%;
-  max-width: 220px;
+  max-width: 180px;
   height: auto;
-  max-height: 110px;
+  max-height: 90px;
   object-fit: contain;
   filter: drop-shadow(0 2px 14px rgba(0,0,0,0.6));
 }
