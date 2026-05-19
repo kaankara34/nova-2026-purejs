@@ -501,6 +501,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .side-menu-col::-webkit-scrollbar { width: 4px; }
 .side-menu-col::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 
+/* Always-visible custom scrollbar for project cards column */
+.col-projects {
+  scrollbar-width: thin;
+  scrollbar-color: #574D33 transparent;
+  scrollbar-gutter: stable;
+}
+.col-projects::-webkit-scrollbar {
+  width: 6px;
+  -webkit-appearance: none;
+}
+.col-projects::-webkit-scrollbar-track {
+  background: rgba(87, 77, 51, 0.12);
+  border-radius: 3px;
+}
+.col-projects::-webkit-scrollbar-thumb {
+  background: #574D33;
+  border-radius: 3px;
+}
+.col-projects::-webkit-scrollbar-thumb:hover { background: #6f6243; }
+
 /* Column 1: main items */
 .col-main .menu-list {
   list-style: none; padding: 0; margin: 0;
