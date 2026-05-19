@@ -766,9 +766,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .brand-block .brand-mark {
   display: block;
-  width: 54px;
-  height: 54px;
-  margin: 0 auto 10px;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 12px;
   object-fit: contain;
   opacity: 0.95;
 }
