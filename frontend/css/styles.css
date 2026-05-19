@@ -504,22 +504,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Always-visible custom scrollbar for project cards column */
 .col-projects {
   scrollbar-width: thin;
-  scrollbar-color: #574D33 transparent;
-  scrollbar-gutter: stable;
+  scrollbar-color: #a8997a #f0ece2;
+  overflow-y: scroll !important;
 }
 .col-projects::-webkit-scrollbar {
-  width: 6px;
-  -webkit-appearance: none;
+  width: 8px !important;
+  -webkit-appearance: none !important;
+  background-color: #f0ece2 !important;
+  display: block !important;
 }
 .col-projects::-webkit-scrollbar-track {
-  background: rgba(87, 77, 51, 0.12);
-  border-radius: 3px;
+  background: #f0ece2 !important;
+  border-radius: 4px;
 }
 .col-projects::-webkit-scrollbar-thumb {
-  background: #574D33;
-  border-radius: 3px;
+  background: #a8997a !important;
+  border-radius: 4px;
+  min-height: 60px;
+  border: 1px solid #f0ece2;
 }
-.col-projects::-webkit-scrollbar-thumb:hover { background: #6f6243; }
+.col-projects::-webkit-scrollbar-thumb:hover { background: #6f6243 !important; }
 
 /* Column 1: main items */
 .col-main .menu-list {
@@ -532,7 +536,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: transparent; border: 0; cursor: pointer;
   padding: 14px 0;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 13px; font-weight: 600;
+  font-size: 13px; font-weight: 400;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: #111; text-decoration: none;
   transition: color .25s var(--easing);
@@ -611,7 +615,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex; align-items: center; justify-content: flex-start;
   padding: 14px 0;
   font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: 13px; font-weight: 600;
+  font-size: 13px; font-weight: 400;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: #111; text-decoration: none;
   position: relative;
