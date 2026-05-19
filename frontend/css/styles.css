@@ -749,52 +749,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-top: 18px;
   margin-top: 12px;
 }
-
-/* Brand block above terms — nOva logo + tagline */
-.brand-block {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  padding-bottom: 22px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid #e8e4d8;
-}
-.brand-block .brand-logo {
-  display: block;
-  width: auto;
-  height: 38px;
-  max-width: 140px;
-  object-fit: contain;
-  object-position: left center;
-}
-.brand-block .brand-tagline {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #2a2a2a;
-  line-height: 1;
-  font-family: var(--font-serif, 'Cormorant Garamond', serif);
-}
-.brand-block .brand-tagline img {
-  display: block;
-  height: 13px;
-  width: auto;
-  max-width: 180px;
-  object-fit: contain;
-  object-position: left center;
-  opacity: 0.88;
-}
-.brand-block .bt-quote {
-  font-family: var(--font-serif, 'Cormorant Garamond', serif);
-  font-size: 22px;
-  font-weight: 500;
-  color: #6f6243;
-  line-height: 0;
-  position: relative;
-  top: 4px;
-}
-
 .side-menu-foot .terms {
   font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
   color: #888;
@@ -831,20 +785,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   .col-sub.mobile-show { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
   .col-projects { display: none; }
-  .brand-block { gap: 8px; padding-bottom: 18px; margin-bottom: 14px; }
-  .brand-block .brand-logo { height: 34px; max-width: 124px; }
-  .brand-block .brand-tagline img { height: 12px; max-width: 160px; }
-  .brand-block .bt-quote { font-size: 20px; top: 3px; }
 }
 @media (max-width: 480px) {
   .side-menu { padding: 24px 22px; }
   .col-main .menu-link, .col-sub .submenu a {
     font-size: 12px; padding: 12px 0;
   }
-  .brand-block { gap: 6px; padding-bottom: 16px; margin-bottom: 12px; }
-  .brand-block .brand-logo { height: 30px; max-width: 108px; }
-  .brand-block .brand-tagline img { height: 11px; max-width: 144px; }
-  .brand-block .bt-quote { font-size: 18px; top: 3px; }
 }
 
 /* =========================================================
