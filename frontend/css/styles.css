@@ -749,6 +749,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding-top: 18px;
   margin-top: 12px;
 }
+
+/* Brand block above terms — corporate, symmetric */
+.brand-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0 22px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ececec;
+}
+.brand-block .brand-mark {
+  display: block;
+  width: clamp(180px, 70%, 240px);
+  height: auto;
+  object-fit: contain;
+  opacity: 0.92;
+  transition: opacity .25s ease;
+}
+.brand-block .brand-mark:hover { opacity: 1; }
+
 .side-menu-foot .terms {
   font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
   color: #888;
