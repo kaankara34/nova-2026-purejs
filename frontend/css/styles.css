@@ -552,9 +552,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .col-projects-sb-thumb:active { cursor: grabbing; background: #574d33; }
 
 /* Column 1: main items */
+.col-main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 .col-main .menu-list {
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .col-main .menu-link {
   width: 100%;
@@ -743,13 +750,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #6b6b6b;
 }
 
-/* Footer — anchored to col-main (360px) so it stays centered in section 1 across all menu states */
+/* Footer — lives INSIDE col-main so it always matches the first section's width & center */
 .side-menu-foot {
-  flex-shrink: 0;
-  align-self: flex-start;
+  flex: 0 0 auto;
+  margin-top: auto;
   padding-top: 18px;
-  margin-top: 12px;
-  width: 360px;
   text-align: center;
 }
 
@@ -806,7 +811,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   .col-sub.mobile-show { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
   .col-projects { display: none; }
-  .side-menu-foot { width: 100%; }
 }
 @media (max-width: 480px) {
   .side-menu { padding: 24px 22px; }
