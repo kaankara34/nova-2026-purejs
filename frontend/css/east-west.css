@@ -19,7 +19,7 @@
 .page-project .site-header.transparent .menu-toggle span { background: #fff; }
 
 /* =========================================================
-   HERO
+   HERO — full-screen video, no overlay text
    ========================================================= */
 .ew-hero {
   position: relative;
@@ -27,104 +27,21 @@
   min-height: 640px;
   overflow: hidden;
   background: #000;
-  color: #fff;
 }
 .ew-hero-media { position: absolute; inset: 0; z-index: 0; }
-.ew-hero-media img {
+.ew-hero-video {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center;
   display: block;
-  filter: brightness(0.78);
-  animation: ewKenburn 18s ease-out forwards;
-}
-@keyframes ewKenburn {
-  from { transform: scale(1.06); }
-  to   { transform: scale(1.0);  }
-}
-.ew-hero-overlay {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.78) 100%);
-  pointer-events: none;
-}
-.ew-hero-text {
-  position: absolute;
-  left: clamp(24px, 5vw, 88px);
-  bottom: clamp(80px, 10vh, 130px);
-  right: clamp(24px, 5vw, 88px);
-  z-index: 3;
-  max-width: 720px;
-}
-.ew-hero-title {
-  font-family: var(--font-serif, 'Cormorant Garamond', serif);
-  font-weight: 500;
-  font-size: clamp(38px, 6.4vw, 88px);
-  line-height: 1.0;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  margin: 0 0 18px;
-  color: #fff;
-}
-.ew-hero-tag {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: clamp(13px, 1.2vw, 16px);
-  font-weight: 400;
-  line-height: 1.55;
-  margin: 0 0 14px;
-  color: rgba(255,255,255,0.92);
-  max-width: 560px;
-}
-.ew-hero-sub {
-  font-family: var(--font-sans, 'Montserrat', sans-serif);
-  font-size: clamp(12px, 1.05vw, 14px);
-  font-weight: 300;
-  line-height: 1.6;
-  margin: 0;
-  color: rgba(255,255,255,0.78);
-  max-width: 560px;
 }
 
-/* Hero CTA pills (top right) */
-.ew-hero-cta {
-  position: absolute;
-  top: 96px;
-  right: clamp(24px, 5vw, 88px);
-  z-index: 3;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.ew-pill-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 11px 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all .3s var(--easing, ease);
-}
-.ew-pill-btn:hover { background: rgba(255,255,255,0.18); border-color: #fff; }
-.ew-pill-btn--dark {
-  background: #1a1a1a;
-  border-color: #1a1a1a;
-}
-.ew-pill-btn--dark:hover { background: var(--ew-gold); border-color: var(--ew-gold); }
-
-/* Gallery trigger (bottom right corner) */
+/* Gallery trigger (bottom-left corner of hero, optional helper) */
 .ew-gallery-trigger {
   position: absolute;
-  right: clamp(20px, 4vw, 56px);
-  bottom: clamp(32px, 6vh, 56px);
+  left: clamp(20px, 4vw, 56px);
+  bottom: clamp(24px, 4vh, 40px);
   z-index: 4;
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
@@ -141,7 +58,108 @@
   cursor: pointer;
   transition: all .3s ease;
 }
-.ew-gallery-trigger:hover { background: rgba(255,255,255,0.15); }
+
+/* =========================================================
+   ACTION STRIP (cream strip directly under video)
+   ========================================================= */
+.ew-action-strip {
+  background: var(--ew-cream);
+  padding: clamp(18px, 2.4vw, 30px) clamp(20px, 4vw, 56px);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.ew-action-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.ew-gallery-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  padding: 8px 4px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: color .25s ease;
+}
+.ew-gallery-btn:hover { color: var(--ew-gold); }
+.ew-action-cta { display: flex; gap: 0; }
+.ew-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 38px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all .3s ease;
+  border: 1px solid var(--ew-gold);
+  white-space: nowrap;
+}
+.ew-btn--outline {
+  background: #fff;
+  color: #1a1a1a;
+}
+.ew-btn--outline:hover { background: var(--ew-cream); }
+.ew-btn--gold {
+  background: var(--ew-gold);
+  color: #fff;
+  border-left: 0;
+}
+.ew-btn--gold:hover { background: #574d33; border-color: #574d33; }
+
+/* =========================================================
+   INTRO (centered title + tagline below action strip)
+   ========================================================= */
+.ew-intro {
+  background: var(--ew-cream);
+  padding: clamp(60px, 9vw, 130px) clamp(20px, 5vw, 56px) clamp(50px, 7vw, 100px);
+  text-align: center;
+}
+.ew-intro-title {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-weight: 500;
+  font-size: clamp(34px, 4.8vw, 72px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ew-gold);
+  margin: 0 0 clamp(28px, 4vw, 48px);
+}
+.ew-intro-tag {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 500;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  max-width: 740px;
+  margin: 0 auto clamp(20px, 2.5vw, 32px);
+}
+.ew-intro-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  max-width: 700px;
+  margin: 0 auto;
+}
 
 /* =========================================================
    GALLERY (3-image strip)
@@ -627,11 +645,14 @@
 }
 
 @media (max-width: 768px) {
-  .ew-hero { min-height: 580px; height: 92vh; }
-  .ew-hero-cta { top: 80px; right: 16px; }
-  .ew-pill-btn { padding: 9px 16px; font-size: 10px; letter-spacing: 0.18em; }
-  .ew-hero-text { left: 22px; right: 22px; bottom: 100px; }
-  .ew-gallery-trigger { right: 18px; bottom: 22px; padding: 8px 14px; font-size: 10px; }
+  .ew-hero { min-height: 480px; height: 70vh; }
+  .ew-action-strip { padding: 14px 18px; }
+  .ew-action-inner { gap: 12px; }
+  .ew-gallery-btn { font-size: 11px; letter-spacing: 0.2em; gap: 8px; }
+  .ew-gallery-btn svg { width: 16px; height: 16px; }
+  .ew-action-cta { flex: 1; justify-content: flex-end; }
+  .ew-btn { padding: 13px 18px; font-size: 10px; letter-spacing: 0.18em; }
+  .ew-intro { padding: 50px 22px 40px; }
 
   .ew-gallery-grid { grid-template-columns: 1fr; gap: 8px; }
   .ew-g-item, .ew-g-item--lg { aspect-ratio: 4 / 3; }
@@ -654,9 +675,9 @@
 }
 
 @media (max-width: 480px) {
-  .ew-hero-title { font-size: 36px; }
-  .ew-hero-tag { font-size: 12px; }
-  .ew-hero-sub { font-size: 11px; }
+  .ew-hero { min-height: 420px; height: 62vh; }
+  .ew-intro-title { font-size: 30px; }
+  .ew-intro-tag, .ew-intro-sub { font-size: 11px; letter-spacing: 0.03em; }
   .ew-club-title, .ew-invest-title, .ew-location-title, .ew-enquire-title {
     font-size: 32px;
   }

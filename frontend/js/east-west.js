@@ -46,6 +46,8 @@
   });
   if (viewAllBtn) viewAllBtn.addEventListener('click', e => { e.preventDefault(); openLightbox(0); });
   if (galleryTriggerBtn) galleryTriggerBtn.addEventListener('click', () => openLightbox(0));
+  const galleryBtn = $('#ewGalleryBtn');
+  if (galleryBtn) galleryBtn.addEventListener('click', () => openLightbox(0));
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   if (prevBtn) prevBtn.addEventListener('click', prev);
   if (nextBtn) nextBtn.addEventListener('click', next);

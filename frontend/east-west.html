@@ -138,22 +138,43 @@
   <!-- ============================= PROJECT HERO ============================= -->
   <section class="ew-hero" id="top">
     <div class="ew-hero-media">
-      <img src="https://cdn.darglobal.co.uk/Serviced_V5_HR_1_806fc87cc0.webp" alt="The Residences East West — Interior" />
-    </div>
-    <div class="ew-hero-overlay"></div>
-    <div class="ew-hero-cta">
-      <a href="#brochure" class="ew-pill-btn">Download Brochure</a>
-      <a href="#register" class="ew-pill-btn ew-pill-btn--dark">BOOK UNIT</a>
+      <video
+        class="ew-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="https://cdn.darglobal.co.uk/Serviced_V5_HR_1_806fc87cc0.webp">
+        <!-- TODO: Replace with own East West project video -->
+        <source src="./media/videos/collab-video.mp4" type="video/mp4" />
+      </video>
     </div>
     <button class="ew-gallery-trigger" id="ewGalleryTrigger" aria-label="Open gallery">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="9" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-      <span>Gallery</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="9" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span>GALLERY</span>
     </button>
-    <div class="ew-hero-text reveal-up">
-      <h1 class="ew-hero-title">the residences east west</h1>
-      <p class="ew-hero-tag">Fully furnished 1, 2 &amp; 3&#8209;bedroom signature residences with premium interiors and concierge services in the heart of Bağdat Caddesi.</p>
-      <p class="ew-hero-sub">Just steps from the Marmara coastline, fine dining, boutique shopping, and Istanbul&rsquo;s most refined daily essentials.</p>
+  </section>
+
+  <!-- Action strip directly below the video -->
+  <div class="ew-action-strip">
+    <div class="ew-action-inner">
+      <button class="ew-gallery-btn" id="ewGalleryBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="9" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>GALLERY</span>
+      </button>
+      <div class="ew-action-cta">
+        <a href="#register" class="ew-btn ew-btn--outline">BOOK UNIT</a>
+        <a href="#brochure" class="ew-btn ew-btn--gold">DOWNLOAD BROCHURE</a>
+      </div>
     </div>
+  </div>
+
+  <!-- Title block (centered, below the action strip) -->
+  <section class="ew-intro">
+    <h1 class="ew-intro-title reveal-up">the residences east west</h1>
+    <p class="ew-intro-tag reveal-up">Fully furnished 1, 2 &amp; 3&#8209;bedroom signature residences with premium interiors and concierge services in the heart of Bağdat Caddesi.</p>
+    <p class="ew-intro-sub reveal-up">Just steps from the Marmara coastline, fine dining, boutique shopping, and Istanbul&rsquo;s most refined daily essentials.</p>
   </section>
 
   <!-- ============================= GALLERY ============================= -->
