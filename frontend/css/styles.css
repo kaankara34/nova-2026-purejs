@@ -1084,7 +1084,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 24px; margin-bottom: clamp(30px, 4vw, 54px); flex-wrap: wrap;
 }
 .section-head .title {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 700;
   letter-spacing: 0.26em;
