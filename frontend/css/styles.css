@@ -466,6 +466,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   grid-template-columns: 360px 320px 1fr;
   gap: 0;
   margin-top: 80px;
+  margin-bottom: 160px;
   overflow: hidden;
   min-height: 0;
   position: relative;
@@ -552,16 +553,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .col-projects-sb-thumb:active { cursor: grabbing; background: #574d33; }
 
 /* Column 1: main items */
-.col-main {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 .col-main .menu-list {
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
 }
 .col-main .menu-link {
   width: 100%;
@@ -750,12 +744,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #6b6b6b;
 }
 
-/* Footer — lives INSIDE col-main so it always matches the first section's width & center */
+/* Footer — absolutely anchored to the INITIAL panel (420px) inner content area
+   so its horizontal center == panel center, and it does NOT move when menu expands */
 .side-menu-foot {
-  flex: 0 0 auto;
-  margin-top: auto;
-  padding-top: 18px;
+  position: absolute;
+  left: clamp(28px, 4vw, 56px);
+  bottom: 24px;
+  width: calc(420px - 2 * clamp(28px, 4vw, 56px));
   text-align: center;
+  z-index: 4;
 }
 
 /* Brand block — only "BUILD BEYOND LIVING" tagline, centered within the col-main area */
@@ -811,6 +808,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   .col-sub.mobile-show { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
   .col-projects { display: none; }
+  .side-menu-grid { margin-bottom: 0; }
+  .side-menu-foot {
+    position: static;
+    width: 100%;
+    left: auto;
+    bottom: auto;
+    margin-top: 24px;
+  }
 }
 @media (max-width: 480px) {
   .side-menu { padding: 24px 22px; }
