@@ -750,9 +750,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-top: 12px;
   width: 100%;
   max-width: 360px;
+  text-align: center;
 }
 
-/* Brand block — only "BUILD BEYOND LIVING" tagline, left-aligned with terms */
+/* Brand block — only "BUILD BEYOND LIVING" tagline, centered within the col-main area */
 .brand-block {
   padding-bottom: 18px;
   margin-bottom: 18px;
@@ -774,7 +775,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #888;
   padding-bottom: 14px;
 }
-.side-menu-foot .socials { display: flex; gap: 12px; }
+.side-menu-foot .socials { display: flex; gap: 12px; justify-content: center; }
 .side-menu-foot .socials a {
   width: 36px; height: 36px; border-radius: 50%;
   border: 1px solid #d2d2d2;
