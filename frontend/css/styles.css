@@ -743,31 +743,31 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #6b6b6b;
 }
 
-/* Footer */
+/* Footer — anchored to col-main width so it does NOT shift when menu expands */
 .side-menu-foot {
   flex-shrink: 0;
   padding-top: 18px;
   margin-top: 12px;
+  width: 100%;
+  max-width: 360px;
 }
 
-/* Brand block above terms — corporate, symmetric */
+/* Brand block — only "BUILD BEYOND LIVING" tagline, left-aligned with terms */
 .brand-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 0 22px;
+  padding-bottom: 18px;
   margin-bottom: 18px;
   border-bottom: 1px solid #ececec;
 }
-.brand-block .brand-mark {
-  display: block;
-  width: clamp(180px, 70%, 240px);
-  height: auto;
-  object-fit: contain;
-  opacity: 0.92;
-  transition: opacity .25s ease;
+.brand-block .brand-tagline {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  line-height: 1;
+  white-space: nowrap;
 }
-.brand-block .brand-mark:hover { opacity: 1; }
 
 .side-menu-foot .terms {
   font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
