@@ -744,6 +744,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #6b6b6b;
 }
 
+/* "BUILD BEYOND LIVING" menu item — Cormorant Garamond for an elegant accent */
+.col-main .menu-item.bb-living .menu-link .label {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
 /* Footer — absolutely anchored to the INITIAL panel (420px) inner content area
    so its horizontal center == panel center, and it does NOT move when menu expands */
 .side-menu-foot {
@@ -912,14 +921,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .col-projects,
   .col-projects-sb { display: none !important; }
 
-  /* Footer becomes static at the bottom of main panel */
+  /* Footer becomes static at the bottom of main panel; line extends full device width */
   .side-menu-foot {
     position: static;
-    width: 100%;
+    width: auto;
     left: auto;
     bottom: auto;
-    margin: 24px 0 0;
-    padding-top: 18px;
+    margin: 24px calc(-1 * clamp(28px, 4vw, 56px)) 0;
+    padding: 18px clamp(28px, 4vw, 56px) 0;
     border-top: 1px solid #ececec;
   }
 
@@ -941,6 +950,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     font-size: 12px; padding: 14px 0;
   }
   .brand-block {
+    margin-left: -22px;
+    margin-right: -22px;
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+  .side-menu-foot {
     margin-left: -22px;
     margin-right: -22px;
     padding-left: 22px;
