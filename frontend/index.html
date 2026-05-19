@@ -106,13 +106,27 @@
 
       <!-- Column 2: Sub-menus (only one visible at a time) -->
       <div class="side-menu-col col-sub">
-        <ul class="submenu" data-id="devs">
+        <div class="col-sub-head">
+          <button class="col-sub-back" id="colSubBack" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <span class="col-sub-title" id="colSubTitle"></span>
+        </div>
+        <ul class="submenu" data-id="devs" data-title="LATEST DEVELOPMENTS">
           <li><a href="#projects"><span class="label">VIEW ALL</span></a></li>
-          <li class="has-projects" data-projects="istanbul"><a href="#projects"><span class="label">İSTANBUL</span><span class="chev" aria-hidden="true">›</span></a></li>
+          <li class="has-projects" data-projects="istanbul">
+            <a href="#projects"><span class="label">İSTANBUL</span><span class="chev" aria-hidden="true">›</span></a>
+            <ul class="sub-accordion" aria-hidden="true">
+              <li><a href="#projects">THE RESIDENCES EAST WEST</a></li>
+              <li><a href="#projects">THE APARTMENTS TAÇ</a></li>
+              <li><a href="#projects">THE APARTMENTS ANA</a></li>
+              <li><a href="#projects" class="view-all-link">VIEW ALL</a></li>
+            </ul>
+          </li>
           <li><a href="#projects"><span class="label">ANATOLIAN SIDE</span></a></li>
           <li><a href="#projects"><span class="label">EUROPEAN SIDE</span></a></li>
         </ul>
-        <ul class="submenu" data-id="nova-konut">
+        <ul class="submenu" data-id="nova-konut" data-title="NOVA KONUT">
           <li><a href="#"><span class="label">ABOUT NOVA</span></a></li>
           <li><a href="#"><span class="label">BOARD</span></a></li>
           <li><a href="#"><span class="label">TEAM</span></a></li>

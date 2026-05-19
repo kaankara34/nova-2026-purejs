@@ -799,39 +799,146 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .side-menu-foot .socials a:hover { background: #6f6243; color: #fff; border-color: #6f6243; }
 .side-menu-foot .socials a svg { width: 14px; height: 14px; }
 
+/* Sub-panel header (visible only in mobile slide-in mode) */
+.col-sub-head {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #ececec;
+}
+.col-sub-back {
+  width: 30px; height: 30px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; color: #1a1a1a;
+  cursor: pointer; padding: 0;
+}
+.col-sub-title {
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+
+/* Accordion (mobile only): hidden on desktop */
+.col-sub .submenu .sub-accordion {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+.col-sub .submenu li.has-projects.expanded .sub-accordion {
+  display: block;
+}
+.col-sub .submenu .sub-accordion li {
+  padding: 0;
+}
+.col-sub .submenu .sub-accordion a {
+  display: block;
+  padding: 12px 0 12px 16px;
+  font-family: var(--font-sans, 'Montserrat', sans-serif);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #555;
+  text-decoration: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+.col-sub .submenu .sub-accordion a.view-all-link { color: #6f6243; }
+
 /* Tablet & Mobile */
 @media (max-width: 1200px) {
   .side-menu.expanded-2 { width: 100vw; }
   .side-menu-grid { grid-template-columns: 300px 280px 1fr; }
 }
-@media (max-width: 900px) {
-  .side-menu, .side-menu.expanded-1, .side-menu.expanded-2 { width: 100vw; }
+
+/* ≤1100px: switch to mobile slide-in panel behavior (darglobal-style) */
+@media (max-width: 1100px) {
+  .side-menu,
+  .side-menu.expanded-1,
+  .side-menu.expanded-2 {
+    width: 100vw;
+    max-width: 480px;
+  }
+  /* Reset grid to a single overlay area */
   .side-menu-grid {
     display: block;
     margin-top: 64px;
+    margin-bottom: 0;
+    overflow: hidden;
+    position: relative;
+    height: calc(100vh - 64px - 220px); /* leave room for footer */
   }
-  .col-main { display: block; }
+  .side-menu-col {
+    height: auto;
+    padding: 0;
+  }
+  .col-main {
+    display: block;
+    overflow-y: auto;
+    height: 100%;
+  }
+  /* Sub-column slides in from the right ABOVE col-main */
   .col-sub {
-    display: none;
-    padding-left: 16px;
-    border-left: 2px solid #eee;
-    margin-top: 4px;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: block;
+    background: #fff;
+    transform: translateX(100%);
+    transition: transform .4s var(--easing);
+    visibility: hidden;
+    opacity: 1;
+    pointer-events: none;
+    padding: 0 clamp(22px, 4vw, 32px);
+    overflow-y: auto;
+    z-index: 3;
   }
-  .col-sub.mobile-show { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
-  .col-projects { display: none; }
-  .side-menu-grid { margin-bottom: 0; }
+  .col-sub::before { display: none; }
+  .side-menu.sub-open .col-sub {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+  /* Hide all submenu lists by default, show only the active one */
+  .col-sub .submenu { display: none; }
+  .col-sub .submenu.active { display: flex; }
+  .col-sub-head { display: flex; }
+
+  /* col-projects (image cards) hidden entirely on small screens */
+  .col-projects,
+  .col-projects-sb { display: none !important; }
+
+  /* Footer becomes static at the bottom of main panel */
   .side-menu-foot {
     position: static;
     width: 100%;
     left: auto;
     bottom: auto;
-    margin-top: 24px;
+    margin: 24px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid #ececec;
+  }
+
+  /* Menu items: bigger touch targets */
+  .col-main .menu-link {
+    padding: 16px 0;
+    font-size: 13px;
+  }
+  .col-sub .submenu a {
+    padding: 16px 0;
+    font-size: 13px;
   }
 }
+
+/* ≤480px: tighter padding for phones */
 @media (max-width: 480px) {
-  .side-menu { padding: 24px 22px; }
+  .side-menu { padding: 22px 22px 24px; }
   .col-main .menu-link, .col-sub .submenu a {
-    font-size: 12px; padding: 12px 0;
+    font-size: 12px; padding: 14px 0;
   }
   .brand-block {
     margin-left: -22px;

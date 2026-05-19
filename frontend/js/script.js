@@ -12,15 +12,19 @@
   const overlay = $('#sideMenuOverlay');
   const openBtn = $('#menuToggle');
   const closeBtn = $('#menuClose');
+  const subBackBtn = $('#colSubBack');
+  const subTitleEl = $('#colSubTitle');
+
+  const MOBILE_BP = 1100;
+  const isMobile = () => window.innerWidth <= MOBILE_BP;
 
   function resetMenuState() {
-    menu.classList.remove('expanded-1', 'expanded-2');
+    menu.classList.remove('expanded-1', 'expanded-2', 'sub-open');
     $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
     $$('.col-sub .submenu').forEach(s => s.classList.remove('active'));
-    $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('active'));
+    $$('.col-sub .submenu li.has-projects').forEach(li => { li.classList.remove('active'); li.classList.remove('expanded'); });
     $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
-    const subCol = $('.col-sub');
-    if (subCol) subCol.classList.remove('mobile-show');
+    if (subTitleEl) subTitleEl.textContent = '';
   }
 
   function openMenu() {
@@ -38,7 +42,14 @@
   closeBtn && closeBtn.addEventListener('click', closeMenu);
   overlay && overlay.addEventListener('click', closeMenu);
 
-  // Main menu items: HOVER to reveal submenu (also click for mobile)
+  // Back button (mobile): close sub-panel and return to main
+  subBackBtn && subBackBtn.addEventListener('click', () => {
+    menu.classList.remove('sub-open');
+    $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
+    $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('expanded'));
+  });
+
+  // Main menu items: HOVER (desktop) / CLICK (mobile) to reveal submenu
   let hoverTimer = null;
   $$('.col-main .menu-item').forEach(item => {
     const link = item.querySelector('.menu-link');
@@ -50,47 +61,45 @@
       clearTimeout(hoverTimer);
       $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
       $$('.col-sub .submenu').forEach(s => s.classList.remove('active'));
-      $$('.col-sub .submenu li.has-projects').forEach(li => li.classList.remove('active'));
+      $$('.col-sub .submenu li.has-projects').forEach(li => { li.classList.remove('active'); li.classList.remove('expanded'); });
       $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
       item.classList.add('active');
       const sub = $('.col-sub .submenu[data-id="' + target + '"]');
-      if (sub) sub.classList.add('active');
-      menu.classList.add('expanded-1');
-      menu.classList.remove('expanded-2');
-      if (window.innerWidth <= 900) $('.col-sub').classList.add('mobile-show');
+      if (sub) {
+        sub.classList.add('active');
+        if (subTitleEl) subTitleEl.textContent = sub.dataset.title || '';
+      }
+      if (isMobile()) {
+        menu.classList.add('sub-open');
+        menu.classList.remove('expanded-1', 'expanded-2');
+      } else {
+        menu.classList.add('expanded-1');
+        menu.classList.remove('expanded-2');
+      }
     };
 
     // Desktop: hover opens
     item.addEventListener('mouseenter', () => {
-      if (window.innerWidth > 900) showSub();
+      if (!isMobile()) showSub();
     });
 
-    // Click: for mobile + for direct nav on non-sub items
+    // Click: works on both, but mobile uses slide-in
     link.addEventListener('click', e => {
       if (item.classList.contains('has-sub') && target) {
         e.preventDefault();
-        if (window.innerWidth <= 900) {
-          // Mobile: toggle
-          const isActive = item.classList.contains('active');
-          if (isActive) {
-            item.classList.remove('active');
-            $('.col-sub').classList.remove('mobile-show');
-            menu.classList.remove('expanded-1', 'expanded-2');
-          } else {
-            showSub();
-          }
-        } else {
-          showSub();
-        }
+        showSub();
       } else {
         closeMenu();
       }
     });
   });
 
-  // Submenu items with projects: HOVER reveals 3rd column
+  // Submenu items with projects:
+  //  - Desktop: hover/click reveals 3rd column (image cards)
+  //  - Mobile: click toggles inline accordion
   $$('.col-sub .submenu li.has-projects').forEach(li => {
-    const reveal = () => {
+    const a = li.querySelector('a');
+    const revealDesktop = () => {
       $$('.col-sub .submenu li.has-projects').forEach(x => x.classList.remove('active'));
       $$('.col-projects .projects-preview').forEach(p => p.classList.remove('active'));
       li.classList.add('active');
@@ -99,8 +108,19 @@
       if (preview) preview.classList.add('active');
       menu.classList.add('expanded-2');
     };
-    li.addEventListener('mouseenter', reveal);
-    li.addEventListener('click', e => { e.preventDefault(); reveal(); });
+    const toggleMobile = () => {
+      const wasExpanded = li.classList.contains('expanded');
+      $$('.col-sub .submenu li.has-projects').forEach(x => x.classList.remove('expanded'));
+      if (!wasExpanded) li.classList.add('expanded');
+    };
+    li.addEventListener('mouseenter', () => { if (!isMobile()) revealDesktop(); });
+    if (a) {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        if (isMobile()) toggleMobile();
+        else revealDesktop();
+      });
+    }
   });
 
   // Plain submenu links without projects: close menu on click
