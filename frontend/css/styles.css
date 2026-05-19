@@ -468,6 +468,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-top: 80px;
   overflow: hidden;
   min-height: 0;
+  position: relative;
 }
 .side-menu-col {
   height: 100%;
@@ -501,29 +502,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .side-menu-col::-webkit-scrollbar { width: 4px; }
 .side-menu-col::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 
-/* Always-visible custom scrollbar for project cards column */
+/* Hide native scrollbar on col-projects — we render a custom always-visible gold one */
 .col-projects {
-  scrollbar-width: thin;
-  scrollbar-color: #a8997a #f0ece2;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   overflow-y: scroll !important;
+  overflow-x: hidden;
 }
 .col-projects::-webkit-scrollbar {
-  width: 8px !important;
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
   -webkit-appearance: none !important;
-  background-color: #f0ece2 !important;
-  display: block !important;
+  background: transparent !important;
 }
-.col-projects::-webkit-scrollbar-track {
-  background: #f0ece2 !important;
-  border-radius: 4px;
+.col-projects::-webkit-scrollbar-thumb,
+.col-projects::-webkit-scrollbar-track { background: transparent !important; }
+
+/* Custom always-visible GOLD scrollbar overlay */
+.col-projects-sb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  background: #f0ece2;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  z-index: 5;
 }
-.col-projects::-webkit-scrollbar-thumb {
-  background: #a8997a !important;
-  border-radius: 4px;
-  min-height: 60px;
-  border: 1px solid #f0ece2;
+.side-menu.expanded-2 .col-projects-sb {
+  opacity: 1;
+  pointer-events: auto;
 }
-.col-projects::-webkit-scrollbar-thumb:hover { background: #6f6243 !important; }
+.col-projects-sb-thumb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #6f6243;
+  border-radius: 3px;
+  min-height: 40px;
+  cursor: grab;
+  transition: background .2s ease;
+}
+.col-projects-sb-thumb:hover { background: #574d33; }
+.col-projects-sb-thumb:active { cursor: grabbing; background: #574d33; }
 
 /* Column 1: main items */
 .col-main .menu-list {

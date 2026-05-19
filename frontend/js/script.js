@@ -109,6 +109,103 @@
   });
   $$('.col-projects .proj-card').forEach(c => c.addEventListener('click', closeMenu));
 
+  /* ========== Custom always-visible GOLD scrollbar for col-projects ========== */
+  const colProj = $('.col-projects');
+  const sbTrack = $('#colProjectsSb');
+  const sbThumb = $('#colProjectsSbThumb');
+
+  function updateColProjScrollbar() {
+    if (!colProj || !sbThumb || !sbTrack) return;
+    const sh = colProj.scrollHeight;
+    const ch = colProj.clientHeight;
+    if (sh <= ch) {
+      sbThumb.style.height = '0px';
+      sbThumb.style.top = '0px';
+      sbTrack.style.display = 'none';
+      return;
+    }
+    sbTrack.style.display = 'block';
+    const ratio = ch / sh;
+    const thumbH = Math.max(40, ch * ratio);
+    const maxScroll = sh - ch;
+    const thumbTop = maxScroll > 0
+      ? (colProj.scrollTop / maxScroll) * (ch - thumbH)
+      : 0;
+    sbThumb.style.height = thumbH + 'px';
+    sbThumb.style.top = thumbTop + 'px';
+    // align track to col-projects bounding box (within side-menu-grid)
+    const grid = sbTrack.parentElement;
+    if (grid) {
+      const gRect = grid.getBoundingClientRect();
+      const cRect = colProj.getBoundingClientRect();
+      sbTrack.style.top = (cRect.top - gRect.top) + 'px';
+      sbTrack.style.height = cRect.height + 'px';
+    }
+  }
+
+  if (colProj && sbThumb && sbTrack) {
+    colProj.addEventListener('scroll', updateColProjScrollbar, { passive: true });
+    window.addEventListener('resize', updateColProjScrollbar);
+    // Re-measure when the menu expands to column 3 (images may still be loading)
+    const sm = $('#sideMenu');
+    if (sm) {
+      const mo = new MutationObserver(() => {
+        if (sm.classList.contains('expanded-2')) {
+          requestAnimationFrame(updateColProjScrollbar);
+          setTimeout(updateColProjScrollbar, 250);
+          setTimeout(updateColProjScrollbar, 600);
+        }
+      });
+      mo.observe(sm, { attributes: true, attributeFilter: ['class'] });
+    }
+    // Recalc once images inside col-projects load
+    $$('.col-projects img').forEach(img => {
+      if (img.complete) return;
+      img.addEventListener('load', updateColProjScrollbar);
+    });
+    updateColProjScrollbar();
+
+    // Drag-to-scroll on thumb
+    let dragging = false;
+    let dragStartY = 0;
+    let dragStartScroll = 0;
+    sbThumb.addEventListener('mousedown', e => {
+      dragging = true;
+      dragStartY = e.clientY;
+      dragStartScroll = colProj.scrollTop;
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      const ch = colProj.clientHeight;
+      const sh = colProj.scrollHeight;
+      const maxScroll = sh - ch;
+      const thumbH = sbThumb.offsetHeight;
+      const scrollableArea = ch - thumbH;
+      if (scrollableArea <= 0) return;
+      const delta = (e.clientY - dragStartY) / scrollableArea * maxScroll;
+      colProj.scrollTop = dragStartScroll + delta;
+    });
+    document.addEventListener('mouseup', () => {
+      if (dragging) {
+        dragging = false;
+        document.body.style.userSelect = '';
+      }
+    });
+    // Click on track jumps thumb
+    sbTrack.addEventListener('mousedown', e => {
+      if (e.target === sbThumb) return;
+      const trackRect = sbTrack.getBoundingClientRect();
+      const clickY = e.clientY - trackRect.top;
+      const thumbH = sbThumb.offsetHeight;
+      const ch = colProj.clientHeight;
+      const sh = colProj.scrollHeight;
+      const ratio = (clickY - thumbH / 2) / (ch - thumbH);
+      colProj.scrollTop = Math.max(0, Math.min(sh - ch, ratio * (sh - ch)));
+    });
+  }
+
   /* ========== Header transparency on scroll ========== */
   const header = $('.site-header');
   const heroEl = $('.hero');
