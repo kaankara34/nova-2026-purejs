@@ -743,13 +743,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #6b6b6b;
 }
 
-/* Footer — anchored to col-main width so it does NOT shift when menu expands */
+/* Footer — anchored to col-main (360px) so it stays centered in section 1 across all menu states */
 .side-menu-foot {
   flex-shrink: 0;
+  align-self: flex-start;
   padding-top: 18px;
   margin-top: 12px;
-  width: 100%;
-  max-width: 360px;
+  width: 360px;
   text-align: center;
 }
 
@@ -806,6 +806,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   }
   .col-sub.mobile-show { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
   .col-projects { display: none; }
+  .side-menu-foot { width: 100%; }
 }
 @media (max-width: 480px) {
   .side-menu { padding: 24px 22px; }
