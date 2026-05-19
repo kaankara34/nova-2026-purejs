@@ -58,3 +58,42 @@ Create a pixel-perfect clone of `https://darglobal.co.uk/` homepage using ONLY v
 - Always test with `mcp_screenshot_tool` after visual changes.
 - Preview URL: `https://darg-clone-1.preview.emergentagent.com` (no `frontend/.env`; this URL comes from the env var `preview_endpoint`).
 - Git pulls from `kaankara34/nova-2026-purejs` may need direct URL fetch+merge (not plain `git pull`).
+
+## Session — May 2026 (East West Project Page)
+
+### New page: `/east-west.html`
+Structural clone of darglobal.co.uk/trump-plaza/executive-residences with Nova-themed placeholder content. User explicitly chose "Option B - Structural Clone".
+
+**Sections built (top → bottom):**
+1. **Hero** — Full-screen background image, gold ken-burns animation, "THE RESIDENCES EAST WEST" title (Cormorant Garamond), tagline, sub-text. Top-right pills: "Download Brochure" / "BOOK UNIT". Bottom-right "Gallery" trigger.
+2. **Gallery** — 3-image grid (1 large + 2 small), hover zoom, "VIEW ALL" → lightbox.
+3. **Property Specs** — 6-column table (Property Type, Unit Type, Features, Area SQM, Status, Expected Completion). Collapses to 3-col tablet, 2-col mobile.
+4. **The Club at East West** — Hero image + heading + description, then 4-col amenities grid (10 tiles: golf simulator, spa, coffee lounge, pools, recovery, fine dining, cigar lounge, members lounges, performance space, day care).
+5. **Why Invest in Istanbul** — 11 numbered investment reasons (Turkey/Istanbul context — citizenship by investment, Bağdat Caddesi, etc.) + sticky side image.
+6. **Location** — Title + lead + description + brochure preview image + map card with address (Çiftehavuzlar, Bağdat Caddesi).
+7. **Enquire Now Form** — Full Name, Code+Phone, Email, Project select, Source select, Privacy/Newsletter checkboxes, Submit (UI-only).
+
+### Files added
+- `/app/frontend/east-west.html` (full page, ~25KB)
+- `/app/frontend/css/east-west.css` (page-specific styles, ~18KB)
+- `/app/frontend/js/east-west.js` (lightbox gallery + form handler, ~3KB)
+- `/app/frontend/serve.json` (rewrites `/east-west` → `/east-west.html`, disables clean URL redirects)
+
+### Wired up
+- Homepage project card: "THE RESIDENCES EAST WEST" → links to `east-west.html`
+- Mega menu sub-accordion: same link
+- Shared navbar, side-menu, mobile-bottom-bar, footer reused 1:1
+
+### Responsive verified (screenshots)
+- Desktop (1920px): 6-col specs, 4-col amenities, 2-col form, sticky image in invest
+- iPad (1024px): 3-col specs, 3-col amenities, single-col invest+club
+- Mobile (430px): 1-col gallery, 2-col specs/amenities, stacked form fields, map info overlays at bottom
+
+### Other UI tweaks this session
+- Section titles (`LATEST LUXURY...`, `EXCLUSIVE COLLABORATIONS`, `ARTICLES & NEWS`) → Cormorant Garamond 23px, letter-spacing 0.02em, weight 700 (added 700 to Google Fonts link)
+- `BUILD BEYOND LIVING` menu item → Cormorant Garamond 16px, weight 600
+- Side-menu footer brand block: nOva logo + "BUILD BEYOND LIVING" tagline; full-width horizontal divider on mobile via negative-margin trick
+- Side-menu footer absolutely positioned to initial panel (420px) so center stays fixed across menu expansion states
+- Custom always-visible gold scrollbar (`#6f6243`) on `.col-projects` via custom div overlay (Chromium native scrollbar wasn't reliable)
+- Mobile mega menu (≤1100px): submenu now slides in from right with back-arrow header, accordion sub-items inline (darglobal-style)
+
