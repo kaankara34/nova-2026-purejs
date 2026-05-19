@@ -755,13 +755,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   z-index: 4;
 }
 
-/* Brand block — only "BUILD BEYOND LIVING" tagline; horizontal line extends full panel width */
+/* Brand block — "nOva" logo + "BUILD BEYOND LIVING" tagline; horizontal line extends full panel width */
 .brand-block {
   padding-bottom: 18px;
   margin: 0 calc(-1 * clamp(28px, 4vw, 56px)) 18px;
   padding-left: clamp(28px, 4vw, 56px);
   padding-right: clamp(28px, 4vw, 56px);
   border-bottom: 1px solid #ececec;
+  text-align: center;
+}
+.brand-block .brand-mark {
+  display: block;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 10px;
+  object-fit: contain;
+  opacity: 0.95;
 }
 .brand-block .brand-tagline {
   font-family: var(--font-serif, 'Cormorant Garamond', serif);
