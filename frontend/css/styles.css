@@ -755,10 +755,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   z-index: 4;
 }
 
-/* Brand block — only "BUILD BEYOND LIVING" tagline, centered within the col-main area */
+/* Brand block — only "BUILD BEYOND LIVING" tagline; horizontal line extends full panel width */
 .brand-block {
   padding-bottom: 18px;
-  margin-bottom: 18px;
+  margin: 0 calc(-1 * clamp(28px, 4vw, 56px)) 18px;
+  padding-left: clamp(28px, 4vw, 56px);
+  padding-right: clamp(28px, 4vw, 56px);
   border-bottom: 1px solid #ececec;
 }
 .brand-block .brand-tagline {
@@ -821,6 +823,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .side-menu { padding: 24px 22px; }
   .col-main .menu-link, .col-sub .submenu a {
     font-size: 12px; padding: 12px 0;
+  }
+  .brand-block {
+    margin-left: -22px;
+    margin-right: -22px;
+    padding-left: 22px;
+    padding-right: 22px;
   }
 }
 
