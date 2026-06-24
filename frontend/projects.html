@@ -67,6 +67,10 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <div class="side-menu-grid">
+      <!-- Custom always-visible gold scrollbar for col-projects -->
+      <div class="col-projects-sb" id="colProjectsSb" aria-hidden="true">
+        <div class="col-projects-sb-thumb" id="colProjectsSbThumb"></div>
+      </div>
       <nav class="side-menu-col col-main">
         <ul class="menu-list">
           <li class="menu-item"><a class="menu-link" href="index.html"><span class="label">HOMEPAGE</span></a></li>
@@ -113,11 +117,27 @@
         <div class="projects-preview" data-id="istanbul">
           <a href="east-west.html" class="proj-card">
             <div class="proj-img">
-              <img src="./media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West"/>
+              <img src="./media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West" width="280" height="234" loading="eager" decoding="async" fetchpriority="high" />
               <div class="proj-overlay"></div>
-              <div class="proj-logo-overlay"><img src="./media/images/logos/EASTWEST_v2-tight.svg" alt="East West"/></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/EASTWEST_v2-tight.svg" alt="The Residences East West" width="180" height="40" loading="eager" decoding="async" /></div>
             </div>
             <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="#" class="proj-card">
+            <div class="proj-img">
+              <img src="./media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/TAC_logo-tight.svg" alt="The Apartments Taç" width="180" height="44" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="#" class="proj-card">
+            <div class="proj-img">
+              <img src="./media/images/menu-thumbs/tac_render.webp" alt="The Apartments Ana" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/ANA_logo-tight.svg" alt="The Apartments Ana" width="180" height="44" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
           </a>
         </div>
       </div>
