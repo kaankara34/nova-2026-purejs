@@ -168,34 +168,14 @@
   <!-- ============================= FILTER BAR ============================= -->
   <section class="pj-filters">
     <div class="container">
-      <div class="pj-filter-row">
-        <div class="pj-filter">
-          <label class="pj-filter-label">Type</label>
-          <div class="pj-select-wrap">
-            <select class="pj-select" id="filterType" data-testid="filter-type">
-              <option value="all">All Types</option>
-              <option value="residences">Residences</option>
-              <option value="apartments">Apartments</option>
-              <option value="villas">Villas</option>
-              <option value="penthouses">Penthouses</option>
-            </select>
-            <span class="pj-select-arrow">›</span>
-          </div>
-        </div>
-        <div class="pj-filter">
-          <label class="pj-filter-label">Location</label>
-          <div class="pj-select-wrap">
-            <select class="pj-select" id="filterLocation" data-testid="filter-location">
-              <option value="all">All Locations</option>
-              <option value="bagdat-caddesi">Bağdat Caddesi</option>
-              <option value="anatolian-side">Anatolian Side</option>
-              <option value="european-side">European Side</option>
-              <option value="bosphorus">Bosphorus</option>
-              <option value="kadikoy">Kadıköy</option>
-            </select>
-            <span class="pj-select-arrow">›</span>
-          </div>
-        </div>
+      <div class="pj-pills" role="tablist" aria-label="Filter projects">
+        <button class="pj-pill is-active" data-filter="all" data-testid="filter-all">TÜMÜ</button>
+        <button class="pj-pill" data-filter="rezidans" data-testid="filter-rezidans">REZİDANS</button>
+        <button class="pj-pill" data-filter="karma" data-testid="filter-karma">KARMA KULLANIM</button>
+        <button class="pj-pill" data-filter="ofis" data-testid="filter-ofis">OFİS / TİCARİ</button>
+        <button class="pj-pill" data-filter="konaklama" data-testid="filter-konaklama">KONAKLAMA</button>
+        <button class="pj-pill" data-filter="gelecek" data-testid="filter-gelecek">GELECEK PROJELER</button>
+        <button class="pj-pill" data-filter="gecmis" data-testid="filter-gecmis">GEÇMİŞ PROJELER</button>
       </div>
     </div>
   </section>
@@ -205,73 +185,73 @@
     <div class="container">
       <div class="pj-grid" id="projectsGrid">
 
-        <a href="east-west.html" class="pj-card" data-type="residences" data-location="bagdat-caddesi anatolian-side kadikoy">
+        <a href="east-west.html" class="pj-card" data-filter="rezidans gelecek">
           <div class="pj-card-img"><img src="./media/images/dogubati_render.png" alt="The Residences East West" loading="lazy"/></div>
           <div class="pj-card-loc">Çiftehavuzlar, Bağdat Caddesi</div>
           <div class="pj-card-title">The Residences East West</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="apartments" data-location="bagdat-caddesi anatolian-side kadikoy">
+        <a href="#" class="pj-card" data-filter="rezidans gelecek">
           <div class="pj-card-img"><img src="./media/images/tac-ai-render.jpg" alt="The Apartments Taç" loading="lazy"/></div>
           <div class="pj-card-loc">Selamiçeşme, Bağdat Caddesi</div>
           <div class="pj-card-title">The Apartments Taç</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="apartments" data-location="bagdat-caddesi anatolian-side kadikoy">
+        <a href="#" class="pj-card" data-filter="rezidans gelecek">
           <div class="pj-card-img"><img src="./media/images/ana_render.jpeg" alt="The Apartments Ana" loading="lazy"/></div>
           <div class="pj-card-loc">Göztepe, Bağdat Caddesi</div>
           <div class="pj-card-title">The Apartments Ana</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="apartments" data-location="bagdat-caddesi anatolian-side kadikoy">
+        <a href="#" class="pj-card" data-filter="rezidans gelecek">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/amaya_1e8824a066.webp" alt="The Apartments Gür" loading="lazy"/></div>
           <div class="pj-card-loc">Kalamış, Bağdat Caddesi</div>
           <div class="pj-card-title">The Apartments Gür</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="residences" data-location="anatolian-side">
+        <a href="#" class="pj-card" data-filter="rezidans gelecek">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/Trump_Cliff_Villas_ea41c81539.webp" alt="The Residences Marmara" loading="lazy"/></div>
           <div class="pj-card-loc">Caddebostan, Istanbul</div>
           <div class="pj-card-title">The Residences Marmara</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="villas" data-location="bosphorus european-side">
+        <a href="#" class="pj-card" data-filter="rezidans karma gelecek">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/Painite_Villa_int_2_2_2_599819cadf.png" alt="Bosphorus Villas" loading="lazy"/></div>
           <div class="pj-card-loc">Bebek, Bosphorus, Istanbul</div>
           <div class="pj-card-title">Bosphorus Villas</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="penthouses" data-location="european-side bosphorus">
+        <a href="#" class="pj-card" data-filter="karma konaklama gelecek">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/Dar_Al_Arkan_Pagani_Tower_Hero_night_1920x920_8fe82a572c.jpg" alt="Pera Penthouses" loading="lazy"/></div>
           <div class="pj-card-loc">Pera, Beyoğlu, Istanbul</div>
           <div class="pj-card-title">Pera Penthouses</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="apartments" data-location="european-side">
+        <a href="#" class="pj-card" data-filter="ofis karma gelecek">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/Tierra_Viva_10cfb11b2d.webp" alt="The Apartments Levent" loading="lazy"/></div>
           <div class="pj-card-loc">Levent, Şişli, Istanbul</div>
           <div class="pj-card-title">The Apartments Levent</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="residences" data-location="european-side">
+        <a href="#" class="pj-card" data-filter="rezidans gecmis">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/p2_5dc6d83487.jpg" alt="The Residences Nişantaşı" loading="lazy"/></div>
           <div class="pj-card-loc">Nişantaşı, Istanbul</div>
           <div class="pj-card-title">The Residences Nişantaşı</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="villas" data-location="anatolian-side">
+        <a href="#" class="pj-card" data-filter="rezidans gecmis">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/D_Villas_6db1da5ce0.webp" alt="Acarkent Villas" loading="lazy"/></div>
           <div class="pj-card-loc">Beykoz, Anatolian Side, Istanbul</div>
           <div class="pj-card-title">Acarkent Villas</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="residences" data-location="european-side">
+        <a href="#" class="pj-card" data-filter="rezidans konaklama gecmis">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/Les_Vagues_by_Elie_Saab_53cb6e285a.webp" alt="The Residences Maslak" loading="lazy"/></div>
           <div class="pj-card-loc">Maslak, Sarıyer, Istanbul</div>
           <div class="pj-card-title">The Residences Maslak</div>
         </a>
 
-        <a href="#" class="pj-card" data-type="apartments" data-location="anatolian-side kadikoy">
+        <a href="#" class="pj-card" data-filter="rezidans gecmis">
           <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/altara_rayana_luxury_d044087bef.webp" alt="The Apartments Moda" loading="lazy"/></div>
           <div class="pj-card-loc">Moda, Kadıköy, Istanbul</div>
           <div class="pj-card-title">The Apartments Moda</div>

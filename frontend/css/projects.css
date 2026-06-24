@@ -48,58 +48,52 @@
   color: #fff;
 }
 
-/* ============= FILTERS ============= */
+/* ============= FILTERS — Pill buttons ============= */
 .pj-filters {
   background: #fff;
   padding: clamp(36px, 5vw, 64px) 0 clamp(18px, 3vw, 30px);
   border-bottom: 1px solid var(--pj-line);
 }
-.pj-filter-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(24px, 4vw, 60px);
-  max-width: 920px;
-  margin: 0 auto;
+.pj-filters .container {
   padding: 0 clamp(20px, 4vw, 56px);
+  max-width: 1440px;
+  margin: 0 auto;
 }
-.pj-filter { display: flex; flex-direction: column; gap: 10px; }
-.pj-filter-label {
+.pj-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.pj-pill {
   font-family: var(--font-sans, 'Montserrat', sans-serif);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--pj-gold);
-}
-.pj-select-wrap { position: relative; }
-.pj-select {
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #bdbdbd;
-  padding: 12px 28px 12px 0;
-  font-family: var(--font-sans);
-  font-size: clamp(14px, 1.2vw, 16px);
-  font-weight: 500;
+  padding: 13px 22px;
+  background: #fff;
   color: var(--pj-text);
+  border: 1px solid var(--pj-text);
+  border-radius: 4px;
   cursor: pointer;
-  outline: none;
-  border-radius: 0;
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+  white-space: nowrap;
 }
-.pj-select:focus { border-bottom-color: var(--pj-gold); }
-.pj-select-arrow {
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
-  color: var(--pj-gold);
-  font-size: 16px;
-  font-weight: 400;
-  pointer-events: none;
-  font-family: var(--font-sans);
-  line-height: 1;
+.pj-pill:hover {
+  background: var(--pj-text);
+  color: #fff;
+}
+.pj-pill.is-active {
+  background: var(--pj-text);
+  color: #fff;
+  border-color: var(--pj-text);
+}
+
+@media (max-width: 768px) {
+  .pj-pills { gap: 8px 10px; }
+  .pj-pill { font-size: 10px; padding: 10px 16px; letter-spacing: 0.14em; }
 }
 
 /* ============= GRID ============= */

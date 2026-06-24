@@ -5,34 +5,36 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  const filterType = $('#filterType');
-  const filterLoc = $('#filterLocation');
+  const pills = $$('.pj-pill');
   const grid = $('#projectsGrid');
   const empty = $('#pjEmpty');
   const reset = $('#pjReset');
+  let currentFilter = 'all';
 
   function applyFilters() {
     if (!grid) return;
-    const t = filterType ? filterType.value : 'all';
-    const l = filterLoc ? filterLoc.value : 'all';
     let visible = 0;
     $$('.pj-card', grid).forEach(card => {
-      const types = (card.dataset.type || '').split(/\s+/);
-      const locs = (card.dataset.location || '').split(/\s+/);
-      const matchT = t === 'all' || types.includes(t);
-      const matchL = l === 'all' || locs.includes(l);
-      const show = matchT && matchL;
+      const filters = (card.dataset.filter || '').split(/\s+/);
+      const show = currentFilter === 'all' || filters.includes(currentFilter);
       card.classList.toggle('hidden', !show);
       if (show) visible++;
     });
     if (empty) empty.hidden = visible > 0;
   }
 
-  if (filterType) filterType.addEventListener('change', applyFilters);
-  if (filterLoc) filterLoc.addEventListener('change', applyFilters);
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('is-active'));
+      pill.classList.add('is-active');
+      currentFilter = pill.dataset.filter;
+      applyFilters();
+    });
+  });
+
   if (reset) reset.addEventListener('click', () => {
-    if (filterType) filterType.value = 'all';
-    if (filterLoc) filterLoc.value = 'all';
+    pills.forEach(p => p.classList.toggle('is-active', p.dataset.filter === 'all'));
+    currentFilter = 'all';
     applyFilters();
   });
 
