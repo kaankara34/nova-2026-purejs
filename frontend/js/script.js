@@ -228,9 +228,14 @@
 
   /* ========== Header transparency on scroll ========== */
   const header = $('.site-header');
-  const heroEl = $('.hero');
+  const heroEl = $('.hero, .pj-hero, .ew-hero');
   function onScroll() {
-    if (!heroEl || !header) return;
+    if (!header) return;
+    if (!heroEl) {
+      // No hero on this page — header is always solid
+      header.classList.remove('transparent');
+      return;
+    }
     const heroBottom = heroEl.getBoundingClientRect().bottom;
     if (heroBottom > 100) header.classList.add('transparent');
     else header.classList.remove('transparent');

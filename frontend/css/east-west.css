@@ -13,10 +13,6 @@
 }
 
 .page-project { background: #fff; color: #1a1a1a; }
-.page-project .site-header { background: rgba(255,255,255,0.96); border-bottom: 1px solid rgba(0,0,0,0.06); }
-.page-project .site-header.transparent { background: transparent; border-bottom-color: transparent; }
-.page-project .site-header .menu-toggle span { background: #1a1a1a; }
-.page-project .site-header.transparent .menu-toggle span { background: #fff; }
 
 /* =========================================================
    HERO — full-screen video, no overlay text
