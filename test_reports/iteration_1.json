@@ -1,0 +1,50 @@
+{
+  "summary": "Verified east-west.html action-strip overflow fix on both mobile (390x844) and desktop (1920x1080). All 5 requested checks PASS.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results_detail": {
+    "mobile_390x844": {
+      "action_inner_flex_direction": "column (PASS)",
+      "action_cta_flex_direction": "column-reverse (PASS)",
+      "gallery_btn_bbox": "x=145.3, y=541.3, w=99.4, h=30, right=244.7 (centered, no overflow)",
+      "book_unit_outline_bbox": "x=20, y=653.3, w=350, h=56, right=370 (full-width, no overflow, vw=390)",
+      "download_brochure_gold_bbox": "x=20, y=585.3, w=350, h=56, right=370 (full-width, no overflow)",
+      "overflow_check": "NONE — no button exceeds viewport right edge",
+      "visual_order_top_to_bottom": "GALLERY (y=541) -> DOWNLOAD BROCHURE gold (y=585) -> BOOK UNIT outline (y=653) — MATCHES REQUIREMENT",
+      "strip_bg": "rgb(242,237,228) = #f2ede4 (PASS)",
+      "intro_bg": "rgb(250,246,238) = #faf6ee (PASS)",
+      "border_bottom": "1px rgba(0,0,0,0.06) — subtle divider present (PASS)",
+      "utility_bar_initial": "class=utility-bar, transform=none (visible)",
+      "utility_bar_after_scroll_200px": "class='utility-bar hidden', transform=matrix(1,0,0,1,0,-36) — hides on scroll (PASS)"
+    },
+    "desktop_1920x1080": {
+      "action_inner_flex_direction": "row (PASS)",
+      "action_cta_flex_direction": "row (PASS)",
+      "gallery_btn_bbox": "x=240, right=353.2 (left side)",
+      "book_unit_bbox": "x=1208.1, right=1383.0",
+      "download_brochure_bbox": "x=1397.0, right=1680.0 (well within 1920)",
+      "gap_book_to_brochure": "14.0px (PASS — matches design 14px)",
+      "same_row_y_positions": "BOOK y=1110, BROCHURE y=1110 (aligned)",
+      "overflow_check": "NONE",
+      "utility_bar_initial": "transform=none (visible)",
+      "utility_bar_after_scroll_100px": "class='utility-bar hidden', transform=matrix(1,0,0,1,0,-40) — hides (PASS)"
+    }
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "east-west.html section still lacks data-testid attributes on action-strip elements (ew-gallery-btn, ew-btn--outline, ew-btn--gold) as noted by main agent — recommend adding for future automation stability.",
+    "Fix is minimal and clean; media query at line 642-649 in east-west.css correctly targets max-width:768px with column/column-reverse flex + width:100% on .ew-btn."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Static HTML site served at https://darg-clone-1.preview.emergentagent.com/east-west.html. Action-strip mobile overflow bug fully resolved. If further changes are made to .ew-action-strip / .ew-btn / utility-bar, re-run same Playwright checks at 390x844 and 1920x1080. Screenshots saved at /app/test_reports/mobile_action_strip.png and desktop_action_strip.png confirm visual layout.",
+  "rca_of_the_issue": "Original bug: on <=768px viewports the .ew-action-inner used default row layout, causing the wide DOWNLOAD BROCHURE button (padding 18px 38px, nowrap) to push past 390px viewport. Fix applied: media query max-width:768px sets .ew-action-inner{flex-direction:column;align-items:stretch}, .ew-action-cta{flex-direction:column-reverse;width:100%}, .ew-btn{width:100%;padding 18px 20px}. Verified: no button's right edge exceeds 370px on 390px viewport (20px side padding = symmetric). Order verified visually: GALLERY (top, centered) -> DOWNLOAD BROCHURE (gold, middle) -> BOOK UNIT (outline, bottom) due to column-reverse on .ew-action-cta which has DOM order [BOOK UNIT, DOWNLOAD BROCHURE]."
+}
