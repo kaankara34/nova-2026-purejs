@@ -144,20 +144,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .utility-social {
   width: 28px; height: 28px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.5);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  transition: background .2s ease, border-color .2s ease;
+  transition: opacity .2s ease;
 }
 .utility-social:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: #fff;
+  opacity: 0.75;
 }
 .utility-social svg {
-  width: 13px; height: 13px;
+  width: 16px; height: 16px;
   fill: #fff;
 }
 @media (max-width: 768px) {
