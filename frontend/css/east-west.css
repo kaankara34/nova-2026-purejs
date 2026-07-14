@@ -59,10 +59,9 @@
    ACTION STRIP (cream strip directly under video)
    ========================================================= */
 .ew-action-strip {
-  background: var(--ew-cream);
+  background: #f2ede4;
   padding: clamp(18px, 2.4vw, 30px) clamp(20px, 4vw, 56px);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 .ew-action-inner {
   display: flex;
@@ -120,7 +119,7 @@
    INTRO (centered title + tagline below action strip)
    ========================================================= */
 .ew-intro {
-  background: var(--ew-cream);
+  background: #faf6ee;
   padding: clamp(40px, 5vw, 80px) clamp(20px, 5vw, 56px) clamp(40px, 5vw, 70px);
   text-align: center;
 }
