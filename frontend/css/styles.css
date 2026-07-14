@@ -105,6 +105,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-family: var(--font-sans);
   font-size: 13px;
   letter-spacing: 0.02em;
+  transition: transform .35s var(--easing), opacity .3s ease;
+}
+.utility-bar.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
 }
 .utility-bar-inner {
   width: 100%;
@@ -186,9 +192,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   -webkit-backdrop-filter: blur(10px);
   z-index: 100;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  transition: background .4s var(--easing), border-color .4s var(--easing), color .4s var(--easing);
+  transition: background .4s var(--easing), border-color .4s var(--easing), color .4s var(--easing), top .35s var(--easing);
   color: #fff;
 }
+.site-header.bar-hidden { top: 0; }
 .site-header .menu-toggle span { background: #fff; }
 .site-header .icon-link svg { stroke: #fff; }
 .site-header .lang-switch { color: #fff; }
@@ -205,6 +212,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 @media (max-width: 768px) {
   .site-header { top: 36px; }
+  .site-header.bar-hidden { top: 0; }
 }
 
 .header-inner {

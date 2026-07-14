@@ -228,8 +228,19 @@
 
   /* ========== Header transparency on scroll ========== */
   const header = $('.site-header');
+  const utilityBar = $('.utility-bar');
   const heroEl = $('.hero, .pj-hero, .ew-hero');
   function onScroll() {
+    // Hide utility bar when scrolled down past 40px
+    if (utilityBar) {
+      if (window.scrollY > 40) {
+        utilityBar.classList.add('hidden');
+        if (header) header.classList.add('bar-hidden');
+      } else {
+        utilityBar.classList.remove('hidden');
+        if (header) header.classList.remove('bar-hidden');
+      }
+    }
     if (!header) return;
     if (!heroEl) {
       // No hero on this page — header is always solid
