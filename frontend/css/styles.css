@@ -155,7 +155,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .utility-social svg {
   width: 16px; height: 16px;
-  fill: #fff;
 }
 @media (max-width: 768px) {
   .utility-bar { height: 36px; font-size: 11px; }
