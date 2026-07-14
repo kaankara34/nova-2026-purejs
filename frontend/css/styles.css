@@ -158,7 +158,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   fill: #fff;
 }
 @media (max-width: 768px) {
-  .utility-bar { display: none; }
+  .utility-bar { height: 36px; font-size: 11px; }
+  .utility-bar-inner { padding: 0 14px; gap: 10px; }
+  .utility-left { gap: 16px; }
+  .utility-item svg { width: 13px; height: 13px; }
+  .utility-item { gap: 6px; }
+  .utility-socials { gap: 12px; }
+  .utility-social { width: 22px; height: 22px; }
+  .utility-social svg { width: 14px; height: 14px; }
+}
+@media (max-width: 420px) {
+  .utility-bar { font-size: 10px; }
+  .utility-bar-inner { gap: 6px; padding: 0 10px; }
+  .utility-left { gap: 10px; }
+  .utility-socials { gap: 9px; }
+  .utility-social svg { width: 13px; height: 13px; }
 }
 
 /* =========================================================
@@ -191,7 +205,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #fff;
 }
 @media (max-width: 768px) {
-  .site-header { top: 0; }
+  .site-header { top: 36px; }
 }
 
 .header-inner {
