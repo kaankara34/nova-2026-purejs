@@ -61,7 +61,8 @@
 .ew-action-strip {
   background: var(--ew-cream);
   padding: clamp(18px, 2.4vw, 30px) clamp(20px, 4vw, 56px);
-  border-bottom: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 .ew-action-inner {
   display: flex;
@@ -88,7 +89,7 @@
   transition: color .25s ease;
 }
 .ew-gallery-btn:hover { color: var(--ew-gold); }
-.ew-action-cta { display: flex; gap: 0; }
+.ew-action-cta { display: flex; gap: 14px; }
 .ew-btn {
   display: inline-flex;
   align-items: center;
@@ -112,7 +113,6 @@
 .ew-btn--gold {
   background: var(--ew-gold);
   color: #fff;
-  border-left: 0;
 }
 .ew-btn--gold:hover { background: #574d33; border-color: #574d33; }
 
