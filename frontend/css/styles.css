@@ -2292,14 +2292,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .reveal-up.in-view { opacity: 1; transform: translateY(0); }
 .reveal-fade { opacity: 0; transition: opacity 1.2s var(--easing); }
 .reveal-fade.in-view { opacity: 1; }
-.reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: opacity .8s var(--easing), transform .8s var(--easing); }
+.reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: opacity .7s var(--easing), transform .7s var(--easing); }
 .reveal-stagger.in-view > * { opacity: 1; transform: translateY(0); }
-.reveal-stagger.in-view > *:nth-child(1) { transition-delay: .1s; }
-.reveal-stagger.in-view > *:nth-child(2) { transition-delay: .2s; }
-.reveal-stagger.in-view > *:nth-child(3) { transition-delay: .3s; }
-.reveal-stagger.in-view > *:nth-child(4) { transition-delay: .4s; }
-.reveal-stagger.in-view > *:nth-child(5) { transition-delay: .5s; }
-.reveal-stagger.in-view > *:nth-child(6) { transition-delay: .6s; }
+.reveal-stagger.in-view > *:nth-child(1)  { transition-delay: .05s; }
+.reveal-stagger.in-view > *:nth-child(2)  { transition-delay: .13s; }
+.reveal-stagger.in-view > *:nth-child(3)  { transition-delay: .21s; }
+.reveal-stagger.in-view > *:nth-child(4)  { transition-delay: .29s; }
+.reveal-stagger.in-view > *:nth-child(5)  { transition-delay: .37s; }
+.reveal-stagger.in-view > *:nth-child(6)  { transition-delay: .45s; }
+.reveal-stagger.in-view > *:nth-child(7)  { transition-delay: .53s; }
+.reveal-stagger.in-view > *:nth-child(8)  { transition-delay: .61s; }
+.reveal-stagger.in-view > *:nth-child(9)  { transition-delay: .69s; }
+.reveal-stagger.in-view > *:nth-child(10) { transition-delay: .77s; }
+.reveal-stagger.in-view > *:nth-child(11) { transition-delay: .85s; }
+.reveal-stagger.in-view > *:nth-child(12) { transition-delay: .93s; }
 
 /* =========================================================
    Responsive tweaks
