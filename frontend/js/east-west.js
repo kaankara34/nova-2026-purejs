@@ -67,28 +67,33 @@
     const slides = $$('.ew-slide', sliderRoot);
     const segs = $$('.ew-progress-seg', sliderRoot);
     const arrows = $$('.ew-slider-arrow', sliderRoot);
-    const DURATION = 5000;
+    const DURATION = 3500;
     let sliderIdx = 0;
     let sliderTimer = null;
+
+    function resetAllFills() {
+      segs.forEach((s) => {
+        const f = s.querySelector('.ew-progress-fill');
+        f.style.transition = 'none';
+        f.style.width = '0%';
+      });
+    }
 
     function setSlide(idx) {
       slides[sliderIdx].classList.remove('active');
       segs[sliderIdx].classList.remove('active');
-      // Reset all fills instantly (previous slides done, next slides empty)
-      segs.forEach((s, i) => {
-        const f = s.querySelector('.ew-progress-fill');
-        f.style.transition = 'none';
-        f.style.width = i < idx ? '0%' : '0%';
-      });
+      resetAllFills();
       sliderIdx = idx;
       slides[sliderIdx].classList.add('active');
       segs[sliderIdx].classList.add('active');
       const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      // Force reflow
-      // eslint-disable-next-line no-unused-expressions
-      activeFill.offsetHeight;
-      activeFill.style.transition = `width ${DURATION}ms linear`;
-      activeFill.style.width = '100%';
+      // Double rAF ensures the "transition:none + width:0" commits before starting new animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          activeFill.style.transition = `width ${DURATION}ms linear`;
+          activeFill.style.width = '100%';
+        });
+      });
     }
 
     function goTo(idx) {
@@ -129,12 +134,14 @@
       const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
       const currentWidth = parseFloat(getComputedStyle(activeFill).width);
       const totalWidth = parseFloat(getComputedStyle(activeFill.parentElement).width);
-      const remainingRatio = 1 - (currentWidth / totalWidth);
+      const remainingRatio = Math.max(0, 1 - (currentWidth / totalWidth));
       const remainingMs = Math.max(400, DURATION * remainingRatio);
-      // eslint-disable-next-line no-unused-expressions
-      activeFill.offsetHeight;
-      activeFill.style.transition = `width ${remainingMs}ms linear`;
-      activeFill.style.width = '100%';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          activeFill.style.transition = `width ${remainingMs}ms linear`;
+          activeFill.style.width = '100%';
+        });
+      });
       if (sliderTimer) clearTimeout(sliderTimer);
       sliderTimer = setTimeout(() => goTo(sliderIdx + 1), remainingMs);
     });

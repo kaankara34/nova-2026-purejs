@@ -192,8 +192,8 @@
 .ew-slider-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 28px;
+  justify-content: flex-end;
+  gap: 20px;
   padding: 22px 28px 0;
   position: absolute;
   left: 0;
@@ -203,10 +203,8 @@
 }
 .ew-progress {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   align-items: center;
-  flex: 1;
-  justify-content: center;
 }
 .ew-progress-seg {
   position: relative;
