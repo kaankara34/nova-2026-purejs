@@ -136,9 +136,9 @@
 .ew-intro-logo {
   display: block;
   width: 100%;
-  max-width: min(520px, 70%);
+  max-width: min(560px, 75%);
   height: auto;
-  margin: -110px auto -130px;
+  margin: -50px auto 0;
   mix-blend-mode: multiply;
 }
 .ew-intro-tag {
