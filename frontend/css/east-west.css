@@ -515,8 +515,9 @@
    ========================================================= */
 .ew-enquire {
   padding: clamp(60px, 8vw, 120px) 0;
-  background: #fff;
-  border-top: 1px solid var(--ew-line);
+  background: #0b0b0b;
+  border-top: 1px solid #1a1a1a;
+  color: #d4cfc0;
 }
 .ew-enquire .container {
   max-width: 920px;
@@ -529,6 +530,7 @@
   letter-spacing: 0.01em;
   text-align: center;
   margin: 0 0 clamp(40px, 5vw, 70px);
+  color: #b3a37e;
 }
 .ew-form {
   display: grid;
@@ -552,24 +554,39 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ew-gold);
+  color: #8a8471;
 }
 .ew-field input,
-.ew-field select {
+.ew-field select,
+.ew-field textarea {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #cdcdcd;
+  border-bottom: 1px solid #3a3630;
   padding: 10px 0;
   font-family: var(--font-sans);
   font-size: 14px;
-  color: #1a1a1a;
+  color: #e8e3d4;
   outline: none;
   transition: border-color .3s ease;
   border-radius: 0;
+  resize: none;
 }
+.ew-field input::placeholder,
+.ew-field textarea::placeholder { color: #7a7462; }
 .ew-field input:focus,
-.ew-field select:focus { border-bottom-color: var(--ew-gold); }
-.ew-field select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, #888 50%), linear-gradient(135deg, #888 50%, transparent 50%); background-position: calc(100% - 12px) 50%, calc(100% - 7px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 24px; }
+.ew-field select:focus,
+.ew-field textarea:focus { border-bottom-color: #b3a37e; }
+.ew-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  color: #e8e3d4;
+  background-image: linear-gradient(45deg, transparent 50%, #8a8471 50%), linear-gradient(135deg, #8a8471 50%, transparent 50%);
+  background-position: calc(100% - 12px) 50%, calc(100% - 7px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 24px;
+}
+.ew-field select option { background: #0b0b0b; color: #e8e3d4; }
 
 .ew-checks {
   grid-column: 1 / -1;
@@ -584,20 +601,20 @@
   gap: 10px;
   font-family: var(--font-sans);
   font-size: 12px;
-  color: #555;
+  color: #a8a294;
   line-height: 1.5;
   cursor: pointer;
 }
-.ew-checks input { margin-top: 3px; accent-color: var(--ew-gold); }
-.ew-checks a { color: var(--ew-gold); text-decoration: underline; }
+.ew-checks input { margin-top: 3px; accent-color: #b3a37e; }
+.ew-checks a { color: #b3a37e; text-decoration: underline; }
 
 .ew-submit {
   grid-column: 1 / -1;
-  justify-self: start;
+  justify-self: center;
   margin-top: 18px;
-  padding: 16px 44px;
-  background: #1a1a1a;
-  color: #fff;
+  padding: 18px 80px;
+  background: #b3a37e;
+  color: #0b0b0b;
   border: 0;
   font-family: var(--font-sans);
   font-size: 11px;
@@ -605,9 +622,9 @@
   letter-spacing: 0.26em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background .3s ease;
+  transition: background .3s ease, color .3s ease;
 }
-.ew-submit:hover { background: var(--ew-gold); }
+.ew-submit:hover { background: #cbb98f; color: #0b0b0b; }
 
 /* =========================================================
    LIGHTBOX
