@@ -120,7 +120,7 @@
    ========================================================= */
 .ew-intro {
   background: #faf6ee;
-  padding: 24px clamp(20px, 5vw, 56px) 40px;
+  padding: clamp(40px, 5vw, 80px) clamp(20px, 5vw, 56px) clamp(40px, 5vw, 70px);
   text-align: center;
 }
 .ew-intro-title {
