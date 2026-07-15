@@ -61,39 +61,19 @@
     if (e.key === 'ArrowRight') next();
   });
 
-  /* ========== Hero Slider (auto-play with progress bar) ========== */
+  /* ========== Hero Slider (auto-play, arrows only) ========== */
   const sliderRoot = $('#ewSlider');
   if (sliderRoot) {
     const slides = $$('.ew-slide', sliderRoot);
-    const segs = $$('.ew-progress-seg', sliderRoot);
     const arrows = $$('.ew-slider-arrow', sliderRoot);
     const DURATION = 3500;
     let sliderIdx = 0;
     let sliderTimer = null;
-    let currentAnim = null;
 
     function setSlide(idx) {
-      // Cancel any in-flight animation
-      if (currentAnim) {
-        currentAnim.cancel();
-        currentAnim = null;
-      }
-      // Deactivate all slides & segs, reset fills to 0
       slides.forEach(s => s.classList.remove('active'));
-      segs.forEach(s => {
-        s.classList.remove('active');
-        const f = s.querySelector('.ew-progress-fill');
-        f.style.width = '0%';
-      });
       sliderIdx = idx;
       slides[sliderIdx].classList.add('active');
-      segs[sliderIdx].classList.add('active');
-      const fill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      // Use Web Animations API — deterministic, no CSS restart quirks
-      currentAnim = fill.animate(
-        [{ width: '0%' }, { width: '100%' }],
-        { duration: DURATION, easing: 'linear', fill: 'forwards' }
-      );
     }
 
     function goTo(idx) {
@@ -107,34 +87,20 @@
       sliderTimer = setTimeout(() => goTo(sliderIdx + 1), DURATION);
     }
 
-    // Init on next frame (after layout)
-    requestAnimationFrame(() => {
-      setSlide(0);
-      restartTimer();
-    });
+    restartTimer();
 
-    // Arrow clicks
     arrows.forEach(btn => {
       btn.addEventListener('click', () => {
         const dir = btn.dataset.dir;
         goTo(dir === 'next' ? sliderIdx + 1 : sliderIdx - 1);
       });
     });
-    // Segment clicks
-    segs.forEach((seg, i) => {
-      seg.addEventListener('click', () => goTo(i));
-    });
-    // Pause on hover
+
     sliderRoot.addEventListener('mouseenter', () => {
       if (sliderTimer) clearTimeout(sliderTimer);
-      if (currentAnim) currentAnim.pause();
     });
     sliderRoot.addEventListener('mouseleave', () => {
-      if (!currentAnim) return;
-      currentAnim.play();
-      const remaining = DURATION - (currentAnim.currentTime || 0);
-      if (sliderTimer) clearTimeout(sliderTimer);
-      sliderTimer = setTimeout(() => goTo(sliderIdx + 1), Math.max(400, remaining));
+      restartTimer();
     });
   }
 

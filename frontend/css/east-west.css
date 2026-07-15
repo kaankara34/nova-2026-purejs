@@ -201,32 +201,6 @@
   bottom: 22px;
   z-index: 3;
 }
-.ew-progress {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.ew-progress-seg {
-  position: relative;
-  width: 44px;
-  height: 2px;
-  background: rgba(255,255,255,0.35);
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  overflow: hidden;
-  transition: background 0.3s ease;
-}
-.ew-progress-seg:hover {
-  background: rgba(255,255,255,0.55);
-}
-.ew-progress-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  height: 100%;
-  width: 0%;
-  background: #fff;
-}
 .ew-slider-actions {
   display: flex;
   align-items: center;
@@ -707,8 +681,6 @@
 
   .ew-slider-viewport { aspect-ratio: 4 / 3; }
   .ew-slider-controls { bottom: 16px; padding: 0 16px; gap: 12px; }
-  .ew-progress { gap: 6px; }
-  .ew-progress-seg { width: 20px; }
   .ew-slider-actions { gap: 8px; }
   .ew-view-all { font-size: 10px; letter-spacing: 0.2em; }
   
