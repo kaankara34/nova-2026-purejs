@@ -156,6 +156,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: #fff;
   transition: opacity .2s ease;
 }
+.utility-social--mail {
+  width: auto;
+  gap: 8px;
+  padding: 0 2px;
+}
+.utility-mail-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  white-space: nowrap;
+}
 .utility-social:hover {
   opacity: 0.75;
 }
@@ -171,6 +183,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .utility-socials { gap: 12px; }
   .utility-social { width: 22px; height: 22px; }
   .utility-social svg { width: 14px; height: 14px; }
+  .utility-mail-text { display: none; }
+  .utility-social--mail { width: 22px; padding: 0; gap: 0; }
 }
 @media (max-width: 420px) {
   .utility-bar { font-size: 10px; }
