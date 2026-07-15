@@ -71,29 +71,20 @@
     let sliderIdx = 0;
     let sliderTimer = null;
 
-    function resetAllFills() {
-      segs.forEach((s) => {
-        const f = s.querySelector('.ew-progress-fill');
-        f.style.transition = 'none';
-        f.style.width = '0%';
-      });
-    }
-
     function setSlide(idx) {
-      slides[sliderIdx].classList.remove('active');
-      segs[sliderIdx].classList.remove('active');
-      resetAllFills();
+      // Deactivate all slides & segs
+      slides.forEach(s => s.classList.remove('active'));
+      segs.forEach(s => s.classList.remove('active'));
       sliderIdx = idx;
       slides[sliderIdx].classList.add('active');
-      segs[sliderIdx].classList.add('active');
-      const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      // Double rAF ensures the "transition:none + width:0" commits before starting new animation
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          activeFill.style.transition = `width ${DURATION}ms linear`;
-          activeFill.style.width = '100%';
-        });
-      });
+      const activeSeg = segs[sliderIdx];
+      const fill = activeSeg.querySelector('.ew-progress-fill');
+      // Force animation restart via reflow
+      fill.style.animation = 'none';
+      // eslint-disable-next-line no-unused-expressions
+      fill.offsetWidth;
+      fill.style.animation = '';
+      activeSeg.classList.add('active');
     }
 
     function goTo(idx) {
@@ -107,9 +98,11 @@
       sliderTimer = setTimeout(() => goTo(sliderIdx + 1), DURATION);
     }
 
-    // Init: kick off the first slide's fill animation
-    setSlide(0);
-    restartTimer();
+    // Init: kick off first slide's animation on next frame
+    requestAnimationFrame(() => {
+      setSlide(0);
+      restartTimer();
+    });
 
     // Arrow clicks
     arrows.forEach(btn => {
@@ -125,23 +118,17 @@
     // Pause on hover
     sliderRoot.addEventListener('mouseenter', () => {
       if (sliderTimer) clearTimeout(sliderTimer);
-      const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      const w = getComputedStyle(activeFill).width;
-      activeFill.style.transition = 'none';
-      activeFill.style.width = w;
+      const fill = segs[sliderIdx].querySelector('.ew-progress-fill');
+      fill.style.animationPlayState = 'paused';
     });
     sliderRoot.addEventListener('mouseleave', () => {
-      const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      const currentWidth = parseFloat(getComputedStyle(activeFill).width);
-      const totalWidth = parseFloat(getComputedStyle(activeFill.parentElement).width);
+      const fill = segs[sliderIdx].querySelector('.ew-progress-fill');
+      const cs = getComputedStyle(fill);
+      const currentWidth = parseFloat(cs.width);
+      const totalWidth = parseFloat(getComputedStyle(fill.parentElement).width);
       const remainingRatio = Math.max(0, 1 - (currentWidth / totalWidth));
       const remainingMs = Math.max(400, DURATION * remainingRatio);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          activeFill.style.transition = `width ${remainingMs}ms linear`;
-          activeFill.style.width = '100%';
-        });
-      });
+      fill.style.animationPlayState = 'running';
       if (sliderTimer) clearTimeout(sliderTimer);
       sliderTimer = setTimeout(() => goTo(sliderIdx + 1), remainingMs);
     });

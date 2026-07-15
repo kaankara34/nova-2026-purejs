@@ -160,13 +160,13 @@
    GALLERY (single hero slider with progress bar)
    ========================================================= */
 .ew-gallery {
-  padding: clamp(40px, 6vw, 90px) clamp(16px, 4vw, 56px) clamp(20px, 3vw, 40px);
+  padding: clamp(40px, 6vw, 90px) 0 clamp(20px, 3vw, 40px);
   background: #fff;
 }
 .ew-slider {
   position: relative;
-  max-width: 1440px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
 }
 .ew-slider-viewport {
   position: relative;
@@ -194,7 +194,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 20px;
-  padding: 22px 28px 0;
+  padding: 22px 40px 0;
   position: absolute;
   left: 0;
   right: 0;
@@ -226,6 +226,13 @@
   height: 100%;
   width: 0%;
   background: #fff;
+}
+.ew-progress-seg.active .ew-progress-fill {
+  animation: ewProgressFill var(--ew-slider-duration, 3.5s) linear forwards;
+}
+@keyframes ewProgressFill {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 .ew-slider-actions {
   display: flex;
