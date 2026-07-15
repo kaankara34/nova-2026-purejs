@@ -214,6 +214,23 @@
   align-items: center;
   gap: 14px;
 }
+.ew-progress {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-right: 6px;
+}
+.ew-progress-seg {
+  width: 44px;
+  height: 2px;
+  background: rgba(255,255,255,0.35);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.ew-progress-seg:hover { background: rgba(255,255,255,0.6); }
+.ew-progress-seg.active { background: #fff; }
 .ew-slider-arrow {
   width: 30px;
   height: 30px;
@@ -736,6 +753,8 @@
   .ew-slider-viewport { aspect-ratio: 4 / 3; }
   .ew-slider-controls { bottom: 16px; padding: 0 16px; gap: 12px; }
   .ew-slider-actions { gap: 8px; }
+  .ew-progress { gap: 5px; margin-right: 4px; }
+  .ew-progress-seg { width: 18px; }
   .ew-view-all { font-size: 10px; letter-spacing: 0.2em; }
   
   .ew-specs-grid { grid-template-columns: repeat(2, 1fr); }

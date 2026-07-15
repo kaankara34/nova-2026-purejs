@@ -66,13 +66,16 @@
   if (sliderRoot) {
     const slides = $$('.ew-slide', sliderRoot);
     const arrows = $$('.ew-slider-arrow', sliderRoot);
+    const segs = $$('.ew-progress-seg', sliderRoot);
     const DURATION = 3500;
     let sliderIdx = 0;
 
     function setSlide(idx) {
       slides.forEach(s => s.classList.remove('active'));
+      segs.forEach(s => s.classList.remove('active'));
       sliderIdx = idx;
       slides[sliderIdx].classList.add('active');
+      if (segs[sliderIdx]) segs[sliderIdx].classList.add('active');
     }
 
     function next() { setSlide((sliderIdx + 1) % slides.length); }
@@ -85,6 +88,10 @@
         if (btn.dataset.dir === 'next') next();
         else prev();
       });
+    });
+
+    segs.forEach((seg, i) => {
+      seg.addEventListener('click', () => setSlide(i));
     });
   }
 
