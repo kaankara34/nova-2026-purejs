@@ -476,6 +476,100 @@
 }
 
 /* =========================================================
+   NEARBY PLACES
+   ========================================================= */
+.ew-nearby {
+  padding: clamp(60px, 8vw, 110px) clamp(20px, 4vw, 56px);
+  background: #fff;
+  text-align: center;
+}
+.ew-nearby-title {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
+  margin: 0 0 20px;
+}
+.ew-nearby-desc {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.75;
+  color: #4a4a4a;
+  max-width: 780px;
+  margin: 0 auto clamp(40px, 5vw, 70px);
+}
+.ew-nearby-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.6vw, 24px);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.ew-nearby-card {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: stretch;
+  background: #faf6ee;
+  overflow: hidden;
+  min-height: 120px;
+  transition: transform 0.35s var(--easing, cubic-bezier(.4,0,.2,1)), box-shadow 0.35s ease;
+}
+.ew-nearby-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+.ew-nearby-img {
+  background-size: cover;
+  background-position: center;
+  background-color: #e0dccf;
+  min-height: 120px;
+}
+.ew-nearby-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 14px 16px;
+}
+.ew-nearby-dist {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1;
+}
+.ew-nearby-line {
+  width: 40px;
+  height: 1px;
+  background: #b3a37e;
+}
+.ew-nearby-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #2a2a2a;
+  line-height: 1.35;
+}
+@media (max-width: 1024px) {
+  .ew-nearby-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .ew-nearby-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .ew-nearby-card { grid-template-columns: 110px 1fr; min-height: 100px; }
+  .ew-nearby-img { min-height: 100px; }
+  .ew-nearby-dist { font-size: 18px; }
+  .ew-nearby-label { font-size: 11px; }
+}
+@media (max-width: 480px) {
+  .ew-nearby-grid { grid-template-columns: 1fr; }
+  .ew-nearby-card { grid-template-columns: 100px 1fr; }
+}
+
+/* =========================================================
    LOCATION
    ========================================================= */
 .ew-location {
