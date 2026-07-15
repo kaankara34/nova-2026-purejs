@@ -160,7 +160,7 @@
    GALLERY (single hero slider with progress bar)
    ========================================================= */
 .ew-gallery {
-  padding: clamp(40px, 6vw, 90px) 0 clamp(20px, 3vw, 40px);
+  padding: 0;
   background: #fff;
 }
 .ew-slider {

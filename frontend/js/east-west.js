@@ -68,7 +68,6 @@
     const arrows = $$('.ew-slider-arrow', sliderRoot);
     const DURATION = 3500;
     let sliderIdx = 0;
-    let sliderTimer = null;
 
     function setSlide(idx) {
       slides.forEach(s => s.classList.remove('active'));
@@ -76,31 +75,16 @@
       slides[sliderIdx].classList.add('active');
     }
 
-    function goTo(idx) {
-      idx = (idx + slides.length) % slides.length;
-      setSlide(idx);
-      restartTimer();
-    }
+    function next() { setSlide((sliderIdx + 1) % slides.length); }
+    function prev() { setSlide((sliderIdx - 1 + slides.length) % slides.length); }
 
-    function restartTimer() {
-      if (sliderTimer) clearTimeout(sliderTimer);
-      sliderTimer = setTimeout(() => goTo(sliderIdx + 1), DURATION);
-    }
-
-    restartTimer();
+    setInterval(next, DURATION);
 
     arrows.forEach(btn => {
       btn.addEventListener('click', () => {
-        const dir = btn.dataset.dir;
-        goTo(dir === 'next' ? sliderIdx + 1 : sliderIdx - 1);
+        if (btn.dataset.dir === 'next') next();
+        else prev();
       });
-    });
-
-    sliderRoot.addEventListener('mouseenter', () => {
-      if (sliderTimer) clearTimeout(sliderTimer);
-    });
-    sliderRoot.addEventListener('mouseleave', () => {
-      restartTimer();
     });
   }
 
