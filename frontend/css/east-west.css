@@ -312,6 +312,35 @@
   margin: 0 0 24px;
   color: #1a1a1a;
 }
+.ew-premiere-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0 0 28px;
+}
+.ew-premiere-script {
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+  font-size: clamp(38px, 3.8vw, 56px);
+  color: #2a2a2a;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.ew-premiere-caps {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  color: #2a2a2a;
+  padding-left: 4px;
+}
+.ew-premiere-rule {
+  width: 100%;
+  max-width: 320px;
+  height: 1px;
+  background: #2a2a2a;
+  margin-top: 12px;
+}
 .ew-club-desc {
   font-family: var(--font-sans);
   font-size: clamp(13px, 1.05vw, 15px);
