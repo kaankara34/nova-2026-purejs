@@ -157,41 +157,97 @@
 }
 
 /* =========================================================
-   GALLERY (3-image strip)
+   GALLERY (single hero slider with progress bar)
    ========================================================= */
 .ew-gallery {
   padding: clamp(40px, 6vw, 90px) clamp(16px, 4vw, 56px) clamp(20px, 3vw, 40px);
   background: #fff;
 }
-.ew-gallery-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: clamp(8px, 1vw, 14px);
+.ew-slider {
+  position: relative;
   max-width: 1440px;
   margin: 0 auto;
 }
-.ew-g-item {
+.ew-slider-viewport {
   position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 9;
   overflow: hidden;
-  cursor: zoom-in;
-  display: block;
-  aspect-ratio: 4 / 3;
   background: #eee;
 }
-.ew-g-item--lg { aspect-ratio: 16 / 11; grid-row: span 1; }
-.ew-g-item img {
-  width: 100%; height: 100%;
+.ew-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 1.2s var(--easing, cubic-bezier(.4,0,.2,1));
+  opacity: 0;
+  transition: opacity 0.8s var(--easing, cubic-bezier(.4,0,.2,1));
+  pointer-events: none;
 }
-.ew-g-item:hover img { transform: scale(1.04); }
-
-.ew-gallery-foot {
+.ew-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ew-slider-controls {
   display: flex;
-  justify-content: flex-end;
-  max-width: 1440px;
-  margin: 24px auto 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 22px 28px 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  z-index: 3;
 }
+.ew-progress {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+.ew-progress-seg {
+  position: relative;
+  width: 44px;
+  height: 2px;
+  background: rgba(255,255,255,0.35);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.ew-progress-seg:hover {
+  background: rgba(255,255,255,0.55);
+}
+.ew-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  width: 0%;
+  background: #fff;
+}
+.ew-slider-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ew-slider-arrow {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease;
+  opacity: 0.85;
+}
+.ew-slider-arrow:hover { opacity: 1; }
 .ew-view-all {
   display: inline-flex;
   align-items: center;
@@ -204,9 +260,11 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ew-gold);
+  color: #fff;
+  padding: 6px 0 6px 8px;
   transition: gap .25s ease;
 }
+.ew-view-all svg { stroke: #fff; }
 .ew-view-all:hover { gap: 14px; }
 
 /* =========================================================
@@ -649,8 +707,12 @@
   .ew-btn { width: 100%; padding: 18px 20px; font-size: 12px; letter-spacing: 0.22em; }
   .ew-intro { padding: 50px 22px 40px; }
 
-  .ew-gallery-grid { grid-template-columns: 1fr; gap: 8px; }
-  .ew-g-item, .ew-g-item--lg { aspect-ratio: 4 / 3; }
+  .ew-slider-viewport { aspect-ratio: 4 / 3; }
+  .ew-slider-controls { bottom: 16px; padding: 0 16px; gap: 12px; }
+  .ew-progress { gap: 6px; }
+  .ew-progress-seg { width: 20px; }
+  .ew-slider-actions { gap: 8px; }
+  .ew-view-all { font-size: 10px; letter-spacing: 0.2em; }
   
   .ew-specs-grid { grid-template-columns: repeat(2, 1fr); }
   .ew-spec { padding: 22px 14px; }

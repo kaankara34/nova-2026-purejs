@@ -222,24 +222,37 @@
     <p class="ew-intro-sub reveal-up">Just steps from the Marmara coastline, fine dining, boutique shopping, and Istanbul&rsquo;s most refined daily essentials.</p>
   </section>
 
-  <!-- ============================= GALLERY ============================= -->
+  <!-- ============================= GALLERY (single hero slider) ============================= -->
   <section class="ew-gallery reveal-up">
-    <div class="ew-gallery-grid">
-      <a href="#" class="ew-g-item ew-g-item--lg" data-img="https://cdn.darglobal.co.uk/interior_039a181e6c.webp">
-        <img src="https://cdn.darglobal.co.uk/interior_039a181e6c.webp" alt="Living area" loading="lazy"/>
-      </a>
-      <a href="#" class="ew-g-item" data-img="https://cdn.darglobal.co.uk/interior_2_b6090bd802.webp">
-        <img src="https://cdn.darglobal.co.uk/interior_2_b6090bd802.webp" alt="Bedroom" loading="lazy"/>
-      </a>
-      <a href="#" class="ew-g-item" data-img="https://cdn.darglobal.co.uk/Serviced_V5_HR_1_806fc87cc0.webp">
-        <img src="https://cdn.darglobal.co.uk/Serviced_V5_HR_1_806fc87cc0.webp" alt="Lounge" loading="lazy"/>
-      </a>
-    </div>
-    <div class="ew-gallery-foot">
-      <button class="ew-view-all" id="ewViewAll">
-        <span>VIEW ALL</span>
-        <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M0 4.5h12M8 1l4 3.5L8 8" stroke="currentColor" stroke-width="1.4"/></svg>
-      </button>
+    <div class="ew-slider" id="ewSlider">
+      <div class="ew-slider-viewport">
+        <img class="ew-slide active" src="https://cdn.darglobal.co.uk/interior_039a181e6c.webp" alt="Living area" data-idx="0" />
+        <img class="ew-slide" src="https://cdn.darglobal.co.uk/interior_2_b6090bd802.webp" alt="Bedroom" loading="lazy" data-idx="1" />
+        <img class="ew-slide" src="https://cdn.darglobal.co.uk/Serviced_V5_HR_1_806fc87cc0.webp" alt="Lounge" loading="lazy" data-idx="2" />
+        <img class="ew-slide" src="https://cdn.darglobal.co.uk/interior_039a181e6c.webp" alt="Living area 2" loading="lazy" data-idx="3" />
+        <img class="ew-slide" src="https://cdn.darglobal.co.uk/interior_2_b6090bd802.webp" alt="Bedroom 2" loading="lazy" data-idx="4" />
+      </div>
+      <div class="ew-slider-controls">
+        <div class="ew-progress" id="ewProgress">
+          <button class="ew-progress-seg active" data-idx="0" aria-label="Slide 1"><span class="ew-progress-fill"></span></button>
+          <button class="ew-progress-seg" data-idx="1" aria-label="Slide 2"><span class="ew-progress-fill"></span></button>
+          <button class="ew-progress-seg" data-idx="2" aria-label="Slide 3"><span class="ew-progress-fill"></span></button>
+          <button class="ew-progress-seg" data-idx="3" aria-label="Slide 4"><span class="ew-progress-fill"></span></button>
+          <button class="ew-progress-seg" data-idx="4" aria-label="Slide 5"><span class="ew-progress-fill"></span></button>
+        </div>
+        <div class="ew-slider-actions">
+          <button class="ew-slider-arrow" data-dir="prev" aria-label="Previous">
+            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"><path d="M8 1L2 7l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+          <button class="ew-slider-arrow" data-dir="next" aria-label="Next">
+            <svg width="10" height="14" viewBox="0 0 10 14" fill="none"><path d="M2 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+          <button class="ew-view-all" id="ewViewAll">
+            <span>VIEW ALL</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M0 4.5h12M8 1l4 3.5L8 8" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 

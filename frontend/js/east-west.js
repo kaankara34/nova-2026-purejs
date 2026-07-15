@@ -12,11 +12,11 @@
   const closeBtn = $('#ewLightboxClose');
   const prevBtn = $('#ewLightboxPrev');
   const nextBtn = $('#ewLightboxNext');
-  const galleryItems = $$('.ew-g-item');
+  const slideEls = $$('.ew-slide');
   const viewAllBtn = $('#ewViewAll');
   const galleryTriggerBtn = $('#ewGalleryTrigger');
 
-  const images = galleryItems.map(it => it.dataset.img || it.querySelector('img').src);
+  const images = slideEls.map(it => it.src);
   let currentIdx = 0;
 
   function openLightbox(idx) {
@@ -41,7 +41,7 @@
   function prev() { currentIdx = (currentIdx - 1 + images.length) % images.length; updateLightbox(); }
   function next() { currentIdx = (currentIdx + 1) % images.length; updateLightbox(); }
 
-  galleryItems.forEach((item, i) => {
+  slideEls.forEach((item, i) => {
     item.addEventListener('click', e => { e.preventDefault(); openLightbox(i); });
   });
   if (viewAllBtn) viewAllBtn.addEventListener('click', e => { e.preventDefault(); openLightbox(0); });
@@ -60,6 +60,85 @@
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
   });
+
+  /* ========== Hero Slider (auto-play with progress bar) ========== */
+  const sliderRoot = $('#ewSlider');
+  if (sliderRoot) {
+    const slides = $$('.ew-slide', sliderRoot);
+    const segs = $$('.ew-progress-seg', sliderRoot);
+    const arrows = $$('.ew-slider-arrow', sliderRoot);
+    const DURATION = 5000;
+    let sliderIdx = 0;
+    let sliderTimer = null;
+
+    function setSlide(idx) {
+      slides[sliderIdx].classList.remove('active');
+      segs[sliderIdx].classList.remove('active');
+      // Reset all fills instantly (previous slides done, next slides empty)
+      segs.forEach((s, i) => {
+        const f = s.querySelector('.ew-progress-fill');
+        f.style.transition = 'none';
+        f.style.width = i < idx ? '0%' : '0%';
+      });
+      sliderIdx = idx;
+      slides[sliderIdx].classList.add('active');
+      segs[sliderIdx].classList.add('active');
+      const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
+      // Force reflow
+      // eslint-disable-next-line no-unused-expressions
+      activeFill.offsetHeight;
+      activeFill.style.transition = `width ${DURATION}ms linear`;
+      activeFill.style.width = '100%';
+    }
+
+    function goTo(idx) {
+      idx = (idx + slides.length) % slides.length;
+      setSlide(idx);
+      restartTimer();
+    }
+
+    function restartTimer() {
+      if (sliderTimer) clearTimeout(sliderTimer);
+      sliderTimer = setTimeout(() => goTo(sliderIdx + 1), DURATION);
+    }
+
+    // Init: kick off the first slide's fill animation
+    setSlide(0);
+    restartTimer();
+
+    // Arrow clicks
+    arrows.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = btn.dataset.dir;
+        goTo(dir === 'next' ? sliderIdx + 1 : sliderIdx - 1);
+      });
+    });
+    // Segment clicks
+    segs.forEach((seg, i) => {
+      seg.addEventListener('click', () => goTo(i));
+    });
+    // Pause on hover
+    sliderRoot.addEventListener('mouseenter', () => {
+      if (sliderTimer) clearTimeout(sliderTimer);
+      const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
+      const w = getComputedStyle(activeFill).width;
+      activeFill.style.transition = 'none';
+      activeFill.style.width = w;
+    });
+    sliderRoot.addEventListener('mouseleave', () => {
+      const activeFill = segs[sliderIdx].querySelector('.ew-progress-fill');
+      const currentWidth = parseFloat(getComputedStyle(activeFill).width);
+      const totalWidth = parseFloat(getComputedStyle(activeFill.parentElement).width);
+      const remainingRatio = 1 - (currentWidth / totalWidth);
+      const remainingMs = Math.max(400, DURATION * remainingRatio);
+      // eslint-disable-next-line no-unused-expressions
+      activeFill.offsetHeight;
+      activeFill.style.transition = `width ${remainingMs}ms linear`;
+      activeFill.style.width = '100%';
+      if (sliderTimer) clearTimeout(sliderTimer);
+      sliderTimer = setTimeout(() => goTo(sliderIdx + 1), remainingMs);
+    });
+  }
 
   /* ========== Form submit (UI-only) ========== */
   const form = $('#ewEnquireForm');
