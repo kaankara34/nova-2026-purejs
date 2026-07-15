@@ -70,21 +70,30 @@
     const DURATION = 3500;
     let sliderIdx = 0;
     let sliderTimer = null;
+    let currentAnim = null;
 
     function setSlide(idx) {
-      // Deactivate all slides & segs
+      // Cancel any in-flight animation
+      if (currentAnim) {
+        currentAnim.cancel();
+        currentAnim = null;
+      }
+      // Deactivate all slides & segs, reset fills to 0
       slides.forEach(s => s.classList.remove('active'));
-      segs.forEach(s => s.classList.remove('active'));
+      segs.forEach(s => {
+        s.classList.remove('active');
+        const f = s.querySelector('.ew-progress-fill');
+        f.style.width = '0%';
+      });
       sliderIdx = idx;
       slides[sliderIdx].classList.add('active');
-      const activeSeg = segs[sliderIdx];
-      const fill = activeSeg.querySelector('.ew-progress-fill');
-      // Force animation restart via reflow
-      fill.style.animation = 'none';
-      // eslint-disable-next-line no-unused-expressions
-      fill.offsetWidth;
-      fill.style.animation = '';
-      activeSeg.classList.add('active');
+      segs[sliderIdx].classList.add('active');
+      const fill = segs[sliderIdx].querySelector('.ew-progress-fill');
+      // Use Web Animations API — deterministic, no CSS restart quirks
+      currentAnim = fill.animate(
+        [{ width: '0%' }, { width: '100%' }],
+        { duration: DURATION, easing: 'linear', fill: 'forwards' }
+      );
     }
 
     function goTo(idx) {
@@ -98,7 +107,7 @@
       sliderTimer = setTimeout(() => goTo(sliderIdx + 1), DURATION);
     }
 
-    // Init: kick off first slide's animation on next frame
+    // Init on next frame (after layout)
     requestAnimationFrame(() => {
       setSlide(0);
       restartTimer();
@@ -118,19 +127,14 @@
     // Pause on hover
     sliderRoot.addEventListener('mouseenter', () => {
       if (sliderTimer) clearTimeout(sliderTimer);
-      const fill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      fill.style.animationPlayState = 'paused';
+      if (currentAnim) currentAnim.pause();
     });
     sliderRoot.addEventListener('mouseleave', () => {
-      const fill = segs[sliderIdx].querySelector('.ew-progress-fill');
-      const cs = getComputedStyle(fill);
-      const currentWidth = parseFloat(cs.width);
-      const totalWidth = parseFloat(getComputedStyle(fill.parentElement).width);
-      const remainingRatio = Math.max(0, 1 - (currentWidth / totalWidth));
-      const remainingMs = Math.max(400, DURATION * remainingRatio);
-      fill.style.animationPlayState = 'running';
+      if (!currentAnim) return;
+      currentAnim.play();
+      const remaining = DURATION - (currentAnim.currentTime || 0);
       if (sliderTimer) clearTimeout(sliderTimer);
-      sliderTimer = setTimeout(() => goTo(sliderIdx + 1), remainingMs);
+      sliderTimer = setTimeout(() => goTo(sliderIdx + 1), Math.max(400, remaining));
     });
   }
 

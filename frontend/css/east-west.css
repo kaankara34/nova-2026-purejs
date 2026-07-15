@@ -227,13 +227,6 @@
   width: 0%;
   background: #fff;
 }
-.ew-progress-seg.active .ew-progress-fill {
-  animation: ewProgressFill var(--ew-slider-duration, 3.5s) linear forwards;
-}
-@keyframes ewProgressFill {
-  from { width: 0%; }
-  to { width: 100%; }
-}
 .ew-slider-actions {
   display: flex;
   align-items: center;
