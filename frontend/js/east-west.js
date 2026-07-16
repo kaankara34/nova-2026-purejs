@@ -5,6 +5,39 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
+  /* ========== Dark Map (Leaflet + CartoDB Dark tiles) ========== */
+  function initDarkMap() {
+    const mapEl = $('#ewMap');
+    if (!mapEl || typeof L === 'undefined') return;
+    const LAT = 40.974990, LNG = 29.054431;
+    const map = L.map(mapEl, {
+      center: [LAT, LNG],
+      zoom: 15,
+      scrollWheelZoom: false,
+      zoomControl: true,
+      attributionControl: true
+    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://openstreetmap.org">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+    // Gold-tinted custom marker
+    const icon = L.divIcon({
+      className: 'ew-map-marker',
+      html: '<div class="ew-map-marker-pin"></div>',
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+    L.marker([LAT, LNG], { icon }).addTo(map).bindPopup('<strong>The Residences East West</strong>');
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(initDarkMap, 300);
+  } else {
+    window.addEventListener('DOMContentLoaded', () => setTimeout(initDarkMap, 300));
+  }
+  window.addEventListener('load', initDarkMap);
+
   /* ========== Lightbox Gallery ========== */
   const lightbox = $('#ewLightbox');
   const lightboxImg = $('#ewLightboxImg');

@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/east-west.css" />
@@ -495,10 +497,7 @@
 
     <div class="ew-map reveal-up">
       <div class="ew-map-card">
-        <iframe class="ew-map-img"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=29.036431%2C40.968990%2C29.072431%2C40.980990&amp;layer=mapnik&amp;marker=40.974990%2C29.054431"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="ew-map-img" id="ewMap"></div>
         <a class="ew-map-open" href="https://www.google.com/maps?q=40.974990,29.054431" target="_blank" rel="noopener">View on Google Maps →</a>
         <div class="ew-map-info">
           <h4>The Residences East West</h4>
