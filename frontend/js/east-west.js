@@ -5,37 +5,6 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ========== Dark Map (Leaflet + CartoDB Dark tiles) ========== */
-  let mapInitialized = false;
-  function initDarkMap() {
-    if (mapInitialized) return;
-    const mapEl = $('#ewMap');
-    if (!mapEl || typeof L === 'undefined') return;
-    mapInitialized = true;
-    const LAT = 40.974990, LNG = 29.054431;
-    const map = L.map(mapEl, {
-      center: [LAT, LNG],
-      zoom: 15,
-      scrollWheelZoom: false,
-      zoomControl: true,
-      attributionControl: true
-    });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://openstreetmap.org">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(map);
-    const icon = L.divIcon({
-      className: 'ew-map-marker',
-      html: '<div class="ew-map-marker-pin"></div>',
-      iconSize: [22, 22],
-      iconAnchor: [11, 11]
-    });
-    L.marker([LAT, LNG], { icon }).addTo(map).bindPopup('<strong>The Residences East West</strong>');
-  }
-  // Try init once Leaflet & DOM are ready — 'load' fires after deferred scripts
-  window.addEventListener('load', initDarkMap);
-
   /* ========== Lightbox Gallery ========== */
   const lightbox = $('#ewLightbox');
   const lightboxImg = $('#ewLightboxImg');
