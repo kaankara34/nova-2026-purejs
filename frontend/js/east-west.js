@@ -6,9 +6,12 @@
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
   /* ========== Dark Map (Leaflet + CartoDB Dark tiles) ========== */
+  let mapInitialized = false;
   function initDarkMap() {
+    if (mapInitialized) return;
     const mapEl = $('#ewMap');
     if (!mapEl || typeof L === 'undefined') return;
+    mapInitialized = true;
     const LAT = 40.974990, LNG = 29.054431;
     const map = L.map(mapEl, {
       center: [LAT, LNG],
@@ -22,7 +25,6 @@
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(map);
-    // Gold-tinted custom marker
     const icon = L.divIcon({
       className: 'ew-map-marker',
       html: '<div class="ew-map-marker-pin"></div>',
@@ -31,11 +33,7 @@
     });
     L.marker([LAT, LNG], { icon }).addTo(map).bindPopup('<strong>The Residences East West</strong>');
   }
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(initDarkMap, 300);
-  } else {
-    window.addEventListener('DOMContentLoaded', () => setTimeout(initDarkMap, 300));
-  }
+  // Try init once Leaflet & DOM are ready — 'load' fires after deferred scripts
   window.addEventListener('load', initDarkMap);
 
   /* ========== Lightbox Gallery ========== */
