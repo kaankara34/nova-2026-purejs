@@ -559,14 +559,15 @@
 }
 @media (max-width: 768px) {
   .ew-nearby-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .ew-nearby-card { grid-template-columns: 110px 1fr; min-height: 100px; }
+  .ew-nearby-card { grid-template-columns: 90px 1fr; min-height: 100px; }
   .ew-nearby-img { min-height: 100px; }
-  .ew-nearby-dist { font-size: 18px; }
-  .ew-nearby-label { font-size: 11px; }
+  .ew-nearby-dist { font-size: 17px; }
+  .ew-nearby-label { font-size: 10.5px; letter-spacing: 0.01em; }
+  .ew-nearby-text { padding: 10px 8px; gap: 6px; }
+  .ew-nearby-line { width: 28px; }
 }
-@media (max-width: 480px) {
-  .ew-nearby-grid { grid-template-columns: 1fr; }
-  .ew-nearby-card { grid-template-columns: 100px 1fr; }
+@media (max-width: 380px) {
+  .ew-nearby-card { grid-template-columns: 80px 1fr; }
 }
 
 /* =========================================================
