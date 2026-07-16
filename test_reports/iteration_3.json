@@ -1,0 +1,29 @@
+{
+  "summary": "Verified east-west.html map section fix. OpenStreetMap iframe renders correctly with proper marker, info card, and Google Maps link.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Map fix verified: iframe.ew-map-img src=openstreetmap.org/export/embed.html with bbox and marker=40.974990,29.054431. Bounding box 1200x675, visible. Info card shows 'The Residences East West' with coords '40.974990°N   29.054431°E'. .ew-map-open link href=https://www.google.com/maps?q=40.974990,29.054431 target=_blank. No 'maps.google.com' in iframe src (legacy embed removed). Screenshot confirms map tiles rendered with green marker on Bağdat Caddesi.",
+  "test_verification": {
+    "iframe_present": true,
+    "iframe_src_uses_openstreetmap": true,
+    "iframe_no_legacy_google": true,
+    "marker_coord_in_src": true,
+    "iframe_visible_dimensions": "1200x675",
+    "info_card_h4": "The Residences East West",
+    "info_card_coords_visible": true,
+    "google_maps_link_href": "https://www.google.com/maps?q=40.974990,29.054431",
+    "google_maps_link_target_blank": true
+  }
+}

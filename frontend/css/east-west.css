@@ -639,6 +639,24 @@
   max-width: 320px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.08);
 }
+.ew-map-open {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  background: rgba(255,255,255,0.94);
+  color: #1a1a1a;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: background .25s ease;
+  z-index: 3;
+}
+.ew-map-open:hover { background: #fff; }
 .ew-map-info h4 {
   font-family: var(--font-serif, 'Cormorant Garamond', serif);
   font-size: 20px;
