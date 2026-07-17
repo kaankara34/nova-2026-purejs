@@ -69,6 +69,7 @@
     const segs = $$('.ew-progress-seg', sliderRoot);
     const DURATION = 3500;
     let sliderIdx = 0;
+    let autoTimer = null;
 
     function setSlide(idx) {
       slides.forEach(s => s.classList.remove('active'));
@@ -81,17 +82,30 @@
     function next() { setSlide((sliderIdx + 1) % slides.length); }
     function prev() { setSlide((sliderIdx - 1 + slides.length) % slides.length); }
 
-    setInterval(next, DURATION);
+    function scheduleAuto() {
+      if (autoTimer) clearTimeout(autoTimer);
+      autoTimer = setTimeout(function tick() {
+        next();
+        autoTimer = setTimeout(tick, DURATION);
+      }, DURATION);
+    }
+    function restartTimer() { scheduleAuto(); }
+
+    scheduleAuto();
 
     arrows.forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.dataset.dir === 'next') next();
         else prev();
+        restartTimer();
       });
     });
 
     segs.forEach((seg, i) => {
-      seg.addEventListener('click', () => setSlide(i));
+      seg.addEventListener('click', () => {
+        setSlide(i);
+        restartTimer();
+      });
     });
 
     /* ---- Swipe / drag support (touch + mouse via Pointer Events) ---- */
@@ -128,6 +142,7 @@
         if (Math.abs(dx) > THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
           if (dx < 0) next();
           else prev();
+          restartTimer();
         }
       });
 
