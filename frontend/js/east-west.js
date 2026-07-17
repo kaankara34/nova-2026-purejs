@@ -93,6 +93,41 @@
     segs.forEach((seg, i) => {
       seg.addEventListener('click', () => setSlide(i));
     });
+
+    /* ---- Swipe / drag support (touch + mouse via Pointer Events) ---- */
+    const viewport = $('.ew-slider-viewport', sliderRoot);
+    if (viewport && window.PointerEvent) {
+      const THRESHOLD = 50;
+      let startX = 0, startY = 0, isDown = false, pointerId = null;
+      viewport.style.touchAction = 'pan-y';
+      viewport.style.cursor = 'grab';
+      viewport.addEventListener('pointerdown', (e) => {
+        // Only left mouse button or touch
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        isDown = true;
+        pointerId = e.pointerId;
+        startX = e.clientX;
+        startY = e.clientY;
+        viewport.style.cursor = 'grabbing';
+        try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      viewport.addEventListener('pointerup', (e) => {
+        if (!isDown || e.pointerId !== pointerId) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        isDown = false;
+        pointerId = null;
+        viewport.style.cursor = 'grab';
+        // Trigger swipe only if horizontal move > threshold and greater than vertical
+        if (Math.abs(dx) > THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) next();
+          else prev();
+        }
+      });
+      viewport.addEventListener('pointercancel', () => { isDown = false; pointerId = null; viewport.style.cursor = 'grab'; });
+      // Prevent image drag ghost on desktop
+      $$('.ew-slide', viewport).forEach(img => img.addEventListener('dragstart', e => e.preventDefault()));
+    }
   }
 
   /* ========== Form submit (UI-only) ========== */
