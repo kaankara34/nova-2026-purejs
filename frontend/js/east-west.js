@@ -116,18 +116,26 @@
     const viewport = $('.ew-slider-viewport', sliderRoot);
     if (viewport && window.PointerEvent) {
       const THRESHOLD = 50;
-      let startX = 0, startY = 0, isDown = false, pointerId = null;
+      let startX = 0, startY = 0, isDown = false, pointerId = null, didDrag = false;
       viewport.style.touchAction = 'pan-y';
       viewport.style.cursor = 'grab';
+
       viewport.addEventListener('pointerdown', (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         isDown = true;
+        didDrag = false;
         pointerId = e.pointerId;
         startX = e.clientX;
         startY = e.clientY;
         viewport.style.cursor = 'grabbing';
         try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
       });
+
+      viewport.addEventListener('pointermove', (e) => {
+        if (!isDown || e.pointerId !== pointerId) return;
+        if (Math.abs(e.clientX - startX) > 8) didDrag = true;
+      });
+
       viewport.addEventListener('pointerup', (e) => {
         if (!isDown || e.pointerId !== pointerId) return;
         const dx = e.clientX - startX;
@@ -141,7 +149,22 @@
           onManual();
         }
       });
-      viewport.addEventListener('pointercancel', () => { isDown = false; pointerId = null; viewport.style.cursor = 'grab'; });
+
+      viewport.addEventListener('pointercancel', () => {
+        isDown = false; pointerId = null; didDrag = false;
+        viewport.style.cursor = 'grab';
+      });
+
+      // If a drag happened, swallow the follow-up click so lightbox/other handlers don't fire
+      viewport.addEventListener('click', (e) => {
+        if (didDrag) {
+          e.preventDefault();
+          e.stopPropagation();
+          didDrag = false;
+        }
+      }, true);
+
+      // Prevent default HTML5 image drag ghost
       $$('.ew-slide', viewport).forEach(img => img.addEventListener('dragstart', e => e.preventDefault()));
     }
   }
