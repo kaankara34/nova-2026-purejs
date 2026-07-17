@@ -61,16 +61,14 @@
     if (e.key === 'ArrowRight') next();
   });
 
-  /* ========== Hero Slider (auto-play with pause on manual interaction) ========== */
+  /* ========== Hero Slider (auto-play, arrows only) ========== */
   const sliderRoot = $('#ewSlider');
   if (sliderRoot) {
     const slides = $$('.ew-slide', sliderRoot);
     const arrows = $$('.ew-slider-arrow', sliderRoot);
     const segs = $$('.ew-progress-seg', sliderRoot);
     const DURATION = 3500;
-    const PAUSE_AFTER_MANUAL = 3000;
     let sliderIdx = 0;
-    let autoTimer = null;
 
     function setSlide(idx) {
       slides.forEach(s => s.classList.remove('active'));
@@ -83,33 +81,17 @@
     function next() { setSlide((sliderIdx + 1) % slides.length); }
     function prev() { setSlide((sliderIdx - 1 + slides.length) % slides.length); }
 
-    function scheduleAuto(delay) {
-      if (autoTimer) clearTimeout(autoTimer);
-      autoTimer = setTimeout(function tick() {
-        next();
-        autoTimer = setTimeout(tick, DURATION);
-      }, delay);
-    }
-    function onManual() {
-      scheduleAuto(PAUSE_AFTER_MANUAL);
-    }
-
-    // Kick off initial autoplay
-    scheduleAuto(DURATION);
+    setInterval(next, DURATION);
 
     arrows.forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.dataset.dir === 'next') next();
         else prev();
-        onManual();
       });
     });
 
     segs.forEach((seg, i) => {
-      seg.addEventListener('click', () => {
-        setSlide(i);
-        onManual();
-      });
+      seg.addEventListener('click', () => setSlide(i));
     });
 
     /* ---- Swipe / drag support (touch + mouse via Pointer Events) ---- */
@@ -146,7 +128,6 @@
         if (Math.abs(dx) > THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
           if (dx < 0) next();
           else prev();
-          onManual();
         }
       });
 
