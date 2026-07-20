@@ -97,7 +97,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 40px;
-  background: #918864;
+  background: #4F6B57;
   color: #fff;
   z-index: 101;
   display: flex;

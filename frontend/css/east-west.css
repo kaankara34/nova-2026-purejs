@@ -480,7 +480,7 @@
    ========================================================= */
 .ew-nearby {
   padding: clamp(60px, 8vw, 110px) clamp(20px, 4vw, 56px);
-  background: #fff;
+  background: #D6E3EB;
   text-align: center;
 }
 .ew-nearby-title {
@@ -510,7 +510,7 @@
   display: grid;
   grid-template-columns: 130px 1fr;
   align-items: stretch;
-  background: #faf6ee;
+  background: white;
   overflow: hidden;
   min-height: 120px;
   transition: transform 0.35s var(--easing, cubic-bezier(.4,0,.2,1)), box-shadow 0.35s ease;
