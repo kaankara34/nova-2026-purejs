@@ -296,6 +296,41 @@
       if (!lightbox || !lightbox.classList.contains('open')) return;
       if (e.key === 'Escape') closePlanLightbox();
     });
+
+    /* ---- Swipe / drag support on floor plan image (touch + mouse) ---- */
+    const planViewport = $('.ew-plans-image', plansRoot);
+    if (planViewport && window.PointerEvent) {
+      const T = 40;
+      let sx = 0, sy = 0, down = false, pid = null, dragged = false;
+      planViewport.style.touchAction = 'pan-y';
+
+      planViewport.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        down = true; dragged = false; pid = e.pointerId;
+        sx = e.clientX; sy = e.clientY;
+        try { planViewport.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      planViewport.addEventListener('pointermove', (e) => {
+        if (!down || e.pointerId !== pid) return;
+        if (Math.abs(e.clientX - sx) > 8) dragged = true;
+      });
+      planViewport.addEventListener('pointerup', (e) => {
+        if (!down || e.pointerId !== pid) return;
+        const dx = e.clientX - sx;
+        const dy = e.clientY - sy;
+        down = false; pid = null;
+        if (Math.abs(dx) > T && Math.abs(dx) > Math.abs(dy)) {
+          renderPlan((planIdx + (dx < 0 ? 1 : -1) + PLANS.length) % PLANS.length);
+        }
+      });
+      planViewport.addEventListener('pointercancel', () => { down = false; pid = null; dragged = false; });
+      // Swallow the follow-up click so lightbox doesn't open on swipe release
+      planViewport.addEventListener('click', (e) => {
+        if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; }
+      }, true);
+      // Prevent HTML5 image drag ghost
+      if (imgEl) imgEl.addEventListener('dragstart', e => e.preventDefault());
+    }
   }
 
   /* ========== Smooth scroll for [data-scroll] buttons ========== */
