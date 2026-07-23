@@ -14,6 +14,14 @@
 
 .page-project { background: #fff; color: #1a1a1a; }
 
+/* Force lining (aligned) figures for all Cormorant Garamond headings — default oldstyle-figures cause 4+1, 1,2 etc. to look uneven */
+.page-project h1, .page-project h2, .page-project h3, .page-project h4,
+.ew-intro-title, .ew-plans-title, .ew-nearby-dist, .ew-club-title,
+.ew-invest-title, .ew-location-title, .ew-enquire-title, .ew-map-info h4 {
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1, "tnum" 0;
+}
+
 /* =========================================================
    HERO — full-screen video, no overlay text
    ========================================================= */
