@@ -191,12 +191,12 @@
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/fe9f3f7t_3%2B1.png',
         total: '~127 m² / 1367 sq ft',
         rooms: [
-          { i: 1, name: 'Salon', size: '39.33 m²' },
-          { i: 2, name: 'Ebeveyn Yatak Odası', size: '20.22 m²' },
-          { i: 3, name: 'Yatak Odası', size: '12.05 m²' },
-          { i: 4, name: 'Yatak Odası', size: '11.84 m²' },
-          { i: 5, name: 'Mutfak', size: '13.29 m²' },
-          { i: 6, name: 'Balkon', size: '7.11 m²' }
+          { i: 1, name: 'Living Room', size: '39.33 m²' },
+          { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
+          { i: 3, name: 'Bedroom', size: '12.05 m²' },
+          { i: 4, name: 'Bedroom', size: '11.84 m²' },
+          { i: 5, name: 'Kitchen', size: '13.29 m²' },
+          { i: 6, name: 'Balcony', size: '7.11 m²' }
         ]
       },
       {
@@ -204,13 +204,13 @@
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/6l1vxd82_4%2B1.png',
         total: '~150 m² / 1614 sq ft',
         rooms: [
-          { i: 1, name: 'Salon', size: '39.33 m²' },
-          { i: 2, name: 'Ebeveyn Yatak Odası', size: '20.22 m²' },
-          { i: 3, name: 'Yatak Odası', size: '12.05 m²' },
-          { i: 4, name: 'Yatak Odası', size: '11.84 m²' },
-          { i: 5, name: 'Yatak Odası', size: '9.86 m²' },
-          { i: 6, name: 'Mutfak', size: '13.29 m²' },
-          { i: 7, name: 'Balkon', size: '7.11 m²' }
+          { i: 1, name: 'Living Room', size: '39.33 m²' },
+          { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
+          { i: 3, name: 'Bedroom', size: '12.05 m²' },
+          { i: 4, name: 'Bedroom', size: '11.84 m²' },
+          { i: 5, name: 'Bedroom', size: '9.86 m²' },
+          { i: 6, name: 'Kitchen', size: '13.29 m²' },
+          { i: 7, name: 'Balcony', size: '7.11 m²' }
         ]
       },
       {
@@ -218,13 +218,13 @@
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/4tvpokq3_DubleksAlt.png',
         total: '~135 m² / 1453 sq ft',
         rooms: [
-          { i: 1, name: 'Salon', size: '59.05 m²' },
-          { i: 2, name: 'Master Yatak Odası', size: '16.75 m²' },
-          { i: 3, name: 'Mutfak', size: '18.83 m²' },
-          { i: 4, name: 'Yardımcı Oda', size: '4.89 m²' },
-          { i: 5, name: 'Antre', size: '6.66 m²' },
-          { i: 6, name: 'Master Banyo', size: '4.60 m²' },
-          { i: 7, name: 'Balkon', size: '7.00 m²' }
+          { i: 1, name: 'Living Room', size: '59.05 m²' },
+          { i: 2, name: 'Master Bedroom', size: '16.75 m²' },
+          { i: 3, name: 'Kitchen', size: '18.83 m²' },
+          { i: 4, name: 'Utility Room', size: '4.89 m²' },
+          { i: 5, name: 'Entrance', size: '6.66 m²' },
+          { i: 6, name: 'Master Bathroom', size: '4.60 m²' },
+          { i: 7, name: 'Balcony', size: '7.00 m²' }
         ]
       },
       {
@@ -232,12 +232,12 @@
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/jaq8uvnq_DubleksU%CC%88st.png',
         total: '~85 m² / 915 sq ft',
         rooms: [
-          { i: 1, name: 'Ebeveyn Yatak Odası', size: '29.81 m²' },
-          { i: 2, name: 'Yatak Odası', size: '17.90 m²' },
-          { i: 3, name: 'Yatak Odası', size: '10.00 m²' },
-          { i: 4, name: 'Ebeveyn Banyo', size: '7.92 m²' },
-          { i: 5, name: 'Banyo', size: '3.06 m²' },
-          { i: 6, name: 'Teras', size: '4.37 m²' }
+          { i: 1, name: 'Master Bedroom', size: '29.81 m²' },
+          { i: 2, name: 'Bedroom', size: '17.90 m²' },
+          { i: 3, name: 'Bedroom', size: '10.00 m²' },
+          { i: 4, name: 'Master Bathroom', size: '7.92 m²' },
+          { i: 5, name: 'Bathroom', size: '3.06 m²' },
+          { i: 6, name: 'Terrace', size: '4.37 m²' }
         ]
       }
     ];

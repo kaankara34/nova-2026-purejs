@@ -467,17 +467,18 @@
 }
 .ew-plans-expand {
   position: absolute;
-  top: clamp(60px, 8vw, 110px);
-  right: clamp(20px, 4vw, 56px);
+  top: 12px;
+  right: 12px;
   width: 42px; height: 42px;
   border: 1px solid #d4cec0;
-  background: transparent;
+  background: #fff;
   color: #6a6555;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: background .3s ease, color .3s ease, border-color .3s ease;
+  z-index: 2;
 }
 .ew-plans-expand:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
@@ -488,7 +489,8 @@
   align-items: center;
 }
 .ew-plans-image {
-  background: #f5f1ea;
+  position: relative;
+  background: #fff;
   padding: clamp(20px, 3vw, 44px);
   display: flex;
   align-items: center;
@@ -496,10 +498,11 @@
   min-height: 460px;
 }
 .ew-plans-image img {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
   display: block;
   transition: opacity .3s ease;
+  cursor: zoom-in;
 }
 .ew-plans-title {
   font-family: var(--font-serif, 'Cormorant Garamond', serif);
@@ -544,26 +547,14 @@
   text-align: right;
 }
 .ew-plans-btn {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 15px 34px;
-  background: #1a1a1a;
-  color: #fff;
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  transition: background .3s ease;
+  display: none;
 }
-.ew-plans-btn:hover { background: #b3a37e; }
 
 .ew-plans-nav {
   display: flex;
   gap: 24px;
-  justify-content: flex-end;
-  margin-top: 44px;
+  align-items: center;
+  margin-top: 36px;
   color: #1a1a1a;
 }
 .ew-plans-arrow {
