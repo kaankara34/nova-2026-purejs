@@ -411,6 +411,218 @@
 /* =========================================================
    WHY INVEST
    ========================================================= */
+/* =========================================================
+   TYPICAL APARTMENTS
+   ========================================================= */
+.ew-plans {
+  position: relative;
+  padding: clamp(60px, 8vw, 110px) clamp(20px, 4vw, 56px) clamp(50px, 6vw, 90px);
+  background: #fff;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.ew-plans-eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #1a1a1a;
+  margin: 0 0 28px;
+}
+.ew-plans-tabs {
+  display: flex;
+  gap: clamp(24px, 3vw, 56px);
+  border-bottom: 1px solid #e2ddd0;
+  padding-bottom: 18px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ew-plans-tabs::-webkit-scrollbar { display: none; }
+.ew-plans-tab {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a8471;
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 6px;
+  transition: color .3s ease;
+}
+.ew-plans-tab:hover { color: #2a2a2a; }
+.ew-plans-tab.active { color: #1a1a1a; }
+.ew-plans-tab.active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -19px;
+  height: 1px;
+  background: #b3a37e;
+}
+.ew-plans-expand {
+  position: absolute;
+  top: clamp(60px, 8vw, 110px);
+  right: clamp(20px, 4vw, 56px);
+  width: 42px; height: 42px;
+  border: 1px solid #d4cec0;
+  background: transparent;
+  color: #6a6555;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+.ew-plans-expand:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+.ew-plans-body {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(30px, 4vw, 70px);
+  align-items: center;
+}
+.ew-plans-image {
+  background: #f5f1ea;
+  padding: clamp(20px, 3vw, 44px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 460px;
+}
+.ew-plans-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity .3s ease;
+}
+.ew-plans-title {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
+  margin: 0 0 28px;
+}
+.ew-plans-rows {
+  display: flex;
+  flex-direction: column;
+}
+.ew-plans-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid #e6e0d1;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: #3a3a3a;
+  gap: 20px;
+}
+.ew-plans-row em {
+  font-style: normal;
+  color: #b3a37e;
+  margin-right: 6px;
+  font-weight: 500;
+}
+.ew-plans-row--total {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+  font-size: 12px;
+}
+.ew-plans-val {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: #1a1a1a;
+  text-align: right;
+}
+.ew-plans-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 15px 34px;
+  background: #1a1a1a;
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: background .3s ease;
+}
+.ew-plans-btn:hover { background: #b3a37e; }
+
+.ew-plans-nav {
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+  margin-top: 44px;
+  color: #1a1a1a;
+}
+.ew-plans-arrow {
+  background: transparent;
+  border: 0;
+  padding: 6px;
+  cursor: pointer;
+  color: #1a1a1a;
+  transition: opacity .25s ease;
+  opacity: 0.75;
+}
+.ew-plans-arrow:hover { opacity: 1; }
+
+/* Lightbox */
+.ew-plans-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,15,15,0.94);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.ew-plans-lightbox.open { display: flex; }
+.ew-plans-lightbox img {
+  max-width: 95vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.ew-plans-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 26px;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 38px;
+  cursor: pointer;
+  line-height: 1;
+  transition: opacity .2s ease;
+  opacity: 0.85;
+}
+.ew-plans-lightbox-close:hover { opacity: 1; }
+
+@media (max-width: 768px) {
+  .ew-plans-body { grid-template-columns: 1fr; gap: 30px; }
+  .ew-plans-image { min-height: 320px; padding: 20px; }
+  .ew-plans-expand { top: auto; right: 20px; bottom: 12px; width: 36px; height: 36px; }
+  .ew-plans-nav { justify-content: center; }
+  .ew-plans-tab { font-size: 10.5px; letter-spacing: 0.12em; }
+  .ew-plans-tabs { gap: 22px; }
+}
+
+/* =========================================================
+   Why Invest
+   ========================================================= */
 .ew-invest {
   padding: clamp(70px, 9vw, 130px) clamp(16px, 4vw, 56px);
   background: #fff;
