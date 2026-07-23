@@ -187,45 +187,57 @@
   if (plansRoot) {
     const PLANS = [
       {
-        title: 'SUITE',
-        img: 'https://placehold.co/700x560/f5f1ea/8a7f5e?font=lora&text=SUITE',
-        total: '42.3 sq m / 455 sq ft',
+        title: '3+1',
+        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/fe9f3f7t_3%2B1.png',
+        total: '~127 m² / 1367 sq ft',
         rooms: [
-          { i: 1, name: 'Living Area', size: '6370 &times; 4079 mm' },
-          { i: 2, name: 'Bedroom', size: '3908 &times; 2100 mm' }
+          { i: 1, name: 'Salon', size: '39.33 m²' },
+          { i: 2, name: 'Ebeveyn Yatak Odası', size: '20.22 m²' },
+          { i: 3, name: 'Yatak Odası', size: '12.05 m²' },
+          { i: 4, name: 'Yatak Odası', size: '11.84 m²' },
+          { i: 5, name: 'Mutfak', size: '13.29 m²' },
+          { i: 6, name: 'Balkon', size: '7.11 m²' }
         ]
       },
       {
-        title: 'ONE BEDROOM',
-        img: 'https://placehold.co/700x560/f5f1ea/8a7f5e?font=lora&text=ONE+BEDROOM',
-        total: '68.5 sq m / 737 sq ft',
+        title: '4+1',
+        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/6l1vxd82_4%2B1.png',
+        total: '~150 m² / 1614 sq ft',
         rooms: [
-          { i: 1, name: 'Living / Dining', size: '5480 &times; 4200 mm' },
-          { i: 2, name: 'Bedroom', size: '4100 &times; 3500 mm' },
-          { i: 3, name: 'Kitchen', size: '3200 &times; 2400 mm' }
+          { i: 1, name: 'Salon', size: '39.33 m²' },
+          { i: 2, name: 'Ebeveyn Yatak Odası', size: '20.22 m²' },
+          { i: 3, name: 'Yatak Odası', size: '12.05 m²' },
+          { i: 4, name: 'Yatak Odası', size: '11.84 m²' },
+          { i: 5, name: 'Yatak Odası', size: '9.86 m²' },
+          { i: 6, name: 'Mutfak', size: '13.29 m²' },
+          { i: 7, name: 'Balkon', size: '7.11 m²' }
         ]
       },
       {
-        title: 'TWO BEDROOM',
-        img: 'https://placehold.co/700x560/f5f1ea/8a7f5e?font=lora&text=TWO+BEDROOM',
-        total: '112.8 sq m / 1214 sq ft',
+        title: 'DUBLEKS ALT',
+        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/4tvpokq3_DubleksAlt.png',
+        total: '~135 m² / 1453 sq ft',
         rooms: [
-          { i: 1, name: 'Living / Dining', size: '6820 &times; 4900 mm' },
-          { i: 2, name: 'Master Bedroom', size: '4600 &times; 3800 mm' },
-          { i: 3, name: 'Bedroom 2', size: '3900 &times; 3200 mm' },
-          { i: 4, name: 'Kitchen', size: '3500 &times; 2600 mm' }
+          { i: 1, name: 'Salon', size: '59.05 m²' },
+          { i: 2, name: 'Master Yatak Odası', size: '16.75 m²' },
+          { i: 3, name: 'Mutfak', size: '18.83 m²' },
+          { i: 4, name: 'Yardımcı Oda', size: '4.89 m²' },
+          { i: 5, name: 'Antre', size: '6.66 m²' },
+          { i: 6, name: 'Master Banyo', size: '4.60 m²' },
+          { i: 7, name: 'Balkon', size: '7.00 m²' }
         ]
       },
       {
-        title: 'THREE BEDROOM',
-        img: 'https://placehold.co/700x560/f5f1ea/8a7f5e?font=lora&text=THREE+BEDROOM',
-        total: '156.4 sq m / 1684 sq ft',
+        title: 'DUBLEKS ÜST',
+        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/jaq8uvnq_DubleksU%CC%88st.png',
+        total: '~85 m² / 915 sq ft',
         rooms: [
-          { i: 1, name: 'Living / Dining', size: '7400 &times; 5200 mm' },
-          { i: 2, name: 'Master Bedroom', size: '5100 &times; 3900 mm' },
-          { i: 3, name: 'Bedroom 2', size: '4200 &times; 3400 mm' },
-          { i: 4, name: 'Bedroom 3', size: '3800 &times; 3200 mm' },
-          { i: 5, name: 'Kitchen', size: '3800 &times; 2800 mm' }
+          { i: 1, name: 'Ebeveyn Yatak Odası', size: '29.81 m²' },
+          { i: 2, name: 'Yatak Odası', size: '17.90 m²' },
+          { i: 3, name: 'Yatak Odası', size: '10.00 m²' },
+          { i: 4, name: 'Ebeveyn Banyo', size: '7.92 m²' },
+          { i: 5, name: 'Banyo', size: '3.06 m²' },
+          { i: 6, name: 'Teras', size: '4.37 m²' }
         ]
       }
     ];
