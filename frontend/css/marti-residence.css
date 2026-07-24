@@ -12,105 +12,105 @@
   display: block;
 }
 
-/* ================ Editorial Intro (Trump-Dubai reference style) ================ */
+/* ================ Editorial Intro (Trump-Dubai reference sizes) ================ */
 .marti-intro {
-  padding: 130px 6vw 90px;
+  padding: 36px 6vw 40px;
   background: #ffffff;
   text-align: center;
 }
 .marti-intro-headline {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(52px, 8vw, 128px);
-  line-height: 0.98;
+  font-size: 78px;
+  line-height: 75px;
   letter-spacing: 0.005em;
   color: #14100c;
-  margin: 0 auto 46px;
-  max-width: 1500px;
+  margin: 0 auto 20px;
+  max-width: 75%;
   font-variant-numeric: lining-nums;
   text-transform: uppercase;
 }
-.marti-intro-headline br { display: block; }
 
 .marti-intro-loc {
   display: inline-flex;
   align-items: center;
-  gap: 28px;
+  gap: 12px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.28em;
+  font-size: 18px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #1a1a1a;
-  margin: 0 auto 74px;
+  font-weight: 400;
+  margin: 0 auto 44px;
 }
 .marti-intro-loc-sep {
   color: #b3a37e;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
-  transform: translateY(-1px);
 }
 
 .marti-intro-body {
-  max-width: 1060px;
+  max-width: 780px;
   margin: 0 auto;
+  padding: 0 clamp(0px, 4vw, 20px);
   text-align: center;
 }
 .marti-intro-body p {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 16px;
-  line-height: 1.95;
+  line-height: 1.7;
   color: #2a2620;
-  margin: 0 0 22px;
+  margin: 0 0 18px;
 }
 .marti-intro-body p:last-child { margin-bottom: 0; }
 
-@media (max-width: 800px) {
-  .marti-intro { padding: 80px 5vw 60px; }
-  .marti-intro-headline { font-size: clamp(38px, 11vw, 62px); margin-bottom: 30px; }
-  .marti-intro-loc { gap: 16px; font-size: 11px; letter-spacing: 0.2em; margin-bottom: 46px; }
-  .marti-intro-loc-sep { font-size: 13px; }
-  .marti-intro-body p { font-size: 15px; line-height: 1.85; }
+@media (max-width: 900px) {
+  .marti-intro { padding: 24px 5vw 30px; }
+  .marti-intro-headline { font-size: 56px; line-height: 64px; margin-bottom: 20px; max-width: 100%; }
+}
+@media (max-width: 640px) {
+  .marti-intro-headline { font-size: 34px; line-height: 42px; margin-bottom: 20px; }
+  .marti-intro-loc { font-size: 14px; margin-bottom: 32px; }
+  .marti-intro-loc-sep { font-size: 14px; }
+  .marti-intro-body p { font-size: 15px; }
 }
 
-/* ================ Editorial Property Specs (3-col, gold labels, row rules) ================ */
+/* ================ Editorial Property Specs (compact reference sizes) ================ */
 .marti-specs {
-  padding: 20px 6vw 100px;
+  padding: 32px 6vw 40px;
   background: #ffffff;
 }
 .marti-specs-grid {
-  max-width: 1500px;
+  max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(120px, auto);
+  grid-auto-rows: minmax(90px, auto);
   gap: 0;
   border-top: 1px solid #eae4d3;
 }
 .marti-spec {
-  padding: 34px 40px 34px 0;
+  padding: 24px 32px 24px 0;
   border-bottom: 1px solid #eae4d3;
-  position: relative;
 }
-.marti-spec + .marti-spec { padding-left: 40px; }
-/* remove left padding on first col */
 .marti-spec:nth-child(3n+1) { padding-left: 0; }
-.marti-spec:nth-child(3n+1) { border-right: 0; }
+.marti-spec:not(:nth-child(3n+1)) { padding-left: 32px; }
 
 .marti-spec-label {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #a69168;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .marti-spec-value {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(19px, 1.7vw, 24px);
+  font-size: 20px;
   line-height: 1.35;
   color: #14100c;
   letter-spacing: 0.005em;
@@ -118,27 +118,23 @@
 }
 
 @media (max-width: 900px) {
-  .marti-specs { padding: 10px 5vw 70px; }
-  .marti-specs-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: auto;
-  }
+  .marti-specs { padding: 20px 5vw 30px; }
+  .marti-specs-grid { grid-template-columns: 1fr 1fr; }
   .marti-spec,
-  .marti-spec + .marti-spec,
-  .marti-spec:nth-child(3n+1) {
-    padding: 26px 20px 26px 0;
-  }
-  .marti-spec:nth-child(2n) { padding-left: 20px; }
+  .marti-spec:nth-child(3n+1),
+  .marti-spec:not(:nth-child(3n+1)) { padding: 18px 16px 18px 0; }
+  .marti-spec:nth-child(2n) { padding-left: 16px; }
   .marti-spec:nth-child(2n+1) { padding-left: 0; }
+  .marti-spec-value { font-size: 18px; }
 }
 @media (max-width: 560px) {
   .marti-specs-grid { grid-template-columns: 1fr; }
   .marti-spec,
   .marti-spec:nth-child(2n),
   .marti-spec:nth-child(2n+1),
-  .marti-spec + .marti-spec,
-  .marti-spec:nth-child(3n+1) {
-    padding: 22px 0;
+  .marti-spec:nth-child(3n+1),
+  .marti-spec:not(:nth-child(3n+1)) {
+    padding: 16px 0;
   }
 }
 
@@ -368,81 +364,83 @@
 }
 
 /* ================================================================
-   REGISTER YOUR INTEREST — burgundy split layout (reference-driven)
+   REGISTER YOUR INTEREST — burgundy split layout (reference sizes)
+   Reference uses md:py-14 (=56px) and a compact title, form on right.
    ================================================================ */
 .marti-register {
   background: #4a1e26;               /* deep wine / burgundy */
   color: #f2eae4;
-  padding: 130px 6vw 140px;
+  padding: 56px 6vw 64px;
   position: relative;
   overflow: hidden;
 }
 .marti-register::before {
-  /* subtle vignette / grain feel */
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(1200px 700px at 15% 0%, rgba(255,240,220,0.06), transparent 70%),
-    radial-gradient(900px 600px at 85% 100%, rgba(0,0,0,0.25), transparent 70%);
+    radial-gradient(1000px 500px at 15% 0%, rgba(255,240,220,0.05), transparent 70%),
+    radial-gradient(800px 500px at 85% 100%, rgba(0,0,0,0.20), transparent 70%);
   pointer-events: none;
 }
 .marti-register-inner {
   position: relative;
-  max-width: 1400px;
+  max-width: 1360px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 90px;
+  grid-template-columns: 1fr 20% 1fr;   /* title | gutter | form (matches reference md:w-[20%] gutter) */
+  gap: 0;
   align-items: flex-start;
 }
 
 /* ---- LEFT ---- */
+.marti-register-left { padding-right: 20px; }
 .marti-register-title {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(64px, 8vw, 128px);
-  line-height: 0.92;
+  font-size: 60px;
+  line-height: 1.02;
   letter-spacing: 0.005em;
   color: #f5efe6;
-  margin: 0 0 40px;
+  margin: 0 0 20px;
   text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: block;
 }
-.marti-register-title span { display: block; }
+.marti-register-title span {
+  display: block;
+}
 .marti-register-lead {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.55;
   color: #e4d7cd;
-  max-width: 460px;
+  max-width: 360px;
   margin: 0;
 }
 
 /* ---- RIGHT (form) ---- */
+.marti-register-right { min-width: 0; }
 .marti-register-note {
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.26em;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #e4d7cd;
-  margin: 8px 0 32px;
+  color: #d7e3eb;
+  margin: 0 0 22px;
 }
 
-.marti-form { display: flex; flex-direction: column; gap: 28px; }
+.marti-form { display: flex; flex-direction: column; gap: 18px; }
 
 .marti-field { position: relative; }
 .marti-field label {
   display: block;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   color: #d6c6bd;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 400;
 }
 .marti-field input,
@@ -451,14 +449,13 @@
   width: 100%;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid rgba(230, 212, 200, 0.35);
-  padding: 8px 0 12px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
+  border-bottom: 1px solid rgba(230, 212, 200, 0.32);
+  padding: 4px 0 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
   color: #f7ede4;
   outline: none;
   transition: border-color .3s;
-  font-variant-numeric: lining-nums;
   border-radius: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -466,10 +463,8 @@
 }
 .marti-field textarea {
   resize: vertical;
-  min-height: 44px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
+  min-height: 36px;
+  line-height: 1.5;
 }
 .marti-field input::placeholder,
 .marti-field textarea::placeholder { color: rgba(230,212,200,0.5); }
@@ -479,37 +474,38 @@
 
 /* custom chevron for selects */
 .marti-field select {
-  padding-right: 26px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7' fill='none'><path d='M1 1l5 5 5-5' stroke='%23e4d7cd' stroke-width='1.2' stroke-linecap='round'/></svg>");
+  padding-right: 22px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M0 3L6 9L12 3H0Z' fill='%23737373'/></svg>");
   background-repeat: no-repeat;
   background-position: right 2px center;
-  background-size: 12px 7px;
+  background-size: 10px 10px;
+  cursor: pointer;
 }
 .marti-field select option { color: #1a1a1a; background: #f5efe6; }
 
 /* phone row: [+90 v]  ______________ */
 .marti-phone-row {
   display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 20px;
+  grid-template-columns: 60px 1fr;
+  gap: 14px;
   align-items: end;
 }
-.marti-phone-row select { padding-right: 22px; }
+.marti-phone-row select { padding-right: 18px; }
 
 /* checkboxes */
 .marti-checks {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin: 4px 0 6px;
+  gap: 10px;
+  margin: 6px 0 4px;
 }
 .marti-checks label {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
-  color: #e4d7cd;
+  color: #d7e3eb;
   line-height: 1.5;
   cursor: pointer;
   font-weight: 300;
@@ -517,66 +513,68 @@
 .marti-checks input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 16px; height: 16px;
-  border: 1px solid rgba(230, 212, 200, 0.6);
+  width: 14px; height: 14px;
+  border: 1px solid rgba(215, 227, 235, 0.6);
   background: transparent;
   margin: 3px 0 0;
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
-  border-radius: 2px;
+  border-radius: 1px;
   transition: background .2s, border-color .2s;
 }
 .marti-checks input[type="checkbox"]:checked {
-  background: #f5efe6;
-  border-color: #f5efe6;
+  background: #d7e3eb;
+  border-color: #d7e3eb;
 }
 .marti-checks input[type="checkbox"]:checked::after {
   content: "";
   position: absolute;
-  left: 4px; top: 0px;
-  width: 5px; height: 10px;
+  left: 3px; top: -1px;
+  width: 5px; height: 9px;
   border: solid #4a1e26;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
 .marti-checks a {
-  color: #f5efe6;
+  color: #d7e3eb;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 2px;
 }
 
 /* submit */
 .marti-submit {
   align-self: flex-start;
-  background: #f0e6dc;
+  background: #efe6dd;
   color: #14100c;
   border: 0;
-  padding: 18px 42px;
+  padding: 12px 30px;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  font-weight: 500;
   cursor: pointer;
-  margin-top: 8px;
+  margin-top: 10px;
   transition: background .3s, color .3s, transform .3s;
 }
 .marti-submit:hover { background: #fff; color: #4a1e26; }
 .marti-submit:active { transform: translateY(1px); }
 
 /* Responsive */
-@media (max-width: 960px) {
-  .marti-register { padding: 90px 5vw 100px; }
-  .marti-register-inner { grid-template-columns: 1fr; gap: 50px; }
-  .marti-register-title { font-size: clamp(48px, 12vw, 72px); margin-bottom: 24px; }
+@media (max-width: 900px) {
+  .marti-register { padding: 48px 5vw 56px; }
+  .marti-register-inner { grid-template-columns: 1fr; gap: 34px; }
+  .marti-register-left { padding-right: 0; }
+  .marti-register-title { font-size: clamp(40px, 8vw, 54px); margin-bottom: 14px; }
   .marti-register-lead { max-width: 100%; }
-  .marti-register-note { margin-top: 4px; }
 }
 @media (max-width: 500px) {
-  .marti-register { padding: 70px 5vw 90px; }
-  .marti-register-title { font-size: clamp(42px, 14vw, 60px); }
-  .marti-form { gap: 22px; }
+  .marti-register { padding: 40px 5vw 48px; }
+  .marti-register-title { font-size: clamp(36px, 10vw, 46px); }
+  .marti-form { gap: 16px; }
 }
+
 
 
 /* ================ Manifesto ("Challenge everything") block ================ */
