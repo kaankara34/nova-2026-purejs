@@ -446,6 +446,19 @@
   overflow-x: auto;
   scrollbar-width: none;
 }
+.ew-plans-tabs--tower {
+  gap: clamp(28px, 4vw, 64px);
+  border-bottom: 1px solid #d4cec0;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+}
+.ew-plans-tabs--tower .ew-plans-tab {
+  font-size: clamp(14px, 1.1vw, 16px);
+  letter-spacing: 0.24em;
+  color: #6a6555;
+}
+.ew-plans-tabs--tower .ew-plans-tab.active { color: #1a1a1a; }
+.ew-plans-tabs--tower .ew-plans-tab.active::after { bottom: -23px; background: #1a1a1a; height: 2px; }
 .ew-plans-tabs::-webkit-scrollbar { display: none; }
 .ew-plans-tab {
   background: transparent;

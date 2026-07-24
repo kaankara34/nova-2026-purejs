@@ -185,7 +185,7 @@
   /* ========== Typical Apartments (tabs + plans + lightbox) ========== */
   const plansRoot = $('.ew-plans');
   if (plansRoot) {
-    const PLANS = [
+    const EAST_PLANS = [
       {
         title: '3+1',
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/fe9f3f7t_3%2B1.png',
@@ -241,7 +241,12 @@
         ]
       }
     ];
-    const tabs = $$('.ew-plans-tab', plansRoot);
+    // WEST plans reuse same layouts by default — replace image URLs / dims when supplied
+    const WEST_PLANS = EAST_PLANS.map(p => ({ ...p, rooms: p.rooms.slice() }));
+
+    const PLANS_BY_TOWER = { EAST: EAST_PLANS, WEST: WEST_PLANS };
+    const towerTabs = $$('.ew-plans-tab--tower', plansRoot);
+    const tabs = $$('.ew-plans-tab:not(.ew-plans-tab--tower)', plansRoot);
     const titleEl = $('#ewPlansTitle');
     const imgEl = $('#ewPlansImg');
     const rowsEl = $('#ewPlansRows');
@@ -250,11 +255,15 @@
     const lightbox = $('#ewPlansLightbox');
     const lightboxImg = $('#ewPlansLightboxImg');
     const lightboxClose = $('#ewPlansLightboxClose');
+    let currentTower = 'EAST';
     let planIdx = 0;
 
+    function currentPlans() { return PLANS_BY_TOWER[currentTower]; }
+
     function renderPlan(idx) {
+      const list = currentPlans();
       planIdx = idx;
-      const p = PLANS[idx];
+      const p = list[idx];
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
       titleEl.textContent = p.title;
       imgEl.src = p.img;
@@ -266,18 +275,26 @@
       rowsEl.innerHTML = rows.join('');
     }
 
+    function setTower(tower) {
+      currentTower = tower;
+      towerTabs.forEach(t => t.classList.toggle('active', t.dataset.tower === tower));
+      renderPlan(planIdx);
+    }
+
+    towerTabs.forEach(t => t.addEventListener('click', () => setTower(t.dataset.tower)));
     tabs.forEach((t, i) => t.addEventListener('click', () => renderPlan(i)));
     arrows.forEach(btn => {
       btn.addEventListener('click', () => {
         const dir = btn.dataset.dir === 'next' ? 1 : -1;
-        renderPlan((planIdx + dir + PLANS.length) % PLANS.length);
+        const len = currentPlans().length;
+        renderPlan((planIdx + dir + len) % len);
       });
     });
 
     function openPlanLightbox() {
       if (!lightbox) return;
-      lightboxImg.src = PLANS[planIdx].img;
-      lightboxImg.alt = PLANS[planIdx].title;
+      lightboxImg.src = currentPlans()[planIdx].img;
+      lightboxImg.alt = currentPlans()[planIdx].title;
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -306,6 +323,8 @@
 
       planViewport.addEventListener('pointerdown', (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
+        // Skip if pointer starts on the expand button — let its own click work
+        if (e.target.closest('.ew-plans-expand')) return;
         down = true; dragged = false; pid = e.pointerId;
         sx = e.clientX; sy = e.clientY;
         try { planViewport.setPointerCapture(e.pointerId); } catch (_) {}
@@ -320,15 +339,18 @@
         const dy = e.clientY - sy;
         down = false; pid = null;
         if (Math.abs(dx) > T && Math.abs(dx) > Math.abs(dy)) {
-          renderPlan((planIdx + (dx < 0 ? 1 : -1) + PLANS.length) % PLANS.length);
+          const len = currentPlans().length;
+          renderPlan((planIdx + (dx < 0 ? 1 : -1) + len) % len);
         }
       });
       planViewport.addEventListener('pointercancel', () => { down = false; pid = null; dragged = false; });
-      // Swallow the follow-up click so lightbox doesn't open on swipe release
+      // Swallow follow-up click only if user actually dragged and the target isn't the expand button
       planViewport.addEventListener('click', (e) => {
-        if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; }
+        if (dragged && !e.target.closest('.ew-plans-expand')) {
+          e.preventDefault(); e.stopPropagation();
+        }
+        dragged = false;
       }, true);
-      // Prevent HTML5 image drag ghost
       if (imgEl) imgEl.addEventListener('dragstart', e => e.preventDefault());
     }
   }
