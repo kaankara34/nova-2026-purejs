@@ -97,3 +97,61 @@ Structural clone of darglobal.co.uk/trump-plaza/executive-residences with Nova-t
 - Custom always-visible gold scrollbar (`#6f6243`) on `.col-projects` via custom div overlay (Chromium native scrollbar wasn't reliable)
 - Mobile mega menu (≤1100px): submenu now slides in from right with back-arrow header, accordion sub-items inline (darglobal-style)
 
+
+
+## Session — Feb 2026 (Martı Residence Project Page)
+
+### New page: `/marti-residence.html`
+Structural adaptation of DarGlobal's **Trump International Hotel & Tower Dubai** page, using the East-West shell (shared navbar / utility bar / footer / mobile bottom bar / side menu). English copy, generic luxury-residence tone; placeholder images (user will supply real assets later).
+
+**Sections built (top → bottom):**
+1. **Utility bar + Header + Mobile bottom bar + Side menu** — Identical to East-West; side menu ISTANBUL sub-accordion updated to include a Martı Residence entry pointing to `marti-residence.html`.
+2. **Hero** — Full-viewport static image (marti-cover-xl.png) with the standard `.ew-gallery-trigger` (kept `display:none` like East-West).
+3. **Action strip** — GALLERY + BOOK UNIT + DOWNLOAD BROCHURE.
+4. **Intro** — Cormorant title "Martı Residence" + location "Suadiye, Istanbul" + tagline + sub-copy.
+5. **Gallery slider** — 8-slide `.ew-slider` (auto-play + arrows + progress dots + swipe/drag) driving the same `#ewLightbox`.
+6. **Property Specs** — 6-item grid (property type, unit type, status, areas 115–340 sqm, expected completion Dec 2028, featuring: sea views).
+7. **Manifesto — "A New Standard On The Coast."** — Trump-Dubai-style "Challenge Everything" block: title + lead paragraph + 3-image grid (hover zoom) + "View All Images" opens gallery lightbox.
+8. **Key Features (Three Worlds)** — Three alternating image/text blocks: The Martı Residences, The Martı Marina Club, The Waterfront Retreat.
+9. **Amenities** — Club hero image/heading (`.ew-club`) + 10-tile amenities grid.
+10. **Typical Apartments** — 4 tabs (2+1, 3+1, 4+1, PENTHOUSE) with Martı-specific plan data, prev/next arrows, expand-to-lightbox, and A4 download branded "MARTI RESIDENCE — SUADIYE". No EAST/WEST tower toggle (only one tower).
+11. **Investment — "A Life Authored On The Coast"** — 11 numbered items alongside image.
+12. **Location** — Title + lead + description + OpenStreetMap iframe centered on Suadiye (40.960°N / 29.080°E) + Google Maps link + address card.
+13. **Nearby** — 10 nearby-place cards (Bağdat Avenue, Suadiye Waterfront, Kalamış Marina, Marmaray, Göztepe Park, Fenerbahçe, Akasya, Emaar, Eurasia Tunnel, Zorlu Center) with recomputed distances from Suadiye.
+14. **FAQ** — 8-question accordion with `+`/`–` icon flip + gold accent color on open + single-open behaviour (opening one closes the previous).
+15. **Register Your Interest** — Enquire form with Martı Residence pre-selected in project dropdown; submit validation (Full Name + Email + privacy required).
+16. **Footer** — Identical to East-West; "Discover Luxury Properties" list adds Martı Residence link.
+
+### Files added
+- `/app/frontend/marti-residence.html` (full page, all sections)
+- `/app/frontend/css/marti-residence.css` (hero-still, intro title, manifesto grid, three-worlds features, FAQ accordion, enquire lead — loaded on top of `east-west.css` so all `.ew-*` layout classes are reused for free)
+- `/app/frontend/js/marti-residence.js` (gallery + slider + swipe + Martı-specific PLANS array + FAQ single-open accordion + A4 print branded for Martı)
+
+### Files updated
+- `/app/frontend/projects.html` — Martı Residence card now links to `marti-residence.html`.
+- `/app/frontend/serve.json` — added rewrite `/marti-residence → /marti-residence.html`.
+
+### Placeholder / to be replaced by user
+- Hero image (marti-cover-xl.png used for now — no dedicated hero video yet).
+- All gallery, amenity, manifesto and three-worlds imagery are reused East-West renders/photos as temporary placeholders.
+- Floor plan images point to East-West artifact URLs; unit m² figures are illustrative until real Martı data is supplied.
+- Nearby-place distances are estimates from Suadiye coordinates — verify with real address.
+
+### Testing (iteration_7.json)
+- Frontend regression PASS at ~92%. All interactions verified: gallery lightbox open/close/keyboard/prev-next, action-strip buttons, plan tab switching + arrows + expand, FAQ single-open accordion, form validation (empty + no-privacy rejected; valid submit → Thank-you alert), mobile 375×800 has no horizontal overflow and three-worlds blocks stack single-column, no JS console errors.
+- Known non-issues: `.ew-gallery-trigger` `display:none` (intentional, same as East-West — action strip is the primary gallery entry). Clean-route `/marti-residence` returns index at the ingress level (pre-existing platform behaviour, identical to `/east-west` and `/projects`); `.html` URLs work.
+
+## Pending / Backlog (updated Feb 2026)
+
+### P0
+- None open — page functional and tested.
+
+### P1
+- Replace Martı placeholder assets with real renders, interior images, amenity photos, hero video, and real floor plan drawings when the user supplies them.
+- Update Martı floor plan net/gross m² and room breakdowns in `js/marti-residence.js` PLANS array with real project data.
+- Update East-West A4 print net/gross m² values with real project data in `js/east-west.js` (still using placeholder metrics from earlier session).
+
+### P2
+- Additional project pages (Mehtap, Mercan, Doğan, Bahar) built from the same shared East-West/Martı shell.
+- Verify nearby-place distances and content with real client data.
+- Cross-browser A4 print/PDF test (Chrome / Safari / Edge) for both East-West and Martı floor-plan download.
