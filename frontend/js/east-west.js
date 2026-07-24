@@ -190,6 +190,8 @@
         title: '3+1',
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/fe9f3f7t_3%2B1.png',
         total: '~127 m² / 1367 sq ft',
+        net: '127 m²',
+        gross: '155 m²',
         rooms: [
           { i: 1, name: 'Living Room', size: '39.33 m²' },
           { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
@@ -203,6 +205,8 @@
         title: '4+1',
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/6l1vxd82_4%2B1.png',
         total: '~150 m² / 1614 sq ft',
+        net: '150 m²',
+        gross: '182 m²',
         rooms: [
           { i: 1, name: 'Living Room', size: '39.33 m²' },
           { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
@@ -217,6 +221,8 @@
         title: 'DUBLEKS ALT',
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/4tvpokq3_DubleksAlt.png',
         total: '~135 m² / 1453 sq ft',
+        net: '135 m²',
+        gross: '163 m²',
         rooms: [
           { i: 1, name: 'Living Room', size: '59.05 m²' },
           { i: 2, name: 'Master Bedroom', size: '16.75 m²' },
@@ -231,6 +237,8 @@
         title: 'DUBLEKS ÜST',
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/jaq8uvnq_DubleksU%CC%88st.png',
         total: '~85 m² / 915 sq ft',
+        net: '85 m²',
+        gross: '102 m²',
         rooms: [
           { i: 1, name: 'Master Bedroom', size: '29.81 m²' },
           { i: 2, name: 'Bedroom', size: '17.90 m²' },
@@ -311,27 +319,42 @@
       const p = currentPlans()[planIdx];
       const w = window.open('', '_blank');
       if (!w) return;
+      const buildingLabel = 'THE RESIDENCES EAST WEST — ' + currentTower + ' BUILDING';
+      const planTitle = p.title + ' PLAN';
+      const netVal = p.net || '';
+      const grossVal = p.gross || '';
       w.document.write(
-        '<!doctype html><html><head><title>' + p.title + ' - Floor Plan</title>' +
+        '<!doctype html><html lang="en"><head><title>' + planTitle + '</title>' +
         '<meta charset="utf-8"/>' +
         '<style>' +
         '@page { size: A4 portrait; margin: 12mm; }' +
         '* { box-sizing: border-box; }' +
-        'html, body { margin: 0; padding: 0; background: #fff; font-family: Georgia, serif; }' +
-        '.wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }' +
-        'h1 { font-size: 28px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin: 0 0 20px; color: #1a1a1a; }' +
-        '.rule { width: 60px; height: 1px; background: #b3a37e; margin: 0 auto 24px; }' +
-        'img { max-width: 100%; max-height: 220mm; width: auto; height: auto; display: block; margin: 0 auto; }' +
-        '.foot { margin-top: 24px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8a8471; text-align: center; }' +
-        '@media print { .noprint { display: none; } }' +
+        'html, body { margin: 0; padding: 0; background: #fff; font-family: Georgia, "Cormorant Garamond", serif; color: #1a1a1a; }' +
+        '.wrap { display: flex; flex-direction: column; align-items: center; padding: 8mm 6mm; }' +
+        '.company { font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #6a6555; text-align: center; margin: 0 0 6px; }' +
+        '.building { font-family: Arial, Helvetica, sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #1a1a1a; text-align: center; margin: 0 0 18px; }' +
+        'h1 { font-size: 32px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; margin: 0 0 14px; font-variant-numeric: lining-nums; }' +
+        '.rule { width: 64px; height: 1px; background: #b3a37e; margin: 0 auto 24px; }' +
+        '.plan-img-wrap { width: 100%; text-align: center; margin: 0 0 18px; }' +
+        'img { max-width: 100%; max-height: 195mm; width: auto; height: auto; display: block; margin: 0 auto; }' +
+        '.metrics { display: flex; justify-content: center; gap: 40px; margin-top: 14px; font-family: Arial, Helvetica, sans-serif; }' +
+        '.metric { text-align: center; }' +
+        '.metric-label { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: #8a8471; margin-bottom: 4px; }' +
+        '.metric-value { font-size: 16px; font-weight: 500; color: #1a1a1a; font-variant-numeric: lining-nums; }' +
+        '.divider-v { width: 1px; height: 34px; background: #d4cec0; align-self: center; }' +
         '</style></head><body>' +
         '<div class="wrap">' +
-        '<h1>' + p.title + '</h1>' +
+        '<div class="company">Nova Konut İnşaat Yatırım A.Ş.</div>' +
+        '<div class="building">' + buildingLabel + '</div>' +
+        '<h1>' + planTitle + '</h1>' +
         '<div class="rule"></div>' +
-        '<img src="' + p.img + '" alt="' + p.title + ' floor plan" crossorigin="anonymous"/>' +
-        '<div class="foot">The Residences East West &mdash; ' + currentTower + '</div>' +
-        '</div>' +
-        '<script>window.onload = function(){ var img = document.querySelector("img"); function go(){ setTimeout(function(){ window.focus(); window.print(); }, 200); } if (img.complete) go(); else img.onload = go;'
+        '<div class="plan-img-wrap"><img src="' + p.img + '" alt="' + p.title + ' floor plan" crossorigin="anonymous"/></div>' +
+        '<div class="metrics">' +
+        '<div class="metric"><div class="metric-label">Net Area</div><div class="metric-value">' + netVal + '</div></div>' +
+        '<div class="divider-v"></div>' +
+        '<div class="metric"><div class="metric-label">Gross Area</div><div class="metric-value">' + grossVal + '</div></div>' +
+        '</div></div>' +
+        '<script>window.onload = function(){ var img = document.querySelector("img"); function go(){ setTimeout(function(){ window.focus(); window.print(); }, 250); } if (img.complete) go(); else img.onload = go;'
         + '};<\/script></body></html>'
       );
       w.document.close();

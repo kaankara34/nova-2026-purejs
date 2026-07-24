@@ -648,7 +648,8 @@
 @media (max-width: 768px) {
   .ew-plans-body { grid-template-columns: 1fr; gap: 30px; }
   .ew-plans-image { min-height: 320px; padding: 20px; }
-  .ew-plans-expand { top: auto; right: 20px; bottom: 12px; width: 36px; height: 36px; }
+  .ew-plans-expand { top: 10px; right: 10px; bottom: auto; width: 36px; height: 36px; }
+  .ew-plans-download { top: 10px; right: 54px; bottom: auto; width: 36px; height: 36px; }
   .ew-plans-nav { justify-content: center; }
   .ew-plans-tab { font-size: 10.5px; letter-spacing: 0.12em; }
   .ew-plans-tabs { gap: 22px; }
