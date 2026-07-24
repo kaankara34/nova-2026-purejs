@@ -306,7 +306,6 @@
       document.body.style.overflow = '';
     }
     if (expandBtn) expandBtn.addEventListener('click', openPlanLightbox);
-    if (imgEl) imgEl.addEventListener('click', openPlanLightbox);
     if (lightboxClose) lightboxClose.addEventListener('click', closePlanLightbox);
     if (lightbox) lightbox.addEventListener('click', e => { if (e.target === lightbox) closePlanLightbox(); });
     document.addEventListener('keydown', e => {
@@ -323,7 +322,6 @@
 
       planViewport.addEventListener('pointerdown', (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
-        // Skip if pointer starts on the expand button — let its own click work
         if (e.target.closest('.ew-plans-expand')) return;
         down = true; dragged = false; pid = e.pointerId;
         sx = e.clientX; sy = e.clientY;
@@ -344,13 +342,14 @@
         }
       });
       planViewport.addEventListener('pointercancel', () => { down = false; pid = null; dragged = false; });
-      // Swallow follow-up click only if user actually dragged and the target isn't the expand button
+
+      // Because setPointerCapture retargets click events to planViewport,
+      // handle image-tap-to-open-lightbox here (only if user did not drag and did not click expand button)
       planViewport.addEventListener('click', (e) => {
-        if (dragged && !e.target.closest('.ew-plans-expand')) {
-          e.preventDefault(); e.stopPropagation();
-        }
-        dragged = false;
-      }, true);
+        if (e.target.closest('.ew-plans-expand')) { return; }
+        if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; return; }
+        openPlanLightbox();
+      });
       if (imgEl) imgEl.addEventListener('dragstart', e => e.preventDefault());
     }
   }
