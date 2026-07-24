@@ -207,12 +207,18 @@
     </div>
   </div>
 
-  <!-- ============================= INTRO ============================= -->
-  <section class="ew-intro">
-    <h1 class="marti-intro-title reveal-up">Martı Residence</h1>
-    <div class="marti-intro-location reveal-up">Suadiye, Istanbul</div>
-    <p class="ew-intro-tag reveal-up">A signature waterfront collection of 2, 3 and 4-bedroom residences and duplex penthouses, moments from the Marmara coastline on Bağdat Avenue. Refined interiors, private club amenities, and full concierge services define a new standard for Anatolian-side living.</p>
-    <p class="ew-intro-sub reveal-up">Set within one of Istanbul’s most desirable coastal neighbourhoods, the residences frame open views of the Sea of Marmara and the Princes’ Islands from every home.</p>
+  <!-- ============================= INTRO (editorial display) ============================= -->
+  <section class="marti-intro">
+    <h1 class="marti-intro-headline reveal-up">MARTI RESIDENCE,<br/>BY THE SEA</h1>
+    <div class="marti-intro-loc reveal-up">
+      <span>SUADIYE</span>
+      <span class="marti-intro-loc-sep">|</span>
+      <span>ISTANBUL, TÜRKİYE</span>
+    </div>
+    <div class="marti-intro-body reveal-up">
+      <p>Martı Residence is Nova Konut’s signature waterfront collection on the Suadiye seafront — a private, gated address of 2, 3 and 4-bedroom residences and rare duplex penthouses set directly on the Marmara coastline of Bağdat Avenue. An architectural composition designed to catch the light of the sea, its layered façade opens every home toward the horizon, framing uninterrupted views of the Sea of Marmara and the Princes’ Islands.</p>
+      <p>Rising above one of Istanbul’s most sought-after coastal neighbourhoods, the tower blends refined Italian interiors, a members-only marina club and full concierge service. Residences range from 115 to 340&nbsp;sqm, curated for a life measured in quiet excellence — where the shoreline, the boulevard and the city are, all at once, at your door.</p>
+    </div>
   </section>
 
   <!-- ============================= GALLERY ============================= -->
@@ -255,32 +261,32 @@
     </div>
   </section>
 
-  <!-- ============================= PROPERTY SPECS ============================= -->
-  <section class="ew-specs reveal-up">
-    <div class="ew-specs-grid">
-      <div class="ew-spec">
-        <div class="ew-spec-label">property type</div>
-        <div class="ew-spec-value">Branded Residential Tower</div>
+  <!-- ============================= PROPERTY SPECS (editorial grid) ============================= -->
+  <section class="marti-specs reveal-up">
+    <div class="marti-specs-grid">
+      <div class="marti-spec">
+        <div class="marti-spec-label">PROPERTY TYPE</div>
+        <div class="marti-spec-value">Branded Waterfront Residential Tower</div>
       </div>
-      <div class="ew-spec">
-        <div class="ew-spec-label">unit type</div>
-        <div class="ew-spec-value">2, 3 & 4-Bedroom Residences and Duplex Penthouses</div>
+      <div class="marti-spec">
+        <div class="marti-spec-label">UNIT TYPE</div>
+        <div class="marti-spec-value">2, 3 &amp; 4 Bedroom Residences &amp; Duplex Penthouses</div>
       </div>
-      <div class="ew-spec">
-        <div class="ew-spec-label">status</div>
-        <div class="ew-spec-value">Under Development</div>
+      <div class="marti-spec">
+        <div class="marti-spec-label">STATUS</div>
+        <div class="marti-spec-value">Under Development</div>
       </div>
-      <div class="ew-spec">
-        <div class="ew-spec-label">areas (sqm)</div>
-        <div class="ew-spec-value">115 to 340</div>
+      <div class="marti-spec">
+        <div class="marti-spec-label">AREAS (SQM)</div>
+        <div class="marti-spec-value">115 to 340</div>
       </div>
-      <div class="ew-spec">
-        <div class="ew-spec-label">expected completion</div>
-        <div class="ew-spec-value">December 2028</div>
+      <div class="marti-spec">
+        <div class="marti-spec-label">EXPECTED COMPLETION DATE</div>
+        <div class="marti-spec-value">December 2028</div>
       </div>
-      <div class="ew-spec">
-        <div class="ew-spec-label">featuring</div>
-        <div class="ew-spec-value">Direct sea views from every residence</div>
+      <div class="marti-spec">
+        <div class="marti-spec-label">FEATURING</div>
+        <div class="marti-spec-value">Direct sea views from every residence</div>
       </div>
     </div>
   </section>
@@ -571,63 +577,73 @@
     </div>
   </section>
 
-  <!-- ============================= ENQUIRE ============================= -->
-  <section class="ew-enquire" id="register">
-    <div class="container">
-      <h2 class="ew-enquire-title reveal-up">REGISTER YOUR INTEREST</h2>
-      <p class="marti-enquire-lead reveal-up">Discover exclusive waterfront residences and investment opportunities with Nova Konut. Please provide your details to register your interest.</p>
-      <form class="ew-form reveal-up" id="ewEnquireForm" novalidate>
-        <div class="ew-field">
-          <label>Full Name</label>
-          <input type="text" name="fullname" required data-testid="marti-form-name"/>
-        </div>
-        <div class="ew-field ew-phone">
-          <div>
-            <label>Code</label>
-            <select name="code">
-              <option>+1</option><option>+44</option><option selected>+90</option><option>+971</option><option>+966</option>
+  <!-- ============================= REGISTER YOUR INTEREST (burgundy, split layout) ============================= -->
+  <section class="marti-register" id="register">
+    <div class="marti-register-inner">
+      <div class="marti-register-left">
+        <h2 class="marti-register-title reveal-up">
+          <span>REGISTER</span>
+          <span>YOUR</span>
+          <span>INTEREST</span>
+        </h2>
+        <p class="marti-register-lead reveal-up">Discover exclusive waterfront residences and investment opportunities with Nova Konut.</p>
+      </div>
+
+      <div class="marti-register-right">
+        <p class="marti-register-note reveal-up">PLEASE PROVIDE YOUR DETAILS TO REGISTER INTEREST.</p>
+        <form class="marti-form reveal-up" id="ewEnquireForm" novalidate>
+          <div class="marti-field">
+            <label for="marti-fullname">Full Name</label>
+            <input id="marti-fullname" type="text" name="fullname" required data-testid="marti-form-name"/>
+          </div>
+          <div class="marti-field marti-field--phone">
+            <label for="marti-phone">Phone</label>
+            <div class="marti-phone-row">
+              <select name="code" aria-label="Country code">
+                <option>+1</option><option>+44</option><option selected>+90</option><option>+971</option><option>+966</option>
+              </select>
+              <input id="marti-phone" type="tel" name="phone" data-testid="marti-form-phone"/>
+            </div>
+          </div>
+          <div class="marti-field">
+            <label for="marti-email">Email</label>
+            <input id="marti-email" type="email" name="email" required data-testid="marti-form-email"/>
+          </div>
+          <div class="marti-field">
+            <label for="marti-project">Select Project</label>
+            <select id="marti-project" name="project">
+              <option selected>Martı Residence, Suadiye</option>
+              <option>The Residences East West, Bağdat Caddesi</option>
+              <option>The Apartments Taç, Bağdat Caddesi</option>
+              <option>The Apartments Ana, Bağdat Caddesi</option>
             </select>
           </div>
-          <div>
-            <label>Phone</label>
-            <input type="tel" name="phone" data-testid="marti-form-phone"/>
+          <div class="marti-field">
+            <label for="marti-source">How did you hear about us?</label>
+            <select id="marti-source" name="source">
+              <option value="">Please select</option>
+              <option>Google</option>
+              <option>Social Media (Instagram, Facebook, TikTok)</option>
+              <option>LinkedIn</option>
+              <option>Other Online Ads</option>
+              <option>Word of Mouth</option>
+              <option>Event</option>
+              <option>Email Newsletter</option>
+              <option>Property Portal</option>
+              <option>Other</option>
+            </select>
           </div>
-        </div>
-        <div class="ew-field">
-          <label>Email</label>
-          <input type="email" name="email" required data-testid="marti-form-email"/>
-        </div>
-        <div class="ew-field">
-          <label>Select Project</label>
-          <select name="project">
-            <option>Select Project</option>
-            <option selected>Martı Residence, Suadiye</option>
-            <option>The Residences East West, Bağdat Caddesi</option>
-            <option>The Apartments Taç, Bağdat Caddesi</option>
-            <option>The Apartments Ana, Bağdat Caddesi</option>
-          </select>
-        </div>
-        <div class="ew-field">
-          <label>How did you hear about us?</label>
-          <select name="source">
-            <option>How did you hear about us?</option>
-            <option>Google</option>
-            <option>Social Media</option>
-            <option>LinkedIn</option>
-            <option>Other Online Ads</option>
-            <option>Word of Mouth</option>
-            <option>Event</option>
-            <option>Email Newsletter</option>
-            <option>Property Portal</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="ew-checks">
-          <label><input type="checkbox" name="news" checked /> I&rsquo;d like to hear about news and offers</label>
-          <label><input type="checkbox" name="privacy" required /> I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></label>
-        </div>
-        <button type="submit" class="ew-submit" data-testid="marti-form-submit">REGISTER INTEREST</button>
-      </form>
+          <div class="marti-field">
+            <label for="marti-comments">Additional Comments</label>
+            <textarea id="marti-comments" name="comments" rows="2"></textarea>
+          </div>
+          <div class="marti-checks">
+            <label><input type="checkbox" name="news" checked /> <span>I&rsquo;d like to hear about news and offers</span></label>
+            <label><input type="checkbox" name="privacy" required /> <span>I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></span></label>
+          </div>
+          <button type="submit" class="marti-submit" data-testid="marti-form-submit">REGISTER INTEREST</button>
+        </form>
+      </div>
     </div>
   </section>
 

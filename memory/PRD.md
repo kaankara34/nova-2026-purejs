@@ -141,6 +141,12 @@ Structural adaptation of DarGlobal's **Trump International Hotel & Tower Dubai**
 - Frontend regression PASS at ~92%. All interactions verified: gallery lightbox open/close/keyboard/prev-next, action-strip buttons, plan tab switching + arrows + expand, FAQ single-open accordion, form validation (empty + no-privacy rejected; valid submit → Thank-you alert), mobile 375×800 has no horizontal overflow and three-worlds blocks stack single-column, no JS console errors.
 - Known non-issues: `.ew-gallery-trigger` `display:none` (intentional, same as East-West — action strip is the primary gallery entry). Clean-route `/marti-residence` returns index at the ingress level (pre-existing platform behaviour, identical to `/east-west` and `/projects`); `.html` URLs work.
 
+### Post-review redesign (Feb 2026) — reference-driven visual identity
+User feedback: the first Martı build looked too much like East-West. Rebuilt three signature sections to match the DarGlobal Trump Dubai / Da Vinci Tower editorial language while keeping the shared shell:
+- **Intro** → replaced small East-West-style intro with a full editorial block: massive all-caps display title `MARTI RESIDENCE, BY THE SEA` (Cormorant Garamond, clamp 52-128px), gold pipe-separated location `SUADIYE  |  ISTANBUL, TÜRKİYE`, two centred editorial paragraphs.
+- **Property Specs** → replaced 6-across grid with a 3-column × 2-row editorial grid: gold `#a69168` uppercase labels + Cormorant value + `#eae4d3` horizontal rule between rows (mirrors reference exactly). Collapses to 2-col on tablet and 1-col on small mobile.
+- **Register Your Interest** → completely rebuilt on a deep burgundy `#4a1e26` background with vignette gradient. Split layout: LEFT column is a three-line massive title (`REGISTER` / `YOUR` / `INTEREST`) stacked with a lead paragraph. RIGHT column is a minimal underline-only form (transparent inputs, cream underline that brightens on focus), added an `Additional Comments` textarea, custom SVG chevrons on selects, custom cream check-tick on burgundy checkboxes, and a cream `REGISTER INTEREST` submit button. All prior `.ew-enquire` / `.marti-enquire-lead` styles removed.
+
 ## Pending / Backlog (updated Feb 2026)
 
 ### P0
