@@ -1,0 +1,30 @@
+{
+  "summary": "Frontend regression on the new Martı Residence page (/marti-residence.html) — desktop 1920x1080 and mobile 375x800. Header/side-menu, gallery lightbox (via action strip), hero action buttons, plan tabs (2+1/3+1/4+1/PENTHOUSE) + next arrow + expand lightbox, FAQ accordion (single-open behaviour via aria-expanded), form validation (empty/no-privacy rejected, valid submit shows Thank-you alert), amenities (10), specs (6), nearby (10), investment items (11), manifesto (3 images), FAQ items (8) — all VERIFIED WORKING. Slider .ew-slide auto-play confirmed (14 slides, active index changed after 6s). Projects.html has a working Martı Residence card linking to marti-residence.html. Mobile: no horizontal overflow, mobile-bottom-bar visible, marti-features rows stack single-column. No JS console errors observed. TWO ISSUES: (a) Hero-hero-gallery-trigger button is display:none on both desktop and mobile (inherited from .ew-gallery-trigger rule in east-west.css line 48), so the top-of-hero GALLERY trigger acceptance criterion is not visually met — however the action-strip GALLERY button below the hero opens the same lightbox and works. (b) Clean route /marti-residence returns the DarGlobal index.html instead of marti-residence.html (systemic serve.json rewrite is not being honoured by the deployment; same behaviour on /east-west and /projects).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Hero (marti-residence.html)", "issue": "The hero-corner GALLERY trigger button is not visible. CSS rule .ew-gallery-trigger { display:none } (east-west.css:48) is inherited by the Martı page. Users cannot click the in-hero GALLERY trigger — they must scroll to action strip.", "selector": "[data-testid=\"marti-hero-gallery-trigger\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [
+      {"flow": "Clean URL routing", "issue": "GET /marti-residence returns 200 but body is the DarGlobal home index.html (title 'DarGlobal | International Luxury Real Estate Developer'), not marti-residence.html. serve.json rewrites are not being applied by the preview deployment. Same for /east-west and /projects.", "affected_selectors": ["/marti-residence", "/east-west", "/projects"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Override .ew-gallery-trigger to display:flex inside .page-marti (or add !important in marti-residence.css) so the in-hero GALLERY button is visible.",
+    "Investigate why serve.json rewrites are ignored on preview — /marti-residence should serve marti-residence.html. Possibly the Kubernetes ingress /static fallback is intercepting or `npx serve` isn't picking up serve.json config; consider adding physical marti-residence directory with index.html or verifying `serve` version supports rewrites."
+  ],
+  "critical_code_review_comments": [
+    "Plan images for '2+1' and '3+1' tabs both point to the same 3+1.png asset (marti-residence.js:174-188). Confirmed as intentional placeholder per user note, but flagging for future asset replacement.",
+    "Form privacy checkbox lacks a data-testid (found by name='privacy'). Consider adding data-testid='marti-form-privacy' to align with review spec.",
+    "east-west.css .ew-gallery-trigger has display:none baked in (marked '/* optional helper */'); if this trigger is intended to be visible on the Martı page it must be explicitly overridden."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "~92%"},
+  "seed_data_creation": "",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Tested at https://darg-clone-1.preview.emergentagent.com/marti-residence.html. Key selectors: #menuToggle (hamburger), #menuClose, [data-testid=marti-gallery-btn] (action strip -> opens .ew-lightbox with slides), [data-testid=marti-hero-gallery-trigger] (currently display:none — hidden bug), [data-testid=marti-book-unit]/marti-download-brochure, .ew-plans-tab (4 tabs), .ew-plans-next, .ew-plans-expand, [data-testid=marti-faq-q-1..8] (aria-expanded toggles, single-open works), form inputs data-testid=marti-form-name/email/submit; privacy checkbox has name='privacy' (no data-testid). Alerts: empty submit / no-privacy => 'Please fill required fields and accept the privacy policy.'; valid => 'Thank you. Your enquiry has been received.'. Slider .ew-slide.active auto-cycles among 14 slides.",
+  "rca of the issue": "(a) Hero GALLERY trigger: .ew-gallery-trigger { display:none } in /app/frontend/css/east-west.css:48 was authored as an 'optional helper' for East-West; no override in /app/frontend/css/marti-residence.css. (b) Clean-route regression: serve.json is present with correct rewrites but the deployment (either `npx serve` behind ingress, or the ingress fallback) is serving index.html for any non-matching route; a subdirectory or explicit rewrite at ingress may be needed."
+}

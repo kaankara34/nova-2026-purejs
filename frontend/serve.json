@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/east-west", "destination": "/east-west.html" },
+    { "source": "/marti-residence", "destination": "/marti-residence.html" },
     { "source": "/projects", "destination": "/projects.html" }
   ],
   "headers": [

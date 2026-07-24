@@ -1,0 +1,275 @@
+/* ================================================================
+   MARTI RESIDENCE — page-specific styles (loaded on top of east-west.css)
+   Reuses ew-* layout classes and only adds/overrides Marti-only pieces.
+   ================================================================ */
+
+/* Hero image (no video available yet) */
+.page-marti .ew-hero-media { background: #0b0b0b; }
+.page-marti .ew-hero-still {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================ Intro title block (Marti-specific typography) ================ */
+.marti-intro-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(46px, 6vw, 84px);
+  color: #1a1a1a;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin: 0 0 12px;
+  line-height: 1.05;
+  font-variant-numeric: lining-nums;
+}
+.marti-intro-location {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #8a8471;
+  text-align: center;
+  margin: 0 0 28px;
+}
+
+/* ================ Manifesto ("Challenge everything") block ================ */
+.marti-manifesto {
+  padding: 100px 6vw 40px;
+  background: #fff;
+  text-align: center;
+}
+.marti-manifesto-inner { max-width: 1240px; margin: 0 auto; }
+.marti-manifesto-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 52px);
+  color: #1a1a1a;
+  letter-spacing: 0.03em;
+  margin: 0 0 20px;
+  line-height: 1.15;
+}
+.marti-manifesto-lead {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #4a4a4a;
+  max-width: 780px;
+  margin: 0 auto 56px;
+}
+.marti-manifesto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 34px;
+}
+.marti-manifesto-img {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #efece5;
+}
+.marti-manifesto-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.marti-manifesto-img:hover img { transform: scale(1.04); }
+
+.marti-view-all-btn {
+  background: transparent;
+  border: 1px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 14px 34px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .3s, color .3s;
+}
+.marti-view-all-btn:hover { background: #1a1a1a; color: #fff; }
+
+@media (max-width: 800px) {
+  .marti-manifesto { padding: 70px 5vw 20px; }
+  .marti-manifesto-grid { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* ================ Key Features (Three Worlds) ================ */
+.marti-features {
+  padding: 80px 6vw 100px;
+  background: #fff;
+}
+.marti-features-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #8a8471;
+  text-align: center;
+  margin: 0 0 20px;
+}
+.marti-features-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.5;
+  color: #1a1a1a;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 80px;
+}
+.marti-features-block {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 70px;
+  align-items: center;
+  margin-bottom: 90px;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.marti-features-block--reverse { grid-template-columns: 1fr 1.15fr; }
+.marti-features-block--reverse .marti-features-img { order: 2; }
+.marti-features-block--reverse .marti-features-text { order: 1; }
+
+.marti-features-img {
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #efece5;
+}
+.marti-features-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .9s cubic-bezier(.2,.7,.2,1);
+}
+.marti-features-block:hover .marti-features-img img { transform: scale(1.04); }
+
+.marti-features-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 40px);
+  color: #1a1a1a;
+  margin: 0 0 22px;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+.marti-features-text p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #4a4a4a;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .marti-features { padding: 60px 5vw 60px; }
+  .marti-features-block,
+  .marti-features-block--reverse {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    margin-bottom: 60px;
+  }
+  .marti-features-block--reverse .marti-features-img { order: 0; }
+  .marti-features-block--reverse .marti-features-text { order: 0; }
+  .marti-features-lead { margin-bottom: 50px; }
+}
+
+/* ================ FAQ ================ */
+.marti-faq {
+  padding: 100px 6vw 120px;
+  background: #fff;
+}
+.marti-faq-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 56px);
+  color: #1a1a1a;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin: 0 0 60px;
+  line-height: 1.1;
+}
+.marti-faq-list {
+  max-width: 940px;
+  margin: 0 auto;
+  border-top: 1px solid #e5e0d3;
+}
+.marti-faq-item { border-bottom: 1px solid #e5e0d3; }
+.marti-faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 4px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  color: #1a1a1a;
+  letter-spacing: 0.01em;
+  transition: color .3s;
+}
+.marti-faq-q:hover { color: #b3a37e; }
+.marti-faq-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.marti-faq-icon::before,
+.marti-faq-icon::after {
+  content: "";
+  position: absolute;
+  background: #1a1a1a;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), background-color .3s;
+}
+.marti-faq-icon::before { top: 8px; left: 0; width: 18px; height: 1.5px; }
+.marti-faq-icon::after  { top: 0; left: 8px; width: 1.5px; height: 18px; }
+.marti-faq-q[aria-expanded="true"] .marti-faq-icon::after { transform: scaleY(0); }
+.marti-faq-q[aria-expanded="true"] .marti-faq-icon::before { background: #b3a37e; }
+.marti-faq-q[aria-expanded="true"] { color: #b3a37e; }
+
+.marti-faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s cubic-bezier(.2,.7,.2,1);
+}
+.marti-faq-a p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #4a4a4a;
+  margin: 0 0 26px;
+  padding-right: 40px;
+}
+
+@media (max-width: 700px) {
+  .marti-faq { padding: 70px 5vw 90px; }
+  .marti-faq-q { padding: 22px 4px; }
+  .marti-faq-a p { padding-right: 0; }
+}
+
+/* ================ Enquire lead ================ */
+.marti-enquire-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.55;
+  color: #4a4a4a;
+  text-align: center;
+  max-width: 640px;
+  margin: -30px auto 46px;
+}
+@media (max-width: 700px) {
+  .marti-enquire-lead { margin: -14px auto 30px; }
+}
