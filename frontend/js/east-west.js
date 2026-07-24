@@ -306,6 +306,37 @@
       document.body.style.overflow = '';
     }
     if (expandBtn) expandBtn.addEventListener('click', openPlanLightbox);
+    const downloadBtn = $('#ewPlansDownload');
+    function downloadPlanA4() {
+      const p = currentPlans()[planIdx];
+      const w = window.open('', '_blank');
+      if (!w) return;
+      w.document.write(
+        '<!doctype html><html><head><title>' + p.title + ' - Floor Plan</title>' +
+        '<meta charset="utf-8"/>' +
+        '<style>' +
+        '@page { size: A4 portrait; margin: 12mm; }' +
+        '* { box-sizing: border-box; }' +
+        'html, body { margin: 0; padding: 0; background: #fff; font-family: Georgia, serif; }' +
+        '.wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }' +
+        'h1 { font-size: 28px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin: 0 0 20px; color: #1a1a1a; }' +
+        '.rule { width: 60px; height: 1px; background: #b3a37e; margin: 0 auto 24px; }' +
+        'img { max-width: 100%; max-height: 220mm; width: auto; height: auto; display: block; margin: 0 auto; }' +
+        '.foot { margin-top: 24px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8a8471; text-align: center; }' +
+        '@media print { .noprint { display: none; } }' +
+        '</style></head><body>' +
+        '<div class="wrap">' +
+        '<h1>' + p.title + '</h1>' +
+        '<div class="rule"></div>' +
+        '<img src="' + p.img + '" alt="' + p.title + ' floor plan" crossorigin="anonymous"/>' +
+        '<div class="foot">The Residences East West &mdash; ' + currentTower + '</div>' +
+        '</div>' +
+        '<script>window.onload = function(){ var img = document.querySelector("img"); function go(){ setTimeout(function(){ window.focus(); window.print(); }, 200); } if (img.complete) go(); else img.onload = go;'
+        + '};<\/script></body></html>'
+      );
+      w.document.close();
+    }
+    if (downloadBtn) downloadBtn.addEventListener('click', downloadPlanA4);
     if (lightboxClose) lightboxClose.addEventListener('click', closePlanLightbox);
     if (lightbox) lightbox.addEventListener('click', e => { if (e.target === lightbox) closePlanLightbox(); });
     document.addEventListener('keydown', e => {
@@ -322,7 +353,7 @@
 
       planViewport.addEventListener('pointerdown', (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
-        if (e.target.closest('.ew-plans-expand')) return;
+        if (e.target.closest('.ew-plans-expand, .ew-plans-download')) return;
         down = true; dragged = false; pid = e.pointerId;
         sx = e.clientX; sy = e.clientY;
         try { planViewport.setPointerCapture(e.pointerId); } catch (_) {}
@@ -346,7 +377,7 @@
       // Because setPointerCapture retargets click events to planViewport,
       // handle image-tap-to-open-lightbox here (only if user did not drag and did not click expand button)
       planViewport.addEventListener('click', (e) => {
-        if (e.target.closest('.ew-plans-expand')) { return; }
+        if (e.target.closest('.ew-plans-expand, .ew-plans-download')) { return; }
         if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; return; }
         openPlanLightbox();
       });

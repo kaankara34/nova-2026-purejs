@@ -251,8 +251,10 @@
   justify-content: center;
   transition: opacity 0.25s ease;
   opacity: 0.85;
+  touch-action: manipulation;
 }
 .ew-slider-arrow:hover { opacity: 1; }
+.ew-progress-seg { touch-action: manipulation; }
 .ew-view-all {
   display: inline-flex;
   align-items: center;
@@ -500,8 +502,26 @@
   justify-content: center;
   transition: background .3s ease, color .3s ease, border-color .3s ease;
   z-index: 2;
+  touch-action: manipulation;
 }
 .ew-plans-expand:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+.ew-plans-download {
+  position: absolute;
+  top: 12px;
+  right: 62px;
+  width: 42px; height: 42px;
+  border: 1px solid #d4cec0;
+  background: #fff;
+  color: #6a6555;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+  z-index: 2;
+  touch-action: manipulation;
+}
+.ew-plans-download:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
 
 .ew-plans-body {
   display: grid;
@@ -586,8 +606,10 @@
   color: #1a1a1a;
   transition: opacity .25s ease;
   opacity: 0.75;
+  touch-action: manipulation;
 }
 .ew-plans-arrow:hover { opacity: 1; }
+.ew-plans-tab { touch-action: manipulation; }
 
 /* Lightbox */
 .ew-plans-lightbox {
