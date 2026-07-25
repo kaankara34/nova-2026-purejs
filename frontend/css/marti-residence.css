@@ -183,14 +183,14 @@
   .marti-spec-value { font-size: 18px; }
 }
 @media (max-width: 560px) {
-  .marti-specs-grid { grid-template-columns: 1fr; }
+  /* keep 2-column layout on mobile per design — tighten spacing only */
+  .marti-specs { padding: 16px 5vw 26px; }
   .marti-spec,
-  .marti-spec:nth-child(2n),
-  .marti-spec:nth-child(2n+1),
   .marti-spec:nth-child(3n+1),
-  .marti-spec:not(:nth-child(3n+1)) {
-    padding: 16px 0;
-  }
+  .marti-spec:not(:nth-child(3n+1)) { padding: 16px 10px 16px 0; }
+  .marti-spec:nth-child(2n) { padding-left: 10px; }
+  .marti-spec-label { font-size: 10.5px; letter-spacing: 0.14em; margin-bottom: 8px; }
+  .marti-spec-value { font-size: 16px; line-height: 1.3; }
 }
 
 /* ================ Manifesto ("Challenge everything") block ================ */
@@ -463,6 +463,17 @@
 }
 .marti-register-title span {
   display: block;
+}
+.marti-register-title .marti-register-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.005em;
+  color: #d9c9b4;
+  text-transform: none;
+  margin-top: 18px;
+  line-height: 1.1;
 }
 .marti-register-lead {
   font-family: 'Montserrat', sans-serif;
