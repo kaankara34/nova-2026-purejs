@@ -5,6 +5,27 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
+  /* ========== Hero video — force play as soon as data is ready ========== */
+  (function initHeroVideo() {
+    const v = document.querySelector('.ew-hero-video');
+    if (!v) return;
+    v.muted = true;
+    const tryPlay = () => {
+      const p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(() => { /* blocked until user gesture */ });
+    };
+    if (v.readyState >= 2) tryPlay();
+    else v.addEventListener('loadeddata', tryPlay, { once: true });
+    v.addEventListener('canplay', tryPlay, { once: true });
+    const onFirstInteract = () => {
+      tryPlay();
+      window.removeEventListener('pointerdown', onFirstInteract);
+      window.removeEventListener('touchstart', onFirstInteract);
+    };
+    window.addEventListener('pointerdown', onFirstInteract, { passive: true });
+    window.addEventListener('touchstart', onFirstInteract, { passive: true });
+  })();
+
   /* ========== Lightbox Gallery (finger-tracking swipe) ========== */
   const lightbox = $('#ewLightbox');
   const lightboxViewport = $('#ewLightboxViewport');
