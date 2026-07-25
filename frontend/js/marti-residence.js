@@ -9,12 +9,14 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ========== Lightbox Gallery ==========
+  /* ========== Lightbox Gallery (finger-tracking swipe) ==========
      Sources: manifesto grid images (3) + key-features block images (3).
      Both #ewGalleryBtn, #ewGalleryTrigger and .marti-view-all-btn open this
-     same combined set, and clicking any of those tiles opens at its index. */
+     same combined set, and clicking any of those tiles opens at its index.
+     Uses NovaSwiper for Instagram-style drag-to-swipe. */
   const lightbox = $('#ewLightbox');
-  const lightboxImg = $('#ewLightboxImg');
+  const lightboxViewport = $('#ewLightboxViewport');
+  const lightboxTrack = $('#ewLightboxTrack');
   const lightboxCount = $('#ewLightboxCount');
   const closeBtn = $('#ewLightboxClose');
   const prevBtn = $('#ewLightboxPrev');
@@ -24,16 +26,46 @@
   const manifestoImgs = $$('.marti-manifesto-img img');
   const featureImgs   = $$('.marti-features-img img');
   const galleryTiles  = [...manifestoImgs, ...featureImgs];
-  const images        = galleryTiles.map(el => el.src);
-  let currentIdx = 0;
+  const images        = galleryTiles.map(el => ({ src: el.src, alt: el.alt || '' }));
+
+  let lbSwiper = null;
+
+  function buildLightboxTrack() {
+    if (!lightboxTrack) return;
+    if (lightboxTrack.dataset.built === '1') return;
+    lightboxTrack.innerHTML = images.map(im =>
+      `<div class="ew-lightbox-slide"><img src="${im.src}" alt="${im.alt}" draggable="false"/></div>`
+    ).join('');
+    lightboxTrack.dataset.built = '1';
+  }
+
+  function updateLbCounter() {
+    if (!lightboxCount || !lbSwiper) return;
+    lightboxCount.textContent = `${lbSwiper.getIndex() + 1} / ${images.length}`;
+  }
 
   function openLightbox(idx) {
     if (!lightbox || !images.length) return;
-    currentIdx = idx;
-    updateLightbox();
+    buildLightboxTrack();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // Initialize swiper on first open (viewport has real dimensions now)
+    if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
+      lbSwiper = new window.NovaSwiper(lightboxViewport, {
+        loop: true,
+        onChange: updateLbCounter,
+        onSettle: updateLbCounter
+      });
+    } else if (lbSwiper) {
+      // Ensure measured width is fresh (viewport size may have changed)
+      lbSwiper.refresh();
+    }
+    if (lbSwiper) {
+      lbSwiper.setIndex(idx, { animate: false });
+    }
+    updateLbCounter();
   }
   function closeLightbox() {
     if (!lightbox) return;
@@ -41,13 +73,6 @@
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
-  function updateLightbox() {
-    if (!lightboxImg) return;
-    lightboxImg.src = images[currentIdx];
-    if (lightboxCount) lightboxCount.textContent = `${currentIdx + 1} / ${images.length}`;
-  }
-  function prev() { currentIdx = (currentIdx - 1 + images.length) % images.length; updateLightbox(); }
-  function next() { currentIdx = (currentIdx + 1) % images.length; updateLightbox(); }
 
   // Tap on any manifesto / feature image opens the lightbox at that index
   galleryTiles.forEach((item, i) => {
@@ -63,16 +88,16 @@
   const galleryBtn = $('#ewGalleryBtn');
   if (galleryBtn) galleryBtn.addEventListener('click', () => openLightbox(0));
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  if (prevBtn) prevBtn.addEventListener('click', prev);
-  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (prevBtn) prevBtn.addEventListener('click', () => lbSwiper && lbSwiper.prev());
+  if (nextBtn) nextBtn.addEventListener('click', () => lbSwiper && lbSwiper.next());
   if (lightbox) lightbox.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener('keydown', e => {
     if (!lightbox || !lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') prev();
-    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft')  lbSwiper && lbSwiper.prev();
+    if (e.key === 'ArrowRight') lbSwiper && lbSwiper.next();
   });
 
   /* ========== Hero Slider (auto-play, arrows) ========== */

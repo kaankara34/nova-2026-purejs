@@ -5,9 +5,10 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ========== Lightbox Gallery ========== */
+  /* ========== Lightbox Gallery (finger-tracking swipe) ========== */
   const lightbox = $('#ewLightbox');
-  const lightboxImg = $('#ewLightboxImg');
+  const lightboxViewport = $('#ewLightboxViewport');
+  const lightboxTrack = $('#ewLightboxTrack');
   const lightboxCount = $('#ewLightboxCount');
   const closeBtn = $('#ewLightboxClose');
   const prevBtn = $('#ewLightboxPrev');
@@ -16,16 +17,37 @@
   const viewAllBtn = $('#ewViewAll');
   const galleryTriggerBtn = $('#ewGalleryTrigger');
 
-  const images = slideEls.map(it => it.src);
-  let currentIdx = 0;
+  const images = slideEls.map(it => ({ src: it.src, alt: it.alt || '' }));
+  let lbSwiper = null;
 
+  function buildLightboxTrack() {
+    if (!lightboxTrack || lightboxTrack.dataset.built === '1') return;
+    lightboxTrack.innerHTML = images.map(im =>
+      `<div class="ew-lightbox-slide"><img src="${im.src}" alt="${im.alt}" draggable="false"/></div>`
+    ).join('');
+    lightboxTrack.dataset.built = '1';
+  }
+  function updateLbCounter() {
+    if (!lightboxCount || !lbSwiper) return;
+    lightboxCount.textContent = `${lbSwiper.getIndex() + 1} / ${images.length}`;
+  }
   function openLightbox(idx) {
     if (!lightbox || !images.length) return;
-    currentIdx = idx;
-    updateLightbox();
+    buildLightboxTrack();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
+      lbSwiper = new window.NovaSwiper(lightboxViewport, {
+        loop: true,
+        onChange: updateLbCounter,
+        onSettle: updateLbCounter
+      });
+    } else if (lbSwiper) {
+      lbSwiper.refresh();
+    }
+    if (lbSwiper) lbSwiper.setIndex(idx, { animate: false });
+    updateLbCounter();
   }
   function closeLightbox() {
     if (!lightbox) return;
@@ -33,13 +55,6 @@
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
-  function updateLightbox() {
-    if (!lightboxImg) return;
-    lightboxImg.src = images[currentIdx];
-    if (lightboxCount) lightboxCount.textContent = `${currentIdx + 1} / ${images.length}`;
-  }
-  function prev() { currentIdx = (currentIdx - 1 + images.length) % images.length; updateLightbox(); }
-  function next() { currentIdx = (currentIdx + 1) % images.length; updateLightbox(); }
 
   slideEls.forEach((item, i) => {
     item.addEventListener('click', e => { e.preventDefault(); openLightbox(i); });
@@ -49,16 +64,16 @@
   const galleryBtn = $('#ewGalleryBtn');
   if (galleryBtn) galleryBtn.addEventListener('click', () => openLightbox(0));
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-  if (prevBtn) prevBtn.addEventListener('click', prev);
-  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (prevBtn) prevBtn.addEventListener('click', () => lbSwiper && lbSwiper.prev());
+  if (nextBtn) nextBtn.addEventListener('click', () => lbSwiper && lbSwiper.next());
   if (lightbox) lightbox.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener('keydown', e => {
     if (!lightbox || !lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') prev();
-    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') lbSwiper && lbSwiper.prev();
+    if (e.key === 'ArrowRight') lbSwiper && lbSwiper.next();
   });
 
   /* ========== Hero Slider (auto-play, arrows only) ========== */
@@ -124,7 +139,7 @@
         startX = e.clientX;
         startY = e.clientY;
         viewport.style.cursor = 'grabbing';
-        try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+        try { viewport.setPointerCapture(e.pointerId); } catch (_) { /* noop */ }
       });
 
       viewport.addEventListener('pointermove', (e) => {
@@ -256,7 +271,8 @@
     const towerTabs = $$('.ew-plans-tab--tower', plansRoot);
     const tabs = $$('.ew-plans-tab:not(.ew-plans-tab--tower)', plansRoot);
     const titleEl = $('#ewPlansTitle');
-    const imgEl = $('#ewPlansImg');
+    const trackEl = $('#ewPlansTrack');
+    const planViewport = $('#ewPlansViewport');
     const rowsEl = $('#ewPlansRows');
     const arrows = $$('.ew-plans-arrow', plansRoot);
     const expandBtn = $('#ewPlansExpand');
@@ -265,17 +281,24 @@
     const lightboxClose = $('#ewPlansLightboxClose');
     let currentTower = 'EAST';
     let planIdx = 0;
+    let planSwiper = null;
 
     function currentPlans() { return PLANS_BY_TOWER[currentTower]; }
 
-    function renderPlan(idx) {
+    function buildPlanSlides() {
+      if (!trackEl) return;
+      const list = currentPlans();
+      trackEl.innerHTML = list.map((p, i) =>
+        `<div class="ew-plans-slide"><img src="${p.img}" alt="${p.title} floor plan" draggable="false"/></div>`
+      ).join('');
+    }
+
+    function renderPlanInfo(idx) {
       const list = currentPlans();
       planIdx = idx;
       const p = list[idx];
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
       titleEl.textContent = p.title;
-      imgEl.src = p.img;
-      imgEl.alt = p.title + ' floor plan';
       const rows = [`<div class="ew-plans-row ew-plans-row--total"><span>Total Internal Area</span><span class="ew-plans-val">${p.total}</span></div>`];
       p.rooms.forEach(r => {
         rows.push(`<div class="ew-plans-row"><span><em>${r.i}.</em> ${r.name}</span><span class="ew-plans-val">${r.size}</span></div>`);
@@ -283,21 +306,46 @@
       rowsEl.innerHTML = rows.join('');
     }
 
+    function initPlanSwiper() {
+      buildPlanSlides();
+      if (planSwiper) planSwiper.destroy();
+      if (window.NovaSwiper && planViewport) {
+        planSwiper = new window.NovaSwiper(planViewport, {
+          loop: true,
+          threshold: 0.18,
+          duration: 380,
+          onChange: (i) => renderPlanInfo(i),
+          onSettle: (i) => renderPlanInfo(i)
+        });
+      }
+      renderPlanInfo(0);
+    }
+
     function setTower(tower) {
       currentTower = tower;
       towerTabs.forEach(t => t.classList.toggle('active', t.dataset.tower === tower));
-      renderPlan(planIdx);
+      // Rebuild slides for new tower, keep index
+      const savedIdx = planIdx;
+      initPlanSwiper();
+      if (planSwiper) planSwiper.setIndex(Math.min(savedIdx, currentPlans().length - 1), { animate: false });
+      renderPlanInfo(planSwiper ? planSwiper.getIndex() : 0);
     }
 
     towerTabs.forEach(t => t.addEventListener('click', () => setTower(t.dataset.tower)));
-    tabs.forEach((t, i) => t.addEventListener('click', () => renderPlan(i)));
+    tabs.forEach((t, i) => t.addEventListener('click', () => {
+      if (planSwiper) planSwiper.goTo(i);
+      else renderPlanInfo(i);
+    }));
     arrows.forEach(btn => {
       btn.addEventListener('click', () => {
-        const dir = btn.dataset.dir === 'next' ? 1 : -1;
-        const len = currentPlans().length;
-        renderPlan((planIdx + dir + len) % len);
+        if (!planSwiper) return;
+        if (btn.dataset.dir === 'next') planSwiper.next();
+        else planSwiper.prev();
       });
     });
+
+    // Initial setup
+    initPlanSwiper();
 
     function openPlanLightbox() {
       if (!lightbox) return;
@@ -367,44 +415,14 @@
       if (e.key === 'Escape') closePlanLightbox();
     });
 
-    /* ---- Swipe / drag support on floor plan image (touch + mouse) ---- */
-    const planViewport = $('.ew-plans-image', plansRoot);
-    if (planViewport && window.PointerEvent) {
-      const T = 40;
-      let sx = 0, sy = 0, down = false, pid = null, dragged = false;
-      planViewport.style.touchAction = 'pan-y';
-
-      planViewport.addEventListener('pointerdown', (e) => {
-        if (e.pointerType === 'mouse' && e.button !== 0) return;
-        if (e.target.closest('.ew-plans-expand, .ew-plans-download')) return;
-        down = true; dragged = false; pid = e.pointerId;
-        sx = e.clientX; sy = e.clientY;
-        try { planViewport.setPointerCapture(e.pointerId); } catch (_) {}
-      });
-      planViewport.addEventListener('pointermove', (e) => {
-        if (!down || e.pointerId !== pid) return;
-        if (Math.abs(e.clientX - sx) > 8) dragged = true;
-      });
-      planViewport.addEventListener('pointerup', (e) => {
-        if (!down || e.pointerId !== pid) return;
-        const dx = e.clientX - sx;
-        const dy = e.clientY - sy;
-        down = false; pid = null;
-        if (Math.abs(dx) > T && Math.abs(dx) > Math.abs(dy)) {
-          const len = currentPlans().length;
-          renderPlan((planIdx + (dx < 0 ? 1 : -1) + len) % len);
-        }
-      });
-      planViewport.addEventListener('pointercancel', () => { down = false; pid = null; dragged = false; });
-
-      // Because setPointerCapture retargets click events to planViewport,
-      // handle image-tap-to-open-lightbox here (only if user did not drag and did not click expand button)
+    /* Tap-to-open lightbox — NovaSwiper only fires drag on movement, so a
+       plain click on the plan image (without drag) opens the fullscreen view. */
+    if (planViewport) {
       planViewport.addEventListener('click', (e) => {
-        if (e.target.closest('.ew-plans-expand, .ew-plans-download')) { return; }
-        if (dragged) { e.preventDefault(); e.stopPropagation(); dragged = false; return; }
+        if (e.target.closest('.ew-plans-expand, .ew-plans-download')) return;
+        // NovaSwiper preserves normal clicks when no drag occurred
         openPlanLightbox();
       });
-      if (imgEl) imgEl.addEventListener('dragstart', e => e.preventDefault());
     }
   }
 

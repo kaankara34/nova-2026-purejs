@@ -386,7 +386,9 @@
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
         </button>
-        <img id="ewPlansImg" src="https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/fe9f3f7t_3%2B1.png" alt="3+1 floor plan"/>
+        <div class="ew-plans-viewport" id="ewPlansViewport">
+          <div class="ew-plans-track" id="ewPlansTrack" data-nova-track></div>
+        </div>
       </div>
       <div class="ew-plans-info">
         <h3 class="ew-plans-title" id="ewPlansTitle">3+1</h3>
@@ -733,11 +735,14 @@
     <button class="ew-lightbox-close" id="ewLightboxClose" aria-label="Close">&times;</button>
     <button class="ew-lightbox-prev" id="ewLightboxPrev" aria-label="Previous">&lsaquo;</button>
     <button class="ew-lightbox-next" id="ewLightboxNext" aria-label="Next">&rsaquo;</button>
-    <img class="ew-lightbox-img" id="ewLightboxImg" alt="" />
+    <div class="ew-lightbox-viewport" id="ewLightboxViewport">
+      <div class="ew-lightbox-track" id="ewLightboxTrack" data-nova-track></div>
+    </div>
     <div class="ew-lightbox-counter" id="ewLightboxCount"></div>
   </div>
 
   <script src="js/script.js"></script>
+  <script src="js/swipe-carousel.js"></script>
   <script src="js/east-west.js"></script>
 </body>
 </html>

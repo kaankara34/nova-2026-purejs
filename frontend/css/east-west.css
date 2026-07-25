@@ -538,6 +538,45 @@
   justify-content: center;
   min-height: 460px;
 }
+.ew-plans-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  overflow: hidden;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: grab;
+}
+.ew-plans-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+.ew-plans-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ew-plans-slide img {
+  max-width: 80%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  cursor: zoom-in;
+  -webkit-user-drag: none;
+}
 .ew-plans-image img {
   max-width: 80%;
   height: auto;
@@ -1055,6 +1094,39 @@
   -webkit-tap-highlight-color: transparent;
 }
 .ew-lightbox.open { display: flex; }
+.ew-lightbox-viewport {
+  position: relative;
+  width: 92vw;
+  height: 88vh;
+  overflow: hidden;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ew-lightbox-track {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  will-change: transform;
+}
+.ew-lightbox-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ew-lightbox-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;   /* let the viewport receive pointer events */
+  user-drag: none;
+  -webkit-user-drag: none;
+}
 .ew-lightbox-img {
   max-width: 92vw;
   max-height: 88vh;
