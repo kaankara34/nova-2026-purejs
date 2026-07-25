@@ -1051,6 +1051,8 @@
   display: none;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;                 /* kills double-tap zoom on iOS/Android inside the lightbox */
+  -webkit-tap-highlight-color: transparent;
 }
 .ew-lightbox.open { display: flex; }
 .ew-lightbox-img {
@@ -1070,6 +1072,10 @@
   width: 50px; height: 50px;
   line-height: 1;
   transition: opacity .25s ease;
+  touch-action: manipulation;                 /* stop 300ms double-tap zoom on iOS */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .ew-lightbox-close { top: 24px; right: 32px; font-size: 32px; }
 .ew-lightbox-prev { left: 24px; top: 50%; transform: translateY(-50%); }
