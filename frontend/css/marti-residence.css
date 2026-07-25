@@ -21,7 +21,7 @@
 .marti-intro-headline {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: 78px;
+  font-size: 60px;
   line-height: 75px;
   letter-spacing: 0.005em;
   color: #14100c;
@@ -36,7 +36,7 @@
   align-items: center;
   gap: 12px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #1a1a1a;
@@ -72,9 +72,9 @@
 }
 @media (max-width: 640px) {
   .marti-intro-headline { font-size: 34px; line-height: 42px; margin-bottom: 20px; }
-  .marti-intro-loc { font-size: 14px; margin-bottom: 32px; }
+  .marti-intro-loc { font-size: 12px; margin-bottom: 32px; }
   .marti-intro-loc-sep { font-size: 14px; }
-  .marti-intro-body p { font-size: 15px; }
+  .marti-intro-body p { font-size: 14px; }
 }
 
 /* ================ Editorial Property Specs (compact reference sizes) ================ */
@@ -110,7 +110,7 @@
 .marti-spec-value {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.35;
   color: #14100c;
   letter-spacing: 0.005em;
@@ -579,7 +579,7 @@
 
 /* ================ Manifesto ("Challenge everything") block ================ */
 .marti-manifesto {
-  padding: 100px 6vw 40px;
+  padding: 60px 6vw 40px;
   background: #fff;
   text-align: center;
 }
@@ -590,7 +590,7 @@
   font-size: clamp(30px, 3.6vw, 52px);
   color: #1a1a1a;
   letter-spacing: 0.03em;
-  margin: 0 0 20px;
+  margin: 0 0 40px;
   line-height: 1.15;
 }
 .marti-manifesto-lead {
@@ -636,7 +636,7 @@
 .marti-view-all-btn:hover { background: #1a1a1a; color: #fff; }
 
 @media (max-width: 800px) {
-  .marti-manifesto { padding: 70px 5vw 20px; }
+  .marti-manifesto { padding: 40px 5vw 20px; }
   .marti-manifesto-grid { grid-template-columns: 1fr; gap: 10px; }
 }
 
