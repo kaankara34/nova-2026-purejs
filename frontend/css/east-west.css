@@ -1148,6 +1148,10 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
   user-select: none;
+  z-index: 10;                                /* above the viewport track */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ew-lightbox-close { top: 24px; right: 32px; font-size: 32px; }
 .ew-lightbox-prev { left: 24px; top: 50%; transform: translateY(-50%); }
@@ -1155,6 +1159,23 @@
 .ew-lightbox-close:hover,
 .ew-lightbox-prev:hover,
 .ew-lightbox-next:hover { opacity: 0.7; }
+/* Larger tap targets + subtle backdrop on mobile so buttons remain reachable
+   over the fullscreen image track (previously invisible on small viewports). */
+@media (max-width: 900px) {
+  .ew-lightbox-close,
+  .ew-lightbox-prev,
+  .ew-lightbox-next {
+    width: 44px; height: 44px;
+    font-size: 30px;
+    background: rgba(0,0,0,0.42);
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .ew-lightbox-close { top: 14px; right: 14px; font-size: 24px; }
+  .ew-lightbox-prev  { left: 10px;  font-size: 26px; }
+  .ew-lightbox-next  { right: 10px; font-size: 26px; }
+}
 .ew-lightbox-counter {
   position: absolute;
   bottom: 30px;

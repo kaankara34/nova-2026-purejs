@@ -40,13 +40,14 @@
     if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
       lbSwiper = new window.NovaSwiper(lightboxViewport, {
         loop: true,
+        clones: true,
         onChange: updateLbCounter,
         onSettle: updateLbCounter
       });
     } else if (lbSwiper) {
       lbSwiper.refresh();
     }
-    if (lbSwiper) lbSwiper.setIndex(idx, { animate: false });
+    if (lbSwiper) lbSwiper.goTo(idx, false);
     updateLbCounter();
   }
   function closeLightbox() {
@@ -312,6 +313,7 @@
       if (window.NovaSwiper && planViewport) {
         planSwiper = new window.NovaSwiper(planViewport, {
           loop: true,
+          clones: true,
           threshold: 0.18,
           duration: 380,
           onChange: (i) => renderPlanInfo(i),
@@ -327,7 +329,7 @@
       // Rebuild slides for new tower, keep index
       const savedIdx = planIdx;
       initPlanSwiper();
-      if (planSwiper) planSwiper.setIndex(Math.min(savedIdx, currentPlans().length - 1), { animate: false });
+      if (planSwiper) planSwiper.goTo(Math.min(savedIdx, currentPlans().length - 1), false);
       renderPlanInfo(planSwiper ? planSwiper.getIndex() : 0);
     }
 

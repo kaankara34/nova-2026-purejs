@@ -55,6 +55,7 @@
     if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
       lbSwiper = new window.NovaSwiper(lightboxViewport, {
         loop: true,
+        clones: true,
         onChange: updateLbCounter,
         onSettle: updateLbCounter
       });
@@ -63,7 +64,7 @@
       lbSwiper.refresh();
     }
     if (lbSwiper) {
-      lbSwiper.setIndex(idx, { animate: false });
+      lbSwiper.goTo(idx, false);
     }
     updateLbCounter();
   }
