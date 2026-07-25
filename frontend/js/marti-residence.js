@@ -9,18 +9,22 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ========== Lightbox Gallery ========== */
+  /* ========== Lightbox Gallery ==========
+     Sources: manifesto grid images (3) + key-features block images (3).
+     Both #ewGalleryBtn, #ewGalleryTrigger and .marti-view-all-btn open this
+     same combined set, and clicking any of those tiles opens at its index. */
   const lightbox = $('#ewLightbox');
   const lightboxImg = $('#ewLightboxImg');
   const lightboxCount = $('#ewLightboxCount');
   const closeBtn = $('#ewLightboxClose');
   const prevBtn = $('#ewLightboxPrev');
   const nextBtn = $('#ewLightboxNext');
-  const slideEls = $$('.ew-slide');
-  const viewAllBtn = $('#ewViewAll');
   const galleryTriggerBtn = $('#ewGalleryTrigger');
 
-  const images = slideEls.map(it => it.src);
+  const manifestoImgs = $$('.marti-manifesto-img img');
+  const featureImgs   = $$('.marti-features-img img');
+  const galleryTiles  = [...manifestoImgs, ...featureImgs];
+  const images        = galleryTiles.map(el => el.src);
   let currentIdx = 0;
 
   function openLightbox(idx) {
@@ -45,10 +49,16 @@
   function prev() { currentIdx = (currentIdx - 1 + images.length) % images.length; updateLightbox(); }
   function next() { currentIdx = (currentIdx + 1) % images.length; updateLightbox(); }
 
-  slideEls.forEach((item, i) => {
+  // Tap on any manifesto / feature image opens the lightbox at that index
+  galleryTiles.forEach((item, i) => {
+    item.style.cursor = 'pointer';
     item.addEventListener('click', e => { e.preventDefault(); openLightbox(i); });
   });
-  if (viewAllBtn) viewAllBtn.addEventListener('click', e => { e.preventDefault(); openLightbox(0); });
+
+  // Any "View All Images" or GALLERY entry point opens at first slide
+  $$('.marti-view-all-btn').forEach(btn => {
+    btn.addEventListener('click', e => { e.preventDefault(); openLightbox(0); });
+  });
   if (galleryTriggerBtn) galleryTriggerBtn.addEventListener('click', () => openLightbox(0));
   const galleryBtn = $('#ewGalleryBtn');
   if (galleryBtn) galleryBtn.addEventListener('click', () => openLightbox(0));

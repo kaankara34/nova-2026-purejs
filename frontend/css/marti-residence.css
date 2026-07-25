@@ -12,6 +12,17 @@
   display: block;
 }
 
+/* Action-strip status labels (non-interactive) — "ALL UNITS SOLD" & "COMPLETED PROJECT" */
+.page-marti .ew-btn--status {
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
+  transition: none;
+}
+.page-marti .ew-btn--status:hover { background: inherit; border-color: var(--ew-gold); }
+.page-marti .ew-btn--outline.ew-btn--status:hover { background: #fff; }
+.page-marti .ew-btn--gold.ew-btn--status:hover { background: var(--ew-gold); border-color: var(--ew-gold); }
+
 /* ================ Editorial Intro (Trump-Dubai reference sizes) ================ */
 .marti-intro {
   padding: 36px 6vw 40px;
