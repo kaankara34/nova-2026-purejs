@@ -852,8 +852,21 @@
   .ew-nearby-text { padding: 10px 8px; gap: 6px; }
   .ew-nearby-line { width: 28px; }
 }
+/* Narrow phones (incl. Samsung Fold outer) — labels like
+   "Caddebostan Waterfront" wrap awkwardly in the tight 2-column grid,
+   so drop to a full-width single-column card. */
+@media (max-width: 520px) {
+  .ew-nearby-grid { grid-template-columns: 1fr; gap: 10px; }
+  .ew-nearby-card { grid-template-columns: 110px 1fr; min-height: 92px; }
+  .ew-nearby-img { min-height: 92px; }
+  .ew-nearby-text { padding: 12px 16px; }
+  .ew-nearby-dist { font-size: 18px; }
+  .ew-nearby-label { font-size: 12px; letter-spacing: 0.03em; }
+  .ew-nearby-line { width: 32px; }
+}
 @media (max-width: 380px) {
-  .ew-nearby-card { grid-template-columns: 80px 1fr; }
+  .ew-nearby-card { grid-template-columns: 96px 1fr; }
+  .ew-nearby-text { padding: 10px 12px; }
 }
 
 /* =========================================================
