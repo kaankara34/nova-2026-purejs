@@ -57,30 +57,39 @@
   background: #d6cdb8;
 }
 @media (max-width: 700px) {
-  .marti-status-group { gap: 18px; }
+  .marti-status-group { gap: 18px; justify-content: center; }
   .marti-status-sep { height: 28px; }
   .marti-status-label { font-size: 11px; letter-spacing: 0.18em; }
   .marti-status-sub { font-size: 13px; }
 }
-/* Very narrow phones (incl. Samsung Fold outer screen) — stack the two
-   status items vertically so they never overflow their row. */
+/* Narrow phones (incl. Samsung Fold outer): stack the two status items
+   vertically AND centre-align them so they visually balance the centred
+   GALLERY button above. */
 @media (max-width: 520px) {
   .marti-status-group {
     flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
   }
-  .marti-status-sep { display: none; }
-  .marti-status { gap: 10px; }
-  .marti-status-label { font-size: 10.5px; letter-spacing: 0.16em; }
-  .marti-status-sub { font-size: 12px; }
+  .marti-status-sep {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: #d6cdb8;
+  }
+  .marti-status {
+    gap: 10px;
+    align-items: center;
+  }
+  .marti-status-text { align-items: center; text-align: center; }
+  .marti-status-label { font-size: 11px; letter-spacing: 0.18em; }
+  .marti-status-sub { font-size: 12.5px; }
 }
-/* Ultra-narrow (Fold outer ~280px) — collapse the sub-caption to keep
-   the labels readable without pushing off screen. */
+/* Ultra-narrow (Fold outer ~280px) — hide sub-caption to keep row compact. */
 @media (max-width: 340px) {
   .marti-status-sub { display: none; }
   .marti-status-icon { width: 14px; height: 14px; }
-  .marti-status-label { font-size: 10px; letter-spacing: 0.14em; }
+  .marti-status-label { font-size: 10.5px; letter-spacing: 0.14em; }
 }
 
 /* ================ Editorial Intro (Trump-Dubai reference sizes) ================ */
