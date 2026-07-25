@@ -12,16 +12,60 @@
   display: block;
 }
 
-/* Action-strip status labels (non-interactive) — "ALL UNITS SOLD" & "COMPLETED PROJECT" */
-.page-marti .ew-btn--status {
+/* ================ Status labels (replaces BOOK UNIT / DOWNLOAD BROCHURE buttons) ================ */
+.marti-status-group {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.marti-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #14100c;
   cursor: default;
   user-select: none;
-  pointer-events: none;
-  transition: none;
 }
-.page-marti .ew-btn--status:hover { background: inherit; border-color: var(--ew-gold); }
-.page-marti .ew-btn--outline.ew-btn--status:hover { background: #fff; }
-.page-marti .ew-btn--gold.ew-btn--status:hover { background: var(--ew-gold); border-color: var(--ew-gold); }
+.marti-status-icon {
+  color: #a1834a;             /* gold accent */
+  flex-shrink: 0;
+}
+.marti-status-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.15;
+}
+.marti-status-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #14100c;
+}
+.marti-status-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: #7a6f5c;
+  letter-spacing: 0.02em;
+}
+.marti-status-sep {
+  width: 1px;
+  height: 34px;
+  background: #d6cdb8;
+}
+@media (max-width: 700px) {
+  .marti-status-group { gap: 18px; }
+  .marti-status-sep { height: 28px; }
+  .marti-status-label { font-size: 11px; letter-spacing: 0.18em; }
+  .marti-status-sub { font-size: 13px; }
+}
+@media (max-width: 420px) {
+  .marti-status-group { flex-direction: column; align-items: flex-end; gap: 10px; }
+  .marti-status-sep { display: none; }
+}
 
 /* ================ Editorial Intro (Trump-Dubai reference sizes) ================ */
 .marti-intro {
@@ -396,16 +440,16 @@
 }
 .marti-register-inner {
   position: relative;
-  max-width: 1360px;
+  max-width: 1600px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 20% 1fr;   /* title | gutter | form (matches reference md:w-[20%] gutter) */
-  gap: 0;
+  grid-template-columns: 1fr 1fr;   /* two equal columns like reference — form fills right half */
+  gap: 60px;
   align-items: flex-start;
 }
 
 /* ---- LEFT ---- */
-.marti-register-left { padding-right: 20px; }
+.marti-register-left { padding-right: 0; }
 .marti-register-title {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
