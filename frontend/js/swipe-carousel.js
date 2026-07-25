@@ -117,6 +117,7 @@
     this.track.style.transform = 'translate3d(0,0,0)';
     this.track.style.transition = 'none';
 
+    this.slides = Array.from(this.track.children);
     this.slides.forEach(function (s) {
       s.style.flex = '0 0 100%';
       s.style.width = '100%';
@@ -128,6 +129,38 @@
         im.addEventListener('dragstart', function (e) { e.preventDefault(); });
       });
     });
+
+    // Listen for transitionend on the track for accurate settle detection
+    if (!this._transitionBound) {
+      var self = this;
+      this._onTransitionEnd = function (e) {
+        if (e.target !== self.track || e.propertyName !== 'transform') return;
+        if (self._pendingSettle) {
+          self._pendingSettle = false;
+          clearTimeout(self._settleT);
+          self._normaliseClonePosition();
+          if (typeof self.opts.onSettle === 'function') {
+            self.opts.onSettle(self._internalToReal(self.currentIdx));
+          }
+        }
+      };
+      this.track.addEventListener('transitionend', this._onTransitionEnd);
+      this._transitionBound = true;
+    }
+  };
+
+  /* If the track sits on a cloned slot, silently rebase to the mirrored
+     real slide so drag/prev/next start from a valid position. */
+  NovaSwiper.prototype._normaliseClonePosition = function () {
+    if (!this.opts.clones) return;
+    var n = this.realCount;
+    if (this.currentIdx === 0) {
+      this.currentIdx = n;
+      this._setTranslate(this._indexTranslate(n), false);
+    } else if (this.currentIdx === n + 1) {
+      this.currentIdx = 1;
+      this._setTranslate(this._indexTranslate(1), false);
+    }
   };
 
   NovaSwiper.prototype._bind = function () {
@@ -178,13 +211,19 @@
     var len = this.slides.length;
     var animate = opts.animate !== false;
 
+    // If a previous transition is still pending, finalise its clone-jump
+    // before moving on so we never chain animations from a clone slot.
+    if (this._pendingSettle) {
+      this._pendingSettle = false;
+      clearTimeout(this._settleT);
+      this._normaliseClonePosition();
+    }
+
     if (!this.opts.loop) {
       i = Math.max(0, Math.min(len - 1, i));
     } else if (this.opts.clones) {
-      // Allow drifting into the clone slots; snap-back happens after settle
       i = Math.max(0, Math.min(len - 1, i));
     } else {
-      // Loop by modular arithmetic (produces a visible jump at wrap points).
       i = ((i % len) + len) % len;
     }
 
@@ -201,30 +240,24 @@
     var self = this;
     clearTimeout(this._settleT);
     if (animate) {
-      this._settleT = setTimeout(function () { self._onSettleEnd(opts); }, this.opts.duration);
+      this._pendingSettle = true;
+      // transitionend handler will finalise this in most browsers; keep a
+      // safety timer at 1.5× duration for edge cases where the event misses.
+      this._settleT = setTimeout(function () {
+        if (!self._pendingSettle) return;
+        self._pendingSettle = false;
+        self._normaliseClonePosition();
+        if (typeof self.opts.onSettle === 'function' && !opts.silent) {
+          self.opts.onSettle(self._internalToReal(self.currentIdx));
+        }
+      }, Math.round(this.opts.duration * 1.5));
     } else {
-      // Immediate mode — still normalise clone positions
-      this._onSettleEnd(opts);
-    }
-  };
-
-  /* Called when a transition animation finishes. If we ended on a cloned
-     edge slide, silently jump to its real counterpart so the next drag
-     continues seamlessly. */
-  NovaSwiper.prototype._onSettleEnd = function (opts) {
-    opts = opts || {};
-    if (this.opts.clones) {
-      var n = this.realCount;
-      if (this.currentIdx === 0) {                 // left clone → jump to last real
-        this.currentIdx = n;
-        this._setTranslate(this._indexTranslate(n), false);
-      } else if (this.currentIdx === n + 1) {      // right clone → jump to first real
-        this.currentIdx = 1;
-        this._setTranslate(this._indexTranslate(1), false);
+      // Immediate mode — normalise instantly and fire settle if requested
+      this._normaliseClonePosition();
+      if (typeof this.opts.onSettle === 'function' && !opts.silent && prevReal !== realIdx) {
+        this.opts.onSettle(this._internalToReal(this.currentIdx));
       }
     }
-    var realIdx = this._internalToReal(this.currentIdx);
-    if (typeof this.opts.onSettle === 'function' && !opts.silent) this.opts.onSettle(realIdx);
   };
 
   NovaSwiper.prototype.next = function () { this.setIndex(this.currentIdx + 1); };
@@ -237,6 +270,15 @@
 
   NovaSwiper.prototype._onDown = function (e) {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+    // If the previous transition hasn't settled yet, finalise it right now
+    // so the drag starts from a real slide (never from a clone position).
+    if (this._pendingSettle) {
+      this._pendingSettle = false;
+      clearTimeout(this._settleT);
+      this._normaliseClonePosition();
+    }
+
     this._dragging = true;
     this._didDrag = false;
     this._axisLocked = null;
@@ -330,11 +372,16 @@
     this.viewport.removeEventListener('pointerup', this._onUp);
     this.viewport.removeEventListener('pointercancel', this._onCancel);
     if (this._onClickCapture) this.viewport.removeEventListener('click', this._onClickCapture, true);
+    if (this._transitionBound && this._onTransitionEnd) {
+      this.track.removeEventListener('transitionend', this._onTransitionEnd);
+      this._transitionBound = false;
+    }
     window.removeEventListener('resize', this._onResize);
     this.track.style.transition = 'none';
     this.track.style.transform = '';
     this.track.style.willChange = '';
     clearTimeout(this._settleT);
+    this._pendingSettle = false;
   };
 
   /**
