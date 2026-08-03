@@ -4,6 +4,15 @@
   "rewrites": [
     { "source": "/east-west", "destination": "/east-west.html" },
     { "source": "/marti-residence", "destination": "/marti-residence.html" },
+    { "source": "/bahar-residence", "destination": "/bahar-residence.html" },
+    { "source": "/mehtap-residence", "destination": "/mehtap-residence.html" },
+    { "source": "/dogan-residence", "destination": "/dogan-residence.html" },
+    { "source": "/mercan-bosphorus", "destination": "/mercan-bosphorus.html" },
+    { "source": "/nisbetiye-on", "destination": "/nisbetiye-on.html" },
+    { "source": "/falcon-plaza", "destination": "/falcon-plaza.html" },
+    { "source": "/falcon-logistic", "destination": "/falcon-logistic.html" },
+    { "source": "/konelsis-center", "destination": "/konelsis-center.html" },
+    { "source": "/gebze-osb-management", "destination": "/gebze-osb-management.html" },
     { "source": "/projects", "destination": "/projects.html" }
   ],
   "headers": [
