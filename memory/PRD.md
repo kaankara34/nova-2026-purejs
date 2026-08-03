@@ -149,6 +149,9 @@ User feedback: the first Martı build looked too much like East-West. Rebuilt th
 
 ## Pending / Backlog (updated Feb 2026)
 
+### Recent fix (Feb 2026)
+- **Mobile status-badge alignment** on Martı + 9 clone pages (bahar, mehtap, dogan, mercan-bosphorus, nisbetiye-on, falcon-plaza, falcon-logistic, konelsis-center, gebze-osb-management). Rebuilt the `<520px` block using CSS Grid inside `.[prefix]-status` so the icon sits on row 1 aligned with the primary label (ALL UNITS SOLD / COMPLETED PROJECT), and the sub-caption ("Fully subscribed" / "Delivered 2019") spans both columns centred on row 2. `.[prefix]-status-text` uses `display: contents` so its children become direct grid items. Vertical gap between the two status badges increased to 24px. Verified visually at 390px and 320px. Propagated with `/tmp/sync_status_fix.py`.
+
 ### P0
 - None open — page functional and tested.
 
