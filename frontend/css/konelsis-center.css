@@ -63,25 +63,31 @@
   .konelsis-status-sub { font-size: 13px; }
 }
 /* Narrow phones (incl. Samsung Fold outer): stack the two status items
-   vertically AND centre-align them so they visually balance the centred
-   GALLERY button above. */
+   vertically. Each item stays a compact inline row (icon + text side-by-side)
+   and the whole item is centred inside the strip so the two icons no longer
+   drift into their own left column. */
 @media (max-width: 520px) {
   .konelsis-status-group {
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-  }
-  .konelsis-status-sep {
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: #d6cdb8;
-  }
-  .konelsis-status {
     gap: 10px;
-    align-items: center;
+    width: 100%;
   }
-  .konelsis-status-text { align-items: center; text-align: center; }
+  /* Hide the divider between items in column mode — it read as a random
+     line under "Fully subscribed" on mobile. */
+  .konelsis-status-sep { display: none; }
+  .konelsis-status {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+  }
+  .konelsis-status-text {
+    align-items: flex-start;   /* keep label + sub-caption left-aligned within their own block */
+    text-align: left;
+  }
   .konelsis-status-label { font-size: 11px; letter-spacing: 0.18em; }
   .konelsis-status-sub { font-size: 12.5px; }
 }

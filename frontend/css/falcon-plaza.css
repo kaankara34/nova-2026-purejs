@@ -63,25 +63,31 @@
   .fplaza-status-sub { font-size: 13px; }
 }
 /* Narrow phones (incl. Samsung Fold outer): stack the two status items
-   vertically AND centre-align them so they visually balance the centred
-   GALLERY button above. */
+   vertically. Each item stays a compact inline row (icon + text side-by-side)
+   and the whole item is centred inside the strip so the two icons no longer
+   drift into their own left column. */
 @media (max-width: 520px) {
   .fplaza-status-group {
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-  }
-  .fplaza-status-sep {
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: #d6cdb8;
-  }
-  .fplaza-status {
     gap: 10px;
-    align-items: center;
+    width: 100%;
   }
-  .fplaza-status-text { align-items: center; text-align: center; }
+  /* Hide the divider between items in column mode — it read as a random
+     line under "Fully subscribed" on mobile. */
+  .fplaza-status-sep { display: none; }
+  .fplaza-status {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+  }
+  .fplaza-status-text {
+    align-items: flex-start;   /* keep label + sub-caption left-aligned within their own block */
+    text-align: left;
+  }
   .fplaza-status-label { font-size: 11px; letter-spacing: 0.18em; }
   .fplaza-status-sub { font-size: 12.5px; }
 }
