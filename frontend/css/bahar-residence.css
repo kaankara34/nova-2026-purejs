@@ -310,86 +310,139 @@
   .bahar-manifesto-grid { grid-template-columns: 1fr; gap: 10px; }
 }
 
-/* ================ Key Features (Three Worlds) ================ */
-.bahar-features {
-  padding: 80px 6vw 100px;
-  background: #fff;
+/* ================ Social Responsibility — Art Project ================ */
+.bahar-art {
+  position: relative;
+  padding: 120px 6vw 130px;
+  background: #f6f1e6;
+  overflow: hidden;
+  isolation: isolate;
 }
-.bahar-features-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #8a8471;
-  text-align: center;
-  margin: 0 0 20px;
+.bahar-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 700px at 12% 8%,  rgba(161,131,74,0.10), transparent 60%),
+    radial-gradient(900px 600px at 92% 96%, rgba(74,30,38,0.08),  transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
-.bahar-features-lead {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400;
-  font-size: clamp(20px, 2vw, 26px);
-  line-height: 1.5;
-  color: #1a1a1a;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto 80px;
-}
-.bahar-features-block {
+.bahar-art-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 70px;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 84px;
   align-items: center;
-  margin-bottom: 90px;
-  max-width: 1240px;
-  margin-left: auto;
-  margin-right: auto;
 }
-.bahar-features-block--reverse { grid-template-columns: 1fr 1.15fr; }
-.bahar-features-block--reverse .bahar-features-img { order: 2; }
-.bahar-features-block--reverse .bahar-features-text { order: 1; }
 
-.bahar-features-img {
+.bahar-art-figure { margin: 0; position: relative; }
+.bahar-art-frame {
+  position: relative;
   overflow: hidden;
   aspect-ratio: 4/3;
   background: #efece5;
+  box-shadow:
+    0 26px 60px -30px rgba(20, 16, 12, 0.35),
+    0 8px 18px -8px rgba(20, 16, 12, 0.18);
 }
-.bahar-features-img img {
+.bahar-art-frame img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform .9s cubic-bezier(.2,.7,.2,1);
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
 }
-.bahar-features-block:hover .bahar-features-img img { transform: scale(1.04); }
+.bahar-art-figure:hover .bahar-art-frame img { transform: scale(1.03); }
+.bahar-art-frame::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(161, 131, 74, 0.45);
+  pointer-events: none;
+}
+.bahar-art-caption {
+  display: block;
+  margin-top: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #7a6f5c;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
 
-.bahar-features-text h3 {
+.bahar-art-body { max-width: 520px; }
+.bahar-art-eyebrow {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #a1834a;
+  margin: 0 0 22px;
+}
+.bahar-art-title {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(28px, 3vw, 40px);
-  color: #1a1a1a;
-  margin: 0 0 22px;
-  line-height: 1.15;
-  letter-spacing: 0.02em;
+  font-size: clamp(34px, 4.2vw, 60px);
+  line-height: 1.08;
+  letter-spacing: 0.005em;
+  color: #14100c;
+  margin: 0 0 28px;
 }
-.bahar-features-text p {
+.bahar-art-title em {
+  font-style: italic;
+  color: #a1834a;
+  font-weight: 400;
+}
+.bahar-art-flourish {
+  display: block;
+  width: 68px;
+  height: 1px;
+  background: linear-gradient(90deg, #a1834a 0%, rgba(161,131,74,0) 100%);
+  margin: 0 0 30px;
+}
+.bahar-art-lead,
+.bahar-art-body-para {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 15px;
   line-height: 1.85;
-  color: #4a4a4a;
-  margin: 0;
+  color: #3a332a;
+  margin: 0 0 22px;
+}
+.bahar-art-body-para { margin-bottom: 34px; }
+.bahar-art-signature {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #7a6f5c;
+  letter-spacing: 0.02em;
+  padding-top: 20px;
+  border-top: 1px solid rgba(161, 131, 74, 0.28);
 }
 
-@media (max-width: 900px) {
-  .bahar-features { padding: 60px 5vw 60px; }
-  .bahar-features-block,
-  .bahar-features-block--reverse {
-    grid-template-columns: 1fr;
-    gap: 26px;
-    margin-bottom: 60px;
-  }
-  .bahar-features-block--reverse .bahar-features-img { order: 0; }
-  .bahar-features-block--reverse .bahar-features-text { order: 0; }
-  .bahar-features-lead { margin-bottom: 50px; }
+@media (max-width: 960px) {
+  .bahar-art { padding: 90px 5vw 100px; }
+  .bahar-art-inner { grid-template-columns: 1fr; gap: 48px; }
+  .bahar-art-body { max-width: none; text-align: center; }
+  .bahar-art-caption { text-align: center; }
+  .bahar-art-flourish { margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 560px) {
+  .bahar-art { padding: 70px 5vw 80px; }
+  .bahar-art-inner { gap: 34px; }
+  .bahar-art-frame::after { inset: 8px; }
+  .bahar-art-eyebrow { font-size: 10.5px; letter-spacing: 0.28em; margin-bottom: 16px; }
+  .bahar-art-title { margin-bottom: 22px; }
+  .bahar-art-br { display: none; }
+  .bahar-art-lead, .bahar-art-body-para { font-size: 14px; line-height: 1.8; }
+  .bahar-art-signature { font-size: 13.5px; padding-top: 16px; }
 }
 
 /* ================ FAQ ================ */
@@ -758,88 +811,6 @@
 @media (max-width: 800px) {
   .bahar-manifesto { padding: 40px 5vw 20px; }
   .bahar-manifesto-grid { grid-template-columns: 1fr; gap: 10px; }
-}
-
-/* ================ Key Features (Three Worlds) ================ */
-.bahar-features {
-  padding: 80px 6vw 100px;
-  background: #fff;
-}
-.bahar-features-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #8a8471;
-  text-align: center;
-  margin: 0 0 20px;
-}
-.bahar-features-lead {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400;
-  font-size: clamp(20px, 2vw, 26px);
-  line-height: 1.5;
-  color: #1a1a1a;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto 80px;
-}
-.bahar-features-block {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 70px;
-  align-items: center;
-  margin-bottom: 90px;
-  max-width: 1240px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.bahar-features-block--reverse { grid-template-columns: 1fr 1.15fr; }
-.bahar-features-block--reverse .bahar-features-img { order: 2; }
-.bahar-features-block--reverse .bahar-features-text { order: 1; }
-
-.bahar-features-img {
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  background: #efece5;
-}
-.bahar-features-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .9s cubic-bezier(.2,.7,.2,1);
-}
-.bahar-features-block:hover .bahar-features-img img { transform: scale(1.04); }
-
-.bahar-features-text h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400;
-  font-size: clamp(28px, 3vw, 40px);
-  color: #1a1a1a;
-  margin: 0 0 22px;
-  line-height: 1.15;
-  letter-spacing: 0.02em;
-}
-.bahar-features-text p {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 15px;
-  line-height: 1.85;
-  color: #4a4a4a;
-  margin: 0;
-}
-
-@media (max-width: 900px) {
-  .bahar-features { padding: 60px 5vw 60px; }
-  .bahar-features-block,
-  .bahar-features-block--reverse {
-    grid-template-columns: 1fr;
-    gap: 26px;
-    margin-bottom: 60px;
-  }
-  .bahar-features-block--reverse .bahar-features-img { order: 0; }
-  .bahar-features-block--reverse .bahar-features-text { order: 0; }
-  .bahar-features-lead { margin-bottom: 50px; }
 }
 
 /* ================ FAQ ================ */
