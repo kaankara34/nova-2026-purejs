@@ -477,7 +477,7 @@
    Reference uses md:py-14 (=56px) and a compact title, form on right.
    ================================================================ */
 .mercan-register {
-  background: #4a1e26;               /* deep wine / burgundy */
+  background: #B85F2A;               /* deep wine / burgundy */
   color: #f2eae4;
   padding: 56px 6vw 64px;
   position: relative;
@@ -510,7 +510,7 @@
   font-size: 60px;
   line-height: 1.02;
   letter-spacing: 0.005em;
-  color: #f5efe6;
+  color: #F3E9DA;
   margin: 0 0 20px;
   text-transform: uppercase;
   display: block;
@@ -524,7 +524,7 @@
   font-weight: 400;
   font-size: 30px;
   letter-spacing: 0.005em;
-  color: #d9c9b4;
+  color: #E8D4BB;
   text-transform: none;
   margin-top: 18px;
   line-height: 1.1;
@@ -665,8 +665,8 @@
 /* submit */
 .mercan-submit {
   align-self: flex-start;
-  background: #efe6dd;
-  color: #14100c;
+  background: #F1E7DA;
+  color: #29231F;
   border: 0;
   padding: 12px 30px;
   font-family: 'Montserrat', sans-serif;
