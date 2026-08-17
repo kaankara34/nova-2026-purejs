@@ -1,6 +1,39 @@
 
 
 /* DarGlobal Clone - Interactions */
+
+/* ========== GLOBAL scroll-lock (used by every lightbox / modal) =========
+   `document.body.style.overflow='hidden'` alone is unreliable — iOS Safari
+   and Android Chrome will still scroll the html element and rubber-band the
+   viewport. This utility locks the body with `position: fixed` while saving
+   the current scrollY so we can restore it exactly on unlock. */
+(function () {
+  let lockDepth = 0;
+  let savedY = 0;
+  window.lockScroll = function lockScroll() {
+    if (lockDepth++ > 0) return;                // already locked
+    savedY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.top = `-${savedY}px`;
+    document.documentElement.classList.add('no-scroll');
+    document.body.classList.add('no-scroll');
+  };
+  window.unlockScroll = function unlockScroll() {
+    if (lockDepth === 0) return;
+    if (--lockDepth > 0) return;                // still nested-locked
+    /* Cache first, then clear styles, then restore in the *next* frame so
+       the browser has committed the reflow (body back to static, page height
+       recalculated) before we scroll back — otherwise the scroll can be
+       clamped to a smaller pre-reflow document height. */
+    const y = savedY;
+    document.documentElement.classList.remove('no-scroll');
+    document.body.classList.remove('no-scroll');
+    document.body.style.top = '';
+    /* Immediate + rAF: covers both fast browsers and iOS Safari. */
+    window.scrollTo(0, y);
+    requestAnimationFrame(() => window.scrollTo(0, y));
+  };
+})();
+
 (function () {
   'use strict';
 
@@ -30,12 +63,12 @@
   function openMenu() {
     menu.classList.add('open');
     overlay.classList.add('show');
-    document.body.style.overflow = 'hidden';
+    window.lockScroll();
   }
   function closeMenu() {
     menu.classList.remove('open');
     overlay.classList.remove('show');
-    document.body.style.overflow = '';
+    window.unlockScroll();
     setTimeout(resetMenuState, 500);
   }
   openBtn && openBtn.addEventListener('click', openMenu);

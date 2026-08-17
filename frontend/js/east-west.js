@@ -54,10 +54,12 @@
   }
   function openLightbox(idx) {
     if (!lightbox || !images.length) return;
+    /* Capture scrollY IMMEDIATELY — before any DOM changes that could shift
+       the viewport (focus, sticky-header re-layout, etc). */
+    window.lockScroll();
     buildLightboxTrack();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
     if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
       lbSwiper = new window.NovaSwiper(lightboxViewport, {
         loop: true,
@@ -75,7 +77,7 @@
     if (!lightbox) return;
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    window.unlockScroll();
   }
 
   slideEls.forEach((item, i) => {
@@ -376,13 +378,13 @@
       lightboxImg.alt = currentPlans()[planIdx].title;
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+      window.lockScroll();
     }
     function closePlanLightbox() {
       if (!lightbox) return;
       lightbox.classList.remove('open');
       lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+      window.unlockScroll();
     }
     if (expandBtn) expandBtn.addEventListener('click', openPlanLightbox);
     const downloadBtn = $('#ewPlansDownload');

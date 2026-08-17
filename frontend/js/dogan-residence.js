@@ -72,10 +72,12 @@
 
   function openLightbox(idx) {
     if (!lightbox || !images.length) return;
+    /* Capture scrollY IMMEDIATELY — before any DOM changes that could shift
+       the viewport (focus, sticky-header re-layout, etc). */
+    window.lockScroll();
     buildLightboxTrack();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
 
     // Initialize swiper on first open (viewport has real dimensions now)
     if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
@@ -98,7 +100,7 @@
     if (!lightbox) return;
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    window.unlockScroll();
   }
 
   // Tap on any manifesto / feature image opens the lightbox at that index
@@ -326,17 +328,17 @@
 
     function openPlanLightbox() {
       if (!planLightbox) return;
+      window.lockScroll();
       planLightboxImg.src = PLANS[planIdx].img;
       planLightboxImg.alt = PLANS[planIdx].title;
       planLightbox.classList.add('open');
       planLightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
     }
     function closePlanLightbox() {
       if (!planLightbox) return;
       planLightbox.classList.remove('open');
       planLightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+      window.unlockScroll();
     }
     if (expandBtn) expandBtn.addEventListener('click', openPlanLightbox);
 

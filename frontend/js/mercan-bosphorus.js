@@ -72,10 +72,12 @@
 
   function openLightbox(idx) {
     if (!lightbox || !images.length) return;
+    /* Capture scrollY IMMEDIATELY — before any DOM changes that could shift
+       the viewport (focus, sticky-header re-layout, etc). */
+    window.lockScroll();
     buildLightboxTrack();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
 
     // Initialize swiper on first open (viewport has real dimensions now)
     if (!lbSwiper && window.NovaSwiper && lightboxViewport) {
@@ -98,7 +100,7 @@
     if (!lightbox) return;
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    window.unlockScroll();
   }
 
   // Tap on any manifesto / feature image opens the lightbox at that index
@@ -326,17 +328,17 @@
 
     function openPlanLightbox() {
       if (!planLightbox) return;
+      window.lockScroll();
       planLightboxImg.src = PLANS[planIdx].img;
       planLightboxImg.alt = PLANS[planIdx].title;
       planLightbox.classList.add('open');
       planLightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
     }
     function closePlanLightbox() {
       if (!planLightbox) return;
       planLightbox.classList.remove('open');
       planLightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+      window.unlockScroll();
     }
     if (expandBtn) expandBtn.addEventListener('click', openPlanLightbox);
 
@@ -456,6 +458,31 @@
           answer.style.maxHeight = answer.scrollHeight + 'px';
         }
       });
+    });
+  }
+
+  /* ========== Auto-loop slideshow (Wellness & Landscaped Gardens) ==========
+     Reads data-interval (ms) off each .mercan-slideshow and cycles slides
+     with a cross-fade. Only advances while the block is in the viewport so
+     off-screen timers don't burn CPU. Respects prefers-reduced-motion. */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    $$('.mercan-slideshow').forEach(box => {
+      const slides = $$('.mercan-slide', box);
+      if (slides.length < 2) return;
+      const interval = parseInt(box.dataset.interval, 10) || 500;
+      let idx = 0;
+      let timer = null;
+      const tick = () => {
+        slides[idx].classList.remove('is-active');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add('is-active');
+      };
+      const start = () => { if (!timer) timer = setInterval(tick, interval); };
+      const stop  = () => { if (timer) { clearInterval(timer); timer = null; } };
+      new IntersectionObserver((entries) => {
+        entries.forEach(en => en.isIntersecting ? start() : stop());
+      }, { threshold: 0.1 }).observe(box);
     });
   }
 
