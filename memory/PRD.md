@@ -164,3 +164,22 @@ User feedback: the first Martı build looked too much like East-West. Rebuilt th
 - Additional project pages (Mehtap, Mercan, Doğan, Bahar) built from the same shared East-West/Martı shell.
 - Verify nearby-place distances and content with real client data.
 - Cross-browser A4 print/PDF test (Chrome / Safari / Edge) for both East-West and Martı floor-plan download.
+
+## Site-wide performance & unused-resource cleanup (Aug 2026)
+
+**Root cause found:** all 4 hero videos on the site (`ew-hero-web.mp4`, `bahar-2k-web.mp4`, `mercan-2k-web.mp4`, `marti-video.mp4` — the last one shared by the 7 unfinished clone pages) had their MP4 `moov` atom positioned at the END of the file instead of the front. This forces the browser to buffer almost the entire file before it can read metadata and start playback — the real cause of the slow hero-video start reported by the user.
+
+**Fixes applied (propagated identically to all 10 residence pages + east-west.html):**
+- Remuxed all 4 hero videos with `ffmpeg -movflags +faststart` (lossless, `-c:v copy`) so metadata loads first and playback can start almost immediately.
+- Stripped the unused (muted, autoplay) audio tracks from all 4 videos — extra bytes with zero playback benefit.
+- East-West hero video was additionally re-encoded (CRF 27) and moved from the external `customer-assets.emergentagent.com` CDN to local `/media/images/east-west/videos/ew-hero-web.mp4` (27.7MB → 24.3MB, now same-origin, cached via `serve.json`).
+- Generated a lightweight WebP poster frame for every hero video (`<video poster="...">` + matching `<link rel="preload" as="image">` in `<head>`) so the first frame paints instantly instead of a blank/black box while the video buffers.
+- Removed the now-unused `<link rel="preconnect" href="https://customer-assets.emergentagent.com">` from `east-west.html`.
+- Localized the East-West intro logo image (was on a second external domain `customer-assets-agu9un31.emergentagent.net`) to `media/images/east-west/ew-intro-logo.webp` (21KB PNG → 6KB WebP, same-origin now).
+- Fixed an orphan `<link rel="preload">` on `index.html` pointing to `menu-thumbs/tac-ai-render.webp`, which is never used on that page (the page actually renders `tac-new-render.webp` for that card) — corrected the preload target so the browser stops fetching a file it never rendered.
+- Deleted 7 fully orphaned pre-WebP-conversion originals with zero references anywhere in the codebase (~30MB): `tac-ai-render.jpg`, `mehtap-cover.png`, `dogubati_render.png`, `marti-cover-xl.png`, `east-west.png`, `residences_cover.png`, `east-west-cover.png`.
+
+**Verified:** all new/moved asset URLs return HTTP 200 via curl through the live preview domain; `ffprobe` confirms `moov` now sits immediately after `ftyp` (before `mdat`) on all 4 videos; screenshots of `east-west.html`, `mercan-bosphorus.html` and a clone (`falcon-plaza.html`) show correct hero rendering with no visual regression.
+
+**Note for next agent:** `index.html`'s main rotating hero background still points to 3 images on the original reference domain `cdn.darglobal.co.uk` (DarGlobal's own CDN, e.g. `OMA_05_Cliffhanger_room...png`). These are actively used (not orphaned) so they were left untouched, but they are third-party branded reference images on a live Nova Konut page — flag to user before replacing with real Nova assets.
+- Known env quirk: the screenshot tool's headless Chromium in this sandbox cannot decode ANY local H.264 mp4 (readyState stays 0 even for a video untouched in this session, e.g. `collab-video.mp4`) — this is a sandbox codec limitation, not a real regression. Rely on `ffprobe`/curl range-request checks + visual screenshot of the page (not direct video-state JS checks) to validate video fixes in this environment.
