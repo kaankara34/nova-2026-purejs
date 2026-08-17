@@ -274,13 +274,13 @@
 }
 .mercan-manifesto-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
   margin-bottom: 34px;
 }
 .mercan-manifesto-img {
   overflow: hidden;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 9;
   background: #efece5;
 }
 .mercan-manifesto-img img {
@@ -724,13 +724,13 @@
 }
 .mercan-manifesto-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
   margin-bottom: 34px;
 }
 .mercan-manifesto-img {
   overflow: hidden;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 9;
   background: #efece5;
 }
 .mercan-manifesto-img img {

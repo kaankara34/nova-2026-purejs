@@ -274,7 +274,10 @@
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    /* threshold 0 + negative rootMargin: fires as soon as ANY pixel of the
+       element enters the viewport (60px above the fold). This handles tall
+       sections (huge image grids) which never satisfy a percentage threshold. */
+  }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
 
   $$('.reveal-up, .reveal-fade, .reveal-stagger').forEach(el => io.observe(el));
 
