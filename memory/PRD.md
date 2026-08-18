@@ -165,6 +165,11 @@ User feedback: the first Martı build looked too much like East-West. Rebuilt th
 - Verify nearby-place distances and content with real client data.
 - Cross-browser A4 print/PDF test (Chrome / Safari / Edge) for both East-West and Martı floor-plan download.
 
+## Bug fix: menu/lightbox close scroll-jump (Aug 2026)
+Root cause: `html { scroll-behavior: smooth }` in `styles.css` made `window.unlockScroll()`'s `window.scrollTo(0, y)` animate from the top instead of jumping instantly, causing a visible "jump to top then scroll back down" every time `menuClose`/`ewLightboxClose` (or any modal close) fired. Fixed once in the shared `window.unlockScroll()` in `js/script.js`: temporarily sets `documentElement.style.scrollBehavior = 'auto'` before the restore scroll, then restores it. Applies automatically to all 13 pages (all load `js/script.js`). Verified via frame-by-frame `scrollY` sampling on east-west.html and mercan-bosphorus.html — no more animation ramp.
+
+**Pending user decision:** user asked whether media quality was reduced during the perf cleanup. Answered: Bahar/Mercan/Martı hero videos = zero quality loss (pure remux/copy). East-West hero video was re-encoded at CRF 27 (visually lossless but not bit-identical) to shave extra size. Offered a lossless remux-only alternative (26.5MB vs current 24.3MB) — awaiting user's choice (kept as-is vs swap to lossless).
+
 ## Site-wide performance & unused-resource cleanup (Aug 2026)
 
 **Root cause found:** all 4 hero videos on the site (`ew-hero-web.mp4`, `bahar-2k-web.mp4`, `mercan-2k-web.mp4`, `marti-video.mp4` — the last one shared by the 7 unfinished clone pages) had their MP4 `moov` atom positioned at the END of the file instead of the front. This forces the browser to buffer almost the entire file before it can read metadata and start playback — the real cause of the slow hero-video start reported by the user.

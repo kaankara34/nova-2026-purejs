@@ -28,9 +28,18 @@
     document.documentElement.classList.remove('no-scroll');
     document.body.classList.remove('no-scroll');
     document.body.style.top = '';
+    /* html has `scroll-behavior: smooth` globally — window.scrollTo() would
+       otherwise animate from 0 up to y, visibly scrolling the page from the
+       top back down. Force an instant jump, then restore smooth scrolling. */
+    const html = document.documentElement;
+    const prevBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
     /* Immediate + rAF: covers both fast browsers and iOS Safari. */
     window.scrollTo(0, y);
-    requestAnimationFrame(() => window.scrollTo(0, y));
+    requestAnimationFrame(() => {
+      window.scrollTo(0, y);
+      html.style.scrollBehavior = prevBehavior;
+    });
   };
 })();
 
