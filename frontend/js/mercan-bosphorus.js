@@ -491,10 +491,9 @@
   }
 
   /* ========== Auto-loop slideshow (Wellness & Landscaped Gardens) ==========
-     Reads data-interval (ms) off each .mercan-slideshow and slides to the
-     next image (incoming from the right, outgoing exits left). Only advances
-     while the block is in the viewport so off-screen timers don't burn CPU.
-     Respects prefers-reduced-motion. */
+     Reads data-interval (ms) off each .mercan-slideshow and cross-fades to
+     the next image. Only advances while the block is in the viewport so
+     off-screen timers don't burn CPU. Respects prefers-reduced-motion. */
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduce) {
     $$('.mercan-slideshow').forEach(box => {
@@ -504,18 +503,9 @@
       let idx = 0;
       let timer = null;
       const tick = () => {
-        const current = slides[idx];
-        const nextIdx = (idx + 1) % slides.length;
-        const next = slides[nextIdx];
-        current.classList.remove('is-active');
-        current.classList.add('is-prev');
-        next.classList.add('is-active');
-        idx = nextIdx;
-        setTimeout(() => {
-          current.style.transitionDuration = '0s';
-          current.classList.remove('is-prev');
-          requestAnimationFrame(() => { current.style.transitionDuration = ''; });
-        }, 750);
+        slides[idx].classList.remove('is-active');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add('is-active');
       };
       const start = () => { if (!timer) timer = setInterval(tick, interval); };
       const stop  = () => { if (timer) { clearInterval(timer); timer = null; } };

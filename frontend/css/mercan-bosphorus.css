@@ -360,9 +360,8 @@
 }
 .mercan-feature-card:hover .mercan-features-img img { transform: scale(1.04); }
 
-/* Auto-loop slideshow (Wellness & Landscaped Gardens) — slides in from the
-   right, previous slide exits to the left, at the interval set via
-   data-interval (ms) on the .mercan-slideshow container. */
+/* Auto-loop slideshow (Wellness & Landscaped Gardens) — fades to the next
+   image at the interval set via data-interval (ms) on .mercan-slideshow. */
 .mercan-features-img.mercan-slideshow { position: relative; }
 .mercan-features-img.mercan-slideshow .mercan-slide {
   position: absolute;
@@ -370,11 +369,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: translateX(100%);
-  transition: transform .7s cubic-bezier(.4,0,.2,1);
+  opacity: 0;
+  transition: opacity .9s ease;
 }
-.mercan-features-img.mercan-slideshow .mercan-slide.is-active { transform: translateX(0); }
-.mercan-features-img.mercan-slideshow .mercan-slide.is-prev { transform: translateX(-100%); }
+.mercan-features-img.mercan-slideshow .mercan-slide.is-active { opacity: 1; }
 
 .mercan-feature-title {
   font-family: 'Cormorant Garamond', serif;
