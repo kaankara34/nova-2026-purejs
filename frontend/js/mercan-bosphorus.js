@@ -461,6 +461,35 @@
     });
   }
 
+  /* ========== Key Features mobile carousel — dot sync ========== */
+  const featuresGrid = $('#mercanFeaturesGrid');
+  const featuresDots = $$('#mercanFeaturesDots .mercan-features-dot');
+  if (featuresGrid && featuresDots.length) {
+    const cards = $$('.mercan-feature-card', featuresGrid);
+    const setActiveDot = (idx) => {
+      featuresDots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    };
+    let scrollT = null;
+    featuresGrid.addEventListener('scroll', () => {
+      clearTimeout(scrollT);
+      scrollT = setTimeout(() => {
+        const center = featuresGrid.scrollLeft + featuresGrid.clientWidth / 2;
+        let closest = 0, closestDist = Infinity;
+        cards.forEach((c, i) => {
+          const dist = Math.abs((c.offsetLeft + c.offsetWidth / 2) - center);
+          if (dist < closestDist) { closestDist = dist; closest = i; }
+        });
+        setActiveDot(closest);
+      }, 80);
+    }, { passive: true });
+    featuresDots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        const card = cards[i];
+        if (card) featuresGrid.scrollTo({ left: card.offsetLeft - (featuresGrid.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' });
+      });
+    });
+  }
+
   /* ========== Auto-loop slideshow (Wellness & Landscaped Gardens) ==========
      Reads data-interval (ms) off each .mercan-slideshow and cycles slides
      with a cross-fade. Only advances while the block is in the viewport so
