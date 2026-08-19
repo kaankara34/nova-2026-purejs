@@ -1,0 +1,37 @@
+{
+  "summary": "Frontend-only testing of the new static page /about.html (Nova Konut) at https://darg-clone-1.preview.emergentagent.com plus regression on index.html, projects.html, mercan-bosphorus.html. Desktop 1920x1080 and mobile 390x844. VERIFIED WORKING: page loads (title 'About Us | Nova Konut') with ZERO console errors and ZERO failed network requests on both viewports; all 11 new .ab-* sections present (ab-hero, ab-discover, ab-manifesto, ab-quote, ab-stats, ab-leed, 3x ab-split, ab-collab, ab-partner, ab-final) + reused #register (pj-register/pj-form) + pj-getintouch + shared header/utility-bar/side-menu/mobile-bottom-bar/footer; all 8 new webp assets return HTTP 200 (about_hero/vision/life/trust/leed/cta1/cta2/stats) and no broken images after scroll (initial naturalWidth=0 on cta1/cta2 was only loading=lazy, resolved after scroll); css/about.css and js/about.js both 200 (serve.json no-cache OK). Navigation: side-menu hamburger (#menuToggle/#menuClose) opens+closes on about.html (desktop+mobile); 'ABOUT NOVA' submenu link resolves to about.html from index.html, projects.html AND east-west.html; 'EXPLORE OUR PROJECTS' and 'EXPLORE PROJECTS' -> projects.html; 'EXPLORE OUR COLLABORATIONS' -> index.html#collab and id='collab' exists (739px tall Trump Organization section renders). Register scroll: header REGISTER INTEREST, mobile-bottom-bar .btn-bottom-register, ab-partner and ab-final (data-scroll='register') all smooth-scroll to #register (rect.top ~0). Form (#abForm, novalidate): empty submit blocked with alert 'Please complete required fields and accept the privacy policy.'; valid submit shows 'Thank you. Your registration has been received.' and resets fields (mock-only, as expected). Reveal animations: 28 .reveal-* elements, in-viewport elements receive 'in-view' class correctly. Mobile: no horizontal overflow (scrollWidth=390), no element wider than viewport, all sections stack single-column, bottom bar visible. Regression: index/projects/mercan-bosphorus load with no console errors, no broken images, no overflow, hamburger works. Only DESIGN/content nits found - no functional defects.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "about.html - 'Built On Trust' split section", "issues": ["about_trust.webp is a bright cyan/turquoise glass-facade photo that clashes with the site's warm gold/taupe/maroon palette (--c-gold #a08660, --c-maroon #5a2c30); every other image on the page is warm/neutral. Recommend swapping for a warm-toned facade/construction-detail image."]},
+      {"screen": "about.html - LEED / Sustainability black band", "issues": ["Section is extremely tall (1200px desktop, 938px mobile) with a large empty black area above the left text block; text sits ~55% down the band leaving a big dead zone at the top on 1920x1080. Consider reducing min-height or vertically centering the left column."]},
+      {"screen": "about.html - 'Invest In Istanbul's Next Chapter' partner band", "issues": ["about_cta1.webp reads as a generic hotel bedroom (bed with towel bow, table lamps) rather than a luxury residential interior - off-brand for a developer page. Also the olive overlay is quite light so white body copy over the bright lamp/pillow area loses contrast on the left third."]},
+      {"screen": "about.html - Stats band", "issues": ["'İstanbul' rendered at the same 40px serif 'stat-number' size as '10+' makes the two columns visually unbalanced (word vs numeral); acceptable per user-approved choice but the divider looks off-centre between the two unequal-width columns."]},
+      {"screen": "Site-wide (pre-existing, not caused by this change)", "issues": ["index.html <title> is still 'DarGlobal | International Luxury Real Estate Developer' and the home hero still shows the 'DAOR GLOBAL / LIVE ALL IN' logo lockup instead of Nova Konut branding.", "Residence-page footers still have <a href=\"#\">ABOUT NOVA</a> (e.g. bahar-residence.html:457, east-west.html:705, dogan/falcon/gebze/konelsis pages) - only the side-menu link was bulk-updated to about.html, so the footer link is now inconsistent."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Replace about_trust.webp with a warm-toned image so the 'Built On Trust' section matches the site palette.",
+    "Reduce the .ab-leed band height / vertically centre its left column - 1200px with empty top area on desktop.",
+    "Replace about_cta1.webp (hotel bedroom) with a residential interior and/or darken the olive overlay for text contrast.",
+    "Update footer 'ABOUT NOVA' links (href='#') on the residence pages to about.html for consistency with the side-menu.",
+    "Optional/pre-existing: fix index.html <title> and hero logo which still say DarGlobal / DAOR GLOBAL."
+  ],
+  "critical_code_review_comments": [
+    "about.html form uses novalidate + JS-only validation and there is no inline error UI - errors are surfaced via alert() only; acceptable for the mock but inconsistent with modern UX (same pattern as projects.html #pjForm, so consistent within the site).",
+    "js/about.js queries [name] selectors rather than the data-testid attributes it already provides; fine, but keep names in sync if the form markup is edited.",
+    "about_vision.webp is 568KB and about_leed.webp is 396KB - both are above-the-fold-ish full-bleed images; consider further compression / responsive srcset for mobile.",
+    "The register section is a verbatim copy of projects.html's markup (pj-register/pj-form) duplicated across pages - candidate for a shared HTML partial/include to avoid drift."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (static site, no backend)", "frontend": "100% of functional checks passed; 4 design nits"},
+  "seed_data_creation": "None",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "N/A - static site, no auth",
+  "context_for_next_testing_agent": "about.html tested at https://darg-clone-1.preview.emergentagent.com/about.html. Key selectors: #menuToggle/#menuClose (side-menu, class toggles 'side-menu open'), side-menu submenu link .side-menu .submenu[data-id='nova-konut'] a[href='about.html'] (requires hovering the 'NOVA KONUT' main item first on desktop), [data-scroll='register'] buttons (header button.btn.register, .btn-bottom-register, [data-testid='about-partner-register'], [data-testid='about-final-touch']) all scroll to #register. Form: #abForm with data-testid form-fullname/form-phone/form-email/form-project/form-source/form-privacy/form-submit; alerts: invalid => 'Please complete required fields and accept the privacy policy.', valid => 'Thank you. Your registration has been received.'. Reveal system adds class 'in-view'. Lazy images (cta1/cta2) report naturalWidth=0 until scrolled - do not flag as broken. Clean-URL rewrites for /about (no .html) were NOT tested; note prior iteration_7 finding that serve.json rewrites are ignored on preview.",
+  "rca_of_the_issue": "No functional defects reproduced. The only apparent 'broken image' signal was a false positive from loading='lazy' (naturalWidth=0 before entering viewport); direct HTTP checks returned 200 for all 8 about/*.webp assets. Remaining findings are asset-selection and spacing/contrast choices in css/about.css (.ab-leed min-height, overlay opacity on .ab-partner) plus pre-existing DarGlobal branding leftovers on index.html."
+}

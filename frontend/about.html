@@ -4,17 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="Explore Nova Konut's portfolio of luxury residences across Istanbul. Find your next investment in Bağdat Caddesi and beyond." />
-  <title>Projects | Nova Konut</title>
+  <meta name="description" content="About Nova Konut — an Istanbul-based developer building refined residential projects shaped by architecture, engineering and long-term value." />
+  <title>About Us | Nova Konut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="./media/images/about/about_hero.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/projects.css" />
+  <link rel="stylesheet" href="css/about.css" />
 </head>
-<body class="page-projects">
+<body class="page-about">
+
+  <div class="ab-scroll-progress" id="abScrollProgress" aria-hidden="true"></div>
 
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
@@ -95,7 +99,6 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <div class="side-menu-grid">
-      <!-- Custom always-visible gold scrollbar for col-projects -->
       <div class="col-projects-sb" id="colProjectsSb" aria-hidden="true">
         <div class="col-projects-sb-thumb" id="colProjectsSbThumb"></div>
       </div>
@@ -117,7 +120,7 @@
       <div class="side-menu-col col-sub">
         <div class="col-sub-head">
           <button class="col-sub-back" id="colSubBack" aria-label="Back">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
           <span class="col-sub-title" id="colSubTitle"></span>
         </div>
@@ -182,130 +185,144 @@
     </div>
   </aside>
 
-  <!-- ============================= PAGE HERO ============================= -->
-  <section class="pj-hero">
-    <div class="pj-hero-media">
-      <img src="https://cdn.darglobal.co.uk/projects_bg_1920_7938dd65f1.webp" alt="Nova Projects" loading="eager" decoding="async" />
+  <!-- ============================= HERO ============================= -->
+  <section class="ab-hero" data-theme="#0a0a0a">
+    <div class="ab-hero-media">
+      <img src="./media/images/about/about_hero.webp" alt="Nova Konut" loading="eager" fetchpriority="high" decoding="async" />
     </div>
-    <div class="pj-hero-overlay"></div>
-    <div class="pj-hero-text">
-      <h1 class="pj-hero-title reveal-up">find your next investment</h1>
+  </section>
+  <section class="ab-discover" data-theme="#ffffff">
+    <div class="ab-discover-glow" aria-hidden="true"></div>
+    <div class="ab-discover-mark" aria-hidden="true">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10.5"/><ellipse cx="12" cy="12" rx="4.6" ry="10.5"/><line x1="1.5" y1="12" x2="22.5" y2="12"/></svg>
+    </div>
+    <h1 class="ab-discover-title gs-lines"><span class="gs-line">Discover</span><span class="gs-line">Nova Konut</span></h1>
+    <p class="ab-discover-sub gs-fade-up">An Istanbul-based developer building refined residences shaped by architecture, engineering and long-term value.</p>
+  </section>
+
+  <!-- ============================= BUILD BEYOND LIVING (manifesto) ============================= -->
+  <section class="ab-manifesto" data-theme="#f8f5ef">
+    <div class="ab-manifesto-orbit" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.5">
+        <circle cx="100" cy="100" r="98"/>
+        <ellipse cx="100" cy="100" rx="42" ry="98"/>
+        <ellipse cx="100" cy="100" rx="70" ry="98"/>
+        <line x1="2" y1="100" x2="198" y2="100"/>
+        <line x1="100" y1="2" x2="100" y2="198"/>
+      </svg>
+    </div>
+    <div class="container">
+      <h2 class="ab-manifesto-title gs-fade-up">Build Beyond Living</h2>
+      <p class="ab-manifesto-desc gs-words">Nova Konut develops refined residential projects shaped by architecture, engineering, and long-term value. With a disciplined approach to design, construction quality, and urban transformation, we create distinguished living environments in Istanbul&rsquo;s most established locations. Built on trust, precision, and permanence, every Nova project reflects one clear philosophy.</p>
+      <a href="projects.html" class="ab-manifesto-btn gs-fade-up" data-testid="about-explore-projects">EXPLORE OUR PROJECTS</a>
     </div>
   </section>
 
-  <!-- ============================= FILTER BAR ============================= -->
-  <section class="pj-filters">
+  <!-- ============================= LEADERSHIP QUOTE ============================= -->
+  <section class="ab-quote" data-theme="#cdc0a6">
     <div class="container">
-      <div class="pj-pills" role="tablist" aria-label="Filter projects">
-        <button class="pj-pill is-active" data-filter="all" data-testid="filter-all">TÜMÜ</button>
-        <button class="pj-pill" data-filter="rezidans" data-testid="filter-rezidans">REZİDANS</button>
-        <button class="pj-pill" data-filter="karma" data-testid="filter-karma">KARMA KULLANIM</button>
-        <button class="pj-pill" data-filter="ofis" data-testid="filter-ofis">OFİS / TİCARİ</button>
-        <button class="pj-pill" data-filter="konaklama" data-testid="filter-konaklama">KONAKLAMA</button>
-        <button class="pj-pill" data-filter="gelecek" data-testid="filter-gelecek">GELECEK PROJELER</button>
-        <button class="pj-pill" data-filter="gecmis" data-testid="filter-gecmis">GEÇMİŞ PROJELER</button>
+      <svg class="ab-quote-mark gs-fade-up" width="52" height="40" viewBox="0 0 52 40" fill="none" aria-hidden="true"><path d="M0 24C0 10 8 1 20 0v7c-7 1.5-11 6-11 12h11v17H0V24zM29 24C29 10 37 1 49 0v7c-7 1.5-11 6-11 12h11v17H29V24z" fill="currentColor"/></svg>
+      <p class="ab-quote-text gs-blur-up">We do not build to fill a skyline. We build to shape how people live &mdash; with discipline, precision, and an unwavering commitment to quality that outlasts any single project.</p>
+      <span class="ab-quote-attr gs-fade-up">— NOVA KONUT MANAGEMENT</span>
+    </div>
+  </section>
+
+  <!-- ============================= STATS ============================= -->
+  <section class="ab-stats" data-theme="#111111">
+    <div class="ab-stats-media gs-parallax-img"><img src="./media/images/about/about_stats.webp" alt="Istanbul, Bosphorus" loading="lazy" decoding="async" /></div>
+    <div class="ab-stats-overlay"></div>
+    <div class="ab-stats-inner">
+      <div class="ab-stat gs-fade-up">
+        <span class="ab-stat-num" data-count="10" data-suffix="+">0</span>
+        <span class="ab-stat-label">Residential Projects</span>
+      </div>
+      <div class="ab-stat-divider" aria-hidden="true"></div>
+      <div class="ab-stat gs-fade-up">
+        <span class="ab-stat-num">İstanbul</span>
+        <span class="ab-stat-label">Our Home Market</span>
       </div>
     </div>
   </section>
 
-  <!-- ============================= PROJECT GRID ============================= -->
-  <section class="pj-grid-section">
-    <div class="container">
-      <div class="pj-grid" id="projectsGrid">
+  <!-- ============================= LEED / SUSTAINABILITY BAND ============================= -->
+  <section class="ab-leed" data-theme="#0b0b0b">
+    <div class="ab-leed-left gs-fade-left">
+      <img src="./media/images/logos/leed-official-transparent.png" alt="LEED — U.S. Green Building Council" loading="lazy" decoding="async" />
+      <span class="ab-leed-eyebrow">SUSTAINABILITY</span>
+      <h2 class="ab-leed-title">Certified for sustainable living.</h2>
+      <p class="ab-leed-tagline">Every Nova Konut residence is designed and constructed to LEED standards &mdash; reducing environmental impact while delivering lasting comfort and value.</p>
+    </div>
+    <div class="ab-leed-right gs-clip-reveal">
+      <img src="./media/images/about/about_leed.webp" alt="Sustainable architecture" loading="lazy" decoding="async" />
+    </div>
+  </section>
 
-        <a href="east-west.html" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/east-west-cover.webp" alt="The Residences East West" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Residences East West</div>
-        </a>
+  <!-- ============================= WHERE VISION TAKES SHAPE (full-bleed) ============================= -->
+  <section class="ab-vision-full" data-theme="#0a0a0a">
+    <div class="ab-vision-media gs-parallax-img"><img src="./media/images/about/about_vision.webp" alt="Istanbul skyline" loading="lazy" decoding="async" /></div>
+    <div class="ab-vision-overlay"></div>
+    <div class="ab-vision-content">
+      <span class="ab-split-eyebrow gs-fade-up">LOCATION</span>
+      <h2 class="ab-vision-title gs-lines"><span class="gs-line">Where Vision</span><span class="gs-line">Takes Shape</span></h2>
+      <p class="ab-vision-desc gs-fade-up">Nova Konut selects locations with long-term relevance &mdash; along Istanbul&rsquo;s most established addresses and its most promising emerging districts. Every site is chosen for its connectivity, its character, and its capacity to hold value well beyond the first generation of owners.</p>
+    </div>
+  </section>
 
-        <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/tac-ai-render.webp" alt="The Apartments Taç" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">FENERYOLU, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Apartments Taç</div>
-        </a>
+  <!-- ============================= DESIGNED FOR YOUR LIFE ============================= -->
+  <section class="ab-split ab-split--reverse" data-theme="#ffffff">
+    <div class="ab-split-text gs-fade-up">
+      <span class="ab-split-eyebrow">DESIGN</span>
+      <h2 class="ab-split-title">Designed For Your Life</h2>
+      <p class="ab-split-desc">From layout to material selection, every residence is designed around how people actually live. Comfort, privacy, natural light, and everyday functionality guide each decision &mdash; so that daily life feels effortless, not staged.</p>
+    </div>
+    <div class="ab-split-img gs-parallax-img"><img src="./media/images/about/about_life.webp" alt="Modern living room interior" loading="lazy" decoding="async" /></div>
+  </section>
 
-        <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/ana_render.jpeg" alt="The Apartments Ana" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">CADDEBOSTAN, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Apartments Ana</div>
-        </a>
-
-        <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/amaya_1e8824a066.webp" alt="The Apartments Gür" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">KALAMIŞ, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Apartments Gür</div>
-        </a>
-         <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/amaya_1e8824a066.webp" alt="The Apartments Gür" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">FİNANS MERKEZİ, ATAŞEHİR</div>
-          <div class="pj-card-title">Finance Nova</div>
-        </a>
-
-        <a href="bahar-residence.html" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/bahar-cover.JPG" alt="The Residences Marmara" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Bahar Residence</div>
-        </a>
-
-        <a href="marti-residence.html" class="pj-card" data-filter="rezidans karma gelecek">
-          <div class="pj-card-img"><img src="./media/images/marti-cover-xl.webp" alt="Martı Residence" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">SUADİYE, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Martı Residence</div>
-        </a>
-
-        <a href="mehtap-residence.html" class="pj-card" data-filter="karma konaklama gelecek">
-          <div class="pj-card-img"><img src="./media/images/mehtap-cover.webp" alt="Pera Penthouses" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Mehtap Residence</div>
-        </a>
-
-        <a href="dogan-residence.html" class="pj-card" data-filter="ofis karma gelecek">
-          <div class="pj-card-img"><img src="./media/images/dogan-cover.webp" alt="The Apartments Levent" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ERENKÖY, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Doğan Residence</div>
-        </a>
-
-        <a href="mercan-bosphorus.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/mercan-cover.webp" alt="The Residences Nişantaşı" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ÇENGELKÖY BOĞAZ</div>
-          <div class="pj-card-title">Mercan Bosphorus</div>
-        </a>
-
-        <a href="nisbetiye-on.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/nisbetiye-on-cover.webp" alt="Acarkent Villas" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">NİSBETİYE, BEŞİKTAŞ</div>
-          <div class="pj-card-title">Nisbetiye On</div>
-        </a>
-
-        <a href="falcon-plaza.html" class="pj-card" data-filter="rezidans konaklama gecmis">
-          <div class="pj-card-img"><img src="./media/images/falcon-plaza-cover.webp" alt="The Residences Maslak" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">LİBADİYE SOKAĞI, LEVENT</div>
-          <div class="pj-card-title">Falcon Plaza</div>
-        </a>
-
-        <a href="falcon-logistic.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/lojistik-cover.webp" alt="The Apartments Moda" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">İSTANBUL</div>
-          <div class="pj-card-title">Falcon Logistic</div>
-        </a>
-         <a href="konelsis-center.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/konelsis-cover.webp" alt="The Apartments Moda" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">YENİMAHALLE, ANKARA</div>
-          <div class="pj-card-title">Konelsis Center</div>
-        </a>
-         <a href="gebze-osb-management.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/osb-cover.webp" alt="The Apartments Moda" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">GEBZE, KOCAELİ</div>
-          <div class="pj-card-title">Gebze OSB Management Building</div>
-        </a>
-
+  <!-- ============================= BUILT ON TRUST ============================= -->
+  <section class="ab-split ab-split--gray" data-theme="#f2efe9">
+    <div class="ab-split-img gs-parallax-img">
+      <img src="./media/images/about/about_trust.webp" alt="Architectural facade detail" loading="lazy" decoding="async" />
+      <div class="ab-trust-badge gs-fade-up">
+        <span class="ab-trust-badge-num">100%</span>
+        <span class="ab-trust-badge-label">Engineering Compliance</span>
       </div>
+    </div>
+    <div class="ab-split-text gs-fade-up">
+      <span class="ab-split-eyebrow">CONSTRUCTION</span>
+      <h2 class="ab-split-title">Built On Trust</h2>
+      <p class="ab-split-desc">Construction quality is never negotiable. From foundation to finish, every Nova project is delivered with rigorous engineering standards, transparent timelines, and a long-term commitment to the people who call it home.</p>
+    </div>
+  </section>
 
-      <!-- Empty state when filters return nothing -->
-      <div class="pj-empty" id="pjEmpty" hidden>
-        <p>No projects match your selected filters.</p>
-        <button class="pj-reset" id="pjReset" data-testid="filter-reset">Reset Filters</button>
+  <!-- ============================= DESIGN & LIFESTYLE COLLABORATIONS ============================= -->
+  <section class="ab-collab" data-theme="#0d0c0a">
+    <div class="container">
+      <span class="ab-collab-eyebrow gs-fade-up">DESIGN &amp; LIFESTYLE</span>
+      <h2 class="ab-collab-title gs-fade-up">Collaborations Without Compromise</h2>
+      <p class="ab-collab-desc gs-fade-up">Nova Konut partners with globally recognized names in design and hospitality &mdash; including our collaboration with the Trump Organization on The Residences East West &mdash; to bring an elevated standard of living to every address we build.</p>
+      <a href="index.html#collab" class="ab-collab-link gs-fade-up">EXPLORE OUR COLLABORATIONS <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- ============================= PARTNER WITH NOVA (CTA) ============================= -->
+  <section class="ab-partner" data-theme="#8a7450">
+    <div class="ab-partner-media gs-parallax-img"><img src="./media/images/about/about_cta1.webp" alt="Luxury interior" loading="lazy" decoding="async" /></div>
+    <div class="ab-partner-inner gs-fade-up">
+      <span class="ab-partner-eyebrow">PARTNER WITH NOVA</span>
+      <h2 class="ab-partner-title">Invest In Istanbul&rsquo;s Next Chapter</h2>
+      <p class="ab-partner-desc">Speak with our team about investment opportunities across Nova Konut&rsquo;s current and upcoming residences.</p>
+      <button class="ab-partner-btn" data-scroll="register" data-testid="about-partner-register">REGISTER INTEREST</button>
+    </div>
+  </section>
+
+  <!-- ============================= FIND YOUR NEXT NOVA ADDRESS (final CTA) ============================= -->
+  <section class="ab-final" data-theme="#4a2227">
+    <div class="ab-final-media gs-parallax-img"><img src="./media/images/about/about_cta2.webp" alt="Nova Konut residence" loading="lazy" decoding="async" /></div>
+    <div class="ab-final-inner">
+      <h2 class="ab-final-title gs-lines"><span class="gs-line">Find Your Next</span><span class="gs-line">Nova Address</span></h2>
+      <div class="ab-final-actions gs-fade-up">
+        <a href="projects.html" class="ab-btn ab-btn--filled" data-testid="about-final-explore">EXPLORE PROJECTS</a>
+        <button class="ab-btn ab-btn--outline" data-scroll="register" data-testid="about-final-touch">GET IN TOUCH</button>
       </div>
     </div>
   </section>
@@ -317,7 +334,7 @@
       <p class="pj-register-sub reveal-up">Discover exclusive luxury real estate and investment opportunities with Nova Konut</p>
       <p class="pj-register-help reveal-up">Please provide your details to register interest.</p>
 
-      <form class="pj-form reveal-up" id="pjForm" novalidate>
+      <form class="pj-form reveal-up" id="abForm" novalidate>
         <div class="pj-field">
           <label>Full Name</label>
           <input type="text" name="fullname" required data-testid="form-fullname"/>
@@ -345,15 +362,10 @@
             <option>The Residences East West, Bağdat Caddesi</option>
             <option>The Apartments Taç, Bağdat Caddesi</option>
             <option>The Apartments Ana, Bağdat Caddesi</option>
-            <option>The Apartments Gür, Bağdat Caddesi</option>
-            <option>The Residences Marmara, Caddebostan</option>
-            <option>Bosphorus Villas, Bebek</option>
-            <option>Pera Penthouses, Beyoğlu</option>
-            <option>The Apartments Levent, Şişli</option>
-            <option>The Residences Nişantaşı</option>
-            <option>Acarkent Villas, Beykoz</option>
-            <option>The Residences Maslak, Sarıyer</option>
-            <option>The Apartments Moda, Kadıköy</option>
+            <option>Martı Residence, Suadiye</option>
+            <option>Bahar Residence, Çiftehavuzlar</option>
+            <option>Mercan Bosphorus, Çengelköy</option>
+            <option>General Inquiry</option>
           </select>
         </div>
         <div class="pj-field">
@@ -485,6 +497,8 @@
   </footer>
 
   <script src="js/script.js"></script>
-  <script src="js/projects.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+  <script src="js/about.js"></script>
 </body>
 </html>

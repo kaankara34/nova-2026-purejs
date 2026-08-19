@@ -1,0 +1,41 @@
+{
+  "summary": "Frontend-only Playwright pass on the rewritten about.html (GSAP 3.15 + ScrollTrigger). Verified: zero console/page errors, gsap+ScrollTrigger loaded, scroll progress bar 0->100%, per-section data-theme body background + meta theme-color updates across all 12 sections, all 73 gs-* reveal elements end at opacity 1 after scroll, LEED clip-path scrub reaches inset(0 0 0%), stats count-up (10+ / Istanbul), stat divider scaleY=1, final CTA title renders as two lines, manifesto orbit SVG present and contained (section overflow:hidden, no page overflow at 390px), register form validation + reset, 4 data-scroll=register buttons, side menu open/close, index->about submenu nav, EXPLORE links, footer ABOUT NOVA -> about.html on 5 spot-checked pages, about_trust.webp & about_cta1.webp HTTP 200 and rendering. Found 1 high-priority robustness bug (page content invisible if the GSAP CDN fails), plus reduced-motion stat regression, a copy/paste-broken manifesto paragraph, and 2 design/contrast issues.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "about.js GSAP guard / about.css initial states", "issue": "If cdn.jsdelivr.net (GSAP) is unreachable, about.js returns at line 49 BEFORE any fallback reveal, so CSS initial states stay applied: all 73 .gs-fade-up/.gs-fade-left/.gs-line/.gs-blur-up/.gs-word elements remain opacity:0 and .gs-clip-reveal stays inset(0 0 100%). Verified by aborting **cdn.jsdelivr.net** requests: the whole about page renders with blank/empty sections (only images + header/footer visible). Claim that animations 'gracefully no-op' without GSAP is not true. Fix: move the 'reveal everything' reset above the gsap check (or use a no-JS/failed-load fallback class on <html>).", "selector": ".gs-fade-up, .gs-line, .gs-word, .gs-clip-reveal", "priority": "HIGH"},
+      {"component": "Stats count-up (.ab-stat-num[data-count])", "issue": "Under prefers-reduced-motion:reduce (and with GSAP unavailable) the stat renders the literal HTML value '0' instead of '10+' because the reduced-motion branch returns before the count-up code and never writes the final value. Static HTML should contain '10+' (or the reduced-motion branch should set textContent = count+suffix).", "selector": ".ab-stat-num[data-count]", "priority": "MEDIUM"},
+      {"component": "splitWords() in about.js / .gs-word", "issue": "Words are visually spaced only via CSS margin-right:0.28em; the real space characters were removed, so innerText/selection/copy of the manifesto paragraph is 'NovaKonutdevelopsrefined...' (verified via Selection.toString()). Bad for copy-paste, screen readers, in-page find (Ctrl+F across words) and SEO-ish text extraction. Fix: keep a real space inside/after each span (e.g. span.textContent = word + '\\u00a0'? better: append document.createTextNode(' ') between spans and drop margin-right).", "selector": ".ab-manifesto-desc .gs-word", "priority": "MEDIUM"},
+      {"component": "Hero section theming", "issue": "ScrollTrigger onToggle only fires on toggle, so on initial load (hero already active) body background stays #fff and meta theme-color stays the hardcoded #0b0b0b instead of the hero's data-theme #0a0a0a. Cosmetic only (hero is a full-bleed dark image), but the first scroll sample shows body going white->then themed. Consider applying the first section's theme on init.", "selector": ".ab-hero[data-theme]", "priority": "LOW"},
+      {"component": "colorBreaths vs data-theme mismatch", "issue": "'.ab-split--gray' has data-theme=\"#f2efe9\" but its colour-breath tween starts at #f7f6f3, so the body overscroll colour and the section colour disagree slightly at section entry. Trivially inconsistent, not visually broken.", "selector": ".ab-split--gray", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Partner With Nova CTA (.ab-partner)", "issues": ["The gold/olive overlay on about_cta1.webp is very heavy - the photo reads as a flat yellow wash rather than a luxury interior", "Body copy 'Speak with our team about investment opportunities...' and the 'PARTNER WITH NOVA' eyebrow are light grey/white on a light gold background = low contrast, hard to read"]},
+      {"screen": "Built On Trust (.ab-split--gray)", "issues": ["about_trust.webp is now warm (fixed vs the old cyan image) but is extremely saturated orange, which reads off-brand next to the rest of the muted gold/cream palette - consider a lower-saturation dusk facade"]},
+      {"screen": "Stats band (.ab-stats)", "issues": ["White stat labels sit over the brightest part of the bridge photo; 'RESIDENTIAL PROJECTS' / 'OUR HOME MARKET' contrast is marginal - a slightly stronger scrim would help"]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "HIGH: Reveal .gs-* elements when GSAP/ScrollTrigger fails to load (move the opacity/clip-path reset before the `if (!window.gsap...) return;` guard) - currently a CDN outage blanks the entire about page.",
+    "Set stat final values for reduced-motion / no-GSAP paths (or put '10+' in the HTML) - currently shows '0'.",
+    "Restore real space characters in splitWords() so the manifesto paragraph is copyable/searchable/screen-reader-correct.",
+    "Apply the first section's data-theme on init so body bg / meta theme-color aren't stale on load.",
+    "Design: reduce the gold overlay + raise text contrast in the Partner CTA; de-saturate about_trust.webp."
+  ],
+  "critical_code_review_comments": [
+    "about.js: reduced-motion + no-GSAP fallbacks are placed after the GSAP guard, coupling content visibility to a third-party CDN - content should never depend on an animation library.",
+    "splitWords() uses el.textContent, which would silently destroy any nested markup (links/em) inside a future .gs-words element; use childNodes-aware splitting.",
+    "splitWords() forEach params (i, arr) are unused - dead args.",
+    "colorBreaths start colours are duplicated from CSS section backgrounds and from data-theme attributes (3 sources of truth for the same colour); derive from data-theme or from computed style."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (static site, no backend)", "frontend": "85%"},
+  "seed_data_creation": "None (static site)",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "N/A - no auth on this static site",
+  "context_for_next_testing_agent": "about.html GSAP rewrite verified: 12 data-theme sections all update body bg + meta theme-color correctly on scroll, progress bar works, all reveal animations end visible, LEED clip scrub completes, stats count up to 10+, final CTA title is 2 lines, manifesto orbit SVG contained on desktop+390px mobile (no horizontal page overflow), register form validates/resets, side-menu + EXPLORE + footer ABOUT NOVA links all navigate correctly (spot-checked bahar/dogan/east-west/falcon-plaza/mercan). Outstanding: (1) CDN-failure blank-page bug, (2) reduced-motion stat '0', (3) merged words in copied text. Re-test those three by aborting **cdn.jsdelivr.net** and by emulate_media(reduced_motion='reduce').",
+  "rca_of_the_issue": "about.css pre-hides every animated element (opacity:0 / clip-path inset 100%) to avoid FOUC, while about.js only removes those states inside the GSAP-available code path. Any failure to load GSAP from cdn.jsdelivr.net therefore leaves the page permanently blank in those sections; likewise the reduced-motion early-return skips the stat count-up so the placeholder '0' in the HTML is never replaced."
+}

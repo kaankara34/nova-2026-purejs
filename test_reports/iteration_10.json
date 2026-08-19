@@ -1,0 +1,32 @@
+{
+  "summary": "Targeted frontend re-verification of the 6 fixes flagged in iteration_9 on about.html. ALL 6 FIXES PASS. (1) With **cdn.jsdelivr.net** aborted (GSAP absent), revealStatic() now runs before the guard-return: .ab-discover-title/.ab-manifesto-desc/.ab-quote-text/.ab-final-title all computed opacity 1, .ab-leed-right clip-path 'none', 0 of 47 .gs-word and 0 of all .gs-* elements left hidden - page renders fully, not blank. (2) Stat shows '10+' both with GSAP blocked and with prefers-reduced-motion:reduce (all gs-* revealed, clip 'none' there too). (3) After scrolling past the manifesto, innerText AND Range/Selection.toString() both return 'Nova Konut develops refined residential projects shaped by architecture, engineering, and long-term value...' with real spaces; all 47 words at opacity 1. (4) On fresh load at scrollY=0 body inline+computed background-color = rgb(10,10,10) and meta theme-color = #0a0a0a matching the hero data-theme (note: an early sample at 400ms reads rgb(32,32,32) purely because body has transition:background-color .6s - settled value is correct). (5) about_trust.webp is the new muted dusk/pink-sky glass-balcony facade (1600x1068, loads, visible) - the over-saturated orange photo is gone and it now sits well with the cream/gold palette. (6) .ab-partner-media opacity is .22, .ab-partner::before dark linear-gradient(105deg, rgba(18,13,7,.78) -> .1) present, .ab-partner-inner z-index 2; heading 'Invest In Istanbul's Next Chapter' renders pure white and is clearly readable in the screenshot. Regression: register form shows validation alert when empty, success alert + full reset when filled; side menu opens (.side-menu open) and closes via #menuClose; zero console/page errors on normal load across desktop and mobile; 0px horizontal overflow at 390px across 6 scroll positions.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "about.js theme init vs GSAP guard", "issue": "The body background / meta theme-color init block sits AFTER the `if (!window.gsap...) { revealStatic(); return; }` guard, so in the CDN-failure path body background stays rgb(255,255,255) and meta theme-color stays the hardcoded #0b0b0b instead of the hero's #0a0a0a. Content is fully visible so this is cosmetic only; moving the 6-line theme-init above the guard (or into revealStatic()) would make the fallback complete.", "selector": "body / meta[name=theme-color]", "priority": "LOW"},
+      {"component": "colorBreaths vs data-theme mismatch (carried over, not in this turn's scope)", "issue": "'.ab-split--gray' data-theme=#f2efe9 matches its colorBreath 'from' now, but the colour values are still duplicated across CSS, data-theme and the JS colorBreaths array (3 sources of truth).", "selector": ".ab-split--gray", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Partner With Nova CTA (.ab-partner)", "issues": ["Heading and eyebrow contrast are now good (white on the dark gradient). The smaller body copy 'Speak with our team about investment opportunities...' is light grey (#ccc-ish) over the mid-tone olive/gold area where the gradient has already faded to ~0.42 alpha - readable but still the weakest contrast on the page; nudging that paragraph to near-white or extending the 0.78 stop slightly further right would fully resolve it. Not blocking."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "OPTIONAL (LOW): move the theme init (body backgroundColor + meta theme-color from the first [data-theme]) above the GSAP guard so the no-GSAP fallback also themes the page.",
+    "OPTIONAL (design nit): raise the .ab-partner body-copy colour a step for full contrast parity with the heading."
+  ],
+  "critical_code_review_comments": [
+    "revealStatic() is now correctly reachable from both the no-GSAP and reduced-motion paths - the HIGH robustness bug is genuinely resolved.",
+    "splitWords() still uses el.textContent, so any future nested markup (a/em/strong) inside a .gs-words element would be silently destroyed; consider childNodes-aware splitting.",
+    "splitWords() forEach still declares an unused-in-spirit index-only signature - fine now that `i` is used for the space check."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (static site, no backend)", "frontend": "100% of the 6 targeted fixes + all regression checks passed"},
+  "seed_data_creation": "None (static site)",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "N/A - no auth on this static site",
+  "context_for_next_testing_agent": "iteration_10 re-verified only the 6 iteration_9 fixes on about.html plus a light regression (form validation/reset, side menu open+close, console errors, 390px overflow). All passed. Full functional/nav/animation coverage lives in iteration_8 and iteration_9 - no need to repeat. Only residual items are two LOW/nit issues: theme-init not applied in the no-GSAP fallback path, and slightly weak .ab-partner body-copy contrast. To reproduce the CDN-failure path: await page.route('**cdn.jsdelivr.net**', lambda r: r.abort()) before goto. When asserting body background-color, wait >=800ms after load because body.page-about has transition:background-color .6s ease.",
+  "rca_of_the_issue": "No new defects. The apparent FIX-4 failure on first measurement was a measurement artifact: body.page-about carries transition:background-color .6s ease, so sampling computed style 400ms after load returns an interpolated rgb(32,32,32) between #fff and #0a0a0a; the inline style was already rgb(10,10,10) and the settled computed value matches. The only real residual gap is that the theme-init block is positioned after the GSAP guard, so it never executes when the GSAP CDN is unreachable."
+}

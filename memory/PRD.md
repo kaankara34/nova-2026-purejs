@@ -216,3 +216,24 @@ User provided DarGlobal reference screenshots (desktop + mobile) for a "KEY FEAT
 
 **Note for next agent:** `index.html`'s main rotating hero background still points to 3 images on the original reference domain `cdn.darglobal.co.uk` (DarGlobal's own CDN, e.g. `OMA_05_Cliffhanger_room...png`). These are actively used (not orphaned) so they were left untouched, but they are third-party branded reference images on a live Nova Konut page — flag to user before replacing with real Nova assets.
 - Known env quirk: the screenshot tool's headless Chromium in this sandbox cannot decode ANY local H.264 mp4 (readyState stays 0 even for a video untouched in this session, e.g. `collab-video.mp4`) — this is a sandbox codec limitation, not a real regression. Rely on `ffprobe`/curl range-request checks + visual screenshot of the page (not direct video-state JS checks) to validate video fixes in this environment.
+
+## About page — Apple-style GSAP scroll animations + colour theming (Aug 2026)
+User feedback on the first About rebuild: sections felt "too white/stacked/plain", wanted real GSAP scroll animations (not static), section colours changing as you scroll (Apple-style), and the flat "NOVA" ghost-text watermark in the manifesto section replaced.
+
+**Implemented (`about.html`/`css/about.css`/`js/about.js`):**
+- Fixed top scroll-progress bar (`#abScrollProgress`, vanilla JS, no GSAP dependency — works even if GSAP fails).
+- Manifesto ghost text → animated SVG compass/globe motif (`.ab-manifesto-orbit`, reuses the site's existing globe icon language), continuous slow rotation + scroll-scrub scale/opacity breathing.
+- All 12 major sections carry `data-theme="#hex"`; GSAP ScrollTrigger updates `document.body` background-color + `<meta name=theme-color>` to the active section's colour as you scroll (mobile browser-chrome tinting + overscroll-bounce colour match). Theme is also applied immediately on load (first section), not just on first scroll toggle.
+- "Living background": 6 flat-colour sections (discover/manifesto/quote/split-gray/leed/collab) get a subtle scrub-driven `backgroundColor` tween so their own tone visibly deepens as you scroll through them.
+- Word-by-word stagger reveal (`.gs-words`/`.gs-word`) for the manifesto lead paragraph — JS splits into word spans separated by real text-node spaces (kept copy/paste + screen-reader safe, no CSS margin hack).
+- LEED image reveal changed from one-shot duration tween to scroll-scrubbed clip-path wipe.
+- **Robustness fix (was a real bug):** `revealStatic()` fallback now runs whenever GSAP/ScrollTrigger fails to load OR `prefers-reduced-motion` is set, BEFORE any early return — previously the whole page could render blank (opacity:0 stuck) if the GSAP CDN was unreachable. Also sets stat number to final value (`10+`) instead of leaving literal `0`.
+- Image swaps: `about_trust.webp` replaced twice (final version = muted dusk/pink-sky glass-balcony facade, low saturation, matches gold/cream palette); `about_cta1.webp` replaced with a warm luxury living-room interior.
+- `.ab-partner` (Partner With Nova CTA) contrast fixed: image opacity .28→.22, added `::before` dark gradient overlay, body-copy colour bumped to `rgba(255,255,255,.94)`.
+- `.ab-stats-overlay` darkened slightly (`.62`→`.72` alpha) for label contrast over the bridge photo.
+- Footer "ABOUT NOVA" links (`href="#"`) fixed to `about.html` on all 10 other pages (bahar/dogan/east-west/falcon-logistic/falcon-plaza/gebze-osb-management/konelsis-center/marti-residence/mehtap-residence/mercan-bosphorus) — now consistent with the side-menu link.
+- Bugs caught+fixed mid-session: `.ab-final-title` two `.gs-line` spans rendered on one line with no space (missing `display:block`, fixed); word-stagger split initially used trailing-space-inside-inline-block which visually collapsed all spacing (fixed by inserting real sibling text nodes between word spans).
+
+**Tested:** `testing_agent` 3 passes (`iteration_8` pre-GSAP baseline, `iteration_9` found 1 HIGH + 4 MEDIUM/LOW + 3 design nits, `iteration_10` re-verified all 6 targeted fixes = 100% pass). Two trivial LOW nits from iteration_10 (theme-init ordering vs GSAP guard, partner body-copy contrast) were also fixed post-report and screenshot-verified (zero console errors, theme-color = `#0a0a0a` on load, GSAP-blocked fallback fully visible with `10+` stat).
+
+**Pending user verification:** user has not yet seen the final live version — flag for their review next session.
