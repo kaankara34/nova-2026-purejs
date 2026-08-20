@@ -102,14 +102,14 @@
     });
   });
 
-  /* Word-by-word cascade reveal (manifesto lead paragraph) */
+  /* Word-by-word cascade reveal (manifesto lead paragraph) — quick + smooth */
   document.querySelectorAll('.gs-words').forEach(wrap => {
     const words = wrap.querySelectorAll('.gs-word');
     if (!words.length) return;
-    gsap.set(words, { y: 14 });
+    gsap.set(words, { y: 10 });
     gsap.to(words, {
-      opacity: 1, y: 0, duration: 0.6, ease: EASE, stagger: 0.018,
-      scrollTrigger: { trigger: wrap, start: 'top 88%' }
+      opacity: 1, y: 0, duration: 0.38, ease: 'power2.out', stagger: 0.006,
+      scrollTrigger: { trigger: wrap, start: 'top 92%' }
     });
   });
 
@@ -131,13 +131,29 @@
     });
   });
 
-  /* Clip-path wipe reveal — scrubbed to scroll position (LEED image) */
+  /* Clip-path wipe reveal — scrubbed to scroll position (LEED image).
+     invalidateOnRefresh + image-load refresh keeps it reliable when lazy images resize the layout. */
   document.querySelectorAll('.gs-clip-reveal').forEach(el => {
+    gsap.set(el, { clipPath: 'inset(0 0 100% 0)' });
     gsap.to(el, {
       clipPath: 'inset(0 0 0% 0)', ease: 'none',
-      scrollTrigger: { trigger: el, start: 'top 78%', end: 'top 25%', scrub: true }
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 90%',
+        end: 'top 40%',
+        scrub: 0.4,
+        invalidateOnRefresh: true
+      }
     });
   });
+
+  /* Keep trigger positions correct once lazy media/fonts settle */
+  const refresh = () => ScrollTrigger.refresh();
+  window.addEventListener('load', refresh);
+  document.querySelectorAll('img').forEach(img => {
+    if (!img.complete) img.addEventListener('load', refresh, { once: true });
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
 
   /* Section images — slow zoom-out parallax as they cross the viewport */
   document.querySelectorAll('.gs-parallax-img').forEach(wrap => {
@@ -214,6 +230,7 @@
     { sel: '.ab-manifesto', from: '#f8f5ef', to: '#f1e8d3' },
     { sel: '.ab-quote', from: '#cdc0a6', to: '#ddc99e' },
     { sel: '.ab-split--gray', from: '#f2efe9', to: '#eae2d2' },
+    { sel: '.ab-story', from: '#0d0c0a', to: '#171310' },
     { sel: '.ab-leed', from: '#0b0b0b', to: '#171310' },
     { sel: '.ab-collab', from: '#0d0c0a', to: '#191410' }
   ];

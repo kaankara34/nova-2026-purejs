@@ -4,7 +4,17 @@
    --font-serif, --font-sans, --easing) for full site harmony.
    ========================================================== */
 
-body.page-about { background: #fff; color: var(--c-text); }
+body.page-about {
+  background: #fff;
+  color: var(--c-text);
+  /* Unified typographic scale for the whole About page */
+  --ab-fs-display: clamp(38px, 4.4vw, 60px);
+  --ab-fs-h2: clamp(30px, 3.1vw, 42px);
+  --ab-fs-kicker: clamp(22px, 2vw, 27px);
+  --ab-fs-body: 16px;
+  --ab-lh-body: 1.85;
+  --ab-fs-eyebrow: 11px;
+}
 
 /* ---- GSAP scroll-animation initial states (prevents flash-of-unstyled) ---- */
 .gs-fade-up, .gs-fade-left, .gs-line, .gs-blur-up { opacity: 0; will-change: transform, opacity, filter; }
@@ -43,40 +53,104 @@ body.page-about { transition: background-color .6s ease; }
 .ab-discover {
   position: relative;
   overflow: hidden;
-  padding: 90px 6vw 100px;
-  text-align: center;
+  padding: 110px 7vw 120px;
   background: #fff;
 }
 .ab-discover-glow {
   position: absolute;
-  top: -18%; left: 50%;
-  transform: translateX(-50%);
-  width: 900px; height: 900px;
-  max-width: 140vw;
-  background: radial-gradient(circle, rgba(160,134,96,.16) 0%, rgba(160,134,96,0) 62%);
+  top: -30%; left: -8%;
+  width: 780px; height: 780px;
+  max-width: 120vw;
+  background: radial-gradient(circle, rgba(160,134,96,.13) 0%, rgba(160,134,96,0) 66%);
   z-index: 0;
   pointer-events: none;
 }
-.ab-discover-mark, .ab-discover-title, .ab-discover-sub { position: relative; z-index: 1; }
-.ab-discover-mark { color: var(--c-gold); margin-bottom: 22px; }
+.ab-discover-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: start;
+}
+.ab-discover-rule {
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: var(--c-gold);
+  margin-bottom: 30px;
+}
 .ab-discover-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(40px, 5.6vw, 78px);
-  line-height: 1.08;
-  letter-spacing: 0.01em;
+  font-size: var(--ab-fs-display);
+  line-height: 1.1;
+  letter-spacing: 0.005em;
   color: var(--c-text);
-  margin: 0 0 26px;
+  margin: 0;
 }
-.ab-discover-title .gs-line { display: block; }
+.ab-discover-body { padding-top: 12px; border-left: 1px solid rgba(11,11,11,.1); padding-left: clamp(24px, 3.4vw, 52px); }
 .ab-discover-sub {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: var(--ab-fs-body);
+  line-height: var(--ab-lh-body);
   color: var(--c-muted);
   max-width: 560px;
-  margin: 0 auto;
+  margin: 0;
+}
+
+/* ---- Corporate story band (dark, serif) ---- */
+.ab-story {
+  position: relative;
+  overflow: hidden;
+  background: #0d0c0a;
+  padding: clamp(90px, 11vw, 150px) 6vw;
+}
+.ab-story-texture {
+  position: absolute; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .5;
+  background-image:
+    linear-gradient(to right, rgba(160,134,96,.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(160,134,96,.05) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,0) 78%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,0) 78%);
+}
+.ab-story-inner { position: relative; z-index: 1; max-width: 1000px; }
+.ab-story-divider { display: flex; align-items: center; gap: 14px; }
+.ab-story-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(160,134,96,0), rgba(160,134,96,.55), rgba(160,134,96,0)); }
+.ab-story-divider-dot {
+  width: 6px; height: 6px;
+  border: 1px solid var(--c-gold);
+  transform: rotate(45deg);
+  flex: 0 0 auto;
+}
+.ab-story-copy { padding: clamp(44px, 6vw, 74px) 0; }
+.ab-story-copy p {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(18px, 1.55vw, 21px);
+  line-height: 1.72;
+  letter-spacing: 0.012em;
+  color: rgba(255,255,255,.80);
+  margin: 0 0 30px;
+  text-align: left;
+}
+.ab-story-copy p:last-child { margin-bottom: 0; }
+.ab-story-copy p:first-child { color: rgba(255,255,255,.92); }
+.ab-story-copy p:first-child::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 4.2em;
+  line-height: .82;
+  padding: 6px 16px 0 0;
+  color: var(--c-gold);
 }
 
 /* ---- Build Beyond Living manifesto ---- */
@@ -104,7 +178,7 @@ body.page-about { transition: background-color .6s ease; }
 .ab-manifesto-title {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: clamp(24px, 2.2vw, 30px);
+  font-size: var(--ab-fs-kicker);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--c-text);
@@ -113,8 +187,8 @@ body.page-about { transition: background-color .6s ease; }
 .ab-manifesto-desc {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.85;
+  font-size: var(--ab-fs-body);
+  line-height: var(--ab-lh-body);
   color: #333;
   max-width: 880px;
   margin: 0 auto 40px;
@@ -213,7 +287,7 @@ body.page-about { transition: background-color .6s ease; }
 .ab-leed-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(28px, 3vw, 42px);
+  font-size: var(--ab-fs-h2);
   color: #fff;
   margin: 0 0 22px;
   line-height: 1.2;
@@ -221,8 +295,8 @@ body.page-about { transition: background-color .6s ease; }
 .ab-leed-tagline {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: var(--ab-fs-body);
+  line-height: var(--ab-lh-body);
   color: rgba(255,255,255,.72);
   max-width: 440px;
 }
@@ -247,7 +321,7 @@ body.page-about { transition: background-color .6s ease; }
 .ab-vision-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(34px, 4.6vw, 58px);
+  font-size: var(--ab-fs-display);
   line-height: 1.15;
   color: #fff;
   margin: 16px 0 24px;
@@ -256,8 +330,8 @@ body.page-about { transition: background-color .6s ease; }
 .ab-vision-desc {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 15px;
-  line-height: 1.85;
+  font-size: var(--ab-fs-body);
+  line-height: var(--ab-lh-body);
   color: rgba(255,255,255,.82);
   max-width: 480px;
 }
@@ -315,7 +389,7 @@ body.page-about { transition: background-color .6s ease; }
 .ab-split-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(28px, 3.2vw, 44px);
+  font-size: var(--ab-fs-h2);
   color: var(--c-text);
   margin: 0 0 22px;
   line-height: 1.2;
@@ -324,10 +398,10 @@ body.page-about { transition: background-color .6s ease; }
 .ab-split-desc {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 15px;
-  line-height: 1.85;
+  font-size: var(--ab-fs-body);
+  line-height: var(--ab-lh-body);
   color: var(--c-muted);
-  max-width: 440px;
+  max-width: 520px;
 }
 
 /* ---- Design & lifestyle collaborations (dark band) ---- */
@@ -343,15 +417,15 @@ body.page-about { transition: background-color .6s ease; }
 .ab-collab-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(28px, 3vw, 42px);
+  font-size: var(--ab-fs-h2);
   color: #fff;
   margin: 0 0 22px;
 }
 .ab-collab-desc {
   font-family: var(--font-sans);
   font-weight: 300;
-  font-size: 15px;
-  line-height: 1.85;
+  font-size: var(--ab-fs-body);
+  line-height: var(--ab-lh-body);
   color: rgba(255,255,255,.65);
   max-width: 720px;
   margin: 0 auto 30px;
@@ -447,7 +521,7 @@ body.page-about { transition: background-color .6s ease; }
 .ab-final-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(34px, 4.6vw, 62px);
+  font-size: var(--ab-fs-display);
   line-height: 1.15;
   color: #fff;
   margin: 0 0 40px;
@@ -472,8 +546,11 @@ body.page-about { transition: background-color .6s ease; }
 /* ================ Mobile ================ */
 @media (max-width: 900px) {
   .ab-hero { height: clamp(380px, 56vh, 560px); }
-  .ab-discover { padding: 60px 6vw 70px; }
-  .ab-discover-title { font-size: clamp(32px, 9vw, 46px); }
+  .ab-discover { padding: 66px 6vw 74px; }
+  .ab-discover-inner { grid-template-columns: 1fr; gap: 26px; }
+  .ab-discover-body { border-left: 0; border-top: 1px solid rgba(11,11,11,.1); padding-left: 0; padding-top: 26px; }
+  .ab-story-copy p { font-size: 17px; }
+  .ab-story-copy p:first-child::first-letter { font-size: 3.4em; padding-right: 12px; }
   .ab-manifesto { padding: 80px 6vw 80px; }
   .ab-quote { padding: 70px 6vw; }
   .ab-stats { padding: 80px 6vw; }
@@ -503,11 +580,4 @@ body.page-about { transition: background-color .6s ease; }
   .ab-partner-inner { margin: 0 6vw; text-align: center; }
   .ab-partner-desc { max-width: none; }
   .ab-final-title { font-size: clamp(28px, 8vw, 40px); }
-}
-.ab-nova-description {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: 18px;
-  max-width: 900px;
-  
 }
