@@ -20,21 +20,21 @@ chrome_top = chrome_top.replace('<button class="btn register" data-scroll="regis
 
 GROUPS = [
     ("Management", [
-        ("Osman Kara", "Chairman of the Board"),
-        ("Ömer Kara", "Board Member"),
-        ("Prof. Dr. Yalçın Şahin", "Board Member"),
-        ("Gürcan Ayaz", "Board Member"),
+        ("Osman Kara", "Chairman of the Board", "osman@nova.istanbul"),
+        ("Ömer Kara", "Board Member", "omer@nova.istanbul"),
+        ("Prof. Dr. Yalçın Şahin", "Board Member", "yalcin@nova.istanbul"),
+        ("Gürcan Ayaz", "Board Member", "gurcan@nova.istanbul"),
     ]),
     ("Architecture &amp; Design", [
-        ("Merve Afşin", "Architect"),
-        ("Bartu Kara", "Interior Architect"),
+        ("Merve Afşin", "Architect", "merve@nova.istanbul"),
+        ("Bartu Kara", "Interior Architect", "bartu@nova.istanbul"),
     ]),
     ("Construction &amp; Engineering", [
-        ("Kaan Kara", "Civil Engineer"),
+        ("Kaan Kara", "Civil Engineer", "kaan@nova.istanbul"),
     ]),
     ("Finance &amp; Legal", [
-        ("Yunus Çay", "Head of Accounting"),
-        ("Oğuz Çavuşoğlu", "Legal Counsel"),
+        ("Yunus Çay", "Head of Accounting", "yunus@nova.istanbul"),
+        ("Oğuz Çavuşoğlu", "Legal Counsel", "oguz@nova.istanbul"),
     ]),
 ]
 
@@ -52,11 +52,12 @@ def slug(text):
 groups_html = []
 for gi, (group, members) in enumerate(GROUPS, start=1):
     cards = []
-    for mi, (name, role) in enumerate(members, start=1):
+    for mi, (name, role, mail) in enumerate(members, start=1):
         cards.append(f'''          <article class="tm-card" data-testid="team-card-{slug(group)}-{mi}">
             <div class="tm-tile"><span class="tm-monogram" aria-hidden="true">{initials(name)}</span></div>
             <h3 class="tm-name">{name}</h3>
             <p class="tm-role">{role}</p>
+            <a class="tm-mail" href="mailto:{mail}" data-testid="team-mail-{slug(group)}-{mi}">{mail}</a>
           </article>''')
     groups_html.append(f'''      <section class="tm-group" data-testid="team-group-{slug(group)}">
         <div class="tm-group-head">
