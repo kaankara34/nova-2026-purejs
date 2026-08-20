@@ -255,3 +255,8 @@ User feedback (5 screenshots): discover section invisible until scroll on deskto
 
 **Verified by screenshot automation:** discover title visible at load (opacity 1, no scroll), story section renders 3 paragraphs + drop cap + dividers (desktop & 390px mobile), LEED clip-path progresses 100%→0% while scrolling and lands at `inset(0 0 0%)`, manifesto last word reaches opacity ~1 within ~1s, new images render un-cropped, zero console errors.
 **Pending user verification.** Still open from previous session: dead `data-scroll="register"` buttons on about.html (`#register` section was removed upstream) — user has not answered yet.
+
+### About refinement follow-up (Jun 2026, same session)
+- Scroll-progress bar removed entirely (HTML div, CSS `.ab-scroll-progress`, JS updater) per user request.
+- LEED clip reveal made much slower/perceptible: trigger range widened to `start: 'top bottom'` → `end: 'bottom 35%'` with `scrub: 1.2` (verified progressing 84%→20% across ~1150px of scroll).
+- Discover heading reworked: short gold dash replaced by a gold diamond ornament flanked by fading hairlines; title split (copy unchanged) into a sans `DISCOVER` kicker (12px / 0.34em) + large serif `Nova Konut` with a warm dark→gold text gradient and a fading gold hairline underline beneath the head block.

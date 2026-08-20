@@ -19,19 +19,6 @@
     });
   }
 
-  /* ---- Scroll progress bar (works even without GSAP) ---- */
-  const progressBar = document.getElementById('abScrollProgress');
-  if (progressBar) {
-    const updateProgress = () => {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      const pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
-      progressBar.style.width = pct + '%';
-    };
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
-  }
-
   /* ---- Split a text node into word spans for staggered reveal (keeps real spaces for copy/screen-readers) ---- */
   function splitWords(el) {
     const text = el.textContent;
@@ -139,9 +126,9 @@
       clipPath: 'inset(0 0 0% 0)', ease: 'none',
       scrollTrigger: {
         trigger: el,
-        start: 'top 90%',
-        end: 'top 40%',
-        scrub: 0.4,
+        start: 'top bottom',
+        end: 'bottom 35%',
+        scrub: 1.2,
         invalidateOnRefresh: true
       }
     });
