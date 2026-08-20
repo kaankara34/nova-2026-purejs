@@ -1,0 +1,24 @@
+{
+  "summary": "Frontend-only testing of the new team.html page and About page regressions on the preview URL. team.html: loads clean on desktop (1920x1080/800) and mobile (390x800) with zero console/page errors; header, utility bar, side menu and footer render identically to other pages; 4 department groups in correct order (01 Management/3, 02 Finance/3, 03 Architecture & Design/4, 04 Construction & Engineering/5) = 15 cards total, each with monogram + name + role + valid mailto:...@nova.istanbul; IntersectionObserver reveal works (2 visible at load -> 15/15 after full scroll on both desktop and mobile); responsive grid = 2 cols desktop (352.8px x2) / 1 col at 390px, 0px horizontal overflow at both widths, department label position: sticky on desktop and static <=1024px; REGISTER INTEREST href=index.html#register and navigation confirmed; side menu NOVA KONUT > TEAM navigates to team.html from index.html, about.html and east-west.html. About regression: no scroll-progress element (0 matches), Discover heading visible at load (opacity 1, transform none), LEED clip-path scrubs progressively (11 distinct inset values from 100% -> 0%, ends fully revealed), both .ab-split-img inner images animate scale 1.18->~1.11 with yPercent drift (12 distinct transform states), no console errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "team.html odd-numbered groups (Management 3, Construction & Engineering 5)", "issues": ["The inter-column vertical divider stops at the last full row, so the final single-card row looks slightly ragged versus rows with two cards. Cosmetic only - no empty grey placeholder cells were rendered."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "js/about.js .gs-clip-reveal/.gs-img-drift ScrollTrigger config in code is end 'bottom top' scrub 0.9 for the drift (request text mentioned end 'bottom 35%' scrub 1.2 for the clip) - behaviour verified correct, just noting the doc/code mismatch.",
+    "team.js transition-delay is capped at index 5 (Math.min(index,5)*70ms) - fine for max 5-card groups, keep in mind if a group grows."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "team.html testids verified: team-page-title, team-register-interest, team-group-{management|finance|architecture-and-design|construction-and-engineering}, team-card-{slug}-{n}, team-mail-{slug}-{n} (note: request mentioned 'team-group-darg-clone-1' which does not exist - it was a URL-substitution artifact). Reveal animation requires scrolling in ~500px steps with ~200ms waits. Known accepted issue (do not re-report): about.html header REGISTER INTEREST and final GET IN TOUCH still use data-scroll='register' though #register was removed.",
+  "rca_of_the_issue": "No defects found. Initial appearance of 'split images not animating' was a test error - GSAP applies the transform to the inner <img>, not the .ab-split-img wrapper; retest on '.ab-split-img img' confirmed the drift works."
+}

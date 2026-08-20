@@ -4,20 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="About Nova Konut — an Istanbul-based developer building refined residential projects shaped by architecture, engineering and long-term value." />
-  <title>About Us | Nova Konut</title>
+  <meta name="description" content="Our Team — the architects, engineers and finance professionals behind Nova Konut's residential developments in Istanbul." />
+  <title>Our Team | Nova Konut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="./media/images/about/about_hero.webp" type="image/webp" fetchpriority="high" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/projects.css" />
-  <link rel="stylesheet" href="css/about.css" />
+  <link rel="stylesheet" href="css/team.css" />
 </head>
-<body class="page-about">
-
+<body class="page-team">
 
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
@@ -48,7 +46,7 @@
   </div>
 
   <!-- ============================= HEADER (same as index.html) ============================= -->
-  <header class="site-header transparent" id="siteHeader">
+  <header class="site-header" id="siteHeader">
     <div class="header-inner">
       <div class="header-left">
         <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
@@ -59,7 +57,7 @@
         </a>
       </div>
       <div class="header-actions">
-        <button class="btn register" data-scroll="register" aria-label="Register Interest">REGISTER INTEREST</button>
+        <a href="index.html#register" class="btn register" aria-label="Register Interest" data-testid="team-register-interest">REGISTER INTEREST</a>
         <div class="icon-links">
           <a href="tel:+12127151067" class="icon-link" aria-label="Call us">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
@@ -170,131 +168,167 @@
     </div>
   </aside>
 
-  <!-- ============================= HERO ============================= -->
-  <section class="ab-hero" data-theme="#0a0a0a">
-    <div class="ab-hero-media">
-      <img src="./media/images/about/about_hero.webp" alt="Nova Konut" loading="eager" fetchpriority="high" decoding="async" />
-    </div>
-  </section>
-  <section class="ab-discover" data-theme="#ffffff">
-    <div class="ab-discover-glow" aria-hidden="true"></div>
-    <div class="ab-discover-inner">
-      <div class="ab-discover-head">
-        <span class="ab-dt-kicker">Discover</span>
-        <h1 class="ab-discover-title">Nova Konut</h1>
-      </div>
-      <div class="ab-discover-body">
-        <p class="ab-discover-sub">Nova develops distinguished residential projects defined by architectural integrity, engineering excellence, and uncompromising quality. With a disciplined approach to design, construction, and every technical detail, we create enduring residences that meet the demands of contemporary living while delivering lasting value for generations.</p>
-      </div>
-    </div>
-  </section>
-  <!-- ============================= NOVA DESCRIPTION ============================= -->
-  <section class="ab-story" data-theme="#0d0c0a">
-    <div class="ab-story-texture" aria-hidden="true"></div>
-    <div class="container ab-story-inner">
-      <div class="ab-story-divider gs-fade-up" aria-hidden="true">
-        <span class="ab-story-divider-line"></span>
-        <span class="ab-story-divider-dot"></span>
-        <span class="ab-story-divider-line"></span>
-      </div>
-      <div class="ab-story-copy">
-        <p class="gs-fade-up">Founded in Istanbul in 2000, Nova has been committed to developing high-quality residential projects that contribute to Türkiye’s economic growth and strengthen its presence in an increasingly global market.</p>
-        <p class="gs-fade-up">Across every investment, customer satisfaction remains a fundamental priority. Our developments combine respect for the environment with regulatory compliance, advanced technologies, and rigorous standards of quality. Bringing together safety, architectural integrity, aesthetics, and functionality, each project is conceived not only for the needs of today, but with a long-term perspective on how people will live in the future.</p>
-        <p class="gs-fade-up">Through our continued investments in construction, architecture, and urban transformation, Nova aims to create lasting value, generate employment, and contribute meaningfully to the sustainable development of Türkiye.</p>
-      </div>
-      <div class="ab-story-divider gs-fade-up" aria-hidden="true">
-        <span class="ab-story-divider-line"></span>
-        <span class="ab-story-divider-dot"></span>
-        <span class="ab-story-divider-line"></span>
-      </div>
-    </div>
-  </section>
+  <!-- ============================= TEAM INTRO ============================= -->
+  <main class="tm-main">
+    <header class="tm-intro">
+      <span class="tm-eyebrow">Our People</span>
+      <h1 class="tm-title" data-testid="team-page-title">Our Team</h1>
+      <p class="tm-lead">The architects, engineers and finance professionals who design, build and steward every Nova Konut development.</p>
+    </header>
 
-  <!-- ============================= BUILD BEYOND LIVING (manifesto) ============================= -->
-  <section class="ab-manifesto" data-theme="#f8f5ef">
-    <div class="ab-manifesto-orbit" aria-hidden="true">
-      <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.5">
-        <circle cx="100" cy="100" r="98"/>
-        <ellipse cx="100" cy="100" rx="42" ry="98"/>
-        <ellipse cx="100" cy="100" rx="70" ry="98"/>
-        <line x1="2" y1="100" x2="198" y2="100"/>
-        <line x1="100" y1="2" x2="100" y2="198"/>
-      </svg>
-    </div>
-    <div class="container">
-      <h2 class="ab-manifesto-title gs-fade-up">Build Beyond Living</h2>
-      <p class="ab-manifesto-desc gs-words">Beyond the spaces we create, we shape a distinctive way of living — one defined by design, comfort, culture, and a refined sense of place. Every Nova residence is conceived not simply as a home, but as the setting for a lifestyle with its own character.
-
-For us, building goes beyond creating places to live. It is about elevating everyday life, shaping meaningful experiences, and creating enduring value for generations.</p>
-      <a href="projects.html" class="ab-manifesto-btn gs-fade-up" data-testid="about-explore-projects">EXPLORE OUR PROJECTS</a>
-    </div>
-  </section>
-
-
-  <!-- ============================= LEED / SUSTAINABILITY BAND ============================= -->
-  <section class="ab-leed" data-theme="#0b0b0b">
-    <div class="ab-leed-left gs-fade-left">
-      <img src="./media/images/logos/leed-official-transparent.png" alt="LEED — U.S. Green Building Council" loading="lazy" decoding="async" />
-      <span class="ab-leed-eyebrow">SUSTAINABILITY</span>
-      <h2 class="ab-leed-title">Certified for sustainable living.</h2>
-      <p class="ab-leed-tagline">Nova residences are conceived in alignment with LEED standards, combining environmental responsibility with lasting comfort, efficiency, and value.</p>
-    </div>
-    <div class="ab-leed-right gs-clip-reveal">
-      <img src="./media/images/about/about_leed.webp" alt="Sustainable architecture" loading="lazy" decoding="async" />
-    </div>
-  </section>
-
-  <!-- ============================= WHERE VISION TAKES SHAPE (full-bleed) ============================= -->
-  <section class="ab-vision-full" data-theme="#0a0a0a">
-    <div class="ab-vision-media gs-parallax-img"><img src="./media/images/about/about_vision.webp" alt="Istanbul skyline" loading="lazy" decoding="async" /></div>
-    <div class="ab-vision-overlay"></div>
-    <div class="ab-vision-content">
-      <h2 class="ab-vision-title gs-lines"><span class="gs-line">Building for</span><span class="gs-line">Generations</span></h2>
-      <p class="ab-vision-desc gs-fade-up">The vision of Nova Konut is to create enduring residential developments where architectural integrity, engineering excellence, and quality come together. Guided by a long-term perspective, each development is conceived to respond to contemporary living while preserving its value, relevance, and architectural character across generations.</p>
-    </div>
-  </section>
-
-  <!-- ============================= DESIGNED FOR YOUR LIFE ============================= -->
-  <section class="ab-split ab-split--reverse" data-theme="#ffffff">
-    <div class="ab-split-text gs-fade-up">
-      <h2 class="ab-split-title">Engineered To Endure</h2>
-      <p class="ab-split-desc">Nova projects are shaped by rigorous engineering principles and established technical standards. Structural design and construction are developed in accordance with the Turkish Building Earthquake Code (TBDY 2018) and relevant Turkish and European standards, including TS 500 for reinforced concrete design, TS 498 for structural loads, TS EN 206 and TS 13515 for concrete performance, and TS 708 for reinforcing steel. From structural analysis and material selection to construction methodology and quality control, technical precision remains integral throughout the entire process — ensuring structural integrity, safety, durability, and long-term performance.</p>
-    </div>
-    <div class="ab-split-img gs-img-drift"><img src="./media/images/about/about_engineering.webp" alt="Structural engineering and construction quality control" loading="lazy" decoding="async" /></div>
-  </section>
-
-  <!-- ============================= BUILT ON TRUST ============================= -->
-  <section class="ab-split ab-split--gray" data-theme="#f2efe9">
-    <div class="ab-split-img gs-img-drift">
-      <img src="./media/images/about/about_trust.webp" alt="Contemporary residential tower facade" loading="lazy" decoding="async" />
-    </div>
-    <div class="ab-split-text gs-fade-up">
-      <h2 class="ab-split-title">Built On Trust</h2>
-      <p class="ab-split-desc">Project delivery marks the beginning of an enduring relationship with our residents. Guided by a principle of unconditional customer satisfaction, Nova remains a trusted solution partner — addressing every concern with accountability, care, and a commitment to lasting resolution.</p>
-    </div>
-  </section>
-
-  <!-- ============================= DESIGN & LIFESTYLE COLLABORATIONS ============================= -->
-  <section class="ab-collab" data-theme="#0d0c0a">
-    <div class="container">
-      <span class="ab-collab-eyebrow gs-fade-up">DESIGN &amp; LIFESTYLE</span>
-      <h2 class="ab-collab-title gs-fade-up">Collaborations Without Compromise</h2>
-      <p class="ab-collab-desc gs-fade-up">Nova partners with globally recognized architecture and design studios, alongside leading specialists in engineering and construction. These collaborations bring together international expertise, craftsmanship, and technical excellence, ensuring that each project reflects a distinctive architectural vision while upholding the uncompromising standards that define Nova.</p>
-      <a href="index.html#collab" class="ab-collab-link gs-fade-up">EXPLORE OUR COLLABORATIONS <span class="arrow">&rarr;</span></a>
-    </div>
-  </section>
-
-  <!-- ============================= FIND YOUR NEXT NOVA ADDRESS (final CTA) ============================= -->
-  <section class="ab-final" data-theme="#4a2227">
-    <div class="ab-final-media gs-parallax-img"><img src="./media/images/about/about_cta2.webp" alt="Nova Konut residence" loading="lazy" decoding="async" /></div>
-    <div class="ab-final-inner">
-      <h2 class="ab-final-title gs-lines"><span class="gs-line">Find Your Next</span><span class="gs-line">Nova Address</span></h2>
-      <div class="ab-final-actions gs-fade-up">
-        <a href="projects.html" class="ab-btn ab-btn--filled" data-testid="about-final-explore">EXPLORE PROJECTS</a>
-        <button class="ab-btn ab-btn--outline" data-scroll="register" data-testid="about-final-touch">GET IN TOUCH</button>
-      </div>
-    </div>
-  </section>
+      <section class="tm-group" data-testid="team-group-management">
+        <div class="tm-group-label">
+          <span class="tm-group-index">01</span>
+          <h2 class="tm-group-title">Management</h2>
+        </div>
+        <div class="tm-grid">
+          <article class="tm-card" data-testid="team-card-management-1">
+            <span class="tm-monogram" aria-hidden="true">CE</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Cem Aydın Erdoğmuş</h3>
+              <p class="tm-role">Chairman of the Board</p>
+              <a class="tm-mail" href="mailto:cem@nova.istanbul" data-testid="team-mail-management-1">cem@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-management-2">
+            <span class="tm-monogram" aria-hidden="true">SK</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Selin Kavakçı</h3>
+              <p class="tm-role">Board Member / Development &amp; Feasibility</p>
+              <a class="tm-mail" href="mailto:selin@nova.istanbul" data-testid="team-mail-management-2">selin@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-management-3">
+            <span class="tm-monogram" aria-hidden="true">BT</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Bora Tunçel</h3>
+              <p class="tm-role">Civil Engineer / Corporate Advisor</p>
+              <a class="tm-mail" href="mailto:bora@nova.istanbul" data-testid="team-mail-management-3">bora@nova.istanbul</a>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="tm-group" data-testid="team-group-finance">
+        <div class="tm-group-label">
+          <span class="tm-group-index">02</span>
+          <h2 class="tm-group-title">Finance</h2>
+        </div>
+        <div class="tm-grid">
+          <article class="tm-card" data-testid="team-card-finance-1">
+            <span class="tm-monogram" aria-hidden="true">DA</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Deniz Aksel</h3>
+              <p class="tm-role">Director of Finance &amp; Accounting</p>
+              <a class="tm-mail" href="mailto:deniz@nova.istanbul" data-testid="team-mail-finance-1">deniz@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-finance-2">
+            <span class="tm-monogram" aria-hidden="true">MI</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Merve Ilgaz</h3>
+              <p class="tm-role">Accounting &amp; Financial Affairs</p>
+              <a class="tm-mail" href="mailto:merve@nova.istanbul" data-testid="team-mail-finance-2">merve@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-finance-3">
+            <span class="tm-monogram" aria-hidden="true">TS</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Tolga Sarıkaya</h3>
+              <p class="tm-role">Accounting &amp; Financial Affairs</p>
+              <a class="tm-mail" href="mailto:tolga@nova.istanbul" data-testid="team-mail-finance-3">tolga@nova.istanbul</a>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="tm-group" data-testid="team-group-architecture-and-design">
+        <div class="tm-group-label">
+          <span class="tm-group-index">03</span>
+          <h2 class="tm-group-title">Architecture &amp; Design</h2>
+        </div>
+        <div class="tm-grid">
+          <article class="tm-card" data-testid="team-card-architecture-and-design-1">
+            <span class="tm-monogram" aria-hidden="true">AD</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Ayşe Nur Demirtaş</h3>
+              <p class="tm-role">Senior Architect / Project Development</p>
+              <a class="tm-mail" href="mailto:ayse@nova.istanbul" data-testid="team-mail-architecture-and-design-1">ayse@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-architecture-and-design-2">
+            <span class="tm-monogram" aria-hidden="true">KY</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Kerem Yalçın</h3>
+              <p class="tm-role">Architect / Project &amp; Technical Design</p>
+              <a class="tm-mail" href="mailto:kerem@nova.istanbul" data-testid="team-mail-architecture-and-design-2">kerem@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-architecture-and-design-3">
+            <span class="tm-monogram" aria-hidden="true">EB</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Elif Su Barın</h3>
+              <p class="tm-role">Interior Architect / Finishes &amp; Decoration</p>
+              <a class="tm-mail" href="mailto:elif@nova.istanbul" data-testid="team-mail-architecture-and-design-3">elif@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-architecture-and-design-4">
+            <span class="tm-monogram" aria-hidden="true">MB</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Murat Beşiktaşlı</h3>
+              <p class="tm-role">Architect / Design Office Director</p>
+              <a class="tm-mail" href="mailto:murat@nova.istanbul" data-testid="team-mail-architecture-and-design-4">murat@nova.istanbul</a>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="tm-group" data-testid="team-group-construction-and-engineering">
+        <div class="tm-group-label">
+          <span class="tm-group-index">04</span>
+          <h2 class="tm-group-title">Construction &amp; Engineering</h2>
+        </div>
+        <div class="tm-grid">
+          <article class="tm-card" data-testid="team-card-construction-and-engineering-1">
+            <span class="tm-monogram" aria-hidden="true">OK</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Onur Kaplan</h3>
+              <p class="tm-role">Civil Engineer / Operations Coordinator</p>
+              <a class="tm-mail" href="mailto:onur@nova.istanbul" data-testid="team-mail-construction-and-engineering-1">onur@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-construction-and-engineering-2">
+            <span class="tm-monogram" aria-hidden="true">PE</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Pelin Ergün</h3>
+              <p class="tm-role">Civil Engineer / Technical Office Director</p>
+              <a class="tm-mail" href="mailto:pelin@nova.istanbul" data-testid="team-mail-construction-and-engineering-2">pelin@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-construction-and-engineering-3">
+            <span class="tm-monogram" aria-hidden="true">HD</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Hakan Doruk</h3>
+              <p class="tm-role">Civil Engineer / Site Manager</p>
+              <a class="tm-mail" href="mailto:hakan@nova.istanbul" data-testid="team-mail-construction-and-engineering-3">hakan@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-construction-and-engineering-4">
+            <span class="tm-monogram" aria-hidden="true">EY</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Emre Sarp Yıldırım</h3>
+              <p class="tm-role">Civil Engineer / Site Manager</p>
+              <a class="tm-mail" href="mailto:emre@nova.istanbul" data-testid="team-mail-construction-and-engineering-4">emre@nova.istanbul</a>
+            </div>
+          </article>
+          <article class="tm-card" data-testid="team-card-construction-and-engineering-5">
+            <span class="tm-monogram" aria-hidden="true">NC</span>
+            <div class="tm-info">
+              <h3 class="tm-name">Nazlı Cengiz</h3>
+              <p class="tm-role">Construction Technician</p>
+              <a class="tm-mail" href="mailto:nazli@nova.istanbul" data-testid="team-mail-construction-and-engineering-5">nazli@nova.istanbul</a>
+            </div>
+          </article>
+        </div>
+      </section>
+  </main>
 
   <!-- ============================= GET IN TOUCH (sticky CTA strip) ============================= -->
   <section class="pj-getintouch">
@@ -313,7 +347,6 @@ For us, building goes beyond creating places to live. It is about elevating ever
     </div>
   </section>
 
-  <!-- ============================= FOOTER (same as index.html) ============================= -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -401,8 +434,6 @@ For us, building goes beyond creating places to live. It is about elevating ever
   </footer>
 
   <script src="js/script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
-  <script src="js/about.js"></script>
+  <script src="js/team.js"></script>
 </body>
 </html>

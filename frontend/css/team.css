@@ -1,0 +1,168 @@
+/* ==========================================================
+   Our Team — Nova Konut
+   Minimal editorial layout, old-money palette (ivory / graphite / muted gold)
+   ========================================================== */
+
+body.page-team {
+  --tm-bg: #f4f1ea;
+  --tm-ink: #1b1a17;
+  --tm-ink-soft: #5c574d;
+  --tm-line: rgba(27,26,23,.14);
+  --tm-gold: #9a8253;
+  background: var(--tm-bg);
+  color: var(--tm-ink);
+}
+
+.tm-main {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: calc(var(--header-h) + 108px) 6vw 40px;
+}
+
+/* ---- Intro ---- */
+.tm-intro {
+  border-bottom: 1px solid var(--tm-line);
+  padding-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: clamp(48px, 6vw, 88px);
+}
+.tm-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--tm-ink-soft);
+  margin-bottom: 22px;
+}
+.tm-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(38px, 4.4vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  margin: 0 0 26px;
+}
+.tm-lead {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--tm-ink-soft);
+  max-width: 620px;
+  margin: 0;
+}
+
+/* ---- Department group ---- */
+.tm-group {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  padding: clamp(40px, 4.5vw, 64px) 0;
+  border-bottom: 1px solid var(--tm-line);
+}
+.tm-group:last-of-type { border-bottom: 0; }
+.tm-group-label { position: sticky; top: calc(var(--header-h) + 64px); align-self: start; }
+.tm-group-index {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--tm-gold);
+  margin-bottom: 12px;
+}
+.tm-group-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tm-ink);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ---- Member cards ---- */
+.tm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--tm-line);
+  border-bottom: 1px solid var(--tm-line);
+}
+.tm-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 30px 28px;
+  background: transparent;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .7s var(--easing), transform .7s var(--easing), background-color .4s var(--easing);
+}
+.tm-card:nth-child(2n) { border-left: 1px solid var(--tm-line); }
+.tm-card:nth-child(n+3) { border-top: 1px solid var(--tm-line); }
+.tm-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.tm-card.is-visible { opacity: 1; transform: none; }
+.tm-card:hover { background: rgba(27,26,23,.035); }
+.tm-monogram {
+  flex: 0 0 auto;
+  width: 54px; height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--tm-line);
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--tm-gold);
+  transition: border-color .4s var(--easing), color .4s var(--easing);
+}
+.tm-card:hover .tm-monogram { border-color: var(--tm-gold); color: var(--tm-ink); }
+.tm-info { min-width: 0; }
+.tm-name {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  color: var(--tm-ink);
+}
+.tm-role {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--tm-ink-soft);
+  margin: 0 0 12px;
+}
+.tm-mail {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--tm-ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(154,130,83,.45);
+  padding-bottom: 2px;
+  word-break: break-word;
+  transition: color .3s var(--easing), border-color .3s var(--easing);
+}
+.tm-mail:hover { color: var(--tm-gold); border-color: var(--tm-gold); }
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .tm-group { grid-template-columns: 1fr; gap: 24px; }
+  .tm-group-label { position: static; }
+}
+@media (max-width: 700px) {
+  .tm-main { padding: calc(var(--header-h) + 78px) 6vw 24px; }
+  .tm-grid { grid-template-columns: 1fr; }
+  .tm-card { padding: 24px 20px; gap: 16px; }
+  .tm-card:nth-child(2n) { border-left: 0; }
+  .tm-card:nth-child(n+2) { border-top: 1px solid var(--tm-line); }
+  .tm-monogram { width: 46px; height: 46px; font-size: 14px; }
+  .tm-name { font-size: 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-card { opacity: 1; transform: none; transition: none; }
+}
