@@ -52,7 +52,7 @@ body.page-about { transition: background-color .6s ease; }
   top: -30%; left: -8%;
   width: 780px; height: 780px;
   max-width: 120vw;
-  background: radial-gradient(circle, rgba(160,134,96,.13) 0%, rgba(160,134,96,0) 66%);
+  background: radial-gradient(circle, rgba(160,134,96,.06) 0%, rgba(160,134,96,0) 70%);
   z-index: 0;
   pointer-events: none;
 }
@@ -66,50 +66,24 @@ body.page-about { transition: background-color .6s ease; }
   gap: clamp(36px, 6vw, 96px);
   align-items: start;
 }
-.ab-discover-mark {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--c-gold);
-  margin-bottom: 28px;
-}
-.ab-discover-mark-line { display: block; width: 54px; height: 1px; background: linear-gradient(90deg, rgba(160,134,96,0), var(--c-gold)); }
-.ab-discover-mark-line--short { width: 22px; background: linear-gradient(90deg, var(--c-gold), rgba(160,134,96,0)); }
-.ab-discover-title {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  color: var(--c-text);
-  margin: 0;
-}
 .ab-dt-kicker {
   display: block;
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 0.34em;
+  font-size: 11px;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--c-gold-dark, #8a6f4a);
-  margin-bottom: 16px;
+  color: rgba(11,11,11,.42);
+  margin-bottom: 20px;
 }
-.ab-dt-main {
-  display: block;
+.ab-discover-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
   font-size: var(--ab-fs-display);
-  line-height: 1.04;
-  letter-spacing: -0.005em;
-  background: linear-gradient(96deg, #0b0b0b 0%, #2a241c 62%, #6d5735 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  padding-bottom: 6px;
-}
-.ab-discover-head::after {
-  content: '';
-  display: block;
-  width: clamp(120px, 22vw, 260px);
-  height: 1px;
-  margin-top: 26px;
-  background: linear-gradient(90deg, rgba(160,134,96,.7), rgba(160,134,96,0));
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  color: var(--c-text);
+  margin: 0;
 }
 .ab-discover-body { padding-top: 12px; border-left: 1px solid rgba(11,11,11,.1); padding-left: clamp(24px, 3.4vw, 52px); }
 .ab-discover-sub {
@@ -142,14 +116,8 @@ body.page-about { transition: background-color .6s ease; }
   -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,0) 78%);
 }
 .ab-story-inner { position: relative; z-index: 1; max-width: 1000px; }
-.ab-story-divider { display: flex; align-items: center; gap: 14px; }
-.ab-story-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(160,134,96,0), rgba(160,134,96,.55), rgba(160,134,96,0)); }
-.ab-story-divider-dot {
-  width: 6px; height: 6px;
-  border: 1px solid var(--c-gold);
-  transform: rotate(45deg);
-  flex: 0 0 auto;
-}
+.ab-story-divider { display: block; height: 1px; background: rgba(255,255,255,.13); }
+.ab-story-divider-line, .ab-story-divider-dot { display: none; }
 .ab-story-copy { padding: clamp(44px, 6vw, 74px) 0; }
 .ab-story-copy p {
   font-family: var(--font-serif);
@@ -367,7 +335,7 @@ body.page-about { transition: background-color .6s ease; }
 .ab-split--reverse .ab-split-img { order: 2; }
 .ab-split--reverse .ab-split-text { order: 1; }
 .ab-split-img { position: relative; overflow: hidden; min-height: 460px; }
-.ab-split-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-split-img img { width: 100%; height: 100%; object-fit: cover; display: block; will-change: transform; }
 .ab-trust-badge {
   position: absolute;
   right: 24px; bottom: 24px;
@@ -570,8 +538,7 @@ body.page-about { transition: background-color .6s ease; }
   .ab-discover-inner { grid-template-columns: 1fr; gap: 26px; }
   .ab-discover-body { border-left: 0; border-top: 1px solid rgba(11,11,11,.1); padding-left: 0; padding-top: 26px; }
   .ab-story-copy p { font-size: 17px; }
-  .ab-dt-kicker { font-size: 11px; letter-spacing: 0.3em; }
-  .ab-discover-head::after { margin-top: 20px; }
+  .ab-dt-kicker { font-size: 10.5px; letter-spacing: 0.28em; margin-bottom: 14px; }
   .ab-story-copy p:first-child::first-letter { font-size: 3.4em; padding-right: 12px; }
   .ab-manifesto { padding: 80px 6vw 80px; }
   .ab-quote { padding: 70px 6vw; }

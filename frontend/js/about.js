@@ -153,6 +153,17 @@
     });
   });
 
+  /* Split-section images — gentle scroll-linked drift + slow zoom-out */
+  document.querySelectorAll('.gs-img-drift').forEach(wrap => {
+    const img = wrap.querySelector('img');
+    if (!img) return;
+    gsap.set(img, { scale: 1.18, yPercent: 3, transformOrigin: '50% 50%' });
+    gsap.to(img, {
+      scale: 1.1, yPercent: -3, ease: 'none',
+      scrollTrigger: { trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: 0.9, invalidateOnRefresh: true }
+    });
+  });
+
   /* Stat number count-up */
   document.querySelectorAll('.ab-stat-num[data-count]').forEach(el => {
     const target = parseInt(el.dataset.count, 10);
