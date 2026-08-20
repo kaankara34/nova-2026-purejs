@@ -20,33 +20,27 @@ chrome_top = chrome_top.replace('<button class="btn register" data-scroll="regis
 
 GROUPS = [
     ("Management", [
-        ("Cem Aydın Erdoğmuş", "Chairman of the Board", "cem@nova.istanbul"),
-        ("Selin Kavakçı", "Board Member / Development &amp; Feasibility", "selin@nova.istanbul"),
-        ("Bora Tunçel", "Civil Engineer / Corporate Advisor", "bora@nova.istanbul"),
-    ]),
-    ("Finance", [
-        ("Deniz Aksel", "Director of Finance &amp; Accounting", "deniz@nova.istanbul"),
-        ("Merve Ilgaz", "Accounting &amp; Financial Affairs", "merve@nova.istanbul"),
-        ("Tolga Sarıkaya", "Accounting &amp; Financial Affairs", "tolga@nova.istanbul"),
+        ("Osman Kara", "Chairman of the Board"),
+        ("Ömer Kara", "Board Member"),
+        ("Prof. Dr. Yalçın Şahin", "Board Member"),
+        ("Gürcan Ayaz", "Board Member"),
     ]),
     ("Architecture &amp; Design", [
-        ("Ayşe Nur Demirtaş", "Senior Architect / Project Development", "ayse@nova.istanbul"),
-        ("Kerem Yalçın", "Architect / Project &amp; Technical Design", "kerem@nova.istanbul"),
-        ("Elif Su Barın", "Interior Architect / Finishes &amp; Decoration", "elif@nova.istanbul"),
-        ("Murat Beşiktaşlı", "Architect / Design Office Director", "murat@nova.istanbul"),
+        ("Merve Afşin", "Architect"),
+        ("Bartu Kara", "Interior Architect"),
     ]),
     ("Construction &amp; Engineering", [
-        ("Onur Kaplan", "Civil Engineer / Operations Coordinator", "onur@nova.istanbul"),
-        ("Pelin Ergün", "Civil Engineer / Technical Office Director", "pelin@nova.istanbul"),
-        ("Hakan Doruk", "Civil Engineer / Site Manager", "hakan@nova.istanbul"),
-        ("Emre Sarp Yıldırım", "Civil Engineer / Site Manager", "emre@nova.istanbul"),
-        ("Nazlı Cengiz", "Construction Technician", "nazli@nova.istanbul"),
+        ("Kaan Kara", "Civil Engineer"),
+    ]),
+    ("Finance &amp; Legal", [
+        ("Yunus Çay", "Head of Accounting"),
+        ("Oğuz Çavuşoğlu", "Legal Counsel"),
     ]),
 ]
 
 
 def initials(name):
-    parts = [p for p in name.split() if p]
+    parts = [p for p in name.replace('Prof.', '').replace('Dr.', '').split() if p]
     return (parts[0][0] + parts[-1][0]).upper()
 
 
@@ -58,12 +52,11 @@ def slug(text):
 groups_html = []
 for gi, (group, members) in enumerate(GROUPS, start=1):
     cards = []
-    for mi, (name, role, mail) in enumerate(members, start=1):
+    for mi, (name, role) in enumerate(members, start=1):
         cards.append(f'''          <article class="tm-card" data-testid="team-card-{slug(group)}-{mi}">
             <div class="tm-tile"><span class="tm-monogram" aria-hidden="true">{initials(name)}</span></div>
             <h3 class="tm-name">{name}</h3>
             <p class="tm-role">{role}</p>
-            <a class="tm-mail" href="mailto:{mail}" data-testid="team-mail-{slug(group)}-{mi}">{mail}</a>
           </article>''')
     groups_html.append(f'''      <section class="tm-group" data-testid="team-group-{slug(group)}">
         <div class="tm-group-head">
