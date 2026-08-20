@@ -101,11 +101,7 @@ body.page-team {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .7s var(--easing), transform .7s var(--easing);
 }
-.tm-card.is-visible { opacity: 1; transform: none; }
 
 /* Soft sand tile with serif monogram (no photography), half-scale */
 .tm-tile {
@@ -189,5 +185,5 @@ body.page-team {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tm-card { opacity: 1; transform: none; transition: none; }
+  .tm-monogram { transition: none; }
 }
