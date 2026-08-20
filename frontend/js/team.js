@@ -15,7 +15,7 @@
       if (!entry.isIntersecting) return;
       const group = entry.target.closest('.tm-grid');
       const index = group ? [...group.children].indexOf(entry.target) : 0;
-      entry.target.style.transitionDelay = Math.min(index, 5) * 70 + 'ms';
+      entry.target.style.transitionDelay = (index % 4) * 80 + 'ms';
       entry.target.classList.add('is-visible');
       io.unobserve(entry.target);
     });

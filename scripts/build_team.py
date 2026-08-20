@@ -13,6 +13,10 @@ footer = seg('<footer class="site-footer">', '</footer>')
 
 chrome_top = chrome_top.replace('<li><a href="#"><span class="label">TEAM</span></a></li>',
                                 '<li><a href="team.html"><span class="label">TEAM</span></a></li>')
+chrome_top = chrome_top.replace('<header class="site-header transparent" id="siteHeader">',
+                                '<header class="site-header" id="siteHeader">')
+chrome_top = chrome_top.replace('<button class="btn register" data-scroll="register" aria-label="Register Interest">REGISTER INTEREST</button>',
+                                '<a href="index.html#register" class="btn register" aria-label="Register Interest" data-testid="team-register-interest">REGISTER INTEREST</a>')
 
 GROUPS = [
     ("Management", [
@@ -56,15 +60,13 @@ for gi, (group, members) in enumerate(GROUPS, start=1):
     cards = []
     for mi, (name, role, mail) in enumerate(members, start=1):
         cards.append(f'''          <article class="tm-card" data-testid="team-card-{slug(group)}-{mi}">
-            <span class="tm-monogram" aria-hidden="true">{initials(name)}</span>
-            <div class="tm-info">
-              <h3 class="tm-name">{name}</h3>
-              <p class="tm-role">{role}</p>
-              <a class="tm-mail" href="mailto:{mail}" data-testid="team-mail-{slug(group)}-{mi}">{mail}</a>
-            </div>
+            <div class="tm-tile"><span class="tm-monogram" aria-hidden="true">{initials(name)}</span></div>
+            <h3 class="tm-name">{name}</h3>
+            <p class="tm-role">{role}</p>
+            <a class="tm-mail" href="mailto:{mail}" data-testid="team-mail-{slug(group)}-{mi}">{mail}</a>
           </article>''')
     groups_html.append(f'''      <section class="tm-group" data-testid="team-group-{slug(group)}">
-        <div class="tm-group-label">
+        <div class="tm-group-head">
           <span class="tm-group-index">{gi:02d}</span>
           <h2 class="tm-group-title">{group}</h2>
         </div>
@@ -95,13 +97,18 @@ page = f'''<!doctype html>
   {chrome_top}
 
   <!-- ============================= TEAM INTRO ============================= -->
-  <main class="tm-main">
-    <header class="tm-intro">
+  <section class="tm-hero">
+    <div class="tm-hero-media" aria-hidden="true">
+      <img src="./media/images/team/team_art.webp" alt="" loading="eager" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="tm-hero-inner">
       <span class="tm-eyebrow">Our People</span>
       <h1 class="tm-title" data-testid="team-page-title">Our Team</h1>
       <p class="tm-lead">The architects, engineers and finance professionals who design, build and steward every Nova Konut development.</p>
-    </header>
+    </div>
+  </section>
 
+  <main class="tm-main">
 {chr(10).join(groups_html)}
   </main>
 
