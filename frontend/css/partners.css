@@ -1,0 +1,149 @@
+/* ==========================================================
+   Partners — Nova Konut
+   Layout/spacing/colors modeled on bilgiliholding.com/partnerler
+   ========================================================== */
+
+body.page-partners {
+  --pt-bg: #ffffff;
+  --pt-heading: #212529;
+  --pt-rule: #cccccc;
+  --pt-muted: #6c757d;
+  background: var(--pt-bg);
+  color: var(--pt-heading);
+}
+
+/* ---- Intro ---- */
+.pt-intro {
+  padding: calc(var(--header-h) + 70px) 6vw 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pt-breadcrumb {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--pt-muted);
+  margin-bottom: 18px;
+}
+.pt-breadcrumb a { color: var(--pt-muted); text-decoration: none; }
+.pt-breadcrumb a:hover { color: var(--pt-heading); }
+.pt-breadcrumb span { margin: 0 6px; }
+.pt-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.05;
+  color: var(--pt-heading);
+  margin: 0 0 14px;
+}
+.pt-lead {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--pt-muted);
+  max-width: 640px;
+  margin: 0;
+}
+
+/* ---- Main / sections ---- */
+.pt-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 6vw 100px;
+}
+.pt-section { margin-bottom: 80px; }
+.pt-section:last-child { margin-bottom: 0; }
+
+.pt-heading {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--pt-heading);
+  border-bottom: 1px solid var(--pt-rule);
+  padding-bottom: 12px;
+  margin: 0 0 32px;
+}
+
+/* ---- Financial Institutions: logo grid ---- */
+.pt-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 36px 24px;
+}
+.pt-logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+}
+.pt-logo-cell img {
+  max-width: 100%;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(0%);
+  transition: transform .35s var(--easing);
+}
+.pt-logo-cell:hover img { transform: scale(1.05); }
+
+/* ---- Architects and Designers: dark overlay cards ---- */
+.pt-arch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+}
+.pt-arch-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: #000;
+  overflow: hidden;
+}
+.pt-arch-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .5;
+  transition: opacity .4s var(--easing), transform .5s var(--easing);
+  display: block;
+}
+.pt-arch-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 52%;
+  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+}
+.pt-arch-card:hover img { opacity: .68; transform: scale(1.04); }
+.pt-arch-name {
+  position: absolute;
+  left: 18px;
+  bottom: 12px;
+  right: 14px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  z-index: 1;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .pt-logo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .pt-arch-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .pt-intro { padding: calc(var(--header-h) + 48px) 6vw 28px; }
+  .pt-title { font-size: 32px; }
+  .pt-lead { font-size: 14px; }
+  .pt-heading { font-size: 19px; margin-bottom: 22px; }
+  .pt-logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px 16px; }
+  .pt-logo-cell { height: 54px; }
+  .pt-logo-cell img { max-height: 38px; }
+  .pt-arch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
+  .pt-arch-name { font-size: 11px; left: 14px; bottom: 10px; }
+  .pt-section { margin-bottom: 56px; }
+}
