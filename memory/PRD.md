@@ -285,6 +285,17 @@ Reference: https://www.rsd.com.tr/ekibimiz (analysed via crawl). User choices: p
 - Also fixed while there: monograms that no longer matched the pasted names (Mesut Yavuz → MY, Yasin Kırkıl → YK) and duplicated `data-testid="team-card-*-1"` values renumbered per group.
 - **Flag for user:** upstream group indices now read 01 Management, 03 Construction & Engineering, 02 Architecture & Design, 04 Finance & Legal — the numbers no longer follow the visual order (left untouched, awaiting the user's call).
 
+## Team page — card grid replaced with org-chart network (Aug 2026)
+User disliked the square-card/monogram layout; requested a "chic linear structure with names linked to each other". Routed through `design_agent` (choices: org-chart/network with connecting lines, no monogram tiles — pure typographic nodes, same 4 department groups/order kept).
+
+**Implemented (`team.html` / `css/team.css`):**
+- Removed `.tm-grid`/`.tm-card`/`.tm-tile`/`.tm-monogram`/`.tm-name`/`.tm-role` entirely. Each department now renders `.tm-network` (CSS grid, `style="--count:N"`) with a `.tm-network-trunk` (vertical line dropping from the group header's hairline) joining a `.tm-network-spine` (horizontal line) that branches into a `.tm-node::before` vertical drop + `.tm-node-dot` (bronze dot) + serif name + uppercase role for each person — a true org-chart/network tree, zero cards/boxes/avatars.
+- Fixed a long-standing flagged inconsistency while rewriting: department indices are now sequential 01→04 matching visual order (was 01/03/02/04 from an earlier upstream pull).
+- Mobile (≤900px, widened from 760px per testing feedback to avoid cramped 4-col text wrapping): collapses to a single continuous vertical bronze/hairline timeline with short horizontal stubs + dots, name/role left-aligned.
+- Hover: dot scales 1.6×, drop-line + name tint to bronze `#9a8253`.
+
+**Tested:** `testing_agent` iteration_13 → 95%, all 4 groups + mobile timeline verified across 1920/1024/768/761/390px, testids intact, zero console errors, shared chrome unaffected. One MEDIUM bug found (`.tm-network-spine` endpoint calc wasn't gap-aware, leaving a 9-11px visual gap before the last node) — fixed post-report with a proper `calc((100% - (count-1)*gap)/count/2)` formula; also bumped drop-line alpha .16→.22 for legibility per the report's polish note. Not re-verified by testing_agent after this last CSS-only fix (self-verified via computed geometry formula + screenshot).
+
 ## Partners page (`partners.html`) — new, Aug 2026
 Reference layout: https://www.bilgiliholding.com/partnerler (heading style with bottom-border rule, plain logo grid, dark image-overlay cards with name captions). Real data pulled via crawl from https://nova.istanbul/partnerler.html. User choices: only the 2 categories that exist in Nova's real source (Architects and Designers = 7 entries as dark-overlay image cards; Financial Institutions = 12 logos as a plain grid) — the extra Bilgili categories (Marka Partnerleri, İş Geliştirme Partnerleri) were skipped since Nova has no data for them. English copy. Title/lead copied verbatim from nova.istanbul ("Partners" / "Innovative structures at the intersection of art and technology."). All 19 images downloaded locally to `media/images/partners/*.webp` (ASCII-safe names), resized (financial logos → max-height 200px, architect photos → max-side 700px; originals were up to 3840×2160 and were the cause of a screenshot-tool-only decode flakiness — confirmed by testing_agent as NOT a real bug, real browser `naturalWidth`/`complete` checks all passed).
 

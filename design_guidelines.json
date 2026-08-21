@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "project_name": "Nova Konut — Organization / Team Network Visualization",
+    "context_type": "marketing_site",
+    "archetype": "ARCHETYPE 5: LUXURY & ARCHITECTURAL PRECISION HYBRID",
+    "visual_tone": "Old Money Corporate, Architectural Blueprint Elegance, Serious, Premium Minimalist",
+    "anti_patterns_strictly_forbidden": [
+      "No cheap gold gradient fills or diamond ornamental icons",
+      "No monogram/initial tiles or square photo avatar boxes",
+      "No card grids or solid boxed containers",
+      "No default tech rounded cards or generic dashboard borders",
+      "No high-contrast neon or bright vibrant accent colors",
+      "No fast, bouncy or flashy animations"
+    ]
+  },
+  "typography": {
+    "fonts": {
+      "serif_display": "Cormorant Garamond, serif",
+      "sans_body": "Montserrat, sans-serif"
+    },
+    "hierarchy": {
+      "page_title": {
+        "font": "Cormorant Garamond",
+        "size_desktop": "2.75rem (44px)",
+        "size_mobile": "2.0rem (32px)",
+        "weight": "300",
+        "letter_spacing": "-0.02em",
+        "line_height": "1.15"
+      },
+      "department_title": {
+        "font": "Cormorant Garamond",
+        "size_desktop": "1.75rem (28px)",
+        "size_mobile": "1.35rem (21.6px)",
+        "weight": "400",
+        "letter_spacing": "-0.01em",
+        "line_height": "1.2"
+      },
+      "person_name": {
+        "font": "Cormorant Garamond",
+        "size_desktop": "1.35rem (21.6px)",
+        "size_mobile": "1.15rem (18.4px)",
+        "weight": "500",
+        "letter_spacing": "0.01em",
+        "line_height": "1.3"
+      },
+      "person_role": {
+        "font": "Montserrat",
+        "size_desktop": "0.725rem (11.6px)",
+        "size_mobile": "0.685rem (11px)",
+        "weight": "500",
+        "transform": "uppercase",
+        "letter_spacing": "0.18em",
+        "line_height": "1.4"
+      },
+      "department_index": {
+        "font": "Montserrat",
+        "size": "0.7rem (11.2px)",
+        "weight": "400",
+        "letter_spacing": "0.22em",
+        "color": "#9a8253"
+      }
+    }
+  },
+  "colors": {
+    "background_base": "#f4f1ea",
+    "background_secondary": "#efeeec",
+    "text_primary": "#1b1a17",
+    "text_secondary": "#66635c",
+    "accent_bronze": "#9a8253",
+    "accent_dark_bronze": "#6f5c3a",
+    "line_hairline": "rgba(27, 26, 23, 0.12)",
+    "line_hairline_active": "#9a8253",
+    "node_dot": "#9a8253",
+    "hover_bg": "rgba(154, 130, 83, 0.04)"
+  },
+  "layout_and_structure": {
+    "concept": "Chic Linear Org-Chart / Network Tree Visualization",
+    "description": "Replace all 4-column card grid boxes with an elegant, architectural network tree where names exist as pure typographic text nodes connected by delicate SVG or CSS connecting lines and subtle node junction dots.",
+    "department_order": [
+      {
+        "index": "01",
+        "id": "management",
+        "title": "Management",
+        "testid": "team-group-management",
+        "members": [
+          {"name": "Osman Kara", "role": "Chairman of the Board", "testid": "team-card-management-1"},
+          {"name": "Ömer Kara", "role": "Board Member", "testid": "team-card-management-2"},
+          {"name": "Prof. Dr. Yalçın Şahin", "role": "Board Member", "testid": "team-card-management-3"},
+          {"name": "Gürcan Ayaz", "role": "Board Member", "testid": "team-card-management-4"}
+        ]
+      },
+      {
+        "index": "02",
+        "id": "construction-and-engineering",
+        "title": "Construction & Engineering",
+        "testid": "team-group-construction-and-engineering",
+        "members": [
+          {"name": "Edip Saatcıoğlu", "role": "Civil Engineer", "testid": "team-card-construction-and-engineering-1"},
+          {"name": "Ahmet Göktuğ Paksoy", "role": "M.Sc. Civil Engineer", "testid": "team-card-construction-and-engineering-2"},
+          {"name": "Kaan Kara", "role": "Civil Engineer", "testid": "team-card-construction-and-engineering-3"}
+        ]
+      },
+      {
+        "index": "03",
+        "id": "architecture-and-design",
+        "title": "Architecture & Design",
+        "testid": "team-group-architecture-and-design",
+        "members": [
+          {"name": "Çamoğlu Mimarlık", "role": "Architectural Office", "testid": "team-card-architecture-and-design-1"},
+          {"name": "Merve Afşin", "role": "Architect", "testid": "team-card-architecture-and-design-2"},
+          {"name": "Bartu Kara", "role": "Interior Architect", "testid": "team-card-architecture-and-design-3"}
+        ]
+      },
+      {
+        "index": "04",
+        "id": "finance-and-legal",
+        "title": "Finance & Legal",
+        "testid": "team-group-finance-and-legal",
+        "members": [
+          {"name": "Mesut Yavuz", "role": "Head of Finance", "testid": "team-card-finance-and-legal-1"},
+          {"name": "Yunus Çay", "role": "Head of Accounting", "testid": "team-card-finance-and-legal-2"},
+          {"name": "Yasin Kırkıl", "role": "Accounting Specialist", "testid": "team-card-finance-and-legal-3"},
+          {"name": "Oğuz Çavuşoğlu", "role": "Legal Counsel", "testid": "team-card-finance-and-legal-4"}
+        ]
+      }
+    ]
+  },
+  "component_specifications": {
+    "network_canvas": {
+      "type": "SVG Overlay + Flexible Grid Layout",
+      "connecting_line_style": "stroke: rgba(27,26,23,0.18); stroke-width: 0.75px; fill: none;",
+      "active_line_style": "stroke: #9a8253; stroke-width: 1px;",
+      "junction_dot": "width: 4px; height: 4px; border-radius: 50%; background: #9a8253;"
+    },
+    "typographic_node": {
+      "container": "display: flex; flex-direction: column; position: relative; padding: 12px 16px; border-left: 1px solid rgba(154,130,83,0.3); transition: all 0.3s ease;",
+      "hover_effect": "border-left-color: #9a8253; background: rgba(154, 130, 83, 0.03); transform: translateX(2px);",
+      "no_monograms": true,
+      "no_images": true
+    }
+  },
+  "motion_and_interactions": {
+    "hover_transitions": "transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;",
+    "line_pulse": "Subtle stroke opacity change on node hover (0.18 to 0.7)",
+    "scroll_reveal": "Gentle fade-in with 20px upward translation on viewport intersection"
+  },
+  "accessibility_and_testids": {
+    "data_testid_mapping": {
+      "team-page-title": "Page main title ('Professional Team')",
+      "team-group-[dept-id]": "Department container element",
+      "team-card-[dept-id]-[index]": "Individual team member typographic node"
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. Keep header, navbar, footer, side-menu, utility bar and team hero header intact in team.html.",
+    "2. Remove all square cards (.tm-card) and monogram tiles (.tm-tile, .tm-monogram) completely from team.html.",
+    "3. Implement the network visualization tree in team.html using pure typographic nodes (name in Cormorant Garamond, role in Montserrat) connected with hairline stroke lines.",
+    "4. Ensure each section/group corresponds to the 4 departments in order: Management, Construction & Engineering, Architecture & Design, Finance & Legal.",
+    "5. Preserve all key data-testid attributes: team-page-title, team-group-management, team-card-management-1..4, team-group-construction-and-engineering, team-card-construction-and-engineering-1..3, team-group-architecture-and-design, team-card-architecture-and-design-1..3, team-group-finance-and-legal, team-card-finance-and-legal-1..4.",
+    "6. Update frontend/css/team.css with refined architectural line network styling, ivory background #f4f1ea, graphite text #1b1a17, and bronze connectors #9a8253.",
+    "7. Optionally add an SVG connector script or CSS grid tree lines in frontend/js/script.js to dynamically trace clean SVG connecting paths between departmental nodes and member nodes."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": {
+    "design_principles": "Avoid generic AI slop. Prioritize human-directed architectural restraint, generous whitespace, sharp hairline dividers, and pure typographic elegance.",
+    "contrast": "Ensure minimum 4.5:1 text contrast for all body roles and 3:1 for large display titles against #f4f1ea background.",
+    "responsive": "On mobile viewports (<768px), transition the multi-column network tree into a clean vertical timeline network with a continuous 1px bronze stroke on the left."
+  }
+}
