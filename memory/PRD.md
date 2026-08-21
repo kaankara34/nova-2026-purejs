@@ -314,6 +314,13 @@ Reference layout: https://www.bilgiliholding.com/partnerler (heading style with 
 
 **Tested:** `testing_agent` iteration_12 → 100% of tested flows passed: page shell/intro/both sections render, all 19 images decode with valid `naturalWidth`, zero horizontal overflow at 1920/1024/390, side-menu open/close, PARTNERS link verified from all 15 other pages, REGISTER INTEREST → `index.html#register`, zero console errors. Two cosmetic nits from the report were fixed post-test: added a bottom gradient scrim behind architect card captions (contrast fix) and changed the 7 architect cards from dead `<a href="#">` to plain `<div>` (were non-functional links).
 
+### Partners spacing/sizing polish (Aug 2026)
+User: architect-card row gap too tight, finance logos look visually inconsistent in size, shrink each finance logo 20%, increase gap between finance logos, mobile architect/designer images too large (shrink 30%).
+- `.pt-arch-grid` gap 4px → 20px desktop, mobile breakpoint switched from 2-col/3px gap to **3-col/10px gap** (≈30% smaller card per the 2→3 column math, matches the ask without leaving dead grid space).
+- `.pt-logo-cell img`: was `max-height:50px` (images smaller than 50px, e.g. `turkiye-petrolleri.webp` native 105×36, were never upscaled → looked visibly smaller than the rest). Changed to a **fixed `height:40px`** (20% smaller than the old 50px cap) so every logo renders at the identical visual height regardless of source resolution. Mobile: fixed `height:30px` (also -20% from the old 38px cap).
+- `.pt-logo-grid` gap `36px 24px` → `56px 44px` desktop, mobile `26px 16px` → `40px 22px`.
+- Verified via screenshot at 1920px and 390px: architect cards have visible spacing (3-up on mobile, smaller footprint), all 12 finance logos render at uniform height, zero horizontal overflow both sizes.
+
 ### Team org-chart v3 — geometry cleanup (Jun 2026)
 User: "Çok saçma çizgi bağlantıları... Yalçın Şahin'in üzerindeki nokta ne alaka? Düzgün, estetik, mantıklı, tutarlı bir chart — saçma yatay çizgiler ve bağlantılar yapma."
 - Removed ALL `.tm-network-trunk` spans from `team.html` (left-edge dangling trunks on non-rooted groups, up/down trunks around the chairman) and the gold junction dot (`.tm-network-spine::after`) that floated above Yalçın Şahin.

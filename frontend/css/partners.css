@@ -68,19 +68,18 @@ body.page-partners {
 .pt-logo-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 36px 24px;
+  gap: 56px 44px;
 }
 .pt-logo-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70px;
+  height: 56px;
 }
 .pt-logo-cell img {
   max-width: 100%;
-  max-height: 50px;
   width: auto;
-  height: auto;
+  height: 40px;
   object-fit: contain;
   filter: grayscale(0%);
   transition: transform .35s var(--easing);
@@ -91,7 +90,7 @@ body.page-partners {
 .pt-arch-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 4px;
+  gap: 20px;
 }
 .pt-arch-card {
   position: relative;
@@ -140,10 +139,10 @@ body.page-partners {
   .pt-title { font-size: 32px; }
   .pt-lead { font-size: 14px; }
   .pt-heading { font-size: 19px; margin-bottom: 22px; }
-  .pt-logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px 16px; }
-  .pt-logo-cell { height: 54px; }
-  .pt-logo-cell img { max-height: 38px; }
-  .pt-arch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
-  .pt-arch-name { font-size: 11px; left: 14px; bottom: 10px; }
+  .pt-logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 22px; }
+  .pt-logo-cell { height: 44px; }
+  .pt-logo-cell img { height: 30px; }
+  .pt-arch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .pt-arch-name { font-size: 9.5px; left: 10px; bottom: 8px; }
   .pt-section { margin-bottom: 56px; }
 }
