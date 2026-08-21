@@ -167,6 +167,36 @@ body.page-team {
   margin: 0;
 }
 
+/* ---- Rooted variant: one lead (Chairman) row above the rest (Management) ---- */
+.tm-network--rooted {
+  display: block;
+  padding-top: 0;
+}
+.tm-network-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 0;
+}
+.tm-network-root .tm-network-trunk {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tm-network-root .tm-network-trunk--down { top: auto; bottom: 0; }
+.tm-node--chair::before { display: none; }
+.tm-node--chair .tm-node-dot { width: 6px; height: 6px; }
+.tm-node--chair .tm-node-name { font-size: 25px; }
+.tm-network-tier {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  gap: 0 var(--tm-gap);
+  padding-top: 26px;
+}
+.tm-network-tier .tm-network-spine { top: 0; }
+
 /* ---- Responsive: fewer columns, then vertical timeline on mobile/tablet ---- */
 @media (max-width: 1100px) {
   .tm-network { --tm-gap: 20px; }
@@ -187,13 +217,13 @@ body.page-team {
     background: var(--line-strong);
   }
   .tm-network-trunk, .tm-network-spine { display: none; }
+  .tm-network-root, .tm-network-tier { display: contents; }
   .tm-node {
     align-items: flex-start;
     text-align: left;
     padding: 0 0 26px 20px;
     position: relative;
   }
-  .tm-node:last-child { padding-bottom: 0; }
   .tm-node::before {
     left: -22px;
     top: 8px;
@@ -201,8 +231,10 @@ body.page-team {
     height: 1px;
     transform: none;
   }
+  .tm-node--chair::before { display: block; }
   .tm-node-dot { position: absolute; left: -24px; top: 6px; margin: 0; }
   .tm-node-name { font-size: 18.4px; margin: 0 0 5px; }
+  .tm-node--chair .tm-node-name { font-size: 19.5px; }
   .tm-node-role { font-size: 11px; letter-spacing: 0.14em; }
 }
 @media (max-width: 760px) {

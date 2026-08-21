@@ -186,29 +186,34 @@
           <span class="tm-group-index">01</span>
           <h2 class="tm-group-title">Management</h2>
         </div>
-        <div class="tm-network" style="--count:4">
-          <span class="tm-network-trunk" aria-hidden="true"></span>
-          <span class="tm-network-spine" aria-hidden="true"></span>
-          <article class="tm-node" data-testid="team-card-management-1">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <h3 class="tm-node-name">Osman Kara</h3>
-            <p class="tm-node-role">Chairman of the Board</p>
-          </article>
-          <article class="tm-node" data-testid="team-card-management-2">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <h3 class="tm-node-name">Ömer Kara</h3>
-            <p class="tm-node-role">Board Member</p>
-          </article>
-          <article class="tm-node" data-testid="team-card-management-3">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <h3 class="tm-node-name">Prof. Dr. Yalçın Şahin</h3>
-            <p class="tm-node-role">Board Member</p>
-          </article>
-          <article class="tm-node" data-testid="team-card-management-4">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <h3 class="tm-node-name">Gürcan Ayaz</h3>
-            <p class="tm-node-role">Board Member</p>
-          </article>
+        <div class="tm-network tm-network--rooted" style="--count:3">
+          <div class="tm-network-root">
+            <span class="tm-network-trunk" aria-hidden="true"></span>
+            <article class="tm-node tm-node--chair" data-testid="team-card-management-1">
+              <span class="tm-node-dot" aria-hidden="true"></span>
+              <h3 class="tm-node-name">Osman Kara</h3>
+              <p class="tm-node-role">Chairman of the Board</p>
+            </article>
+            <span class="tm-network-trunk tm-network-trunk--down" aria-hidden="true"></span>
+          </div>
+          <div class="tm-network-tier">
+            <span class="tm-network-spine" aria-hidden="true"></span>
+            <article class="tm-node" data-testid="team-card-management-2">
+              <span class="tm-node-dot" aria-hidden="true"></span>
+              <h3 class="tm-node-name">Ömer Kara</h3>
+              <p class="tm-node-role">Board Member</p>
+            </article>
+            <article class="tm-node" data-testid="team-card-management-3">
+              <span class="tm-node-dot" aria-hidden="true"></span>
+              <h3 class="tm-node-name">Prof. Dr. Yalçın Şahin</h3>
+              <p class="tm-node-role">Board Member</p>
+            </article>
+            <article class="tm-node" data-testid="team-card-management-4">
+              <span class="tm-node-dot" aria-hidden="true"></span>
+              <h3 class="tm-node-name">Gürcan Ayaz</h3>
+              <p class="tm-node-role">Board Member</p>
+            </article>
+          </div>
         </div>
       </section>
       <section class="tm-group" data-testid="team-group-construction-and-engineering">
