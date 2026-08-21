@@ -90,29 +90,26 @@ body.page-team {
   margin: 0;
 }
 
-/* ---- Uniform network / org-chart visualization ---- */
+/* ---- Org chart: symmetric spine between first & last node centres, vertical drops ---- */
 .tm-network {
-  --line: rgba(27,26,23,.22);
-  --line-strong: rgba(27,26,23,.28);
+  --line: rgba(27,26,23,.24);
   --tm-gap: 22px;
+  --tm-drop: 26px;
+  --tm-col: calc((100% - (var(--count) - 1) * var(--tm-gap)) / var(--count));
   position: relative;
   display: grid;
   grid-template-columns: repeat(var(--count), minmax(0, 1fr));
   gap: 0 var(--tm-gap);
-  padding-top: 44px;
-}
-.tm-network-trunk {
-  position: absolute;
-  left: 0; top: 0;
-  width: 1px; height: 22px;
-  background: var(--line-strong);
+  padding-top: var(--tm-drop);
+  margin-top: 34px;
 }
 .tm-network-spine {
   position: absolute;
-  left: 0; top: 22px;
-  right: calc((100% - (var(--count) - 1) * var(--tm-gap)) / var(--count) / 2);
+  top: 0;
+  left: calc(var(--tm-col) / 2);
+  right: calc(var(--tm-col) / 2);
   height: 1px;
-  background: var(--line-strong);
+  background: var(--line);
 }
 .tm-node {
   position: relative;
@@ -126,12 +123,12 @@ body.page-team {
   content: '';
   position: absolute;
   left: 50%;
-  top: -22px;
+  top: calc(-1 * var(--tm-drop));
   width: 1px;
-  height: 22px;
+  height: var(--tm-drop);
   background: var(--line);
   transform: translateX(-50%);
-  transition: background-color .4s var(--easing), height .4s var(--easing);
+  transition: background-color .4s var(--easing);
 }
 .tm-node-dot {
   width: 4.5px;
@@ -167,7 +164,7 @@ body.page-team {
   margin: 0;
 }
 
-/* ---- Rooted variant: one lead (Chairman) row above the rest (Management) ---- */
+/* ---- Rooted variant: Chairman centred above, one clean drop into the tier ---- */
 .tm-network--rooted {
   display: block;
   padding-top: 0;
@@ -177,14 +174,18 @@ body.page-team {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 22px 0;
+  padding: 0 0 var(--tm-drop);
 }
-.tm-network-root .tm-network-trunk {
-  top: 0;
+.tm-network-root::after {
+  content: '';
+  position: absolute;
   left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: var(--tm-drop);
+  background: var(--line);
   transform: translateX(-50%);
 }
-.tm-network-root .tm-network-trunk--down { top: auto; bottom: 0; }
 .tm-node--chair::before { display: none; }
 .tm-node--chair .tm-node-dot { width: 5.5px; height: 5.5px; }
 .tm-node--chair .tm-node-name { font-size: 21px; }
@@ -193,17 +194,7 @@ body.page-team {
   display: grid;
   grid-template-columns: repeat(var(--count), minmax(0, 1fr));
   gap: 0 var(--tm-gap);
-  padding-top: 22px;
-}
-.tm-network-tier .tm-network-spine { top: 0; }
-.tm-network-tier .tm-network-spine::after {
-  content: '';
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--tm-gold);
-  transform: translate(-50%, -50%);
+  padding-top: var(--tm-drop);
 }
 
 /* ---- Responsive: fewer columns, then vertical timeline on mobile/tablet ---- */
@@ -223,10 +214,11 @@ body.page-team {
     position: absolute;
     left: 0; top: 4px; bottom: 4px;
     width: 1px;
-    background: var(--line-strong);
+    background: var(--line);
   }
-  .tm-network-trunk, .tm-network-spine { display: none; }
+  .tm-network-spine { display: none; }
   .tm-network-root, .tm-network-tier { display: contents; }
+  .tm-network-root::after { content: none; }
   .tm-node {
     align-items: flex-start;
     text-align: left;
