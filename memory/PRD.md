@@ -321,6 +321,9 @@ User: architect-card row gap too tight, finance logos look visually inconsistent
 - `.pt-logo-grid` gap `36px 24px` → `56px 44px` desktop, mobile `26px 16px` → `40px 22px`.
 - Verified via screenshot at 1920px and 390px: architect cards have visible spacing (3-up on mobile, smaller footprint), all 12 finance logos render at uniform height, zero horizontal overflow both sizes.
 
+### Yapı Kredi logo size fix (Aug 2026)
+User reported Yapı Kredi still looked smaller than the other 11 finance logos on both desktop and mobile after the previous resize. Root cause: the source file `yapi-kredi.webp` had a 355×200 canvas but the actual logo mark only occupied a 355×66 band in the middle (67px of transparent padding above and below) — scaling by the fixed `height:40px` (based on the full canvas) rendered the visible mark at only ~13px tall. Fixed by trimming the source image to its real content bounding box (`PIL.Image.getbbox()` + 6px margin, now 355×78) so it scales identically to the other logos. No CSS change needed. Verified via screenshot: Yapı Kredi now matches the visual weight of the surrounding logos at 1920px and 390px.
+
 ### Team org-chart v3 — geometry cleanup (Jun 2026)
 User: "Çok saçma çizgi bağlantıları... Yalçın Şahin'in üzerindeki nokta ne alaka? Düzgün, estetik, mantıklı, tutarlı bir chart — saçma yatay çizgiler ve bağlantılar yapma."
 - Removed ALL `.tm-network-trunk` spans from `team.html` (left-edge dangling trunks on non-rooted groups, up/down trunks around the chairman) and the gold junction dot (`.tm-network-spine::after`) that floated above Yalçın Şahin.
