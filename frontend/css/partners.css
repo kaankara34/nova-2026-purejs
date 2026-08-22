@@ -4,7 +4,7 @@
    ========================================================== */
 
 body.page-partners {
-  --pt-bg: #ffffff;
+  --pt-bg: #EFEEEC;
   --pt-heading: #212529;
   --pt-rule: #cccccc;
   --pt-muted: #6c757d;
@@ -49,7 +49,7 @@ body.page-partners {
 .pt-main {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 6vw 100px;
+  padding: 10px 6vw 80px;
 }
 .pt-section { margin-bottom: 80px; }
 .pt-section:last-child { margin-bottom: 0; }
@@ -145,4 +145,13 @@ body.page-partners {
   .pt-arch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
   .pt-arch-name { font-size: 9.5px; left: 10px; bottom: 8px; }
   .pt-section { margin-bottom: 56px; }
+}
+
+    .pt-title {
+       padding-top: 40px;
+    }
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
 }

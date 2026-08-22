@@ -261,3 +261,8 @@ body.page-team {
 @media (prefers-reduced-motion: reduce) {
   .tm-node-dot, .tm-node::before, .tm-node-name, .tm-node-frame { transition: none; }
 }
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
+}
