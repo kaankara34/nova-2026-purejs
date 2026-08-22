@@ -1,0 +1,37 @@
+{
+  "summary": "Frontend-only QA of the new LEED / Sustainability scroll film (/leed.html). Verified WebGL film load (no lx-static, canvas renders, zero console errors), all 9 chapters revealing at their data-lx ranges, the 9-button chapter rail navigation + is-active state + is-off at page bottom, all 5 material hotspots (open/aria-expanded/mutual-exclusion/toggle-off), the 3 LEED impact areas with copy swapping, the disclosure text (only 1 'LEED Certified' occurrence, inside the disclosure), responsive behaviour at 1920x1080/1440x900/1024x768/768x1024/390x844 across 9 scroll progresses (zero horizontal overflow everywhere), mobile stacked system labels + hidden leader SVG, the prefers-reduced-motion static fallback, closing section links, LEED menu wiring on index/team/partners/projects/about, and clean-URL routing. Found 1 real JS bug in the reduced-motion fallback (fixed, in scope) and 1 routing/config bug for the clean /leed URL (reported).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "leed.js reduced-motion/no-WebGL branch", "issue": "FIXED BY TESTER: 'labelsWrap is not defined' ReferenceError thrown on every page load with prefers-reduced-motion:reduce (or no WebGL). Because the exception aborted the branch, the 7 system labels were never moved into chapter 02 and the #lxSiteplan stayed opacity:0 (chapter 07 lost its site plan) in the static fallback. Fixed by declaring 'const labelsWrap = document.getElementById(\"lxLabels\")' next to the other element lookups; re-verified: no page errors, labelsParent=lx-ch2, siteplan opacity 1.", "selector": "/app/frontend/js/leed.js:124", "priority": "HIGH (fixed)"},
+      {"component": "Chapter 05 hotspots @390px", "issue": "Two hotspot text panels extend a few px past the viewport and get clipped by the stage: leed-hotspot-sourcing box left=-5, leed-hotspot-lifecycle box right=399 (vw=390). No document-level overflow, but the first/last characters sit on the screen edge. Consider clamping --hx or the mobile .lx-hot-body width/offsets.", "selector": "[data-testid=leed-hotspot-sourcing], [data-testid=leed-hotspot-lifecycle]", "priority": "MEDIUM"},
+      {"component": "#lxRail", "issue": "Rail does not get 'is-off' while the closing section fills the lower viewport (measured railOff=false, opacity=1 with leed-closing centered) because the sticky #lxStage still intersects with rootMargin 10%. It only fades at the very bottom of the document. Cosmetic overlap of chapter numbers over the closing section.", "selector": "#lxRail", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "Clean URL /leed", "issue": "https://<host>/leed returns 200 but serves index.html (title 'DarGlobal | International Luxury Real Estate Developer'), not leed.html. Root cause: package.json start script is 'npx serve -s . -l 3000'; the -s/--single flag puts serve in SPA mode which overrides the serve.json rewrites, so ALL clean URLs (/leed, /projects, /partners, /east-west ...) fall back to index.html. Fix: run 'npx serve . -l 3000' (no -s) so serve.json rewrites apply, then restart the frontend. Left unchanged as it affects site-wide serving behaviour.", "affected_selectors": ["/app/frontend/package.json", "/app/frontend/serve.json"]}
+    ],
+    "design_issues": [
+      {"screen": "Chapter 07 (Ecology) around progress 0.78-0.82", "issues": ["Stage is almost fully black at this point; the white site-plan linework and the retained 3D massing read at very low contrast. Confirm this darkness is intentional before the landscape photo cross-fade (photo itself fades in correctly at ~0.85, opacity 0.88)."]},
+      {"screen": "Closing section", "issues": ["USGBC/LEED mark is lazy-loaded and appears as an empty 104x104 gap for the first paint; it renders correctly (invert filter) once loaded. Consider loading='eager' for above-the-fold-on-arrival mark."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Remove the -s flag from frontend package.json start script (or serve with the serve.json config) so /leed and the other clean URLs stop falling back to index.html; restart frontend and re-verify /leed, /projects, /partners.",
+    "Clamp the mobile hotspot panels (sourcing/lifecycle) inside the 390px viewport.",
+    "Optional: turn the chapter rail off as soon as the film's last frame is passed (e.g. observe film bottom, not the sticky stage), and eager-load the closing LEED mark.",
+    "Optional: review chapter 07 night-scene contrast."
+  ],
+  "critical_code_review_comments": [
+    "leed.js used an undeclared identifier (labelsWrap) inside the capability-gate fallback path — that path is only executed under prefers-reduced-motion/no-WebGL, so it never surfaced during normal-motion visual checks. Any new code in low-frequency branches should be smoke-tested with page.emulate_media(reduced_motion='reduce').",
+    "leed.js is 665 lines and mixes scene construction, keyframes, labels, siteplan and film loop; consider splitting scene/film/interactions into modules.",
+    "Line 628: 'if (!isMobile) updateLabels(cur); else updateLabels(cur);' is a no-op conditional — simplify to updateLabels(cur)."
+  ],
+  "updated_files": ["/app/frontend/js/leed.js"],
+  "success_rate": {"backend": "N/A (not tested per request)", "frontend": "92%"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "leed.html chapter scroll ranges are the data-lx values in the markup (ch1 0.004-0.072, ch2 0.132-0.248, ch3 0.302-0.374, ch4 0.432-0.492, ch5 0.552-0.612, ch6 0.670-0.734, ch7 0.788-0.844, ch8 0.892-0.936, ch9 0.974-1.0) — use the midpoints, jump with behavior:'instant' via film.offsetTop + p*(film.offsetHeight - innerHeight) and wait ~2.2-2.5s. IMPORTANT: set the viewport BEFORE page.goto and reload after changing it — isMobile/labels/leader layout is computed once at module init, so resizing without reloading produces false 'labels off-screen' results. All 9 chapters, rail, hotspots, LEED items and the reduced-motion fallback passed after the labelsWrap fix. Remaining open item: clean URL /leed serves index.html due to 'serve -s'.",
+  "rca_of_the_issue": "1) labelsWrap ReferenceError: the static-fallback branch referenced a variable that was never declared at module scope; declaring it next to the other getElementById lookups restored the fallback (labels moved into chapter 02, site plan drawn). 2) /leed clean URL: 'npx serve -s .' enables single-page mode, which replaces serve.json rewrites with a catch-all rewrite to /index.html, so every extension-less path returns the homepage with HTTP 200."
+}

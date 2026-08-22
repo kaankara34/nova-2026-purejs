@@ -348,3 +348,31 @@ User marked an annotated screenshot: (1) red circle — Osman Kara's dot floated
 - **Verified (self-tested via screenshot + JS overflow probe, testing_agent not invoked for this CSS/HTML-only change):** zero horizontal overflow at 1920/1024/768/390/320px, zero console errors, chairman dot/frame connects cleanly to the header divider, board-members spine self-contained with no crossing line, all 14 frames render, mobile hierarchy visually identical in shape to desktop just scaled down.
 - **Not yet user-confirmed** — awaiting the user's visual review of this specific fix before considering the org-chart topic closed.
 
+
+---
+
+## LEED / Sustainability page — "Build Beyond Living" (Aug 2026, this session)
+
+**User brief:** an exceptionally premium, immersive, technically sophisticated LEED / sustainability page that must NOT look like a corporate ESG page or a stack of cards — "an interactive architectural film controlled by scrolling". Cinematic, engineering-led, luxury architectural editorial. GSAP + ScrollTrigger + Three.js/WebGL, pinned stage, scroll scrubbing, camera interpolation, exploded-view, masked reveals, spatial typography. No eco clichés (no green gradients, floating leaves, glowing icons).
+
+**User choices (ask_human):**
+1. Procedural Three.js architecture (no GLB asset) — chosen over photo-parallax or a user-supplied model.
+2. No verified sustainability data available → **zero numeric claims**, qualitative engineering language only.
+3. No project-specific certification example; never state "LEED Certified".
+4. Wire only the side-menu **LEED** link to the new page (BUILD BEYOND LIVING menu item left as-is).
+
+**Files added**
+- `frontend/leed.html` — 9 chapters inside one sticky "film" stage; every animated element carries `data-lx="in0 in1 out0 out1"` (scroll-progress fade window).
+- `frontend/css/leed.css` — `.lx-*` design system (ink #07090a / paper #f1eee8 / gold #a08660), sticky stage, chapter grid, leader-line legend, hotspots, site-plan, LEED typographic composition, mobile overrides, and a full `.lx-static` editorial fallback.
+- `frontend/js/leed.js` — ES module, `three@0.180.0` via importmap + GSAP 3.15 CDN. Procedural building (13 floors desktop / 9 low-power): structure, envelope/insulation, mullion grid (single InstancedMesh), glass façade + shading fins, mechanical plant, water risers/tanks, landscape podium with cypress planting, 192-instance night window lights, custom additive flow shaders for energy + water paths. Keyframed camera (13 keys), yaw, explode factor, day→night, flow intensities. rAF gated by IntersectionObserver on the stage + `visibilitychange`; renders only when progress moved or a flow is active.
+- `frontend/media/images/leed/` — `material-facade.webp`, `material-texture.webp`, `interior-daylight.webp`, `landscape-aerial.webp` (downloaded + re-encoded locally, no CDN images).
+
+**Narrative (scroll progress ranges)** 01 approach 0–0.10 · 02 systems exploded 0.11–0.27 (7 sequential leader-line annotations, one focused line at a time) · 03 decarbonization 0.28–0.39 (night + energy flows) · 04 water 0.41–0.51 (roof/landscape, translucent flows) · 05 material intelligence 0.53–0.63 (macro façade photo + 5 interactive annotations) · 06 quality of life 0.65–0.75 (interior, daylight sweep, dust motes, acoustic rings) · 07 ecological conservation 0.77–0.86 (site-plan linework draws, then cross-fades to landscape aerial) · 08 LEED framework 0.88–0.95 (typographic composition of the v5 impact areas + accuracy disclosure) · 09 reassembly 0.96–1.0 ("Sustainability, built into the architecture.").
+
+**Other changes:** side-menu LEED link → `leed.html` (+ `data-testid="menu-link-leed"`) across all 17 pages; `serve.json` rewrite `/leed → /leed.html`.
+
+**Testing:** `testing_agent` iteration_15 → 92% frontend. Fixed after report: missing `labelsWrap` declaration in the reduced-motion branch (found+fixed by tester), mobile hotspot panels clamped inside 390px, rail now fades via a ScrollTrigger on `.lx-closing`, closing LEED mark eager-loaded + inverted (source PNG is near-black), chapter-07 contrast raised. Self-verified after: mobile hotspot geometry, rail `is-off`, desktop hero/systems, zero horizontal overflow at 1920/1440/1024/768/390.
+
+**Known open item (pre-existing, NOT fixed):** `frontend/package.json` start script uses `npx serve -s .` — the `-s` (SPA) flag overrides `serve.json` rewrites, so ALL clean URLs (`/leed`, `/projects`, `/partners`, `/east-west`…) serve `index.html`. The `.html` URLs used by every link work fine. Removing `-s` would fix clean URLs site-wide — left untouched because it changes global serving behaviour beyond this task's scope.
+
+**Not yet user-confirmed** — awaiting the user's visual review of the film.

@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090a" />
+  <meta name="description" content="Build Beyond Living — how environmental performance is engineered into Nova Konut architecture: envelope, energy, water, materials, indoor environment and landscape, organised around the LEED framework." />
+  <title>Build Beyond Living | Sustainability &amp; LEED | Nova Konut</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/leed.css" />
+
+  <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js" } }
+  </script>
+</head>
+<body class="page-leed" id="top">
+
+  <!-- ============================= TOP UTILITY BAR ============================= -->
+  <div class="utility-bar" id="utilityBar">
+    <div class="utility-bar-inner">
+      <div class="utility-left">
+        <a href="#" class="utility-item" aria-label="Konum">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Nova Konut</span>
+        </a>
+        <a href="tel:+908502000000" class="utility-item" aria-label="Telefon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          <span>0850 200 00 00</span>
+        </a>
+      </div>
+      <div class="utility-socials">
+        <a href="mailto:iletisim@nova.istanbul" class="utility-social utility-social--mail" aria-label="E-posta">
+          <span class="utility-mail-text">iletisim@nova.istanbul</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="#" class="utility-social" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg>
+        </a>
+        <a href="#" class="utility-social" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M20.5 3h-17A.5.5 0 0 0 3 3.5v17a.5.5 0 0 0 .5.5h17a.5.5 0 0 0 .5-.5v-17a.5.5 0 0 0-.5-.5zM8.3 18.3H5.7V9.7h2.7v8.6zM7 8.5c-.9 0-1.6-.7-1.6-1.6S6.1 5.3 7 5.3s1.6.7 1.6 1.6S7.9 8.5 7 8.5zm11.3 9.8h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.7V9.7h2.6v1.2h.1c.4-.7 1.3-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= HEADER ============================= -->
+  <header class="site-header transparent" id="siteHeader">
+    <div class="header-inner">
+      <div class="header-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="logo-mark" aria-label="Nova Home">
+          <img src="media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" / decoding="async">
+        </a>
+      </div>
+      <div class="header-actions">
+        <a href="index.html#register" class="btn register" aria-label="Register Interest" data-testid="leed-register-interest">REGISTER INTEREST</a>
+        <div class="icon-links">
+          <a href="tel:+12127151067" class="icon-link" aria-label="Call us">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+          <span class="icon-sep"></span>
+          <a href="https://api.whatsapp.com/send?phone=97180040409" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp us">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+        <button class="lang-switch" aria-label="Change language">
+          <span style="font-family:'Cormorant Garamond',serif;">العربية</span>
+          <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 1l4 4 4-4"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Side menu overlay + side menu -->
+  <div class="side-menu-overlay" id="sideMenuOverlay"></div>
+  <aside class="side-menu" id="sideMenu" aria-label="Main menu">
+    <button class="side-menu-close" id="menuClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="side-menu-grid">
+      <div class="col-projects-sb" id="colProjectsSb" aria-hidden="true">
+        <div class="col-projects-sb-thumb" id="colProjectsSbThumb"></div>
+      </div>
+      <nav class="side-menu-col col-main">
+        <ul class="menu-list">
+          <li class="menu-item"><a class="menu-link" href="index.html"><span class="label">HOMEPAGE</span></a></li>
+          <li class="menu-item has-sub" data-target="nova-konut"><button class="menu-link"><span class="label">NOVA KONUT</span><span class="chev">›</span></button></li>
+          <li class="menu-item has-sub" data-target="devs"><button class="menu-link"><span class="label">LATEST DEVELOPMENTS</span><span class="chev">›</span></button></li>
+          <li class="menu-item"><a class="menu-link" href="projects.html"><span class="label">PORTFOLIO</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="index.html#news"><span class="label">NEWSROOM</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="#"><span class="label">DESIGN</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="#"><span class="label">CONSTRUCTION</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="partners.html"><span class="label">PARTNERS</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="leed.html" data-testid="menu-link-leed"><span class="label">LEED</span></a></li>
+          <li class="menu-item bb-living"><a class="menu-link" href="#"><span class="label">BUILD BEYOND LIVING</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="index.html#register"><span class="label">CONTACT</span></a></li>
+        </ul>
+      </nav>
+      <div class="side-menu-col col-sub">
+        <div class="col-sub-head">
+          <button class="col-sub-back" id="colSubBack" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <span class="col-sub-title" id="colSubTitle"></span>
+        </div>
+        <ul class="submenu" data-id="devs" data-title="LATEST DEVELOPMENTS">
+          <li><a href="projects.html"><span class="label">VIEW ALL</span></a></li>
+          <li class="has-projects" data-projects="istanbul">
+            <a href="#"><span class="label">İSTANBUL</span><span class="chev">›</span></a>
+            <ul class="sub-accordion">
+              <li><a href="east-west.html">THE RESIDENCES EAST WEST</a></li>
+              <li><a href="#">THE APARTMENTS TAÇ</a></li>
+              <li><a href="#">THE APARTMENTS ANA</a></li>
+              <li><a href="projects.html" class="view-all-link">VIEW ALL</a></li>
+            </ul>
+          </li>
+          <li><a href="#"><span class="label">ANATOLIAN SIDE</span></a></li>
+          <li><a href="#"><span class="label">EUROPEAN SIDE</span></a></li>
+        </ul>
+        <ul class="submenu" data-id="nova-konut" data-title="NOVA KONUT">
+          <li><a href="about.html"><span class="label">ABOUT NOVA</span></a></li>
+          <li><a href="#"><span class="label">BOARD</span></a></li>
+          <li><a href="team.html"><span class="label">TEAM</span></a></li>
+        </ul>
+      </div>
+      <div class="side-menu-col col-projects">
+        <div class="projects-preview" data-id="istanbul">
+          <a href="east-west.html" class="proj-card">
+            <div class="proj-img">
+              <img src="./media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West" width="280" height="234" loading="lazy" decoding="async" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/EASTWEST_v2-tight.svg" alt="The Residences East West" width="180" height="40" loading="lazy" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="#" class="proj-card">
+            <div class="proj-img">
+              <img src="./media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="lazy" decoding="async" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/TAC_logo-tight.svg" alt="The Apartments Taç" width="180" height="44" loading="lazy" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="#" class="proj-card">
+            <div class="proj-img">
+              <img src="./media/images/menu-thumbs/tac_render.webp" alt="The Apartments Ana" width="280" height="352" loading="lazy" decoding="async" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/ANA_logo-tight.svg" alt="The Apartments Ana" width="180" height="44" loading="lazy" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="side-menu-foot">
+      <div class="terms">TERMS AND CONDITIONS</div>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.3-1.9 2-1.9h2V2.1C16.7 2 15.6 2 14.4 2 11.7 2 10 3.7 10 6.7V10H7v4h3v8h3z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.4 8.5L23 22h-6.8l-5.3-7-6.1 7H1.7l7.9-9.1L1 2h6.9l4.8 6.4L18.9 2zm-2.4 18h1.9L7.6 4H5.6l10.9 16z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================= FILM ============================= -->
+  <div class="lx-grain" aria-hidden="true"></div>
+
+  <nav class="lx-rail" id="lxRail" aria-label="Chapters">
+    <span class="lx-rail-track" aria-hidden="true"><span class="lx-rail-fill" id="lxRailFill"></span></span>
+    <ol class="lx-rail-list">
+      <li><button class="lx-rail-item" data-goto="0.00" data-testid="leed-rail-01"><span class="lx-rail-n">01</span><span class="lx-rail-t">Approach</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.16" data-testid="leed-rail-02"><span class="lx-rail-n">02</span><span class="lx-rail-t">Systems</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.33" data-testid="leed-rail-03"><span class="lx-rail-n">03</span><span class="lx-rail-t">Decarbonization</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.46" data-testid="leed-rail-04"><span class="lx-rail-n">04</span><span class="lx-rail-t">Water</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.58" data-testid="leed-rail-05"><span class="lx-rail-n">05</span><span class="lx-rail-t">Material</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.70" data-testid="leed-rail-06"><span class="lx-rail-n">06</span><span class="lx-rail-t">Quality of Life</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.81" data-testid="leed-rail-07"><span class="lx-rail-n">07</span><span class="lx-rail-t">Ecology</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.91" data-testid="leed-rail-08"><span class="lx-rail-n">08</span><span class="lx-rail-t">LEED</span></button></li>
+      <li><button class="lx-rail-item" data-goto="0.99" data-testid="leed-rail-09"><span class="lx-rail-n">09</span><span class="lx-rail-t">Integrated</span></button></li>
+    </ol>
+  </nav>
+
+  <div class="lx-film" id="lxFilm">
+    <div class="lx-stage" id="lxStage" data-testid="leed-stage">
+      <div class="lx-sky" id="lxSky" aria-hidden="true"></div>
+      <canvas class="lx-canvas" id="lxCanvas" aria-hidden="true"></canvas>
+      <div class="lx-vignette" aria-hidden="true"></div>
+
+      <!-- technical leader lines + system legend (chapter 02) -->
+      <svg class="lx-leaders" id="lxLeaders" aria-hidden="true"></svg>
+      <div class="lx-labels" id="lxLabels">
+        <div class="lx-label" data-sys="facade" data-testid="leed-system-facade"><span class="lx-label-idx">A.01</span><span class="lx-label-name">Façade</span><span class="lx-label-note">Shading depth, orientation, rainscreen</span></div>
+        <div class="lx-label" data-sys="glazing" data-testid="leed-system-glazing"><span class="lx-label-idx">A.02</span><span class="lx-label-name">Glazing</span><span class="lx-label-note">Solar control, daylight transmission</span></div>
+        <div class="lx-label" data-sys="envelope" data-testid="leed-system-envelope"><span class="lx-label-idx">A.03</span><span class="lx-label-name">Building Envelope</span><span class="lx-label-note">Continuous insulation, airtightness</span></div>
+        <div class="lx-label" data-sys="structure" data-testid="leed-system-structure"><span class="lx-label-idx">A.04</span><span class="lx-label-name">Structural System</span><span class="lx-label-note">Efficient spans, material discipline</span></div>
+        <div class="lx-label" data-sys="mech" data-testid="leed-system-mech"><span class="lx-label-idx">A.05</span><span class="lx-label-name">Mechanical Systems</span><span class="lx-label-note">Heat recovery, zoned control</span></div>
+        <div class="lx-label" data-sys="water" data-testid="leed-system-water"><span class="lx-label-idx">A.06</span><span class="lx-label-name">Water Systems</span><span class="lx-label-note">Distribution, metering, reuse strategy</span></div>
+        <div class="lx-label" data-sys="landscape" data-testid="leed-system-landscape"><span class="lx-label-idx">A.07</span><span class="lx-label-name">Landscape</span><span class="lx-label-note">Permeability, planting, microclimate</span></div>
+      </div>
+
+      <!-- ---------- 01 · APPROACH ---------- -->
+        <section class="lx-chapter lx-ch1" data-lx="-0.02 0.004 0.072 0.098" data-testid="leed-chapter-01">
+        <div class="lx-ch1-inner">
+          <span class="lx-kicker" data-lx="-0.02 0.012 0.062 0.09">Nova Konut · Sustainability</span>
+          <h1 class="lx-h1" data-testid="leed-hero-title">Build Beyond Living</h1>
+          <p class="lx-h1-sub" data-lx="-0.02 0.022 0.062 0.09">Designed Beyond Today.</p>
+        </div>
+        <div class="lx-cue" data-lx="-0.02 0.026 0.038 0.062" data-testid="leed-scroll-cue">
+          <span class="lx-cue-line" aria-hidden="true"></span>
+          <span class="lx-cue-txt">Scroll to enter</span>
+        </div>
+      </section>
+
+      <!-- ---------- 02 · SYSTEMS ---------- -->
+      <section class="lx-chapter lx-ch2" data-lx="0.112 0.132 0.248 0.268" data-testid="leed-chapter-02">
+        <header class="lx-head lx-head--tl">
+          <span class="lx-num">02</span>
+          <h2 class="lx-h2">The building reveals its systems</h2>
+        </header>
+        <ul class="lx-statements" data-testid="leed-statements">
+          <li data-lx="0.150 0.163 0.240 0.258">High-Performance Envelope</li>
+          <li data-lx="0.168 0.181 0.240 0.258">Energy-Efficient Systems</li>
+          <li data-lx="0.186 0.199 0.240 0.258">Responsible Material Selection</li>
+          <li data-lx="0.204 0.217 0.240 0.258">Integrated Water Strategy</li>
+          <li data-lx="0.222 0.235 0.240 0.258">Designed for Long-Term Performance</li>
+        </ul>
+      </section>
+
+      <!-- ---------- 03 · DECARBONIZATION ---------- -->
+      <section class="lx-chapter lx-ch3" data-lx="0.282 0.302 0.374 0.394" data-testid="leed-chapter-03">
+        <header class="lx-head lx-head--tl">
+          <span class="lx-num">03</span>
+          <h2 class="lx-h2">Decarbonization</h2>
+        </header>
+        <div class="lx-annos">
+          <div class="lx-anno" data-lx="0.300 0.315 0.368 0.390">
+            <span class="lx-anno-k">Operational Energy</span>
+            <p>Demand is reduced at source — orientation, envelope performance and system efficiency before compensating technology.</p>
+          </div>
+          <div class="lx-anno" data-lx="0.315 0.330 0.368 0.390">
+            <span class="lx-anno-k">Carbon Emissions</span>
+            <p>Lower energy intensity and cleaner electrified systems reduce the emissions associated with everyday building operation.</p>
+          </div>
+          <div class="lx-anno" data-lx="0.330 0.345 0.368 0.390">
+            <span class="lx-anno-k">Embodied Impact</span>
+            <p>Structure, envelope and finishes are reviewed for the environmental cost carried in the material itself.</p>
+          </div>
+          <div class="lx-anno" data-lx="0.345 0.360 0.368 0.390">
+            <span class="lx-anno-k">Resource Consumption</span>
+            <p>Systems are sized for real occupancy patterns, so nothing consumes more than the building actually requires.</p>
+          </div>
+        </div>
+        <p class="lx-note" data-lx="0.312 0.330 0.368 0.390">Performance is engineered, verified and commissioned. Figures are published only where measured project data exists.</p>
+      </section>
+
+      <!-- ---------- 04 · WATER ---------- -->
+      <section class="lx-chapter lx-ch4" data-lx="0.412 0.432 0.492 0.512" data-testid="leed-chapter-04">
+        <header class="lx-head lx-head--tr">
+          <span class="lx-num">04</span>
+          <h2 class="lx-h2">Water</h2>
+        </header>
+        <div class="lx-annos lx-annos--right">
+          <div class="lx-anno" data-lx="0.428 0.442 0.486 0.508">
+            <span class="lx-anno-k">Efficient Use</span>
+            <p>Low-consumption fittings and metered distribution keep demand deliberately low inside every residence.</p>
+          </div>
+          <div class="lx-anno" data-lx="0.442 0.456 0.486 0.508">
+            <span class="lx-anno-k">Irrigation Strategy</span>
+            <p>Planting is selected for the local climate and irrigated by zone, matched to exposure rather than a fixed schedule.</p>
+          </div>
+          <div class="lx-anno" data-lx="0.456 0.470 0.486 0.508">
+            <span class="lx-anno-k">Responsible Drainage</span>
+            <p>Permeable surfaces, attenuation and controlled discharge protect the site and the network it connects to.</p>
+          </div>
+          <div class="lx-anno" data-lx="0.470 0.484 0.486 0.508">
+            <span class="lx-anno-k">Potable Demand</span>
+            <p>Where regulation and quality allow, non-potable sources serve irrigation and technical uses instead of drinking water.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- 05 · MATERIAL INTELLIGENCE ---------- -->
+      <section class="lx-chapter lx-ch5" data-lx="0.532 0.552 0.612 0.634" data-testid="leed-chapter-05">
+        <div class="lx-photo lx-photo--material" data-lx="0.528 0.552 0.614 0.636" aria-hidden="true">
+          <img src="./media/images/leed/material-facade.webp" alt="" loading="lazy" decoding="async" width="2000" height="2500" />
+          <span class="lx-photo-scrim"></span>
+        </div>
+        <header class="lx-head lx-head--tl">
+          <span class="lx-num">05</span>
+          <h2 class="lx-h2">Material intelligence</h2>
+        </header>
+        <div class="lx-hotspots" data-testid="leed-hotspots">
+          <button class="lx-hot" style="--hx:26%; --hy:34%" data-lx="0.548 0.560 0.608 0.630" data-testid="leed-hotspot-durability" aria-expanded="false">
+            <span class="lx-hot-dot" aria-hidden="true"></span>
+            <span class="lx-hot-body">
+              <span class="lx-hot-k">Durability</span>
+              <span class="lx-hot-t">Surfaces are specified for İstanbul's freeze–thaw, salt and solar exposure, so the building ages without early replacement.</span>
+            </span>
+          </button>
+          <button class="lx-hot" style="--hx:63%; --hy:22%" data-lx="0.556 0.568 0.608 0.630" data-testid="leed-hotspot-sourcing" aria-expanded="false">
+            <span class="lx-hot-dot" aria-hidden="true"></span>
+            <span class="lx-hot-body">
+              <span class="lx-hot-k">Responsible Sourcing</span>
+              <span class="lx-hot-t">Suppliers are asked for documentation — declarations, origin and content — before a material enters the specification.</span>
+            </span>
+          </button>
+          <button class="lx-hot" style="--hx:41%; --hy:63%" data-lx="0.564 0.576 0.608 0.630" data-testid="leed-hotspot-lifecycle" aria-expanded="false">
+            <span class="lx-hot-dot" aria-hidden="true"></span>
+            <span class="lx-hot-body">
+              <span class="lx-hot-k">Lifecycle</span>
+              <span class="lx-hot-t">Maintenance, repairability and end-of-life are considered alongside first cost and appearance.</span>
+            </span>
+          </button>
+          <button class="lx-hot" style="--hx:78%; --hy:56%" data-lx="0.572 0.584 0.608 0.630" data-testid="leed-hotspot-embodied" aria-expanded="false">
+            <span class="lx-hot-dot" aria-hidden="true"></span>
+            <span class="lx-hot-body">
+              <span class="lx-hot-k">Embodied Carbon</span>
+              <span class="lx-hot-t">Concrete mixes, insulation and cladding are compared for the carbon carried in their production and transport.</span>
+            </span>
+          </button>
+          <button class="lx-hot" style="--hx:14%; --hy:76%" data-lx="0.580 0.592 0.608 0.630" data-testid="leed-hotspot-quality" aria-expanded="false">
+            <span class="lx-hot-dot" aria-hidden="true"></span>
+            <span class="lx-hot-body">
+              <span class="lx-hot-k">Construction Quality</span>
+              <span class="lx-hot-t">Details are resolved on site by our own engineers — workmanship is what makes a specification perform.</span>
+            </span>
+          </button>
+        </div>
+        <p class="lx-hint" data-lx="0.556 0.572 0.600 0.624" data-testid="leed-hotspot-hint">Select a point to inspect</p>
+      </section>
+
+      <!-- ---------- 06 · QUALITY OF LIFE ---------- -->
+      <section class="lx-chapter lx-ch6" data-lx="0.652 0.670 0.734 0.756" data-testid="leed-chapter-06">
+        <div class="lx-photo lx-photo--interior" data-lx="0.646 0.670 0.736 0.758" aria-hidden="true">
+          <img src="./media/images/leed/interior-daylight.webp" alt="" loading="lazy" decoding="async" width="2000" height="2996" />
+          <span class="lx-photo-scrim"></span>
+          <span class="lx-daylight"></span>
+          <span class="lx-motes" id="lxMotes"></span>
+          <svg class="lx-acoustic" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="26" /><circle cx="100" cy="100" r="48" /><circle cx="100" cy="100" r="70" /><circle cx="100" cy="100" r="92" />
+          </svg>
+        </div>
+        <header class="lx-head lx-head--tl">
+          <span class="lx-num">06</span>
+          <h2 class="lx-h2">Quality of life</h2>
+        </header>
+        <div class="lx-qol">
+          <div class="lx-qol-row" data-lx="0.668 0.681 0.728 0.750"><span>Daylight</span><p>Depth of plan, ceiling height and glazing position bring usable daylight into everyday rooms.</p></div>
+          <div class="lx-qol-row" data-lx="0.680 0.693 0.728 0.750"><span>Thermal Comfort</span><p>Radiant surfaces stay closer to room temperature, removing draughts and cold walls.</p></div>
+          <div class="lx-qol-row" data-lx="0.692 0.705 0.728 0.750"><span>Indoor Air</span><p>Filtered fresh air is delivered continuously; low-emission finishes keep what you breathe clean.</p></div>
+          <div class="lx-qol-row" data-lx="0.704 0.717 0.728 0.750"><span>Acoustics</span><p>Separating structures, floating floors and detailed junctions protect quiet between residences.</p></div>
+          <div class="lx-qol-row" data-lx="0.716 0.729 0.728 0.752"><span>Wellbeing</span><p>Sustainability here is felt as comfort — a calmer, healthier, quieter way of living.</p></div>
+        </div>
+      </section>
+
+      <!-- ---------- 07 · ECOLOGICAL CONSERVATION ---------- -->
+      <section class="lx-chapter lx-ch7" data-lx="0.772 0.788 0.844 0.864" data-testid="leed-chapter-07">
+        <span class="lx-scrim" aria-hidden="true"></span>
+        <div class="lx-photo lx-photo--landscape" data-lx="0.812 0.842 0.846 0.864" aria-hidden="true">
+          <img src="./media/images/leed/landscape-aerial.webp" alt="" loading="lazy" decoding="async" width="2000" height="1125" />
+          <span class="lx-photo-scrim"></span>
+        </div>
+        <svg class="lx-siteplan" id="lxSiteplan" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g class="lx-sp-grid">
+            <path pathLength="1" d="M0 80 H1000" /><path pathLength="1" d="M0 200 H1000" /><path pathLength="1" d="M0 320 H1000" /><path pathLength="1" d="M0 440 H1000" /><path pathLength="1" d="M0 560 H1000" />
+            <path pathLength="1" d="M120 0 V620" /><path pathLength="1" d="M340 0 V620" /><path pathLength="1" d="M560 0 V620" /><path pathLength="1" d="M780 0 V620" />
+          </g>
+          <g class="lx-sp-main">
+            <path pathLength="1" d="M90 60 H910 V560 H90 Z" />
+            <path pathLength="1" d="M360 170 H640 V430 H360 Z" />
+            <path pathLength="1" d="M360 170 L640 430 M640 170 L360 430" />
+            <path pathLength="1" d="M150 120 H845 V500 H150 Z" />
+            <path pathLength="1" d="M150 310 C 260 250, 300 380, 360 300" />
+            <path pathLength="1" d="M640 300 C 720 220, 760 380, 845 320" />
+            <path pathLength="1" d="M500 430 C 500 500, 420 500, 380 500" />
+            <path pathLength="1" d="M500 170 C 500 110, 600 110, 660 110" />
+            <circle pathLength="1" cx="230" cy="200" r="34" /><circle pathLength="1" cx="770" cy="210" r="26" />
+            <circle pathLength="1" cx="250" cy="450" r="28" /><circle pathLength="1" cx="740" cy="450" r="38" />
+            <path pathLength="1" d="M90 590 H910" /><path pathLength="1" d="M90 580 V600 M910 580 V600" />
+          </g>
+          <g class="lx-sp-marks">
+            <path pathLength="1" d="M950 90 V150 M950 90 L942 104 M950 90 L958 104" />
+          </g>
+        </svg>
+        <header class="lx-head lx-head--tl">
+          <span class="lx-num">07</span>
+          <h2 class="lx-h2">Ecological conservation</h2>
+        </header>
+        <div class="lx-eco">
+          <p data-lx="0.790 0.804 0.838 0.860">A site plan is a decision about how much ground a building is allowed to take. Setbacks, permeable surfaces and retained planting are drawn before the architecture is.</p>
+          <ul>
+            <li data-lx="0.798 0.810 0.838 0.860">Responsible landscape design</li>
+            <li data-lx="0.806 0.818 0.838 0.860">Ecological awareness on site</li>
+            <li data-lx="0.814 0.826 0.838 0.860">Reduced environmental impact</li>
+            <li data-lx="0.822 0.834 0.838 0.862">Architecture and landscape as one system</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ---------- 08 · LEED FRAMEWORK ---------- -->
+      <section class="lx-chapter lx-ch8" data-lx="0.876 0.892 0.936 0.952" data-testid="leed-chapter-08">
+        <span class="lx-scrim" aria-hidden="true"></span>
+        <header class="lx-head lx-head--tl">
+          <span class="lx-num">08</span>
+          <h2 class="lx-h2">The LEED framework</h2>
+        </header>
+        <div class="lx-leed" data-testid="leed-framework">
+          <div class="lx-leed-list">
+            <button class="lx-leed-item is-active" data-leed="decarb" data-lx="0.888 0.900 0.930 0.950" data-testid="leed-impact-decarbonization">
+              <span class="lx-leed-i">i.</span><span class="lx-leed-name">Decarbonization</span>
+            </button>
+            <button class="lx-leed-item" data-leed="qol" data-lx="0.896 0.908 0.930 0.950" data-testid="leed-impact-quality-of-life">
+              <span class="lx-leed-i">ii.</span><span class="lx-leed-name">Quality of Life</span>
+            </button>
+            <button class="lx-leed-item" data-leed="eco" data-lx="0.904 0.916 0.930 0.950" data-testid="leed-impact-ecological-conservation">
+              <span class="lx-leed-i">iii.</span><span class="lx-leed-name">Ecological Conservation &amp; Restoration</span>
+            </button>
+          </div>
+          <div class="lx-leed-read" data-lx="0.898 0.912 0.930 0.950">
+            <p data-leed-copy="decarb" class="is-active">Energy demand, emissions and the carbon carried in materials — assessed together, from early design through operation.</p>
+            <p data-leed-copy="qol">Daylight, air, thermal and acoustic comfort — the measures a resident experiences every day.</p>
+            <p data-leed-copy="eco">Land, water and habitat — how much a site is disturbed, and how much is given back.</p>
+          </div>
+        </div>
+        <p class="lx-disclosure" data-lx="0.906 0.920 0.930 0.950" data-testid="leed-disclosure">
+          LEED evaluates buildings across a comprehensive framework administered by the U.S. Green Building Council. Nova Konut develops in alignment with that framework. Certification status is stated only when a rating has actually been awarded — no Nova project is described as LEED Certified before that point.
+        </p>
+      </section>
+
+      <!-- ---------- 09 · FINAL REASSEMBLY ---------- -->
+      <section class="lx-chapter lx-ch9" data-lx="0.960 0.974 1.02 1.06" data-testid="leed-chapter-09">
+        <span class="lx-scrim" aria-hidden="true"></span>
+        <div class="lx-ch9-inner">
+          <span class="lx-num" data-lx="0.960 0.976 1.02 1.06">09</span>
+          <h2 class="lx-h1 lx-h1--sm" data-testid="leed-final-title">Sustainability, built into the architecture.</h2>
+          <p class="lx-final-sub" data-lx="0.972 0.988 1.02 1.06">Environmental performance is considered from the earliest design decisions through engineering, material selection, construction and long-term building performance.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================= CLOSING ============================= -->
+  <section class="lx-closing" data-testid="leed-closing">
+    <div class="container lx-closing-inner">
+      <div class="lx-closing-mark">
+        <img src="./media/images/logos/leed-official-transparent.png" alt="LEED — U.S. Green Building Council" width="104" height="104" loading="eager" decoding="async" />
+      </div>
+      <p class="lx-closing-copy">Nova Konut · İnşaat Yatırım A.Ş. — designing, engineering and building residential architecture in İstanbul with environmental performance held as a design constraint, not an addition.</p>
+      <div class="lx-closing-links">
+        <a href="projects.html" data-testid="leed-link-portfolio">Portfolio<span aria-hidden="true">→</span></a>
+        <a href="about.html" data-testid="leed-link-about">About Nova<span aria-hidden="true">→</span></a>
+        <a href="partners.html" data-testid="leed-link-partners">Partners<span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-middle">
+        <div class="footer-globe-section">
+          <div class="footer-globe-icon">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="25" cy="25" r="23"/>
+              <ellipse cx="25" cy="25" rx="10" ry="23"/>
+              <line x1="2" y1="25" x2="48" y2="25"/>
+            </svg>
+          </div>
+          <div class="footer-globe-links">
+            <a href="#">PREMIERE EDITION</a>
+            <a href="#">COLLECTION</a>
+          </div>
+        </div>
+        <div class="footer-menu-links">
+          <a href="#">AGENT CONNECT</a>
+          <a href="#">INVESTOR RELATIONS</a>
+          <a href="#">BLOGS</a>
+          <a href="#">PRESS</a>
+          <a href="#">CAREERS</a>
+        </div>
+      </div>
+
+      <div class="footer-social-section">
+        <span class="social-label">FOLLOW US ON</span>
+        <div class="social-icons-small">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.3-1.9 2-1.9h2V2.1C16.7 2 15.6 2 14.4 2 11.7 2 10 3.7 10 6.7V10H7v4h3v8h3z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <div class="footer-bottom-links">
+          <a href="index.html#register">Get in Touch</a>
+          <a href="about.html">About</a>
+          <a href="#">Data Privacy Statement</a>
+        </div>
+        <div class="footer-copyright-text">
+          <span>© 2026 Nova Konut. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/leed.js"></script>
+</body>
+</html>
