@@ -324,6 +324,14 @@ User: architect-card row gap too tight, finance logos look visually inconsistent
 ### Yapı Kredi logo size fix (Aug 2026)
 User reported Yapı Kredi still looked smaller than the other 11 finance logos on both desktop and mobile after the previous resize. Root cause: the source file `yapi-kredi.webp` had a 355×200 canvas but the actual logo mark only occupied a 355×66 band in the middle (67px of transparent padding above and below) — scaling by the fixed `height:40px` (based on the full canvas) rendered the visible mark at only ~13px tall. Fixed by trimming the source image to its real content bounding box (`PIL.Image.getbbox()` + 6px margin, now 355×78) so it scales identically to the other logos. No CSS change needed. Verified via screenshot: Yapı Kredi now matches the visual weight of the surrounding logos at 1920px and 390px.
 
+## GitHub pull merged (Aug 2026) — user's direct edits, commit `6951353 "team fixed"`
+Fast-forwarded cleanly (local `main` was an ancestor of `upstream/main`, no conflicts). Changes:
+- `team.html`: hero title "Professional Team" → "LEADERSHIP & TEAM", eyebrow ("Organization") removed, lead paragraph shortened.
+- `partners.html`: breadcrumb ("Home / Partners") removed from the intro.
+- `partners.css`: page background `#ffffff` → `#EFEEEC` (warm grey, matches team.css), `.pt-main` bottom padding 100px→80px, added `.pt-title{padding-top:40px}` and a `@media(max-width:767px){body{padding-bottom:0}}` rule.
+- `team.css`: same mobile `body{padding-bottom:0}` rule added at 767px.
+Verified via screenshot at 1920px and 390px: both pages render correctly, org-chart/frame geometry from the previous session unaffected, zero horizontal overflow.
+
 ### Team org-chart v3 — geometry cleanup (Jun 2026)
 User: "Çok saçma çizgi bağlantıları... Yalçın Şahin'in üzerindeki nokta ne alaka? Düzgün, estetik, mantıklı, tutarlı bir chart — saçma yatay çizgiler ve bağlantılar yapma."
 - Removed ALL `.tm-network-trunk` spans from `team.html` (left-edge dangling trunks on non-rooted groups, up/down trunks around the chairman) and the gold junction dot (`.tm-network-spine::after`) that floated above Yalçın Şahin.
