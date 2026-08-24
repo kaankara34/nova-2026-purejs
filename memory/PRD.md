@@ -394,3 +394,30 @@ User asked to keep the visual direction and refine 7 points. Implemented:
 **Mobile polish round (Aug 2026, user-reported):** (1) site-plan linework was crossing the ch07 typography on phones — the SVG is now confined to a central band (`inset: 25% 0 31%` with `width/height:auto`, grid lines hidden); (2) two hotspot panels could show at once on touch because of sticky `:hover` — all hotspot hover states moved inside `@media (hover:hover) and (pointer:fine)`, and on desktop hovering a point now hides the previously opened one; (3) the "Tap" micro-label sat inside the ripple ring — moved to `top:32px`/7px and mobile hotspot `--hy` values re-spaced (37/48/59/68/77 %) so an open panel never meets the heading or the bottom hint (hotspot coordinates moved from inline `style` to CSS so responsive overrides can win); (4) the mobile progress bar moved from above the navbar to the bottom edge of the viewport, along the scroll axis.
 
 **LEED micro-tweaks (user, Aug 2026):** header is now fully transparent on the LEED page (desktop + mobile, `background: transparent; backdrop-filter: none`, also overriding `.site-header.transparent`); on ≤760px the hero scroll cue moved to the top of the hero (`.lx-ch1` rows `auto 1fr` + `.lx-cue { order: -1 }`); the vertical hairlines beside the Material Intelligence annotations were removed (`.lx-hot-body` border-left/right = 0, including the flipped tablet/mobile variants).
+
+---
+
+## Construction & Engineering page — `construction.html` (Aug 2026) — SHIPPED, agent-tested (not yet user-confirmed)
+
+**Goal:** "The quality of a Nova residence is determined long before the finishes are installed." Premium, technically accurate engineering page — engineering information first, animation second. No fabricated numbers, strength classes, test results, seismic-safety or certification claims; no statement that all Nova buildings share one structural/foundation system.
+
+**User choices (ask_human):** high-quality real reinforced-concrete stock photography (no hard-hat cliché), optimised locally; side-menu **CONSTRUCTION** → `construction.html`; **DESIGN** left untouched (`href="#"`).
+
+**Files**
+- `frontend/construction.html` — hero + 13 sections + final (generated once via `scripts/build_construction.py`; later edits made directly in the HTML, so regenerate with care).
+- `frontend/css/construction.css` — `.cx-*` system: paper #f3f1ec / ink #0d0f10 / accent #9c8259, alternating light editorial + dark technical sections, vh-aware type inside pinned stages, `.cx-static` reduced-motion fallback.
+- `frontend/js/construction.js` — GSAP 3.15 + ScrollTrigger: hero envelope-removal scrub, 5 pinned step sequences (`gsap.matchMedia('(min-width:1201px)')`), scroll-drawn SVG linework, annotation pins, construction-log index, stage crossfade.
+- `frontend/media/images/construction/` — `frame-hero.webp`, `frame-detail.webp`, `rebar-macro.webp`, `rebar-grid.webp`, `formwork.webp`, `foundation.webp`.
+
+**Narrative:** 01 hero (completed architecture → reinforced-concrete frame) · 02 structure before surface · 03 designed for Istanbul (seismic) + parameter list · 04 ground & foundation · 05 concrete as a system · 06 reinforcement detailing (annotated photo + 6 pins) · 07 quality control log (5 stages) · 08 waterproofing continuity · 09 envelope explode · 10 acoustics · 11 building services · 12 structure→residence crossfade · 13 engineering framework (TBDY 2018, Türkiye Deprem Tehlike Haritaları, TS 500, TS EN 206 + TS 13515, reinforcing-steel standard, Yapı Malzemeleri Yönetmeliği, Binalarda Su Yalıtımı / Gürültüye Karşı Korunma / Enerji Performansı / Yangından Korunma yönetmelikleri, Planlı Alanlar İmar Yönetmeliği) + project-specific disclaimer · final statement.
+
+**Fixes after `testing_agent` iteration_17 (all verified in iteration_18 — 100 % of 10 checks, zero console errors):**
+1. Header was forced transparent page-wide → invisible logo/CTA over light sections. Now transparent only over the hero (`.cx-hero` added to the `heroEl` selector in `js/script.js`).
+2. Pinned copy overflowed the stage → vh-aware type/padding scaling plus **static un-pinned chapters at ≤1200px** (all steps and descriptions visible, drawing above copy).
+3. Section 12 lead was near-black on dark imagery → explicit light colour + stronger dual-axis scrim.
+4. Section 06 pins highlighted nothing → annotation SVG now has `<g data-pin="1..6">`, `light()` helper, first pin open **and** lit on load.
+5. Reduced motion hid all scroll-drawn strokes → inline `strokeDashoffset = 0` in the reduce branch.
+6. Section 09 `--dx` was dead → `.cx-part[data-dx].is-lit { transform: translateX(var(--dx)) }`.
+7. Log-index off-by-one → entry ScrollTriggers moved to `top 30% / bottom 30%`; hero state label retimed (0.3 / 0.62).
+
+**Open backlog (unchanged priorities):** P0 Team org-chart user approval · P0 About CTA target decision · P1 Mercan slideshow pacing, East-West hero video quality, replace DarGlobal CDN images in index hero, populate cloned project pages · P2 East-West floor-plan m² values, PDF checks, sold-out indicators.

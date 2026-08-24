@@ -1,0 +1,85 @@
+{
+  "summary": "Frontend-only E2E review of the new /construction.html scroll-storytelling page (vanilla HTML/CSS/JS + GSAP 3.15 ScrollTrigger) on the public preview URL. Verified page load, asset integrity, horizontal overflow at 1920/1024/768/390, hero scroll drive, all 5 pinned step sequences, header transparency logic, section-06 annotation pins, section-07 construction log index, section-12 stage crossfade, section-13 engineering framework (Turkish characters), side-menu CONSTRUCTION/DESIGN links from both index.html and construction.html, mobile behaviour at 390x844, and the prefers-reduced-motion static fallback. Core storytelling mechanics work; 2 HIGH issues (pinned copy column overflows the viewport and is unreachable; section-12 lead paragraph is near-black on a dark photo) and 3 MEDIUM issues found. No source files were modified.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Pinned step sequences (.cx-seq-copy)",
+        "issue": "The copy column is taller than the 100vh pinned stage on every tested viewport except 1920x1080, so the last steps and the closing regulatory paragraph render BELOW the fold while the section is pinned and can never be read. Measured copy-column overflow: 1920x800 -> +152px (sec-02), +220px (sec-05), +256px (sec-09); 1440x900 -> +183/+153/+214px; 768x1024 -> +159/+166/+199px; 390x844 -> +377/+332/+420px. Worst case verified on mobile: in cx-section-05 at 95% progress the ACTIVE step (index 5, 'Quality control') sits at y=948..1047 with innerHeight=844, i.e. the highlighted step is entirely off-screen; only steps 01-03 are ever visible.",
+        "selector": "[data-testid='cx-section-02'] .cx-seq-copy, cx-section-03, cx-section-05, cx-section-08, cx-section-09",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Section 12 stage crossfade (.cx-xfade-copy .cx-lead)",
+        "issue": "Lead paragraph computed color is rgba(25, 28, 29, 0.78) (near-black) over the dark photographic background because there is no light-color override for .cx-xfade-copy .cx-lead (the section has class .cx-xfade, not .cx-sec--dark). Equivalent overrides exist for .cx-hero-copy .cx-lead and .cx-final-copy .cx-lead. Text is effectively illegible (verified visually and via computed style). Headline (.cx-h2) and stage labels are fine.",
+        "selector": "[data-testid='cx-section-12'] .cx-xfade-copy .cx-lead",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Section 06 annotation pins -> drawing link",
+        "issue": "construction.js lights SVG groups via svg.querySelectorAll('[data-pin]'), but .cx-anno-dwg contains ZERO elements with a data-pin attribute (measured 0). Clicking a pin therefore highlights nothing on the annotated photograph - the pin-to-drawing correlation is dead code.",
+        "selector": "[data-testid='cx-detail-pins'] .cx-pin / .cx-anno-dwg [data-pin]",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "Reduced-motion static fallback (.cx-static)",
+        "issue": "With prefers-reduced-motion: reduce, all 34 [data-cx-draw] [pathLength] strokes keep computed stroke-dashoffset: 1px, so every scroll-drawn drawing in sections 04, 06 and 11 is invisible. The rule '.page-cx.cx-static [data-cx-draw] [pathLength]{stroke-dashoffset:0!important}' IS present in the served CSS and el.matches() returns true, but it is not applied until a style recalculation is forced (injecting any stylesheet immediately turns the value to 0px and it stays 0px). Root cause: the cx-static class is added by JS after initial style resolution and Chromium does not invalidate this camelCase SVG attribute-selector rule.",
+        "selector": ".page-cx.cx-static [data-cx-draw] [pathLength]",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "Section 09 exploded facade drawing",
+        "issue": "The six .cx-part groups declare data-dx and style='--dx:-96px..96px' but nothing in construction.css/js consumes --dx (computed transform is 'none'), so the 'exploded layer' effect never happens - the layers stay flush. Either wire --dx to a transform or drop the dead attributes.",
+        "selector": "[data-testid='cx-section-09'] .cx-part[data-dx]",
+        "priority": "LOW"
+      },
+      {
+        "component": "Section 06 first pin",
+        "issue": "cx-pin-continuity is pre-opened on load, so the user's first click on it CLOSES it (open list becomes empty, aria-expanded=false) instead of opening it. Behaviour is a consistent toggle but contradicts the 'clicking each pin opens only that one' expectation.",
+        "selector": "[data-testid='cx-pin-continuity']",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Section 07 construction log index",
+        "issue": "Off-by-one active state. Clicking cx-log-btn-1..5 scrolls correctly (target entry top lands at 160px on both desktop and mobile), but the item that gains .is-on is the NEXT one: btn-1 -> item 2, btn-2 -> item 3, btn-3 -> item 4, btn-4 -> item 5, btn-5 -> item 5. Cause: the per-entry ScrollTrigger uses start 'top 55%' / end 'bottom 55%' while the click offset places the entry near the top of the viewport, so the 55% line is inside the following entry. The clicked index item never becomes active.",
+        "affected_selectors": ["[data-testid='cx-log-index']", "[data-testid='cx-log-btn-1']", "[data-testid='cx-log-entry-1']"]
+      }
+    ],
+    "design_issues": [
+      {
+        "screen": "Section 12 (cx-section-12)",
+        "issues": ["Lead paragraph near-black on dark imagery - unreadable (see ui_bugs)"]
+      },
+      {
+        "screen": "Hero (cx-hero)",
+        "issues": ["State label flips to 'Envelope removed' at ~22% scroll while the completed-architecture layer is still 64% opaque, so the label slightly leads the visual (cosmetic)", "Header logo has low contrast over the dark reinforced-concrete frame image while the header is transparent (legible but marginal)"]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix the pinned sequences so the copy column always fits inside the pinned 100vh stage on 800/900/1024/844-tall viewports (e.g. tighten .cx-seq-copy gap/type scale, allow the stage to scroll its own overflow, cap .cx-step-d height, or move the closing .cx-body paragraph out of the pinned stage). Highest-impact defect: on mobile the currently-active step is off-screen.",
+    "Add a light color rule for .cx-xfade-copy .cx-lead (e.g. rgba(243,241,236,.74)) matching .cx-final-copy .cx-lead - section 12 body copy is currently near-black on a dark photo.",
+    "Fix the log-index active state so the clicked entry becomes .is-on (align the ScrollTrigger start/end with the -160px click offset, or set .is-on directly on click).",
+    "Either add data-pin attributes to the .cx-anno-dwg groups so pins highlight the drawing, or remove the dead pin->SVG code path.",
+    "In the reduced-motion branch of construction.js, explicitly set inline strokeDashoffset='0' on [data-cx-draw] [pathLength] instead of relying on the .cx-static CSS override (it does not apply until a forced recalc).",
+    "Wire or remove the unused --dx / data-dx explode variables in section 09."
+  ],
+  "critical_code_review_comments": [
+    "construction.css: .cx-seq-stage is a fixed 100vh sticky grid but .cx-seq-copy has no height budget - content silently overflows the pinned viewport. Consider min-height:0 + overflow handling or a max-height-driven type scale.",
+    "construction.css: text-color overrides are keyed on .cx-sec--dark, but .cx-xfade and .cx-final are dark sections without that class; only .cx-final got an explicit .cx-lead override. Add a shared dark-context selector to avoid this class of contrast bug.",
+    "construction.js: the pins handler assumes SVG groups carry data-pin; there is no guard/log when the target SVG has none, so the feature fails silently.",
+    "construction.js: relying on a class-based CSS override for the reduced-motion fallback of SVG dash offsets is fragile; the file already sets inline styles elsewhere - do the same here.",
+    "construction.js log-index highlight and click-scroll use two different reference offsets (160px vs 55% viewport), guaranteeing an off-by-one active state."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (static site, backend not tested per request)", "frontend": "70%" },
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "none required - fully static public site",
+  "context_for_next_testing_agent": "Verified PASSING on construction.html: page loads with zero console/page errors; no 4xx for any asset (only a cloudflare /cdn-cgi/rum beacon 4xx, unrelated); 0 broken images; no horizontal overflow at 1920/1024/768/390; document height ~29.5k at 1920x800. Hero scroll drive works (finish layer 1->0 opacity, 8/8 grid paths draw, label sequence Completed architecture -> Envelope removed -> Reinforced-concrete frame, cue fades). All 5 data-cx-steps sequences advance with exactly one .cx-step.is-on and correct cumulative (sections 02/05/08/09) vs single (section 03, data-cx-mode=single) .cx-part.is-lit; no step-row overlap anywhere. Header: 'transparent' class only over hero, solid rgba(11,11,11,.94) over cx-section-04/07/10/13. Pins: single-open, aria-expanded correct, re-click closes, 47px tap targets on mobile. Log-index click-scroll works (entry lands at top 160px) desktop + mobile. Xfade cycles all 4 labels with correct layer opacities. Framework: 11 rows, all Turkish diacritics render correctly (no mojibake), cx-framework-note present, no row/inner overlap at 768. Side menu on both index.html and construction.html exposes menu-link-construction -> construction.html and navigates; DESIGN stays href='#'. Mobile drawings render above copy (order:-1). Retest after fixes should re-measure .cx-seq-copy bottom vs innerHeight at 1920x800 / 1440x900 / 768x1024 / 390x844, the computed color of .cx-xfade-copy .cx-lead, log-index .is-on index after each cx-log-btn-N click, and the reduced-motion stroke-dashoffset of [data-cx-draw] [pathLength].",
+  "rca_of_the_issue": "1) Pinned overflow: .cx-seq-stage is sticky with a hard height:100vh while .cx-seq-copy stacks kicker + h2 (clamp up to 66px) + lead + 4-6 step rows (each expanding to max-height 8em when active) + a closing .cx-body paragraph. Total intrinsic height is 950-1265px, which exceeds every tested viewport height except 1080px, and because the stage is pinned the overflowing content never scrolls into view. 2) Section-12 contrast: colour overrides are scoped to .cx-sec--dark; .cx-xfade lacks that class and has no .cx-xfade-copy .cx-lead rule, so .cx-lead falls back to the page default rgba(25,28,29,.78). 3) Log-index off-by-one: click handler scrolls the entry to viewport top - 160px while the highlight ScrollTrigger activates on the entry crossing the 55% viewport line, so the following entry owns the 55% line at rest. 4) Reduced-motion dash offsets: the cx-static class is applied by JS after the first style resolution and Chromium fails to invalidate the '[pathLength]' SVG attribute-selector rule; injecting any stylesheet forces the recalc and the strokes immediately become visible (verified: before=1px, after injecting an identical rule=0px, and it remains 0px after removing the injected rule)."
+}

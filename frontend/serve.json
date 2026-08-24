@@ -15,7 +15,8 @@
     { "source": "/gebze-osb-management", "destination": "/gebze-osb-management.html" },
     { "source": "/projects", "destination": "/projects.html" },
     { "source": "/partners", "destination": "/partners.html" },
-    { "source": "/leed", "destination": "/leed.html" }
+    { "source": "/leed", "destination": "/leed.html" },
+    { "source": "/construction", "destination": "/construction.html" }
   ],
   "headers": [
     {
