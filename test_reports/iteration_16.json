@@ -1,0 +1,48 @@
+{
+  "summary": "Frontend-only refinement verification of /leed.html (vanilla + GSAP ScrollTrigger + Three.js, 1800vh warped film). Measured the reading-distance claim numerically, verified hero scroll cue + nudge lifecycle, graphite contrast in ch02 at 1920/1440, material hotspot auto-demo + exclusive open/close + cursor/ripple/'Inspect' label, LEED framework hint + exclusive impact areas, all 9 rail buttons under the warped timeline, mobile progress bar/chapter indicator, tablet stacked labels + hidden leader lines, reduced-motion static fallback, and a 5-viewport x 8-position overflow sweep. Zero console/page errors anywhere; body is never 'lx-static' in a normal browser. 2 issues found: (1) the reading 'hold' distance is below the requested ~250 CSS px (ch02 = 121 px plateau, ch03 annotations = 0 px), (2) the right-most material hotspot panel ('Embodied Carbon', --hx:78%) is clipped off the right edge at 768-1024 px widths.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Chapter 05 material hotspots (tablet 761-1100px)",
+        "issue": "The right-most hotspot panel is cut off by the stage right edge at 768px and 1024px widths: [data-testid=leed-hotspot-embodied] .lx-hot-body box = left 604 / right 864 at iw=768 and left 810 / right 1070 at iw=1024 (both after opening as well). Screenshots show 'EMBODIED CARBO...' and 'Concrete mixes, insula...' truncated. 390px mobile is fine (panel 170.9-375.9 inside 390) and >=1440px is fine, so only the tablet band regressed. Needs a left-flip/clamp rule for panels whose --hx is high in the 761-1100px range.",
+        "selector": "[data-testid=\"leed-hotspot-embodied\"] .lx-hot-body",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Reading pace / scroll distance (requirement 2)",
+        "issue": "Statements do appear progressively (verified empirically at 10 raw positions in ch02 and 8 in ch03), but the requested '>=250 CSS px fully visible before the next one starts' is not met. Film span = 18360 px at 1920x1080. CH02 [data-testid=leed-statements] li: data-lx stagger is 0.018 narrative units => 437 px between statement starts, but the 0.013-unit fade-in itself consumes 315 px, leaving only 121 px of full-opacity hold before the next statement begins. CH03 .lx-anno blocks are worse: each block's b (full opacity) equals the next block's a exactly (0.300/0.315, 0.315/0.330, 0.330/0.345) => 0 px of hold; 315 px between starts. Suggested fix: widen the stagger (ch02 ~0.024, ch03 ~0.024) and/or shorten the fade-in window (b-a ~0.008) so each line gets >=250 px of static reading distance.",
+        "selector": "[data-testid=\"leed-statements\"] li, .lx-ch3 .lx-anno",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Chapter rail (desktop)",
+        "issues": ["On rail hover the currently ACTIVE chapter name drops from opacity 0.8 to 0.5 (same as all others), so the active chapter loses its emphasis exactly while the visitor is reading the list. Minor polish: keep the active item at full emphasis during hover reveal."]
+      },
+      {
+        "screen": "Chapter 02 (raw 0.18)",
+        "issues": ["Only 6 of 7 [data-sys] labels are on screen at raw 0.18 (landscape starts at p=0.213, opacity 0) - this is the intended stagger, noted only so it is not mistaken for a regression. No contrast problem: mean luminance of the left third behind the heading is 25.4/255 at 1920x1080 and 26.1/255 at 1440x900 with heading colour rgb(241,238,232)."]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix tablet clipping of the right-most material hotspot panel (leed-hotspot-embodied) at 761-1100px widths - flip/clamp the panel inside the stage.",
+    "Increase the static reading hold: ch02 statements currently hold only 121 px at full opacity and ch03 .lx-anno blocks hold 0 px before the next block starts (target ~250 px)."
+  ],
+  "critical_code_review_comments": [
+    "leed.js maybeDemoHotspot() sets demoed=true on the first pass through p 0.568-0.606 even if a hotspot was already open, so the self-demo can never replay after a resize/back-navigation within the same page session; consider resetting demoed when the chapter is exited.",
+    "The WARP table in leed.js is duplicated conceptually by the hard-coded RAIL_AT array and by every data-lx / data-goto literal in leed.html; any timeline retune must be applied in 3 places. Deriving RAIL_AT from the chapter data-lx values would remove the drift risk.",
+    "leed.js is 751 lines and mixes scene construction, timeline data and DOM wiring - close to the 700-line split threshold."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (frontend-only request)", "frontend": "92%" },
+  "seed_data_creation": "none - static public page",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Verified PASS this round (no need to retest unless touched): hero cue (visible + wheel glyph + 'Scroll to explore', gains is-nudge after ~2.6s, loses it on first wheel, opacity 0/visibility hidden past raw 0.06); ch02 graphite contrast at 1920 and 1440 (mean luminance ~25/255); hotspot auto-demo at raw 0.575 (durability is-open + aria-expanded=true), exclusive open on click, close on re-click, cursor crosshair, ::after content 'Inspect' desktop / 'Tap' mobile (opacity 0.78 on closed, 0 on open, no hover needed); LEED hint 'Select an impact area' visible with exclusive is-active + copy swap and cursor pointer; ALL 9 rail buttons land on their own chapter under the warped timeline (target chapter opacity ~1, matching is-active) and #lxRail gets is-off at the closing section; rail hover reveals all names; mobile 390 progress bar grows monotonically (7.8 -> 386.1 px) and #lxMoChap reads '02 SYSTEMS' / '05 MATERIAL' / '08 LEED' correctly; tablet 768 and 900 hide #lxLeaders (display:none) and stack all 7 labels at the bottom; reduced-motion fallback gives body.lx-static with all 9 chapters + 7 labels + 5 hotspot texts in normal flow, rail/mobar/mochap display:none, working hotspot and LEED clicks, no overflow; zero document horizontal overflow at 1920/1440/1024/768/390 across 8 scroll positions. Useful technique: inject the SEG/WARP replica to get unwarp(p) and scroll with film.offsetTop + raw*(offsetHeight-innerHeight), behavior:'instant', then wait ~2.3s. Note the decorative span.lx-daylight inside .lx-photo--interior is intentionally wider than the viewport (clipped by overflow:hidden, no document overflow) - not a bug.",
+  "rca_of_the_issue": "Reading distance: the per-line data-lx stagger (0.018 in ch02, 0.015 in ch03) is smaller than the fade-in span needed for a 250px hold, and in ch03 each block's full-opacity point b coincides exactly with the next block's start a, so there is no pause between lines even though the warp gives the segment 2.6x scroll weight. Tablet hotspot clipping: .lx-hot-body is positioned from the hotspot's --hx with a fixed ~260px width and the left-flip/clamp rule only exists for the narrow mobile breakpoint, so at 768-1024px a hotspot at --hx:78% pushes its panel 96-46px past the stage right edge where overflow:hidden truncates the text."
+}

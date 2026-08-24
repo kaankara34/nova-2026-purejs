@@ -138,7 +138,50 @@ if (reduceMotion || !webglOK() || !window.gsap || !window.ScrollTrigger) {
 function initFilm() {
   gsap.registerPlugin(ScrollTrigger);
 
-  const isMobile = window.matchMedia('(max-width: 760px)').matches;
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+  /* ---------------------------------------------------------------
+     Scroll-time warp — the narrative timeline is not linear with the
+     scrollbar. Reading passages get 2-3x the physical scroll distance
+     of the purely cinematic transitions, so each statement holds still
+     long enough to be read: movement -> pause -> information.
+     [narrative start, narrative end, scroll weight]
+  --------------------------------------------------------------- */
+  const SEG = [
+    [0.00, 0.10, 1.2],  // 01 approach (hold on the hero)
+    [0.10, 0.13, 1.6],  //    -> systems
+    [0.13, 0.27, 3.6],  // 02 systems — 7 annotations + 5 statements (reading)
+    [0.27, 0.30, 1.6],  //    -> dusk
+    [0.30, 0.39, 3.4],  // 03 decarbonization (reading)
+    [0.39, 0.42, 1.6],
+    [0.42, 0.51, 3.2],  // 04 water (reading)
+    [0.51, 0.54, 1.6],
+    [0.54, 0.63, 3.2],  // 05 material — inspection points (reading + interaction)
+    [0.63, 0.66, 1.6],
+    [0.66, 0.75, 3.4],  // 06 quality of life (reading)
+    [0.75, 0.79, 1.6],  //    -> site plan
+    [0.79, 0.86, 2.6],  // 07 ecology (reading + plan draw)
+    [0.86, 0.89, 1.6],
+    [0.89, 0.95, 2.8],  // 08 LEED framework (reading)
+    [0.95, 0.97, 2.0],
+    [0.97, 1.00, 3.5]   // 09 final statement (long hold)
+  ];
+  const WARP = [];
+  {
+    let acc = 0;
+    SEG.forEach(([a, b, w]) => { const len = (b - a) * w; WARP.push({ r0: acc, r1: acc + len, p0: a, p1: b }); acc += len; });
+    WARP.forEach(w => { w.r0 /= acc; w.r1 /= acc; });
+  }
+  function warp(r) {
+    if (r <= 0) return 0;
+    for (const w of WARP) if (r <= w.r1) return w.p0 + (w.p1 - w.p0) * ((r - w.r0) / (w.r1 - w.r0));
+    return 1;
+  }
+  function unwarp(p) {
+    if (p <= 0) return 0;
+    for (const w of WARP) if (p <= w.p1) return w.r0 + (w.r1 - w.r0) * ((p - w.p0) / (w.p1 - w.p0));
+    return 1;
+  }
   const LOW = isMobile || (navigator.hardwareConcurrency || 4) <= 4;
 
   /* ---------- renderer ---------- */
@@ -153,6 +196,7 @@ function initFilm() {
   const scene = new THREE.Scene();
   const DAY_SKY = new THREE.Color(0xb9c3c6);
   const NIGHT_SKY = new THREE.Color(0x0b1219);
+  const GRAPHITE = new THREE.Color(0x1e2226);
   scene.background = DAY_SKY.clone();
   scene.fog = new THREE.FogExp2(DAY_SKY.getHex(), 0.0055);
 
@@ -423,6 +467,9 @@ function initFilm() {
     night: [[0, 0], [0.255, 0], [0.40, 1], [0.435, 0.96], [0.50, 0.55], [0.575, 0.5], [0.66, 0.12], [0.755, 0.25], [0.80, 0.35], [0.90, 0.45], [1, 0.28]],
     energy: [[0, 0], [0.285, 0], [0.335, 1], [0.375, 1], [0.425, 0], [1, 0]],
     water: [[0, 0], [0.425, 0], [0.462, 1], [0.50, 1], [0.545, 0], [1, 0]],
+    /* the environment darkens to a graphite studio as the technical
+       information appears, so off-white typography always has contrast */
+    studio: [[0, 0], [0.108, 0], [0.152, 1], [1, 1]],
     yaw: [[0, -0.44], [0.26, -0.06], [0.5, 0.26], [0.78, 0.62], [1, 0.96]],
     siteplanDraw: [[0.770, 0], [0.816, 1]],
     siteplanAlpha: [[0.768, 0], [0.786, 1], [0.822, 1], [0.848, 0]]
@@ -433,7 +480,7 @@ function initFilm() {
      ========================================================= */
   const labels = Array.from(document.querySelectorAll('.lx-label')).map((el, i) => ({
     el, key: el.dataset.sys, i,
-    a: 0.126 + i * 0.0145, b: 0.126 + i * 0.0145 + 0.014, c: 0.248, d: 0.266,
+    a: 0.126 + i * 0.0145, b: 0.126 + i * 0.0145 + 0.005, c: 0.244, d: 0.262,
     slot: 0.155 + i * 0.107,
     line1: null, line2: null, dot: null, last: -1
   }));
@@ -545,19 +592,20 @@ function initFilm() {
       s.g.position.copy(tmp);
     }
 
+    const st = keyed(K.studio, p);
     const n = keyed(K.night, p);
-    skyCol.copy(DAY_SKY).lerp(NIGHT_SKY, n);
+    skyCol.copy(DAY_SKY).lerp(GRAPHITE, st).lerp(NIGHT_SKY, n);
     scene.background.copy(skyCol);
     scene.fog.color.copy(skyCol);
-    scene.fog.density = lerp(0.0055, 0.0085, n);
+    scene.fog.density = lerp(lerp(0.0055, 0.0072, st), 0.0085, n);
 
-    sun.intensity = lerp(3.0, 0.16, n);
+    sun.intensity = lerp(3.0, 0.16, n) * (1 + 0.28 * st * (1 - n));
     sun.color.setRGB(lerp(1, 0.42, n), lerp(0.95, 0.5, n), lerp(0.87, 0.72, n));
     sun.position.set(lerp(26, -20, n), lerp(34, 16, n), lerp(20, -22, n));
-    hemi.intensity = lerp(1.0, 0.14, n);
+    hemi.intensity = lerp(1.0, 0.14, n) * (1 - 0.38 * st);
     hemi.color.setRGB(lerp(0.81, 0.09, n), lerp(0.88, 0.13, n), lerp(0.9, 0.2, n));
     fill.intensity = lerp(0.35, 0.24, n);
-    renderer.toneMappingExposure = lerp(1.05, 0.92, n);
+    renderer.toneMappingExposure = lerp(1.05, 0.92, n) * (1 - 0.06 * st);
     winMat.opacity = Math.pow(n, 1.4) * 0.95;
 
     const e = keyed(K.energy, p);
@@ -576,34 +624,70 @@ function initFilm() {
   /* =========================================================
      Scroll wiring
      ========================================================= */
-  let target = 0, cur = 0, time = 0, first = true;
+  let target = 0, cur = 0, raw = 0, time = 0, first = true;
   ScrollTrigger.create({
     trigger: film,
     start: 'top top',
     end: 'bottom bottom',
-    onUpdate: self => { target = self.progress; }
+    onUpdate: self => { raw = self.progress; target = warp(raw); }
   });
+
+  /* pre-scroll nudge — only if the visitor has not moved yet */
+  const cueEl = document.getElementById('lxCue');
+  if (cueEl) {
+    const nudge = setTimeout(() => { if ((window.scrollY || 0) < 14) cueEl.classList.add('is-nudge'); }, 2600);
+    const clear = () => { clearTimeout(nudge); cueEl.classList.remove('is-nudge'); };
+    window.addEventListener('scroll', clear, { once: true, passive: true });
+    window.addEventListener('wheel', clear, { once: true, passive: true });
+    window.addEventListener('touchstart', clear, { once: true, passive: true });
+  }
+
+  /* the first inspection point demonstrates itself when the chapter opens */
+  const firstHot = document.querySelector('[data-testid="leed-hotspot-durability"]');
+  let demoed = false;
+  function maybeDemoHotspot(p) {
+    if (demoed || !firstHot) return;
+    if (p < 0.568 || p > 0.606) return;
+    demoed = true;
+    if (!document.querySelector('.lx-hot.is-open')) {
+      firstHot.classList.add('is-open');
+      firstHot.setAttribute('aria-expanded', 'true');
+    }
+  }
 
   /* rail */
   const railEl = document.getElementById('lxRail');
+  const moFill = document.getElementById('lxMobarFill');
+  const moChap = document.getElementById('lxMoChap');
+  const moN = moChap ? moChap.querySelector('.lx-mochap-n') : null;
+  const moT = moChap ? moChap.querySelector('.lx-mochap-t') : null;
   const RAIL_AT = [0.02, 0.19, 0.34, 0.46, 0.58, 0.70, 0.81, 0.91, 0.985];
   let lastRail = -1;
   function updateRail(p) {
-    railFill.style.height = (p * 100).toFixed(2) + '%';
+    const rp = unwarp(p);
+    railFill.style.height = (rp * 100).toFixed(2) + '%';
+    if (moFill) moFill.style.width = (rp * 100).toFixed(2) + '%';
     let idx = 0;
     for (let i = 0; i < RAIL_AT.length; i++) if (p >= RAIL_AT[i] - 0.055) idx = i;
     if (idx !== lastRail) {
       lastRail = idx;
       railItems.forEach((b, i) => b.classList.toggle('is-active', i === idx));
+      if (moN && moT) {
+        moN.textContent = String(idx + 1).padStart(2, '0');
+        moT.textContent = railItems[idx].querySelector('.lx-rail-t').textContent;
+      }
     }
   }
   ScrollTrigger.create({
     trigger: '.lx-closing', start: 'top 88%', end: 'bottom top',
-    onToggle: self => railEl.classList.toggle('is-off', self.isActive)
+    onToggle: self => {
+      railEl.classList.toggle('is-off', self.isActive);
+      if (moChap) moChap.classList.toggle('is-off', self.isActive);
+    }
   });
   railItems.forEach(b => b.addEventListener('click', () => {
     const goal = parseFloat(b.dataset.goto);
-    const top = film.offsetTop + goal * (film.offsetHeight - window.innerHeight);
+    const top = film.offsetTop + unwarp(goal) * (film.offsetHeight - window.innerHeight);
     window.scrollTo({ top, behavior: 'smooth' });
   }));
 
@@ -626,6 +710,7 @@ function initFilm() {
       applyFades(cur);
       updateSiteplan(cur);
       updateRail(cur);
+      maybeDemoHotspot(cur);
     }
     if (moved || first || flowActive) {
       time += dt;
