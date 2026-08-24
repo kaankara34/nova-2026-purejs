@@ -75,8 +75,8 @@ html:has(.page-leed) { scroll-behavior: auto; }
 
 /* ---------- touch-first progress + position indicator ---------- */
 .lx-mobar {
-  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 103;
-  background: rgba(241,238,232,.12); display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; height: 2px; z-index: 103;
+  background: rgba(241,238,232,.1); display: none;
 }
 .lx-mobar span { display: block; height: 100%; width: 0; background: var(--lx-gold); }
 .lx-mochap {
@@ -281,6 +281,11 @@ html:has(.page-leed) { scroll-behavior: auto; }
 /* ---------- 05 material hotspots ---------- */
 .lx-ch5 { grid-template-rows: auto 1fr auto; }
 .lx-hotspots { position: absolute; inset: 0; }
+[data-testid="leed-hotspot-durability"] { --hx: 26%; --hy: 34%; }
+[data-testid="leed-hotspot-sourcing"]   { --hx: 63%; --hy: 22%; }
+[data-testid="leed-hotspot-lifecycle"]  { --hx: 41%; --hy: 63%; }
+[data-testid="leed-hotspot-embodied"]   { --hx: 78%; --hy: 56%; }
+[data-testid="leed-hotspot-quality"]    { --hx: 14%; --hy: 76%; }
 .lx-hot {
   position: absolute; left: var(--hx); top: var(--hy);
   opacity: 0; visibility: hidden;
@@ -297,7 +302,14 @@ html:has(.page-leed) { scroll-behavior: auto; }
   border: 1px solid rgba(241,238,232,.3);
   transition: transform .5s var(--easing), border-color .5s var(--easing);
 }
-.lx-hot:hover::before { transform: scale(1.22); border-color: rgba(241,238,232,.7); }
+@media (hover: hover) and (pointer: fine) {
+  .lx-hot:hover::before { transform: scale(1.22); border-color: rgba(241,238,232,.7); }
+  .lx-hot:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .lx-hot:hover .lx-hot-body { opacity: 1; transform: none; }
+  .lx-hot:hover .lx-hot-dot { transform: scale(1.35); background: var(--lx-gold); }
+  /* only one annotation is ever readable at a time */
+  .lx-hotspots:has(.lx-hot:hover) .lx-hot.is-open:not(:hover) .lx-hot-body { opacity: 0; }
+}
 .lx-hot.is-open::before { transform: scale(1.32); border-color: var(--lx-gold); }
 /* micro label — hover on desktop, always faintly present on touch */
 .lx-hot::after {
@@ -308,7 +320,6 @@ html:has(.page-leed) { scroll-behavior: auto; }
   white-space: nowrap; opacity: 0;
   transition: opacity .45s var(--easing), transform .5s var(--easing);
 }
-.lx-hot:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 .lx-hot.is-open::after { opacity: 0; }
 .lx-hot-dot {
   position: absolute; left: 50%; top: 50%; width: 7px; height: 7px;
@@ -329,9 +340,9 @@ html:has(.page-leed) { scroll-behavior: auto; }
   60%  { opacity: .12 }
   100% { transform: scale(5.2); opacity: 0 }
 }
-.lx-hot:hover .lx-hot-dot { transform: scale(1.35); background: var(--lx-gold); }
 .lx-hot.is-open .lx-hot-dot { background: var(--lx-gold); transform: scale(1.35); }
 .lx-hot.is-open .lx-hot-dot::before, .lx-hot.is-open .lx-hot-dot::after { animation: none; opacity: 0; }
+.lx-hotspots:has(.lx-hot.is-open) .lx-hot:not(.is-open)::after { opacity: .3; }
 .lx-hot-body {
   position: absolute; left: 24px; top: -6px; width: 260px;
   display: grid; gap: 7px;
@@ -341,7 +352,7 @@ html:has(.page-leed) { scroll-behavior: auto; }
   transition: opacity .5s var(--easing), transform .6s var(--easing);
   pointer-events: none;
 }
-.lx-hot:hover .lx-hot-body, .lx-hot.is-open .lx-hot-body { opacity: 1; transform: none; }
+.lx-hot.is-open .lx-hot-body { opacity: 1; transform: none; }
 .lx-hot-k {
   font-family: var(--font-sans); font-size: 9.5px; font-weight: 600;
   letter-spacing: .3em; text-transform: uppercase; color: var(--lx-gold);
@@ -583,7 +594,8 @@ html:has(.page-leed) { scroll-behavior: auto; }
   .lx-hot-body { width: min(54vw, 205px); }
   .lx-hot { cursor: pointer; }
   .lx-hot::before { width: 32px; height: 32px; margin: -16px 0 0 -16px; border-color: rgba(241,238,232,.45); }
-  .lx-hot::after { opacity: .78; transform: translateX(-50%) translateY(0); top: 25px; content: "Tap"; }
+  .lx-hot::after { opacity: .72; transform: translateX(-50%) translateY(0); top: 32px; font-size: 7px; content: "Tap"; }
+  .lx-hotspots:has(.lx-hot.is-open) .lx-hot:not(.is-open)::after { opacity: .3; }
   .lx-hot.is-open::after { opacity: 0; }
   .lx-hot-dot { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; }
   .lx-hot-dot::before, .lx-hot-dot::after { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; }
@@ -597,6 +609,17 @@ html:has(.page-leed) { scroll-behavior: auto; }
   .lx-qol-row { grid-template-columns: 1fr; gap: 4px; padding: 9px 0; }
   .lx-qol-row p { font-size: 11.5px; line-height: 1.6; }
   .lx-eco p { font-size: 12.5px; }
+  /* keep the technical linework inside a central band, clear of the copy */
+  .lx-siteplan { inset: 25% 0 31%; width: auto; height: auto; }
+  .lx-sp-grid { display: none; }
+  .lx-sp-main path, .lx-sp-main circle { stroke: rgba(241,238,232,.5); }
+  .lx-ch7 .lx-scrim { background: rgba(7,9,10,.68); }
+  /* mobile inspection points — spaced so an open panel never meets the heading */
+  [data-testid="leed-hotspot-sourcing"] { --hy: 37%; }
+  [data-testid="leed-hotspot-durability"] { --hy: 48%; }
+  [data-testid="leed-hotspot-lifecycle"] { --hy: 59%; }
+  [data-testid="leed-hotspot-embodied"] { --hy: 68%; }
+  [data-testid="leed-hotspot-quality"] { --hy: 77%; }
   .lx-eco li { font-size: 9px; letter-spacing: .2em; }
   .lx-disclosure { font-size: 9.5px; line-height: 1.7; }
   .lx-final-sub { font-size: 12px; }
