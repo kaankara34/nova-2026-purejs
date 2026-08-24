@@ -1,0 +1,61 @@
+{
+  "summary": "Frontend-only QA of the rebuilt /construction.html (vanilla HTML/CSS/JS + GSAP ScrollTrigger + three.js). Verified load at 1920x1080 / 1440x900 / 1280x720 / 1024x768 / 768x1024 / 390x844 (zero JS/console errors, zero page errors, zero failed requests, zero horizontal overflow), hero scrub + readout progression + scroll-cue fade + WebGL rebar canvas, all 12 chapters' pinned/interactive state machines (structural 6, seismic 5, concrete 7 horizontal, reinforcement 6 + WebGL cage, execution 5 + 6 element-state chips, waterproofing 5 nodes + discontinuity state), non-pinned ground section with sticky depth readout, MEP tab/layer mapping (all 6), acoustics 4 distinct animated waveforms, envelope L.01-L.05, 9-row technical register with correct Turkish glyphs, final dissolve to photograph, typography (no serif/Cormorant in page content), and tablet/mobile static-chapter behaviour. All functional requirements passed; only minor design/content observations reported.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Light sections (envelope / acoustics / register)",
+        "issues": [
+          "Chapter eyebrow labels ('08 / Envelope', '09 / Acoustics', '11 / Reference') are gold rgb(160,138,99) on off-white #EEECE7 = 2.82:1 contrast at 11px - below WCAG AA for small text.",
+          "Footnotes under envelope/acoustics/register use rgba(14,16,17,.5) at 11.5px = 3.45:1 - below AA."
+        ]
+      },
+      {
+        "screen": "Seismic (cx-section-seismic)",
+        "issues": [
+          "The data-sq=0 caption 'Undeformed analytical model' stays at full opacity (cumulative reveal) while the frames are visibly translated from state 03 onward, so a deformed drawing is labelled 'undeformed'. Consider dimming/replacing that caption once the deformation state activates."
+        ]
+      },
+      {
+        "screen": "Reinforcement cage (WebGL, 1440px)",
+        "issues": [
+          "Stirrup tube radius (R*0.62) reads almost as thick as the longitudinal bars, so the cage visually reads as a ladder of horizontal rungs rather than closed hoops around the 4 mains; a thinner tie radius would make the hierarchy clearer. (Cosmetic only - assembly sequence is correct.)"
+        ]
+      },
+      {
+        "screen": "Drawing annotations at 768px",
+        "issues": [
+          "Smallest computed SVG <text> size at 768x1024 is 9px (it is 15px at 390px because of the mobile annotation rule). The 9px band between ~601-1200px is borderline legible; consider extending the enlarged annotation size to the tablet range."
+        ]
+      },
+      {
+        "screen": "Shared side menu (brand rule)",
+        "issues": [
+          "East West project imagery still exists in the shared side-menu DOM on this page: img src './media/images/menu-thumbs/dogubati_render.webp' and './media/images/logos/EASTWEST_v2-tight.svg' (lazy, only fetched when the menu opens). No East West imagery in the page content itself. Flagged only because the rule says 'nowhere on the page'."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Raise contrast of the gold chapter eyebrow labels and the 11.5px footnotes on the off-white sections (target >=4.5:1).",
+    "Fade/relabel the 'Undeformed analytical model' caption once the seismic deformation state is active.",
+    "Optional: thinner stirrup tube radius in the cage model; extend the enlarged SVG annotation size to <=1200px widths (currently 9px at 768px).",
+    "Decide whether the shared side-menu East West thumbnail/logo is acceptable under the 'no East West imagery on this page' rule."
+  ],
+  "critical_code_review_comments": [
+    "construction.js stateDriver('.cx-struct') matches +g.dataset.el === idx with data-el 0..5 - verified consistent (cx-element-4 click ends with .cx-el index 3 and .cx-gr[data-el=3] active); keep data-el 0-based if the markup generator is regenerated.",
+    "horizontal() reads rail.scrollWidth on every onUpdate via span() - a layout read per scroll frame; cache it on ScrollTrigger refresh for smoother scrubbing on low-end devices.",
+    "The mobile/tablet branch of horizontal() is decided once at boot from innerWidth <= 1200; a desktop->mobile resize (or orientation change) will not re-evaluate it. Add a ScrollTrigger.matchMedia/resize re-init."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (not requested)", "frontend": "100% of the 13 requested feature areas verified functional" },
+  "seed_data_creation": "none (static site)",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "none required (public static page)",
+  "context_for_next_testing_agent": "New testids are live and stable: cx-hero, cx-hero-readout, cx-scroll-cue, cx-rebar-canvas, cx-section-structural (.cx-el x6 / .cx-gr[data-el=0..5]), cx-section-seismic (.cx-state x5, .cx-fac x8 in cx-section-seismic-factors), cx-section-ground (NOT pinned, cx-depth-readout: +-0.00 -> -01/-n -> Retaining -> Foundation -> Strata -> Investigation), cx-section-concrete (.cx-stepcard x7 + cx-concrete-rail translate3d), cx-section-reinforcement (.cx-prin x6 + cx-cage-canvas), cx-section-execution (.cx-insp-col x5 + .cx-insp-state x6 chips + [data-elstate] svg groups; note element-state chips are .cx-insp-state, NOT [data-elstate] inside cx-element-states), cx-section-waterproofing (.cx-wp-node x5, discontinuity between progress 0.58-0.70), cx-section-mep (6 tab/layer pairs), cx-register (9 rows), cx-final. Best scan technique: window.scrollTo(sectionTop + (offsetHeight-innerHeight)*i/N) with ~230ms settle per step. Document height ~50k px at 1920x1080. Verified content rules: no fabricated numbers (no concrete class, no bar diameter/mm, no dB, no U-value), no 'earthquake-proof'/'soundproof' wording, Cormorant only in the <head> font link and the shared header lang-switch.",
+  "rca_of_the_issue": "No functional defects reproduced. Remaining findings are contrast/labelling/cosmetic: the low-contrast values come from CSS token choices (gold #A08A63 on #EEECE7 and rgba(14,16,17,.5) footnotes); the 'Undeformed analytical model' caption issue comes from the cumulative opacity reveal in the seismic stateDriver which never dims layer data-sq=0."
+}

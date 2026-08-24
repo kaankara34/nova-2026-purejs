@@ -4,13 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0d0f10" />
-  <meta name="description" content="Nova Konut construction and structural engineering: reinforced-concrete structure, seismic design under TBDY 2018, foundations, concrete execution, reinforcement detailing, quality control, waterproofing and building envelope." />
+  <meta name="description" content="Nova Konut construction and engineering methodology: structural system and load path, seismic design under TBDY 2018, ground and foundation interaction, concrete performance, reinforcement detailing, execution control, waterproofing continuity, building envelope, acoustics and building-services coordination." />
   <title>Construction &amp; Engineering | Nova Konut</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/construction.css" />
+  <script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js" } }
+  </script>
 </head>
 <body class="page-cx" id="top">
 
@@ -165,495 +168,261 @@
     </div>
   </aside>
 
-  
-  <!-- ================= 01 HERO ================= -->
+  <!-- ===================== HERO ===================== -->
   <section class="cx-hero" data-testid="cx-hero">
     <div class="cx-hero-stage">
-      <div class="cx-hero-layer cx-hero-layer--frame">
-        <img src="./media/images/construction/frame-hero.webp" alt="Reinforced-concrete structural frame during construction" width="1900" height="2305" decoding="async" />
+      <div class="cx-hero-photo cx-hero-fallback">
+        <img src="./media/images/construction/rebar-macro.webp" alt="Dense field of deformed reinforcing steel before placement" width="1500" height="2666" decoding="async" />
       </div>
-      <div class="cx-hero-layer cx-hero-layer--finish">
-        <img src="./media/images/ew/render/ew-render1.webp" alt="Completed Nova residential architecture" decoding="async" />
-      </div>
-      <svg class="cx-hero-grid" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
-  <g class="cx-hg-soft"><path pathLength="1" d="M320 0 V900" /><path pathLength="1" d="M640 0 V900" /><path pathLength="1" d="M960 0 V900" /><path pathLength="1" d="M1280 0 V900" /></g>
-  <path pathLength="1" d="M0 180 H1600" /><path pathLength="1" d="M0 360 H1600" /><path pathLength="1" d="M0 540 H1600" /><path pathLength="1" d="M0 720 H1600" />
-</svg>
+      <canvas class="cx-canvas" id="cxRebarCanvas" data-testid="cx-rebar-canvas" aria-hidden="true"></canvas>
+      <svg class="cx-hero-grid" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M300 0 V900" /><path pathLength="1" d="M600 0 V900" /><path pathLength="1" d="M900 0 V900" /><path pathLength="1" d="M1200 0 V900" /><path pathLength="1" d="M1500 0 V900" /><path pathLength="1" d="M0 180 H1600" /><path pathLength="1" d="M0 360 H1600" /><path pathLength="1" d="M0 540 H1600" /><path pathLength="1" d="M0 720 H1600" /></svg>
       <div class="cx-hero-scrim"></div>
       <div class="cx-hero-copy">
-        <span class="cx-kicker">Nova Konut &middot; Construction &amp; Engineering</span>
-        <h1 class="cx-h1" data-testid="cx-hero-title">Built with discipline.<br />Engineered to endure.</h1>
-        <p class="cx-lead">Behind every completed residence is a construction process defined by engineering discipline, material control and precision in execution. From ground conditions and structural design to waterproofing, building envelope and final detailing, each stage is approached as part of one integrated system.</p>
+        <span class="cx-hero-kicker"><i></i><span class="cx-lbl cx-lbl--warm">Nova Konut &mdash; Methodology</span></span>
+        <h1 class="cx-hero-h1" data-testid="cx-hero-title">Construction &amp; Engineering</h1>
+        <p class="cx-hero-claim">Performance is built before it is seen.</p>
+        <p class="cx-p">The performance of a residential building is established through a sequence of coordinated engineering decisions &mdash; from ground investigation and structural analysis to reinforcement detailing, concrete execution, waterproofing, building-envelope continuity and services coordination.</p>
+        <p class="cx-p cx-p--s">Nova approaches construction as an integrated engineering process in which design intent, material performance and site execution must remain consistent from calculation to completion.</p>
         <div class="cx-hero-foot">
-          <span class="cx-cue" data-testid="cx-scroll-cue"><span class="cx-cue-line"></span><span class="cx-label">Scroll to remove the envelope</span></span>
-          <span class="cx-hero-state" data-testid="cx-hero-state">Completed architecture</span>
+          <span class="cx-cue" data-testid="cx-scroll-cue"><i></i><span class="cx-lbl">Scroll to inspect the structure</span></span>
+          <span class="cx-readout"><span class="cx-lbl">Reading</span><b data-testid="cx-hero-readout">Material</b></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= 02 STRUCTURE BEFORE SURFACE ================= -->
-  <section class="cx-seq cx-sec--dark" style="height:370vh" data-cx-steps="6"  data-testid="cx-section-02">
-    <div class="cx-seq-stage">
-      <div class="cx-seq-copy">
-        <span class="cx-num">02</span>
-        <h2 class="cx-h2">Structure before surface</h2>
-        <p class="cx-lead">Long-term building performance begins with the decisions that cannot be seen once construction is complete. Structural geometry, reinforcement detailing, concrete quality, foundations and the relationship between the structure and ground are established through engineering analysis before architectural finishes are considered.</p>
-        <div class="cx-seq-steps"><div class="cx-step" data-step="0" data-testid="cx-step-1"><span class="cx-step-i">01</span><span class="cx-step-t">Foundation</span><p class="cx-step-d">The interface between the structure and the ground, sized from geotechnical information and the loads above.</p></div><div class="cx-step" data-step="1" data-testid="cx-step-2"><span class="cx-step-i">02</span><span class="cx-step-t">Columns</span><p class="cx-step-d">Vertical load paths whose position and dimensions follow from the architectural grid and the analysis.</p></div><div class="cx-step" data-step="2" data-testid="cx-step-3"><span class="cx-step-i">03</span><span class="cx-step-t">Reinforced-concrete walls</span><p class="cx-step-d">Where required, walls provide lateral stiffness and strength in addition to carrying vertical load.</p></div><div class="cx-step" data-step="3" data-testid="cx-step-4"><span class="cx-step-i">04</span><span class="cx-step-t">Beams</span><p class="cx-step-d">Elements transferring floor loads to the vertical structure, detailed for both strength and ductility.</p></div><div class="cx-step" data-step="4" data-testid="cx-step-5"><span class="cx-step-i">05</span><span class="cx-step-t">Slabs</span><p class="cx-step-d">Floor plates that carry loads and tie the structure together as a horizontal diaphragm.</p></div><div class="cx-step" data-step="5" data-testid="cx-step-6"><span class="cx-step-i">06</span><span class="cx-step-t">Structural core</span><p class="cx-step-d">Vertical circulation and service zones that can also form part of the lateral-force-resisting system.</p></div></div>
-        <p class="cx-body" style="margin-top:10px">Structural systems are not standardised across projects. Each system is developed according to architectural configuration, ground conditions, building geometry, structural analysis and the seismic design requirements applicable to the site.</p>
+  <!-- ===================== STRUCTURAL SYSTEM ===================== -->
+  <section class="cx-sec cx-struct" style="height:600vh" data-testid="cx-section-structural">
+    <div class="cx-struct-stage">
+      <div class="cx-el-copy">
+        <span class="cx-idx">01 / Structure</span>
+        <h2 class="cx-h2" style="margin:10px 0 12px">Structural system</h2>
+        <p class="cx-p cx-p--s">The structural system is developed as a complete load path rather than as a collection of independent elements. Gravity actions, seismic effects and compatibility between foundations, vertical elements and floor diaphragms are evaluated within the same analytical model.</p>
+        <div class="cx-el-list" data-testid="cx-element-list" style="margin-top:14px"><button class="cx-el" data-testid="cx-element-1" data-el="0"><span class="cx-idx">01</span><span class="cx-el-t">Foundation</span><span class="cx-el-d">The foundation system transfers gravity and lateral actions from the superstructure into the supporting ground. Its geometry and stiffness are determined from structural demand together with project-specific geotechnical parameters.</span></button><button class="cx-el" data-testid="cx-element-2" data-el="1"><span class="cx-idx">02</span><span class="cx-el-t">Columns</span><span class="cx-el-d">Columns primarily form vertical load paths within the structural system. Their dimensions, reinforcement and interaction with beams and slabs are determined through structural analysis and detailing requirements.</span></button><button class="cx-el" data-testid="cx-element-3" data-el="2"><span class="cx-idx">03</span><span class="cx-el-t">Reinforced-concrete walls</span><span class="cx-el-d">Structural walls contribute substantial lateral stiffness and strength where required by the structural configuration. Their location, geometry and coupling with the remaining system influence global stiffness, torsional response and displacement distribution.</span></button><button class="cx-el" data-testid="cx-element-4" data-el="3"><span class="cx-idx">04</span><span class="cx-el-t">Beams</span><span class="cx-el-d">Beams transfer slab actions to the vertical structural system and participate in frame behaviour where required. Reinforcement detailing must provide the strength, anchorage and ductility assumed in structural analysis.</span></button><button class="cx-el" data-testid="cx-element-5" data-el="4"><span class="cx-idx">05</span><span class="cx-el-t">Slabs</span><span class="cx-el-d">Floor systems distribute gravity loads while also acting as diaphragms that transfer in-plane seismic actions between vertical lateral-force-resisting elements.</span></button><button class="cx-el" data-testid="cx-element-6" data-el="5"><span class="cx-idx">06</span><span class="cx-el-t">Structural core</span><span class="cx-el-d">Elevator and stair cores may form part of the lateral-force-resisting system where incorporated into the structural model. Their contribution depends on project geometry and the adopted structural solution.</span></button></div>
+        <p class="cx-note" style="margin-top:12px">No structural system is selected by template. Ground conditions, building geometry, architectural organisation and seismic performance requirements determine the system adopted for each project.</p>
       </div>
-      <div class="cx-seq-visual"><svg class="cx-dwg" viewBox="0 0 600 700" role="img" aria-label="Reinforced-concrete structural elevation">
-  <g class="cx-part" data-part="0">
-    <rect class="g-solid" x="58" y="600" width="484" height="44" />
-    <path class="g-line" d="M30 644 H570" />
-    <path class="g-hair" d="M70 648 l-22 26" /><path class="g-hair" d="M96 648 l-22 26" /><path class="g-hair" d="M122 648 l-22 26" /><path class="g-hair" d="M148 648 l-22 26" /><path class="g-hair" d="M174 648 l-22 26" /><path class="g-hair" d="M200 648 l-22 26" /><path class="g-hair" d="M226 648 l-22 26" /><path class="g-hair" d="M252 648 l-22 26" /><path class="g-hair" d="M278 648 l-22 26" /><path class="g-hair" d="M304 648 l-22 26" /><path class="g-hair" d="M330 648 l-22 26" /><path class="g-hair" d="M356 648 l-22 26" /><path class="g-hair" d="M382 648 l-22 26" /><path class="g-hair" d="M408 648 l-22 26" /><path class="g-hair" d="M434 648 l-22 26" /><path class="g-hair" d="M460 648 l-22 26" /><path class="g-hair" d="M486 648 l-22 26" /><path class="g-hair" d="M512 648 l-22 26" /><path class="g-hair" d="M538 648 l-22 26" /><path class="g-hair" d="M564 648 l-22 26" /><path class="g-hair" d="M590 648 l-22 26" /><path class="g-hair" d="M616 648 l-22 26" />
-  </g>
-  <g class="cx-part" data-part="1"><rect class="g-solid" x="111" y="90" width="18" height="510" /><rect class="g-solid" x="231" y="90" width="18" height="510" /><rect class="g-solid" x="351" y="90" width="18" height="510" /><rect class="g-solid" x="471" y="90" width="18" height="510" /></g>
-  <g class="cx-part" data-part="2"><rect class="g-solid" x="182" y="90" width="26" height="510" /><rect class="g-solid" x="392" y="90" width="26" height="510" /></g>
-  <g class="cx-part" data-part="3"><rect class="g-line" x="120" y="515" width="120" height="15" /><rect class="g-line" x="240" y="515" width="120" height="15" /><rect class="g-line" x="360" y="515" width="120" height="15" /><rect class="g-line" x="120" y="430" width="120" height="15" /><rect class="g-line" x="240" y="430" width="120" height="15" /><rect class="g-line" x="360" y="430" width="120" height="15" /><rect class="g-line" x="120" y="345" width="120" height="15" /><rect class="g-line" x="240" y="345" width="120" height="15" /><rect class="g-line" x="360" y="345" width="120" height="15" /><rect class="g-line" x="120" y="260" width="120" height="15" /><rect class="g-line" x="240" y="260" width="120" height="15" /><rect class="g-line" x="360" y="260" width="120" height="15" /><rect class="g-line" x="120" y="175" width="120" height="15" /><rect class="g-line" x="240" y="175" width="120" height="15" /><rect class="g-line" x="360" y="175" width="120" height="15" /><rect class="g-line" x="120" y="90" width="120" height="15" /><rect class="g-line" x="240" y="90" width="120" height="15" /><rect class="g-line" x="360" y="90" width="120" height="15" /></g>
-  <g class="cx-part" data-part="4"><rect class="g-solid" x="82" y="508" width="436" height="7" /><rect class="g-solid" x="82" y="423" width="436" height="7" /><rect class="g-solid" x="82" y="338" width="436" height="7" /><rect class="g-solid" x="82" y="253" width="436" height="7" /><rect class="g-solid" x="82" y="168" width="436" height="7" /><rect class="g-solid" x="82" y="83" width="436" height="7" /></g>
-  <g class="cx-part" data-part="5"><rect class="g-solid" x="268" y="90" width="64" height="510" /><path class="g-hair" d="M268 90 L332 600 M332 90 L268 600" /></g>
-  <path class="g-hair" d="M30 90 H570" />
-  <text x="30" y="80">STRUCTURAL ELEVATION — INDICATIVE</text>
-</svg></div>
+      <div class="cx-struct-model"><svg class="cx-dwg" viewBox="0 0 660 720" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><g class="cx-gr" data-el="4"><rect class="fillg" x="86" y="538" width="470" height="8" /><rect class="fillg" x="86" y="448" width="470" height="8" /><rect class="fillg" x="86" y="358" width="470" height="8" /><rect class="fillg" x="86" y="268" width="470" height="8" /><rect class="fillg" x="86" y="178" width="470" height="8" /><rect class="fillg" x="86" y="88" width="470" height="8" /></g><g class="cx-gr" data-el="3"><rect class="ln" x="120" y="546" width="120" height="14" /><rect class="ln" x="240" y="546" width="120" height="14" /><rect class="ln" x="360" y="546" width="120" height="14" /><rect class="ln" x="120" y="456" width="120" height="14" /><rect class="ln" x="240" y="456" width="120" height="14" /><rect class="ln" x="360" y="456" width="120" height="14" /><rect class="ln" x="120" y="366" width="120" height="14" /><rect class="ln" x="240" y="366" width="120" height="14" /><rect class="ln" x="360" y="366" width="120" height="14" /><rect class="ln" x="120" y="276" width="120" height="14" /><rect class="ln" x="240" y="276" width="120" height="14" /><rect class="ln" x="360" y="276" width="120" height="14" /><rect class="ln" x="120" y="186" width="120" height="14" /><rect class="ln" x="240" y="186" width="120" height="14" /><rect class="ln" x="360" y="186" width="120" height="14" /><rect class="ln" x="120" y="96" width="120" height="14" /><rect class="ln" x="240" y="96" width="120" height="14" /><rect class="ln" x="360" y="96" width="120" height="14" /></g><g class="cx-gr" data-el="1"><rect class="fillg" x="110" y="100" width="20" height="512" /><rect class="fillg" x="230" y="100" width="20" height="512" /><rect class="fillg" x="350" y="100" width="20" height="512" /><rect class="fillg" x="470" y="100" width="20" height="512" /><text x="40" y="94">Columns</text></g><g class="cx-gr" data-el="2"><rect class="fillg" x="176" y="100" width="30" height="512" /><rect class="fillg" x="404" y="100" width="30" height="512" /><text x="470" y="94">RC walls</text></g><g class="cx-gr" data-el="5"><rect class="fillg" x="266" y="100" width="76" height="512" /><path class="hid" d="M266 100 L342 612 M342 100 L266 612" /><text x="356" y="330">Structural core</text></g><g class="cx-gr" data-el="0"><rect class="fillg" x="70" y="612" width="520" height="46" /><path class="ln" d="M40 658 H620" /><path class="ln-2" d="M60 662 l-16 20" /><path class="ln-2" d="M86 662 l-16 20" /><path class="ln-2" d="M112 662 l-16 20" /><path class="ln-2" d="M138 662 l-16 20" /><path class="ln-2" d="M164 662 l-16 20" /><path class="ln-2" d="M190 662 l-16 20" /><path class="ln-2" d="M216 662 l-16 20" /><path class="ln-2" d="M242 662 l-16 20" /><path class="ln-2" d="M268 662 l-16 20" /><path class="ln-2" d="M294 662 l-16 20" /><path class="ln-2" d="M320 662 l-16 20" /><path class="ln-2" d="M346 662 l-16 20" /><path class="ln-2" d="M372 662 l-16 20" /><path class="ln-2" d="M398 662 l-16 20" /><path class="ln-2" d="M424 662 l-16 20" /><path class="ln-2" d="M450 662 l-16 20" /><path class="ln-2" d="M476 662 l-16 20" /><path class="ln-2" d="M502 662 l-16 20" /><path class="ln-2" d="M528 662 l-16 20" /><path class="ln-2" d="M554 662 l-16 20" /><path class="ln-2" d="M580 662 l-16 20" /><path class="ln-2" d="M606 662 l-16 20" /><path class="ln-2" d="M632 662 l-16 20" /><text x="40" y="700">Foundation &mdash; project specific</text></g><path class="ln-2" d="M40 100 H620" /><text x="330" y="700">Structural model &mdash; indicative</text></svg></div>
     </div>
   </section>
 
-  <!-- ================= 03 SEISMIC ================= -->
-  <section class="cx-seq cx-sec--dark" style="height:280vh" data-cx-steps="4"  data-cx-mode="single" data-testid="cx-section-03">
-    <div class="cx-seq-stage">
-      <div class="cx-seq-copy">
-        <span class="cx-num">03</span>
-        <h2 class="cx-h2">Designed for Istanbul</h2>
-        <p class="cx-lead">In Istanbul, seismic design is not a secondary engineering consideration. It is one of the fundamental parameters shaping the structure from the earliest design stages.</p>
-        <div class="cx-seq-steps"><div class="cx-step" data-step="0" data-testid="cx-step-1"><span class="cx-step-i">01</span><span class="cx-step-t">Gravity actions</span><p class="cx-step-d">Permanent and imposed loads are established first; the structure must satisfy them before any seismic consideration.</p></div><div class="cx-step" data-step="1" data-testid="cx-step-2"><span class="cx-step-i">02</span><span class="cx-step-t">Lateral action</span><p class="cx-step-d">Seismic action is applied as a design demand derived from the hazard parameters for the site.</p></div><div class="cx-step" data-step="2" data-testid="cx-step-3"><span class="cx-step-i">03</span><span class="cx-step-t">Structural response</span><p class="cx-step-d">Configuration, stiffness and ductility govern how displacement is distributed over the height of the building.</p></div><div class="cx-step" data-step="3" data-testid="cx-step-4"><span class="cx-step-i">04</span><span class="cx-step-t">Foundation and ground</span><p class="cx-step-d">Actions are transferred to the foundation and into the ground; foundation behaviour is part of the analysis.</p></div></div>
-        <p class="cx-body" style="margin-top:10px">Structural design is developed in accordance with the applicable provisions of the T&uuml;rkiye Bina Deprem Y&ouml;netmeli&#287;i and the seismic hazard parameters defined for the project location through the T&uuml;rkiye Deprem Tehlike Haritalar&#305;.</p>
+  <!-- ===================== SEISMIC ===================== -->
+  <section class="cx-sec cx-seis" style="height:520vh" data-testid="cx-section-seismic">
+    <div class="cx-seis-stage">
+      <div class="cx-seis-viz">
+        <svg class="cx-dwg" viewBox="0 0 620 640" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><g data-sq="0"><g class="cx-defframe" data-frame="0"><rect class="ln" x="150" y="160" width="300" height="7" /><rect class="ln-2" x="160" y="160" width="12" height="90" /><rect class="ln-2" x="428" y="160" width="12" height="90" /></g><g class="cx-defframe" data-frame="1"><rect class="ln" x="150" y="250" width="300" height="7" /><rect class="ln-2" x="160" y="250" width="12" height="90" /><rect class="ln-2" x="428" y="250" width="12" height="90" /></g><g class="cx-defframe" data-frame="2"><rect class="ln" x="150" y="340" width="300" height="7" /><rect class="ln-2" x="160" y="340" width="12" height="90" /><rect class="ln-2" x="428" y="340" width="12" height="90" /></g><g class="cx-defframe" data-frame="3"><rect class="ln" x="150" y="430" width="300" height="7" /><rect class="ln-2" x="160" y="430" width="12" height="90" /><rect class="ln-2" x="428" y="430" width="12" height="90" /></g><g class="cx-defframe" data-frame="4"><rect class="ln" x="150" y="520" width="300" height="7" /><rect class="ln-2" x="160" y="520" width="12" height="90" /><rect class="ln-2" x="428" y="520" width="12" height="90" /></g><rect class="fillg" x="120" y="560" width="360" height="34" /><path class="ln" d="M40 594 H580" /><path class="ln-2" d="M60 598 l-14 18" /><path class="ln-2" d="M86 598 l-14 18" /><path class="ln-2" d="M112 598 l-14 18" /><path class="ln-2" d="M138 598 l-14 18" /><path class="ln-2" d="M164 598 l-14 18" /><path class="ln-2" d="M190 598 l-14 18" /><path class="ln-2" d="M216 598 l-14 18" /><path class="ln-2" d="M242 598 l-14 18" /><path class="ln-2" d="M268 598 l-14 18" /><path class="ln-2" d="M294 598 l-14 18" /><path class="ln-2" d="M320 598 l-14 18" /><path class="ln-2" d="M346 598 l-14 18" /><path class="ln-2" d="M372 598 l-14 18" /><path class="ln-2" d="M398 598 l-14 18" /><path class="ln-2" d="M424 598 l-14 18" /><path class="ln-2" d="M450 598 l-14 18" /><path class="ln-2" d="M476 598 l-14 18" /><path class="ln-2" d="M502 598 l-14 18" /><path class="ln-2" d="M528 598 l-14 18" /><path class="ln-2" d="M554 598 l-14 18" /><path class="ln-2" d="M580 598 l-14 18" /><text class="cx-sq0-label" x="40" y="42" style="transition:opacity .5s">Undeformed analytical model</text></g><g data-sq="1"><path class="hot" d="M60 524 h58 m0 0 l-11 -6 m11 6 l-11 6" /><path class="hot" d="M68 434 h50 m0 0 l-11 -6 m11 6 l-11 6" /><path class="hot" d="M76 344 h42 m0 0 l-11 -6 m11 6 l-11 6" /><path class="hot" d="M84 254 h34 m0 0 l-11 -6 m11 6 l-11 6" /><path class="hot" d="M92 164 h26 m0 0 l-11 -6 m11 6 l-11 6" /><text x="40" y="628">Applied lateral action</text></g><g data-sq="2"><path class="hot" id="cxDefShape" d="M300 560 C 300 470, 316 380, 330 290 C 342 220, 348 186, 352 160" /><path class="hid" d="M300 560 V160" /></g><g data-sq="3"><path class="dim" d="M470 520 h56 M470 516 v8 M526 516 v8" /><text class="t-dim" x="474" y="512">Drift &mdash; storey 5</text><path class="dim" d="M470 430 h56 M470 426 v8 M526 426 v8" /><text class="t-dim" x="474" y="422">Drift &mdash; storey 4</text><path class="dim" d="M470 340 h56 M470 336 v8 M526 336 v8" /><text class="t-dim" x="474" y="332">Drift &mdash; storey 3</text><path class="dim" d="M470 250 h56 M470 246 v8 M526 246 v8" /><text class="t-dim" x="474" y="242">Drift &mdash; storey 2</text><path class="dim" d="M470 160 h56 M470 156 v8 M526 156 v8" /><text class="t-dim" x="474" y="152">Drift &mdash; storey 1</text></g><g data-sq="4"><path class="hot" d="M170 600 v30 M170 630 l-6 -11 M170 630 l6 -11 M430 600 v30 M430 630 l-6 -11 M430 630 l6 -11" /><text x="200" y="628">Base reactions</text></g></svg>
+        <span class="cx-seis-caption cx-lbl cx-lbl--warm" data-testid="cx-seis-disclaimer">Amplified for visualisation &mdash; not to scale</span>
       </div>
-      <div class="cx-seq-visual"><svg class="cx-dwg" viewBox="0 0 620 640" role="img" aria-label="Structural response diagram">
-  <g>
-    <rect class="g-line" x="142" y="90" width="16" height="450" /><rect class="g-line" x="282" y="90" width="16" height="450" /><rect class="g-line" x="422" y="90" width="16" height="450" />
-    <rect class="g-solid" x="132" y="90" width="316" height="7" /><rect class="g-solid" x="132" y="180" width="316" height="7" /><rect class="g-solid" x="132" y="270" width="316" height="7" /><rect class="g-solid" x="132" y="360" width="316" height="7" /><rect class="g-solid" x="132" y="450" width="316" height="7" />
-    <rect class="g-solid" x="70" y="540" width="440" height="40" />
-    <path class="g-line" d="M40 580 H580" />
-  </g>
-  <g class="cx-part" data-part="0">
-    <path class="g-accent" d="M200 100 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M380 100 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M200 190 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M380 190 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M200 280 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M380 280 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M200 370 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M380 370 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M200 460 v26 m0 0 l-6 -10 m6 10 l6 -10" /><path class="g-accent" d="M380 460 v26 m0 0 l-6 -10 m6 10 l6 -10" />
-    <text x="40" y="70">GRAVITY ACTIONS</text>
-  </g>
-  <g class="cx-part" data-part="1">
-    <path class="g-accent" d="M12 97 h58 m0 0 l-11 -6 m11 6 l-11 6" /><path class="g-accent" d="M22 187 h48 m0 0 l-11 -6 m11 6 l-11 6" /><path class="g-accent" d="M32 277 h38 m0 0 l-11 -6 m11 6 l-11 6" /><path class="g-accent" d="M42 367 h28 m0 0 l-11 -6 m11 6 l-11 6" /><path class="g-accent" d="M50 457 h20 m0 0 l-11 -6 m11 6 l-11 6" />
-    <text x="40" y="612">LATERAL ACTION</text>
-  </g>
-  <g class="cx-part" data-part="2">
-    <path class="g-accent" d="M290 540 C 290 430, 318 320, 336 210 C 348 148, 352 118, 354 90" />
-    <path class="g-hair" d="M290 540 V90" />
-    <text x="372" y="96">DISPLACEMENT PROFILE</text>
-  </g>
-  <g class="cx-part" data-part="3">
-    <path class="g-accent" d="M150 596 v34 M150 630 l-7 -12 M150 630 l7 -12 M450 596 v34 M450 630 l-7 -12 M450 630 l7 -12" />
-    <path class="g-hair" d="M80 610 l-20 24" /><path class="g-hair" d="M104 610 l-20 24" /><path class="g-hair" d="M128 610 l-20 24" /><path class="g-hair" d="M152 610 l-20 24" /><path class="g-hair" d="M176 610 l-20 24" /><path class="g-hair" d="M200 610 l-20 24" /><path class="g-hair" d="M224 610 l-20 24" /><path class="g-hair" d="M248 610 l-20 24" /><path class="g-hair" d="M272 610 l-20 24" /><path class="g-hair" d="M296 610 l-20 24" /><path class="g-hair" d="M320 610 l-20 24" /><path class="g-hair" d="M344 610 l-20 24" /><path class="g-hair" d="M368 610 l-20 24" /><path class="g-hair" d="M392 610 l-20 24" /><path class="g-hair" d="M416 610 l-20 24" /><path class="g-hair" d="M440 610 l-20 24" /><path class="g-hair" d="M464 610 l-20 24" /><path class="g-hair" d="M488 610 l-20 24" /><path class="g-hair" d="M512 610 l-20 24" /><path class="g-hair" d="M536 610 l-20 24" /><path class="g-hair" d="M560 610 l-20 24" /><path class="g-hair" d="M584 610 l-20 24" /><path class="g-hair" d="M608 610 l-20 24" />
-    <text x="40" y="636">BASE REACTIONS — GROUND</text>
-  </g>
-</svg></div>
+      <div>
+        <span class="cx-idx">02 / Seismic</span>
+        <h2 class="cx-h2" style="margin:10px 0 6px">Seismic design</h2>
+        <p class="cx-lbl" style="margin-bottom:12px">Structural response is a system property.</p>
+        <p class="cx-p cx-p--s">For projects in Istanbul, seismic actions form a fundamental design condition from the earliest stages of structural development. Structural analysis is carried out using the seismic design framework established by the T&uuml;rkiye Bina Deprem Y&ouml;netmeli&#287;i 2018 and site-specific hazard parameters obtained through the T&uuml;rkiye Deprem Tehlike Haritas&#305;.</p>
+        <p class="cx-p cx-p--s" style="margin-top:10px">The purpose of seismic design is not to make a single column, wall or beam independently &ldquo;strong&rdquo;. Global behaviour is governed by the interaction between mass, stiffness, strength, ductility, geometry, foundation conditions and the distribution of lateral-resisting elements throughout the building.</p>
+        <div class="cx-state-list" style="margin-top:16px"><div class="cx-state" data-testid="cx-seis-state-1"><span class="cx-idx">01</span><b>Undeformed model</b><p>Analytical model of mass, stiffness and geometry before lateral action is applied.</p></div><div class="cx-state" data-testid="cx-seis-state-2"><span class="cx-idx">02</span><b>Applied lateral action</b><p>Seismic action derived from site hazard parameters and the adopted design system.</p></div><div class="cx-state" data-testid="cx-seis-state-3"><span class="cx-idx">03</span><b>Deformation shape</b><p>Analytical displacement distribution over the height of the structure.</p></div><div class="cx-state" data-testid="cx-seis-state-4"><span class="cx-idx">04</span><b>Storey drift</b><p>Relative lateral displacement between consecutive floors, evaluated against design limits.</p></div><div class="cx-state" data-testid="cx-seis-state-5"><span class="cx-idx">05</span><b>Base reactions</b><p>Actions transferred through the foundation into the supporting ground.</p></div></div>
+      </div>
     </div>
   </section>
 
-  <section class="cx-sec cx-sec--dark cx-sec--tight" data-testid="cx-section-03b">
+  <section class="cx-sec" style="padding-top:0" data-testid="cx-section-seismic-factors">
     <div class="cx-wrap">
-      <div class="cx-rule"></div>
-      <div class="cx-head">
-        <h3 class="cx-h2" style="font-size:clamp(22px,2.4vw,34px)" data-cx-fade>Seismic performance begins with engineering.</h3>
-        <p class="cx-body" data-cx-fade>Design parameters are project specific. The following are considered together rather than in isolation, since seismic behaviour is a property of the whole structure and not of a single element.</p>
-      </div>
-      <div class="cx-log-items" style="margin-top:38px" data-cx-stagger>
-        <div data-cx-fade>Site-specific ground information</div>
-        <div data-cx-fade>Seismic hazard parameters for the location</div>
-        <div data-cx-fade>Structural configuration and regularity</div>
-        <div data-cx-fade>Mass distribution</div>
-        <div data-cx-fade>Stiffness distribution</div>
-        <div data-cx-fade>Lateral-force-resisting systems</div>
-        <div data-cx-fade>Ductility and detailing requirements</div>
-        <div data-cx-fade>Displacement and inter-storey drift</div>
-        <div data-cx-fade>Foundation behaviour</div>
-        <div data-cx-fade>Interaction between structural components</div>
-      </div>
+      <div class="cx-tickrule"></div>
+      <span class="cx-lbl" data-cx-in>Design parameters evaluated together</span>
+      <div class="cx-facs" style="margin-top:22px"><div class="cx-fac" data-cx-in><span class="cx-idx">01</span><b>Seismic hazard</b><p>Ground-motion parameters applicable to the project location.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">02</span><b>Site conditions</b><p>Geotechnical parameters and local soil behaviour relevant to structural design.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">03</span><b>Mass distribution</b><p>Distribution of seismic mass through the building height and plan.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">04</span><b>Stiffness distribution</b><p>Relative stiffness of structural elements governing deformation and force distribution.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">05</span><b>Torsional response</b><p>Relationship between mass distribution and structural stiffness in plan.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">06</span><b>Ductility</b><p>Ability of designated structural mechanisms to sustain inelastic deformation in accordance with the adopted design system.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">07</span><b>Inter-storey drift</b><p>Relative lateral displacement between consecutive floors, controlled within applicable design limits.</p></div><div class="cx-fac" data-cx-in><span class="cx-idx">08</span><b>Foundation response</b><p>Transfer of structural actions into the supporting foundation and ground system.</p></div></div>
     </div>
   </section>
 
-  <!-- ================= 04 GROUND & FOUNDATION ================= -->
-  <section class="cx-sec cx-light" data-testid="cx-section-04">
+  <!-- ===================== GROUND / FOUNDATION ===================== -->
+  <section class="cx-sec cx-cut" data-testid="cx-section-ground">
     <div class="cx-wrap">
-      <div class="cx-head">
+      <div class="cx-sechead">
         <div>
-          <span class="cx-num" data-cx-fade>04</span>
-          <h2 class="cx-h2" data-cx-fade>Every structure begins below ground.</h2>
-        </div>
-        <p class="cx-lead" data-cx-fade>The behaviour of a building begins with the ground supporting it. Geotechnical information informs foundation design, excavation strategy, groundwater considerations and the relationship between the superstructure and its foundations.</p>
-      </div>
-      <div class="cx-rule"></div>
-      <div class="cx-ground">
-        <div class="cx-ground-fig">
-          <div class="cx-ground-photo" data-cx-fade>
-            <img src="./media/images/construction/foundation.webp" alt="Foundation construction seen from above" width="1800" height="1200" loading="lazy" decoding="async" data-cx-parallax="0.05" />
-          </div>
-          <div class="cx-chain" data-cx-fade data-testid="cx-ground-chain">
-            <span>Ground</span><i></i><span>Foundation</span><i></i><span>Structure</span>
-          </div>
-          <p class="cx-body" style="margin-top:22px">Foundation systems differ between developments. The system for each project follows from its geotechnical report, excavation depth, groundwater conditions and the loads transferred by the superstructure.</p>
-        </div>
-        <div data-cx-draw="sequential" data-cx-start="top 78%" data-cx-end="bottom 55%"><svg class="cx-dwg" viewBox="0 0 620 860" role="img" aria-label="Ground and foundation section">
-  <path pathLength="1" class="g-line" d="M40 150 H580" />
-  <text x="40" y="140">GROUND LEVEL / LANDSCAPE</text>
-  <path pathLength="1" class="g-hair" d="M120 150 V90 M180 150 V104 M240 150 V96 M300 150 V88 M360 150 V102 M420 150 V94 M480 150 V98" />
-  <path pathLength="1" class="g-solid" d="M120 150 H500 V300 H120 Z" />
-  <text x="140" y="235">BASEMENT LEVEL — 01</text>
-  <path pathLength="1" class="g-solid" d="M120 300 H500 V450 H120 Z" />
-  <text x="140" y="385">BASEMENT LEVEL — 02</text>
-  <path pathLength="1" class="g-line" d="M104 150 V470 M516 150 V470" />
-  <text x="40" y="470">RETAINING ELEMENTS</text>
-  <path pathLength="1" class="g-fill-accent" d="M96 470 H524 V530 H96 Z" />
-  <text x="40" y="558">FOUNDATION SYSTEM — PROJECT SPECIFIC</text>
-  <path pathLength="1" class="g-line" d="M40 590 H580" />
-  <text x="40" y="612">SOIL STRATUM A</text>
-  <path pathLength="1" class="g-line" d="M40 660 H580" />
-  <text x="40" y="682">SOIL STRATUM B</text>
-  <path pathLength="1" class="g-line" d="M40 730 H580" />
-  <text x="40" y="752">SOIL STRATUM C</text>
-  <path pathLength="1" class="g-hair" d="M40 800 H580" />
-  <text x="40" y="822">GEOTECHNICAL INVESTIGATION DEPTH — PROJECT SPECIFIC</text>
-  <path pathLength="1" class="g-hair" d="M70 600 l-16 18 M70 670 l-16 18 M70 740 l-16 18" /><path pathLength="1" class="g-hair" d="M110 600 l-16 18 M110 670 l-16 18 M110 740 l-16 18" /><path pathLength="1" class="g-hair" d="M150 600 l-16 18 M150 670 l-16 18 M150 740 l-16 18" /><path pathLength="1" class="g-hair" d="M190 600 l-16 18 M190 670 l-16 18 M190 740 l-16 18" /><path pathLength="1" class="g-hair" d="M230 600 l-16 18 M230 670 l-16 18 M230 740 l-16 18" /><path pathLength="1" class="g-hair" d="M270 600 l-16 18 M270 670 l-16 18 M270 740 l-16 18" /><path pathLength="1" class="g-hair" d="M310 600 l-16 18 M310 670 l-16 18 M310 740 l-16 18" /><path pathLength="1" class="g-hair" d="M350 600 l-16 18 M350 670 l-16 18 M350 740 l-16 18" /><path pathLength="1" class="g-hair" d="M390 600 l-16 18 M390 670 l-16 18 M390 740 l-16 18" /><path pathLength="1" class="g-hair" d="M430 600 l-16 18 M430 670 l-16 18 M430 740 l-16 18" /><path pathLength="1" class="g-hair" d="M470 600 l-16 18 M470 670 l-16 18 M470 740 l-16 18" /><path pathLength="1" class="g-hair" d="M510 600 l-16 18 M510 670 l-16 18 M510 740 l-16 18" /><path pathLength="1" class="g-hair" d="M550 600 l-16 18 M550 670 l-16 18 M550 740 l-16 18" /><path pathLength="1" class="g-hair" d="M590 600 l-16 18 M590 670 l-16 18 M590 740 l-16 18" />
-</svg></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 05 REINFORCED CONCRETE ================= -->
-  <section class="cx-seq cx-sec--dark" style="height:370vh" data-cx-steps="6"  data-testid="cx-section-05">
-    <div class="cx-seq-stage">
-      <div class="cx-seq-copy">
-        <span class="cx-num">05</span>
-        <h2 class="cx-h2">Concrete is a system, not a surface.</h2>
-        <p class="cx-lead">Concrete performance depends on more than its specified strength class. Mix design, production consistency, transportation, placement, compaction, curing, reinforcement detailing, cover and execution conditions collectively determine the quality of the completed structural element.</p>
-        <div class="cx-seq-steps"><div class="cx-step" data-step="0" data-testid="cx-step-1"><span class="cx-step-i">01</span><span class="cx-step-t">Reinforcement detailing</span><p class="cx-step-d">Bar arrangement, spacing and cover are set out and checked before the element is closed.</p></div><div class="cx-step" data-step="1" data-testid="cx-step-2"><span class="cx-step-i">02</span><span class="cx-step-t">Formwork</span><p class="cx-step-d">Geometry, tightness and stability of the formwork determine both dimensions and surface quality.</p></div><div class="cx-step" data-step="2" data-testid="cx-step-3"><span class="cx-step-i">03</span><span class="cx-step-t">Concrete placement</span><p class="cx-step-d">Placement is planned in sequence and in layers appropriate to the element being cast.</p></div><div class="cx-step" data-step="3" data-testid="cx-step-4"><span class="cx-step-i">04</span><span class="cx-step-t">Compaction</span><p class="cx-step-d">Compaction removes entrapped air so that concrete fully surrounds the reinforcement.</p></div><div class="cx-step" data-step="4" data-testid="cx-step-5"><span class="cx-step-i">05</span><span class="cx-step-t">Curing</span><p class="cx-step-d">Early-age protection and moisture retention are decisive for durability, not only for strength.</p></div><div class="cx-step" data-step="5" data-testid="cx-step-6"><span class="cx-step-i">06</span><span class="cx-step-t">Quality control</span><p class="cx-step-d">Conformity records, sampling and inspection accompany each stage rather than concluding it.</p></div></div>
-        <p class="cx-body" style="margin-top:10px">Concrete is specified, produced and assessed for conformity under TS EN 206 together with its complementary national standard TS 13515; reinforced-concrete design and execution follow TS 500 in its applicable current edition.</p>
-      </div>
-      <div class="cx-seq-visual"><svg class="cx-dwg" viewBox="0 0 600 520" role="img" aria-label="Reinforced-concrete element sequence">
-  <g class="cx-part" data-part="0">
-    <rect class="g-line" x="200" y="120" width="200" height="280" />
-    <rect class="g-line" x="222" y="142" width="156" height="236" />
-    <circle class="g-accent" cx="232" cy="152" r="6" /><circle class="g-accent" cx="232" cy="368" r="6" /><circle class="g-accent" cx="300" cy="152" r="6" /><circle class="g-accent" cx="300" cy="368" r="6" /><circle class="g-accent" cx="368" cy="152" r="6" /><circle class="g-accent" cx="368" cy="368" r="6" />
-    <text x="410" y="132">REINFORCEMENT CAGE</text>
-  </g>
-  <g class="cx-part" data-part="1">
-    <rect class="g-solid" x="166" y="96" width="34" height="328" />
-    <rect class="g-solid" x="400" y="96" width="34" height="328" />
-    <path class="g-hair" d="M150 150 H450 M150 250 H450 M150 350 H450" />
-    <text x="60" y="90">FORMWORK &amp; TIES</text>
-  </g>
-  <g class="cx-part" data-part="2">
-    <rect class="g-fill-accent" x="200" y="120" width="200" height="280" />
-    <path class="g-accent" d="M300 60 v40 m0 0 l-8 -14 m8 14 l8 -14" />
-    <text x="316" y="76">PLACEMENT</text>
-  </g>
-  <g class="cx-part" data-part="3">
-    <path class="g-accent" d="M300 130 v250" />
-    <path class="g-hair" d="M262 180 q38 26 76 0 M262 240 q38 26 76 0 M262 300 q38 26 76 0" />
-    <text x="410" y="256">COMPACTION</text>
-  </g>
-  <g class="cx-part" data-part="4">
-    <path class="g-hair" d="M200 108 H400 M200 412 H400" />
-    <path class="g-accent" d="M208 120 v280 M392 120 v280" />
-    <text x="410" y="404">CURING &amp; PROTECTION</text>
-  </g>
-  <g class="cx-part" data-part="5">
-    <rect class="g-solid" x="200" y="120" width="200" height="280" />
-    <path class="g-accent" d="M200 440 H400 M200 434 v12 M400 434 v12" />
-    <text x="200" y="470">STRUCTURAL ELEMENT — AS EXECUTED</text>
-  </g>
-</svg></div>
-    </div>
-  </section>
-
-  <!-- ================= 06 REINFORCEMENT & DETAILING ================= -->
-  <section class="cx-sec cx-sec--dark" data-testid="cx-section-06">
-    <div class="cx-wrap">
-      <div class="cx-head">
-        <div>
-          <span class="cx-num" data-cx-fade>06</span>
-          <h2 class="cx-h2" data-cx-fade>Details carry the design into reality.</h2>
-        </div>
-        <p class="cx-lead" data-cx-fade>Structural calculations define the required behaviour of the building. Detailing and execution translate that design into the built structure. Reinforcement continuity, anchorage, lap regions, confinement, spacing and concrete cover are therefore treated as engineering requirements rather than construction formalities.</p>
-      </div>
-      <div class="cx-rule"></div>
-      <div class="cx-env">
-        <div class="cx-anno-fig" data-cx-fade data-cx-draw="sequential" data-cx-start="top 80%" data-cx-end="bottom 58%">
-          <img src="./media/images/construction/rebar-macro.webp" alt="Reinforcement before concrete placement" width="1500" height="2666" loading="lazy" decoding="async" />
-          <svg class="cx-anno-dwg" viewBox="0 0 600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <g data-pin="1"><path pathLength="1" class="g-accent" d="M60 250 H540" /></g>
-            <g data-pin="2"><path pathLength="1" class="g-accent" d="M60 500 H540" /></g>
-            <g data-pin="3"><path pathLength="1" class="g-accent" d="M60 750 H540" /></g>
-            <g data-pin="4"><path pathLength="1" class="g-accent" d="M96 120 H504 V880 H96 Z" /></g>
-            <g data-pin="5"><path pathLength="1" class="g-accent" d="M150 120 V880 M300 120 V880 M450 120 V880" /></g>
-            <g data-pin="6"><path pathLength="1" class="g-accent" d="M126 152 H474 V848 H126 Z" /></g>
-          </svg>
-        </div>
-        <div class="cx-anno-list" data-cx-pins=".cx-anno-dwg" data-testid="cx-detail-pins">
-          <button class="cx-pin" data-pin="1" data-testid="cx-pin-continuity" aria-expanded="false"><span class="cx-pin-i">A.01</span><span class="cx-pin-t">Continuity</span><span class="cx-pin-d">Reinforcement is detailed so that forces can travel through the element and into adjoining members without interruption.</span></button>
-          <button class="cx-pin" data-pin="2" data-testid="cx-pin-anchorage" aria-expanded="false"><span class="cx-pin-i">A.02</span><span class="cx-pin-t">Anchorage</span><span class="cx-pin-d">Bars are anchored so that the design force can be developed within the surrounding concrete rather than at the bar end alone.</span></button>
-          <button class="cx-pin" data-pin="3" data-testid="cx-pin-laps" aria-expanded="false"><span class="cx-pin-i">A.03</span><span class="cx-pin-t">Lap regions</span><span class="cx-pin-d">Lap positions and lengths are set by the structural design; their location within an element matters as much as their length.</span></button>
-          <button class="cx-pin" data-pin="4" data-testid="cx-pin-confinement" aria-expanded="false"><span class="cx-pin-i">A.04</span><span class="cx-pin-t">Confinement</span><span class="cx-pin-d">Transverse reinforcement confines the concrete core and holds longitudinal bars in position, which is central to ductile behaviour.</span></button>
-          <button class="cx-pin" data-pin="5" data-testid="cx-pin-spacing" aria-expanded="false"><span class="cx-pin-i">A.05</span><span class="cx-pin-t">Spacing</span><span class="cx-pin-d">Bar spacing is coordinated with aggregate size and placement method so that concrete can fully surround every bar.</span></button>
-          <button class="cx-pin" data-pin="6" data-testid="cx-pin-cover" aria-expanded="false"><span class="cx-pin-i">A.06</span><span class="cx-pin-t">Concrete cover</span><span class="cx-pin-d">Cover protects reinforcement over the life of the building; it is checked before placement, not corrected afterwards.</span></button>
-          <p class="cx-body" style="margin-top:22px">Reinforcing steel is specified to the applicable current Turkish standard for steel for the reinforcement of concrete, as referenced by TS 500. Project drawings and bar schedules govern all dimensions.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 07 QUALITY CONTROL ================= -->
-  <section class="cx-sec cx-light" data-testid="cx-section-07">
-    <div class="cx-wrap">
-      <div class="cx-head">
-        <div>
-          <span class="cx-num" data-cx-fade>07</span>
-          <h2 class="cx-h2" data-cx-fade>Quality is verified through process.</h2>
-        </div>
-        <p class="cx-lead" data-cx-fade>Construction quality is established through repeated control at each stage rather than a single inspection at completion. Materials, reinforcement, formwork, concrete placement, waterproofing interfaces and architectural details are reviewed throughout the construction process.</p>
-      </div>
-      <div class="cx-rule"></div>
-      <div class="cx-log">
-        <div class="cx-log-index" data-testid="cx-log-index">
-          <button data-testid="cx-log-btn-1"><i></i>Before pour</button>
-          <button data-testid="cx-log-btn-2"><i></i>During pour</button>
-          <button data-testid="cx-log-btn-3"><i></i>After pour</button>
-          <button data-testid="cx-log-btn-4"><i></i>Enclosure</button>
-          <button data-testid="cx-log-btn-5"><i></i>Finishing</button>
+          <span class="cx-idx" data-cx-in>03 / Ground</span>
+          <h2 class="cx-h2" data-cx-in style="margin-top:12px">Ground / foundation interaction</h2>
         </div>
         <div>
-          <article class="cx-log-entry" data-testid="cx-log-entry-1">
-            <span class="cx-num">01</span><h3>Before pour</h3>
-            <div class="cx-log-items">
-              <div>Reinforcement configuration against the approved drawings and bar schedules</div>
-              <div>Formwork alignment, stability, tightness and release preparation</div>
-              <div>Dimensional control: axes, levels, section sizes</div>
-              <div>Embedded elements, sleeves and service penetrations in position</div>
-              <div>Concrete cover confirmed by spacers before closing the formwork</div>
-              <div>Access and placement route agreed for the element</div>
-            </div>
-          </article>
-          <article class="cx-log-entry" data-testid="cx-log-entry-2">
-            <span class="cx-num">02</span><h3>During pour</h3>
-            <div class="cx-log-items">
-              <div>Delivery coordination with the concrete plant and site sequence</div>
-              <div>Placement sequence and layer thickness suited to the element</div>
-              <div>Compaction discipline, avoiding both under- and over-vibration</div>
-              <div>Execution conditions: temperature, weather, continuity of supply</div>
-              <div>Conformity documentation collected with each delivery</div>
-              <div>Sampling carried out in line with the applicable standard requirements</div>
-            </div>
-          </article>
-          <article class="cx-log-entry" data-testid="cx-log-entry-3">
-            <span class="cx-num">03</span><h3>After pour</h3>
-            <div class="cx-log-items">
-              <div>Curing regime maintained for the required period</div>
-              <div>Formwork removal timing according to the structural design</div>
-              <div>Visual inspection of the struck surface and detail zones</div>
-              <div>Dimensional and level control of the completed element</div>
-              <div>Preparation of construction joints and interfaces for the next stage</div>
-              <div>Records kept per element and per pour</div>
-            </div>
-          </article>
-          <article class="cx-log-entry" data-testid="cx-log-entry-4">
-            <span class="cx-num">04</span><h3>Enclosure</h3>
-            <div class="cx-log-items">
-              <div>Waterproofing continuity at foundations, retaining elements and roofs</div>
-              <div>Insulation continuity and thermal bridge detailing</div>
-              <div>Facade and glazing interfaces, fixings and tolerances</div>
-              <div>Water testing of critical interfaces before covering</div>
-              <div>Coordination of service penetrations through the envelope</div>
-              <div>Protection of completed work during following trades</div>
-            </div>
-          </article>
-          <article class="cx-log-entry" data-testid="cx-log-entry-5">
-            <span class="cx-num">05</span><h3>Finishing</h3>
-            <div class="cx-log-items">
-              <div>Wet-area waterproofing and drainage falls before finishes</div>
-              <div>Acoustic detailing at partitions, floors and service routes</div>
-              <div>Mechanical and electrical commissioning against design intent</div>
-              <div>Substrate and tolerance checks ahead of architectural finishes</div>
-              <div>Snagging by apartment, reviewed and re-inspected</div>
-              <div>Handover documentation compiled per unit</div>
-            </div>
-          </article>
+          <p class="cx-p" data-cx-in>Foundation design begins with the geotechnical model of the site. Soil stratification, groundwater conditions, excavation geometry and engineering parameters obtained from ground investigation influence the foundation solution and below-ground construction strategy.</p>
+          <p class="cx-p cx-p--s" data-cx-in style="margin-top:12px">Structural loads and geotechnical response are therefore considered as connected design problems rather than independent disciplines.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ================= 08 WATERPROOFING ================= -->
-  <section class="cx-seq cx-sec--dark" style="height:370vh" data-cx-steps="6"  data-testid="cx-section-08">
-    <div class="cx-seq-stage">
-      <div class="cx-seq-copy">
-        <span class="cx-num">08</span>
-        <h2 class="cx-h2">Durability starts at the interfaces.</h2>
-        <p class="cx-lead">Waterproofing is not treated as a finishing operation. Foundations, retaining elements, roofs, terraces, balconies and wet areas require continuity between individual waterproofing details if the building envelope is to perform as intended over time.</p>
-        <div class="cx-seq-steps"><div class="cx-step" data-step="0" data-testid="cx-step-1"><span class="cx-step-i">01</span><span class="cx-step-t">Ground and water contact</span><p class="cx-step-d">Soil and groundwater conditions define the exposure that buried elements have to resist.</p></div><div class="cx-step" data-step="1" data-testid="cx-step-2"><span class="cx-step-i">02</span><span class="cx-step-t">Basement walls</span><p class="cx-step-d">Retaining elements are waterproofed as a continuous surface, including construction joints.</p></div><div class="cx-step" data-step="2" data-testid="cx-step-3"><span class="cx-step-i">03</span><span class="cx-step-t">Foundation interface</span><p class="cx-step-d">The junction between wall and foundation is detailed as a continuation of the same system.</p></div><div class="cx-step" data-step="3" data-testid="cx-step-4"><span class="cx-step-i">04</span><span class="cx-step-t">Facade interfaces</span><p class="cx-step-d">Envelope penetrations, fixings and junctions are resolved so that continuity is not interrupted.</p></div><div class="cx-step" data-step="4" data-testid="cx-step-5"><span class="cx-step-i">05</span><span class="cx-step-t">Balconies and terraces</span><p class="cx-step-d">Falls, upstands, thresholds and drainage are coordinated with the interior floor build-up.</p></div><div class="cx-step" data-step="5" data-testid="cx-step-6"><span class="cx-step-i">06</span><span class="cx-step-t">Roof</span><p class="cx-step-d">The system is closed at roof level, completing an uninterrupted boundary around the building.</p></div></div>
-        <p class="cx-body" style="margin-top:10px">Waterproofing is designed and applied under the Binalarda Su Yal&#305;t&#305;m&#305; Y&ouml;netmeli&#287;i. A waterproofing system is only as reliable as its weakest discontinuity.</p>
+      <div class="cx-tickrule"></div>
+      <div class="cx-cut-inner">
+        <div class="cx-depth"><span class="cx-lbl">Section &mdash; level</span><b data-testid="cx-depth-readout">&plusmn;0.00</b><span class="cx-lbl">Downward</span></div>
+        <div class="cx-strata"><div class="cx-stratum" data-level="&plusmn;0.00" data-testid="cx-stratum-street-level"><div data-cx-in><div class="cx-stratum-head"><span class="cx-idx">&plusmn;0.00</span><span class="cx-tag">PROJECT SPECIFIC</span></div><h3 class="cx-h3">Street level</h3><p class="cx-p cx-p--s" style="margin-top:10px">Site access, ground-level geometry and the interface between landscape, structure and adjoining conditions are established from survey and planning constraints.</p></div><div data-draw><div class="cx-stratum-fig" style="background:#131516"><svg class="cx-dwg" viewBox="0 0 620 200" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="ln" pathLength="1" d="M20 120 H600" /><path class="ln-2" pathLength="1" d="M120 120 V70 M200 120 V84 M280 120 V64 M360 120 V78 M440 120 V70 M520 120 V86" /><text x="20" y="112">Ground level / landscape</text></svg></div></div></div><div class="cx-stratum" data-level="&minus;01 / &minus;n" data-testid="cx-stratum-basement-levels"><div data-cx-in><div class="cx-stratum-head"><span class="cx-idx">&minus;01 / &minus;n</span><span class="cx-tag">PROJECT SPECIFIC</span></div><h3 class="cx-h3">Basement levels</h3><p class="cx-p cx-p--s" style="margin-top:10px">Below-ground levels are organised around parking, plant, circulation and shaft geometry. Their number and depth follow the approved project, not a standard configuration.</p></div><div data-draw><div class="cx-stratum-fig"><img src="./media/images/construction/structure-interior.webp" alt="Basement levels construction" loading="lazy" decoding="async" /><svg class="cx-dwg" viewBox="0 0 620 220" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="fillg" pathLength="1" d="M90 20 H530 V110 H90 Z" /><path class="fillg" pathLength="1" d="M90 110 H530 V200 H90 Z" /><text x="106" y="70">Basement level</text><text x="106" y="160">Basement level</text><path class="dim" pathLength="1" d="M60 20 V200 M54 20 h12 M54 200 h12" /><text class="t-dim" x="20" y="118">Depth</text></svg></div></div></div><div class="cx-stratum" data-level="Retaining" data-testid="cx-stratum-retaining-system"><div data-cx-in><div class="cx-stratum-head"><span class="cx-idx">Retaining</span><span class="cx-tag">PROJECT SPECIFIC</span></div><h3 class="cx-h3">Retaining system</h3><p class="cx-p cx-p--s" style="margin-top:10px">Excavation support is selected according to excavation geometry, ground conditions, groundwater and adjacent structures. It is an engineered temporary and permanent works problem, not a formality.</p></div><div data-draw><div class="cx-stratum-fig" style="background:#131516"><svg class="cx-dwg" viewBox="0 0 620 200" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="ln" pathLength="1" d="M80 10 V190 M540 10 V190" /><path class="hid" pathLength="1" d="M80 60 H540 M80 120 H540" /><text x="20" y="196">Retaining elements &mdash; system project specific</text></svg></div></div></div><div class="cx-stratum" data-level="Foundation" data-testid="cx-stratum-foundation"><div data-cx-in><div class="cx-stratum-head"><span class="cx-idx">Foundation</span><span class="cx-tag">PROJECT SPECIFIC</span></div><h3 class="cx-h3">Foundation</h3><p class="cx-p cx-p--s" style="margin-top:10px">Foundation geometry and stiffness follow from structural demand and geotechnical parameters. Load transfer, settlement behaviour and interaction with the retaining system are assessed together.</p></div><div data-draw><div class="cx-stratum-fig"><img src="./media/images/construction/rebar-cage.webp" alt="Foundation construction" loading="lazy" decoding="async" /><svg class="cx-dwg" viewBox="0 0 620 200" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="hotf" pathLength="1" d="M70 60 H550 V130 H70 Z" /><text x="70" y="50">Foundation system</text><path class="ln" pathLength="1" d="M20 130 H600" /><path class="ln-2" d="M40 134 l-14 18" /><path class="ln-2" d="M66 134 l-14 18" /><path class="ln-2" d="M92 134 l-14 18" /><path class="ln-2" d="M118 134 l-14 18" /><path class="ln-2" d="M144 134 l-14 18" /><path class="ln-2" d="M170 134 l-14 18" /><path class="ln-2" d="M196 134 l-14 18" /><path class="ln-2" d="M222 134 l-14 18" /><path class="ln-2" d="M248 134 l-14 18" /><path class="ln-2" d="M274 134 l-14 18" /><path class="ln-2" d="M300 134 l-14 18" /><path class="ln-2" d="M326 134 l-14 18" /><path class="ln-2" d="M352 134 l-14 18" /><path class="ln-2" d="M378 134 l-14 18" /><path class="ln-2" d="M404 134 l-14 18" /><path class="ln-2" d="M430 134 l-14 18" /><path class="ln-2" d="M456 134 l-14 18" /><path class="ln-2" d="M482 134 l-14 18" /><path class="ln-2" d="M508 134 l-14 18" /><path class="ln-2" d="M534 134 l-14 18" /><path class="ln-2" d="M560 134 l-14 18" /><path class="ln-2" d="M586 134 l-14 18" /></svg></div></div></div><div class="cx-stratum" data-level="Strata" data-testid="cx-stratum-soil-strata"><div data-cx-in><div class="cx-stratum-head"><span class="cx-idx">Strata</span><span class="cx-tag">PROJECT SPECIFIC</span></div><h3 class="cx-h3">Soil strata</h3><p class="cx-p cx-p--s" style="margin-top:10px">Stratification and engineering parameters are taken from the geotechnical investigation for the site. Layer sequence and properties differ between developments and are never assumed.</p></div><div data-draw><div class="cx-stratum-fig" style="background:#131516"><svg class="cx-dwg" viewBox="0 0 620 240" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="ln" pathLength="1" d="M20 40 H600" /><text x="20" y="62">Stratum &mdash; project specific</text><path class="ln" pathLength="1" d="M20 110 H600" /><text x="20" y="132">Stratum &mdash; project specific</text><path class="ln" pathLength="1" d="M20 180 H600" /><text x="20" y="202">Stratum &mdash; project specific</text><path class="ln-2" d="M40 46 l-14 16" /><path class="ln-2" d="M70 46 l-14 16" /><path class="ln-2" d="M100 46 l-14 16" /><path class="ln-2" d="M130 46 l-14 16" /><path class="ln-2" d="M160 46 l-14 16" /><path class="ln-2" d="M190 46 l-14 16" /><path class="ln-2" d="M220 46 l-14 16" /><path class="ln-2" d="M250 46 l-14 16" /><path class="ln-2" d="M280 46 l-14 16" /><path class="ln-2" d="M310 46 l-14 16" /><path class="ln-2" d="M340 46 l-14 16" /><path class="ln-2" d="M370 46 l-14 16" /><path class="ln-2" d="M400 46 l-14 16" /><path class="ln-2" d="M430 46 l-14 16" /><path class="ln-2" d="M460 46 l-14 16" /><path class="ln-2" d="M490 46 l-14 16" /><path class="ln-2" d="M520 46 l-14 16" /><path class="ln-2" d="M550 46 l-14 16" /><path class="ln-2" d="M580 46 l-14 16" /><path class="ln-2" d="M40 116 l-14 16" /><path class="ln-2" d="M70 116 l-14 16" /><path class="ln-2" d="M100 116 l-14 16" /><path class="ln-2" d="M130 116 l-14 16" /><path class="ln-2" d="M160 116 l-14 16" /><path class="ln-2" d="M190 116 l-14 16" /><path class="ln-2" d="M220 116 l-14 16" /><path class="ln-2" d="M250 116 l-14 16" /><path class="ln-2" d="M280 116 l-14 16" /><path class="ln-2" d="M310 116 l-14 16" /><path class="ln-2" d="M340 116 l-14 16" /><path class="ln-2" d="M370 116 l-14 16" /><path class="ln-2" d="M400 116 l-14 16" /><path class="ln-2" d="M430 116 l-14 16" /><path class="ln-2" d="M460 116 l-14 16" /><path class="ln-2" d="M490 116 l-14 16" /><path class="ln-2" d="M520 116 l-14 16" /><path class="ln-2" d="M550 116 l-14 16" /><path class="ln-2" d="M580 116 l-14 16" /></svg></div></div></div><div class="cx-stratum" data-level="Investigation" data-testid="cx-stratum-investigation-depth"><div data-cx-in><div class="cx-stratum-head"><span class="cx-idx">Investigation</span><span class="cx-tag">PROJECT SPECIFIC</span></div><h3 class="cx-h3">Investigation depth</h3><p class="cx-p cx-p--s" style="margin-top:10px">Ground investigation extends to the depth required for the structural and geotechnical assessment of the specific project. Reported parameters govern design; they are not transferable between sites.</p></div><div data-draw><div class="cx-stratum-fig"><img src="./media/images/construction/foundation.webp" alt="Investigation depth construction" loading="lazy" decoding="async" /><svg class="cx-dwg" viewBox="0 0 620 200" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="hid" pathLength="1" d="M300 10 V170" /><path class="dim" pathLength="1" d="M240 170 H360" /><text class="t-dim" x="240" y="192">Investigation depth &mdash; project specific</text></svg></div></div></div></div>
       </div>
-      <div class="cx-seq-visual"><svg class="cx-dwg" viewBox="0 0 720 560" role="img" aria-label="Waterproofing continuity section">
-  <g>
-    <path class="g-line" d="M120 120 H560 V470 H120 Z" />
-    <path class="g-line" d="M120 200 H560 M120 280 H560 M120 360 H560" />
-    <path class="g-line" d="M40 470 H120 M560 470 H680" />
-    <path class="g-hair" d="M40 500 H680" />
-  </g>
-  <g class="cx-part" data-part="0">
-    <path class="g-hair" d="M60 508 l-16 20" /><path class="g-hair" d="M86 508 l-16 20" /><path class="g-hair" d="M112 508 l-16 20" /><path class="g-hair" d="M138 508 l-16 20" /><path class="g-hair" d="M164 508 l-16 20" /><path class="g-hair" d="M190 508 l-16 20" /><path class="g-hair" d="M216 508 l-16 20" /><path class="g-hair" d="M242 508 l-16 20" /><path class="g-hair" d="M268 508 l-16 20" /><path class="g-hair" d="M294 508 l-16 20" /><path class="g-hair" d="M320 508 l-16 20" /><path class="g-hair" d="M346 508 l-16 20" /><path class="g-hair" d="M372 508 l-16 20" /><path class="g-hair" d="M398 508 l-16 20" /><path class="g-hair" d="M424 508 l-16 20" /><path class="g-hair" d="M450 508 l-16 20" /><path class="g-hair" d="M476 508 l-16 20" /><path class="g-hair" d="M502 508 l-16 20" /><path class="g-hair" d="M528 508 l-16 20" /><path class="g-hair" d="M554 508 l-16 20" /><path class="g-hair" d="M580 508 l-16 20" /><path class="g-hair" d="M606 508 l-16 20" /><path class="g-hair" d="M632 508 l-16 20" /><path class="g-hair" d="M658 508 l-16 20" /><path class="g-hair" d="M684 508 l-16 20" />
-    <path class="g-accent" pathLength="1" d="M56 470 H120" />
-    <text x="40" y="536">GROUND / WATER CONTACT</text>
-  </g>
-  <g class="cx-part" data-part="1"><path class="g-accent" pathLength="1" d="M120 470 V300" /><text x="40" y="300">BASEMENT WALL</text></g>
-  <g class="cx-part" data-part="2"><path class="g-accent" pathLength="1" d="M120 470 H560" /><text x="300" y="494">FOUNDATION INTERFACE</text></g>
-  <g class="cx-part" data-part="3"><path class="g-accent" pathLength="1" d="M560 470 V180" /><text x="578" y="330">FACADE INTERFACE</text></g>
-  <g class="cx-part" data-part="4"><path class="g-accent" pathLength="1" d="M560 280 H626 M626 280 V300" /><text x="578" y="272">BALCONY / TERRACE</text></g>
-  <g class="cx-part" data-part="5"><path class="g-accent" pathLength="1" d="M560 120 H120" /><text x="120" y="108">ROOF</text></g>
-</svg></div>
+      <div class="cx-hatch" style="margin-top:22px"></div>
+      <p class="cx-note" style="margin-top:18px">Depths, strata, groundwater conditions and foundation systems are project specific and defined by the geotechnical and structural documentation for each development.</p>
     </div>
   </section>
 
-  <!-- ================= 09 ENVELOPE ================= -->
-  <section class="cx-seq cx-sec--dark" style="height:370vh" data-cx-steps="6"  data-testid="cx-section-09">
-    <div class="cx-seq-stage">
-      <div class="cx-seq-copy">
-        <span class="cx-num">09</span>
-        <h2 class="cx-h2">The envelope defines the interior experience.</h2>
-        <p class="cx-lead">Facades, glazing, insulation, waterproofing and interfaces between materials form a continuous environmental boundary between interior and exterior. Their design affects thermal comfort, moisture behaviour, durability, acoustic performance and energy demand.</p>
-        <div class="cx-seq-steps"><div class="cx-step" data-step="0" data-testid="cx-step-1"><span class="cx-step-i">01</span><span class="cx-step-t">Structural backing</span><p class="cx-step-d">The structural surface that receives the envelope, prepared to the required tolerances.</p></div><div class="cx-step" data-step="1" data-testid="cx-step-2"><span class="cx-step-i">02</span><span class="cx-step-t">Continuous insulation</span><p class="cx-step-d">Insulation is planned as a continuous layer, with thermal bridges addressed by detailing.</p></div><div class="cx-step" data-step="2" data-testid="cx-step-3"><span class="cx-step-i">03</span><span class="cx-step-t">Waterproofing and vapour control</span><p class="cx-step-d">Moisture behaviour is considered across the whole section, not layer by layer.</p></div><div class="cx-step" data-step="3" data-testid="cx-step-4"><span class="cx-step-i">04</span><span class="cx-step-t">Ventilated cavity</span><p class="cx-step-d">Where used, a cavity manages moisture and supports the performance of the cladding system.</p></div><div class="cx-step" data-step="4" data-testid="cx-step-5"><span class="cx-step-i">05</span><span class="cx-step-t">Facade cladding</span><p class="cx-step-d">The outer layer resists weather and defines the architectural surface and its long-term appearance.</p></div><div class="cx-step" data-step="5" data-testid="cx-step-6"><span class="cx-step-i">06</span><span class="cx-step-t">Glazing and frame interface</span><p class="cx-step-d">Junctions between glazing, frame and wall are usually the most demanding details in the envelope.</p></div></div>
-        <p class="cx-body" style="margin-top:10px">Layer sequence is indicative. Materials, thicknesses and performance values are defined by the project-specific specification and the Binalarda Enerji Performans&#305; Y&ouml;netmeli&#287;i together with the applicable construction-product performance requirements.</p>
+  <!-- ===================== CONCRETE ===================== -->
+  <section class="cx-conc" style="height:520vh" data-testid="cx-section-concrete">
+    <div class="cx-flow-stage">
+      <div class="cx-flow-head">
+        <span class="cx-idx">04 / Material</span>
+        <h2 class="cx-h2">Concrete performance</h2>
+        <p class="cx-p cx-p--s">Specified compressive strength is only one parameter governing reinforced-concrete performance. The completed element is also affected by concrete composition, production conformity, workability, transportation time, placement sequence, compaction, curing, reinforcement congestion, concrete cover and environmental exposure.</p>
+        <p class="cx-p cx-p--s">Concrete must therefore be considered as both a designed material and an executed construction process.</p>
       </div>
-      <div class="cx-seq-visual"><svg class="cx-dwg" viewBox="0 0 620 460" role="img" aria-label="Exploded facade section">
-  <path class="g-hair" d="M60 60 H560 M60 400 H560" />
-  <g class="cx-part" data-part="0" data-dx="1" style="--dx:-96px"><rect class="g-solid" x="200" y="80" width="22" height="300" /><path class="g-hair" d="M211 80 V380" /></g><g class="cx-part" data-part="1" data-dx="1" style="--dx:-58px"><rect class="g-solid" x="234" y="80" width="22" height="300" /><path class="g-hair" d="M245 80 V380" /></g><g class="cx-part" data-part="2" data-dx="1" style="--dx:-24px"><rect class="g-solid" x="268" y="80" width="22" height="300" /><path class="g-hair" d="M279 80 V380" /></g><g class="cx-part" data-part="3" data-dx="1" style="--dx:18px"><rect class="g-solid" x="302" y="80" width="22" height="300" /><path class="g-hair" d="M313 80 V380" /></g><g class="cx-part" data-part="4" data-dx="1" style="--dx:56px"><rect class="g-solid" x="336" y="80" width="22" height="300" /><path class="g-hair" d="M347 80 V380" /></g><g class="cx-part" data-part="5" data-dx="1" style="--dx:96px"><rect class="g-solid" x="370" y="80" width="14" height="300" /><path class="g-hair" d="M381 80 V380" /></g>
-  <text x="60" y="440">FACADE SECTION — INDICATIVE LAYER SEQUENCE</text>
-</svg></div>
+      <div class="cx-track">
+        <div class="cx-track-line"></div>
+        <div class="cx-rail" data-testid="cx-concrete-rail"><div class="cx-stepcard" data-testid="cx-concrete-step-1"><span class="cx-idx">01</span><b>Specification</b><p>Concrete requirements are defined according to structural design, exposure conditions and applicable standards.</p></div><div class="cx-stepcard" data-testid="cx-concrete-step-2"><span class="cx-idx">02</span><b>Production &amp; conformity</b><p>Production consistency and conformity are controlled under the applicable concrete specification framework.</p></div><div class="cx-stepcard" data-testid="cx-concrete-step-3"><span class="cx-idx">03</span><b>Delivery</b><p>Concrete characteristics at delivery must remain compatible with the specified placement requirements.</p></div><div class="cx-stepcard" data-testid="cx-concrete-step-4"><span class="cx-idx">04</span><b>Placement</b><p>Concrete is placed using a sequence appropriate to element geometry and reinforcement density.</p></div><div class="cx-stepcard" data-testid="cx-concrete-step-5"><span class="cx-idx">05</span><b>Compaction</b><p>Mechanical compaction reduces entrapped air and assists complete encapsulation of reinforcement without inducing segregation.</p></div><div class="cx-stepcard" data-testid="cx-concrete-step-6"><span class="cx-idx">06</span><b>Curing</b><p>Early-age moisture and temperature conditions are controlled to support hydration, strength development and durability.</p></div><div class="cx-stepcard" data-testid="cx-concrete-step-7"><span class="cx-idx">07</span><b>Inspection</b><p>Completed elements are inspected for execution quality and conformity with the intended geometry and detailing.</p></div></div>
+      </div>
+      <div class="cx-flow-band"><img src="./media/images/construction/concrete-ascast.webp" alt="As-cast reinforced-concrete surface showing formwork tie positions" loading="lazy" decoding="async" /></div>
+      <div class="cx-flow-head"><p class="cx-note">Concrete specification, production and conformity are governed through TS EN 206 together with the applicable complementary national requirements. Project-specific structural documents define the required concrete class and execution criteria.</p></div>
     </div>
   </section>
 
-  <!-- ================= 10 ACOUSTIC ================= -->
-  <section class="cx-sec cx-light" data-testid="cx-section-10">
+  <!-- ===================== REINFORCEMENT ===================== -->
+  <section class="cx-cage" style="height:640vh" data-testid="cx-section-reinforcement">
+    <div class="cx-cage-stage">
+      <div>
+        <span class="cx-idx">05 / Detailing</span>
+        <h2 class="cx-h2" style="margin:10px 0 12px">Reinforcement detailing</h2>
+        <p class="cx-p cx-p--s">Reinforcement detailing converts analytical force demand into a buildable structural system. Bar diameter alone does not define reinforcement performance; continuity, anchorage, development length, lap locations, confinement, spacing, concrete cover and constructability must work together.</p>
+        <div class="cx-prin-list" style="margin-top:14px" data-testid="cx-principle-list"><div class="cx-prin" data-testid="cx-principle-1"><span class="cx-idx">A.01</span><b>Continuity</b><p>Reinforcement paths are detailed to maintain the intended transfer of internal forces between adjoining structural regions.</p></div><div class="cx-prin" data-testid="cx-principle-2"><span class="cx-idx">A.02</span><b>Anchorage</b><p>Bars require adequate anchorage so that calculated forces can be transferred between reinforcement and surrounding concrete.</p></div><div class="cx-prin" data-testid="cx-principle-3"><span class="cx-idx">A.03</span><b>Lap &amp; connection regions</b><p>Splices are positioned and detailed according to structural demand and the applicable design requirements.</p></div><div class="cx-prin" data-testid="cx-principle-4"><span class="cx-idx">A.04</span><b>Confinement</b><p>Transverse reinforcement controls concrete confinement and contributes to shear resistance and ductile structural behaviour in designated regions.</p></div><div class="cx-prin" data-testid="cx-principle-5"><span class="cx-idx">A.05</span><b>Spacing</b><p>Clear spacing must permit correct placement and compaction of concrete while maintaining the reinforcement arrangement required by design.</p></div><div class="cx-prin" data-testid="cx-principle-6"><span class="cx-idx">A.06</span><b>Concrete cover</b><p>Cover separates reinforcement from the exposed surface and contributes to durability, fire performance and bond behaviour.</p></div></div>
+        <p class="cx-note" style="margin-top:12px">Model shown for explanation of detailing principles. Bar diameters, spacing, lap lengths and cover are defined exclusively by project structural documentation.</p>
+      </div>
+      <div class="cx-cage-viz">
+        <canvas class="cx-canvas" id="cxCageCanvas" data-testid="cx-cage-canvas" aria-hidden="true"></canvas>
+        <div class="cx-cage-fallback"><img src="./media/images/construction/rebar-cage.webp" alt="Reinforcement cage inside formwork before concrete placement" loading="lazy" decoding="async" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXECUTION CONTROL ===================== -->
+  <section class="cx-insp" style="height:560vh" data-testid="cx-section-execution">
+    <div class="cx-insp-stage">
+      <div class="cx-insp-head">
+        <span class="cx-idx">06 / Control</span>
+        <h2 class="cx-h2">Execution control</h2>
+        <p class="cx-p cx-p--s">Quality assurance is most effective before work becomes concealed. Inspection therefore follows the construction sequence, with control points established before, during and after critical operations.</p>
+      </div>
+      <div class="cx-insp-elem"><svg class="cx-dwg" viewBox="0 0 1200 200" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><g data-elstate="0"><path class="hid" d="M40 40 H210 V170 H40 Z" /><text x="40" y="192">Drawing</text></g><g data-elstate="1"><path class="ln" d="M240 40 H410 V170 H240 Z" /><path class="hot" d="M258 56 V154 M300 56 V154 M350 56 V154 M392 56 V154 M258 70 H392 M258 110 H392 M258 150 H392" /><text x="240" y="192">Reinforcement</text></g><g data-elstate="2"><path class="fillg" d="M440 30 H470 V180 H440 Z" /><path class="fillg" d="M580 30 H610 V180 H580 Z" /><path class="ln" d="M470 40 H580 V170 H470 Z" /><text x="440" y="192">Formwork</text></g><g data-elstate="3"><path class="fillg" d="M660 40 H830 V170 H660 Z" /><path class="hot" d="M745 14 v20 m0 0 l-6 -10 m6 10 l6 -10" /><text x="660" y="192">Concrete</text></g><g data-elstate="4"><path class="ln" d="M860 40 H1030 V170 H860 Z" /><path class="ln-2" d="M872 40 V170 M884 40 V170" /><text x="860" y="192">Enclosure</text></g><g data-elstate="5"><path class="fillg" d="M1060 40 H1170 V170 H1060 Z" /><path class="dim" d="M1060 186 H1170 M1060 180 v12 M1170 180 v12" /><text x="1060" y="30">Completion</text></g></svg></div>
+      <div class="cx-insp-bar"><div class="cx-insp-states" data-testid="cx-element-states"><div class="cx-insp-state" data-testid="cx-elstate-1">Drawing</div><div class="cx-insp-state" data-testid="cx-elstate-2">Reinforcement</div><div class="cx-insp-state" data-testid="cx-elstate-3">Formwork</div><div class="cx-insp-state" data-testid="cx-elstate-4">Concrete</div><div class="cx-insp-state" data-testid="cx-elstate-5">Enclosure</div><div class="cx-insp-state" data-testid="cx-elstate-6">Completion</div></div></div>
+      <div class="cx-insp-rail" data-testid="cx-inspection-rail"><div class="cx-insp-col" data-testid="cx-control-1"><span class="cx-idx">C.01</span><h3 class="cx-h3">Pre-pour control</h3><ul><li>approved structural drawings and reinforcement schedules</li><li>reinforcement arrangement</li><li>anchorage and lap zones</li><li>concrete cover</li><li>embedded elements and penetrations</li><li>formwork dimensions and stability</li><li>axes and levels</li><li>accessibility for placement and compaction</li></ul></div><div class="cx-insp-col" data-testid="cx-control-2"><span class="cx-idx">C.02</span><h3 class="cx-h3">Concrete placement</h3><ul><li>delivery conformity</li><li>placement sequence</li><li>continuity of supply</li><li>layer depth</li><li>compaction</li><li>site and weather conditions</li><li>sampling and records where required</li></ul></div><div class="cx-insp-col" data-testid="cx-control-3"><span class="cx-idx">C.03</span><h3 class="cx-h3">Early age</h3><ul><li>curing</li><li>protection</li><li>formwork removal criteria</li><li>surface inspection</li><li>dimensional verification</li></ul></div><div class="cx-insp-col" data-testid="cx-control-4"><span class="cx-idx">C.04</span><h3 class="cx-h3">Enclosure</h3><ul><li>waterproofing continuity</li><li>fa&ccedil;ade interfaces</li><li>insulation continuity</li><li>glazing junctions</li><li>service penetrations</li><li>drainage interfaces</li></ul></div><div class="cx-insp-col" data-testid="cx-control-5"><span class="cx-idx">C.05</span><h3 class="cx-h3">Completion</h3><ul><li>installation checks</li><li>finishes</li><li>commissioning where applicable</li><li>snagging</li><li>rectification</li><li>handover control</li></ul></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== WATERPROOFING ===================== -->
+  <section class="cx-wp" style="height:480vh" data-testid="cx-section-waterproofing">
+    <div class="cx-wp-stage">
+      <div>
+        <span class="cx-idx">07 / Envelope integrity</span>
+        <h2 class="cx-h2" style="margin:10px 0 12px">Continuity of waterproofing</h2>
+        <p class="cx-p cx-p--s">Waterproofing performance depends on continuity across surfaces, junctions, penetrations and changes in geometry. A membrane with high material performance cannot compensate for an unresolved termination or discontinuous interface.</p>
+        <p class="cx-p cx-p--s" style="margin-top:10px">Below-grade walls, foundations, roofs, terraces, balconies and wet areas therefore require coordinated detailing of membrane continuity, drainage, thresholds, penetrations and construction joints.</p>
+        <div class="cx-wp-nodes" style="margin-top:14px"><div class="cx-wp-node" data-testid="cx-wp-node-1"><span class="cx-idx">01</span><b>Foundation</b><p>Membrane continuity begins below the structure, including the interface with the retaining system.</p></div><div class="cx-wp-node" data-testid="cx-wp-node-2"><span class="cx-idx">02</span><b>Basement wall</b><p>Buried walls are treated as a continuous surface, with construction joints resolved as part of the system.</p></div><div class="cx-wp-node" data-testid="cx-wp-node-3"><span class="cx-idx">03</span><b>Fa&ccedil;ade junction</b><p>Above-grade transitions, fixings and penetrations must not interrupt the boundary.</p></div><div class="cx-wp-node" data-testid="cx-wp-node-4"><span class="cx-idx">04</span><b>Balcony / terrace</b><p>Falls, upstands, thresholds and drainage are coordinated with the interior floor build-up.</p></div><div class="cx-wp-node" data-testid="cx-wp-node-5"><span class="cx-idx">05</span><b>Roof</b><p>The boundary closes at roof level, completing an uninterrupted envelope around the building.</p></div></div>
+        <p class="cx-wp-flag" data-testid="cx-wp-flag" style="margin-top:10px">Discontinuity at junction &mdash; detail unresolved</p>
+        <p class="cx-note" style="margin-top:10px">Design and application must comply with the applicable requirements of the Binalarda Su Yal&#305;t&#305;m&#305; Y&ouml;netmeli&#287;i and the project-specific waterproofing system.</p>
+      </div>
+      <div class="cx-wp-viz"><svg class="cx-dwg" viewBox="0 0 660 560" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="ln" d="M140 150 H520 V470 H140 Z" /><path class="ln-2" d="M140 230 H520 M140 310 H520 M140 390 H520" /><path class="ln" d="M520 310 H586 V330" /><path class="hid" d="M40 470 H140 M520 470 H620" /><path class="ln-2" d="M50 494 l-14 18" /><path class="ln-2" d="M76 494 l-14 18" /><path class="ln-2" d="M102 494 l-14 18" /><path class="ln-2" d="M128 494 l-14 18" /><path class="ln-2" d="M154 494 l-14 18" /><path class="ln-2" d="M180 494 l-14 18" /><path class="ln-2" d="M206 494 l-14 18" /><path class="ln-2" d="M232 494 l-14 18" /><path class="ln-2" d="M258 494 l-14 18" /><path class="ln-2" d="M284 494 l-14 18" /><path class="ln-2" d="M310 494 l-14 18" /><path class="ln-2" d="M336 494 l-14 18" /><path class="ln-2" d="M362 494 l-14 18" /><path class="ln-2" d="M388 494 l-14 18" /><path class="ln-2" d="M414 494 l-14 18" /><path class="ln-2" d="M440 494 l-14 18" /><path class="ln-2" d="M466 494 l-14 18" /><path class="ln-2" d="M492 494 l-14 18" /><path class="ln-2" d="M518 494 l-14 18" /><path class="ln-2" d="M544 494 l-14 18" /><path class="ln-2" d="M570 494 l-14 18" /><path class="ln-2" d="M596 494 l-14 18" /><path class="cx-trace" id="cxTrace" pathLength="1" d="M60 470 H140 V150 H520 V470 H600" /><g id="cxTraceGap" style="opacity:0"><circle class="warn" cx="520" cy="310" r="13" /><path class="warn" d="M512 302 l16 16 M528 302 l-16 16" /></g><text x="40" y="530">Continuous waterproofing boundary &mdash; indicative section</text></svg></div>
+    </div>
+  </section>
+
+  <!-- ===================== ENVELOPE ===================== -->
+  <section class="cx-sec cx-light" data-testid="cx-section-envelope">
     <div class="cx-wrap">
-      <div class="cx-head">
+      <div class="cx-sechead">
         <div>
-          <span class="cx-num" data-cx-fade>10</span>
-          <h2 class="cx-h2" data-cx-fade>Quality can also be heard.</h2>
+          <span class="cx-idx" data-cx-in>08 / Envelope</span>
+          <h2 class="cx-h2" data-cx-in style="margin-top:12px">Building envelope performance</h2>
         </div>
-        <p class="cx-lead" data-cx-fade>Residential comfort is influenced not only by what occupants see, but by what they do not hear. Building layout, wall and floor assemblies, facade design and building-services coordination all contribute to acoustic performance.</p>
+        <p class="cx-p" data-cx-in>The building envelope controls the exchange of heat, moisture, air, sound and solar energy between interior and exterior conditions. Its performance depends not only on individual products but on the continuity of the complete assembly.</p>
       </div>
-      <div style="margin:clamp(28px,5vh,60px) 0"><svg class="cx-wave" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
-  <path d="M0 100 C 100 40, 200 160, 300 100 C 400 40, 500 160, 600 100 C 700 40, 800 160, 900 100 C 1000 40, 1100 160, 1200 100" />
-  <path d="M0 100 C 80 62, 160 138, 240 100 C 320 62, 400 138, 480 100 C 560 62, 640 138, 720 100 C 800 62, 880 138, 960 100 C 1040 62, 1120 138, 1200 100" />
-  <path d="M0 100 C 60 78, 120 122, 180 100 C 240 78, 300 122, 360 100 C 420 78, 480 122, 540 100 C 600 78, 660 122, 720 100 C 780 78, 840 122, 900 100 C 960 78, 1020 122, 1080 100 C 1140 78, 1170 111, 1200 100" />
-</svg></div>
-      <div class="cx-log-items" data-cx-stagger>
-        <div data-cx-fade>Plan layout: separating noisy and quiet functions between neighbouring residences</div>
-        <div data-cx-fade>Wall and floor assemblies detailed for airborne and impact sound</div>
-        <div data-cx-fade>Facade and glazing selected with the external noise environment in mind</div>
-        <div data-cx-fade>Service routes, shafts and equipment isolated from living spaces</div>
+      <div class="cx-tickrule"></div>
+      <div class="cx-det">
+        <div class="cx-det-fig" data-draw data-start="top 82%" data-end="bottom 55%">
+          <svg class="cx-dwg" viewBox="0 0 620 560" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><path class="hid" d="M60 60 H560 M60 420 H560" /><g><rect class="fillg" x="180" y="60" width="46" height="360" /><path class="ln-2" d="M203.0 60 V420" /><path class="dim" pathLength="1" d="M180 446 H226 M180 440 v12 M226 440 v12" /><text class="t-dim" x="195.0" y="470">L.01</text></g><g><rect class="fillg" x="236" y="60" width="46" height="360" /><path class="ln-2" d="M259.0 60 V420" /><path class="dim" pathLength="1" d="M236 446 H282 M236 440 v12 M282 440 v12" /><text class="t-dim" x="251.0" y="470">L.02</text></g><g><rect class="fillg" x="292" y="60" width="38" height="360" /><path class="ln-2" d="M311.0 60 V420" /><path class="dim" pathLength="1" d="M292 446 H330 M292 440 v12 M330 440 v12" /><text class="t-dim" x="303.0" y="470">L.03</text></g><g><rect class="fillg" x="340" y="60" width="32" height="360" /><path class="ln-2" d="M356.0 60 V420" /><path class="dim" pathLength="1" d="M340 446 H372 M340 440 v12 M372 440 v12" /><text class="t-dim" x="348.0" y="470">L.04</text></g><g><rect class="fillg" x="392" y="60" width="26" height="360" /><path class="ln-2" d="M405.0 60 V420" /><path class="dim" pathLength="1" d="M392 446 H418 M392 440 v12 M418 440 v12" /><text class="t-dim" x="397.0" y="470">L.05</text></g><path class="dim" pathLength="1" d="M120 60 V420 M114 60 h12 M114 420 h12" /><text class="t-dim" x="40" y="240">Assembly</text><text x="60" y="40">Wall detail &mdash; indicative sequence, 1:5 reference</text></svg>
+          <div class="cx-det-scale"><span class="cx-lbl">Macro detail</span><span class="cx-lbl">Layer sequence indicative</span></div>
+        </div>
+        <div class="cx-layerlist"><div class="cx-layer" data-cx-in><span class="cx-idx">L.01</span><b>Thermal continuity</b><p>Insulation strategy is coordinated to minimise unintended thermal discontinuities at junctions.</p></div><div class="cx-layer" data-cx-in><span class="cx-idx">L.02</span><b>Moisture control</b><p>Waterproofing, drainage and vapour behaviour are evaluated as part of the complete wall or roof build-up.</p></div><div class="cx-layer" data-cx-in><span class="cx-idx">L.03</span><b>Fa&ccedil;ade interfaces</b><p>Connections between structure, fa&ccedil;ade systems, glazing, thresholds and penetrations are treated as critical detailing zones.</p></div><div class="cx-layer" data-cx-in><span class="cx-idx">L.04</span><b>Glazing</b><p>Glass and framing performance are selected according to project-specific architectural, thermal, acoustic and environmental requirements.</p></div><div class="cx-layer" data-cx-in><span class="cx-idx">L.05</span><b>Durability</b><p>Exposure, material compatibility, drainage and maintenance access influence long-term envelope performance.</p></div>
+          <p class="cx-note" style="margin-top:16px">Materials, thicknesses and performance values are defined by project-specific specifications together with the applicable requirements of the Binalarda Enerji Performans&#305; Y&ouml;netmeli&#287;i and construction-product performance legislation.</p>
+        </div>
       </div>
-      <p class="cx-body" style="margin-top:34px;max-width:70ch" data-cx-fade>Acoustic design is carried out under the Binalar&#305;n G&uuml;r&uuml;lt&uuml;ye Kar&#351;&#305; Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik. Performance is a property of the completed assembly and its execution; project-specific acoustic documentation governs each development.</p>
     </div>
   </section>
 
-  <!-- ================= 11 BUILDING SERVICES ================= -->
-  <section class="cx-sec cx-sec--dark" data-testid="cx-section-11">
+  <!-- ===================== ACOUSTICS ===================== -->
+  <section class="cx-sec cx-light" style="padding-top:0" data-testid="cx-section-acoustics">
     <div class="cx-wrap">
-      <div class="cx-head">
+      <div class="cx-hr"></div>
+      <div class="cx-sechead">
         <div>
-          <span class="cx-num" data-cx-fade>11</span>
-          <h2 class="cx-h2" data-cx-fade>Engineering beyond the structure</h2>
+          <span class="cx-idx" data-cx-in>09 / Acoustics</span>
+          <h2 class="cx-h2" data-cx-in style="margin-top:12px">Acoustic performance</h2>
         </div>
-        <p class="cx-lead" data-cx-fade>A high-quality residence depends on the coordination of architecture, structure and building services. Mechanical, electrical and plumbing systems are considered as part of the building rather than installations added after the architecture is complete.</p>
-      </div>
-      <div class="cx-rule"></div>
-      <div class="cx-env">
-        <div data-cx-draw="sequential" data-cx-start="top 80%" data-cx-end="bottom 55%"><svg class="cx-dwg" viewBox="0 0 620 520" role="img" aria-label="Building services coordination">
-  <path pathLength="1" class="g-line" d="M110 60 H510 V460 H110 Z" />
-  <path pathLength="1" class="g-hair" d="M110 140 H510" /><path pathLength="1" class="g-hair" d="M110 220 H510" /><path pathLength="1" class="g-hair" d="M110 300 H510" /><path pathLength="1" class="g-hair" d="M110 380 H510" />
-  <path pathLength="1" class="g-solid" d="M288 60 H332 V460 H288 Z" />
-  <path pathLength="1" class="g-accent" d="M310 440 V90" />
-  <path pathLength="1" class="g-accent" d="M310 120 H460 M310 200 H460 M310 280 H460 M310 360 H460" />
-  <path pathLength="1" class="g-accent" d="M310 160 H160 M310 240 H160 M310 320 H160 M310 400 H160" />
-  <path pathLength="1" class="g-hair" d="M160 160 V400 M460 120 V360" />
-  <text x="110" y="50">VERTICAL SERVICE SHAFT — HORIZONTAL DISTRIBUTION</text>
-  <text x="110" y="492">MECHANICAL / ELECTRICAL / WATER / DRAINAGE — COORDINATED WITH STRUCTURE</text>
-</svg></div>
-        <div class="cx-env-layers" data-cx-stagger>
-          <div class="cx-env-layer" data-cx-fade><span>01</span><b>Ventilation</b><p>Fresh-air supply and extract routes planned with the structural grid, not cut into it afterwards.</p></div>
-          <div class="cx-env-layer" data-cx-fade><span>02</span><b>Heating &amp; cooling distribution</b><p>Distribution zoned by apartment, with space for maintenance access designed in.</p></div>
-          <div class="cx-env-layer" data-cx-fade><span>03</span><b>Electrical infrastructure</b><p>Risers, distribution and low-voltage systems coordinated with architectural layouts.</p></div>
-          <div class="cx-env-layer" data-cx-fade><span>04</span><b>Water systems</b><p>Supply routes, isolation and metering positioned for serviceability over the building life.</p></div>
-          <div class="cx-env-layer" data-cx-fade><span>05</span><b>Drainage</b><p>Falls, stacks and ventilation resolved with acoustic separation from living spaces.</p></div>
-          <div class="cx-env-layer" data-cx-fade><span>06</span><b>Vertical shafts</b><p>Shaft geometry set early so structure, services and fire compartmentation agree.</p></div>
+        <div>
+          <p class="cx-p" data-cx-in>Residential acoustic performance is determined by complete construction assemblies rather than individual materials. Wall and floor build-ups, junctions, fa&ccedil;ade openings, service penetrations and mechanical equipment all affect airborne, impact and structure-borne sound transmission.</p>
+          <p class="cx-p cx-p--s" data-cx-in style="margin-top:12px">Acoustic design must therefore be coordinated between architecture, building services and construction detailing.</p>
         </div>
       </div>
-      <p class="cx-body" style="margin-top:34px;max-width:74ch" data-cx-fade>Fire safety provisions, compartmentation and escape routes are designed under the Binalar&#305;n Yang&#305;ndan Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik in coordination with the architectural and services design.</p>
+      <div class="cx-plots" style="margin-top:clamp(26px,4vh,52px)"><div class="cx-plot" data-plot="airborne" data-testid="cx-plot-airborne"><span class="cx-lbl">Airborne sound</span><svg viewBox="0 0 480 120" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M0 60 H480" /><path class="sig" d="M0 60 C 40 20, 80 100, 120 60 C 160 20, 200 100, 240 60 C 280 20, 320 100, 360 60 C 400 20, 440 100, 480 60" /></svg><p class="cx-p cx-p--s">Speech and media transmitted through air and through the separating assembly.</p></div><div class="cx-plot" data-plot="impact" data-testid="cx-plot-impact"><span class="cx-lbl">Impact sound</span><svg viewBox="0 0 480 120" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M0 60 H480" /><path class="sig" d="M0 60 H40 L52 12 L64 108 L76 40 L88 76 L100 60 H180 L192 20 L204 100 L216 46 L228 70 L240 60 H320 L332 24 L344 96 L356 50 L368 68 L380 60 H480" /></svg><p class="cx-p cx-p--s">Footfall and impacts transmitted through floor build-ups and junctions.</p></div><div class="cx-plot" data-plot="structure" data-testid="cx-plot-structure"><span class="cx-lbl">Structure-borne sound</span><svg viewBox="0 0 480 120" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M0 60 H480" /><path class="sig" d="M0 60 C 30 46, 60 74, 90 60 C 120 46, 150 74, 180 60 C 210 48, 240 72, 270 60 C 300 50, 330 70, 360 60 C 390 52, 420 68, 450 60 C 465 57, 472 62, 480 60" /></svg><p class="cx-p cx-p--s">Vibration transmitted through the structural system itself.</p></div><div class="cx-plot" data-plot="service" data-testid="cx-plot-service"><span class="cx-lbl">Service noise</span><svg viewBox="0 0 480 120" preserveAspectRatio="none" aria-hidden="true"><path class="base" d="M0 60 H480" /><path class="sig" d="M0 60 L20 44 L34 76 L50 40 L66 80 L82 48 L98 72 L114 44 L130 78 L146 46 L162 74 L178 42 L194 80 L210 48 L226 72 L242 44 L258 78 L274 46 L290 74 L306 42 L322 80 L338 48 L354 72 L370 44 L386 78 L402 46 L418 74 L434 44 L450 78 L466 50 L480 60" /></svg><p class="cx-p cx-p--s">Equipment, ducts, risers and drainage routed close to living spaces.</p></div></div>
+      <p class="cx-note" style="margin-top:26px">Requirements follow the Binalar&#305;n G&uuml;r&uuml;lt&uuml;ye Kar&#351;&#305; Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik. Performance values are properties of the executed assembly and are defined by project-specific acoustic documentation.</p>
     </div>
   </section>
 
-  <!-- ================= 12 FROM STRUCTURE TO RESIDENCE ================= -->
-  <section class="cx-xfade" data-testid="cx-section-12">
-    <div class="cx-xfade-stage">
-      <div class="cx-xfade-layer"><img src="./media/images/construction/frame-detail.webp" alt="Reinforced-concrete frame" width="1800" height="1200" loading="lazy" decoding="async" /></div>
-      <div class="cx-xfade-layer"><img src="./media/images/leed/material-facade.webp" alt="Facade and envelope" loading="lazy" decoding="async" /></div>
-      <div class="cx-xfade-layer"><img src="./media/images/ew/ew_lounge.webp" alt="Interior architecture" loading="lazy" decoding="async" /></div>
-      <div class="cx-xfade-layer"><img src="./media/images/east-west-cover.webp" alt="Completed Nova residence" loading="lazy" decoding="async" /></div>
-      <div class="cx-xfade-scrim"></div>
-      <div class="cx-xfade-copy">
-        <div class="cx-xfade-stages" data-testid="cx-xfade-stages">
-          <span class="is-on">Structural frame</span><span>Envelope</span><span>Interior architecture</span><span>Completed residence</span>
-        </div>
-        <h2 class="cx-h2">One building.<br />One continuous standard.</h2>
-        <p class="cx-lead">Structural engineering, waterproofing, building systems, architecture and interior detailing are not independent stages. The performance of the completed residence depends on how precisely these disciplines are coordinated from the beginning.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 13 ENGINEERING FRAMEWORK ================= -->
-  <section class="cx-sec cx-light" data-testid="cx-section-13">
+  <!-- ===================== MEP ===================== -->
+  <section class="cx-sec" data-testid="cx-section-mep">
     <div class="cx-wrap">
-      <div class="cx-head">
+      <div class="cx-sechead">
         <div>
-          <span class="cx-num" data-cx-fade>13</span>
-          <h2 class="cx-h2" data-cx-fade>Engineering framework</h2>
+          <span class="cx-idx" data-cx-in>10 / Coordination</span>
+          <h2 class="cx-h2" data-cx-in style="margin-top:12px">Building services coordination</h2>
         </div>
-        <p class="cx-lead" data-cx-fade>Design and construction in T&uuml;rkiye are carried out within a defined regulatory and standards framework. The principal references applicable to residential development are listed below.</p>
+        <div>
+          <p class="cx-p" data-cx-in>Mechanical, electrical and plumbing systems are spatial systems. Their routes, shafts, access zones, penetrations and equipment requirements must therefore be coordinated with architectural planning and structural design before construction.</p>
+          <p class="cx-p cx-p--s" data-cx-in style="margin-top:12px">Late coordination creates unnecessary penetrations, reduced serviceability and conflicts between disciplines. Early coordination preserves both technical performance and architectural intent.</p>
+        </div>
       </div>
-      <div class="cx-rule"></div>
-      <div class="cx-fw" data-cx-stagger data-testid="cx-framework">
-        <div class="cx-fw-row" data-cx-fade><b>T&uuml;rkiye Bina Deprem Y&ouml;netmeli&#287;i (TBDY 2018)</b><p>The seismic design basis for buildings, in force since 1 January 2019.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>T&uuml;rkiye Deprem Tehlike Haritalar&#305;</b><p>Location-based seismic hazard parameters used as design input for each site.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>TS 500</b><p>Requirements for design and construction of reinforced concrete structures, in its applicable current edition.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>TS EN 206</b><p>Concrete: specification, performance, production and conformity, in its applicable current edition, applied together with the complementary national standard TS 13515.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Reinforcing steel standards</b><p>Steel for the reinforcement of concrete to the applicable current Turkish standard referenced by TS 500.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Yap&#305; Malzemeleri Y&ouml;netmeli&#287;i</b><p>Construction-product legislation governing declared performance and CE marking of materials placed on the market.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Binalarda Su Yal&#305;t&#305;m&#305; Y&ouml;netmeli&#287;i</b><p>Waterproofing requirements for buildings, including foundations, roofs and wet areas.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Binalar&#305;n G&uuml;r&uuml;lt&uuml;ye Kar&#351;&#305; Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik</b><p>Protection of buildings against noise, including residential acoustic requirements.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Binalarda Enerji Performans&#305; Y&ouml;netmeli&#287;i</b><p>Energy performance requirements for buildings and their envelope and systems.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Binalar&#305;n Yang&#305;ndan Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik</b><p>Fire protection requirements, compartmentation and means of escape.</p></div>
-        <div class="cx-fw-row" data-cx-fade><b>Planl&#305; Alanlar &#304;mar Y&ouml;netmeli&#287;i</b><p>Planning and zoning framework governing building geometry and site conditions.</p></div>
+      <div class="cx-tickrule"></div>
+      <div class="cx-mep">
+        <div class="cx-mep-viz">
+          <div class="cx-mep-tabs" data-testid="cx-mep-tabs"><button class="cx-mep-tab" data-testid="cx-mep-tab-structure">Structure</button><button class="cx-mep-tab" data-testid="cx-mep-tab-architecture">Architecture</button><button class="cx-mep-tab" data-testid="cx-mep-tab-hvac">HVAC</button><button class="cx-mep-tab" data-testid="cx-mep-tab-electrical">Electrical</button><button class="cx-mep-tab" data-testid="cx-mep-tab-water">Water</button><button class="cx-mep-tab" data-testid="cx-mep-tab-drainage">Drainage</button></div>
+          <svg class="cx-dwg" viewBox="0 0 620 520" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><g class="cx-mep-layer is-base" data-testid="cx-mep-layer-structure"><path class="ln" d="M110 40 H510 V470 H110 Z" /><path class="ln" d="M110 140 H510 M110 240 H510 M110 340 H510" /><path class="ln" d="M286 40 H334 V470 H286 Z" /></g><g class="cx-mep-layer" data-testid="cx-mep-layer-architecture"><path class="ln" d="M150 60 H270 V130 H150 Z M360 60 H470 V130 H360 Z M150 160 H270 V230 H150 Z M360 160 H470 V230 H360 Z M150 260 H270 V330 H150 Z M360 260 H470 V330 H360 Z M150 360 H470 V450 H150 Z" /></g><g class="cx-mep-layer" data-testid="cx-mep-layer-hvac"><path class="ln" d="M310 450 V70" /><path class="ln" d="M310 100 H460 M310 200 H460 M310 300 H460 M310 400 H460" /><path class="ln" d="M460 100 V400" /></g><g class="cx-mep-layer" data-testid="cx-mep-layer-electrical"><path class="ln" d="M300 450 V70" /><path class="ln" d="M300 120 H170 M300 220 H170 M300 320 H170 M300 420 H170" /><path class="ln" d="M170 120 V420" /></g><g class="cx-mep-layer" data-testid="cx-mep-layer-water"><path class="ln" d="M320 450 V80" /><path class="ln" d="M320 150 H430 M320 250 H430 M320 350 H430" /></g><g class="cx-mep-layer" data-testid="cx-mep-layer-drainage"><path class="ln" d="M300 80 V450" /><path class="ln" d="M300 170 H200 M300 270 H200 M300 370 H200" /><path class="ln" d="M200 170 V450" /></g><text x="110" y="30">Coordination model &mdash; vertical shaft and horizontal distribution</text><text x="110" y="502">Routes indicative &mdash; coordinated with structure and architecture per project</text></svg>
+        </div>
+        <div class="cx-mep-side">
+          <div class="cx-mep-photo"><img src="./media/images/construction/services-riser.webp" alt="Mechanical risers installed within a concrete service shaft" loading="lazy" decoding="async" /></div>
+          <p class="cx-p cx-p--s">Shaft geometry, access zones and penetration positions are fixed early so that structural elements, fire compartmentation and architectural layouts remain consistent with the installed systems.</p>
+        </div>
       </div>
-      <p class="cx-fw-note" data-testid="cx-framework-note">Applicable regulations and technical standards may vary according to project characteristics, approval date and project scope. Project-specific engineering documentation governs each development.</p>
     </div>
   </section>
 
-  <!-- ================= FINAL ================= -->
+  <!-- ===================== TECHNICAL FRAMEWORK ===================== -->
+  <section class="cx-sec cx-light" data-testid="cx-section-framework">
+    <div class="cx-wrap">
+      <div class="cx-sechead">
+        <div>
+          <span class="cx-idx" data-cx-in>11 / Reference</span>
+          <h2 class="cx-h2" data-cx-in style="margin-top:12px">Technical framework</h2>
+        </div>
+        <p class="cx-p" data-cx-in>Project design and construction are developed within the regulatory and technical framework applicable in T&uuml;rkiye. The governing requirements depend on project type, approval date, site conditions and project-specific documentation.</p>
+      </div>
+      <div class="cx-tickrule"></div>
+      <div class="cx-reg" data-testid="cx-register">
+        <div class="cx-reg-title">
+          <div><span>Register</span><b>Design &amp; construction references</b></div>
+          <div><span>Discipline</span><b>Structural / envelope / services</b></div>
+          <div><span>Status</span><b>Applicable current editions</b></div>
+        </div>
+        <div class="cx-reg-row" data-testid="cx-reg-row-1"><div class="cx-reg-ref">TBDY 2018</div><div class="cx-reg-name">T&uuml;rkiye Bina Deprem Y&ouml;netmeli&#287;i</div><div class="cx-reg-scope">Seismic design framework for buildings in T&uuml;rkiye.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-2"><div class="cx-reg-ref">Hazard maps</div><div class="cx-reg-name">T&uuml;rkiye Deprem Tehlike Haritas&#305;</div><div class="cx-reg-scope">Site-dependent seismic hazard parameters used as input to structural design.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-3"><div class="cx-reg-ref">TS 500</div><div class="cx-reg-name">Betonarme yap&#305;lar&#305;n tasar&#305;m ve yap&#305;m kurallar&#305;</div><div class="cx-reg-scope">Reinforced-concrete design and construction requirements in its applicable current edition.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-4"><div class="cx-reg-ref">TS EN 206</div><div class="cx-reg-name">TS EN 206 + applicable national complementary standard</div><div class="cx-reg-scope">Concrete specification, performance, production and conformity.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-5"><div class="cx-reg-ref">Su yal&#305;t&#305;m&#305;</div><div class="cx-reg-name">Binalarda Su Yal&#305;t&#305;m&#305; Y&ouml;netmeli&#287;i</div><div class="cx-reg-scope">Building waterproofing requirements.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-6"><div class="cx-reg-ref">G&uuml;r&uuml;lt&uuml;</div><div class="cx-reg-name">Binalar&#305;n G&uuml;r&uuml;lt&uuml;ye Kar&#351;&#305; Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik</div><div class="cx-reg-scope">Building acoustic-performance requirements.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-7"><div class="cx-reg-ref">Enerji</div><div class="cx-reg-name">Binalarda Enerji Performans&#305; Y&ouml;netmeli&#287;i</div><div class="cx-reg-scope">Energy-performance requirements for buildings and building systems.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-8"><div class="cx-reg-ref">Yang&#305;n</div><div class="cx-reg-name">Binalar&#305;n Yang&#305;ndan Korunmas&#305; Hakk&#305;nda Y&ouml;netmelik</div><div class="cx-reg-scope">Fire-safety, compartmentation and means-of-escape requirements.</div></div><div class="cx-reg-row" data-testid="cx-reg-row-9"><div class="cx-reg-ref">&#304;mar</div><div class="cx-reg-name">Planl&#305; Alanlar &#304;mar Y&ouml;netmeli&#287;i</div><div class="cx-reg-scope">Applicable planning and building-development framework.</div></div>
+      </div>
+      <p class="cx-note" style="margin-top:20px" data-testid="cx-framework-note">The latest applicable editions, amendments and project-specific approval requirements must be verified by the relevant design and engineering disciplines for each development.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL ===================== -->
   <section class="cx-final" data-testid="cx-final">
-    <div class="cx-final-img"><img src="./media/images/ew/render/ew-render4.webp" alt="Completed Nova residential architecture" loading="lazy" decoding="async" data-cx-parallax="0.04" /></div>
-    <div class="cx-final-scrim"></div>
-    <div class="cx-wrap cx-final-copy">
-      <span class="cx-kicker" data-cx-fade>Nova Konut</span>
-      <h2 class="cx-h2" data-cx-fade data-testid="cx-final-title">What is built into the structure remains in the building for generations.</h2>
-      <p class="cx-lead" data-cx-fade>The finished architecture is only the visible result. Behind it lies a sequence of engineering decisions, material choices, construction controls and carefully resolved details designed to support long-term performance.</p>
+    <div class="cx-final-stage">
+      <div class="cx-final-photo"><img src="./media/images/mercan/mercan-dis1.webp" alt="Completed Nova Konut residential building" loading="lazy" decoding="async" /></div>
+      <div class="cx-final-dwg"><svg class="cx-dwg" viewBox="0 0 1100 620" role="img" aria-label="Technical drawing" preserveAspectRatio="xMidYMid meet"><g class="cx-fl" data-fl="0"><path class="ln" d="M200 120 H900 V520 H200 Z" /><path class="ln" d="M200 220 H900 M200 320 H900 M200 420 H900" /><path class="ln" d="M330 120 V520 M550 120 V520 M770 120 V520" /><text x="200" y="106">Structural linework</text></g><g class="cx-fl" data-fl="1"><path class="hot" d="M360 150 V490 M420 150 V490 M480 150 V490" /><path class="hot" d="M360 190 H480 M360 270 H480 M360 350 H480 M360 430 H480" /><text x="360" y="140">Reinforcement geometry</text></g><g class="cx-fl" data-fl="2"><path class="ln-2" d="M620 150 H700 V490 H620 Z" /><path class="dim" d="M620 512 H700 M620 506 v12 M700 506 v12" /><text class="t-dim" x="620" y="536">Fa&ccedil;ade section</text></g><g class="cx-fl" data-fl="3"><path class="ln" d="M550 500 V160" /><path class="ln" d="M550 200 H840 M550 300 H840 M550 400 H840" /><text x="760" y="150">Service routes</text></g></svg></div>
+      <div class="cx-final-scrim"></div>
+      <div class="cx-final-copy">
+        <span class="cx-lbl cx-lbl--warm">12 / Result</span>
+        <h2 class="cx-h1" data-testid="cx-final-title">Calculated. Coordinated. Constructed.</h2>
+        <p class="cx-p">A completed residence is the visible result of thousands of decisions that are no longer visible after handover. Structural analysis, detailing, material selection, construction sequence and inspection must remain coordinated throughout the process for the building to perform as designed.</p>
+        <div class="cx-sign"><b>Nova Konut</b><span>Construction &amp; Engineering</span></div>
+      </div>
     </div>
   </section>
 
@@ -707,6 +476,6 @@
   <script src="js/script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
-  <script src="js/construction.js"></script>
+  <script type="module" src="js/construction.js"></script>
 </body>
 </html>

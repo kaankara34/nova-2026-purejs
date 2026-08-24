@@ -1,178 +1,436 @@
 /* ==========================================================
-   CONSTRUCTION — scroll-driven engineering narrative
-   GSAP ScrollTrigger. Engineering information first, animation second.
+   CONSTRUCTION & ENGINEERING
+   Mechanical motion language: assembly, rotation, load transfer,
+   sectional cuts, alignment, measurement.
+   GSAP ScrollTrigger + three.js reinforcement models.
    ========================================================== */
-(function () {
-  const body = document.body;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hasGSAP = !!(window.gsap && window.ScrollTrigger);
-  const clamp = (v, a, b) => v < a ? a : (v > b ? b : v);
+import * as THREE from 'three';
 
-  /* ---------- always-on: annotation pins ---------- */
-  document.querySelectorAll('[data-cx-pins]').forEach(group => {
-    const pins = Array.from(group.querySelectorAll('.cx-pin'));
-    const svg = document.querySelector(group.dataset.cxPins);
-    const light = id => {
-      if (!svg) return;
-      svg.querySelectorAll('[data-pin]').forEach(el => el.classList.toggle('is-lit', el.dataset.pin === id));
-    };
-    pins.forEach(p => p.addEventListener('click', () => {
-      const open = p.classList.contains('is-open');
-      pins.forEach(o => { o.classList.remove('is-open'); o.setAttribute('aria-expanded', 'false'); });
-      if (!open) { p.classList.add('is-open'); p.setAttribute('aria-expanded', 'true'); }
-      light(open ? null : p.dataset.pin);
-    }));
-    if (pins[0]) {
-      pins[0].classList.add('is-open');
-      pins[0].setAttribute('aria-expanded', 'true');
-      light(pins[0].dataset.pin);
-    }
-  });
+const body = document.body;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+const seg = (p, a, b) => clamp((p - a) / (b - a), 0, 1);
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
 
-  /* ---------- always-on: construction log index ---------- */
-  const logIndex = Array.from(document.querySelectorAll('.cx-log-index button'));
-  const logEntries = Array.from(document.querySelectorAll('.cx-log-entry'));
-  logIndex.forEach((b, i) => b.addEventListener('click', () => {
-    if (logEntries[i]) window.scrollTo({ top: logEntries[i].getBoundingClientRect().top + window.scrollY - 160, behavior: 'smooth' });
-  }));
+/* ---------------- always-on interactions ---------------- */
+/* MEP layer tabs */
+const mepTabs = $$('.cx-mep-tab');
+const mepLayers = $$('.cx-mep-layer');
+mepTabs.forEach((t, i) => t.addEventListener('click', () => {
+  mepTabs.forEach((o, j) => o.classList.toggle('is-on', j === i));
+  mepLayers.forEach((l, j) => l.classList.toggle('is-on', j === i));
+}));
+if (mepTabs[0]) { mepTabs[0].classList.add('is-on'); if (mepLayers[0]) mepLayers[0].classList.add('is-on'); }
 
-  if (reduce || !hasGSAP) {
-    body.classList.add('cx-static');
-    document.querySelectorAll('[data-cx-fade]').forEach(el => el.classList.add('is-in'));
-    document.querySelectorAll('[data-cx-draw] [pathLength]').forEach(el => { el.style.strokeDashoffset = '0'; });
-    logIndex.forEach(b => b.classList.add('is-on'));
+/* structural element labels are also navigation into the pinned range */
+const structSection = $('.cx-struct');
+const els = $$('.cx-el');
+els.forEach((el, i) => el.addEventListener('click', () => {
+  if (!structSection) return;
+  const r = structSection.getBoundingClientRect();
+  const top = r.top + scrollY;
+  const usable = structSection.offsetHeight - innerHeight;
+  if (usable <= 40) { // static mode — just highlight
+    els.forEach((o, j) => o.classList.toggle('is-on', j === i));
     return;
   }
+  scrollTo({ top: top + usable * ((i + 0.45) / els.length), behavior: 'smooth' });
+}));
 
+if (reduce) {
+  body.classList.add('cx-static', 'cx-nogl');
+  $$('[data-cx-in]').forEach(el => el.classList.add('is-in'));
+  $$('.cx-plot').forEach(el => el.classList.add('is-in'));
+  $$('.cx-el, .cx-state, .cx-prin, .cx-wp-node, .cx-stepcard, .cx-insp-col, .cx-gr').forEach(el => el.classList.add('is-on'));
+  $$('[data-draw] [pathLength]').forEach(el => { el.style.strokeDashoffset = '0'; });
+} else {
   gsap.registerPlugin(ScrollTrigger);
+  boot();
+}
 
-  /* ---------- reveals ---------- */
-  document.querySelectorAll('[data-cx-stagger]').forEach(group => {
-    Array.from(group.children).forEach((child, i) => {
-      if (child.hasAttribute('data-cx-fade')) child.style.transitionDelay = (i * 0.085).toFixed(3) + 's';
-    });
-  });
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-  document.querySelectorAll('[data-cx-fade], .cx-wave').forEach(el => io.observe(el));
+function boot() {
+  /* ---------------- reveals + measurement draws ---------------- */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -10% 0px', threshold: .1 });
+  $$('[data-cx-in], .cx-plot').forEach(el => io.observe(el));
 
-  /* ---------- scroll-drawn linework ---------- */
-  document.querySelectorAll('[data-cx-draw]').forEach(host => {
+  $$('[data-draw]').forEach(host => {
     const paths = Array.from(host.querySelectorAll('[pathLength]'));
     if (!paths.length) return;
-    const seq = host.dataset.cxDraw === 'sequential';
+    paths.forEach(p => { p.style.strokeDasharray = 1; p.style.strokeDashoffset = 1; });
     ScrollTrigger.create({
-      trigger: host,
-      start: host.dataset.cxStart || 'top 82%',
-      end: host.dataset.cxEnd || 'bottom 60%',
-      scrub: 0.6,
+      trigger: host, start: host.dataset.start || 'top 84%', end: host.dataset.end || 'bottom 62%', scrub: .5,
       onUpdate: self => {
-        const p = self.progress;
-        const n = paths.length;
-        for (let i = 0; i < n; i++) {
-          let local = p;
-          if (seq) {
-            const w = 1 / n, s = i * w * 0.86;
-            local = clamp((p - s) / w, 0, 1);
-          }
-          paths[i].style.strokeDashoffset = (1 - local).toFixed(4);
-        }
-      }
-    });
-  });
-
-  /* ---------- subtle parallax ---------- */
-  document.querySelectorAll('[data-cx-parallax]').forEach(el => {
-    const amt = parseFloat(el.dataset.cxParallax) || 0.08;
-    gsap.fromTo(el, { yPercent: -amt * 100 }, {
-      yPercent: amt * 100, ease: 'none',
-      scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
-    });
-  });
-
-  /* ---------- 01 hero: finished architecture -> structural frame ---------- */
-  const hero = document.querySelector('.cx-hero');
-  if (hero) {
-    const finish = hero.querySelector('.cx-hero-layer--finish');
-    const frame = hero.querySelector('.cx-hero-layer--frame');
-    const grid = hero.querySelectorAll('.cx-hero-grid [pathLength]');
-    const state = hero.querySelector('.cx-hero-state');
-    const cue = hero.querySelector('.cx-cue');
-    const labels = ['Completed architecture', 'Envelope removed', 'Reinforced-concrete frame'];
-    let lastLabel = -1;
-    ScrollTrigger.create({
-      trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 0.5,
-      onUpdate: self => {
-        const p = self.progress;
-        const t = clamp(p / 0.62, 0, 1);
-        finish.style.opacity = (1 - t).toFixed(3);
-        finish.style.transform = 'scale(' + (1 + t * 0.05).toFixed(4) + ')';
-        frame.style.transform = 'scale(' + (1.08 - t * 0.08).toFixed(4) + ')';
-        const d = clamp((p - 0.24) / 0.5, 0, 1);
-        grid.forEach((g, i) => {
-          const local = clamp((d - (i / grid.length) * 0.6) / 0.45, 0, 1);
-          g.style.strokeDashoffset = (1 - local).toFixed(4);
+        const n = paths.length, p = self.progress;
+        paths.forEach((el, i) => {
+          const s = (i / n) * .8;
+          el.style.strokeDashoffset = (1 - clamp((p - s) / (1 / n), 0, 1)).toFixed(4);
         });
-        if (cue) cue.style.opacity = (1 - clamp(p / 0.14, 0, 1)).toFixed(3);
-        const li = p < 0.3 ? 0 : (p < 0.62 ? 1 : 2);
-        if (li !== lastLabel && state) { lastLabel = li; state.textContent = labels[li]; }
       }
     });
+  });
+
+  /* ---------------- 3D: reinforcement ---------------- */
+  const gl = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
+  if (!gl) body.classList.add('cx-nogl');
+  const mobile = innerWidth <= 900;
+
+  function steelMat() {
+    return new THREE.MeshStandardMaterial({ color: 0x87817a, roughness: .45, metalness: .86 });
+  }
+  /* deformed reinforcing bar: core + two longitudinal ribs + inclined transverse ribs */
+  function rebar(len, r, mat) {
+    const g = new THREE.Group();
+    const rs = mobile ? 12 : 22;
+    g.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, rs, 1), mat));
+    const lrg = new THREE.BoxGeometry(r * .34, len, r * .62);
+    [-1, 1].forEach(s => {
+      const m = new THREE.Mesh(lrg, mat);
+      m.position.x = s * r * .95;
+      g.add(m);
+    });
+    const pitch = r * (mobile ? 2.2 : 1.6);
+    const count = Math.max(4, Math.floor(len / pitch));
+    const trg = new THREE.BoxGeometry(r * 1.2, r * .42, r * .5);
+    [-1, 1].forEach(side => {
+      const inst = new THREE.InstancedMesh(trg, mat, count);
+      const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler();
+      for (let i = 0; i < count; i++) {
+        const y = -len / 2 + pitch * .5 + i * pitch;
+        e.set(0, 0, side * .42);
+        q.setFromEuler(e);
+        m4.compose(new THREE.Vector3(side * r * .55, y, 0), q, new THREE.Vector3(1, 1, 1));
+        inst.setMatrixAt(i, m4);
+      }
+      inst.instanceMatrix.needsUpdate = true;
+      g.add(inst);
+    });
+    return g;
+  }
+  function stirrup(w, h, r, mat) {
+    const cr = Math.min(w, h) * .18, n = 5, pts = [];
+    const corners = [
+      [w / 2 - cr, h / 2 - cr, 0],
+      [-(w / 2 - cr), h / 2 - cr, Math.PI / 2],
+      [-(w / 2 - cr), -(h / 2 - cr), Math.PI],
+      [w / 2 - cr, -(h / 2 - cr), -Math.PI / 2]
+    ];
+    corners.forEach(([cx, cy, a0]) => {
+      for (let i = 0; i <= n; i++) {
+        const a = a0 + (i / n) * Math.PI / 2;
+        pts.push(new THREE.Vector3(cx + Math.cos(a) * cr, cy + Math.sin(a) * cr, 0));
+      }
+    });
+    const curve = new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0);
+    return new THREE.Mesh(new THREE.TubeGeometry(curve, mobile ? 110 : 190, r, mobile ? 6 : 10, true), mat);
+  }
+  function scene3(canvas) {
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !mobile, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 2));
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(34, 1, .1, 200);
+    scene.add(new THREE.HemisphereLight(0xb7c0c6, 0x14171a, .95));
+    const key = new THREE.DirectionalLight(0xfff2e2, 3.1); key.position.set(4, 6, 5); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xa9c0d6, 1.7); rim.position.set(-6, 2, -4); scene.add(rim);
+    const fill = new THREE.DirectionalLight(0xffffff, .6); fill.position.set(0, -4, 6); scene.add(fill);
+    function size() {
+      const w = canvas.clientWidth || canvas.parentElement.clientWidth;
+      const h = canvas.clientHeight || canvas.parentElement.clientHeight;
+      renderer.setSize(w, h, false);
+      cam.aspect = w / Math.max(1, h); cam.updateProjectionMatrix();
+    }
+    size();
+    addEventListener('resize', size);
+    return { renderer, scene, cam, key, rim, size };
   }
 
-  /* ---------- pinned step sequences (desktop only; static chapters at 1200px and below) ---------- */
-  gsap.matchMedia().add('(min-width: 1201px)', () => {
-    document.querySelectorAll('[data-cx-steps]').forEach(seq => {
-      const steps = Array.from(seq.querySelectorAll('.cx-step'));
-      const parts = Array.from(seq.querySelectorAll('.cx-part'));
-      const single = seq.dataset.cxMode === 'single';
-      const n = steps.length || 1;
-      let last = -1;
+  /* ---------------- 01 hero ---------------- */
+  const hero = $('.cx-hero');
+  if (hero) {
+    const canvas = $('#cxRebarCanvas');
+    const readout = $('[data-testid="cx-hero-readout"]');
+    const cue = $('.cx-cue');
+    const grid = $$('.cx-hero-grid [pathLength]');
+    const labels = ['MATERIAL', 'GEOMETRY', 'STRUCTURAL FUNCTION'];
+    let last = -1, world = null;
+    if (gl && canvas) {
+      world = scene3(canvas);
+      const mat = steelMat();
+      const bars = [];
+      const defs = mobile ? [[.35, .2, 5.6], [1.35, .17, 5.2]] : [[.55, .21, 6.6], [1.4, .18, 6.3], [2.2, .16, 6.1], [2.95, .19, 6.4], [3.75, .15, 5.9], [-.3, .17, 6.2]];
+      defs.forEach(([x, r, len], i) => {
+        const b = rebar(len, r, mat);
+        b.position.set(x, 0, -i * .55);
+        b.rotation.z = 0.3 + i * .04;
+        world.scene.add(b);
+        bars.push(b);
+      });
+      world.cam.position.set(1.5, 0, 6.2);
+      world.cam.lookAt(1.5, 0, 0);
+      let need = true;
+      const draw = () => { if (need) { world.renderer.render(world.scene, world.cam); need = false; } requestAnimationFrame(draw); };
+      requestAnimationFrame(draw);
       ScrollTrigger.create({
-        trigger: seq, start: 'top top', end: 'bottom bottom', scrub: true,
+        trigger: hero, start: 'top top', end: 'bottom bottom', scrub: .6,
         onUpdate: self => {
-          const idx = clamp(Math.floor(self.progress * n * 1.02), 0, n - 1);
-          if (idx === last) return;
-          last = idx;
-          steps.forEach((s, i) => s.classList.toggle('is-on', i === idx));
-          parts.forEach(pt => {
-            const i = parseInt(pt.dataset.part, 10);
-            pt.classList.toggle('is-lit', single ? i === idx : i <= idx);
+          const p = self.progress;
+          bars.forEach((b, i) => {
+            b.rotation.y = THREE.MathUtils.degToRad(p * (250 + i * 16));   // slow rotation about own axis
+            b.position.y = (i % 2 ? -1 : 1) * p * (.22 + i * .05);          // slight parallax
+            b.position.z = -i * .55 + p * .3;
           });
+          world.key.position.set(4 - p * 3.4, 6 - p * 2.2, 5 - p * 1.4);
+          world.rim.intensity = 1.1 + p * .5;
+          world.cam.position.z = 6.2 - p * .8;
+          world.cam.lookAt(1.5, 0, 0);
+          need = true;
         }
       });
-    });
-    return () => document.querySelectorAll('.cx-step.is-on, .cx-part.is-lit')
-      .forEach(el => el.classList.remove('is-on', 'is-lit'));
-  });
-
-  /* ---------- 12 stage crossfade ---------- */
-  const xf = document.querySelector('.cx-xfade');
-  if (xf) {
-    const layers = Array.from(xf.querySelectorAll('.cx-xfade-layer'));
-    const tags = Array.from(xf.querySelectorAll('.cx-xfade-stages span'));
+    }
     ScrollTrigger.create({
-      trigger: xf, start: 'top top', end: 'bottom bottom', scrub: 0.4,
+      trigger: hero, start: 'top top', end: 'bottom bottom', scrub: .5,
       onUpdate: self => {
-        const p = self.progress * (layers.length - 1);
-        layers.forEach((l, i) => {
-          const a = clamp(1 - Math.abs(p - i), 0, 1);
-          l.style.opacity = (i === 0 && p < 0 ? 1 : a).toFixed(3);
+        const p = self.progress;
+        grid.forEach((g, i) => {
+          g.style.strokeDashoffset = (1 - seg(p, i * .04, i * .04 + .26)).toFixed(3);
         });
-        const idx = clamp(Math.round(p), 0, tags.length - 1);
-        tags.forEach((t, i) => t.classList.toggle('is-on', i === idx));
+        if (cue) cue.style.opacity = (1 - seg(p, 0, .12)).toFixed(3);
+        const li = p < .3 ? 0 : p < .66 ? 1 : 2;
+        if (li !== last && readout) { last = li; readout.textContent = labels[li]; }
       }
     });
   }
 
-  /* ---------- log index highlight ---------- */
-  logEntries.forEach((entry, i) => {
+  /* ---------------- generic pinned state driver ---------------- */
+  function stateDriver(sectionSel, itemSel, onIndex, mode) {
+    const sec = $(sectionSel);
+    if (!sec) return;
+    const items = Array.from(sec.querySelectorAll(itemSel));
+    const n = items.length || 1;
+    let last = -1;
     ScrollTrigger.create({
-      trigger: entry, start: 'top 30%', end: 'bottom 30%',
-      onToggle: self => { if (self.isActive) logIndex.forEach((b, j) => b.classList.toggle('is-on', j === i)); }
+      trigger: sec, start: 'top top', end: 'bottom bottom', scrub: true,
+      onUpdate: self => {
+        const idx = clamp(Math.floor(self.progress * n * 1.02), 0, n - 1);
+        if (idx !== last) {
+          last = idx;
+          items.forEach((it, i) => it.classList.toggle('is-on', mode === 'cumulative' ? i <= idx : i === idx));
+          if (onIndex) onIndex(idx, self.progress);
+        } else if (onIndex) onIndex(idx, self.progress);
+      }
     });
-  });
+  }
+
+  /* ---------------- 02 structural system ---------------- */
+  {
+    const groups = $$('.cx-struct .cx-gr');
+    stateDriver('.cx-struct', '.cx-el', idx => {
+      groups.forEach(g => g.classList.toggle('is-on', +g.dataset.el === idx));
+    });
+  }
+
+  /* ---------------- 03 seismic analysis ---------------- */
+  {
+    const sec = $('.cx-seis');
+    if (sec) {
+      const parts = Array.from(sec.querySelectorAll('[data-sq]'));
+      const shape = sec.querySelector('#cxDefShape');
+      const frames = Array.from(sec.querySelectorAll('.cx-defframe'));
+      stateDriver('.cx-seis', '.cx-state', (idx, p) => {
+        parts.forEach(el => el.style.opacity = +el.dataset.sq <= idx ? 1 : 0.08);
+        const sq0 = sec.querySelector('.cx-sq0-label');
+        if (sq0) sq0.style.opacity = idx >= 2 ? 0 : 1;
+        const d = seg(p, .32, .82);
+        frames.forEach((f, i) => {
+          const k = (i + 1) / frames.length;
+          f.setAttribute('transform', `translate(${(d * 44 * k * k).toFixed(2)} 0)`);
+        });
+        if (shape) shape.style.opacity = d > .04 ? 1 : 0;
+      });
+    }
+  }
+
+  /* ---------------- 04 ground cutaway (depth readout) ---------------- */
+  {
+    const out = $('[data-testid="cx-depth-readout"]');
+    const strata = $$('.cx-stratum');
+    strata.forEach(s => ScrollTrigger.create({
+      trigger: s, start: 'top 55%', end: 'bottom 55%',
+      onToggle: self => { if (self.isActive && out) out.textContent = s.dataset.level; }
+    }));
+  }
+
+  /* ---------------- 05 concrete process (horizontal) ---------------- */
+  function horizontal(secSel, railSel, itemSel) {
+    const sec = $(secSel), rail = $(railSel);
+    if (!sec || !rail) return;
+    const items = Array.from(rail.querySelectorAll(itemSel));
+    const mm = gsap.matchMedia();
+    mm.add('(max-width: 1200px)', () => {     // vertical stepped sequence on small screens
+      rail.style.transform = 'none';
+      items.forEach(it => it.classList.add('is-on'));
+      return () => items.forEach(it => it.classList.remove('is-on'));
+    });
+    mm.add('(min-width: 1201px)', () => horizontalScrub(sec, rail, items));
+  }
+  function horizontalScrub(sec, rail, items) {
+    let last = -1, cached = 0;
+    const measure = () => { cached = Math.max(0, rail.scrollWidth - innerWidth + 40); };
+    measure();
+    const st = ScrollTrigger.create({
+      trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .35,
+      onRefresh: measure,
+      onUpdate: self => {
+        const p = self.progress;
+        rail.style.transform = `translate3d(${-(cached * p).toFixed(1)}px,0,0)`;
+        const idx = clamp(Math.round(p * (items.length - 1)), 0, items.length - 1);
+        if (idx !== last) {
+          last = idx;
+          items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
+        }
+      }
+    });
+    return () => { st.kill(); rail.style.transform = 'none'; };
+  }
+  horizontal('.cx-conc', '[data-testid="cx-concrete-rail"]', '.cx-stepcard');
+
+  /* ---------------- 06 reinforcement cage (WebGL assembly) ---------------- */
+  {
+    const sec = $('.cx-cage');
+    const canvas = $('#cxCageCanvas');
+    if (sec && canvas && gl) {
+      const w = scene3(canvas);
+      const mat = steelMat();
+      const R = .105, W = 1.24, L = 4.0;
+      const cage = new THREE.Group();
+      w.scene.add(cage);
+      const mains = [];
+      [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([sx, sz], i) => {
+        const b = rebar(L, R, mat);
+        b.position.set(sx * W / 2 * .78, 0, sz * W / 2 * .78);
+        b.userData.home = b.position.clone();
+        cage.add(b);
+        mains.push(b);
+      });
+      const ties = [];
+      const tieN = mobile ? 6 : 10;
+      for (let i = 0; i < tieN; i++) {
+        const s = stirrup(W * .82, W * .82, R * .44, mat);
+        s.rotation.x = Math.PI / 2;
+        s.position.y = -L / 2 + L * .09 + (i / (tieN - 1)) * L * .82;
+        s.userData.home = s.position.y;
+        ties.push(s);
+        cage.add(s);
+      }
+      const concreteMat = new THREE.MeshStandardMaterial({ color: 0xb8b3ab, roughness: .92, metalness: .02, transparent: true, opacity: 0 });
+      const concrete = new THREE.Mesh(new THREE.BoxGeometry(W * 1.16, L * 1.02, W * 1.16), concreteMat);
+      w.scene.add(concrete);
+      const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(W * 1.16, L * 1.02, W * 1.16)),
+        new THREE.LineBasicMaterial({ color: 0xa08a63, transparent: true, opacity: 0 })
+      );
+      w.scene.add(edges);
+      w.cam.position.set(3.0, 2.4, 7.0);
+      w.cam.lookAt(0, 0, 0);
+      let need = true;
+      const draw = () => { if (need) { w.renderer.render(w.scene, w.cam); need = false; } requestAnimationFrame(draw); };
+      requestAnimationFrame(draw);
+      ScrollTrigger.create({
+        trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .5,
+        onUpdate: self => {
+          const p = self.progress;
+          cage.rotation.y = THREE.MathUtils.degToRad(24 + p * 150);
+          cage.rotation.x = -0.05;
+          mains.forEach((b, i) => {
+            const enter = i === 0 ? 1 : seg(p, .14 + i * .045, .3 + i * .045);
+            const h = b.userData.home;
+            b.position.set(h.x * enter + (1 - enter) * h.x * 3.4, h.y, h.z * enter + (1 - enter) * h.z * 3.4);
+            b.visible = enter > .02;
+            b.rotation.y = THREE.MathUtils.degToRad(p * 120);
+          });
+          ties.forEach((s, i) => {
+            const a = seg(p, .34 + (i / ties.length) * .16, .5 + (i / ties.length) * .16);
+            s.visible = a > .02;
+            s.scale.setScalar(.6 + a * .4);
+            s.position.y = s.userData.home + (1 - a) * 1.6;
+            s.material.opacity = 1;
+          });
+          const c = seg(p, .72, .93);
+          concreteMat.opacity = c * .24;
+          edges.material.opacity = c * .8;
+          concrete.visible = c > .01;
+          w.cam.position.set(3.0 - p * .5, 2.4 - p * 1.1, 7.0 - p * .5);
+          w.cam.lookAt(0, 0, 0);
+          need = true;
+        }
+      });
+    }
+    stateDriver('.cx-cage', '.cx-prin');
+  }
+
+  /* ---------------- 07 execution control (horizontal inspection) ---------------- */
+  {
+    const sec = $('.cx-insp');
+    if (sec) {
+      const states = Array.from(sec.querySelectorAll('.cx-insp-state'));
+      const stages = Array.from(sec.querySelectorAll('[data-elstate]'));
+      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col');
+      ScrollTrigger.create({
+        trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .3,
+        onUpdate: self => {
+          const idx = clamp(Math.floor(self.progress * states.length * 1.02), 0, states.length - 1);
+          states.forEach((s, i) => s.classList.toggle('is-on', i === idx));
+          const k = clamp(Math.floor(self.progress * stages.length * 1.02), 0, stages.length - 1);
+          stages.forEach((s, i) => { s.style.opacity = i <= k ? 1 : .08; });
+        }
+      });
+    }
+  }
+
+  /* ---------------- 08 waterproofing continuity trace ---------------- */
+  {
+    const sec = $('.cx-wp');
+    const trace = $('#cxTrace');
+    const gap = $('#cxTraceGap');
+    const flag = $('.cx-wp-flag');
+    if (sec && trace) {
+      trace.style.strokeDasharray = 1;
+      stateDriver('.cx-wp', '.cx-wp-node', (idx, p) => {
+        trace.style.strokeDashoffset = (1 - clamp(p * 1.08, 0, 1)).toFixed(4);
+        const broken = p > .58 && p < .70;      // unresolved termination, then resolved
+        trace.classList.toggle('is-broken', broken);
+        if (gap) gap.style.opacity = broken ? 1 : 0;
+        if (flag) flag.classList.toggle('is-on', broken);
+      });
+    }
+  }
+
+  /* ---------------- 12 final: drawing aligns, then becomes architecture ---------------- */
+  {
+    const fin = $('.cx-final');
+    if (fin) {
+      const layers = Array.from(fin.querySelectorAll('.cx-fl'));
+      const photo = fin.querySelector('.cx-final-photo');
+      const dwg = fin.querySelector('.cx-final-dwg');
+      ScrollTrigger.create({
+        trigger: fin, start: 'top top', end: 'bottom bottom', scrub: .45,
+        onUpdate: self => {
+          const p = self.progress;
+          const align = seg(p, .06, .58);
+          layers.forEach((l, i) => {
+            const off = (i - (layers.length - 1) / 2) * 120 * (1 - align);
+            l.setAttribute('transform', `translate(${off.toFixed(1)} ${(off * .22).toFixed(1)})`);
+            l.style.opacity = (0.25 + align * .75).toFixed(3);
+          });
+          const dis = seg(p, .62, .93);
+          if (photo) photo.style.opacity = dis.toFixed(3);
+          if (dwg) dwg.style.opacity = (1 - dis * .96).toFixed(3);
+        }
+      });
+    }
+  }
 
   ScrollTrigger.refresh();
-})();
+}
