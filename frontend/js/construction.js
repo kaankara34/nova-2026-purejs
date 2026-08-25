@@ -80,28 +80,33 @@ function boot() {
   function steelMat() {
     return new THREE.MeshStandardMaterial({ color: 0x87817a, roughness: .45, metalness: .86 });
   }
-  /* deformed reinforcing bar: core + two longitudinal ribs + inclined transverse ribs */
+  /* deformed reinforcing bar: core + two longitudinal ribs + inclined transverse ribs
+     wrapping both halves of the circumference (deformation pattern stays visible while rotating) */
   function rebar(len, r, mat) {
     const g = new THREE.Group();
-    const rs = mobile ? 12 : 22;
-    g.add(new THREE.Mesh(new THREE.CylinderGeometry(r, r, len, rs, 1), mat));
-    const lrg = new THREE.BoxGeometry(r * .34, len, r * .62);
-    [-1, 1].forEach(s => {
+    const rs = mobile ? 16 : 28;
+    g.add(new THREE.Mesh(new THREE.CylinderGeometry(r * .96, r * .96, len, rs, 1), mat));
+    const lrg = new THREE.BoxGeometry(r * .3, len, r * .22);
+    [-1, 1].forEach(sd => {
       const m = new THREE.Mesh(lrg, mat);
-      m.position.x = s * r * .95;
+      m.position.x = sd * r * .93;
       g.add(m);
     });
-    const pitch = r * (mobile ? 2.2 : 1.6);
-    const count = Math.max(4, Math.floor(len / pitch));
-    const trg = new THREE.BoxGeometry(r * 1.2, r * .42, r * .5);
-    [-1, 1].forEach(side => {
+    const pitch = r * (mobile ? 1.55 : 1.12);
+    const count = Math.max(6, Math.floor(len / pitch));
+    const arc = Math.PI * .66;
+    const trg = new THREE.TorusGeometry(r * .93, r * .135, mobile ? 5 : 8, mobile ? 12 : 20, arc);
+    const AX = new THREE.Vector3(1, 0, 0), AY = new THREE.Vector3(0, 1, 0);
+    const base = new THREE.Quaternion().setFromAxisAngle(AX, Math.PI / 2);
+    [1, -1].forEach(side => {
       const inst = new THREE.InstancedMesh(trg, mat, count);
-      const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler();
+      const m4 = new THREE.Matrix4(), one = new THREE.Vector3(1, 1, 1);
+      const tilt = new THREE.Quaternion().setFromAxisAngle(AX, side * .34);
+      const spin = new THREE.Quaternion().setFromAxisAngle(AY, (side > 0 ? 0 : Math.PI) - arc / 2 + .18);
+      const q = spin.clone().multiply(tilt).multiply(base);
       for (let i = 0; i < count; i++) {
-        const y = -len / 2 + pitch * .5 + i * pitch;
-        e.set(0, 0, side * .42);
-        q.setFromEuler(e);
-        m4.compose(new THREE.Vector3(side * r * .55, y, 0), q, new THREE.Vector3(1, 1, 1));
+        const y = -len / 2 + pitch * .6 + i * pitch + (side > 0 ? 0 : pitch * .5);
+        m4.compose(new THREE.Vector3(0, y, 0), q, one);
         inst.setMatrixAt(i, m4);
       }
       inst.instanceMatrix.needsUpdate = true;
@@ -159,7 +164,7 @@ function boot() {
       world = scene3(canvas);
       const mat = steelMat();
       const bars = [];
-      const defs = mobile ? [[.35, .2, 5.6], [1.35, .17, 5.2]] : [[.55, .21, 6.6], [1.4, .18, 6.3], [2.2, .16, 6.1], [2.95, .19, 6.4], [3.75, .15, 5.9], [-.3, .17, 6.2]];
+      const defs = mobile ? [[.45, .3, 5.6], [1.6, .24, 5.2]] : [[.75, .34, 6.6], [1.85, .28, 6.3], [2.8, .24, 6.1], [3.7, .3, 6.4], [-.35, .26, 6.2]];
       defs.forEach(([x, r, len], i) => {
         const b = rebar(len, r, mat);
         b.position.set(x, 0, -i * .55);
