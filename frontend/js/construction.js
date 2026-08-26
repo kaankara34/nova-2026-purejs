@@ -208,6 +208,48 @@ function boot() {
     });
   }
 
+  /* ---------------- pinned copy tracking (content-aware) ----------------
+     The pinned stages keep their original 100vh composition. When the approved
+     copy is taller than the available column, the copy block is tracked to the
+     canonical active state instead of being cut off. */
+  function copyTracker(sec, itemSel, expandSel) {
+    if (!sec) return null;
+    const win = sec.querySelector('.cx-copywin');
+    const move = win && win.querySelector('.cx-copymove');
+    if (!win || !move) return null;
+    const rows = Array.from(win.querySelectorAll(itemSel));
+    const exp = rows.map(r => (expandSel ? r.querySelector(expandSel) : null));
+    let geo = null;
+    function measure() {
+      exp.forEach(d => { if (d) { d.style.transition = 'none'; d.style.maxHeight = '0px'; } });
+      const top = move.getBoundingClientRect().top;
+      const base = rows.map(r => { const b = r.getBoundingClientRect(); return { top: b.top - top, h: b.height }; });
+      const collapsed = move.scrollHeight;
+      const dh = exp.map(d => (d ? d.scrollHeight : 0));
+      exp.forEach((d, i) => { if (d) { d.style.setProperty('--cx-dh', dh[i] + 'px'); d.style.maxHeight = ''; } });
+      requestAnimationFrame(() => exp.forEach(d => { if (d) d.style.transition = ''; }));
+      geo = { base, collapsed, dh, avail: win.clientHeight };
+    }
+    measure();
+    ScrollTrigger.addEventListener('refreshInit', measure);
+    return idx => {
+      if (!geo || !geo.base[idx]) return;
+      if (innerWidth <= 1200) { move.style.transform = 'none'; return; }
+      const grow = geo.dh[idx] ? geo.dh[idx] + 5 : 0;
+      const total = geo.collapsed + grow;
+      const over = total - geo.avail;
+      win.classList.toggle('is-tracking', over > 0);
+      /* fits: keep the original optically centred composition.
+         taller than the column: track the canonical active state into view */
+      const shift = over <= 0
+        ? -(geo.avail - total) / 2
+        : (idx === rows.length - 1
+            ? over
+            : clamp(geo.base[idx].top + geo.base[idx].h + grow - geo.avail + 24, 0, over));
+      move.style.transform = Math.abs(shift) > .5 ? `translate3d(0,${(-shift).toFixed(1)}px,0)` : 'none';
+    };
+  }
+
   /* ---------------- generic pinned state driver ---------------- */
   function stateDriver(sectionSel, itemSel, onIndex, mode) {
     const sec = $(sectionSel);
@@ -215,6 +257,9 @@ function boot() {
     const items = Array.from(sec.querySelectorAll(itemSel));
     const n = items.length || 1;
     let last = -1;
+    /* deterministic first paint: state 01 is active before the first scroll tick */
+    items.forEach((it, i) => it.classList.toggle('is-on', i === 0));
+    if (onIndex) onIndex(0, 0);
     ScrollTrigger.create({
       trigger: sec, start: 'top top', end: 'bottom bottom', scrub: true,
       onUpdate: self => {
@@ -231,8 +276,10 @@ function boot() {
   /* ---------------- 02 structural system ---------------- */
   {
     const groups = $$('.cx-struct .cx-gr');
+    const track = copyTracker($('.cx-struct'), '.cx-el', '.cx-el-d');
     stateDriver('.cx-struct', '.cx-el', idx => {
       groups.forEach(g => g.classList.toggle('is-on', +g.dataset.el === idx));
+      if (track) track(idx);
     });
   }
 
@@ -243,8 +290,10 @@ function boot() {
       const parts = Array.from(sec.querySelectorAll('[data-sq]'));
       const shape = sec.querySelector('#cxDefShape');
       const frames = Array.from(sec.querySelectorAll('.cx-defframe'));
+      const track = copyTracker(sec, '.cx-state', null);
       stateDriver('.cx-seis', '.cx-state', (idx, p) => {
         parts.forEach(el => el.style.opacity = +el.dataset.sq <= idx ? 1 : 0.08);
+        if (track) track(idx);
         const sq0 = sec.querySelector('.cx-sq0-label');
         if (sq0) sq0.style.opacity = idx >= 2 ? 0 : 1;
         const d = seg(p, .32, .82);
@@ -260,11 +309,25 @@ function boot() {
   /* ---------------- 04 ground cutaway (depth readout) ---------------- */
   {
     const out = $('[data-testid="cx-depth-readout"]');
+    const cut = $('.cx-cut');
     const strata = $$('.cx-stratum');
-    strata.forEach(s => ScrollTrigger.create({
-      trigger: s, start: 'top 55%', end: 'bottom 55%',
-      onToggle: self => { if (self.isActive && out) out.textContent = s.dataset.level; }
-    }));
+    if (out && cut && strata.length) {
+      /* one source: the panel closest to the reading line owns the readout */
+      const pick = () => {
+        const line = innerHeight * .45;
+        let best = -1, d0 = Infinity;
+        strata.forEach((s, i) => {
+          const r = s.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          const d = Math.abs((r.top + r.bottom) / 2 - line);
+          if (d < d0) { d0 = d; best = i; }
+        });
+        if (best < 0) return;
+        const lvl = strata[best].dataset.level;
+        if (out.textContent !== lvl) out.textContent = lvl;
+      };
+      ScrollTrigger.create({ trigger: cut, start: 'top bottom', end: 'bottom top', onUpdate: pick, onRefresh: pick });
+    }
   }
 
   /* ---------------- 05 concrete process (horizontal) ---------------- */
@@ -372,7 +435,8 @@ function boot() {
         }
       });
     }
-    stateDriver('.cx-cage', '.cx-prin');
+    const cagetrack = copyTracker(sec, '.cx-prin', 'p');
+    stateDriver('.cx-cage', '.cx-prin', idx => { if (cagetrack) cagetrack(idx); });
   }
 
   /* ---------------- 07 execution control (horizontal inspection) ---------------- */
@@ -402,7 +466,9 @@ function boot() {
     const flag = $('.cx-wp-flag');
     if (sec && trace) {
       trace.style.strokeDasharray = 1;
+      const track = copyTracker(sec, '.cx-wp-node', null);
       stateDriver('.cx-wp', '.cx-wp-node', (idx, p) => {
+        if (track) track(idx);
         trace.style.strokeDashoffset = (1 - clamp(p * 1.08, 0, 1)).toFixed(4);
         const broken = p > .58 && p < .70;      // unresolved termination, then resolved
         trace.classList.toggle('is-broken', broken);

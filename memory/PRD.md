@@ -450,3 +450,24 @@ User asked to keep the visual direction and refine 7 points. Implemented:
 **Verification:** `testing_agent` iteration_19 — 100 % of 13 feature areas functional, zero console errors, zero horizontal overflow at 1920/1440/1280/1024/768/390, Turkish glyphs correct, no forbidden claims or fabricated values. Follow-up fixes after the report: light-section gold/footnote contrast raised, "Undeformed analytical model" caption now dims once deformation is active, thinner stirrup tube + raised camera so the cage reads as closed hoops, tablet annotation size, cached horizontal span + matchMedia re-init on resize.
 
 **Note:** the shared side menu still contains the global East West navigation entry and its thumbnail (brand-wide navigation, not page imagery) — left untouched by design.
+
+---
+
+## 2026-06 — Construction page: original architecture restored + adapted to the longer approved copy
+
+**User brief:** the ORIGINAL first working layout / animation architecture is the baseline; the CURRENT approved text is locked (no rewrite, reorder, shorten, hide or clip); adapt geometry (content-aware heights, scroll duration) — never shrink type or hide content; no redesign.
+
+**What was done (files: `frontend/construction.html`, `frontend/css/construction.css`, `frontend/js/construction.js`, helper `scripts/cx_copywin.py`):**
+- Reverted CSS + JS to the committed original architecture (pinned 100vh sticky stages, `stateDriver()` single-progress states, horizontal rails, sticky ground depth readout). The earlier restructured markup (separate `cx-secintro` sections + bare pinned stages) was discarded.
+- **Content lock verified programmatically**: normalised text of `construction.html` is byte-identical to the approved commit (`git show HEAD:frontend/construction.html`). Only block containers were added.
+- **Hero** — kept the 250vh pinned stage; copy became a two-column composition (title block + first two paragraphs left, remaining three right, foot spanning). Stage is `min-height:100vh; height:auto; align-content:end`, so the long intro never collides with the fixed header (verified down to 1280x720). Mobile/tablet: static stage, single column, extra top padding so the kicker clears the transparent header.
+- **Copy window (`.cx-copywin` > `.cx-copymove`)** — new adaptation for Structural / Seismic / Reinforcement / Waterproofing: the pinned copy column is a clip window; when the approved copy is taller than the column, the block translates so the canonical active state stays in view (`.is-tracking` adds an edge fade), and the last state reveals the trailing regulatory note in full. When the copy fits (≥1080px heights) the original centred composition is unchanged.
+- **Content-aware expansion** — `.cx-el-d` / `.cx-prin p` expanded heights come from measured `scrollHeight` (`--cx-dh`) instead of `max-height: 8em`, so no description is cut.
+- **Ground / Foundation** — one deterministic source: the panel nearest the 45% reading line owns the depth readout (replaces the per-panel `top 55%` toggles that could mismatch).
+- **Seismic** — left diagram and right copy now start on the same top axis.
+- **Concrete / Execution Control** — geometry adapted so the head, rail and notes fit the viewport at 1366x768 and 1280x800 (wider cards, tighter vertical rhythm, head copy measured to the full-width band, `--cx-dh`-free); execution build-up label and column derive from the same progress.
+- `stateDriver()` seeds state 01 before the first scroll tick (deterministic first paint).
+
+**Verification:** `testing_agent` iteration_21 — **frontend 100 %**, zero console errors, zero horizontal overflow at 1920x1080 / 1680x1050 / 1440x900 / 1366x768 / 1280x800 / 1280x720 / 1024x1366 / 1024x768 / 768x1024 / 430x932 / 393x852 / 390x844 / 375x812; all state sequences correct forward and reverse (Structural 6, Seismic 5, Reinforcement 6, Concrete 7, Execution 5, Waterproofing 5); ground readout matched the visible panel on 41/41 samples with 0px inter-panel gaps; scrollbar-jump and resize determinism verified; mobile/tablet flow fallback fully expanded. Post-report hardening: mobile hero header clearance + deterministic first state. **Not yet user-confirmed visually.**
+
+**Backlog / not done:** optional `ResizeObserver` on `.cx-copywin` for late web-font reflow; concrete section head lives inside the rail wrapper (renders correctly, cosmetically fragile).

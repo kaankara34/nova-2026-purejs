@@ -1,0 +1,94 @@
+{
+  "summary": "Frontend-only presentation QA of /construction.html after the user's copy revision. Verified page load (0 console errors, 0 page errors, no 404s except the harmless cdn-cgi/rum beacon), zero horizontal overflow at 1920/1440/1280/1024/768/430/390, content-completeness audit (bounding-box based) of every pinned stage at 1920x1080, 1920x800, 1440x900, 1280x720 and 1240x700, all state machines (structural 6 rows, seismic 5 states, concrete 7-step horizontal rail, reinforcement 6 principles + WebGL cage, execution 5 columns + 6 element states, waterproofing 5 nodes + discontinuity), MEP 6 tabs->6 layers, 9-row technical register with correct Turkish glyphs, mobile 390 expansion (all descriptions expanded, 15px drawing annotations, both canvases render), resize 1920->1024->1920 recovery, and the shared shell (side menu, CONSTRUCTION->construction.html, DESIGN href='#', transparent header over hero / solid over light sections, index.html, leed.html, team.html load clean). FOUND 3 blocking presentation defects: (1) 3 of the 6 Structural System element descriptions are never revealed during a normal desktop scroll, (2) both 'sticky' drawings (structural + seismic) only stick for ~110-130px and then scroll away under the header, (3) pinned stages still clip copy at viewport heights <=720px and the hero copy slides under/behind the fixed header (colliding with REGISTER INTEREST) from 800px height downwards.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Structural System (cx-section-structural)",
+        "issue": "CONTENT NOT REACHABLE BY SCROLL: on a normal downward scroll at 1920x1080 only cx-element-1, cx-element-3 and cx-element-6 ever become active. cx-element-2 (Columns), cx-element-4 (Beams) and cx-element-5 (Slabs) never get .is-on, so their two authored paragraphs stay at max-height:0 / opacity:0 and are never displayed. Confirmed by DOM audit: after a full page scroll, the paragraphs 'Reinforced-concrete columns constitute principal vertical load-resisting elements...', 'Reinforced-concrete beams transfer actions from floor systems...' and 'Floor systems resist and distribute gravity loads...' are all computed opacity 0. Root cause: the 6 per-row ScrollTriggers use start 'top 62%' / end 'bottom 38%'; the collapsed rows occupy ~30px each (~250px total) while each trigger window needs ~24vh (~260px) of scroll, so the windows fully overlap and only the last row that entered stays active (onToggle never re-fires for the earlier rows). Clicking a row works correctly (correct row + matching data-el group, exactly one active).",
+        "selector": "[data-testid='cx-element-2'] .cx-el-d, [data-testid='cx-element-4'] .cx-el-d, [data-testid='cx-element-5'] .cx-el-d",
+        "priority": "CRITICAL"
+      },
+      {
+        "component": "Structural System / Seismic Design sticky drawings",
+        "issue": "The 'sticky' drawings are effectively not sticky. .cx-struct-model (position:sticky; top:144px) holds only from vizTop 197 -> 144 and then travels off the top: measured vizTop 144 (y=2850) -> -125 (y=3100) -> -651 (y=3600) -> fully off screen at y=3850, i.e. only ~110px of sticky travel inside a 1220px section. Same for .cx-seis-viz (~130px). Cause: svg max-height calc(100vh - var(--header-h) - 96px) makes the drawing (~874px) almost as tall as its grid area / copy column (~1000px), so sticky travel = copyHeight - drawingHeight. Consequence: the last element rows / seismic states are read with the drawing gone and the drawing passes behind the fixed header (violates 'the sticky drawing never overlaps the header'). Suggested direction: cap the drawing at ~60-68vh and/or lengthen the copy column so real sticky travel exists.",
+        "selector": ".cx-struct-model, .cx-seis-viz",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Hero (cx-hero / .cx-hero-body)",
+        "issue": "Hero copy slides under and collides with the fixed header at reduced viewport heights while the hero is still pinned. Measured overlap of the first paragraph ('The structural performance, durability and serviceability of a building are determined through an integrated engineering process...') with the header band: 25px @1920x800, 53px @1280x720, 110px @1240x700 (plus 4px on the 2nd paragraph 'Nova approaches construction as the physical execution...'). Screenshot at 1240x700 shows the paragraph text running behind the REGISTER INTEREST button and the phone/chat icons, and the READING/GEOMETRY readout sitting behind the header controls. Clean at 1920x1080 and 1440x900.",
+        "selector": "[data-testid='cx-hero'] .cx-hero-body .cx-p",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Waterproofing (cx-section-waterproofing)",
+        "issue": "Regulatory note is vertically clipped by the pinned 100vh stage: 'Design and application must comply with the applicable requirements of the Binalarda Su Yalitimi Yonetmeligi and the project-specific waterproofing...' - note bottom 750 vs stage bottom 720 => 30px cut at 1280x720 and 47px cut at 1240x700; the .cx-wp-flag 'DISCONTINUITY AT JUNCTION - DETAIL UNRESOLVED' is also cut by 2px at 1240x700. Clean at 1920x1080, 1920x800 and 1440x900.",
+        "selector": ".cx-wp-stage .cx-note, .cx-wp-flag",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Reinforcement (cx-section-reinforcement)",
+        "issue": "Model note clipped at the bottom of the pinned stage: 'Model shown for explanation of detailing principles. Bar diameters, spacing, lap...' cut by 6px @1280x720 and 19px @1240x700.",
+        "selector": ".cx-cage-stage .cx-note",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "Concrete Performance (cx-section-concrete)",
+        "issue": "Chapter eyebrow '04 / Material' sits 8px under the fixed header at 1240x700 (pinned stage top padding insufficient). All 7 step cards, both intro paragraphs, the photo band and the TS EN 206 note are fully inside the stage at 1920x1080 / 1920x800 / 1440x900 / 1280x720.",
+        "selector": ".cx-flow-head .cx-idx",
+        "priority": "LOW"
+      },
+      {
+        "component": "Seismic Design (cx-section-seismic)",
+        "issue": "cx-seis-state-1 (ANALYTICAL MODEL) never becomes .is-on during a downward read-through (progression observed jumps straight to state 2 -> 3 -> 4 -> 5); same overlapping-trigger cause as the structural rows. Copy stays legible (opacity .34) so it is a state-highlight defect, not a content loss. Also the drawing deformation only has two positions (idx<2 vs idx>=2), so states 04 and 05 show no further drawing progression apart from the cumulative data-sq reveals.",
+        "selector": "[data-testid='cx-seis-state-1']",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "Reveal animations (IntersectionObserver)",
+        "issue": "Elements with [data-cx-in] stay permanently at opacity 0 if their section is passed by a large scroll jump (anchor / fast flick). After jumping through the page, '03 / Ground', 'SOIL-STRUCTURE INTERACTION & FOUNDATION ENGINEERING', 'Foundation engineering begins with a project-specific geotechnical model...', 'Excavation support and below-ground construction...', 'INTERRELATED SEISMIC DESIGN CONSIDERATIONS', '09 / Acoustics', 'ACOUSTIC PERFORMANCE' and 'Residential acoustic performance is determined by...' were all computed opacity 0. Threshold .1 + rootMargin -10% never fires for skipped sections. Consider a ScrollTrigger/scroll-position fallback that force-reveals anything above the current scroll position.",
+        "selector": "[data-cx-in]",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "construction.html - pinned stages at short viewports",
+        "issues": [
+          "The CSS refinement described in the request, @media (min-width:1201px) and (max-height:770px), is NOT present in /app/frontend/css/construction.css - which matches the clipping still measured at 1280x720 / 1240x700."
+        ]
+      },
+      {
+        "screen": "Shared shell",
+        "issues": [
+          "index.html still returns the document title 'DarGlobal | International Luxury Real Estate Devel...' on the Nova Konut homepage (pre-existing, outside this task's scope but worth flagging)."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Structural System: drive the six element rows from a single progress-based state machine (like stateDriver/horizontalScrub) instead of six overlapping per-row ScrollTriggers, or lengthen the section so each row owns real scroll distance - all six descriptions must be revealed on a normal downward scroll. Same fix for cx-seis-state-1.",
+    "Make the structural/seismic drawings genuinely sticky: cap .cx-struct-model svg / .cx-seis-viz svg around 60-68vh (or give the sticky column its own tall wrapper) so sticky travel covers the whole reading column and the drawing never passes behind the header.",
+    "Hero: reserve the header height in .cx-hero-copy (e.g. padding-top: var(--header-h) or a max-height media query) so no hero paragraph slides under/behind the header controls at 800/720/700px viewport heights.",
+    "Waterproofing + reinforcement pinned stages: shrink vh-aware type/gaps (or add the missing @media (min-width:1201px) and (max-height:770px) block) so the regulatory note, the discontinuity flag and the model note stay inside the 100vh stage at 1280x720 and 1240x700.",
+    "Concrete: increase the pinned stage top padding by ~10px at max-height<=700 so '04 / Material' clears the header.",
+    "Add a fallback that force-reveals [data-cx-in] elements located above the current scroll position, so fast scrolls/anchor jumps cannot leave copy at opacity 0."
+  ],
+  "critical_code_review_comments": [
+    "construction.js: per-row ScrollTrigger pattern (start 'top 62%' / end 'bottom 38%') is unsafe for short collapsed rows - the active windows of all six rows overlap so only the last activated row keeps .is-on and earlier rows never re-activate. Use a single scrubbed trigger over the section and map progress -> index (the existing stateDriver already does this correctly for .cx-prin, where all 6 principles were verified to activate).",
+    "construction.css: .cx-struct-model svg { max-height: calc(100vh - var(--header-h) - 96px) } leaves only ~110px of sticky travel; sticky travel = copyColumnHeight - drawingHeight, so the drawing must be materially shorter than the copy column.",
+    "The claimed @media (min-width:1201px) and (max-height:770px) refinement is absent from construction.css - the short-viewport clipping it was meant to fix is still reproducible.",
+    ".cx-el.is-on .cx-el-d max-height:46em is sufficient for the current copy (measured scrollHeight 170px), and .cx-prin.is-on p max-height:8em is sufficient (40px) - no max-height clipping found at desktop; mobile <=1200px correctly forces max-height:none."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "n/a (frontend-only request)", "frontend": "~70% (11 of 12 requested areas pass; structural row progression, sticky drawings and short-viewport/hero clipping fail)" },
+  "seed_data_creation": "none - static site",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "not required - public static site (no /app/memory/test_credentials.md needed)",
+  "context_for_next_testing_agent": "Verified PASSING and no need to re-test unless code changes: zero horizontal overflow at 1920/1440/1280/1024/768/430/390; zero console/page errors on construction.html, index.html, leed.html, team.html; concrete horizontal rail (7 steps, exactly one active, rail translates to -1146px, photo band + TS EN 206 note inside stage down to 1280x720); execution rail (5 columns one active, 6 element states cumulative, last column right edge 1765<1920, edge fades are on the static .cx-insp-stage so they stay at the viewport edges); waterproofing trace draws 0.96->0 with the broken/flag state appearing mid-sequence and resolving; reinforcement all 6 principles activate; MEP 6 tabs each light only their own layer; 9 register rows with correct Turkish characters; mobile 390 shows every description expanded with 0 clipping and both canvases render, drawing annotations 15px; resize 1920->1024->1920 recovers (rail re-scrubs, overflow 0); side menu opens, CONSTRUCTION->construction.html, DESIGN->#, header transparent over hero and rgba(11,11,11,.94) over light sections. Re-test focus after fixes: structural row progression on downward AND upward scroll, sticky drawing retention, hero at 1920x800/1280x720/1240x700, waterproofing/reinforcement notes at 1280x720 and 1240x700.",
+  "rca_of_the_issue": "Two root causes. (1) State machines: converting Structural System and Seismic Design to flowing sections replaced the pinned scrub with one ScrollTrigger per row using start 'top 62%' / end 'bottom 38%'. Because a collapsed row is only ~30px tall, all six trigger windows overlap inside ~250px of scroll, so onToggle fires for several rows almost simultaneously and only the last one keeps .is-on; rows 2/4/5 (and seismic state 1) therefore never expand, permanently hiding their authored paragraphs (max-height:0 / opacity:0). (2) Sticky geometry: the drawings are sized to nearly the full viewport height (max-height calc(100vh - header - 96px)) while the copy column is only slightly taller, so sticky travel (copy height minus drawing height) is ~110-130px and the drawing scrolls away under the fixed header. Separately, the pinned 100vh stages (waterproofing, reinforcement, concrete) and the hero still have no max-height<=770px refinement, so at 1280x720/1240x700/1920x800 the last note lines are clipped and the hero paragraphs slide under the fixed header."
+}

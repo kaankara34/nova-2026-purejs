@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# STALE — construction.html is now maintained by hand (approved copy lives in the HTML).
+# Do NOT run this generator: it would overwrite the approved content.
 """Rebuild construction.html: technical-documentation experience.
 Reuses the existing Nova header / side menu / footer markup verbatim."""
 import re, pathlib

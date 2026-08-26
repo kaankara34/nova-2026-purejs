@@ -90,7 +90,8 @@ html:has(.page-cx) { scroll-behavior: auto; }
    HERO — steel field + WebGL reinforcement
    ========================================================= */
 .cx-hero { position: relative; height: 250vh; background: #0b0d0e; }
-.cx-hero-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; isolation: isolate; }
+.cx-hero-stage { position: sticky; top: 0; height: auto; min-height: 100vh; overflow: hidden; isolation: isolate;
+  display: grid; align-content: end; }
 .cx-hero-photo { position: absolute; inset: 0; }
 .cx-hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.42) contrast(1.16) brightness(.52) blur(1.6px); }
 .cx-hero-scrim { position: absolute; inset: 0;
@@ -102,10 +103,15 @@ html:has(.page-cx) { scroll-behavior: auto; }
 .cx-hero-grid { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; }
 .cx-hero-grid path { fill: none; stroke: rgba(238,236,231,.11); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .cx-hero-copy {
-  position: absolute; inset: auto 0 0 0; z-index: 3;
-  padding: 0 clamp(20px, 6vw, 120px) clamp(34px, 6vh, 80px);
-  display: grid; gap: clamp(10px, 1.9vh, 24px);
+  position: relative; z-index: 3;
+  padding: calc(var(--header-h) + clamp(14px, 2.6vh, 34px)) clamp(20px, 6vw, 120px) clamp(34px, 6vh, 80px);
+  display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+  column-gap: clamp(26px, 4vw, 88px); row-gap: clamp(10px, 1.8vh, 24px); align-items: start;
 }
+.cx-hero-kicker, .cx-hero-h1, .cx-hero-claim { grid-column: 1; }
+.cx-hero-lead { grid-column: 1; display: grid; gap: clamp(9px, 1.5vh, 18px); margin-top: clamp(2px, .8vh, 10px); }
+.cx-hero-body { grid-column: 2; grid-row: 1 / span 4; align-self: end; display: grid; gap: clamp(8px, 1.35vh, 17px); }
+.cx-hero-foot { grid-column: 1 / -1; }
 .cx-hero-kicker { display: flex; align-items: center; gap: 12px; }
 .cx-hero-kicker i { width: 34px; height: 1px; background: var(--warm); }
 .cx-hero-h1 { font-weight: 600; font-size: clamp(28px, min(4.6vw, 7vh), 74px); line-height: 1.02; letter-spacing: -.015em; text-transform: uppercase; max-width: 22ch; }
@@ -118,6 +124,16 @@ html:has(.page-cx) { scroll-behavior: auto; }
 @keyframes cxTick { 0%,100% { transform: scaleY(.28); opacity: .4 } 46% { transform: scaleY(1); opacity: 1 } }
 .cx-readout { display: grid; gap: 4px; justify-items: end; text-align: right; }
 .cx-readout b { font-weight: 500; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--live); }
+
+/* pinned copy columns keep the original centred composition, but become a clip
+   window so the longer approved copy can be tracked to the active state
+   instead of being cut off */
+.cx-copywin { align-self: stretch; overflow: hidden; display: grid; align-content: start; }
+.cx-copywin.is-tracking {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 2.4%, #000 97.6%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 2.4%, #000 97.6%, transparent 100%);
+}
+.cx-copymove { padding: 20px 0 26px; transition: transform .65s cubic-bezier(.22,.61,.36,1); }
 
 /* =========================================================
    STRUCTURAL SYSTEM — element isolation
@@ -139,7 +155,7 @@ html:has(.page-cx) { scroll-behavior: auto; }
 .cx-el.is-on { border-top-color: var(--live); }
 .cx-el.is-on .cx-el-t { color: var(--paper); }
 .cx-el.is-on .cx-idx { color: var(--live); }
-.cx-el.is-on .cx-el-d { max-height: 8em; opacity: 1; margin-top: 5px; }
+.cx-el.is-on .cx-el-d { max-height: var(--cx-dh, 26em); opacity: 1; margin-top: 5px; }
 .cx-struct-model { position: relative; height: 100%; display: grid; place-items: center; }
 .cx-struct-model svg { max-height: 76vh; }
 .cx-gr { opacity: .34; transition: opacity .6s cubic-bezier(.22,.61,.36,1); }
@@ -154,8 +170,8 @@ html:has(.page-cx) { scroll-behavior: auto; }
 .cx-seis-stage { position: sticky; top: 0; height: 100vh; display: grid;
   grid-template-columns: minmax(0, 1.16fr) minmax(0, .84fr); gap: clamp(20px, 3.4vw, 64px);
   align-items: center; padding: calc(var(--header-h) + 2vh) clamp(20px, 6vw, 120px) clamp(22px, 4vh, 64px); }
-.cx-seis-viz { position: relative; display: grid; place-items: center; height: 100%; }
-.cx-seis-viz svg { max-height: 74vh; }
+.cx-seis-viz { position: relative; display: grid; place-items: start center; height: 100%; }
+.cx-seis-viz svg { max-height: min(74vh, calc(100vh - var(--header-h) - 12vh)); }
 .cx-seis-caption { position: absolute; left: 0; bottom: 6px; }
 .cx-state-list { display: grid; gap: 0; align-content: center; }
 .cx-state { display: grid; grid-template-columns: 2.4em 1fr; gap: 0 14px; padding: clamp(6px,1vh,13px) 0; border-top: 1px solid var(--rule-d); opacity: .34; transition: opacity .5s; }
@@ -194,19 +210,21 @@ html:has(.page-cx) { scroll-behavior: auto; }
    CONCRETE — horizontal process timeline
    ========================================================= */
 .cx-flow-stage { position: sticky; top: 0; height: 100vh; overflow: hidden;
-  display: grid; align-content: center; gap: clamp(16px, 3vh, 36px);
-  padding: calc(var(--header-h) + 3vh) 0 clamp(24px, 5vh, 70px); }
-.cx-flow-head { padding: 0 clamp(20px, 6vw, 120px); display: grid; gap: 12px; }
+  display: grid; align-content: center; gap: clamp(6px, 1.4vh, 30px);
+  padding: calc(var(--header-h) + 1.6vh) 0 clamp(10px, 2.6vh, 50px); }
+.cx-flow-head { padding: 0 clamp(20px, 6vw, 120px); display: grid; gap: clamp(7px, 1.1vh, 12px); }
+/* the head band spans the full stage width, so its copy is measured to it */
+.cx-flow-head .cx-p, .cx-flow-head .cx-note, .cx-insp-head .cx-p { max-width: 98ch; }
 .cx-track { position: relative; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
 .cx-track-line { position: absolute; left: 0; right: 0; top: 26px; height: 1px; background: var(--rule-d); }
 .cx-rail { display: flex; gap: clamp(18px, 2.4vw, 46px); padding: 0 clamp(20px, 6vw, 120px); will-change: transform; }
-.cx-stepcard { flex: 0 0 clamp(230px, 24vw, 330px); padding-top: 54px; position: relative; opacity: .34; transition: opacity .5s; }
+.cx-stepcard { flex: 0 0 clamp(300px, 31vw, 460px); padding-top: clamp(34px, 5.4vh, 54px); position: relative; opacity: .34; transition: opacity .5s; }
 .cx-stepcard::before { content: ""; position: absolute; top: 21px; left: 0; width: 11px; height: 11px; border: 1px solid var(--steel); background: var(--graphite); transition: border-color .4s, background .4s; }
 .cx-stepcard.is-on { opacity: 1; }
 .cx-stepcard.is-on::before { border-color: var(--live); background: var(--live); }
 .cx-stepcard b { display: block; font-weight: 500; font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; margin: 8px 0 8px; }
 .cx-stepcard p { font-weight: 300; font-size: 12.5px; line-height: 1.65; color: rgba(238,236,231,.62); }
-.cx-flow-band { height: clamp(90px, 16vh, 190px); overflow: hidden; position: relative; margin-top: clamp(10px,2vh,26px); }
+.cx-flow-band { height: clamp(40px, 9vh, 150px); overflow: hidden; position: relative; margin-top: clamp(6px,1.4vh,20px); }
 .cx-flow-band img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.6) contrast(1.06) brightness(.6); }
 .cx-flow-band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--graphite) 0%, transparent 22%, transparent 78%, var(--graphite) 100%); }
 
@@ -229,27 +247,27 @@ html:has(.page-cx) { scroll-behavior: auto; }
 .cx-prin.is-on { opacity: 1; }
 .cx-prin b { font-weight: 500; font-size: clamp(11px, 1vh + 4px, 13px); letter-spacing: .1em; text-transform: uppercase; }
 .cx-prin p { grid-column: 2; font-weight: 300; font-size: clamp(11.5px, 1.5vh, 12.5px); line-height: 1.6; color: rgba(238,236,231,.62); margin-top: 4px; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .5s, opacity .4s; }
-.cx-prin.is-on p { max-height: 8em; opacity: 1; }
+.cx-prin.is-on p { max-height: var(--cx-dh, 14em); opacity: 1; }
 
 /* =========================================================
    EXECUTION CONTROL — inspection strip
    ========================================================= */
 .cx-insp-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid;
-  align-content: center; gap: clamp(14px, 2.4vh, 30px); padding: calc(var(--header-h) + 2.5vh) 0 clamp(20px,4vh,60px); }
+  align-content: center; gap: clamp(10px, 1.8vh, 26px); padding: calc(var(--header-h) + 1.6vh) 0 clamp(16px,3vh,50px); }
 .cx-insp-head { padding: 0 clamp(20px, 6vw, 120px); display: grid; gap: 10px; }
 .cx-insp-bar { padding: 0 clamp(20px, 6vw, 120px); }
 .cx-insp-states { display: flex; gap: 0; border-top: 1px solid var(--rule-d); }
 .cx-insp-state { flex: 1; padding: 9px 0 0; font-weight: 500; font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(238,236,231,.34); border-top: 2px solid transparent; margin-top: -1px; transition: color .4s, border-color .4s; }
 .cx-insp-state.is-on { color: var(--live); border-top-color: var(--live); }
 .cx-insp-rail { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%); display: flex; gap: clamp(20px, 3vw, 60px); padding: 0 clamp(20px, 6vw, 120px); will-change: transform; }
-.cx-insp-col { flex: 0 0 clamp(260px, 27vw, 400px); opacity: .3; transition: opacity .5s; }
+.cx-insp-col { flex: 0 0 clamp(280px, 26vw, 420px); opacity: .3; transition: opacity .5s; }
 .cx-insp-col.is-on { opacity: 1; }
-.cx-insp-col h3 { margin: 10px 0 14px; }
-.cx-insp-col ul { display: grid; gap: 7px; }
+.cx-insp-col h3 { margin: 8px 0 10px; }
+.cx-insp-col ul { display: grid; gap: clamp(4px, .8vh, 7px); }
 .cx-insp-col li { list-style: none; position: relative; padding-left: 16px; font-weight: 300; font-size: 12.5px; line-height: 1.55; color: rgba(238,236,231,.64); }
 .cx-insp-col li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 1px; background: var(--warm); }
 .cx-insp-elem { padding: 0 clamp(20px, 6vw, 120px); }
-.cx-insp-elem svg { max-height: 24vh; }
+.cx-insp-elem svg { max-height: clamp(84px, 15vh, 200px); }
 
 /* =========================================================
    WATERPROOFING — continuity trace
@@ -357,7 +375,11 @@ html:has(.page-cx) { scroll-behavior: auto; }
    ========================================================= */
 @media (max-width: 1200px) {
   .cx-sechead, .cx-det, .cx-mep { grid-template-columns: 1fr; }
-  .cx-hero { height: 200vh; }
+  .cx-hero { height: auto; }
+  .cx-hero-stage { position: static; min-height: 92vh; }
+  .cx-hero-copy { grid-template-columns: 1fr; padding-top: calc(var(--header-h) + 52px); }
+  .cx-hero-lead, .cx-hero-body { grid-column: 1; grid-row: auto; align-self: start; margin-top: 0; }
+  .cx-copywin { overflow: visible; align-self: start; display: block; }
   .cx-struct, .cx-seis, .cx-conc, .cx-cage, .cx-insp, .cx-wp { height: auto !important; }
   .cx-struct-stage, .cx-seis-stage, .cx-flow-stage, .cx-cage-stage, .cx-insp-stage, .cx-wp-stage {
     position: static; height: auto; grid-template-columns: 1fr; overflow: visible;
@@ -408,6 +430,7 @@ html:has(.page-cx) { scroll-behavior: auto; }
 .page-cx.cx-static .cx-struct-stage, .page-cx.cx-static .cx-seis-stage, .page-cx.cx-static .cx-flow-stage,
 .page-cx.cx-static .cx-cage-stage, .page-cx.cx-static .cx-insp-stage, .page-cx.cx-static .cx-wp-stage,
 .page-cx.cx-static .cx-final-stage { position: static; height: auto; overflow: visible; }
+.page-cx.cx-static .cx-copywin { overflow: visible; display: block; }
 .page-cx.cx-static .cx-el, .page-cx.cx-static .cx-state, .page-cx.cx-static .cx-prin,
 .page-cx.cx-static .cx-wp-node, .page-cx.cx-static .cx-stepcard, .page-cx.cx-static .cx-insp-col,
 .page-cx.cx-static .cx-gr, .page-cx.cx-static .cx-mep-layer { opacity: 1; }
