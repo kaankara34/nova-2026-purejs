@@ -426,7 +426,17 @@ function boot() {
     });
     return () => { st.kill(); rail.style.transform = 'none'; };
   }
-  horizontal('.cx-conc', '[data-testid="cx-concrete-rail"]', '.cx-stepcard');
+  {
+    /* the material band reads as the same process: the overlay phase follows the
+       one canonical stage index of the rail */
+    const phases = $$('.cx-conc .cx-phase');
+    const cards = $$('.cx-conc .cx-stepcard').length || 1;
+    horizontal('.cx-conc', '[data-testid="cx-concrete-rail"]', '.cx-stepcard', idx => {
+      if (!phases.length) return;
+      const k = clamp(Math.floor(idx * phases.length / cards), 0, phases.length - 1);
+      phases.forEach((e, i) => e.classList.toggle('is-on', i === k));
+    });
+  }
 
   /* ---------------- 06 reinforcement cage (WebGL assembly) ---------------- */
   {
