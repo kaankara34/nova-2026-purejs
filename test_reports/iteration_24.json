@@ -1,0 +1,37 @@
+{
+  "summary": "Frontend-only retest of construction.html fixes 1-4 plus regressions. FIX 1 VERIFIED: 68-point sample of the section 06 (.cx-insp) horizontal scrub at 1440x900 and 1600x1000 shows the active column fully inside the track in 66/68 samples (97%); the 2 exceptions (p=0.134 and p=0.299) both fall inside the last 30% of their state slice (u=0.81 / 0.79), i.e. genuine mid-slide transition frames, never a resting state. Label mapping was exact at every one of the 136 samples (C.01->Drawing, C.02->Formwork, C.03->Concrete, C.04->Concrete, C.05->Enclosure, C.06->Completion) with correct cumulative drawing fill and always exactly one active column. FIX 2 VERIFIED: at the exact start of .cx-insp and of the .cx-conc rail exactly one column/step card is is-on before any scroll tick, and after resizes crossing both matchMedia breakpoints (1440x800 height<=820, 1150x900 width<=1200) exactly one state stays active in both sections. FIX 3 VERIFIED: from inside section 06 and from inside section 05, the chain 1440x900 -> 1440x800 -> 1150x900 -> 1440x900 preserved scrollY (29352 / 23304 unchanged across the two breakpoint-crossing resizes, no jump to top), single correct active state and label at every step, horizontal overflow 0 after each resize. FIX 4 PARTIAL (cosmetic): after a programmatic jump to section 11 nothing is left hidden inside the viewport, but 9 [data-cx-in] blocks immediately above the viewport (<1200px) and 45 further above remain at opacity 0 because IntersectionObserver never fires for elements skipped entirely; they do reveal on scroll-back. REGRESSIONS ALL PASS: sections 05 (A.01-A.06) and 07 (01-05) activate one-at-a-time strictly in order forwards and in reverse with the active body fully inside the reading window (650ms settle) at 1600x1000, 1440x900, 834x1112, 390x844 (0 issues in 4 x 2 x 50 samples); sections 08-12 content complete (L.01-L.06, A.01-A.05, 6 coordination groups + Coordination Principle, 11 register rows, 5 waterproofing nodes, final title 'Calculated. Detailed. Coordinated. Constructed.' + 3 paragraphs + Nova Konut signature); 6 MEP tabs each switch to exactly one layer; zero clipped/zero-height text, zero horizontal overflow and zero console/page errors at 1600x1000, 1440x900, 1366x768, 1280x800, 1024x768, 834x1112, 390x844; scripts/cx_verify_0512.py still reports CONTENT INTEGRITY OK (227 lines).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Reveal blocks after a fast programmatic jump ([data-cx-in])",
+        "issues": [
+          "COSMETIC / LOW: the IntersectionObserver fallback (js/construction.js ~82) only reveals skipped blocks when a callback actually fires; a jump that skips an element entirely (window.scrollTo straight to section 11) leaves it at opacity 0 (9 blocks within one viewport above the fold, 45 further up). They reveal normally on scroll-back, so no invisible text is ever inside the viewport. If strict compliance is wanted, add a scroll-end sweep that adds .is-in to every [data-cx-in] whose getBoundingClientRect().bottom < 0."
+        ]
+      },
+      {
+        "screen": "Section 06 mode switch on resize (observation, not a defect)",
+        "issues": [
+          "Returning from the vertical fallback (1150x900) to the pinned horizontal mode (1440x900) shifts scrollY from 29352 to 33035 - the anchor keeps the reader inside section 06 (state 4 vs 2 before) rather than at the top, so behaviour is deterministic, just not pixel-identical across mode changes."
+        ]
+      }
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_24.json", "/app/scripts/cx_verify_0512.py"],
+  "action_items": [
+    "Optional cosmetic: sweep [data-cx-in] elements above the viewport on scroll end / ScrollTrigger refresh to satisfy FIX 4 strictly (no functional impact)."
+  ],
+  "critical_code_review_comments": [
+    "horizontalScrub() stops/nearest-stop derivation is sound: measure() re-runs on onRefresh and apply(0) gives a deterministic first paint - both confirmed empirically.",
+    "IO reveal fallback condition (e.boundingClientRect.bottom < 0) can never run for elements the observer was never notified about; a rAF/scroll-end sweep is the reliable fix."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "97% of section-06 samples fully on-screen (100% of resting states); all other tested flows 100%"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Fixes 1-3 from iteration_23 are confirmed fixed. Only remaining item is the cosmetic reveal-sweep (FIX 4) for [data-cx-in] blocks fully skipped by a programmatic jump. Selectors: .cx-insp-col / .cx-insp-state / [data-elstate] (section 06), .cx-cage .cx-prin (05), .cx-wp .cx-wp-node (07), .cx-gr (coordination), .cx-reg-row (register), .cx-mep-tab. Out of scope pre-existing: .cx-flow-stage ~13px taller than 900px viewport, section 03 seismic rows on short viewports, section 02 last element row at 390px.",
+  "rca_of_the_issue": "Remaining FIX 4 gap: IntersectionObserver callbacks are only delivered when the observed element crosses the threshold; a single large scrollTo never produces an entry for the skipped elements, so the bottom<0 fallback branch is never evaluated and .is-in is never added."
+}

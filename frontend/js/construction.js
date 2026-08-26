@@ -80,9 +80,19 @@ function boot() {
 
   /* ---------------- reveals + measurement draws ---------------- */
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    /* also reveal anything the reader jumped past, so a fast jump never leaves
+       an approved paragraph invisible */
+    if (e.isIntersecting || e.boundingClientRect.bottom < 0) { e.target.classList.add('is-in'); io.unobserve(e.target); }
   }), { rootMargin: '0px 0px -10% 0px', threshold: .1 });
   $$('[data-cx-in], .cx-plot').forEach(el => io.observe(el));
+  /* a jump that skips a block entirely never triggers the observer: sweep once
+     the scroll settles so no approved paragraph can stay invisible */
+  const sweep = () => $$('[data-cx-in]:not(.is-in), .cx-plot:not(.is-in)').forEach(el => {
+    if (el.getBoundingClientRect().bottom < 0) { el.classList.add('is-in'); io.unobserve(el); }
+  });
+  let swT;
+  addEventListener('scroll', () => { clearTimeout(swT); swT = setTimeout(sweep, 140); }, { passive: true });
+  ScrollTrigger.addEventListener('refresh', sweep);
 
   $$('[data-draw]').forEach(host => {
     const paths = Array.from(host.querySelectorAll('[pathLength]'));
@@ -247,7 +257,7 @@ function boot() {
      The pinned stages keep their original 100vh composition. When the approved
      copy is taller than the available column, the copy block is tracked to the
      canonical active state instead of being cut off. */
-  function copyTracker(sec, itemSel, expandSel) {
+  function copyTracker(sec, itemSel, expandSel, keepActive) {
     if (!sec) return null;
     const win = sec.querySelector('.cx-copywin');
     const move = win && win.querySelector('.cx-copymove');
@@ -287,7 +297,10 @@ function boot() {
         const base = clamp(Math.min(Math.max(0, aTop + aH + 24 - geo.avail), keepTop), 0, over);
         if (idx === rows.length - 1) {
           const sub = clamp(prog * rows.length - idx, 0, 1);
-          shift = base + (over - base) * sub;
+          /* keepActive: the closing note is tracked into view but the active
+             state is never scrolled above the top of the reading window */
+          const end = keepActive ? Math.min(over, Math.max(base, aTop)) : over;
+          shift = base + (end - base) * sub;
         } else {
           shift = base;
         }
@@ -398,33 +411,66 @@ function boot() {
     return () => { st.kill(); items.forEach(it => it.classList.remove('is-on')); };
   }
 
-  function horizontal(secSel, railSel, itemSel, onIndex) {
+  function horizontal(secSel, railSel, itemSel, onIndex, shortH, stepped) {
     const sec = $(secSel), rail = $(railSel);
     if (!sec || !rail) return;
     const items = Array.from(rail.querySelectorAll(itemSel));
     const mm = gsap.matchMedia();
-    mm.add('(max-width: 1200px)', () => verticalSteps(sec, rail, items, onIndex));
-    mm.add('(min-width: 1201px)', () => horizontalScrub(sec, rail, items, onIndex));
+    /* shortH: viewports too low to hold the approved copy in a 100vh stage read
+       the same sequence vertically instead of clipping it */
+    const vq = shortH ? `(max-width: 1200px), (max-height: ${shortH}px)` : '(max-width: 1200px)';
+    const hq = shortH ? `(min-width: 1201px) and (min-height: ${shortH + 1}px)` : '(min-width: 1201px)';
+    mm.add(vq, () => verticalSteps(sec, rail, items, onIndex));
+    mm.add(hq, () => horizontalScrub(sec, rail, items, onIndex, stepped));
   }
-  function horizontalScrub(sec, rail, items, onIndex) {
-    let last = -1, cached = 0;
-    const measure = () => { cached = Math.max(0, rail.scrollWidth - innerWidth + 40); };
+  function horizontalScrub(sec, rail, items, onIndex, stepped) {
+    let last = -1, cached = 0, stops = [];
+    const measure = () => {
+      cached = Math.max(0, rail.scrollWidth - innerWidth + 40);
+      /* stepped: position is the single source of truth — each state has a
+         translation that puts its own column fully inside the track, so a column
+         can never become active while it is still off screen */
+      const max = Math.max(0, rail.scrollWidth - innerWidth);
+      const pad = items.length ? items[0].offsetLeft : 0;
+      stops = items.map(it => clamp(it.offsetLeft - pad, 0, max));
+    };
+    const apply = (p) => {
+      let idx, tx;
+      if (stepped) {
+        const n = items.length;
+        const t = clamp(p, 0, 1) * n;
+        const cur = clamp(Math.floor(t), 0, n - 1);
+        const u = clamp(t - cur, 0, 1);
+        const e = clamp((u - .7) / .3, 0, 1);
+        const s = e * e * (3 - 2 * e);
+        const next = stops[Math.min(cur + 1, n - 1)];
+        tx = stops[cur] + (next - stops[cur]) * s;
+        /* the state is read from the translation itself: the column nearest to
+           the current rail position is the active one, so the label, the drawing
+           and the column can never describe different states */
+        idx = 0;
+        let best = Infinity;
+        stops.forEach((v, i) => { const d = Math.abs(v - tx); if (d < best) { best = d; idx = i; } });
+      } else {
+        idx = clamp(Math.round(p * (items.length - 1)), 0, items.length - 1);
+        tx = cached * p;
+      }
+      rail.style.transform = `translate3d(${-tx.toFixed(1)}px,0,0)`;
+      if (idx !== last) {
+        last = idx;
+        items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
+      }
+      if (onIndex) onIndex(idx, p);
+    };
     measure();
     const st = ScrollTrigger.create({
       trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .35,
-      onRefresh: measure,
-      onUpdate: self => {
-        const p = self.progress;
-        rail.style.transform = `translate3d(${-(cached * p).toFixed(1)}px,0,0)`;
-        const idx = clamp(Math.round(p * (items.length - 1)), 0, items.length - 1);
-        if (idx !== last) {
-          last = idx;
-          items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
-        }
-        if (onIndex) onIndex(idx, p);
-      }
+      onRefresh: self => { measure(); apply(self.progress || 0); },
+      onUpdate: self => apply(self.progress)
     });
-    return () => { st.kill(); rail.style.transform = 'none'; };
+    /* deterministic first paint: state 01 is active before the first scroll tick */
+    apply(0);
+    return () => { st.kill(); rail.style.transform = 'none'; items.forEach(it => it.classList.remove('is-on')); };
   }
   {
     /* the material band reads as the same process: the overlay phase follows the
@@ -509,7 +555,7 @@ function boot() {
         }
       });
     }
-    const cagetrack = copyTracker(sec, '.cx-prin', 'p');
+    const cagetrack = copyTracker(sec, '.cx-prin', '.cx-prin-d', true);
     stateDriver('.cx-cage', '.cx-prin', (idx, p) => { if (cagetrack) cagetrack(idx, p); });
   }
 
@@ -521,11 +567,16 @@ function boot() {
       const stages = Array.from(sec.querySelectorAll('[data-elstate]'));
       /* the element build-up, its label and the active column all come from the
          same rail driver, so nothing can drift out of sync */
-      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col', (idx, p) => {
-        const k = clamp(Math.floor(p * stages.length * 1.02), 0, stages.length - 1);
+      /* one canonical rail index drives the element build-up and its label:
+         C.01 documents -> drawing, C.02 pre-pour -> reinforcement + formwork,
+         C.03/C.04 concrete execution and early age -> concrete,
+         C.05 -> enclosure, C.06 -> completion */
+      const map = [0, 2, 3, 3, 4, 5];
+      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col', (idx) => {
+        const k = clamp(map[idx] === undefined ? idx : map[idx], 0, stages.length - 1);
         states.forEach((s, i) => s.classList.toggle('is-on', i === k));
         stages.forEach((s, i) => { s.style.opacity = i <= k ? 1 : .08; });
-      });
+      }, 820, true);
     }
   }
 
@@ -537,7 +588,7 @@ function boot() {
     const flag = $('.cx-wp-flag');
     if (sec && trace) {
       trace.style.strokeDasharray = 1;
-      const track = copyTracker(sec, '.cx-wp-node', null);
+      const track = copyTracker(sec, '.cx-wp-node', '.cx-wp-node-d', true);
       stateDriver('.cx-wp', '.cx-wp-node', (idx, p) => {
         if (track) track(idx, p);
         trace.style.strokeDashoffset = (1 - clamp(p * 1.08, 0, 1)).toFixed(4);
@@ -574,5 +625,26 @@ function boot() {
     }
   }
 
+  /* the approved copy is long: re-measure once fonts, images and layout settle */
   ScrollTrigger.refresh();
+  addEventListener('load', () => ScrollTrigger.refresh());
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
+
+  /* a resize that crosses a matchMedia breakpoint rebuilds the pinned sections and
+     changes the document height: keep the reader where they were */
+  let anchor = null;
+  addEventListener('resize', () => {
+    const secs = $$('.page-cx > section');
+    for (const s of secs) {
+      const r = s.getBoundingClientRect();
+      if (r.top <= 4 && r.bottom > 4) { anchor = { el: s, frac: -r.top / Math.max(1, s.offsetHeight) }; return; }
+    }
+    anchor = null;
+  }, { passive: true });
+  ScrollTrigger.addEventListener('refresh', () => {
+    if (!anchor) return;
+    const a = anchor; anchor = null;
+    const top = a.el.getBoundingClientRect().top + scrollY;
+    scrollTo(0, Math.round(top + a.frac * a.el.offsetHeight));
+  });
 }
