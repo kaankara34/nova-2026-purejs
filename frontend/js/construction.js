@@ -209,14 +209,21 @@ function boot() {
         trigger: hero, start: 'top top', end: 'bottom bottom', scrub: .6,
         onUpdate: self => {
           const p = self.progress;
+          /* the three reading phases are visible, not decorative:
+             MATERIAL — close reading of the ribbed surface
+             GEOMETRY — camera pulls back, bar spacing becomes readable
+             STRUCTURAL FUNCTION — bars align into a structural arrangement */
+          const pMat = seg(p, 0, .30), pGeo = seg(p, .30, .66), pFun = seg(p, .66, 1);
           bars.forEach((b, i) => {
             b.rotation.y = THREE.MathUtils.degToRad(p * (250 + i * 16));   // slow rotation about own axis
+            b.position.x = defs[i][0] * (1 + pGeo * .42);                  // spacing opens up
             b.position.y = (i % 2 ? -1 : 1) * p * (.22 + i * .05);          // slight parallax
             b.position.z = -i * .55 + p * .3;
+            b.rotation.z = (0.3 + i * .04) * (1 - pFun);                   // aligns into the cage
           });
           world.key.position.set(4 - p * 3.4, 6 - p * 2.2, 5 - p * 1.4);
-          world.rim.intensity = 1.1 + p * .5;
-          world.cam.position.z = 6.2 - p * .8;
+          world.rim.intensity = 1.1 + pMat * .55;
+          world.cam.position.z = 6.2 - pMat * .55 + pGeo * 1.25;
           world.cam.lookAt(1.5, 0, 0);
           need = true;
         }
@@ -230,7 +237,7 @@ function boot() {
           g.style.strokeDashoffset = (1 - seg(p, i * .04, i * .04 + .26)).toFixed(3);
         });
         if (cue) cue.style.opacity = (1 - seg(p, 0, .12)).toFixed(3);
-        const li = p < .3 ? 0 : p < .66 ? 1 : 2;
+        const li = p < .30 ? 0 : p < .66 ? 1 : 2;
         if (li !== last && readout) { last = li; readout.textContent = labels[li]; }
       }
     });
@@ -260,23 +267,30 @@ function boot() {
     }
     measure();
     ScrollTrigger.addEventListener('refreshInit', measure);
-    return idx => {
+    return (idx, p) => {
       if (!geo || !geo.base[idx]) return;
       const grow = geo.dh[idx] ? geo.dh[idx] + 5 : 0;
       const total = geo.collapsed + grow;
       const over = total - geo.avail;
       win.classList.toggle('is-tracking', over > 0);
-      /* fits: keep the original optically centred composition.
-         taller than the column: track the canonical active state into view,
-         never cutting the active row's top */
+      const prog = clamp(p || 0, 0, 1);
+      /* fits: the block drifts slowly from the top to the bottom of the column
+         across the section, so neither transition leaves a dead band.
+         taller than the column: track the canonical active state into view and,
+         on the last state, continue to the end so the closing note is readable */
       let shift;
       if (over <= 0) {
-        shift = -(geo.avail - total) / 2;
+        shift = -(geo.avail - total) * prog;
       } else {
         const aTop = geo.base[idx].top, aH = geo.base[idx].h + grow;
         const keepTop = Math.max(0, aTop - 14);
-        shift = idx === rows.length - 1 ? over : Math.max(0, aTop + aH + 24 - geo.avail);
-        shift = clamp(Math.min(shift, keepTop), 0, over);
+        const base = clamp(Math.min(Math.max(0, aTop + aH + 24 - geo.avail), keepTop), 0, over);
+        if (idx === rows.length - 1) {
+          const sub = clamp(prog * rows.length - idx, 0, 1);
+          shift = base + (over - base) * sub;
+        } else {
+          shift = base;
+        }
       }
       move.style.transform = Math.abs(shift) > .5 ? `translate3d(0,${(-shift).toFixed(1)}px,0)` : 'none';
     };
@@ -309,9 +323,9 @@ function boot() {
   {
     const groups = $$('.cx-struct .cx-gr');
     const track = copyTracker($('.cx-struct'), '.cx-el', '.cx-el-d');
-    stateDriver('.cx-struct', '.cx-el', idx => {
+    stateDriver('.cx-struct', '.cx-el', (idx, p) => {
       groups.forEach(g => g.classList.toggle('is-on', +g.dataset.el === idx));
-      if (track) track(idx);
+      if (track) track(idx, p);
     });
   }
 
@@ -325,7 +339,7 @@ function boot() {
       const track = copyTracker(sec, '.cx-state', null);
       stateDriver('.cx-seis', '.cx-state', (idx, p) => {
         parts.forEach(el => el.style.opacity = +el.dataset.sq <= idx ? 1 : 0.08);
-        if (track) track(idx);
+        if (track) track(idx, p);
         const sq0 = sec.querySelector('.cx-sq0-label');
         if (sq0) sq0.style.opacity = idx >= 2 ? 0 : 1;
         const d = seg(p, .32, .82);
@@ -344,23 +358,14 @@ function boot() {
     const cut = $('.cx-cut');
     const strata = $$('.cx-stratum');
     if (out && cut && strata.length) {
-      /* one source: the panel that owns the reading line owns the readout */
+      /* one source: a level takes over when its section rule reaches the readout line */
       const pick = () => {
-        const line = innerHeight * .38;
+        const gauge = out.getBoundingClientRect();
+        const line = gauge.top + gauge.height / 2;
         let best = -1;
         strata.forEach((s, i) => {
-          const r = s.getBoundingClientRect();
-          if (r.top <= line) best = i;              // last panel whose head has passed the line
+          if (s.getBoundingClientRect().top <= line) best = i;
         });
-        if (best < 0) {
-          let d0 = Infinity;
-          strata.forEach((s, i) => {
-            const r = s.getBoundingClientRect();
-            if (r.bottom < 0 || r.top > innerHeight) return;
-            const d = Math.abs(r.top - line);
-            if (d < d0) { d0 = d; best = i; }
-          });
-        }
         if (best < 0) return;
         const lvl = strata[best].dataset.level;
         if (out.textContent !== lvl) out.textContent = lvl;
@@ -495,7 +500,7 @@ function boot() {
       });
     }
     const cagetrack = copyTracker(sec, '.cx-prin', 'p');
-    stateDriver('.cx-cage', '.cx-prin', idx => { if (cagetrack) cagetrack(idx); });
+    stateDriver('.cx-cage', '.cx-prin', (idx, p) => { if (cagetrack) cagetrack(idx, p); });
   }
 
   /* ---------------- 07 execution control (horizontal inspection) ---------------- */
@@ -524,7 +529,7 @@ function boot() {
       trace.style.strokeDasharray = 1;
       const track = copyTracker(sec, '.cx-wp-node', null);
       stateDriver('.cx-wp', '.cx-wp-node', (idx, p) => {
-        if (track) track(idx);
+        if (track) track(idx, p);
         trace.style.strokeDashoffset = (1 - clamp(p * 1.08, 0, 1)).toFixed(4);
         const broken = p > .58 && p < .70;      // unresolved termination, then resolved
         trace.classList.toggle('is-broken', broken);

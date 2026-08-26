@@ -483,3 +483,13 @@ Implemented:
 - `stateDriver` scrub `true → .3` so fast flings traverse intermediate states; SVG annotations are condensed with measured `textLength` so long captions are no longer cut on small screens; seismic caption no longer collides with the drawing label on mobile.
 
 Verification: `testing_agent` iteration_22 (99 %, 2 low findings — both fixed afterwards: SVG caption truncation, fling state skipping) + own measurement sweeps: all state sequences forward/reverse at 390x844, 430x932, 768x1024, 1366x768, 1920x1080; active state always inside the copy window and clear of the header; concrete 01–07 and execution C.01–C.05 reachable on mobile with the active card on screen; zero horizontal overflow and zero console errors everywhere. Text lock re-verified: page text identical to the approved commit.
+
+### 2026-06 — Construction: readout alignment, honest hero readout, tighter section rhythm
+
+1. **Ground/Foundation level readout** now switches exactly when a panel's section rule reaches the readout's own gauge line (`out.getBoundingClientRect()` centre) instead of a fixed 38 % viewport line — verified 0/22 mismatches at 1920x1080.
+2. **Hero "Reading" readout** was decorative; the three phases are now visually real and synchronised: MATERIAL (camera in, rim light up — ribbed surface reading), GEOMETRY (camera pulls back, bar spacing opens), STRUCTURAL FUNCTION (bars align into a cage while the grid axes complete).
+3. **Section rhythm**: `.cx-sec` padding `clamp(58,9vh,130) → clamp(34,5vh,84)`, pinned stage bottom padding `clamp(22,4vh,64) → clamp(16,2.6vh,40)`, and the tracked copy block now drifts from the top to the bottom of its column across the section (function of section progress) so neither the entry nor the exit transition leaves a dead band. Worst empty band across a full-page sweep: desktop 326px (Execution Control exit — inherent to a 100vh pinned stage), mobile 203px; boundary gaps ~190px (was ~295px).
+4. **Mobile Structural System closing note** ("No structural system is selected by template…") is now fully revealed: on the last state the tracker interpolates from "active row visible" to "content bottom flush" using the sub-progress of that state.
+5. Mobile Execution Control state labels wrap tidily (row/column gaps, non-stretch items).
+
+Verified: all state sequences forward + reverse at 1920x1080, 1366x768, 390x844; hero phase labels correct; zero horizontal overflow; zero console errors.
