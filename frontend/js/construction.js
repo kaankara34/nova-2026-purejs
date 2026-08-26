@@ -50,6 +50,34 @@ if (reduce) {
 }
 
 function boot() {
+  /* drawing captions are measured against their own viewBox so a long annotation
+     is condensed instead of being cut at the drawing edge on small screens */
+  const fitSvgText = () => {
+    $$('.cx-dwg text').forEach(t => {
+      const svg = t.ownerSVGElement;
+      const vb = svg && svg.viewBox && svg.viewBox.baseVal;
+      if (!vb || !vb.width) return;
+      t.removeAttribute('textLength');
+      const x = parseFloat(t.getAttribute('x') || '0');
+      const anchor = getComputedStyle(t).textAnchor;
+      const avail = anchor === 'end'
+        ? x - vb.x - 2
+        : anchor === 'middle'
+          ? Math.min(x - vb.x, vb.x + vb.width - x) * 2 - 2
+          : vb.x + vb.width - x - 4;
+      let len = 0;
+      try { len = t.getComputedTextLength(); } catch (e) { return; }
+      if (avail > 24 && len > avail) {
+        t.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+        t.setAttribute('textLength', avail.toFixed(1));
+      }
+    });
+  };
+  fitSvgText();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSvgText);
+  let fitT;
+  addEventListener('resize', () => { clearTimeout(fitT); fitT = setTimeout(fitSvgText, 180); });
+
   /* ---------------- reveals + measurement draws ---------------- */
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
@@ -164,7 +192,7 @@ function boot() {
       world = scene3(canvas);
       const mat = steelMat();
       const bars = [];
-      const defs = mobile ? [[.45, .3, 5.6], [1.6, .24, 5.2]] : [[.75, .34, 6.6], [1.85, .28, 6.3], [2.8, .24, 6.1], [3.7, .3, 6.4], [-.35, .26, 6.2]];
+      const defs = mobile ? [[.5, .3, 5.6], [1.7, .26, 5.3], [2.85, .23, 5.1], [-.55, .27, 5.4]] : [[.75, .34, 6.6], [1.85, .28, 6.3], [2.8, .24, 6.1], [3.7, .3, 6.4], [-.35, .26, 6.2]];
       defs.forEach(([x, r, len], i) => {
         const b = rebar(len, r, mat);
         b.position.set(x, 0, -i * .55);
@@ -234,18 +262,22 @@ function boot() {
     ScrollTrigger.addEventListener('refreshInit', measure);
     return idx => {
       if (!geo || !geo.base[idx]) return;
-      if (innerWidth <= 1200) { move.style.transform = 'none'; return; }
       const grow = geo.dh[idx] ? geo.dh[idx] + 5 : 0;
       const total = geo.collapsed + grow;
       const over = total - geo.avail;
       win.classList.toggle('is-tracking', over > 0);
       /* fits: keep the original optically centred composition.
-         taller than the column: track the canonical active state into view */
-      const shift = over <= 0
-        ? -(geo.avail - total) / 2
-        : (idx === rows.length - 1
-            ? over
-            : clamp(geo.base[idx].top + geo.base[idx].h + grow - geo.avail + 24, 0, over));
+         taller than the column: track the canonical active state into view,
+         never cutting the active row's top */
+      let shift;
+      if (over <= 0) {
+        shift = -(geo.avail - total) / 2;
+      } else {
+        const aTop = geo.base[idx].top, aH = geo.base[idx].h + grow;
+        const keepTop = Math.max(0, aTop - 14);
+        shift = idx === rows.length - 1 ? over : Math.max(0, aTop + aH + 24 - geo.avail);
+        shift = clamp(Math.min(shift, keepTop), 0, over);
+      }
       move.style.transform = Math.abs(shift) > .5 ? `translate3d(0,${(-shift).toFixed(1)}px,0)` : 'none';
     };
   }
@@ -261,7 +293,7 @@ function boot() {
     items.forEach((it, i) => it.classList.toggle('is-on', i === 0));
     if (onIndex) onIndex(0, 0);
     ScrollTrigger.create({
-      trigger: sec, start: 'top top', end: 'bottom bottom', scrub: true,
+      trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .3,
       onUpdate: self => {
         const idx = clamp(Math.floor(self.progress * n * 1.02), 0, n - 1);
         if (idx !== last) {
@@ -312,16 +344,23 @@ function boot() {
     const cut = $('.cx-cut');
     const strata = $$('.cx-stratum');
     if (out && cut && strata.length) {
-      /* one source: the panel closest to the reading line owns the readout */
+      /* one source: the panel that owns the reading line owns the readout */
       const pick = () => {
-        const line = innerHeight * .45;
-        let best = -1, d0 = Infinity;
+        const line = innerHeight * .38;
+        let best = -1;
         strata.forEach((s, i) => {
           const r = s.getBoundingClientRect();
-          if (r.bottom < 0 || r.top > innerHeight) return;
-          const d = Math.abs((r.top + r.bottom) / 2 - line);
-          if (d < d0) { d0 = d; best = i; }
+          if (r.top <= line) best = i;              // last panel whose head has passed the line
         });
+        if (best < 0) {
+          let d0 = Infinity;
+          strata.forEach((s, i) => {
+            const r = s.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > innerHeight) return;
+            const d = Math.abs(r.top - line);
+            if (d < d0) { d0 = d; best = i; }
+          });
+        }
         if (best < 0) return;
         const lvl = strata[best].dataset.level;
         if (out.textContent !== lvl) out.textContent = lvl;
@@ -331,19 +370,38 @@ function boot() {
   }
 
   /* ---------------- 05 concrete process (horizontal) ---------------- */
-  function horizontal(secSel, railSel, itemSel) {
+  function verticalSteps(sec, rail, items, onIndex) {
+    /* small screens: the same one-state-at-a-time reading, driven by the row
+       that has reached the reading line (no horizontal translation) */
+    let last = -1;
+    if (rail) rail.style.transform = 'none';
+    const st = ScrollTrigger.create({
+      trigger: sec, start: 'top bottom', end: 'bottom top',
+      onUpdate: self => {
+        const line = innerHeight * .55;
+        let idx = 0;
+        items.forEach((it, i) => { if (it.getBoundingClientRect().top <= line) idx = i; });
+        if (idx !== last) {
+          last = idx;
+          items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
+          if (onIndex) onIndex(idx, self.progress);
+        } else if (onIndex) onIndex(idx, self.progress);
+      }
+    });
+    items.forEach((it, i) => it.classList.toggle('is-on', i === 0));
+    if (onIndex) onIndex(0, 0);
+    return () => { st.kill(); items.forEach(it => it.classList.remove('is-on')); };
+  }
+
+  function horizontal(secSel, railSel, itemSel, onIndex) {
     const sec = $(secSel), rail = $(railSel);
     if (!sec || !rail) return;
     const items = Array.from(rail.querySelectorAll(itemSel));
     const mm = gsap.matchMedia();
-    mm.add('(max-width: 1200px)', () => {     // vertical stepped sequence on small screens
-      rail.style.transform = 'none';
-      items.forEach(it => it.classList.add('is-on'));
-      return () => items.forEach(it => it.classList.remove('is-on'));
-    });
-    mm.add('(min-width: 1201px)', () => horizontalScrub(sec, rail, items));
+    mm.add('(max-width: 1200px)', () => verticalSteps(sec, rail, items, onIndex));
+    mm.add('(min-width: 1201px)', () => horizontalScrub(sec, rail, items, onIndex));
   }
-  function horizontalScrub(sec, rail, items) {
+  function horizontalScrub(sec, rail, items, onIndex) {
     let last = -1, cached = 0;
     const measure = () => { cached = Math.max(0, rail.scrollWidth - innerWidth + 40); };
     measure();
@@ -358,6 +416,7 @@ function boot() {
           last = idx;
           items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
         }
+        if (onIndex) onIndex(idx, p);
       }
     });
     return () => { st.kill(); rail.style.transform = 'none'; };
@@ -445,15 +504,12 @@ function boot() {
     if (sec) {
       const states = Array.from(sec.querySelectorAll('.cx-insp-state'));
       const stages = Array.from(sec.querySelectorAll('[data-elstate]'));
-      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col');
-      ScrollTrigger.create({
-        trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .3,
-        onUpdate: self => {
-          const idx = clamp(Math.floor(self.progress * states.length * 1.02), 0, states.length - 1);
-          states.forEach((s, i) => s.classList.toggle('is-on', i === idx));
-          const k = clamp(Math.floor(self.progress * stages.length * 1.02), 0, stages.length - 1);
-          stages.forEach((s, i) => { s.style.opacity = i <= k ? 1 : .08; });
-        }
+      /* the element build-up, its label and the active column all come from the
+         same rail driver, so nothing can drift out of sync */
+      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col', (idx, p) => {
+        const k = clamp(Math.floor(p * stages.length * 1.02), 0, stages.length - 1);
+        states.forEach((s, i) => s.classList.toggle('is-on', i === k));
+        stages.forEach((s, i) => { s.style.opacity = i <= k ? 1 : .08; });
       });
     }
   }

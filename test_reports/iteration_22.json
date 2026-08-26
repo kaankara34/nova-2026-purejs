@@ -1,0 +1,31 @@
+{
+  "summary": "Frontend-only verification of construction.html after the mobile pinned-architecture change and ground-readout fix. Independently re-tested at 390x844, 375x812, 430x932, 768x1024, 1024x768, 1024x1366, 1280x800, 1366x768, 1440x900, 1680x1050, 1920x1080. All four pinned sections (Structural 6, Seismic 5, Reinforcement 6, Waterproofing 5) advance exactly one state at a time in strict order forward AND reverse on mobile and desktop, with only state 01 on before scrolling. Concrete (7) and Execution (5) step in order 0..6 / 0..4 on mobile as vertical lists and still horizontally translate on desktop. Ground/Foundation readout matched the panel occupying the 38% reading line in 24/24 desktop samples and 20/20 mobile samples (0 mismatches). Hero kicker sits 56-219px below the fixed header at every viewport, hero copy readable, #cxRebarCanvas present and rendering multiple bars. Zero page/console errors, zero horizontal overflow (scrollWidth === innerWidth) everywhere, footer reachable without pin traps at all viewports. MEP tabs and structural-label click navigation work on mobile.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Mobile 390x844 (Ground investigation, MEP coordination diagrams)", "issues": ["Three SVG caption <text> nodes render wider than their parent SVG so they are visually truncated at the right edge: 'Investigation depth — project specific' (right 384 vs svg 376), 'Coordination model — vertical shaft and horizontal…' (473 vs 376), 'Routes indicative — coordinated with structure and…' (546 vs 376). Page-level horizontal overflow is still zero, but the captions read as cut off. Consider a smaller mobile font-size / wrapping for these SVG captions (no copy edit needed)."]}
+    ],
+    "state_sequencing_edge_case": [
+      {"section": ".cx-wp (Continuity of Waterproofing)", "issue": "Under an extreme reverse fling (mouse.wheel -700px repeated with 60ms pauses) at 390x844 the recorded sequence was 4 > 2 > 1 > 0, i.e. state 04 was skipped. Reproducible 3/3 times at that wheel size, and does NOT occur at 300px wheel steps (4>3>2>1>0) or at any sampled scroll position. Root cause: each state owns ~641px of the 3207px pinned range while stateDriver uses scrub:true (instant), so a single 700px wheel tick can jump past one band. Optional mitigation: give the pinned stateDriver a numeric scrub (e.g. scrub:0.3) so intermediate indices are still traversed during a fling. Low priority - not reproducible with normal scrolling.", "priority": "LOW"}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_22.json"],
+  "action_items": [
+    "OPTIONAL/LOW: consider numeric scrub on stateDriver so a fast fling cannot jump over a state band (observed once, waterproofing reverse at 700px wheel ticks).",
+    "OPTIONAL/LOW: mobile SVG caption texts in the ground-investigation and MEP diagrams are truncated at the SVG right edge - reduce mobile font-size or wrap."
+  ],
+  "critical_code_review_comments": [
+    "construction.js is 535 lines and readable; ground readout pick() is now a single source of truth (last stratum whose top passed the 38% line) which matched every sampled position - good.",
+    "copyTracker() re-measures on ScrollTrigger refreshInit; verified the active row (number + heading + expanded paragraph) is fully inside .cx-copywin at every state on mobile after the ~0.55s expand animation.",
+    "verticalSteps()/horizontalScrub() swap via gsap.matchMedia at 1200px is clean; mobile rails correctly have transform:none and exactly one .is-on."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100% of requested behaviours pass; 2 low-priority cosmetic/edge findings"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Measure pinned states by scrolling to section.offsetTop + (offsetHeight - innerHeight)*f and waiting ~800ms (expand animation is 0.55s). Correct hero kicker selector is '.cx-hero-kicker' (NOT '.cx-kicker'). Item selectors: .cx-struct .cx-el (6), .cx-seis .cx-state (5), .cx-cage .cx-prin (6), .cx-wp .cx-wp-node (5), rails [data-testid=cx-concrete-rail] .cx-stepcard (7) and [data-testid=cx-inspection-rail] .cx-insp-col (5). Only remaining open items are the two LOW findings above.",
+  "rca_of_the_issue": "Waterproofing reverse skip: stateDriver uses ScrollTrigger scrub:true so the active index is a pure function of instantaneous scroll position; with 5 states across 3207px (641px per band) a single 700px synthetic wheel tick lands past a whole band, so that index is never painted. Not a logic defect - normal/slow scrolling traverses every state in order in both directions."
+}

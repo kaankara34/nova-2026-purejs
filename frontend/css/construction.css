@@ -377,26 +377,35 @@ html:has(.page-cx) { scroll-behavior: auto; }
   .cx-sechead, .cx-det, .cx-mep { grid-template-columns: 1fr; }
   .cx-hero { height: auto; }
   .cx-hero-stage { position: static; min-height: 92vh; }
-  .cx-hero-copy { grid-template-columns: 1fr; padding-top: calc(var(--header-h) + 52px); }
+  .cx-hero-copy { grid-template-columns: 1fr; padding-top: calc(var(--header-h) + 96px); }
   .cx-hero-lead, .cx-hero-body { grid-column: 1; grid-row: auto; align-self: start; margin-top: 0; }
-  .cx-copywin { overflow: visible; align-self: start; display: block; }
-  .cx-struct, .cx-seis, .cx-conc, .cx-cage, .cx-insp, .cx-wp { height: auto !important; }
-  .cx-struct-stage, .cx-seis-stage, .cx-flow-stage, .cx-cage-stage, .cx-insp-stage, .cx-wp-stage {
-    position: static; height: auto; grid-template-columns: 1fr; overflow: visible;
-    padding: clamp(50px, 8vh, 96px) clamp(20px, 6vw, 120px);
+  .cx-copywin { overflow: hidden; align-self: stretch; display: grid; align-content: start; }
+  .cx-conc, .cx-insp { height: auto !important; }
+  /* the four model-led sections keep the desktop pinned reading on small screens:
+     diagram above, one state at a time below, copy tracked to the active state */
+  .cx-struct-stage, .cx-seis-stage, .cx-cage-stage, .cx-wp-stage {
+    position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+    grid-template-columns: 1fr; grid-template-rows: minmax(0, auto) minmax(0, 1fr);
+    align-items: stretch; align-content: stretch; gap: clamp(8px, 1.4vh, 16px);
+    padding: calc(var(--header-h) + 14px) clamp(20px, 6vw, 120px) clamp(14px, 2.6vh, 28px);
   }
-  .cx-flow-stage, .cx-insp-stage { padding-left: 0; padding-right: 0; }
-  .cx-struct-model svg, .cx-seis-viz svg, .cx-wp-viz svg { max-height: 48vh; }
-  .cx-struct-model, .cx-seis-viz, .cx-wp-viz, .cx-cage-viz { order: -1; height: auto; min-height: 42vh; }
-  .cx-el-d, .cx-prin p { max-height: none !important; opacity: 1 !important; margin-top: 5px; }
-  .cx-el, .cx-state, .cx-prin, .cx-wp-node, .cx-insp-col, .cx-stepcard { opacity: 1; }
-  .cx-el-t { color: var(--paper); }
-  .cx-gr { opacity: 1; }
+  .cx-flow-stage, .cx-insp-stage {
+    position: static; height: auto; grid-template-columns: 1fr; overflow: visible;
+    padding: clamp(50px, 8vh, 96px) 0;
+  }
+  .cx-struct-model svg, .cx-seis-viz svg, .cx-wp-viz svg { max-height: 30vh; }
+  .cx-struct-model, .cx-seis-viz, .cx-wp-viz, .cx-cage-viz {
+    order: -1; position: relative; height: auto; min-height: 0; max-height: 32vh; align-self: start;
+  }
+  .cx-cage-viz { height: 30vh; }
+  /* the analytical-model caption sits under the drawing on small screens */
+  .cx-seis-viz { padding-bottom: 18px; }
+  .cx-seis-caption { bottom: 0; }
   .cx-rail, .cx-insp-rail { flex-direction: column; gap: 0; padding: 0 clamp(20px, 6vw, 120px); }
   .cx-stepcard, .cx-insp-col { flex: none; width: 100%; padding-top: 0; border-top: 1px solid var(--rule-d); padding: 16px 0; }
   .cx-stepcard::before { display: none; }
   .cx-track-line { display: none; }
-  .cx-insp-states { display: none; }
+  .cx-insp-states { flex-wrap: wrap; row-gap: 6px; padding: 0 clamp(20px, 6vw, 120px); }
   .cx-track, .cx-insp-rail { -webkit-mask-image: none !important; mask-image: none !important; }
   .cx-rail, .cx-insp-rail { transform: none !important; }
   .cx-cut-inner { grid-template-columns: 1fr; }

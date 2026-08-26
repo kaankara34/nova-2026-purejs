@@ -471,3 +471,15 @@ User asked to keep the visual direction and refine 7 points. Implemented:
 **Verification:** `testing_agent` iteration_21 — **frontend 100 %**, zero console errors, zero horizontal overflow at 1920x1080 / 1680x1050 / 1440x900 / 1366x768 / 1280x800 / 1280x720 / 1024x1366 / 1024x768 / 768x1024 / 430x932 / 393x852 / 390x844 / 375x812; all state sequences correct forward and reverse (Structural 6, Seismic 5, Reinforcement 6, Concrete 7, Execution 5, Waterproofing 5); ground readout matched the visible panel on 41/41 samples with 0px inter-panel gaps; scrollbar-jump and resize determinism verified; mobile/tablet flow fallback fully expanded. Post-report hardening: mobile hero header clearance + deterministic first state. **Not yet user-confirmed visually.**
 
 **Backlog / not done:** optional `ResizeObserver` on `.cx-copywin` for late web-font reflow; concrete section head lives inside the rail wrapper (renders correctly, cosmetically fragile).
+
+### 2026-06 — Construction follow-up: ground readout alignment + mobile parity with desktop
+
+User feedback (TR): (1) Ground/Foundation left level readout was ahead of the panel being read ("Retaining" while still inside Basement levels); (2) mobile hero copy started immediately under the logo and the WebGL background showed a single bar; (3) on mobile the lower sections were fully open — they must open progressively on scroll like desktop, with the diagrams/models and text animation behaving as on desktop.
+
+Implemented:
+- **Ground readout** now names the last panel whose head has passed a 38 % reading line (was nearest-centre) — 0 mismatches over 20 scroll samples at 1920x1080 and 390x844.
+- **Mobile hero**: copy padding-top `calc(var(--header-h) + 96px)` (≈60px clear gap under the logo); mobile rebar scene now renders 4 bars instead of 2.
+- **Mobile parity**: Structural / Seismic / Reinforcement / Waterproofing now use the desktop pinned architecture on ≤1200px — sticky `100svh` stage, diagram fixed on top (`max-height:32vh`, cage canvas `30vh`), one state at a time in the tracked `.cx-copywin` clip window. Concrete and Execution Control stay flow sections but advance one card at a time via `verticalSteps()` (row that crosses a 55 % reading line), no longer all-open. Removed the old `!important` "force open on mobile" rules.
+- `stateDriver` scrub `true → .3` so fast flings traverse intermediate states; SVG annotations are condensed with measured `textLength` so long captions are no longer cut on small screens; seismic caption no longer collides with the drawing label on mobile.
+
+Verification: `testing_agent` iteration_22 (99 %, 2 low findings — both fixed afterwards: SVG caption truncation, fling state skipping) + own measurement sweeps: all state sequences forward/reverse at 390x844, 430x932, 768x1024, 1366x768, 1920x1080; active state always inside the copy window and clear of the header; concrete 01–07 and execution C.01–C.05 reachable on mobile with the active card on screen; zero horizontal overflow and zero console errors everywhere. Text lock re-verified: page text identical to the approved commit.
