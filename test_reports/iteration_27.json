@@ -1,0 +1,27 @@
+{
+  "summary": "Round-4 frontend-only verification of /construction.html (static site, no backend). Re-tested the rebuilt Section 05 reinforcement cage (state order forwards/reverse, annotation-vs-copy sync, canvas first paint, copy fit inside .cx-copywin, disclaimer notes) at 1440x900, 1180x900, 1024x768, 390x844; re-verified the two open items from iteration_26 (Section 12 .cx-final-dwg vs closing copy, SVG annotation type size / overlaps in .cx-det-fig and .cx-insp-elem) at 1024x768 and 1180x900; plus global checks (console/page errors, horizontal overflow, Section 06 C.01..C.06 reachability, Section 10 MEP 7 tabs). Approved-copy gate re-run: cx_verify_0512.py -> 'checked 227 approved lines / CONTENT INTEGRITY OK'. All four requested items PASS; no functional defects found.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Section 05 at <=1200px (1180x900, 1024x768, 390x844)", "issues": ["The .cx-cage-marks annotation/notes panel is absolutely overlaid on top of the principle list; at 390x844 it covers the first 3 inactive rows (A.01-A.03) and at 1024/1180 it sits over the upper rows. The active row and the two notes stay readable, so this is cosmetic, but the partially covered inactive rows read as a layering artefact."]},
+      {"screen": "Section 12 (1024x768, 1180x900)", "issues": ["Closing copy (.cx-final-copy body paragraphs, ~rgba light grey) sits directly over the bright areas of the photo (sky / white facade); the scrim is thin at these widths so contrast of the two smaller paragraphs is weak. No overlap with the drawing (that item is fixed)."]},
+      {"screen": "Section 05 3D cage", "issues": ["Denser transverse spacing in the two confinement regions is implemented (0.17 vs 0.2465 pitch = 1.45x) but in the rotated perspective view the differentiation is only weakly perceptible; the mid-region contains ~4-5 hoops. Optional: increase the mid-region pitch ratio slightly for clearer visual reading (no numeric labels involved)."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "copyTracker.measure() is registered on ScrollTrigger 'refreshInit' and momentarily sets max-height:0 on every .cx-prin-d; combined with the 0.5s max-height transition and the smooth-scroll delay, a state change can take ~2s to settle. Not a defect (verified stable in every state at all 4 viewports), but any future automated check must poll until stable rather than wait a fixed 1.2s - a 1.4s wait produced false 'collapsed/clipped copy' readings during this run.",
+    "Section 05 builds ~30 hoops x 5 cross-ties + 14 longitudinal bars (~200 meshes) with per-frame position/scale updates; render is gated by a 'need' flag so cost is acceptable, but the mesh count is the main perf risk if the model is extended."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100% of requested checks passed"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "not required (public static page)",
+  "context_for_next_testing_agent": "Verified facts (2026-07): Section 05 - 6 states advance exactly one at a time forwards AND in reverse (20-step sweeps at 1440x900 and 1180x900 gave 0,0,0,0,1,1,1,2,2,2,3,3,3,3,4,4,4,5,5,5,5 and exact mirror in reverse; never more than one .cx-prin.is-on); .cx-cage-marks data-mark always == active index+1 at every state and every viewport (1440/1180/1024/390); canvas #cxCageCanvas non-zero at first paint (722x749 @1440, 1038x342 @1180) and window.cxCageView('top'|'front'|'side') works with no errors; active .cx-prin-d always fully inside .cx-copywin (slackTop/slackBot >= 0 at all 6 states x 4 viewports); no non-active detail block stays open; cx-cage-disclaimer and cx-cage-representative visible and not overlapping the annotation list. Open items from iteration_26 are FIXED: Section 12 visible .cx-final-dwg text has 0 overlaps with .cx-final-copy across a 5-point sweep at 1024x768 and 1180x900; .cx-det-fig and .cx-insp-elem SVG text render at 10px effective vs 12.5px body copy with zero text-text overlaps (AIR/VAPOUR* and 'CRITICAL JUNCTIONS' vs 'THERMAL CONTINUITY' overlaps gone). Global: pageerror/console errors = 0 and horizontal overflow = 0 at 1440x900, 1180x900, 1024x768 and across 21 scroll depths at 390x844; Section 06 states 0..5 all reached; Section 10 MEP - all 7 tabs activate exactly one layer with one active tab and matching caption (also spot-checked at 390). Measurement technique that matters: after each scroll, poll the DOM every 600ms until two identical reads (max ~7s) before asserting copy geometry.",
+  "rca_of_the_issue": "No defect. The only anomaly observed during testing (active state copy appearing collapsed/clipped) was a measurement artefact: the page uses smooth scrolling plus a 0.5s max-height / 0.4s opacity transition on .cx-prin-d, so a fixed 1.4s wait after window.scrollTo occasionally sampled mid-transition (active body height 0, previous body still open). With stability polling all six states measured fully expanded and inside the reading window at every tested viewport."
+}

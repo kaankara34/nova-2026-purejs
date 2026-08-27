@@ -17,11 +17,23 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 /* MEP layer tabs */
 const mepTabs = $$('.cx-mep-tab');
 const mepLayers = $$('.cx-mep-layer');
-mepTabs.forEach((t, i) => t.addEventListener('click', () => {
+const mepCap = $('.cx-mep-cap');
+const mepCaps = [
+  'Structure \u2014 columns, slabs and beams; no unplanned penetrations',
+  'Architecture \u2014 occupied spaces, access and maintenance zones',
+  'HVAC \u2014 duct routes within the coordinated zone and below slab soffit',
+  'Electrical \u2014 containment and risers coordinated with fire-safety zones',
+  'Water \u2014 distribution, plant and access zones',
+  'Drainage \u2014 gravity stacks and falls coordinated with structural zones',
+  'Fire & life-safety interfaces \u2014 service penetrations through fire-resisting construction'
+];
+const mepSet = i => {
   mepTabs.forEach((o, j) => o.classList.toggle('is-on', j === i));
   mepLayers.forEach((l, j) => l.classList.toggle('is-on', j === i));
-}));
-if (mepTabs[0]) { mepTabs[0].classList.add('is-on'); if (mepLayers[0]) mepLayers[0].classList.add('is-on'); }
+  if (mepCap) mepCap.textContent = mepCaps[i] || '';
+};
+mepTabs.forEach((t, i) => t.addEventListener('click', () => mepSet(i)));
+if (mepTabs.length) mepSet(0);
 
 /* structural element labels are also navigation into the pinned range */
 const structSection = $('.cx-struct');
@@ -152,22 +164,83 @@ function boot() {
     });
     return g;
   }
-  function stirrup(w, h, r, mat) {
-    const cr = Math.min(w, h) * .18, n = 5, pts = [];
-    const corners = [
-      [w / 2 - cr, h / 2 - cr, 0],
-      [-(w / 2 - cr), h / 2 - cr, Math.PI / 2],
-      [-(w / 2 - cr), -(h / 2 - cr), Math.PI],
-      [w / 2 - cr, -(h / 2 - cr), -Math.PI / 2]
-    ];
-    corners.forEach(([cx, cy, a0]) => {
-      for (let i = 0; i <= n; i++) {
-        const a = a0 + (i / n) * Math.PI / 2;
-        pts.push(new THREE.Vector3(cx + Math.cos(a) * cr, cy + Math.sin(a) * cr, 0));
+  /* --- reinforcement primitives -------------------------------------------
+     Each transverse component is one continuous bent bar generated from a
+     single polyline, so every hook is an integral continuation of the same bar
+     and never a separate piece. Geometry is conceptual: no dimension, diameter,
+     spacing or cover value is expressed. */
+  function bentBar(pts, r, mat, closed, ribbed) {
+    const g = new THREE.Group();
+    const curve = new THREE.CatmullRomCurve3(pts, !!closed, 'catmullrom', 0);
+    const len = curve.getLength();
+    const seg = clamp(Math.round(len / (r * .8)), 20, 240);
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, seg, r, mobile ? 5 : 9, !!closed), mat));
+    if (ribbed) {
+      const n = clamp(Math.floor(len / (r * 3.2)), 4, 80);
+      const trg = new THREE.TorusGeometry(r * 1.01, r * .13, 4, 9);
+      const inst = new THREE.InstancedMesh(trg, mat, n);
+      const m4 = new THREE.Matrix4(), one = new THREE.Vector3(1, 1, 1);
+      const q = new THREE.Quaternion(), zAx = new THREE.Vector3(0, 0, 1);
+      for (let i = 0; i < n; i++) {
+        const t = (i + .5) / n;
+        q.setFromUnitVectors(zAx, curve.getTangentAt(t));
+        m4.compose(curve.getPointAt(t), q, one);
+        inst.setMatrixAt(i, m4);
       }
+      inst.instanceMatrix.needsUpdate = true;
+      g.add(inst);
+    }
+    return g;
+  }
+  /* closed perimeter hoop, horizontal plane: one continuous rectangular loop
+     enclosing the longitudinal bars, closed at a corner by two inward-turned
+     135-degree seismic hooks that continue from the loop itself */
+  function perimeterHoop(hx, hz, r, mat, corner, ribbed) {
+    const g = new THREE.Group();
+    const cr = Math.min(hx, hz) * .26;
+    const pts = [];
+    [[hx - cr, hz - cr, 0], [-(hx - cr), hz - cr, Math.PI / 2],
+     [-(hx - cr), -(hz - cr), Math.PI], [hx - cr, -(hz - cr), -Math.PI / 2]]
+      .forEach(([cx, cz, a0]) => {
+        for (let i = 0; i <= 6; i++) {
+          const a = a0 + (i / 6) * Math.PI / 2;
+          pts.push(new THREE.Vector3(cx + Math.cos(a) * cr, 0, cz + Math.sin(a) * cr));
+        }
+      });
+    g.add(bentBar(pts, r, mat, true, ribbed));
+    const sx = corner[0], sz = corner[1];
+    const hl = Math.min(hx, hz) * .62;
+    const dir = new THREE.Vector3(-sx, 0, -sz).normalize();
+    [-1, 1].forEach(side => {
+      /* the loop ends turn back into the core at 135 degrees; the bend sits on the
+         outside of the corner so the hook is legible from outside the cage */
+      const p0 = new THREE.Vector3(sx * (hx + r * .5), side * r * 2.1, sz * (hz + r * .5));
+      const p1 = p0.clone().addScaledVector(dir, hl * .3).add(new THREE.Vector3(0, side * r * 1.6, 0));
+      const p2 = p0.clone().addScaledVector(dir, hl).add(new THREE.Vector3(0, side * r * 4.2, 0));
+      g.add(bentBar([p0, p1, p2], r, mat, false, ribbed));
     });
-    const curve = new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0);
-    return new THREE.Mesh(new THREE.TubeGeometry(curve, mobile ? 110 : 190, r, mobile ? 6 : 10, true), mat);
+    return g;
+  }
+  /* single-leg cross-tie (TBDY 2018 detailing principle): one continuous bar
+     across the short direction of the confined core; both ends bend around the
+     longitudinal bar they restrain and turn back into the core as 135-degree
+     seismic hooks, so the hooked ends read on the face of the cage */
+  function crossTie(zBar, rBar, r, mat, flip, ribbed) {
+    const hk = zBar * .6, y = 0;
+    /* the leg runs to the far side of the longitudinal bar, bends around it out to
+       the perimeter hoop leg it engages, and returns into the core as a 135-degree
+       hook — so the bend and the hook tail both read on the face of the cage */
+    const end = (sz, sy) => [
+      new THREE.Vector3(0, y, sz * (zBar - r)),
+      new THREE.Vector3(0, y + sy * r * .8, sz * (zBar + rBar * 1.2 + r * .9)),
+      new THREE.Vector3(0, y + sy * (hk * .8 + r * 1.8), sz * (zBar - hk * .55))
+    ];
+    const a = end(-1, flip), b = end(1, -flip);
+    const pts = [a[2], a[1], a[0], b[0], b[1], b[2]];
+    return bentBar(pts, r, mat, false, ribbed);
+  }
+  function setMat(obj, m) {
+    obj.traverse(o => { if (o.isMesh || o.isInstancedMesh) o.material = m; });
   }
   function scene3(canvas) {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: !mobile, alpha: true, powerPreference: 'high-performance' });
@@ -445,12 +518,10 @@ function boot() {
         const s = e * e * (3 - 2 * e);
         const next = stops[Math.min(cur + 1, n - 1)];
         tx = stops[cur] + (next - stops[cur]) * s;
-        /* the state is read from the translation itself: the column nearest to
-           the current rail position is the active one, so the label, the drawing
-           and the column can never describe different states */
-        idx = 0;
-        let best = Infinity;
-        stops.forEach((v, i) => { const d = Math.abs(v - tx); if (d < best) { best = d; idx = i; } });
+        /* the state index comes from the sequence itself and the rail rests at
+           that state's own stop, so every state is reachable and the active
+           column is at its reading position for the whole dwell */
+        idx = cur;
       } else {
         idx = clamp(Math.round(p * (items.length - 1)), 0, items.length - 1);
         tx = cached * p;
@@ -484,79 +555,199 @@ function boot() {
     });
   }
 
-  /* ---------------- 06 reinforcement cage (WebGL assembly) ---------------- */
+  /* ---------------- 05 reinforcement cage (WebGL assembly) ----------------
+     Conceptual reinforced-concrete column reinforcement cage, built from the
+     horizontal section outwards: rectangular column boundary and cover zone,
+     symmetric perimeter longitudinal reinforcement, a closed perimeter hoop
+     with inward 135-degree seismic hooks at every transverse level, single-leg
+     cross-ties restraining the intermediate longitudinal bars, visibly denser
+     transverse reinforcement in the two special confinement regions than in the
+     column mid-region, and straight longitudinal continuity into a subordinate
+     foundation block. No diameter, quantity, spacing, ratio, cover, anchorage
+     or development value is expressed or implied. */
   {
     const sec = $('.cx-cage');
     const canvas = $('#cxCageCanvas');
-    if (sec && canvas && gl) {
+    const marks = $$('.cx-cage-marks [data-mark]');
+    const hasModel = !!(sec && canvas && gl);
+    if (hasModel) {
       const w = scene3(canvas);
       const mat = steelMat();
-      const R = .105, W = 1.24, L = 4.0;
+      const conf = new THREE.MeshStandardMaterial({ color: 0x9fbf86, roughness: .42, metalness: .72, emissive: 0x2c3d22, emissiveIntensity: .5 });
+      const ribbed = !mobile;
+
+      /* 1 — horizontal section topology (solved before any extrusion)
+         column boundary -> cover zone -> closed hoop -> longitudinal bars ->
+         cross-tie positions. Every value below is a proportion, not a dimension. */
+      const BX = 1.58, BZ = 1.06, L = 5.05, FD = .46;
+      const COV = .085;
+      const RH = .026, RL = .048, RT = .021;
+      const hx = BX / 2 - COV - RH, hz = BZ / 2 - COV - RH;   // hoop centreline
+      const ix = hx - RH - RL, iz = hz - RH - RL;             // longitudinal bar centres
+      const u = ix / 3;
+      const XS = [-ix, -2 * u, -u, 0, u, 2 * u, ix];          // symmetric perimeter arrangement
+      const TIE_X = [-2 * u, -u, 0, u, 2 * u];                // every intermediate bar is restrained
+
+      /* transverse levels: closely spaced throughout, and closer again in the two
+         special confinement regions. The confinement-region length follows the
+         TBDY 2018 principle (governed by the larger section dimension and the
+         member height) and the mid-region spacing stays proportionally larger;
+         no numerical spacing or region length is expressed. */
+      const zoneT = Math.max(BX, L / 6);
+      const pd = mobile ? .2 : .17;
+      const pm = pd * 1.5;
+      const y0 = -L / 2 + L * .02, y1 = L / 2 - L * .02;
+      const levels = [];
+      for (let y = y0; y <= y0 + zoneT + 1e-6; y += pd) levels.push({ y, c: true });
+      for (let y = y0 + zoneT + pm; y < y1 - zoneT - 1e-6; y += pm) levels.push({ y, c: false });
+      for (let y = y1 - zoneT; y <= y1 + 1e-6; y += pd) levels.push({ y, c: true });
+
       const cage = new THREE.Group();
       w.scene.add(cage);
-      const mains = [];
-      [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([sx, sz], i) => {
-        const b = rebar(L, R, mat);
-        b.position.set(sx * W / 2 * .78, 0, sz * W / 2 * .78);
+      const mains = [], dowels = [], hoops = [], ties = [];
+
+      /* 2 — longitudinal reinforcement (ribbed bars): symmetric perimeter
+         arrangement on the two long faces, every intermediate bar tied */
+      const BARS = [];
+      XS.forEach(x => [-iz, iz].forEach(z => BARS.push([x, z])));
+      BARS.forEach(([x, z]) => {
+        const b = rebar(L, RL, mat);
+        b.position.set(x, 0, z);
         b.userData.home = b.position.clone();
-        cage.add(b);
-        mains.push(b);
+        cage.add(b); mains.push(b);
+        /* 5 — continuity into the foundation: straight continuation only, the
+           anchorage configuration itself is project specific */
+        const d = rebar(FD * .62, RL, mat);
+        d.position.set(x, -L / 2 - FD * .34, z);
+        d.visible = false;
+        cage.add(d); dowels.push(d);
       });
-      const ties = [];
-      const tieN = mobile ? 6 : 10;
-      for (let i = 0; i < tieN; i++) {
-        const s = stirrup(W * .82, W * .82, R * .44, mat);
-        s.rotation.x = Math.PI / 2;
-        s.position.y = -L / 2 + L * .09 + (i / (tieN - 1)) * L * .82;
-        s.userData.home = s.position.y;
-        ties.push(s);
-        cage.add(s);
-      }
-      const concreteMat = new THREE.MeshStandardMaterial({ color: 0xb8b3ab, roughness: .92, metalness: .02, transparent: true, opacity: 0 });
-      const concrete = new THREE.Mesh(new THREE.BoxGeometry(W * 1.16, L * 1.02, W * 1.16), concreteMat);
-      w.scene.add(concrete);
-      const edges = new THREE.LineSegments(
-        new THREE.EdgesGeometry(new THREE.BoxGeometry(W * 1.16, L * 1.02, W * 1.16)),
+
+      /* 3 + 4 — closed hoops and cross-ties at every level */
+      levels.forEach((lv, i) => {
+        const corner = [[1, 1], [-1, 1], [-1, -1], [1, -1]][i % 4];
+        const h = perimeterHoop(hx, hz, RH, mat, corner, ribbed);
+        h.position.y = lv.y;
+        h.userData.home = lv.y;
+        h.userData.conf = lv.c;
+        cage.add(h); hoops.push(h);
+        TIE_X.forEach((x, k) => {
+          const t = crossTie(iz, RL, RT, mat, (i + k) % 2 ? 1 : -1, false);
+          t.position.set(x, lv.y, 0);
+          t.userData.conf = lv.c;
+          cage.add(t); ties.push(t);
+        });
+      });
+
+      /* subordinate foundation block */
+      const fndMat = new THREE.MeshStandardMaterial({ color: 0xb8b3ab, roughness: .95, metalness: .02, transparent: true, opacity: 0 });
+      const fndGeo = new THREE.BoxGeometry(BX * 1.55, FD, BZ * 1.9);
+      const fnd = new THREE.Mesh(fndGeo, fndMat);
+      fnd.position.y = -L / 2 - FD / 2;
+      cage.add(fnd);
+      const fndEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(fndGeo),
         new THREE.LineBasicMaterial({ color: 0xa08a63, transparent: true, opacity: 0 })
       );
-      w.scene.add(edges);
-      w.cam.position.set(3.0, 2.4, 7.0);
-      w.cam.lookAt(0, 0, 0);
+      fndEdges.position.copy(fnd.position);
+      cage.add(fndEdges);
+
+      /* 6 — concrete column boundary / cover zone */
+      const concreteMat = new THREE.MeshStandardMaterial({ color: 0xb8b3ab, roughness: .92, metalness: .02, transparent: true, opacity: 0 });
+      const coverBox = new THREE.BoxGeometry(BX, L * 1.02, BZ);
+      const concrete = new THREE.Mesh(coverBox, concreteMat);
+      cage.add(concrete);
+      const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(coverBox),
+        new THREE.LineBasicMaterial({ color: 0xa08a63, transparent: true, opacity: 0 })
+      );
+      cage.add(edges);
+
+      w.cam.position.set(3.5, 1.7, 11.9);
+      w.cam.lookAt(0, -.1, 0);
       let need = true;
       const draw = () => { if (need) { w.renderer.render(w.scene, w.cam); need = false; } requestAnimationFrame(draw); };
       requestAnimationFrame(draw);
+      /* the six reveal windows use the same boundaries as the canonical state
+         driver of the written content, so visual and text state never diverge */
+      const B = i => i / (6 * 1.02);
+      if (marks[0]) marks[0].classList.add('is-on');
+      let matState = -1;
+      const cageUpdate = p => {
+        cage.rotation.y = THREE.MathUtils.degToRad(22 + p * 44);
+        cage.rotation.x = -.05;
+        /* 01 — longitudinal reinforcement moves into its section position */
+        mains.forEach((b, i) => {
+          const enter = seg(p, .002 + i * .005, .04 + i * .005);
+          const h = b.userData.home;
+          const out = 1 + (1 - enter) * .55;
+          b.position.set(h.x * out, h.y, h.z * out);
+        });
+        /* 02 — closed transverse reinforcement, bottom to top */
+        const hn = hoops.length;
+        hoops.forEach((s, i) => {
+          const t = i / hn;
+          const a = seg(p, B(1) + t * .1, B(1) + .06 + t * .1);
+          s.visible = a > .02;
+          s.position.y = s.userData.home + (1 - a) * .42;
+        });
+        /* 03 — cross-ties */
+        const tn = ties.length;
+        ties.forEach((t, i) => {
+          const a = seg(p, B(2) + (i / tn) * .1, B(2) + .06 + (i / tn) * .1);
+          t.visible = a > .02;
+          t.scale.set(1, 1, .35 + a * .65);
+        });
+        /* 04 — the two special confinement regions are highlighted against the
+           mid-region while that state is active; the spacing itself keeps
+           communicating the differentiation afterwards */
+        const st = (p >= B(3) && p < B(4)) ? 1 : 0;
+        if (st !== matState) {
+          matState = st;
+          hoops.forEach(s => setMat(s, st && s.userData.conf ? conf : mat));
+          ties.forEach(t => setMat(t, st && t.userData.conf ? conf : mat));
+        }
+        /* 05 — foundation continuity */
+        const f = seg(p, B(4), B(4) + .1);
+        dowels.forEach(d => { d.visible = f > .02; d.scale.setScalar(1); });
+        fndMat.opacity = f * .26;
+        fndEdges.material.opacity = f * .7;
+        fnd.visible = fndEdges.visible = f > .01;
+        /* 06 — concrete cover boundary */
+        const c = seg(p, B(5), B(5) + .11);
+        concreteMat.opacity = c * .16;
+        edges.material.opacity = c * .85;
+        concrete.visible = c > .01;
+        w.cam.position.set(3.5 - p * .4, 1.7 - p * .55, 11.9 + p * 1.4);
+        w.cam.lookAt(0, -.1 - p * .22, 0);
+        need = true;
+      };
+      cageUpdate(0);
+      /* validation hook: 4 mandatory views (top / front / side / perspective) */
+      window.cxCageView = (v, p) => {
+        cageUpdate(typeof p === 'number' ? p : 1);
+        cage.rotation.set(0, 0, 0);
+        const d = 11.9;
+        if (v === 'top') w.cam.position.set(0, d, .0001);
+        else if (v === 'front') w.cam.position.set(0, 0, d);
+        else if (v === 'side') w.cam.position.set(d, 0, 0);
+        else { cage.rotation.y = THREE.MathUtils.degToRad(34); cage.rotation.x = -.12; w.cam.position.set(2.6, 1.6, 8.2); }
+        w.cam.lookAt(0, 0, 0);
+        need = true;
+      };
       ScrollTrigger.create({
         trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .5,
-        onUpdate: self => {
-          const p = self.progress;
-          cage.rotation.y = THREE.MathUtils.degToRad(24 + p * 150);
-          cage.rotation.x = -0.05;
-          mains.forEach((b, i) => {
-            const enter = i === 0 ? 1 : seg(p, .14 + i * .045, .3 + i * .045);
-            const h = b.userData.home;
-            b.position.set(h.x * enter + (1 - enter) * h.x * 3.4, h.y, h.z * enter + (1 - enter) * h.z * 3.4);
-            b.visible = enter > .02;
-            b.rotation.y = THREE.MathUtils.degToRad(p * 120);
-          });
-          ties.forEach((s, i) => {
-            const a = seg(p, .34 + (i / ties.length) * .16, .5 + (i / ties.length) * .16);
-            s.visible = a > .02;
-            s.scale.setScalar(.6 + a * .4);
-            s.position.y = s.userData.home + (1 - a) * 1.6;
-            s.material.opacity = 1;
-          });
-          const c = seg(p, .72, .93);
-          concreteMat.opacity = c * .24;
-          edges.material.opacity = c * .8;
-          concrete.visible = c > .01;
-          w.cam.position.set(3.0 - p * .5, 2.4 - p * 1.1, 7.0 - p * .5);
-          w.cam.lookAt(0, 0, 0);
-          need = true;
-        }
+        onUpdate: self => cageUpdate(self.progress)
       });
+    } else if (marks.length) {
+      marks.forEach(m => m.classList.add('is-on'));
     }
     const cagetrack = copyTracker(sec, '.cx-prin', '.cx-prin-d', true);
-    stateDriver('.cx-cage', '.cx-prin', (idx, p) => { if (cagetrack) cagetrack(idx, p); });
+    stateDriver('.cx-cage', '.cx-prin', (idx, p) => {
+      if (cagetrack) cagetrack(idx, p);
+      /* one canonical index drives the copy, the annotation and the model */
+      if (hasModel) marks.forEach(m => m.classList.toggle('is-on', +m.dataset.mark === idx + 1));
+    });
   }
 
   /* ---------------- 07 execution control (horizontal inspection) ---------------- */
@@ -565,17 +756,29 @@ function boot() {
     if (sec) {
       const states = Array.from(sec.querySelectorAll('.cx-insp-state'));
       const stages = Array.from(sec.querySelectorAll('[data-elstate]'));
+      const bar = sec.querySelector('.cx-insp-bar');
+      const alignBar = () => {
+        const svg = sec.querySelector('.cx-insp-elem--d svg');
+        if (!bar || !svg || !svg.getClientRects().length) return;
+        const r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+        const drawW = Math.min(r.width, r.height * (vb.width / vb.height));
+        const scale = drawW / vb.width;
+        const left = (r.width - drawW) / 2 + r.left + 20 * scale;
+        const right = innerWidth - (r.left + (r.width + drawW) / 2 - 20 * scale);
+        bar.style.paddingLeft = Math.max(0, Math.round(left)) + 'px';
+        bar.style.paddingRight = Math.max(0, Math.round(right)) + 'px';
+      };
+      ScrollTrigger.addEventListener('refresh', alignBar);
+      addEventListener('load', alignBar);
+      setTimeout(alignBar, 400);
       /* the element build-up, its label and the active column all come from the
          same rail driver, so nothing can drift out of sync */
-      /* one canonical rail index drives the element build-up and its label:
-         C.01 documents -> drawing, C.02 pre-pour -> reinforcement + formwork,
-         C.03/C.04 concrete execution and early age -> concrete,
-         C.05 -> enclosure, C.06 -> completion */
-      const map = [0, 2, 3, 3, 4, 5];
+      /* the six verification points map one-to-one onto C.01..C.06 */
+      const map = [0, 1, 2, 3, 4, 5];
       horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col', (idx) => {
-        const k = clamp(map[idx] === undefined ? idx : map[idx], 0, stages.length - 1);
+        const k = clamp(map[idx] === undefined ? idx : map[idx], 0, states.length - 1);
         states.forEach((s, i) => s.classList.toggle('is-on', i === k));
-        stages.forEach((s, i) => { s.style.opacity = i <= k ? 1 : .08; });
+        stages.forEach(s => { s.style.opacity = +s.dataset.elstate <= k ? 1 : .08; });
       }, 820, true);
     }
   }
@@ -592,7 +795,7 @@ function boot() {
       stateDriver('.cx-wp', '.cx-wp-node', (idx, p) => {
         if (track) track(idx, p);
         trace.style.strokeDashoffset = (1 - clamp(p * 1.08, 0, 1)).toFixed(4);
-        const broken = p > .58 && p < .70;      // unresolved termination, then resolved
+        const broken = p > .24 && p < .36;      // unresolved termination, then resolved
         trace.classList.toggle('is-broken', broken);
         if (gap) gap.style.opacity = broken ? 1 : 0;
         if (flag) flag.classList.toggle('is-on', broken);
@@ -606,24 +809,46 @@ function boot() {
     if (fin) {
       const layers = Array.from(fin.querySelectorAll('.cx-fl'));
       const photo = fin.querySelector('.cx-final-photo');
-      const dwg = fin.querySelector('.cx-final-dwg');
+      const dwgs = Array.from(fin.querySelectorAll('.cx-final-dwg'));
       ScrollTrigger.create({
         trigger: fin, start: 'top top', end: 'bottom bottom', scrub: .45,
         onUpdate: self => {
           const p = self.progress;
           const align = seg(p, .06, .58);
           layers.forEach((l, i) => {
-            const off = (i - (layers.length - 1) / 2) * 120 * (1 - align);
+            const vb = l.ownerSVGElement && l.ownerSVGElement.viewBox.baseVal.width || 1100;
+            const off = (i - (layers.length - 1) / 2) * (vb < 700 ? vb * .045 : vb * .09) * (1 - align);
             l.setAttribute('transform', `translate(${off.toFixed(1)} ${(off * .22).toFixed(1)})`);
             l.style.opacity = (0.25 + align * .75).toFixed(3);
           });
           const dis = seg(p, .62, .93);
           if (photo) photo.style.opacity = dis.toFixed(3);
-          if (dwg) dwg.style.opacity = (1 - dis * .96).toFixed(3);
+          dwgs.forEach(d => { d.style.opacity = (1 - dis * .96).toFixed(3); });
         }
       });
     }
   }
+
+  /* drawing annotations are sized from the measured viewBox scale so technical
+     type never grows larger than the body copy on wide-but-short containers */
+  const DWG = '.cx-cage .cx-dwg, .cx-insp .cx-dwg, .cx-wp .cx-dwg, .cx-det-fig .cx-dwg, .cx-plot .cx-dwg, .cx-mep-viz .cx-dwg, .cx-final-dwg .cx-dwg';
+  const fitDwgType = () => {
+    const target = innerWidth < 700 ? 10.5 : innerWidth < 1201 ? 10 : 9.5;
+    $$(DWG).forEach(svg => {
+      const vb = svg.viewBox && svg.viewBox.baseVal;
+      const r = svg.getBoundingClientRect();
+      if (!vb || !vb.width || !r.width) return;
+      const drawW = Math.min(r.width, r.height * (vb.width / vb.height));
+      const scale = drawW / vb.width;
+      if (scale > 0) svg.style.setProperty('--dwgfs', (target / scale).toFixed(2) + 'px');
+    });
+  };
+  fitDwgType();
+  addEventListener('load', fitDwgType);
+  let dwgT;
+  addEventListener('resize', () => { clearTimeout(dwgT); dwgT = setTimeout(fitDwgType, 140); }, { passive: true });
+  ScrollTrigger.addEventListener('refresh', fitDwgType);
+  setTimeout(fitDwgType, 500);
 
   /* the approved copy is long: re-measure once fonts, images and layout settle */
   ScrollTrigger.refresh();

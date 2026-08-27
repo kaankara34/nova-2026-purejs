@@ -527,3 +527,31 @@ Scope (per user): replace the written content of **05 / Detailing … 12 / Resul
 **Verification:** `testing_agent` iteration_23 (3 defects) → all fixed → iteration_24: fixes 1–3 verified, regressions all pass — 05/07 states one-at-a-time forwards and reverse with the active body fully inside the window at 1600x1000 / 1440x900 / 834x1112 / 390x844, 06 active column fully on screen in 100 % of resting states (97 % of 68 samples; the 2 exceptions are mid-slide frames), label mapping exact in 136/136 samples, sections 08–12 complete, MEP tabs fine, mid-page reload recovers, **zero horizontal overflow and zero console errors at 1600x1000 / 1440x900 / 1366x768 / 1280x800 / 1024x768 / 834x1112 / 390x844**. Cosmetic reveal sweep added afterwards and self-verified (0 hidden blocks after a jump to section 11). **Not yet user-confirmed visually.**
 
 **Known pre-existing, out of scope:** `.cx-flow-stage` (04 concrete) ~13px taller than a 900px viewport; section 03 seismic rows can exceed their window on short viewports; section 02 last element row sits slightly above its window at 390px.
+
+---
+
+## Construction 05 / Reinforcement detailing — 3D cage rebuilt from first principles (Jun 2026)
+
+User rejected the previous cage as technically inadequate and asked for a full rebuild governed by (a) technical section references = reinforcement topology, (b) real site photographs = physical credibility, (c) existing Nova page = visual/interaction language. Later refinements in the same session: match the photographed cage density (more longitudinal bars, tighter stirrups, çiroz at every level), remove the round cover spacers that had been added, make the hoop/çiroz **hooks clearly legible on the face of the cage**, enlarge the model on mobile, add a corporate "representative model only" note, and keep the whole arrangement consistent with TBDY 2018.
+
+**Geometry (all proportions, zero numeric engineering values)** — `frontend/js/construction.js`
+- New primitives replacing `stirrup/hoop/crossTie`: `bentBar()` (one continuous polyline → TubeGeometry + optional instanced rib rings), `perimeterHoop()` (closed rectangular loop in the horizontal plane, closed at a corner by two inward 135° seismic hooks whose bend sits outside the corner so the hook reads from outside), `crossTie()` (single leg across the short direction; each end runs past the longitudinal bar, bends around it out to the perimeter hoop leg and returns into the core as a 135° hook), `setMat()`.
+- Horizontal section solved first: rectangular column boundary → cover zone → closed hoop → 7 symmetric longitudinal bars per long face (14 total, ribbed `rebar()`) → cross-ties at all 5 intermediate bar positions. Corner bars restrained by the hoop corners; no bar or tie floats or terminates in space; hook corner alternates per level; tie hook direction alternates per level.
+- Confinement: region length = `max(BX, L/6)` (TBDY 2018 principle), dense pitch in both end regions, mid-region pitch ×1.5 (≈ the code ratio between s0 and mid-region s), ~26 transverse levels.
+- Foundation: subordinate translucent block, straight longitudinal continuation (dowels) revealed at state 05 — no invented anchorage geometry, no hooked bars.
+- Concrete boundary: translucent box + gold edge lines at state 06.
+- Validation hook `window.cxCageView('top'|'front'|'side'|'persp', progress)` — used to validate all four mandatory views; top view verified: closed hoop topology, symmetric bars, restrained corner bars, ties engaging bars + hoop, cover all round.
+
+**Animation / state sync**
+- Six additive states (longitudinal → closed hoops → cross-ties → confinement regions → foundation continuity → concrete cover). Reveal windows now derive from `B(i) = i/(6*1.02)`, the *same* boundaries as `stateDriver()`, and the `.cx-cage-marks` annotation is toggled from the canonical state index instead of its own thresholds — annotation, copy and model can no longer diverge. Confinement green highlight shows only while state 04 is active; spacing keeps communicating the differentiation afterwards.
+
+**HTML / CSS**
+- `construction.html`: added `data-testid="cx-cage-representative"` note — "This model is representative only. It illustrates reinforcement-detailing principles and does not depict the reinforcement design of a specific project." Approved copy untouched (`cx_verify_0512.py` → 227 lines, CONTENT INTEGRITY OK).
+- `construction.css` ≤1200px: `.cx-cage-viz` 36vh → **38vh** (mobile canvas 270px → 321px tall, tablet 423px) with `.cx-cage-note` at 8px; `.cx-cage-marks` scrim softened so the model stays visible behind it; `.cx-copywin` gained an 18px top fade mask so copy entering the reading window is no longer hard-cut; `.cx-final-scrim` strengthened in this band (closing copy contrast over the photo).
+
+**Verification**
+- `testing_agent` iteration_27 → **100 % of requested checks passed, no functional defects**: 6 states one at a time forwards and in reverse at 1440/1180/1024/390, marks == active copy index at every state and viewport, canvas non-zero at first paint, active copy always inside `.cx-copywin`, both disclaimer notes visible, zero console/page errors, zero horizontal overflow. It also confirmed the two remaining **iteration_26** items are fixed: section 12 drawing no longer overlaps the closing copy (variant breakpoint 1200px → 900px) and SVG annotation type renders at ~10px vs 12.5px body copy in 06/08 (`fitDwgType()` caps it), with the AIR/VAPOUR* and CRITICAL JUNCTIONS / THERMAL CONTINUITY overlaps gone.
+- After the report, three cosmetic notes from it were addressed (marks panel layering, section 12 copy contrast, confinement legibility) and the hook geometry was made more prominent per the user's marked photo; re-verified by geometry probe at 1440x900 / 834x1112 / 1024x768 / 390x844 (exactly one active state, copy slack ≥ 29px, overflow 0, no errors).
+- **Not yet user-confirmed visually.**
+
+**Rules carried forward:** never edit approved 05–12 copy; no numeric bar/spacing/cover/anchorage values; hooks must be integral continuations of the bar; ties must engage a bar and the hoop; run `python3 /app/scripts/cx_verify_0512.py` after every markup change.
