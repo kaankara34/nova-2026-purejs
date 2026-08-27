@@ -555,3 +555,11 @@ User rejected the previous cage as technically inadequate and asked for a full r
 - **Not yet user-confirmed visually.**
 
 **Rules carried forward:** never edit approved 05–12 copy; no numeric bar/spacing/cover/anchorage values; hooks must be integral continuations of the bar; ties must engage a bar and the hoop; run `python3 /app/scripts/cx_verify_0512.py` after every markup change.
+
+### 05 cage — final technical cleanup (Jun 2026, same session)
+User asked to keep the rebuilt model as the base and only clean it up. Applied to `frontend/js/construction.js` (geometry only, no content/CSS change):
+- Longitudinal arrangement simplified 7 → **5 bars per long face (10 total)**; cross-ties reduced 5 → **3 per level**, one per intermediate bar, so every tie has an unambiguous restraint purpose. No internal, diagonal or redundant bars remain.
+- Hook geometry corrected: the perimeter-hoop 135° hooks now bend **on the loop itself** (`hx - cr*.12`) and the cross-tie bend stops against the hoop leg (`zBar + rBar*.75`) — nothing projects outside the cage, both hooks stay integral continuations of the transverse bar.
+- The three vertical zones are now immediately legible: the accent highlight on the two special confinement regions **persists from state 04 to the end** (previously only while state 04 was active) and the mid-region pitch ratio went 1.5 → **1.62**.
+- Validated in all four views via `window.cxCageView()`. **Top view:** perimeter hoop closed, 5+5 symmetric bars, all 3 intermediate bars engaged by ties, ties connect bar-to-bar through the hoop, no floating bars, no meaningless terminations, cover all round — matches the supplied TBDY section references.
+- Re-verified: state sequence 1→6 exact forwards and in reverse at 1440x900 and 390x844, active copy inside `.cx-copywin`, overflowX 0, zero console/page errors, `cx_verify_0512.py` OK. Agent-tested, **not yet user-confirmed**.

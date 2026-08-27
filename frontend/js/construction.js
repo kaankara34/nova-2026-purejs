@@ -209,14 +209,14 @@ function boot() {
       });
     g.add(bentBar(pts, r, mat, true, ribbed));
     const sx = corner[0], sz = corner[1];
-    const hl = Math.min(hx, hz) * .62;
+    const hl = Math.min(hx, hz) * .5;
     const dir = new THREE.Vector3(-sx, 0, -sz).normalize();
     [-1, 1].forEach(side => {
-      /* the loop ends turn back into the core at 135 degrees; the bend sits on the
-         outside of the corner so the hook is legible from outside the cage */
-      const p0 = new THREE.Vector3(sx * (hx + r * .5), side * r * 2.1, sz * (hz + r * .5));
-      const p1 = p0.clone().addScaledVector(dir, hl * .3).add(new THREE.Vector3(0, side * r * 1.6, 0));
-      const p2 = p0.clone().addScaledVector(dir, hl).add(new THREE.Vector3(0, side * r * 4.2, 0));
+      /* the two loop ends turn back into the confined core at 135 degrees; the bend
+         stays on the loop itself, so nothing projects outside the cage */
+      const p0 = new THREE.Vector3(sx * (hx - cr * .12), side * r * 1.8, sz * (hz - cr * .12));
+      const p1 = p0.clone().addScaledVector(dir, hl * .32).add(new THREE.Vector3(0, side * r * 1.1, 0));
+      const p2 = p0.clone().addScaledVector(dir, hl).add(new THREE.Vector3(0, side * r * 2.4, 0));
       g.add(bentBar([p0, p1, p2], r, mat, false, ribbed));
     });
     return g;
@@ -226,14 +226,14 @@ function boot() {
      longitudinal bar they restrain and turn back into the core as 135-degree
      seismic hooks, so the hooked ends read on the face of the cage */
   function crossTie(zBar, rBar, r, mat, flip, ribbed) {
-    const hk = zBar * .6, y = 0;
-    /* the leg runs to the far side of the longitudinal bar, bends around it out to
-       the perimeter hoop leg it engages, and returns into the core as a 135-degree
-       hook — so the bend and the hook tail both read on the face of the cage */
+    const hk = zBar * .5, y = 0;
+    /* the leg reaches the longitudinal bar it restrains, bends around it against the
+       perimeter hoop leg and returns into the core as a 135-degree hook; the bend
+       never passes outside the hoop, so no bar end projects from the cage */
     const end = (sz, sy) => [
       new THREE.Vector3(0, y, sz * (zBar - r)),
-      new THREE.Vector3(0, y + sy * r * .8, sz * (zBar + rBar * 1.2 + r * .9)),
-      new THREE.Vector3(0, y + sy * (hk * .8 + r * 1.8), sz * (zBar - hk * .55))
+      new THREE.Vector3(0, y + sy * r * .7, sz * (zBar + rBar * .75)),
+      new THREE.Vector3(0, y + sy * (hk * .8 + r * 1.5), sz * (zBar - hk * .5))
     ];
     const a = end(-1, flip), b = end(1, -flip);
     const pts = [a[2], a[1], a[0], b[0], b[1], b[2]];
@@ -584,9 +584,9 @@ function boot() {
       const RH = .026, RL = .048, RT = .021;
       const hx = BX / 2 - COV - RH, hz = BZ / 2 - COV - RH;   // hoop centreline
       const ix = hx - RH - RL, iz = hz - RH - RL;             // longitudinal bar centres
-      const u = ix / 3;
-      const XS = [-ix, -2 * u, -u, 0, u, 2 * u, ix];          // symmetric perimeter arrangement
-      const TIE_X = [-2 * u, -u, 0, u, 2 * u];                // every intermediate bar is restrained
+      const u = ix / 2;
+      const XS = [-ix, -u, 0, u, ix];                         // symmetric perimeter arrangement
+      const TIE_X = [-u, 0, u];                               // one tie per intermediate bar, no other internal bars
 
       /* transverse levels: closely spaced throughout, and closer again in the two
          special confinement regions. The confinement-region length follows the
@@ -595,7 +595,7 @@ function boot() {
          no numerical spacing or region length is expressed. */
       const zoneT = Math.max(BX, L / 6);
       const pd = mobile ? .2 : .17;
-      const pm = pd * 1.5;
+      const pm = pd * 1.62;
       const y0 = -L / 2 + L * .02, y1 = L / 2 - L * .02;
       const levels = [];
       for (let y = y0; y <= y0 + zoneT + 1e-6; y += pd) levels.push({ y, c: true });
@@ -701,7 +701,7 @@ function boot() {
         /* 04 — the two special confinement regions are highlighted against the
            mid-region while that state is active; the spacing itself keeps
            communicating the differentiation afterwards */
-        const st = (p >= B(3) && p < B(4)) ? 1 : 0;
+        const st = p >= B(3) ? 1 : 0;
         if (st !== matState) {
           matState = st;
           hoops.forEach(s => setMat(s, st && s.userData.conf ? conf : mat));
