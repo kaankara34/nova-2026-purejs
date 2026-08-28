@@ -1,3 +1,4 @@
+/* global gsap, ScrollTrigger, THREE */
 /* ==========================================================
    CONSTRUCTION & ENGINEERING
    Mechanical motion language: assembly, rotation, load transfer,
@@ -367,13 +368,15 @@ function boot() {
       } else {
         const aTop = geo.base[idx].top, aH = geo.base[idx].h + grow;
         const keepTop = Math.max(0, aTop - 14);
-        const base = clamp(Math.min(Math.max(0, aTop + aH + 24 - geo.avail), keepTop), 0, over);
+        const base = clamp(Math.min(Math.max(0, aTop + aH + 40 - geo.avail), keepTop), 0, over);
         if (idx === rows.length - 1) {
           const sub = clamp(prog * rows.length - idx, 0, 1);
-          /* keepActive: the closing note is tracked into view but the active
-             state is never scrolled above the top of the reading window */
-          const end = keepActive ? Math.min(over, Math.max(base, aTop)) : over;
-          shift = base + (end - base) * sub;
+          /* on the last state the column runs to the end of its content so the
+             closing note is readable, unless the window is too short to hold the
+             block and the note together — then the block keeps its position */
+          const tail = Math.max(0, total - (aTop + aH));
+          const end = (aH + tail <= geo.avail) ? over : Math.min(over, keepTop);
+          shift = base + (Math.max(base, end) - base) * sub;
         } else {
           shift = base;
         }
@@ -424,10 +427,17 @@ function boot() {
       const frames = Array.from(sec.querySelectorAll('.cx-defframe'));
       const track = copyTracker(sec, '.cx-state', null);
       stateDriver('.cx-seis', '.cx-state', (idx, p) => {
-        parts.forEach(el => el.style.opacity = +el.dataset.sq <= idx ? 1 : 0.08);
+        /* the drawing accumulates, but only the active state keeps its annotation
+           so labels from earlier states cannot pile up on top of each other */
+        parts.forEach(el => {
+          const sq = +el.dataset.sq;
+          el.style.opacity = sq <= idx ? 1 : 0.08;
+          el.querySelectorAll('text').forEach(t => {
+            t.style.transition = 'opacity .4s';
+            t.style.opacity = sq === idx ? 1 : 0;
+          });
+        });
         if (track) track(idx, p);
-        const sq0 = sec.querySelector('.cx-sq0-label');
-        if (sq0) sq0.style.opacity = idx >= 2 ? 0 : 1;
         const d = seg(p, .32, .82);
         frames.forEach((f, i) => {
           const k = (i + 1) / frames.length;
@@ -466,21 +476,24 @@ function boot() {
        that has reached the reading line (no horizontal translation) */
     let last = -1;
     if (rail) rail.style.transform = 'none';
+    const sync = prog => {
+      const line = innerHeight * .55;
+      let idx = 0;
+      items.forEach((it, i) => { if (it.getBoundingClientRect().top <= line) idx = i; });
+      if (idx !== last) {
+        last = idx;
+        items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
+        if (onIndex) onIndex(idx, prog);
+      } else if (onIndex) onIndex(idx, prog);
+    };
     const st = ScrollTrigger.create({
       trigger: sec, start: 'top bottom', end: 'bottom top',
-      onUpdate: self => {
-        const line = innerHeight * .55;
-        let idx = 0;
-        items.forEach((it, i) => { if (it.getBoundingClientRect().top <= line) idx = i; });
-        if (idx !== last) {
-          last = idx;
-          items.forEach((it, i) => it.classList.toggle('is-on', i === idx));
-          if (onIndex) onIndex(idx, self.progress);
-        } else if (onIndex) onIndex(idx, self.progress);
-      }
+      onUpdate: self => sync(self.progress)
     });
-    items.forEach((it, i) => it.classList.toggle('is-on', i === 0));
-    if (onIndex) onIndex(0, 0);
+    /* a load or refresh that starts inside the section must show the state that
+       belongs to the current scroll position, not the first one */
+    sync(st.progress || 0);
+    ScrollTrigger.addEventListener('refresh', () => sync(st.progress || 0));
     return () => { st.kill(); items.forEach(it => it.classList.remove('is-on')); };
   }
 
@@ -775,11 +788,16 @@ function boot() {
          same rail driver, so nothing can drift out of sync */
       /* the six verification points map one-to-one onto C.01..C.06 */
       const map = [0, 1, 2, 3, 4, 5];
-      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col', (idx) => {
+      const rail = sec.querySelector('[data-testid="cx-inspection-rail"]');
+      const cols = Array.from(sec.querySelectorAll('.cx-insp-col'));
+      /* the approved control copy is taller than any pinned 100vh stage can hold,
+         so the sequence is read as vertical steps on every viewport; the diagram
+         and the stage row still follow the same single index */
+      verticalSteps(sec, rail, cols, (idx) => {
         const k = clamp(map[idx] === undefined ? idx : map[idx], 0, states.length - 1);
         states.forEach((s, i) => s.classList.toggle('is-on', i === k));
         stages.forEach(s => { s.style.opacity = +s.dataset.elstate <= k ? 1 : .08; });
-      }, 820, true);
+      });
     }
   }
 

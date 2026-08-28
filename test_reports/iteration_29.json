@@ -1,0 +1,41 @@
+{
+  "summary": "Round-6 retest of the 9 defects in iteration_28.json on /construction.html (static page, frontend only, DOM-geometry probes + targeted screenshots, no file edits). Coverage: (a) mobile audit at 390x844 and 375x812 over the whole page (every .cx-el/.cx-state/.cx-prin/.cx-wp-node/.cx-endnote probed against every overflow:hidden ancestor at ~0.6vh scroll steps); (b) refresh-mid-section-06 at 25/50/75% at 1440x900 and 390x844; (c) section 12 overlap/clipping matrix at 375x812, 390x844, 430x932, 834x1194, 1440x900 at 5 scroll fractions; (d) section 06 full state-machine check at 1920x1080, 1440x900, 1366x768, 1280x800, 1024x768, 390x844 (25 forward + 25 reverse samples each); (e) heading integrity for all 11 addressable sections at 1920/1440/1366/390; (f) global regression at 11 viewports (full-page horizontal-overflow + console/page-error scan); (g) desktop reading-window clipping + endnote reveal + section-03 label-pile check at 1440/1920/1366/1024; (h) resize 1440->1024 inside sections 05/06/07 and fast/reverse jump scroll in 02/03/05/06/07. RESULT: all 9 previously reported defects are fixed. Zero horizontal overflow and zero console/page errors at all 11 viewports. Only 2 low-severity design observations remain.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Section 12 result - mobile convergence diagram (.cx-final-dwg--m svg)", "issues": ["At 375x812 the diagram row leaves the SVG only 64px tall (71px at 390x844); the viewBox text (15px in-SVG) renders at roughly 4-5 device px so the node labels (GROUND / STRUCTURE / ... / COMPLETED BUILDING) are a grey blur and effectively unreadable. No overlap and no clipping - purely a legibility trade-off of the new two-row grid. At 430x932 the SVG gets 187px and is legible."]},
+      {"screen": "Section 12 result - closing photo at 1440x900", "issues": ["The strengthened .cx-final-scrim makes the background photo almost fully black through the readable part of the pin (copy contrast is now good: rgba(238,236,231,.74) on near-black). Cosmetic only - flagging in case the photo was meant to stay perceptible."]}
+    ]
+  },
+  "verified_fixes": [
+    "CRITICAL (it28) refresh-stale state in section 06: PASS. 1440x900 (secTop 27040, h 2464) reload at 25/50/75% kept cols=[1]/[4]/[5] with the stage label index-matched; 390x844 kept [1]/[2]/[5]. Active card and .cx-insp-state always identical before and after reload.",
+    "HIGH x4 (it28) mobile clipping in sections 02/03/05/07: PASS. At 390x844 and 375x812 all four stages compute position:static, .cx-copywin overflow visible, .cx-copymove has no transform; full-page scan found 0 clipped and 0 zero-size states/endnotes. Drawings are non-zero (343x253 / cage canvas 343x270 at 390; 330x244 / 330x260 at 375). Section heights are content-based: struct 3.7-3.8vh, seis 2.2vh, cage 4.1vh, wp 1.9-2.0vh (no 480-680vh dead scroll).",
+    "HIGH (it28) section 12 caption overlap: PASS. 0 SVG-text vs eyebrow/H1/paragraph/endnote overlaps at 375x812, 390x844, 430x932, 834x1194 and 1440x900 across 5 scroll fractions each. Closing copy legible over the photo at 1440x900 and 390x844.",
+    "MEDIUM/LOW (it28) sticky stage-row occlusion: not applicable - .cx-insp-bar sticky removed as stated; not reported.",
+    "LOW (it28) 5-10px sub-line clipping in desktop reading windows: effectively fixed. Worst active-block clip across 21 samples per section: 0px in 02/03/05/07 at 1440x900, 1920x1080 and 1366x768; only 5px at 1024x768 in section 05 (frac 0.60, block 38px in a 321px window) - sub-line, not text-losing.",
+    "Section 06 full check: PASS at 1920x1080, 1440x900, 1366x768, 1280x800, 1024x768, 390x844 - exactly one active card at every sample, monotone forward 0->5 and reverse 5->0, stage label index-matched in 100% of 300 samples, 0 clipped bullets/headings, sequence SVG fully inside the viewport and clear of the header, 0 horizontal overflow, 0 errors.",
+    "Heading integrity: all 11 addressable sections (.cx-hero,.cx-struct,.cx-seis,.cx-cut,.cx-conc,.cx-cage,.cx-insp,.cx-wp,.cx-mep,.cx-reg,.cx-final) reach a scroll position where eyebrow + H1/H2 (+ subtitle where present) are simultaneously below the fixed header and inside the viewport at 1920x1080, 1440x900, 1366x768 and 390x844. 'EXECUTION CONTROL' verified explicitly at all 6 tested viewports.",
+    "Global: max horizontal overflow 0px and 0 console/page errors at 1920x1080, 1680x1050, 1536x864, 1440x900, 1366x768, 1280x800, 1024x768, 834x1194, 430x932, 390x844, 375x812 (full-page scans at ~1.4vh steps).",
+    "Section 03 seismic drawing: 0 overlapping visible <text> pairs at every sample and every tested viewport (single-annotation logic holds).",
+    "Endnote reveal: .cx-cage and .cx-wp closing .cx-endnote become fully visible in the viewport before the end of the pin at 1440/1920/1366 and at 1024x768 (cage endnote fully visible at 88-96% of the section). Sections 02/03 have no .cx-endnote by markup.",
+    "Determinism under stress: fast jump to 80% and fast reverse to 15% in sections 02/03/05/06/07 always produced exactly one active state (label-matched in 06) with the block inside .cx-copywin; resize 1440->1024 while stopped mid-section 05/06/07 left a single, non-stale active state (05: 3->5, 06: 4->5 with label 5, 07: 3->4 - progress-consistent after the pin height changed), 0 horizontal overflow after resize."
+  ],
+  "test_report_links": [],
+  "action_items": [
+    "OPTIONAL (LOW): give the section 12 mobile convergence diagram a minimum legible height (or a reduced label set / larger in-SVG type) at <=390px - it currently renders at 64-71px so its labels are unreadable.",
+    "OPTIONAL (cosmetic): confirm the strengthened .cx-final-scrim opacity is the intended look at 1440x900 (photo now reads as near-black behind the copy)."
+  ],
+  "critical_code_review_comments": [
+    "verticalSteps() now seeds from st.progress and re-syncs on ScrollTrigger 'refresh' - this correctly removes the stale-state class of bug; no further concerns found in the driver.",
+    "Sections 02/03/05/07 keep inline style=\"height:600vh|520vh|...\" in construction.html and rely on `height:auto !important` in the <=900px block. Works today, but a future change to that media query would silently restore multi-hundred-vh dead scroll on phones; consider driving the section height from a CSS custom property instead of an inline style."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100% of retested acceptance checks passed (9/9 prior defects fixed); 2 low-severity design observations"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Round-6 clean. Probes used: (1) per-element clip probe against every overflow:hidden ancestor; (2) reload-mid-section state comparison for .cx-insp; (3) SVG-text vs copy overlap matrix for .cx-final; (4) 25-sample forward/reverse state sweep for .cx-insp. Remaining open items are only the two LOW design observations above (mobile section-12 diagram height, final scrim darkness). Not re-covered this round (verified clean in iteration_28): MEP tab index alignment, section 04 depth readout, hero.",
+  "rca_of_the_issue": "No new defects. Prior CRITICAL was verticalSteps() force-setting index 0 at creation without seeding from live ScrollTrigger progress; prior HIGH mobile clipping came from keeping the 100vh pinned reading window on phones where a single approved state is taller than the window. Both root causes are addressed by the seeded sync()+refresh listener and the <=900px unpinning block respectively, confirmed by geometry probes."
+}

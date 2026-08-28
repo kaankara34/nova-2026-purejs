@@ -1,3 +1,4 @@
+/* global gsap, ScrollTrigger, THREE */
 /* ==========================================================
    LEED / Sustainability — scroll-directed architectural film
    Three.js (procedural architecture) + GSAP ScrollTrigger
