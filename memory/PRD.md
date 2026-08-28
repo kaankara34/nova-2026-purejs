@@ -605,3 +605,26 @@ The flow (≤1200px) architecture was already in place and canonical: `stateDriv
 - `testing_agent` iteration_30: **100% of requested checks passed, no functional defects**; 3 low design observations, all three addressed above.
 - Own sweeps at 360/375/390/414/430 (phones), 768/834/1024 (tablets), 1366/1440/1920 (desktop regression): every stateful section reaches every state forwards and in reverse (02: 0–5, 03: 0–4, 04: all six levels, 05: 0–6, cage: 0–5 with `__cxCageP` 0→1, 06: 0–5 incl. C.06, 08: 0–4 with `#cxTrace` 1→0, 12: photo 0→1), **0 index mismatches** between text and diagram/label, `scrollWidth == innerWidth` everywhere, mid-page reload restores the identical state, 0 page/console errors.
 - `construction.html` not modified in this round. `cx_verify_0512.py` reports missing lines because its baseline predates the client's upstream copy replacement — the client HTML remains the source of truth (see previous section).
+
+---
+
+## Section 06 / Execution control — layout restored to the 515f2b0 baseline (Jun 2026)
+
+User request: restore the layout, styling, spacing, positioning, animation and responsive behaviour of the 06-Execution Control section to commit `515f2b0`, without touching any current wording; adapt intelligently where the approved copy is now longer.
+
+**What was reverted to the 515f2b0 baseline (`css/construction.css`, `js/construction.js` only — no HTML text change)**
+- Pinned stage padding back to `calc(var(--header-h) + 1.6vh)`, track mask back to 7%/93%, closing note back to no extra top margin.
+- The rail reads as the original editorial sequence again: the active card at full value, neighbours recessed at `opacity .28` (the previous `opacity: 0` and 66vw / 3-column mega-card composition are gone).
+- Verification-point drawing, tab bar, active card and diagram build-up all still come from the one canonical rail driver (`horizontal(... cb ...)`), forward and in reverse.
+
+**Adaptation for the longer approved copy (content-aware, nothing rewritten or hidden)**
+- ≥1201px: intro reads in two measures; each card is content-height (`align-items: start`) and its own copy balances across `columns` (min measure 200–300px), so the longest state (C.02) fits without clipping.
+- Two step-down tiers (≤1000px and ≤890px viewport height, plus a ≤1440px-wide tier) compact the stage and widen the card measure instead of letting the card grow taller.
+- Desktop heights ≤830px and every width ≤1200px read the same six states vertically (JS boundary moved 1060 → 830 to match the CSS), so nothing is ever clipped.
+- New rule: a paragraph following a verification list keeps its own top margin (C.02/C.06 prose no longer butts onto the last bullet).
+
+**Verification (agent-tested, awaiting user confirmation)**
+- Stage overflow measured `0` (1px worst case) at 1920x1080, 1920x940, 1920x880, 1680x1050, 1536x864, 1440x900, 1440x850, 1366x870, 1280x900, 1280x840; ≤830px heights and 1366x768 correctly fall to the vertical reading with 0 clipping.
+- States C.01→C.06: forward `0,1,2,3,4,5` and reverse `4,3,2,1,0` with tab index == card index; horizontal overflow 0; no console errors.
+- Flow mode checked at 1024x768, 768x1024, 390x844: all six cards full opacity, no element clipped, no overflow.
+- `npx oxlint frontend/js/construction.js` → 3 warnings, 0 errors.

@@ -230,7 +230,7 @@ function boot() {
      longitudinal bar they restrain and turn back into the core as 135-degree
      seismic hooks, so the hooked ends read on the face of the cage */
   function crossTie(zBar, rBar, r, mat, flip, ribbed) {
-    const hk = zBar * .5, y = 0;
+    const hk = Math.min(zBar * .5, .19), y = 0;
     /* the leg reaches the longitudinal bar it restrains, bends around it against the
        perimeter hoop leg and returns into the core as a 135-degree hook; the bend
        never passes outside the hoop, so no bar end projects from the cage */
@@ -466,7 +466,7 @@ function boot() {
            so labels from earlier states cannot pile up on top of each other */
         parts.forEach(el => {
           const sq = +el.dataset.sq;
-          el.style.opacity = sq <= idx ? 1 : 0.08;
+          el.style.opacity = sq <= idx ? 1 : 0.15;
           el.querySelectorAll('text').forEach(t => {
             t.style.transition = 'opacity .4s';
             t.style.opacity = sq === idx ? 1 : 0;
@@ -528,8 +528,9 @@ function boot() {
     /* a load or refresh that starts inside the section must show the state that
        belongs to the current scroll position, not the first one */
     sync(st.progress || 0);
-    ScrollTrigger.addEventListener('refresh', () => sync(st.progress || 0));
-    return () => { st.kill(); items.forEach(it => it.classList.remove('is-on')); };
+    const onRefresh = () => sync(st.progress || 0);
+    ScrollTrigger.addEventListener('refresh', onRefresh);
+    return () => { st.kill(); ScrollTrigger.removeEventListener('refresh', onRefresh); items.forEach(it => it.classList.remove('is-on')); };
   }
 
   function horizontal(secSel, railSel, itemSel, onIndex, shortH, stepped) {
@@ -622,29 +623,35 @@ function boot() {
     if (hasModel) {
       const w = scene3(canvas);
       const mat = steelMat();
-      const conf = new THREE.MeshStandardMaterial({ color: 0x9fbf86, roughness: .42, metalness: .72, emissive: 0x2c3d22, emissiveIntensity: .5 });
+      const conf = new THREE.MeshStandardMaterial({ color: 0x9fbf86, roughness: .42, metalness: .72, emissive: 0x2c3d22, emissiveIntensity: .35 });
       const ribbed = !mobile;
 
       /* 1 — horizontal section topology (solved before any extrusion)
          column boundary -> cover zone -> closed hoop -> longitudinal bars ->
          cross-tie positions. Every value below is a proportion, not a dimension. */
-      const BX = 1.58, BZ = 1.06, L = 5.05, FD = .46;
-      const COV = .085;
-      const RH = .026, RL = .048, RT = .021;
+      const BX = 2.3, BZ = 1.42, L = 5.15, FD = .5;
+      const COV = .075;
+      const RH = .024, RL = .046, RT = .02;
       const hx = BX / 2 - COV - RH, hz = BZ / 2 - COV - RH;   // hoop centreline
       const ix = hx - RH - RL, iz = hz - RH - RL;             // longitudinal bar centres
-      const u = ix / 2;
-      const XS = [-ix, -u, 0, u, ix];                         // symmetric perimeter arrangement
-      const TIE_X = [-u, 0, u];                               // one tie per intermediate bar, no other internal bars
+      /* dense symmetric arrangement around the full perimeter, as executed on
+         site: closely spaced longitudinal bars on the two long faces, intermediate
+         bars on the two short faces, every intermediate bar restrained */
+      const NF = mobile ? 9 : 12;                             // bars per long face
+      const NS = mobile ? 2 : 3;                              // intermediate bars per short face
+      const XS = [];
+      for (let i = 0; i < NF; i++) XS.push(-ix + (2 * ix) * i / (NF - 1));
+      const ZS = [];
+      for (let j = 1; j <= NS; j++) ZS.push(-iz + (2 * iz) * j / (NS + 1));
+      const TIE_X = XS.slice(1, -1);                          // staggered ties on intermediate bars
 
       /* transverse levels: closely spaced throughout, and closer again in the two
          special confinement regions. The confinement-region length follows the
-         TBDY 2018 principle (governed by the larger section dimension and the
-         member height) and the mid-region spacing stays proportionally larger;
-         no numerical spacing or region length is expressed. */
-      const zoneT = Math.max(BX, L / 6);
-      const pd = mobile ? .2 : .17;
-      const pm = pd * 1.62;
+         TBDY 2018 principle and the mid-region spacing stays proportionally
+         larger; no numerical spacing or region length is expressed. */
+      const zoneT = L / 6;
+      const pd = mobile ? .13 : .094;
+      const pm = pd * 1.5;
       const y0 = -L / 2 + L * .02, y1 = L / 2 - L * .02;
       const levels = [];
       for (let y = y0; y <= y0 + zoneT + 1e-6; y += pd) levels.push({ y, c: true });
@@ -659,6 +666,7 @@ function boot() {
          arrangement on the two long faces, every intermediate bar tied */
       const BARS = [];
       XS.forEach(x => [-iz, iz].forEach(z => BARS.push([x, z])));
+      ZS.forEach(z => [-ix, ix].forEach(x => BARS.push([x, z])));
       BARS.forEach(([x, z]) => {
         const b = rebar(L, RL, mat);
         b.position.set(x, 0, z);
@@ -672,7 +680,7 @@ function boot() {
         cage.add(d); dowels.push(d);
       });
 
-      /* 3 + 4 — closed hoops and cross-ties at every level */
+      /* 3 + 4 — closed hoops, interior hoops and staggered cross-ties */
       levels.forEach((lv, i) => {
         const corner = [[1, 1], [-1, 1], [-1, -1], [1, -1]][i % 4];
         const h = perimeterHoop(hx, hz, RH, mat, corner, ribbed);
@@ -680,9 +688,27 @@ function boot() {
         h.userData.home = lv.y;
         h.userData.conf = lv.c;
         cage.add(h); hoops.push(h);
+        /* overlapping interior hoop restraining the central bar group */
+        const h2 = perimeterHoop(ix * .34, hz, RH * .92, mat, corner, false);
+        h2.position.y = lv.y;
+        h2.userData.home = lv.y;
+        h2.userData.conf = lv.c;
+        cage.add(h2); hoops.push(h2);
+        /* single-leg cross-ties across the short direction, staggered per level
+           as executed on site so tie positions alternate between adjacent levels */
         TIE_X.forEach((x, k) => {
-          const t = crossTie(iz, RL, RT, mat, (i + k) % 2 ? 1 : -1, false);
+          if ((i + k) % 2) return;
+          const t = crossTie(iz, RL, RT, mat, i % 2 ? 1 : -1, false);
           t.position.set(x, lv.y, 0);
+          t.userData.conf = lv.c;
+          cage.add(t); ties.push(t);
+        });
+        /* long cross-ties restraining the short-face intermediate bars */
+        ZS.forEach((z, k) => {
+          if ((i + k + 1) % 2) return;
+          const t = crossTie(ix, RL, RT, mat, i % 2 ? -1 : 1, false);
+          t.rotation.y = Math.PI / 2;
+          t.position.set(0, lv.y, z);
           t.userData.conf = lv.c;
           cage.add(t); ties.push(t);
         });
@@ -690,7 +716,7 @@ function boot() {
 
       /* subordinate foundation block */
       const fndMat = new THREE.MeshStandardMaterial({ color: 0xb8b3ab, roughness: .95, metalness: .02, transparent: true, opacity: 0 });
-      const fndGeo = new THREE.BoxGeometry(BX * 1.55, FD, BZ * 1.9);
+      const fndGeo = new THREE.BoxGeometry(BX * 1.5, FD, BZ * 1.7);
       const fnd = new THREE.Mesh(fndGeo, fndMat);
       fnd.position.y = -L / 2 - FD / 2;
       cage.add(fnd);
@@ -712,7 +738,7 @@ function boot() {
       );
       cage.add(edges);
 
-      w.cam.position.set(3.5, 1.7, 11.9);
+      w.cam.position.set(3.6, 1.7, 12.6);
       w.cam.lookAt(0, -.1, 0);
       let need = true;
       const draw = () => { if (need) { w.renderer.render(w.scene, w.cam); need = false; } requestAnimationFrame(draw); };
@@ -727,7 +753,7 @@ function boot() {
         cage.rotation.x = -.05;
         /* 01 — longitudinal reinforcement moves into its section position */
         mains.forEach((b, i) => {
-          const enter = seg(p, .002 + i * .005, .04 + i * .005);
+          const enter = seg(p, .002 + i * .0038, .04 + i * .0038);
           const h = b.userData.home;
           const out = 1 + (1 - enter) * .55;
           b.position.set(h.x * out, h.y, h.z * out);
@@ -767,7 +793,7 @@ function boot() {
         concreteMat.opacity = c * .16;
         edges.material.opacity = c * .85;
         concrete.visible = c > .01;
-        w.cam.position.set(3.5 - p * .4, 1.7 - p * .55, 11.9 + p * 1.4);
+        w.cam.position.set(3.6 - p * .4, 1.7 - p * .55, 12.6 + p * 1.4);
         w.cam.lookAt(0, -.1 - p * .22, 0);
         need = true;
         window.__cxCageP = p;
@@ -778,7 +804,7 @@ function boot() {
       window.cxCageView = (v, p) => {
         cageUpdate(typeof p === 'number' ? p : 1);
         cage.rotation.set(0, 0, 0);
-        const d = 11.9;
+        const d = 12.6;
         if (v === 'top') w.cam.position.set(0, d, .0001);
         else if (v === 'front') w.cam.position.set(0, 0, d);
         else if (v === 'side') w.cam.position.set(d, 0, 0);
@@ -832,16 +858,15 @@ function boot() {
          same rail driver, so nothing can drift out of sync */
       /* the six verification points map one-to-one onto C.01..C.06 */
       const map = [0, 1, 2, 3, 4, 5];
-      const rail = sec.querySelector('[data-testid="cx-inspection-rail"]');
-      const cols = Array.from(sec.querySelectorAll('.cx-insp-col'));
-      /* the approved control copy is taller than any pinned 100vh stage can hold,
-         so the sequence is read as vertical steps on every viewport; the diagram
-         and the stage row still follow the same single index */
-      verticalSteps(sec, rail, cols, (idx) => {
+      const cb = (idx) => {
         const k = clamp(map[idx] === undefined ? idx : map[idx], 0, states.length - 1);
         states.forEach((s, i) => s.classList.toggle('is-on', i === k));
-        stages.forEach(s => { s.style.opacity = +s.dataset.elstate <= k ? 1 : .08; });
-      });
+        stages.forEach(s => { s.style.opacity = +s.dataset.elstate <= k ? 1 : .22; });
+      };
+      /* the sequence keeps its pinned horizontal reading on tall desktops; viewports
+         that are too short for the tallest approved control state (and every width
+         below the desktop breakpoint) read the same states vertically */
+      horizontal('.cx-insp', '[data-testid="cx-inspection-rail"]', '.cx-insp-col', cb, 830, true);
     }
   }
 
