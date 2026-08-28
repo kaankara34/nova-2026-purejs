@@ -1,0 +1,41 @@
+{
+  "summary": "Independent mobile/tablet animation-repair verification of /construction.html (static page, frontend only; no backend). Swept every stateful section with Playwright at 390x844, 768x1024, 1024x768 (rotation), 844x390 (rotation) and desktop 1920x1080 / 1440x900 / 1366x768. Verified state sequences forward AND reverse, canonical index sync (drawing/label/mark), SVG draw-on progress, deformation transform, depth readout sequence, WebGL cage progress via window.__cxCageP plus visual screenshots of the rendered cage on a phone, MEP tab taps, final photo dissolve, mid-page reload determinism, orientation change, fast wheel scroll, horizontal overflow and hidden/clipped approved copy. All requested behaviours PASS; no page or console errors at any width. Only minor design observations reported.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "05/06 Reinforcement cage (.cx-cage-viz, phone 390 and tablet landscape 1024x768)",
+        "issues": [
+          "The annotation label (.cx-cage-marks [data-mark].is-on) and the two disclaimer lines are rendered on top of the lower third of the 3D model, so the cage bars sit behind small technical type and the foundation-continuity end of the model (state 05) is visually cut by the sticky panel bottom edge. States still animate correctly; this is legibility only."
+        ]
+      },
+      {
+        "screen": "Tablet landscape 1024x768, after .cx-cage closing copy",
+        "issues": ["~290px empty band between the closing paragraph and the next section header (sticky panel reserved space)."]
+      },
+      {
+        "screen": "Stateful sections on 390x844",
+        "issues": ["Fixed header (~85px) + sticky 270px diagram panel occupy ~42% of the viewport, leaving a narrow reading band; while a heading passes under the opaque panel edge it is momentarily half-cut (transient, panels are opaque #0b0d0e so no text/graphic overlap results)."]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional polish only: move the cage mark label + disclaimer below the model box (or add bottom padding inside .cx-cage-viz) so the annotations do not sit over the reinforcement cage and the model's foundation end is not clipped on phones and tablet landscape.",
+    "Optional: reduce the empty band after the cage closing copy at 1024x768."
+  ],
+  "critical_code_review_comments": [
+    "stateDriver FLOW branch, verticalSteps and the cage/final flow triggers are all driven from one index and were confirmed canonical (0 mismatches over ~1500 sampled scroll positions) — no change needed.",
+    "construction.js is 943 lines; consider splitting per-section modules for maintainability (non-blocking)."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (no backend in scope)", "frontend": "100% of requested checks passed" },
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "none required (static page)",
+  "context_for_next_testing_agent": "Verified results per width: 390x844 -> struct 0-5 reached with .cx-gr always == active index (0 mismatches, reverse 5->0 clean); seis all 5 states, [data-sq] opacity accumulates 1->5, .cx-defframe transform goes translate(0)->translate(1.76) (d=1 full deformation); ground depth readout sequence exactly ±0.00 -> -01/-n -> Retaining -> Foundation -> Strata -> Investigation (also identical at 768x1024) and each [data-draw] child path dashoffset goes 1.00->0.00 in order; concrete 0-6 with .cx-phase 0-5; cage prin 0-5, marks == idx+1 always, window.__cxCageP 0 -> 1 continuously (0.037,0.097,...,0.995,1) and the cage is visibly rendered on the phone (screenshots .screenshots/ov_seis/ov_cage/cage_canvas); insp cols 0-5 both directions with .cx-insp-state == col index (0 mismatches) and all 12 [data-elstate] reach opacity 1 (C.06 reachable); wp nodes 0-4 with .cx-wp-node-d heights 247/147/147/147/167px (no 35px collapse), #cxTrace dashoffset 1.000 -> 0.000 and the gap flag appears then resolves; all 7 MEP tabs switch layer + caption on tap; final photo opacity 0 -> 1 and .cx-fl transforms converge to translate(0 0). Mid-page reload at 60% of .cx-cage restored identical state (prin 5, p=0.8383, scrollY 18232, mark 6). Rotations 390x844->844x390 and 768x1024->1024x768 kept a valid active state with no overflow. Desktop 1920/1440/1366: every sequence complete (insp needs fine sampling, coarse sampling only makes it look like a state is skipped), depth readout full sequence, cageP 0-1, final photo 1, no overflow, 0 index mismatches. document.scrollWidth == innerWidth at every tested width; 0 pageerrors/console errors; the only opacity:0 text nodes are the collapsed nav submenu and the intentional .cx-wp-flag; no clipped copy (scrollHeight vs clientHeight check clean).",
+  "rca_of_the_issue": "No new defect found. The previous mobile failures (.cx-wp-d selector typo collapsing waterproofing node copy and non-sticky .cx-depth) are confirmed fixed: waterproofing node descriptions expand to 147-247px on 390 and the depth readout updates through all six levels on both phone and tablet."
+}

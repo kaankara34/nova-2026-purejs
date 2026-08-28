@@ -7,6 +7,9 @@
    ========================================================== */
 import * as THREE from 'three';
 
+/* GSAP and ScrollTrigger are loaded from the CDN in the page head */
+const { gsap, ScrollTrigger } = window;
+
 const body = document.body;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
@@ -385,26 +388,58 @@ function boot() {
     };
   }
 
-  /* ---------------- generic pinned state driver ---------------- */
+  /* ---------------- generic state driver ----------------
+     One canonical index per section feeds the copy, the drawing, the labels and
+     the indicators. Above the desktop breakpoint it is scrubbed from the pinned
+     section progress; below it the sections read in natural flow, so the state is
+     taken from the block that has reached the reading line and the same 0..1
+     progress is rebuilt from that block, which keeps every scrubbed drawing,
+     3D and SVG animation running on tablet and phone. */
+  const DESK = '(min-width: 1201px)';
+  const FLOW = '(max-width: 1200px)';
+  const isFlow = () => matchMedia(FLOW).matches;
+
   function stateDriver(sectionSel, itemSel, onIndex, mode) {
     const sec = $(sectionSel);
     if (!sec) return;
     const items = Array.from(sec.querySelectorAll(itemSel));
     const n = items.length || 1;
-    let last = -1;
-    /* deterministic first paint: state 01 is active before the first scroll tick */
-    items.forEach((it, i) => it.classList.toggle('is-on', i === 0));
-    if (onIndex) onIndex(0, 0);
-    ScrollTrigger.create({
-      trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .3,
-      onUpdate: self => {
-        const idx = clamp(Math.floor(self.progress * n * 1.02), 0, n - 1);
-        if (idx !== last) {
-          last = idx;
-          items.forEach((it, i) => it.classList.toggle('is-on', mode === 'cumulative' ? i <= idx : i === idx));
-          if (onIndex) onIndex(idx, self.progress);
-        } else if (onIndex) onIndex(idx, self.progress);
-      }
+    const paint = (idx, p) => {
+      items.forEach((it, i) => it.classList.toggle('is-on', mode === 'cumulative' ? i <= idx : i === idx));
+      if (onIndex) onIndex(idx, p);
+    };
+    const mm = gsap.matchMedia();
+    mm.add(DESK, () => {
+      let last = -1;
+      paint(0, 0);
+      const st = ScrollTrigger.create({
+        trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .3,
+        onUpdate: self => {
+          const idx = clamp(Math.floor(self.progress * n * 1.02), 0, n - 1);
+          if (idx !== last) { last = idx; paint(idx, self.progress); }
+          else if (onIndex) onIndex(idx, self.progress);
+        }
+      });
+      return () => st.kill();
+    });
+    mm.add(FLOW, () => {
+      let last = -1;
+      const sync = () => {
+        const line = innerHeight * .66;
+        let idx = 0;
+        items.forEach((it, i) => { if (it.getBoundingClientRect().top <= line) idx = i; });
+        const r = items[idx].getBoundingClientRect();
+        const local = clamp((line - r.top) / Math.max(1, r.height), 0, 1);
+        const p = clamp((idx + local) / n, 0, 1);
+        if (idx !== last) { last = idx; paint(idx, p); }
+        else if (onIndex) onIndex(idx, p);
+      };
+      const st = ScrollTrigger.create({
+        trigger: sec, start: 'top bottom', end: 'bottom top', onUpdate: sync
+      });
+      sync();
+      ScrollTrigger.addEventListener('refresh', sync);
+      return () => { st.kill(); ScrollTrigger.removeEventListener('refresh', sync); };
     });
   }
 
@@ -568,6 +603,7 @@ function boot() {
     });
   }
 
+  let cageFrame = null;
   /* ---------------- 05 reinforcement cage (WebGL assembly) ----------------
      Conceptual reinforced-concrete column reinforcement cage, built from the
      horizontal section outwards: rectangular column boundary and cover zone,
@@ -734,8 +770,10 @@ function boot() {
         w.cam.position.set(3.5 - p * .4, 1.7 - p * .55, 11.9 + p * 1.4);
         w.cam.lookAt(0, -.1 - p * .22, 0);
         need = true;
+        window.__cxCageP = p;
       };
       cageUpdate(0);
+      cageFrame = cageUpdate;
       /* validation hook: 4 mandatory views (top / front / side / perspective) */
       window.cxCageView = (v, p) => {
         cageUpdate(typeof p === 'number' ? p : 1);
@@ -748,9 +786,14 @@ function boot() {
         w.cam.lookAt(0, 0, 0);
         need = true;
       };
-      ScrollTrigger.create({
-        trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .5,
-        onUpdate: self => cageUpdate(self.progress)
+      /* pinned desktop: the model is scrubbed by the section progress. In flow
+         mode the same frames are driven by the canonical state index below. */
+      gsap.matchMedia().add(DESK, () => {
+        const st = ScrollTrigger.create({
+          trigger: sec, start: 'top top', end: 'bottom bottom', scrub: .5,
+          onUpdate: self => cageUpdate(self.progress)
+        });
+        return () => st.kill();
       });
     } else if (marks.length) {
       marks.forEach(m => m.classList.add('is-on'));
@@ -760,6 +803,7 @@ function boot() {
       if (cagetrack) cagetrack(idx, p);
       /* one canonical index drives the copy, the annotation and the model */
       if (hasModel) marks.forEach(m => m.classList.toggle('is-on', +m.dataset.mark === idx + 1));
+      if (cageFrame && isFlow()) cageFrame(p);
     });
   }
 
@@ -828,10 +872,7 @@ function boot() {
       const layers = Array.from(fin.querySelectorAll('.cx-fl'));
       const photo = fin.querySelector('.cx-final-photo');
       const dwgs = Array.from(fin.querySelectorAll('.cx-final-dwg'));
-      ScrollTrigger.create({
-        trigger: fin, start: 'top top', end: 'bottom bottom', scrub: .45,
-        onUpdate: self => {
-          const p = self.progress;
+      const finFrame = p => {
           const align = seg(p, .06, .58);
           layers.forEach((l, i) => {
             const vb = l.ownerSVGElement && l.ownerSVGElement.viewBox.baseVal.width || 1100;
@@ -842,8 +883,19 @@ function boot() {
           const dis = seg(p, .62, .93);
           if (photo) photo.style.opacity = dis.toFixed(3);
           dwgs.forEach(d => { d.style.opacity = (1 - dis * .96).toFixed(3); });
-        }
-      });
+      };
+      /* pinned on desktop, scrubbed across its own passage through the viewport
+         in flow mode, so the drawing still resolves into the photograph */
+      const mmFin = gsap.matchMedia();
+      const finTrigger = (start, end) => () => {
+        const st = ScrollTrigger.create({
+          trigger: fin, start, end, scrub: .45,
+          onUpdate: self => finFrame(self.progress)
+        });
+        return () => st.kill();
+      };
+      mmFin.add(DESK, finTrigger('top top', 'bottom bottom'));
+      mmFin.add(FLOW, finTrigger('top 85%', 'bottom bottom'));
     }
   }
 

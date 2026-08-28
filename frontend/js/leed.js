@@ -5,6 +5,9 @@
    ========================================================== */
 import * as THREE from 'three';
 
+/* GSAP and ScrollTrigger are loaded from the CDN in the page head */
+const { gsap, ScrollTrigger } = window;
+
 const body = document.body;
 const film = document.getElementById('lxFilm');
 const stage = document.getElementById('lxStage');

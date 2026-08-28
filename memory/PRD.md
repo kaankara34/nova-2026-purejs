@@ -582,3 +582,26 @@ The client pushed a commit to `upstream/main` that replaced the approved technic
 - `testing_agent` iteration_28 found 9 defects (1 critical, 4 high, 1 medium, 3 low) → all fixed → iteration_29: **9/9 fixed, 100% of retested acceptance checks passed**, only two cosmetic notes (phone diagram legibility in section 12, desktop scrim too dark) which were then also addressed.
 - Post-fix self-verification: whole-page clip scan (every `.cx-el/.cx-state/.cx-prin/.cx-wp-node/.cx-endnote/.cx-insp-col/.cx-p/.cx-h1/.cx-h2/.cx-idx/.cx-lbl` against every `overflow:hidden` ancestor) at 375x812, 390x844, 430x932, 834x1194 and 1024x768 → **zero clipped elements**; horizontal overflow 0 at all 11 audited viewports; zero console/page errors; reload mid-section 06 keeps the matching state at 1440 and 390; section 12 caption/copy overlap 0 at 375/390/430/834/1440.
 - Approved copy untouched (HTML not modified in this round).
+
+---
+
+## Construction page — mobile/tablet animation repair (Jun 2026)
+
+User request: "mobilde de görsel şemalar ve modellerin hepsi çalışsın" — every technical diagram, SVG state animation and the WebGL reinforcement model must actually run and progress with scroll on phones and tablets, without making mobile static, without disabling GSAP/ScrollTrigger and without re-introducing the pinned reading windows that clipped the approved copy.
+
+**Diagnosis (full inventory of hero → 12 in `js/construction.js` / `css/construction.css`)**
+The flow (≤1200px) architecture was already in place and canonical: `stateDriver()` FLOW branch (reading-line index + rebuilt 0..1 progress), `verticalSteps()` for the two rail sections, sticky diagram panels, `cageFrame(p)` driven from the same index, `.cx-final` flow ScrollTrigger. Two genuine defects were the reason parts of the page looked "dead" on mobile:
+1. **CSS selector typo** — the ≤1200px expand rule targeted `.cx-wp-d` instead of `.cx-wp-node-d`, so waterproofing nodes 02–05 stayed collapsed at 35px: approved copy hidden **and** states 2–4 unreachable (the reading line crossed 4 nodes at once). Fixed → node heights 147–247px, states 0→4 complete.
+2. **Section 04 depth readout frozen** — `.cx-depth` was `position: relative` below 1200px, so the readout scrolled away and never re-evaluated; it reported `±0.00` for the whole ground section. It is now sticky under the header (graphite background) and reports ±0.00 → −01/−n → Retaining → Foundation → Strata → Investigation on phone and tablet.
+
+**Polish applied after the testing report**
+- `.cx-cage-viz` in flow is now a two-row panel: canvas 30vh + annotation underneath (was an absolute overlay printing technical type over the cage and clipping the foundation end of the model).
+- Sticky panels (`.cx-struct-model/.cx-seis-viz/.cx-wp-viz/.cx-cage-viz/.cx-insp-elem/.cx-depth`) sit at `top: var(--header-h)` with 8px opaque padding — no text sliver between header and panel.
+- Short landscape tablets (≤1200px and ≤820px height) get a shorter flow tail, removing the ~290px empty band after the cage closing copy.
+- Added `/app/.oxlintrc.json` declaring the CDN globals (gsap, ScrollTrigger, THREE …) — lint clean.
+- Debug hook `window.__cxCageP` exposes the reinforcement-model animation progress for automated verification.
+
+**Verification (agent-tested, awaiting user confirmation)**
+- `testing_agent` iteration_30: **100% of requested checks passed, no functional defects**; 3 low design observations, all three addressed above.
+- Own sweeps at 360/375/390/414/430 (phones), 768/834/1024 (tablets), 1366/1440/1920 (desktop regression): every stateful section reaches every state forwards and in reverse (02: 0–5, 03: 0–4, 04: all six levels, 05: 0–6, cage: 0–5 with `__cxCageP` 0→1, 06: 0–5 incl. C.06, 08: 0–4 with `#cxTrace` 1→0, 12: photo 0→1), **0 index mismatches** between text and diagram/label, `scrollWidth == innerWidth` everywhere, mid-page reload restores the identical state, 0 page/console errors.
+- `construction.html` not modified in this round. `cx_verify_0512.py` reports missing lines because its baseline predates the client's upstream copy replacement — the client HTML remains the source of truth (see previous section).
