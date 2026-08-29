@@ -628,3 +628,27 @@ User request: restore the layout, styling, spacing, positioning, animation and r
 - States C.01→C.06: forward `0,1,2,3,4,5` and reverse `4,3,2,1,0` with tab index == card index; horizontal overflow 0; no console errors.
 - Flow mode checked at 1024x768, 768x1024, 390x844: all six cards full opacity, no element clipped, no overflow.
 - `npx oxlint frontend/js/construction.js` → 3 warnings, 0 errors.
+
+---
+
+## New page — `design.html` (Aman-referenced editorial design page, Jun 2026)
+
+User request: a complete, production-ready `design.html` for NOVA Konut communicating the architectural/interior design philosophy, using aman.com as the principal reference for colour, layout, spacing, typographic mood, image scale, composition and rhythm. User choices: all imagery newly created in an editorial architectural photography language (no existing project renders), keep the site's Cormorant Garamond + Montserrat pairing, add DESIGN to the side menu and footer, English copy exactly as briefed.
+
+**Files**
+- `frontend/design.html` (generated — do not hand-edit) via `scripts/build_design.py` + `scripts/design_main.html`
+- `frontend/css/design.css` (every rule scoped to `.page-design`)
+- `frontend/js/design.js`
+- `frontend/media/images/design/*.webp` — 16 newly generated architectural photographs
+- `frontend/media/images/nova-logo-dark.png` — charcoal logo variant for the ivory header
+- DESIGN link injected into the side menu of 18 pages and into the footer nav of 7 pages
+
+**Aman principles adopted**: warm ivory ground (#F2EEE7) with soft-charcoal type (#2E2D2B / #55514C), hairline rules at rgba(45,43,40,.16), 1560px measure with wide outer margins, asymmetric editorial grids (34/46, 38/46, 42/44, 57/34, 65/26 and a 12-column staggered material/detail/landscape grid), full-width photographic plates for Light / Context / Closing, large restrained serif statements with small-cap sans eyebrows, narrow 46–62ch copy columns, section rhythm of clamp(88px→180px), text links with hairline underlines instead of buttons, no cards / gradients / shadows.
+
+**NOVA components preserved**: utility bar, header (with its scroll/hide behaviour), full side menu incl. project previews, footer and `js/script.js` — untouched, only re-tinted for the ivory ground through `.page-design` overrides.
+
+**Responsive**: ≤1100px the asymmetry survives as staggered widths (78% / 66% / offset columns); ≤720px the page is recomposed rather than collapsed — full-bleed portrait crops (4/5, 3/4) for the opening, principles, light, interiors, context and closing plates, deliberate 62–74% part-width images for material and detail studies, alternating image→text / text→image order, horizontally scrollable index strip, process rows reduced to number + text.
+
+**Animation**: opacity + 22px rise reveals (1.15s power2.out, 0.09s stagger) per section, images settling from scale 1.035 (1.4s power3.out), 1.8% hover scale on desktop, smooth anchor scrolling and a scroll-spy index; `prefers-reduced-motion` and a missing GSAP both fall back to fully visible content (initial hidden state only applies under `html.dz-js`).
+
+**Verification** — `testing_agent` iteration_31: no horizontal overflow at 11 viewports, 0 console errors, all 16 images load, every reveal reaches opacity 1 (slow/fast/reverse scroll), 0 clipped or overlapping text at 1440/768/390, chrome + links work, construction.html section 06 regression clean. Two reported defects fixed and re-verified by measurement: mobile heading words no longer glue together (space before every `<br />`), and the index active state is now correct for all six items (sections sorted by offsetTop). Small-type contrast raised to rgba(45,43,40,.62–.70). Lint 0 errors.

@@ -1,0 +1,400 @@
+/* =========================================================
+   DESIGN — editorial page (page-scoped: .page-design only)
+   Warm ivory ground, charcoal type, asymmetric editorial grids.
+   ========================================================= */
+.page-design {
+  --dz-bg: #F2EEE7;
+  --dz-bg-2: #EDE8E0;
+  --dz-ink: #2E2D2B;
+  --dz-ink-2: #55514C;
+  --dz-rule: rgba(45, 43, 40, 0.16);
+  --dz-max: 1560px;
+  --dz-pad: clamp(20px, 5.4vw, 104px);
+  --dz-gap: clamp(26px, 3.6vw, 76px);
+  --dz-sec: clamp(88px, 10.5vw, 180px);
+  background: var(--dz-bg);
+  color: var(--dz-ink);
+}
+html:has(.page-design) { background: #F2EEE7; overflow-x: clip; }
+.page-design ::selection { background: rgba(45, 43, 40, .12); }
+
+/* header: the existing NOVA header, quietened for the ivory ground */
+.page-design .site-header,
+.page-design .site-header.transparent {
+  background: rgba(242, 238, 231, 0.94);
+  border-bottom: 1px solid var(--dz-rule);
+  color: var(--dz-ink);
+}
+.page-design .site-header .menu-toggle span { background: var(--dz-ink); }
+.page-design .site-header .icon-link svg { stroke: var(--dz-ink); }
+.page-design .site-header .lang-switch { color: var(--dz-ink); }
+.page-design .site-header .btn.register {
+  background: transparent; color: var(--dz-ink); border-color: rgba(45, 43, 40, .34);
+}
+.page-design .site-header .btn.register:hover { background: #2F2F2D; color: #F6F3ED; border-color: #2F2F2D; }
+.page-design .site-header .icon-sep { background: var(--dz-rule); }
+
+/* ---------------- shared type ---------------- */
+.page-design .dz-wrap { max-width: var(--dz-max); margin: 0 auto; padding: 0 var(--dz-pad); }
+.page-design .dz-sec { padding-top: var(--dz-sec); }
+
+.page-design .dz-eyebrow {
+  font-family: var(--font-sans); font-weight: 500; font-size: 10.5px;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(45, 43, 40, .68); margin: 0 0 clamp(16px, 1.8vw, 30px);
+}
+.page-design .dz-h1 {
+  font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(34px, 4.6vw, 64px); line-height: 1.08; letter-spacing: -.004em;
+  color: var(--dz-ink); margin: 0;
+}
+.page-design .dz-h2 {
+  font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(27px, 3.1vw, 46px); line-height: 1.14; letter-spacing: -.002em;
+  color: var(--dz-ink); margin: 0 0 clamp(20px, 2.2vw, 38px); max-width: 22ch;
+}
+.page-design .dz-h2--s { font-size: clamp(25px, 2.5vw, 38px); }
+.page-design .dz-h2--c { max-width: 26ch; }
+.page-design .dz-p {
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(13.5px, 1.02vw, 15px); line-height: 1.95; letter-spacing: .004em;
+  color: var(--dz-ink-2); margin: 0 0 clamp(16px, 1.5vw, 26px); max-width: 62ch;
+}
+.page-design .dz-p:last-child { margin-bottom: 0; }
+.page-design .dz-lead { font-size: clamp(14.5px, 1.15vw, 16.5px); line-height: 1.85; color: var(--dz-ink); }
+.page-design .dz-statement {
+  font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(23px, 2.4vw, 34px); line-height: 1.26; color: var(--dz-ink);
+  margin: 0; max-width: 26ch;
+}
+.page-design .dz-statement--s { font-size: clamp(18px, 1.55vw, 23px); line-height: 1.42; max-width: 34ch; }
+.page-design .dz-statement--m { font-size: clamp(26px, 2.9vw, 42px); max-width: 22ch; }
+.page-design .dz-statement--l { font-size: clamp(30px, 3.6vw, 54px); line-height: 1.14; max-width: 24ch; }
+.page-design .dz-cap {
+  font-family: var(--font-sans); font-weight: 400; font-size: 10px;
+  letter-spacing: .17em; text-transform: uppercase; color: rgba(45, 43, 40, .68);
+  margin: clamp(12px, 1.2vw, 20px) 0 0;
+}
+.page-design .dz-cap--rule { padding-top: 14px; border-top: 1px solid var(--dz-rule); margin-top: 0; }
+.page-design .dz-copy--narrow { max-width: 46ch; }
+.page-design .dz-copy--centered { max-width: 60ch; margin: 0 auto; }
+.page-design .dz-link-row { margin: clamp(26px, 3vw, 46px) 0 0; }
+.page-design .dz-link {
+  display: inline-block; font-family: var(--font-sans); font-weight: 500; font-size: 10.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--dz-ink);
+  text-decoration: none; padding-bottom: 7px;
+  border-bottom: 1px solid rgba(45, 43, 40, .34);
+  transition: border-color .5s cubic-bezier(.22,.61,.36,1), color .5s cubic-bezier(.22,.61,.36,1);
+}
+.page-design .dz-link:hover, .page-design .dz-link:focus-visible { border-color: var(--dz-ink); color: #14130F; }
+.page-design a:focus-visible { outline: 1px solid rgba(45,43,40,.6); outline-offset: 4px; }
+
+/* ---------------- figures ---------------- */
+.page-design .dz-fig { margin: 0; overflow: hidden; }
+.page-design .dz-fig img {
+  display: block; width: 100%; height: auto; background: var(--dz-bg-2);
+  transition: transform 1.6s cubic-bezier(.22,.61,.36,1);
+}
+@media (hover: hover) and (min-width: 1025px) {
+  .page-design .dz-fig:hover img { transform: scale(1.018); }
+}
+
+/* ---------------- 01 opening ---------------- */
+.page-design .dz-open { padding-top: calc(var(--header-h) + 40px + clamp(54px, 8vh, 130px)); }
+.page-design .dz-open-head { max-width: 46ch; }
+.page-design .dz-open-fig { margin-top: clamp(44px, 5.6vw, 104px); padding: 0 var(--dz-pad); }
+.page-design .dz-open-fig img {
+  max-width: var(--dz-max); margin: 0 auto;
+  height: clamp(300px, 60vh, 720px); object-fit: cover; object-position: 50% 58%;
+}
+.page-design .dz-open-foot {
+  margin-top: clamp(40px, 5vw, 92px);
+  display: grid; grid-template-columns: minmax(0, 34%) minmax(0, 46%);
+  justify-content: space-between; gap: var(--dz-gap);
+}
+.page-design .dz-open-copy .dz-p { max-width: 58ch; }
+
+/* ---------------- 02 considered architecture ---------------- */
+.page-design .dz-principles-grid {
+  display: grid; grid-template-columns: minmax(0, 38%) minmax(0, 46%);
+  justify-content: space-between; gap: var(--dz-gap); align-items: start;
+}
+.page-design .dz-principles-main { margin-top: clamp(30px, 5vw, 96px); }
+.page-design .dz-principles-second { margin-top: clamp(-40px, -3vw, 0px); }
+.page-design .dz-principles-small { width: 44%; margin-left: 20%; margin-top: clamp(36px, 4.4vw, 82px); }
+
+/* ---------------- 03 design index ---------------- */
+.page-design .dz-index {
+  margin-top: var(--dz-sec);
+  border-top: 1px solid var(--dz-rule); border-bottom: 1px solid var(--dz-rule);
+}
+.page-design .dz-index-list {
+  list-style: none; margin: 0; padding: clamp(18px, 1.7vw, 26px) 0;
+  display: flex; gap: clamp(26px, 3.4vw, 68px); flex-wrap: wrap;
+}
+.page-design .dz-index-list a {
+  font-family: var(--font-sans); font-weight: 400; font-size: 10.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(45, 43, 40, .7);
+  text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid transparent;
+  transition: color .5s cubic-bezier(.22,.61,.36,1), border-color .5s cubic-bezier(.22,.61,.36,1);
+}
+.page-design .dz-index-list a:hover { color: var(--dz-ink); border-bottom-color: rgba(45,43,40,.4); }
+.page-design .dz-index-list a.is-on { color: var(--dz-ink); border-bottom-color: var(--dz-ink); }
+
+/* ---------------- 04 space & proportion ---------------- */
+.page-design .dz-prop-head,
+.page-design .dz-land-head,
+.page-design .dz-craft-grid {
+  display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 44%);
+  justify-content: space-between; gap: var(--dz-gap); align-items: start;
+}
+.page-design .dz-prop-grid {
+  margin-top: clamp(40px, 5vw, 92px);
+  display: grid; grid-template-columns: minmax(0, 65%) minmax(0, 26%);
+  justify-content: space-between; gap: var(--dz-gap); align-items: start;
+}
+.page-design .dz-prop-aside { margin-top: clamp(50px, 7vw, 130px); }
+.page-design .dz-prop-aside .dz-statement { margin-top: clamp(22px, 2.4vw, 40px); }
+
+/* ---------------- 05 light ---------------- */
+.page-design .dz-light-fig { margin-top: clamp(44px, 5.4vw, 96px); }
+.page-design .dz-light-fig img { height: clamp(340px, 76vh, 880px); object-fit: cover; object-position: 50% 50%; }
+.page-design .dz-light-foot {
+  margin-top: clamp(40px, 5vw, 88px);
+  display: grid; grid-template-columns: minmax(0, 20%) minmax(0, 46%);
+  justify-content: space-between; gap: var(--dz-gap); align-items: start;
+}
+.page-design .dz-light-foot .dz-statement { margin-top: clamp(22px, 2.4vw, 38px); }
+
+/* ---------------- 06 materiality ---------------- */
+.page-design .dz-mat-head .dz-h2 { max-width: 20ch; }
+.page-design .dz-mat-grid {
+  margin-top: clamp(30px, 4vw, 66px);
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--dz-gap); row-gap: 0;
+}
+.page-design .dz-mat-a { grid-column: 1 / 5; grid-row: 1; }
+.page-design .dz-mat-copy { grid-column: 7 / 12; grid-row: 1; align-self: end; padding-bottom: clamp(10px, 2vw, 40px); }
+.page-design .dz-mat-c { grid-column: 1 / 4; grid-row: 2; margin-top: clamp(40px, 5vw, 96px); }
+.page-design .dz-mat-b { grid-column: 5 / 13; grid-row: 2; margin-top: clamp(70px, 9vw, 180px); }
+.page-design .dz-mat-note { grid-column: 5 / 11; grid-row: 3; margin-top: clamp(30px, 3.4vw, 62px); }
+
+/* ---------------- 07 interiors ---------------- */
+.page-design .dz-int-grid {
+  display: grid; grid-template-columns: minmax(0, 57%) minmax(0, 34%);
+  justify-content: space-between; gap: var(--dz-gap); align-items: center;
+}
+.page-design .dz-int-copy .dz-p { max-width: 46ch; }
+
+/* ---------------- 08 detail ---------------- */
+.page-design .dz-det-head { text-align: center; }
+.page-design .dz-det-head .dz-statement { margin: 0 auto; }
+.page-design .dz-det-grid {
+  margin-top: clamp(48px, 6vw, 110px);
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--dz-gap);
+}
+.page-design .dz-det-a { grid-column: 1 / 4; grid-row: 1; }
+.page-design .dz-det-b { grid-column: 5 / 13; grid-row: 1; margin-top: clamp(60px, 8vw, 150px); }
+.page-design .dz-det-copy { grid-column: 5 / 10; grid-row: 2; margin-top: clamp(30px, 3.4vw, 60px); }
+
+/* ---------------- 09 landscape ---------------- */
+.page-design .dz-land-grid {
+  margin-top: clamp(40px, 5vw, 92px);
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--dz-gap);
+}
+.page-design .dz-land-b { grid-column: 1 / 4; grid-row: 1; margin-top: clamp(70px, 9vw, 170px); }
+.page-design .dz-land-a { grid-column: 5 / 13; grid-row: 1; }
+.page-design .dz-land-note { grid-column: 5 / 11; grid-row: 2; margin-top: clamp(30px, 3.4vw, 58px); }
+
+/* ---------------- 10 context ---------------- */
+.page-design .dz-ctx-head { text-align: center; }
+.page-design .dz-ctx-head .dz-h2 { margin-left: auto; margin-right: auto; }
+.page-design .dz-ctx-head .dz-p { text-align: center; }
+.page-design .dz-ctx-fig { margin-top: clamp(48px, 6vw, 108px); }
+.page-design .dz-ctx-fig img { height: clamp(300px, 62vh, 760px); object-fit: cover; object-position: 50% 56%; }
+
+/* ---------------- 11 process ---------------- */
+.page-design .dz-proc-head { margin-bottom: clamp(36px, 4vw, 74px); }
+.page-design .dz-proc-list { list-style: none; margin: 0; padding: 0; }
+.page-design .dz-proc-row {
+  display: grid; grid-template-columns: 64px minmax(0, 22%) minmax(0, 1fr);
+  gap: var(--dz-gap); align-items: baseline;
+  padding: clamp(24px, 2.6vw, 44px) 0;
+  border-top: 1px solid var(--dz-rule);
+}
+.page-design .dz-proc-row:last-child { border-bottom: 1px solid var(--dz-rule); }
+.page-design .dz-proc-no {
+  font-family: var(--font-sans); font-weight: 400; font-size: 10.5px;
+  letter-spacing: .2em; color: rgba(45, 43, 40, .62);
+}
+.page-design .dz-proc-label {
+  font-family: var(--font-serif); font-weight: 300; font-size: clamp(20px, 1.9vw, 28px);
+  line-height: 1.2; margin: 0; color: var(--dz-ink);
+}
+.page-design .dz-proc-row .dz-p { max-width: 58ch; margin: 0; }
+
+/* ---------------- 12 craft ---------------- */
+.page-design .dz-craft { padding-top: var(--dz-sec); }
+
+/* ---------------- 13 closing ---------------- */
+.page-design .dz-end-head { text-align: center; }
+.page-design .dz-end-head .dz-statement { margin: 0 auto clamp(24px, 2.6vw, 42px); }
+.page-design .dz-end-head .dz-p { text-align: center; }
+.page-design .dz-end-fig { margin-top: clamp(48px, 6vw, 110px); }
+.page-design .dz-end-fig img { height: clamp(320px, 70vh, 820px); object-fit: cover; object-position: 50% 50%; }
+.page-design .dz-end-foot {
+  padding-top: clamp(36px, 4vw, 72px); padding-bottom: clamp(80px, 9vw, 160px);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--dz-gap);
+}
+.page-design .dz-end-mark {
+  margin: 0; font-family: var(--font-serif); font-weight: 300; font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.2; color: var(--dz-ink);
+}
+.page-design .dz-end-mark span {
+  display: block; margin-top: 8px; font-family: var(--font-sans); font-weight: 500;
+  font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase; color: rgba(45, 43, 40, .68);
+}
+.page-design .dz-end-foot .dz-link-row { margin: 0; }
+
+/* =========================================================
+   TABLET — the asymmetry is kept, the columns loosen
+   ========================================================= */
+@media (max-width: 1100px) {
+  .page-design {
+    --dz-pad: clamp(22px, 4.6vw, 56px);
+    --dz-sec: clamp(76px, 10vw, 126px);
+    --dz-gap: clamp(24px, 3.4vw, 48px);
+  }
+  .page-design .dz-open-foot,
+  .page-design .dz-prop-head,
+  .page-design .dz-land-head,
+  .page-design .dz-craft-grid,
+  .page-design .dz-light-foot,
+  .page-design .dz-prop-grid,
+  .page-design .dz-int-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .page-design .dz-open-foot { row-gap: clamp(22px, 3vw, 38px); }
+  .page-design .dz-principles-grid { grid-template-columns: minmax(0, 1fr); }
+  .page-design .dz-principles-main { width: 78%; margin-top: clamp(34px, 5vw, 60px); }
+  .page-design .dz-principles-second { margin-top: 0; }
+  .page-design .dz-principles-small { width: 66%; margin-left: 34%; margin-top: clamp(28px, 4vw, 54px); }
+  .page-design .dz-prop-grid { margin-top: clamp(34px, 4.6vw, 62px); }
+  .page-design .dz-prop-aside { display: grid; grid-template-columns: minmax(0, 46%) minmax(0, 46%);
+    justify-content: space-between; align-items: end; gap: var(--dz-gap); margin-top: clamp(30px, 4vw, 54px); }
+  .page-design .dz-prop-aside .dz-statement { margin-top: 0; }
+  .page-design .dz-light-foot { row-gap: clamp(20px, 3vw, 34px); }
+  .page-design .dz-mat-a { grid-column: 1 / 6; }
+  .page-design .dz-mat-copy { grid-column: 7 / 13; }
+  .page-design .dz-mat-c { grid-column: 1 / 5; margin-top: clamp(32px, 4.4vw, 60px); }
+  .page-design .dz-mat-b { grid-column: 6 / 13; margin-top: clamp(48px, 7vw, 110px); }
+  .page-design .dz-mat-note { grid-column: 4 / 13; }
+  .page-design .dz-int-copy { max-width: 60ch; }
+  .page-design .dz-det-a { grid-column: 1 / 5; }
+  .page-design .dz-det-b { grid-column: 6 / 13; margin-top: clamp(44px, 6vw, 96px); }
+  .page-design .dz-det-copy { grid-column: 4 / 13; }
+  .page-design .dz-land-b { grid-column: 1 / 5; margin-top: clamp(48px, 7vw, 110px); }
+  .page-design .dz-land-a { grid-column: 6 / 13; }
+  .page-design .dz-land-note { grid-column: 4 / 13; }
+  .page-design .dz-proc-row { grid-template-columns: 48px minmax(0, 26%) minmax(0, 1fr); gap: clamp(18px, 3vw, 34px); }
+}
+
+/* =========================================================
+   MOBILE — recomposed, not collapsed
+   ========================================================= */
+@media (max-width: 720px) {
+  .page-design {
+    --dz-pad: 22px;
+    --dz-sec: clamp(64px, 15vw, 92px);
+    --dz-gap: 20px;
+  }
+  .page-design .dz-h1 { font-size: clamp(29px, 8.4vw, 38px); line-height: 1.12; }
+  .page-design .dz-h1 br,
+  .page-design .dz-h2 br,
+  .page-design .dz-statement br { display: none; }
+  .page-design .dz-h2 { font-size: clamp(23px, 6.6vw, 30px); max-width: 26ch; }
+  .page-design .dz-statement { font-size: clamp(20px, 5.6vw, 26px); }
+  .page-design .dz-statement--l { font-size: clamp(25px, 7.4vw, 33px); }
+  .page-design .dz-statement--m { font-size: clamp(23px, 6.6vw, 30px); }
+  .page-design .dz-p { font-size: 14px; line-height: 1.92; }
+  .page-design .dz-lead { font-size: 15px; }
+
+  .page-design .dz-open { padding-top: calc(var(--header-h) + 36px + 54px); }
+  /* full-bleed opening image with a deliberate portrait crop */
+  .page-design .dz-open-fig { padding: 0; margin-top: 34px; }
+  .page-design .dz-open-fig img { height: auto; aspect-ratio: 4 / 5; object-position: 50% 60%; }
+  .page-design .dz-open-foot { margin-top: 34px; }
+
+  /* text first, then a full-bleed portrait */
+  .page-design .dz-principles-main { width: auto; margin: 34px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-principles-main img { aspect-ratio: 3 / 4; object-fit: cover; }
+  .page-design .dz-principles-small { width: 74%; margin-left: 26%; margin-top: 26px; }
+
+  .page-design .dz-index-list { gap: 0; padding: 14px 0; flex-wrap: nowrap; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: x proximity; }
+  .page-design .dz-index-list::-webkit-scrollbar { display: none; }
+  .page-design .dz-index-list li { flex: 0 0 auto; scroll-snap-align: start; }
+  .page-design .dz-index-list li + li { margin-left: 26px; }
+
+  /* image before the copy: the room is seen, then explained */
+  .page-design .dz-prop-grid { margin-top: 28px; }
+  .page-design .dz-prop-main { margin: 0 calc(var(--dz-pad) * -1); }
+  .page-design .dz-prop-main img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .page-design .dz-prop-aside { grid-template-columns: minmax(0, 1fr); margin-top: 30px; }
+  .page-design .dz-prop-aside .dz-fig { width: 62%; }
+  .page-design .dz-prop-aside .dz-statement { margin-top: 24px; }
+
+  .page-design .dz-light-fig { margin: 30px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-light-fig img { height: auto; aspect-ratio: 3 / 4; }
+  .page-design .dz-light-foot { margin-top: 28px; }
+
+  .page-design .dz-mat-grid { display: block; margin-top: 26px; }
+  .page-design .dz-mat-a { width: 74%; }
+  .page-design .dz-mat-copy { padding: 26px 0 0; }
+  .page-design .dz-mat-b { margin: 30px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-mat-b img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .page-design .dz-mat-c { width: 62%; margin: 30px 0 0 38%; }
+  .page-design .dz-mat-note { margin-top: 28px; }
+
+  .page-design .dz-int-fig { margin: 0 calc(var(--dz-pad) * -1); }
+  .page-design .dz-int-fig img { aspect-ratio: 4 / 5; object-fit: cover; }
+  .page-design .dz-int-copy { margin-top: 30px; }
+
+  .page-design .dz-det-grid { display: block; margin-top: 32px; }
+  .page-design .dz-det-a { width: 70%; margin-left: 30%; }
+  .page-design .dz-det-b { margin: 30px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-det-b img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .page-design .dz-det-copy { margin-top: 28px; }
+
+  .page-design .dz-land-grid { display: block; margin-top: 28px; }
+  .page-design .dz-land-a { margin: 0 calc(var(--dz-pad) * -1); }
+  .page-design .dz-land-a img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .page-design .dz-land-a .dz-cap { padding: 0 var(--dz-pad); }
+  .page-design .dz-land-b { width: 64%; margin: 30px 0 0; }
+  .page-design .dz-land-note { margin-top: 28px; }
+
+  .page-design .dz-ctx-fig { margin: 32px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-ctx-fig img { height: auto; aspect-ratio: 4 / 5; }
+
+  .page-design .dz-proc-row { grid-template-columns: 34px minmax(0, 1fr); row-gap: 10px; padding: 22px 0; }
+  .page-design .dz-proc-row .dz-p { grid-column: 2; }
+  .page-design .dz-proc-label { font-size: 21px; }
+
+  .page-design .dz-end-fig { margin: 32px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-end-fig img { height: auto; aspect-ratio: 4 / 5; }
+  .page-design .dz-end-foot { grid-template-columns: minmax(0, 1fr); row-gap: 26px;
+    padding-top: 30px; padding-bottom: 72px; }
+}
+
+/* =========================================================
+   REVEAL — near-invisible motion, only when JS is present
+   ========================================================= */
+html.dz-js .page-design [data-dz] { opacity: 0; }
+html.dz-js .page-design [data-dz-fig] img { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  html.dz-js .page-design [data-dz],
+  html.dz-js .page-design [data-dz-fig] img { opacity: 1 !important; transform: none !important; }
+  .page-design .dz-fig img { transition: none; }
+}

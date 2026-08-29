@@ -2,6 +2,9 @@
 (function () {
   'use strict';
 
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
   /* ---- Register form (UI-only mock, matches projects.html pattern) ---- */
   const form = document.getElementById('abForm');
   if (form) {
