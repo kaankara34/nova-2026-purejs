@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend-only verification of the new build-beyond-living.html page and the design.html mobile walnut-caption regression fix. Ran Playwright at 1440/1024/768/430/390/375 (plus 720 for design.html). New page: zero horizontal overflow at all widths, all 13 <main> images unique and loaded, all 67 GSAP reveal targets ([data-bb], [data-bb-late], [data-bb-fig] img) end at opacity 1 after a full scroll (no stuck-at-0 elements), all 10 narrative sections + closing pillar list render with the exact user copy, mobile keeps a 22px side gutter, scroll cue lands on 'The idea', all 3 CTAs navigate correctly with working back, hamburger + side menu (menu-link-bbl) + footer link (footer-link-bbl) work, header toggles from transparent/white-text over the dark hero to ivory rgba(241,235,227,.94) with #2e2d2b text and inverted logo once body gains 'bbl-lit' (no white-on-white / dark-on-dark), reduced-motion load shows everything at opacity 1 with html.bb-js absent. Nav addition verified on 6 pages (menu) and 7 pages (footer row DESIGN -> BUILD BEYOND LIVING) with no overflow at 390px. design.html regression: walnut and terrace captions now start at exactly 22px, wrap to 2 lines on mobile and their text right edge (293/293/362px) stays clear of the #dzIndex rail (337/352/392px); the walnut image is full-bleed 0 -> innerWidth (no -10px offset); no overflow, no figure/.dz-reg-canvas outside the viewport at 375/390/430/720/1024/1440; the 3D register renders (canvas present) and the mobile prev/next nav cycles 01 Walnut -> 02 Bookmatched stone -> 03 Aged bronze -> 04 Leather -> 05 Smoked glass. Zero console/page errors anywhere. GSAP/ScrollTrigger CDN was reachable (html.bb-js applied).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Footer link row at 390px (all pages)", "issues": ["The DESIGN / BUILD BEYOND LIVING / AGENT CONNECT link row is present in the DOM but has a zero-size bounding box on mobile (hidden by the existing mobile footer CSS). Pre-existing behaviour shared with DESIGN, not caused by this change - flagged only so it is a conscious choice that the new page is not reachable from the mobile footer."]},
+      {"screen": "design.html 3D register at 390px", "issues": ["The '3D - DRAG TO INSPECT' badge (.dz-reg-badge) ends at x=380 of 390, i.e. only 10px from the right edge while all other mobile content respects a 22px gutter. Cosmetic only, no clipping/overflow."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "js/bbl.js: reveals are correctly guarded by `if (!hasGsap || reduce) return;` before html.bb-js is added, so a blocked CDN or reduced motion leaves all copy visible - verified working.",
+    "Optional: mobile footer hides the DESIGN/BUILD BEYOND LIVING row entirely; if the new page should be reachable from the mobile footer this row needs a mobile treatment."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration 35 fully validated build-beyond-living.html (overflow, reveals, copy, unique images, cue, CTAs, chrome, bbl-lit header contrast, reduced motion) and the design.html walnut/terrace caption + full-bleed regression plus the 3D material register nav. Notes for reuse: the side menu is closed with #menuClose (clicking #menuToggle again is intercepted by #sideMenu), and the design.html material next button is disabled at 05/05 (nav is bounded, not cyclic - by design). No open defects.",
+  "rca_of_the_issue": "Previously reported walnut caption clipping: .dz-wrap gains 20px extra right padding below 1100px to clear the section rail, so 'margin-left: calc(50% - 50vw)' on nested full-bleed blocks resolved 10px off-canvas and the caption ran under #dzIndex. The fix (margin-left: calc(0px - var(--dz-pad)) on direct children of .dz-wrap + caption padding-right of --dz-pad+20px) is confirmed effective at 375/390/430/720."
+}

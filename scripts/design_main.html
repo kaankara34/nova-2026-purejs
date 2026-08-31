@@ -1,6 +1,18 @@
 <!-- ============================= DESIGN — EDITORIAL BODY ============================= -->
   <main class="dz" id="dzMain">
 
+    <!-- SECTION RAIL — fixed, names the section you are reading -->
+    <nav class="dz-rail" id="dzIndex" aria-label="Design index">
+      <span class="dz-rail-now" data-rail-now aria-live="polite"></span>
+      <a class="dz-rail-link" href="#architecture" data-dz-link data-testid="design-index-architecture"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Architecture</span></a>
+      <a class="dz-rail-link" href="#light" data-dz-link data-testid="design-index-light"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Light</span></a>
+      <a class="dz-rail-link" href="#materials" data-dz-link data-testid="design-index-materials"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Materials</span></a>
+      <a class="dz-rail-link" href="#interiors" data-dz-link data-testid="design-index-interiors"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Interiors</span></a>
+      <a class="dz-rail-link" href="#detail" data-dz-link data-testid="design-index-detail"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Detail</span></a>
+      <a class="dz-rail-link" href="#landscape" data-dz-link data-testid="design-index-landscape"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Landscape</span></a>
+    </nav>
+
+
     <!-- 01 · OPENING -->
     <section class="dz-open" id="dz-top">
       <div class="dz-wrap">
@@ -47,20 +59,6 @@
         </figure>
       </div>
     </section>
-
-    <!-- 03 · DESIGN INDEX -->
-    <nav class="dz-index" id="dzIndex" aria-label="Design index">
-      <div class="dz-wrap">
-        <ul class="dz-index-list">
-          <li><a href="#architecture" data-dz-link data-testid="design-index-architecture">Architecture</a></li>
-          <li><a href="#interiors" data-dz-link data-testid="design-index-interiors">Interiors</a></li>
-          <li><a href="#materials" data-dz-link data-testid="design-index-materials">Materials</a></li>
-          <li><a href="#light" data-dz-link data-testid="design-index-light">Light</a></li>
-          <li><a href="#landscape" data-dz-link data-testid="design-index-landscape">Landscape</a></li>
-          <li><a href="#detail" data-dz-link data-testid="design-index-detail">Detail</a></li>
-        </ul>
-      </div>
-    </nav>
 
     <!-- 04 · SPACE & PROPORTION -->
     <section class="dz-sec dz-prop" id="proportion" aria-labelledby="dz-t-proportion">
@@ -160,6 +158,12 @@
         <div class="dz-reg-stage">
           <div class="dz-reg-canvas" data-testid="material-viewer">
             <canvas id="dzMatCanvas" aria-hidden="true"></canvas>
+            <p class="dz-reg-badge" data-mat-badge>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+                <path d="M20 12a8 8 0 1 1-2.6-5.9" /><path d="M20 4v4h-4" />
+              </svg>
+              3D — drag to inspect
+            </p>
           </div>
           <div class="dz-reg-tabs" role="tablist" aria-label="Material samples">
             <button type="button" class="dz-reg-tab is-on" data-mat="0" role="tab" aria-selected="true" data-testid="material-tab-walnut">Walnut</button>
@@ -168,7 +172,11 @@
             <button type="button" class="dz-reg-tab" data-mat="3" role="tab" aria-selected="false" data-testid="material-tab-leather">Leather</button>
             <button type="button" class="dz-reg-tab" data-mat="4" role="tab" aria-selected="false" data-testid="material-tab-glass">Smoked glass</button>
           </div>
-          <p class="dz-reg-hint">Drag the sample to turn it</p>
+          <div class="dz-reg-nav">
+            <button type="button" class="dz-reg-arrow" data-mat-prev aria-label="Previous material" data-testid="material-prev">&#8592;</button>
+            <p class="dz-reg-count"><span data-mat-count>01</span> / 05 &nbsp;·&nbsp; <span data-mat-name>Walnut</span></p>
+            <button type="button" class="dz-reg-arrow" data-mat-next aria-label="Next material" data-testid="material-next">&#8594;</button>
+          </div>
         </div>
         <ol class="dz-reg-list">
           <li class="dz-reg-item is-on" id="mat-walnut" data-mat-item="0" data-testid="material-entry-walnut">

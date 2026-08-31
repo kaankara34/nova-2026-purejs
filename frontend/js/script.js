@@ -271,7 +271,7 @@
   /* ========== Header transparency on scroll ========== */
   const header = $('.site-header');
   const utilityBar = $('.utility-bar');
-  const heroEl = $('.hero, .pj-hero, .ew-hero, .cx-hero');
+  const heroEl = $('.hero, .pj-hero, .ew-hero, .cx-hero, .bb-hero');
   function onScroll() {
     // Hide utility bar when scrolled down past 40px
     if (utilityBar) {

@@ -73,6 +73,10 @@ function start() {
   applyMaterial(0);
 
   /* ---------- selection ---------- */
+  const counter = document.querySelector('[data-mat-count]');
+  const nameOut = document.querySelector('[data-mat-name]');
+  const prev = document.querySelector('[data-mat-prev]');
+  const next = document.querySelector('[data-mat-next]');
   let active = 0;
   const setActive = (i) => {
     if (i === active) return;
@@ -80,6 +84,10 @@ function start() {
     tabs.forEach((t, n) => t.classList.toggle('is-on', n === i));
     tabs.forEach((t, n) => t.setAttribute('aria-selected', n === i ? 'true' : 'false'));
     items.forEach((el, n) => el.classList.toggle('is-on', n === i));
+    if (counter) counter.textContent = '0' + (i + 1);
+    if (nameOut) nameOut.textContent = items[i].querySelector('.dz-reg-name').textContent;
+    if (prev) prev.disabled = i === 0;
+    if (next) next.disabled = i === items.length - 1;
     if (gsap && !reduce) {
       gsap.to(mesh.rotation, { y: mesh.rotation.y + Math.PI, duration: 1.05, ease: 'power2.inOut' });
       gsap.to(mesh.scale, { x: 0.94, y: 0.94, z: 0.94, duration: 0.5, ease: 'power2.out', yoyo: true, repeat: 1 });
@@ -98,14 +106,23 @@ function start() {
       scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
     });
   });
+  if (prev) prev.addEventListener('click', () => setActive(Math.max(0, active - 1)));
+  if (next) next.addEventListener('click', () => setActive(Math.min(items.length - 1, active + 1)));
+  if (prev) prev.disabled = true;
   const spy = new IntersectionObserver((entries) => {
+    if (innerWidth <= 1100) return;
     entries.forEach(e => { if (e.isIntersecting) setActive(items.indexOf(e.target)); });
   }, { rootMargin: '-45% 0px -45% 0px' });
   items.forEach(el => spy.observe(el));
 
   /* ---------- drag to turn ---------- */
+  const badge = document.querySelector('[data-mat-badge]');
   let dragging = false, px = 0, py = 0, vx = 0, vy = 0;
-  const start2 = (e) => { dragging = true; px = e.clientX; py = e.clientY; canvas.classList.add('is-drag'); };
+  const start2 = (e) => {
+    dragging = true; px = e.clientX; py = e.clientY;
+    canvas.classList.add('is-drag');
+    if (badge) badge.classList.add('is-done');
+  };
   const move = (e) => {
     if (!dragging) return;
     vy += (e.clientX - px) * 0.006;

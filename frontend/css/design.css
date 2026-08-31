@@ -124,23 +124,68 @@ html:has(.page-design) { background: #F1EBE3; }
 .page-design .dz-principles-second { margin-top: clamp(-40px, -3vw, 0px); }
 .page-design .dz-principles-small { width: 44%; margin-left: 20%; margin-top: clamp(36px, 4.4vw, 82px); }
 
-/* ---------------- 03 design index ---------------- */
-.page-design .dz-index {
-  margin-top: var(--dz-sec);
-  border-top: 1px solid var(--dz-rule); border-bottom: 1px solid var(--dz-rule);
+/* ---------------- section rail (fixed, left) ---------------- */
+.page-design .dz-rail {
+  position: fixed; left: clamp(10px, 1.1vw, 24px); top: 50%; transform: translateY(-50%);
+  z-index: 40; display: grid; gap: clamp(9px, 1vw, 15px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .9s cubic-bezier(.22,.61,.36,1);
 }
-.page-design .dz-index-list {
-  list-style: none; margin: 0; padding: clamp(18px, 1.7vw, 26px) 0;
-  display: flex; gap: clamp(26px, 3.4vw, 68px); flex-wrap: wrap;
+.page-design .dz-rail.is-live { opacity: 1; pointer-events: auto; }
+.page-design .dz-rail-now {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
 }
-.page-design .dz-index-list a {
-  font-family: var(--font-sans); font-weight: 400; font-size: 10.5px;
-  letter-spacing: .2em; text-transform: uppercase; color: rgba(45, 43, 40, .7);
-  text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid transparent;
-  transition: color .5s cubic-bezier(.22,.61,.36,1), border-color .5s cubic-bezier(.22,.61,.36,1);
+.page-design .dz-rail-link {
+  position: relative; display: flex; align-items: center; padding: 6px 4px; text-decoration: none;
 }
-.page-design .dz-index-list a:hover { color: var(--dz-ink); border-bottom-color: rgba(45,43,40,.4); }
-.page-design .dz-index-list a.is-on { color: var(--dz-ink); border-bottom-color: var(--dz-ink); }
+.page-design .dz-rail-mark {
+  display: block; width: 16px; height: 1px; background: rgba(45, 43, 40, .42);
+  transition: width .7s cubic-bezier(.22,.61,.36,1), background-color .7s cubic-bezier(.22,.61,.36,1);
+}
+/* the name of the section you are reading sits vertically beside its mark, so the
+   rail never reaches into the reading column */
+.page-design .dz-rail-label {
+  position: absolute; left: 40px; top: 50%; white-space: nowrap;
+  writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg);
+  font-family: var(--font-sans); font-weight: 500; font-size: 9.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(45, 43, 40, .5);
+  opacity: 0; transition: opacity .7s cubic-bezier(.22,.61,.36,1), color .7s cubic-bezier(.22,.61,.36,1);
+}
+.page-design .dz-rail-link.is-on .dz-rail-label,
+.page-design .dz-rail-link:hover .dz-rail-label,
+.page-design .dz-rail-link:focus-visible .dz-rail-label { opacity: 1; }
+.page-design .dz-rail-link:hover .dz-rail-label,
+.page-design .dz-rail-link:focus-visible .dz-rail-label { color: var(--dz-ink); }
+.page-design .dz-rail-link:hover .dz-rail-mark { width: 26px; background: rgba(45, 43, 40, .6); }
+.page-design .dz-rail-link.is-on .dz-rail-mark { width: 34px; background: var(--dz-ink); }
+.page-design .dz-rail-link.is-on .dz-rail-label { color: var(--dz-ink); }
+
+
+/* below the desktop breakpoint the rail moves to the right edge and stays
+   vertical: the marks show progress, and the section name appears for a moment
+   whenever the reader enters a new section */
+@media (max-width: 1100px) {
+  .page-design .dz-rail {
+    left: auto; right: clamp(4px, 1vw, 12px); top: 50%; transform: translateY(-50%);
+    gap: 10px; justify-items: end;
+    padding: 10px 3px; background: transparent;
+    transition: opacity .9s cubic-bezier(.22,.61,.36,1), background-color .6s cubic-bezier(.22,.61,.36,1);
+  }
+  /* the ivory ground only appears while the name is showing */
+  .page-design .dz-rail.is-hint { background: rgba(241, 235, 227, .82); }
+  /* the reading column keeps clear of the rail */
+  .page-design .dz-wrap { padding-right: calc(var(--dz-pad) + 20px); }
+  .page-design .dz-rail-link { justify-content: flex-end; padding: 7px 3px; }
+  .page-design .dz-rail-mark { width: 12px; }
+  .page-design .dz-rail-link.is-on .dz-rail-mark { width: 22px; }
+  .page-design .dz-rail-label {
+    left: auto; right: 30px; opacity: 0;
+    padding: 6px 4px; background: rgba(241, 235, 227, .92);
+  }
+  .page-design .dz-rail-link.is-on .dz-rail-label { opacity: 0; }
+  .page-design .dz-rail.is-hint .dz-rail-link.is-on .dz-rail-label { opacity: 1; }
+}
 
 /* ---------------- 04 space & proportion ---------------- */
 .page-design .dz-prop-head,
@@ -333,12 +378,6 @@ html:has(.page-design) { background: #F1EBE3; }
   .page-design .dz-principles-main img { aspect-ratio: 3 / 4; object-fit: cover; }
   .page-design .dz-principles-small { width: 74%; margin-left: 26%; margin-top: 26px; }
 
-  .page-design .dz-index-list { gap: 0; padding: 14px 0; flex-wrap: nowrap; overflow-x: auto;
-    scrollbar-width: none; -ms-overflow-style: none; scroll-snap-type: x proximity; }
-  .page-design .dz-index-list::-webkit-scrollbar { display: none; }
-  .page-design .dz-index-list li { flex: 0 0 auto; scroll-snap-align: start; }
-  .page-design .dz-index-list li + li { margin-left: 26px; }
-
   /* image before the copy: the room is seen, then explained */
   .page-design .dz-prop-grid { margin-top: 28px; }
   .page-design .dz-prop-main { width: 100vw; margin: 0 0 0 calc(50% - 50vw); }
@@ -418,9 +457,32 @@ html:has(.page-design) { background: #F1EBE3; }
 }
 .page-design .dz-reg-tab:hover { color: var(--dz-ink); border-bottom-color: rgba(45, 43, 40, .4); }
 .page-design .dz-reg-tab.is-on { color: var(--dz-ink); border-bottom-color: var(--dz-ink); }
-.page-design .dz-reg-hint {
-  margin: clamp(12px, 1.2vw, 18px) 0 0; font-family: var(--font-sans); font-weight: 400;
-  font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(45, 43, 40, .5);
+/* the affordance sits on the sample itself, bottom right, and retires once
+   the reader has turned it */
+.page-design .dz-reg-badge {
+  position: absolute; right: clamp(10px, 1vw, 16px); bottom: clamp(10px, 1vw, 16px);
+  display: flex; align-items: center; gap: 8px; margin: 0;
+  padding: 7px 11px; background: rgba(241, 235, 227, .88);
+  border: 1px solid var(--dz-rule); color: rgba(45, 43, 40, .7);
+  font-family: var(--font-sans); font-weight: 500; font-size: 9px;
+  letter-spacing: .18em; text-transform: uppercase; pointer-events: none;
+  transition: opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1);
+}
+.page-design .dz-reg-badge svg { flex: 0 0 auto; }
+.page-design .dz-reg-badge.is-done { opacity: 0; transform: translateY(4px); }
+/* phone/tablet control row: which sample you are on, and how to move on */
+.page-design .dz-reg-nav { display: none; }
+.page-design .dz-reg-arrow {
+  background: none; border: 1px solid rgba(45, 43, 40, .28); color: var(--dz-ink);
+  width: 42px; height: 42px; cursor: pointer; font-size: 15px; line-height: 1;
+  display: grid; place-items: center;
+  transition: background-color .4s cubic-bezier(.22,.61,.36,1), border-color .4s cubic-bezier(.22,.61,.36,1), color .4s;
+}
+.page-design .dz-reg-arrow:hover:not(:disabled) { background: #2F2F2D; border-color: #2F2F2D; color: #F6F3ED; }
+.page-design .dz-reg-arrow:disabled { opacity: .3; cursor: default; }
+.page-design .dz-reg-count {
+  margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--dz-ink); text-align: center;
 }
 .page-design .dz-reg-list { list-style: none; margin: 0; padding: 0; }
 .page-design .dz-reg-item {
@@ -460,20 +522,46 @@ html:has(.page-design) { background: #F1EBE3; }
   }
   .page-design .dz-reg-canvas { aspect-ratio: 16 / 10; }
 }
+/* below the two-column layout the register reads one sample at a time:
+   the tab strip is replaced by a plain counter with two arrows, and only the
+   entry belonging to the sample on screen is shown */
+@media (max-width: 1100px) {
+  .page-design .dz-reg-tabs { display: none; }
+  .page-design .dz-reg-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: clamp(14px, 2vw, 22px);
+    padding-top: clamp(14px, 2vw, 20px); border-top: 1px solid var(--dz-rule);
+  }
+  .page-design .dz-reg-item { opacity: 1; padding-top: clamp(22px, 3vw, 34px); }
+  .page-design .dz-reg-item:not(.is-on) { display: none; }
+  .page-design .dz-reg-item:last-child { border-bottom: 0; }
+}
 @media (max-width: 720px) {
   .page-design .dz-reg-canvas { aspect-ratio: 4 / 3; width: 100vw; margin-left: calc(50% - 50vw); }
-  .page-design .dz-reg-tabs {
-    gap: 0; flex-wrap: nowrap; overflow-x: auto;
-    scrollbar-width: none; -ms-overflow-style: none;
-    /* the row scrolls: the right edge fades so the hidden tabs are legible as such */
-    -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
-    mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
-  }
-  .page-design .dz-reg-tabs::-webkit-scrollbar { display: none; }
-  .page-design .dz-reg-tab { flex: 0 0 auto; }
-  .page-design .dz-reg-tab + .dz-reg-tab { margin-left: 24px; }
   .page-design .dz-reg-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .page-design .dz-reg-item { opacity: 1; }
+
+  /* full-bleed elements that sit directly inside .dz-wrap: the wrap's right
+     padding is widened to clear the section rail, so 50% is no longer the
+     viewport centre and calc(50% - 50vw) pushed them 10px off-canvas.
+     Offset by the left page margin instead. */
+  .page-design .dz-wrap > .dz-principles-main,
+  .page-design .dz-wrap > .dz-prop-main,
+  .page-design .dz-wrap > .dz-light-fig,
+  .page-design .dz-wrap > .dz-mat-b,
+  .page-design .dz-wrap > .dz-int-fig,
+  .page-design .dz-wrap > .dz-det-b,
+  .page-design .dz-wrap > .dz-land-a,
+  .page-design .dz-wrap > .dz-ctx-fig,
+  .page-design .dz-wrap > .dz-end-fig,
+  .page-design .dz-wrap > .dz-reg-canvas,
+  .page-design .dz-wrap > * > .dz-reg-canvas { margin-left: calc(0px - var(--dz-pad)); }
+
+  /* captions under a full-bleed figure keep the page margin and stay clear of the rail */
+  .page-design .dz-mat-b .dz-cap,
+  .page-design .dz-land-a .dz-cap { padding: 0 calc(var(--dz-pad) + 20px) 0 var(--dz-pad); }
+
+  /* the sample runs full-bleed here, so the cue keeps the page gutter */
+  .page-design .dz-reg-badge { right: var(--dz-pad); bottom: 14px; }
 }
 
 /* =========================================================

@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["**/node_modules/**", "clean-site/**"],
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "globals": {
+    "gsap": "readonly",
+    "ScrollTrigger": "readonly",
+    "THREE": "readonly"
+  },
+  "rules": {}
+}

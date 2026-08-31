@@ -34,11 +34,25 @@
       .map(a => ({ a, sec: document.querySelector(a.getAttribute('href')) }))
       .filter(o => o.sec)
       .sort((x, y) => x.sec.offsetTop - y.sec.offsetTop);
+    const now = index.querySelector('[data-rail-now]');
+    const closing = document.querySelector('.dz-end');
+    let hintTimer = 0;
     const mark = () => {
       const line = scrollY + headerOffset() + 40;
       let active = null;
       sections.forEach(o => { if (o.sec.offsetTop <= line) active = o.a; });
       links.forEach(a => a.classList.toggle('is-on', a === active));
+      if (now && active && now.textContent !== active.querySelector('.dz-rail-label').textContent) {
+        now.textContent = active.querySelector('.dz-rail-label').textContent;
+        /* on the narrow rail the name shows itself briefly on entering a section */
+        index.classList.add('is-hint');
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(() => index.classList.remove('is-hint'), 2400);
+      }
+      /* the rail keeps out of the opening spread and out of the closing plate */
+      const first = sections[0] ? sections[0].sec.offsetTop - innerHeight * 0.5 : 0;
+      const last = closing ? closing.offsetTop - innerHeight * 0.35 : Infinity;
+      index.classList.toggle('is-live', !!active && scrollY > first && scrollY < last);
     };
     addEventListener('scroll', mark, { passive: true });
     addEventListener('resize', mark);

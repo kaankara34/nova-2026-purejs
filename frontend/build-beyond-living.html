@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="Our Team — the architects, engineers and finance professionals behind Nova Konut's residential developments in Istanbul." />
-  <title>Organization | Nova Konut</title>
+  <meta name="theme-color" content="#23211E" />
+  <meta name="description" content="Build Beyond Living — how Nova Konut brings architecture, engineering, material, detail and landscape together to create homes made to last." />
+  <title>Build Beyond Living | Nova Konut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="./media/images/bbl/hero.webp" type="image/webp" fetchpriority="high" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/projects.css" />
-  <link rel="stylesheet" href="css/team.css" />
+  <link rel="stylesheet" href="css/bbl.css" />
 </head>
-<body class="page-team">
+<body class="page-bbl">
+
 
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
@@ -46,7 +47,7 @@
   </div>
 
   <!-- ============================= HEADER (same as index.html) ============================= -->
-  <header class="site-header" id="siteHeader">
+  <header class="site-header transparent" id="siteHeader">
     <div class="header-inner">
       <div class="header-left">
         <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
@@ -57,7 +58,7 @@
         </a>
       </div>
       <div class="header-actions">
-        <a href="index.html#register" class="btn register" aria-label="Register Interest" data-testid="team-register-interest">REGISTER INTEREST</a>
+        <button class="btn register" data-scroll="register" aria-label="Register Interest">REGISTER INTEREST</button>
         <div class="icon-links">
           <a href="tel:+12127151067" class="icon-link" aria-label="Call us">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
@@ -168,174 +169,218 @@
     </div>
   </aside>
 
-  <!-- ============================= TEAM INTRO ============================= -->
-  <section class="tm-hero">
-    <div class="tm-hero-media" aria-hidden="true">
-      <img src="./media/images/team/team_art.webp" alt="" loading="eager" fetchpriority="high" decoding="async" />
-    </div>
-    <div class="tm-hero-inner">
-      <h1 class="tm-title" data-testid="team-page-title">LEADERSHIP & TEAM</h1>
-      <p class="tm-lead">A multidisciplinary team of architects, engineers and professionals united by a rigorous approach to design, engineering and execution.</p>
-    </div>
-  </section>
+<!-- ============================= BUILD BEYOND LIVING ============================= -->
+  <main class="bb" id="bbMain">
 
-  <main class="tm-main">
-      <section class="tm-group" data-testid="team-group-management">
-        <div class="tm-group-head">
-          <span class="tm-group-index">01</span>
-          <h2 class="tm-group-title">Management</h2>
+    <section class="bb-hero" id="bb-top">
+      <figure class="bb-hero-fig">
+        <img src="./media/images/bbl/hero.webp" width="1264" height="848"
+             alt="Contemporary Nova residence at blue hour, warm interior light behind deep window reveals"
+             loading="eager" fetchpriority="high" decoding="async" />
+      </figure>
+      <div class="bb-hero-body">
+        <div class="bb-wrap">
+          <p class="bb-eyebrow bb-eyebrow--light" data-bb="1">Nova</p>
+          <h1 class="bb-h1" data-bb="2">Build beyond living</h1>
+          <p class="bb-hero-line" data-bb="3">A home is more than the space within its walls.</p>
+          <p class="bb-hero-sub" data-bb="4">It is the architecture, the detail, the atmosphere and the way all of them come together in everyday life.</p>
         </div>
-        <div class="tm-network tm-network--rooted" style="--count:3">
-          <div class="tm-network-root">
-            <article class="tm-node tm-node--chair" data-testid="team-card-management-1">
-              <span class="tm-node-dot" aria-hidden="true"></span>
-              <div class="tm-node-frame">
-                <h3 class="tm-node-name">Osman Kara</h3>
-                <p class="tm-node-role">Chairman of the Board</p>
-              </div>
-            </article>
-          </div>
-          <div class="tm-network-tier">
-            <span class="tm-network-spine" aria-hidden="true"></span>
-            <article class="tm-node" data-testid="team-card-management-2">
-              <span class="tm-node-dot" aria-hidden="true"></span>
-              <div class="tm-node-frame">
-                <h3 class="tm-node-name">Ömer Kara</h3>
-                <p class="tm-node-role">Board Member</p>
-              </div>
-            </article>
-            <article class="tm-node" data-testid="team-card-management-3">
-              <span class="tm-node-dot" aria-hidden="true"></span>
-              <div class="tm-node-frame">
-                <h3 class="tm-node-name">Prof. Dr. Yalçın Şahin</h3>
-                <p class="tm-node-role">Board Member</p>
-              </div>
-            </article>
-            <article class="tm-node" data-testid="team-card-management-4">
-              <span class="tm-node-dot" aria-hidden="true"></span>
-              <div class="tm-node-frame">
-                <h3 class="tm-node-name">Gürcan Ayaz</h3>
-                <p class="tm-node-role">Board Member</p>
-              </div>
-            </article>
-          </div>
+      </div>
+      <a class="bb-cue" href="#bb-idea" data-bb="5" data-testid="bbl-scroll-cue">
+        <span class="bb-cue-label">Scroll</span>
+        <span class="bb-cue-line" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <section class="bb-sec bb-idea" id="bb-idea" aria-labelledby="bb-t-idea">
+      <div class="bb-wrap bb-idea-grid">
+        <div class="bb-copy">
+          <p class="bb-eyebrow" data-bb>The idea</p>
+          <h2 class="bb-h2" id="bb-t-idea" data-bb>Living begins with space. <br />It does not end there.</h2>
+          <p class="bb-p" data-bb>The quality of a home is shaped by hundreds of decisions that are rarely noticed individually. The way daylight enters a room. The distance between spaces. The feel of a surface. The sound of a door closing. The view from a window. The way a building meets its street.</p>
+          <p class="bb-p" data-bb>At Nova, these decisions are not separate from the idea of living. They are the foundation of it.</p>
         </div>
-      </section>
-      <section class="tm-group" data-testid="team-group-construction-and-engineering">
-        <div class="tm-group-head">
-          <span class="tm-group-index">02</span>
-          <h2 class="tm-group-title">Construction &amp; Engineering</h2>
+        <figure class="bb-fig bb-idea-fig" data-bb-fig>
+          <img src="./media/images/bbl/idea.webp" width="848" height="1264"
+               alt="Stone wall meeting oak panelling through a fine bronze shadow reveal"
+               loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-arch" id="bb-architecture" aria-labelledby="bb-t-arch">
+      <div class="bb-wrap bb-arch-grid">
+        <figure class="bb-fig bb-arch-fig" data-bb-fig>
+          <img src="./media/images/bbl/architecture.webp" width="848" height="1264"
+               alt="Eight-storey limestone residential building on a leafy urban avenue with bronze balcony metalwork"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="bb-copy bb-arch-copy">
+          <p class="bb-eyebrow" data-bb>Architecture</p>
+          <h2 class="bb-h2" id="bb-t-arch" data-bb>A building should belong to its place.</h2>
+          <p class="bb-p" data-bb>Every project begins with its surroundings. Orientation, neighbouring buildings, street scale, views, daylight and landscape all influence the architecture.</p>
+          <p class="bb-p" data-bb>Along Bağdat Caddesi and Istanbul's established residential neighbourhoods, that relationship matters. A new building should feel contemporary without becoming disconnected from the place it joins.</p>
+          <p class="bb-line" data-bb>Architecture should have presence, but it should never need to shout.</p>
         </div>
-        <div class="tm-network" style="--count:3">
-          <span class="tm-network-spine" aria-hidden="true"></span>
-          <article class="tm-node" data-testid="team-card-construction-and-engineering-1">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Edip Saatcıoğlu</h3>
-              <p class="tm-node-role">Civil Engineer</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-construction-and-engineering-2">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Ahmet Göktuğ Paksoy</h3>
-              <p class="tm-node-role">M.Sc. Civil Engineer</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-construction-and-engineering-3">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Kaan Kara</h3>
-              <p class="tm-node-role">Civil Engineer</p>
-            </div>
-          </article>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-home" aria-labelledby="bb-t-home">
+      <figure class="bb-fig bb-home-fig" data-bb-fig>
+        <img src="./media/images/bbl/home.webp" width="1264" height="848"
+             alt="Apartment living room with walnut panelling, stone floor, leather seating and full-height glazing"
+             loading="lazy" decoding="async" />
+      </figure>
+      <div class="bb-wrap bb-home-copy">
+        <p class="bb-eyebrow" data-bb>The home</p>
+        <h2 class="bb-h2" id="bb-t-home" data-bb>Comfort is designed into the plan.</h2>
+        <p class="bb-p" data-bb>Generous rooms alone do not create a good home. What matters is how those rooms connect, where privacy begins, how people move through the plan and how the spaces adapt to everyday life.</p>
+        <p class="bb-p" data-bb>Living areas should feel open without becoming exposed. Private spaces should feel separate without becoming isolated.</p>
+        <p class="bb-line" data-bb>When the plan is right, the home feels natural before anything is added to it.</p>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-mat" aria-labelledby="bb-t-mat">
+      <div class="bb-wrap bb-mat-head">
+        <p class="bb-eyebrow bb-eyebrow--light" data-bb>Material</p>
+        <h2 class="bb-h2" id="bb-t-mat" data-bb>Materials become part of the life of a home.</h2>
+        <div class="bb-mat-copy">
+          <p class="bb-p" data-bb>Stone, timber, metal, leather and glass are chosen for more than their appearance on the day a residence is completed.</p>
+          <p class="bb-p" data-bb>They are touched, used, exposed to light and lived with for years.</p>
+          <p class="bb-p" data-bb>The grain of timber, the movement of stone and the way metal changes with time give a home depth that cannot be created through decoration alone.</p>
         </div>
-      </section>
-      <section class="tm-group" data-testid="team-group-architecture-and-design">
-        <div class="tm-group-head">
-          <span class="tm-group-index">03</span>
-          <h2 class="tm-group-title">Architecture &amp; Design</h2>
+      </div>
+      <div class="bb-wrap bb-mat-row">
+        <figure class="bb-fig" data-bb-fig>
+          <img src="./media/images/bbl/mat-stone.webp" width="848" height="1264"
+               alt="Honed veined stone slab edge with a hand-polished mitre and a fine shadow joint"
+               loading="lazy" decoding="async" />
+        </figure>
+        <figure class="bb-fig" data-bb-fig>
+          <img src="./media/images/bbl/mat-timber.webp" width="848" height="1264"
+               alt="Grain-matched oak door leaf with a shadow gap and a recessed bronze pull"
+               loading="lazy" decoding="async" />
+        </figure>
+        <figure class="bb-fig" data-bb-fig>
+          <img src="./media/images/bbl/mat-metal.webp" width="848" height="1264"
+               alt="Aged bronze trim meeting stitched leather panelling above a honed stone plinth"
+               loading="lazy" decoding="async" />
+        </figure>
+      </div>
+      <div class="bb-wrap">
+        <p class="bb-cap" data-bb>Material, texture and craftsmanship are considered together.</p>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-det" aria-labelledby="bb-t-det">
+      <div class="bb-det-grid">
+        <figure class="bb-fig bb-det-fig" data-bb-fig>
+          <img src="./media/images/bbl/detail.webp" width="1264" height="848"
+               alt="Aged bronze lever handle on a walnut door beside a ventilation grille integrated into the joinery"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="bb-copy bb-det-copy">
+          <p class="bb-eyebrow" data-bb>Detail</p>
+          <h2 class="bb-h2" id="bb-t-det" data-bb>Quality often appears where most people never look.</h2>
+          <p class="bb-p" data-bb>A junction that aligns correctly. A ventilation grille integrated into the joinery. A clean shadow gap. A stone edge that meets another material without compromise.</p>
+          <p class="bb-p" data-bb>These are small decisions, but they change the way a finished space feels.</p>
+          <p class="bb-line" data-bb>Good detailing rarely asks for attention.</p>
+          <p class="bb-line bb-line--late" data-bb-late>Its absence does.</p>
         </div>
-        <div class="tm-network" style="--count:3">
-          <span class="tm-network-spine" aria-hidden="true"></span>
-          <article class="tm-node" data-testid="team-card-architecture-and-design-1">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Çamoğlu Mimarlık</h3>
-              <p class="tm-node-role">Architectural Office</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-architecture-and-design-2">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Merve Afşin</h3>
-              <p class="tm-node-role">Architect</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-architecture-and-design-3">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Bartu Kara</h3>
-              <p class="tm-node-role">Interior Architect</p>
-            </div>
-          </article>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-eng" aria-labelledby="bb-t-eng">
+      <div class="bb-wrap bb-eng-grid">
+        <div class="bb-eng-plates">
+          <figure class="bb-fig bb-eng-a" data-bb-fig>
+            <img src="./media/images/bbl/structure.webp" width="1264" height="848"
+                 alt="Reinforced concrete residential structure with column reinforcement cages and clean formwork"
+                 loading="lazy" decoding="async" />
+          </figure>
+          <figure class="bb-fig bb-eng-b" data-bb-fig>
+            <img src="./media/images/bbl/finished.webp" width="1264" height="848"
+                 alt="Finished entrance hall where fair-faced concrete meets oak panelling and a stone floor"
+                 loading="lazy" decoding="async" />
+          </figure>
         </div>
-      </section>
-      <section class="tm-group" data-testid="team-group-finance-and-legal">
-        <div class="tm-group-head">
-          <span class="tm-group-index">04</span>
-          <h2 class="tm-group-title">Finance &amp; Legal</h2>
+        <div class="bb-copy bb-eng-copy">
+          <p class="bb-eyebrow" data-bb>Engineering</p>
+          <h2 class="bb-h2" id="bb-t-eng" data-bb>What you see depends on what you do not.</h2>
+          <p class="bb-p" data-bb>Architecture can only perform as intended when the structure, building envelope, waterproofing and building services behind it are properly resolved.</p>
+          <p class="bb-p" data-bb>For Nova, design and engineering are not separate disciplines brought together at the end of a project. They are coordinated from the beginning.</p>
+          <p class="bb-p" data-bb>A finished surface may be what remains visible. The work behind it is what allows it to last.</p>
+          <p class="bb-link-row" data-bb>
+            <a class="bb-link" href="construction.html" data-testid="bbl-cta-construction">Explore Construction &amp; Engineering</a>
+          </p>
         </div>
-        <div class="tm-network" style="--count:4">
-          <span class="tm-network-spine" aria-hidden="true"></span>
-          <article class="tm-node" data-testid="team-card-finance-and-legal-1">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Mesut Yavuz</h3>
-              <p class="tm-node-role">Head of Finance</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-finance-and-legal-2">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Yunus Çay</h3>
-              <p class="tm-node-role">Head of Accounting</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-finance-and-legal-3">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Yasin Kırkıl</h3>
-              <p class="tm-node-role">Accounting Specialist</p>
-            </div>
-          </article>
-          <article class="tm-node" data-testid="team-card-finance-and-legal-4">
-            <span class="tm-node-dot" aria-hidden="true"></span>
-            <div class="tm-node-frame">
-              <h3 class="tm-node-name">Oğuz Çavuşoğlu</h3>
-              <p class="tm-node-role">Legal Counsel</p>
-            </div>
-          </article>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-land" aria-labelledby="bb-t-land">
+      <figure class="bb-fig bb-land-fig" data-bb-fig>
+        <img src="./media/images/bbl/landscape.webp" width="1264" height="848"
+             alt="Urban residential garden with stone paths, clipped hedging, mature trees and integrated seating"
+             loading="lazy" decoding="async" />
+      </figure>
+      <div class="bb-wrap bb-land-copy">
+        <p class="bb-eyebrow" data-bb>Landscape</p>
+        <h2 class="bb-h2" id="bb-t-land" data-bb>The experience of home continues outside.</h2>
+        <p class="bb-p" data-bb>Landscape shapes the arrival home, the view from a window and the distance between the building and the city around it.</p>
+        <p class="bb-p" data-bb>Trees provide shade and privacy. Planting changes with the seasons. Terraces and gardens create another layer of living beyond the interior.</p>
+        <p class="bb-line" data-bb>Architecture and landscape should feel as though they were always meant to be together.</p>
+      </div>
+    </section>
+
+    <section class="bb-sec bb-time" aria-labelledby="bb-t-time">
+      <div class="bb-wrap bb-time-head">
+        <p class="bb-eyebrow" data-bb>Built for time</p>
+        <h2 class="bb-h2 bb-h2--l" id="bb-t-time" data-bb>The best homes do not depend on a moment.</h2>
+        <div class="bb-time-copy">
+          <p class="bb-p" data-bb>Styles change. Materials age. The way people live evolves.</p>
+          <p class="bb-p" data-bb>What lasts is proportion, useful space, good materials and work that has been properly executed.</p>
+          <p class="bb-p" data-bb>A Nova residence is designed with today in mind, but not only for today.</p>
         </div>
-      </section>
+        <p class="bb-standalone" data-bb>Built to remain relevant.</p>
+      </div>
+      <figure class="bb-fig bb-time-fig" data-bb-fig>
+        <img src="./media/images/bbl/time.webp" width="1264" height="848"
+             alt="Late sunlight raking across a honed stone wall and an oak window sill"
+             loading="lazy" decoding="async" />
+      </figure>
+    </section>
+
+    <section class="bb-end" aria-labelledby="bb-t-end">
+      <figure class="bb-end-fig">
+        <img src="./media/images/bbl/closing.webp" width="1264" height="848"
+             alt="Warm apartment interior at dusk with city lights beyond the glazing, a lamp lit and a book left open"
+             loading="lazy" decoding="async" />
+      </figure>
+      <div class="bb-wrap bb-end-body">
+        <p class="bb-eyebrow bb-eyebrow--light" data-bb>Nova</p>
+        <h2 class="bb-h1 bb-h1--end" id="bb-t-end" data-bb>Build beyond living</h2>
+        <div class="bb-end-copy">
+          <p class="bb-p" data-bb>For Nova, building beyond living means looking beyond square metres, finishes and the moment a project is completed.</p>
+          <p class="bb-p" data-bb>It means considering how a home feels in the morning, how it works after years of use, how it sits within its neighbourhood and what remains when trends have passed.</p>
+        </div>
+        <ul class="bb-pillars" data-bb>
+          <li>Architecture.</li>
+          <li>Engineering.</li>
+          <li>Material.</li>
+          <li>Detail.</li>
+          <li>Landscape.</li>
+        </ul>
+        <p class="bb-p bb-p--wide" data-bb>Brought together to create something more enduring than space alone.</p>
+        <p class="bb-standalone bb-standalone--light" data-bb>A better way to live begins with a better way to build.</p>
+        <p class="bb-link-row bb-link-row--pair" data-bb>
+          <a class="bb-link bb-link--light" href="projects.html" data-testid="bbl-cta-projects">Explore Our Projects</a>
+          <a class="bb-link bb-link--light" href="design.html" data-testid="bbl-cta-design">Discover Design at Nova</a>
+        </p>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ============================= GET IN TOUCH (sticky CTA strip) ============================= -->
-  <section class="pj-getintouch">
-    <div class="container">
-      <h3>Get In Touch</h3>
-      <div class="pj-touch-actions">
-        <a href="tel:+12127151067" class="pj-touch-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-          Call us
-        </a>
-        <a href="https://api.whatsapp.com/send?phone=97180040409" target="_blank" rel="noopener" class="pj-touch-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Chat with us on WhatsApp
-        </a>
-      </div>
-    </div>
-  </section>
 
   <footer class="site-footer">
     <div class="container">
@@ -426,5 +471,8 @@
   </footer>
 
   <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+  <script src="js/bbl.js"></script>
 </body>
 </html>
