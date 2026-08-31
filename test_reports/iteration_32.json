@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend-only regression of design.html (NOVA Konut static site) after the full imagery regeneration + copy rewrite + warmer ground (#F1EBE3). Verified: zero console/page errors, zero horizontal overflow at all 11 requested viewports, all 16 regenerated /media/images/design/*.webp load (naturalWidth 1264x848 / 848x1264 as specified, none 404/zero-size), reveal animations complete after full scroll down + back up at 1440x900 and 390x844 (61 [data-dz] + 16 [data-dz-fig] img all opacity 1, 0 hidden), all six design index links smooth-scroll to section top=168 and receive class is-on exclusively (previous iteration-31 bug FIXED), automated clip/overlap scan across 79 headings/paragraphs/captions (incl. .dz-open-foot, .dz-mat-copy, .dz-int-copy, .dz-light-foot, .dz-land-head, .dz-ctx-head) found 0 clipped and 0 overlapping blocks at 1440x900, 1280x800, 834x1194, 768x1024, 390x844, mobile heading <br> spacing FIXED (all .dz-h1/.dz-h2/.dz-statement read correctly at 390 and 360, e.g. 'Architecture begins with proportion.'), .dz-lead now has 21.6px bottom margin separating it from the following paragraph, body/html background computes to rgb(241,235,227) = #F1EBE3, and chrome regression passes (hamburger #menuToggle opens .side-menu.open, #menuClose closes, menu-link-design + footer-link-design = design.html, design-link-construction navigates to construction.html, design-cta-projects navigates to projects.html). Visual spot checks of materials/interiors/landscape/detail sections confirm the new warm oak/walnut, bookmatched stone, aged bronze/brass, 2700-3000K urban-Istanbul language is applied consistently and captions match the imagery. No new defects found. Backend testing skipped as requested.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "design.html - micro type (carried over from iteration 31, still unaddressed)", "issues": ["Captions/eyebrows/index links still use rgba(45,43,40,.50-.56) at 10-10.5px on the now slightly warmer #F1EBE3 ground (.dz-cap, .dz-eyebrow, .dz-index-list a) - approx 2.9-3.1:1, below WCAG AA; raising alpha to ~.68 would fix it. Cosmetic / pre-existing, not a regression.", "Index nav order (Architecture, Interiors, Materials, Light, Landscape, Detail) still differs from page reading order (Architecture, Proportion, Light, Materials, Interiors, Detail, Landscape) - active state now correct, but clicking jumps backwards."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "js/design.js now sorts index sections by offsetTop before scroll-spy marking - correct and robust; no further change needed.",
+    "All 16 design images use loading=lazy; initial naturalWidth is 0 until scrolled into view - future test agents must scroll the full page before asserting image load (not a bug)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100% (6 of 6 requested regression checks passed)"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": false,
+  "test_credentials": "not required (static public pages)",
+  "context_for_next_testing_agent": "iteration_32 verified design.html post-imagery/copy refresh: no overflow at 1920/1600/1440/1280/1024/834/768/430/390/375/360; 0 console/page errors; all 16 webp assets load at 1264x848 or 848x1264; all reveals reach opacity 1 after down+up scroll at 1440 and 390; all 6 index links scroll + get is-on (iteration-31 bug fixed); mobile heading <br> spacing fixed; 0 clipped / 0 overlapping text blocks at 5 viewports; ground = #F1EBE3; hamburger/side-menu/footer/CTA links all correct. Only outstanding items are the two cosmetic design notes (small-caption contrast, index ordering). construction.html was not re-audited this run per instructions.",
+  "rca_of_the_issue": "N/A - both iteration-31 defects confirmed fixed (space added before <br> in source markup; sections sorted by offsetTop in js/design.js line 36)."
+}

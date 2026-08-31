@@ -3,8 +3,8 @@
    Warm ivory ground, charcoal type, asymmetric editorial grids.
    ========================================================= */
 .page-design {
-  --dz-bg: #F2EEE7;
-  --dz-bg-2: #EDE8E0;
+  --dz-bg: #F1EBE3;
+  --dz-bg-2: #E9E2D8;
   --dz-ink: #2E2D2B;
   --dz-ink-2: #55514C;
   --dz-rule: rgba(45, 43, 40, 0.16);
@@ -15,13 +15,13 @@
   background: var(--dz-bg);
   color: var(--dz-ink);
 }
-html:has(.page-design) { background: #F2EEE7; overflow-x: clip; }
+html:has(.page-design) { background: #F1EBE3; overflow-x: clip; }
 .page-design ::selection { background: rgba(45, 43, 40, .12); }
 
 /* header: the existing NOVA header, quietened for the ivory ground */
 .page-design .site-header,
 .page-design .site-header.transparent {
-  background: rgba(242, 238, 231, 0.94);
+  background: rgba(241, 235, 227, 0.94);
   border-bottom: 1px solid var(--dz-rule);
   color: var(--dz-ink);
 }
@@ -61,7 +61,8 @@ html:has(.page-design) { background: #F2EEE7; overflow-x: clip; }
   color: var(--dz-ink-2); margin: 0 0 clamp(16px, 1.5vw, 26px); max-width: 62ch;
 }
 .page-design .dz-p:last-child { margin-bottom: 0; }
-.page-design .dz-lead { font-size: clamp(14.5px, 1.15vw, 16.5px); line-height: 1.85; color: var(--dz-ink); }
+.page-design .dz-lead { font-size: clamp(14.5px, 1.15vw, 16.5px); line-height: 1.85; color: var(--dz-ink);
+  margin: 0 0 clamp(16px, 1.5vw, 26px); max-width: 58ch; }
 .page-design .dz-statement {
   font-family: var(--font-serif); font-weight: 300;
   font-size: clamp(23px, 2.4vw, 34px); line-height: 1.26; color: var(--dz-ink);

@@ -19,7 +19,7 @@ chrome = re.sub(r'<meta name="description"[^>]*>',
                 '<meta name="description" content="Design at Nova Konut — architectural proportion, spatial clarity, material integrity and disciplined detailing in Istanbul residential architecture." />',
                 chrome, count=1)
 chrome = chrome.replace('<meta name="theme-color" content="#0b0b0b" />',
-                        '<meta name="theme-color" content="#F2EEE7" />')
+                        '<meta name="theme-color" content="#F1EBE3" />')
 chrome = chrome.replace('./media/images/about/about_hero.webp',
                         './media/images/design/hero.webp')
 chrome = chrome.replace(
