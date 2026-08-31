@@ -16,10 +16,10 @@ chrome = chrome.replace(
     '<title>About Us | Nova Konut</title>',
     '<title>Build Beyond Living | Nova Konut</title>')
 chrome = re.sub(r'<meta name="description"[^>]*>',
-                '<meta name="description" content="Build Beyond Living — how Nova Konut brings architecture, engineering, material, detail and landscape together to create homes made to last." />',
+                '<meta name="description" content="Build Beyond Living — living with Nova: the home, the services around it, shared spaces, Nova Membership, the neighbourhood and a relationship that continues beyond handover." />',
                 chrome, count=1)
 chrome = chrome.replace('<meta name="theme-color" content="#0b0b0b" />',
-                        '<meta name="theme-color" content="#23211E" />')
+                        '<meta name="theme-color" content="#201E1B" />')
 chrome = chrome.replace('./media/images/about/about_hero.webp',
                         './media/images/bbl/hero.webp')
 chrome = chrome.replace(

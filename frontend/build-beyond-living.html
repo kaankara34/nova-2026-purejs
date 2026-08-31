@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#23211E" />
-  <meta name="description" content="Build Beyond Living — how Nova Konut brings architecture, engineering, material, detail and landscape together to create homes made to last." />
+  <meta name="theme-color" content="#201E1B" />
+  <meta name="description" content="Build Beyond Living — living with Nova: the home, the services around it, shared spaces, Nova Membership, the neighbourhood and a relationship that continues beyond handover." />
   <title>Build Beyond Living | Nova Konut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -172,210 +172,411 @@
 <!-- ============================= BUILD BEYOND LIVING ============================= -->
   <main class="bb" id="bbMain">
 
+    <!-- hero -->
     <section class="bb-hero" id="bb-top">
       <figure class="bb-hero-fig">
-        <img src="./media/images/bbl/hero.webp" width="1264" height="848"
-             alt="Contemporary Nova residence at blue hour, warm interior light behind deep window reveals"
+        <img src="./media/images/bbl/hero.webp"
+             srcset="./media/images/bbl/hero-sm.webp 760w, ./media/images/bbl/hero.webp 1264w"
+             sizes="100vw" width="1264" height="848"
+             alt="Evening view from inside a Nova residence toward the city, warm lamplight and an open book on a walnut table"
              loading="eager" fetchpriority="high" decoding="async" />
       </figure>
       <div class="bb-hero-body">
         <div class="bb-wrap">
-          <p class="bb-eyebrow bb-eyebrow--light" data-bb="1">Nova</p>
-          <h1 class="bb-h1" data-bb="2">Build beyond living</h1>
-          <p class="bb-hero-line" data-bb="3">A home is more than the space within its walls.</p>
-          <p class="bb-hero-sub" data-bb="4">It is the architecture, the detail, the atmosphere and the way all of them come together in everyday life.</p>
+          <p class="bb-eyebrow bb-eyebrow--light" data-bb>Nova</p>
+          <h1 class="bb-h1" data-bb>Build beyond living</h1>
+          <p class="bb-hero-line" data-bb>A residence is more than where life takes place.</p>
+          <p class="bb-hero-line bb-hero-line--2" data-bb>It is part of the way life feels.</p>
         </div>
       </div>
-      <a class="bb-cue" href="#bb-idea" data-bb="5" data-testid="bbl-scroll-cue">
+      <a class="bb-cue" href="#bb-way" data-testid="bbl-scroll-cue" aria-label="Scroll to A Way of Living">
         <span class="bb-cue-label">Scroll</span>
         <span class="bb-cue-line" aria-hidden="true"></span>
       </a>
     </section>
 
-    <section class="bb-sec bb-idea" id="bb-idea" aria-labelledby="bb-t-idea">
-      <div class="bb-wrap bb-idea-grid">
+    <!-- a way of living -->
+    <section class="bb-sec bb-way" id="bb-way" aria-labelledby="bb-t-way">
+      <div class="bb-wrap bb-way-grid">
         <div class="bb-copy">
-          <p class="bb-eyebrow" data-bb>The idea</p>
-          <h2 class="bb-h2" id="bb-t-idea" data-bb>Living begins with space. <br />It does not end there.</h2>
-          <p class="bb-p" data-bb>The quality of a home is shaped by hundreds of decisions that are rarely noticed individually. The way daylight enters a room. The distance between spaces. The feel of a surface. The sound of a door closing. The view from a window. The way a building meets its street.</p>
-          <p class="bb-p" data-bb>At Nova, these decisions are not separate from the idea of living. They are the foundation of it.</p>
+          <p class="bb-eyebrow" data-bb>A way of living</p>
+          <h2 class="bb-h2" id="bb-t-way" data-bb>The home is only the beginning.</h2>
+          <p class="bb-p" data-bb>A well-designed residence can change the way a day begins, but living well extends beyond the rooms themselves.</p>
+          <p class="bb-p" data-bb>It is the ease of arriving home. Knowing that help is available when something needs attention. Having spaces that support work, wellbeing and time with others. Being able to arrange the small things without allowing them to interrupt the day.</p>
+          <p class="bb-p" data-bb>Nova brings these parts together as one residential experience.</p>
         </div>
-        <figure class="bb-fig bb-idea-fig" data-bb-fig>
-          <img src="./media/images/bbl/idea.webp" width="848" height="1264"
-               alt="Stone wall meeting oak panelling through a fine bronze shadow reveal"
+        <figure class="bb-fig bb-way-fig" data-bb-fig>
+          <img src="./media/images/bbl/arrival.webp"
+               srcset="./media/images/bbl/arrival-sm.webp 760w, ./media/images/bbl/arrival.webp 848w"
+               sizes="(max-width: 767px) 78vw, 32vw" width="848" height="1264"
+               alt="A resident walking toward the lit entrance of a Nova residence between mature trees at dusk"
+               loading="lazy" decoding="async" />
+        </figure>
+        <p class="bb-standalone bb-way-note" data-bb>Not more for the sake of more.<br />Simply a better way for things to work.</p>
+      </div>
+    </section>
+
+    <!-- everyday, considered -->
+    <section class="bb-sec bb-day" aria-labelledby="bb-t-day">
+      <div class="bb-wrap bb-day-grid">
+        <figure class="bb-fig bb-day-a" data-bb-fig>
+          <img src="./media/images/bbl/concierge.webp"
+               srcset="./media/images/bbl/concierge-sm.webp 760w, ./media/images/bbl/concierge.webp 1264w"
+               sizes="(max-width: 767px) 100vw, 58vw" width="1264" height="848"
+               alt="A concierge speaking briefly with a resident at a stone-topped desk in a private residential lobby"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="bb-copy bb-day-copy">
+          <p class="bb-eyebrow" data-bb>Everyday, considered</p>
+          <h2 class="bb-h2" id="bb-t-day" data-bb>The things that make life easier rarely need to be complicated.</h2>
+          <p class="bb-seq" data-bb>A technical issue at home.<br />A restaurant reservation.<br />A guest arriving.<br />A shared space to book.<br />A question that needs an answer.</p>
+          <p class="bb-p" data-bb>These are ordinary moments.</p>
+          <p class="bb-p" data-bb>The difference is how easily they are resolved.</p>
+          <p class="bb-p" data-bb>At Nova, service is part of the residential experience from the moment a resident moves in.</p>
+        </div>
+        <figure class="bb-fig bb-day-b" data-bb-fig>
+          <img src="./media/images/bbl/lounge.webp"
+               srcset="./media/images/bbl/lounge-sm.webp 760w, ./media/images/bbl/lounge.webp 848w"
+               sizes="(max-width: 767px) 72vw, 26vw" width="848" height="1264"
+               alt="A resident working quietly at a walnut table in a private residents' lounge"
                loading="lazy" decoding="async" />
         </figure>
       </div>
     </section>
 
-    <section class="bb-sec bb-arch" id="bb-architecture" aria-labelledby="bb-t-arch">
-      <div class="bb-wrap bb-arch-grid">
-        <figure class="bb-fig bb-arch-fig" data-bb-fig>
-          <img src="./media/images/bbl/architecture.webp" width="848" height="1264"
-               alt="Eight-storey limestone residential building on a leafy urban avenue with bronze balcony metalwork"
-               loading="lazy" decoding="async" />
-        </figure>
-        <div class="bb-copy bb-arch-copy">
-          <p class="bb-eyebrow" data-bb>Architecture</p>
-          <h2 class="bb-h2" id="bb-t-arch" data-bb>A building should belong to its place.</h2>
-          <p class="bb-p" data-bb>Every project begins with its surroundings. Orientation, neighbouring buildings, street scale, views, daylight and landscape all influence the architecture.</p>
-          <p class="bb-p" data-bb>Along Bağdat Caddesi and Istanbul's established residential neighbourhoods, that relationship matters. A new building should feel contemporary without becoming disconnected from the place it joins.</p>
-          <p class="bb-line" data-bb>Architecture should have presence, but it should never need to shout.</p>
+    <!-- nova membership — introduction -->
+    <section class="bb-mem-intro" id="nova-membership" aria-labelledby="bb-t-mem">
+      <div class="bb-wrap bb-mem-intro-grid">
+        <div class="bb-copy bb-mem-intro-copy">
+          <p class="bb-eyebrow bb-eyebrow--light" data-bb>Nova Membership</p>
+          <h2 class="bb-h2 bb-h2--l" id="bb-t-mem" data-bb>Your residence.<br />Your services.<br />One connection.</h2>
+          <p class="bb-p" data-bb>Nova Membership brings the services around your home into one place.</p>
+          <p class="bb-p" data-bb>From concierge requests and technical support to amenity bookings and everyday reservations, residents can manage what they need directly through the Nova Membership experience.</p>
+          <p class="bb-p" data-bb>It is designed to remove small interruptions from everyday life and keep access to Nova simple, direct and personal.</p>
+          <p class="bb-small" data-bb>Available exclusively to Nova residents.</p>
+        </div>
+        <div class="bb-mem-intro-phone" data-bb-phone>
+          <div class="bb-phone" data-testid="bbl-phone-home">
+            <div class="bb-phone-screen">
+              <div class="bb-scr is-on">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-greet">Good evening</p>
+                <p class="bb-ui-brand">Nova Membership</p>
+                <p class="bb-ui-label">Quick Access</p>
+                <ul class="bb-ui-list">
+                  <li><span>Concierge</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Technical Support</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Amenities</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Reservations</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                </ul>
+                <p class="bb-ui-label">Your Requests</p>
+                <div class="bb-ui-card">
+                  <span class="bb-ui-card-t">Restaurant Reservation</span>
+                  <span class="bb-ui-status">In Progress</span>
+                </div>
+                <div class="bb-ui-nav">
+                  <span class="is-on">Home</span><span>Services</span><span>Amenities</span><span>Support</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="bb-sec bb-home" aria-labelledby="bb-t-home">
-      <figure class="bb-fig bb-home-fig" data-bb-fig>
-        <img src="./media/images/bbl/home.webp" width="1264" height="848"
-             alt="Apartment living room with walnut panelling, stone floor, leather seating and full-height glazing"
-             loading="lazy" decoding="async" />
-      </figure>
-      <div class="bb-wrap bb-home-copy">
-        <p class="bb-eyebrow" data-bb>The home</p>
-        <h2 class="bb-h2" id="bb-t-home" data-bb>Comfort is designed into the plan.</h2>
-        <p class="bb-p" data-bb>Generous rooms alone do not create a good home. What matters is how those rooms connect, where privacy begins, how people move through the plan and how the spaces adapt to everyday life.</p>
-        <p class="bb-p" data-bb>Living areas should feel open without becoming exposed. Private spaces should feel separate without becoming isolated.</p>
-        <p class="bb-line" data-bb>When the plan is right, the home feels natural before anything is added to it.</p>
+    <!-- nova membership — scroll experience -->
+    <section class="bb-mem" id="bb-mem-scroll" aria-label="Nova Membership services">
+      <div class="bb-wrap bb-mem-grid">
+
+        <div class="bb-mem-stage">
+          <div class="bb-phone bb-phone--stage" data-testid="bbl-phone-stage">
+            <div class="bb-phone-screen">
+
+              <div class="bb-scr is-on" data-scr="0">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-title">Concierge</p>
+                <ul class="bb-ui-list">
+                  <li><span>Make a Request</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Restaurant Reservation</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Transportation</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Guest Assistance</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Other Request</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                </ul>
+                <div class="bb-ui-nav"><span>Home</span><span class="is-on">Services</span><span>Amenities</span><span>Support</span></div>
+              </div>
+
+              <div class="bb-scr" data-scr="1">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-title">Technical Support</p>
+                <ul class="bb-ui-list">
+                  <li><span>New Request</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Active Requests</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Completed Requests</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                </ul>
+                <div class="bb-ui-card">
+                  <span class="bb-ui-card-t">Air Conditioning</span>
+                  <span class="bb-ui-status">Status: In Progress</span>
+                </div>
+                <div class="bb-ui-nav"><span>Home</span><span class="is-on">Services</span><span>Amenities</span><span>Support</span></div>
+              </div>
+
+              <div class="bb-scr" data-scr="2">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-title">Amenities</p>
+                <ul class="bb-ui-list bb-ui-list--plain">
+                  <li><span>Private Lounge</span></li>
+                  <li><span>Meeting Room</span></li>
+                  <li><span>Cinema Room</span></li>
+                  <li><span>Padel Court</span></li>
+                  <li><span>Golf Simulator</span></li>
+                </ul>
+                <div class="bb-ui-btns">
+                  <span class="bb-ui-btn">View Availability</span>
+                  <span class="bb-ui-btn bb-ui-btn--solid">Reserve</span>
+                </div>
+                <div class="bb-ui-nav"><span>Home</span><span>Services</span><span class="is-on">Amenities</span><span>Support</span></div>
+              </div>
+
+              <div class="bb-scr" data-scr="3">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-title">Home Services</p>
+                <ul class="bb-ui-list">
+                  <li><span>Garden Assistance</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Maintenance Request</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Schedule Service</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                </ul>
+                <div class="bb-ui-nav"><span>Home</span><span class="is-on">Services</span><span>Amenities</span><span>Support</span></div>
+              </div>
+
+              <div class="bb-scr" data-scr="4">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-title">Reservations</p>
+                <dl class="bb-ui-fields">
+                  <dt>Restaurant</dt><dd>—</dd>
+                  <dt>Date</dt><dd>—</dd>
+                  <dt>Time</dt><dd>—</dd>
+                  <dt>Guests</dt><dd>—</dd>
+                </dl>
+                <div class="bb-ui-btns">
+                  <span class="bb-ui-btn bb-ui-btn--solid">Request Reservation</span>
+                </div>
+                <div class="bb-ui-card">
+                  <span class="bb-ui-card-t">Restaurant Reservation</span>
+                  <span class="bb-ui-status">Concierge Confirming</span>
+                </div>
+                <div class="bb-ui-nav"><span>Home</span><span class="is-on">Services</span><span>Amenities</span><span>Support</span></div>
+              </div>
+
+              <div class="bb-scr" data-scr="5">
+                <div class="bb-ui-bar"><span>20:14</span><span class="bb-ui-bar-r" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <p class="bb-ui-title">Support</p>
+                <ul class="bb-ui-list">
+                  <li><span>New Request</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Messages</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Request History</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                  <li><span>Contact Nova</span><span class="bb-ui-arrow" aria-hidden="true"></span></li>
+                </ul>
+                <div class="bb-ui-nav"><span>Home</span><span>Services</span><span>Amenities</span><span class="is-on">Support</span></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="bb-mem-feats">
+          <article class="bb-feat is-active" data-feat="0" data-testid="bbl-feature-concierge">
+            <p class="bb-feat-label">Concierge</p>
+            <h3 class="bb-feat-h">A direct line to everyday assistance.</h3>
+            <p class="bb-p">Nova Concierge helps residents with the practical details that sit outside the home itself — from a reservation to a request that simply needs arranging.</p>
+          </article>
+          <article class="bb-feat" data-feat="1" data-testid="bbl-feature-technical">
+            <p class="bb-feat-label">Technical Support</p>
+            <h3 class="bb-feat-h">Help when your home needs it.</h3>
+            <p class="bb-p">Technical requests can be submitted directly through Nova Membership, making it easier to report an issue, follow its status and stay in contact with the relevant team.</p>
+          </article>
+          <article class="bb-feat" data-feat="2" data-testid="bbl-feature-amenities">
+            <p class="bb-feat-label">Amenities</p>
+            <h3 class="bb-feat-h">Shared spaces, without the back and forth.</h3>
+            <p class="bb-p">Residents can view availability and reserve eligible social and recreational spaces directly through the application.</p>
+          </article>
+          <article class="bb-feat" data-feat="3" data-testid="bbl-feature-home-services">
+            <p class="bb-feat-label">Landscape &amp; Home Services</p>
+            <h3 class="bb-feat-h">The details around home, taken care of.</h3>
+            <p class="bb-p">Where available, gardening, landscape-related requests and selected residential services can be organised through Nova Membership.</p>
+          </article>
+          <article class="bb-feat" data-feat="4" data-testid="bbl-feature-reservations">
+            <p class="bb-feat-label">Reservations</p>
+            <h3 class="bb-feat-h">From home to the city.</h3>
+            <p class="bb-p">Need a table for dinner? Residents can send restaurant and selected reservation requests through Nova Concierge without having to manage every detail themselves.</p>
+          </article>
+          <article class="bb-feat" data-feat="5" data-testid="bbl-feature-support">
+            <p class="bb-feat-label">Resident Support</p>
+            <h3 class="bb-feat-h">Nova stays within reach.</h3>
+            <p class="bb-p">Questions, requests and follow-up do not need to begin with finding the right person. Nova Membership gives residents a direct point of contact after handover as well.</p>
+          </article>
+        </div>
+
       </div>
     </section>
 
-    <section class="bb-sec bb-mat" aria-labelledby="bb-t-mat">
-      <div class="bb-wrap bb-mat-head">
-        <p class="bb-eyebrow bb-eyebrow--light" data-bb>Material</p>
-        <h2 class="bb-h2" id="bb-t-mat" data-bb>Materials become part of the life of a home.</h2>
-        <div class="bb-mat-copy">
-          <p class="bb-p" data-bb>Stone, timber, metal, leather and glass are chosen for more than their appearance on the day a residence is completed.</p>
-          <p class="bb-p" data-bb>They are touched, used, exposed to light and lived with for years.</p>
-          <p class="bb-p" data-bb>The grain of timber, the movement of stone and the way metal changes with time give a home depth that cannot be created through decoration alone.</p>
-        </div>
+    <!-- beyond the apartment -->
+    <section class="bb-sec bb-beyond" aria-labelledby="bb-t-beyond">
+      <div class="bb-wrap bb-beyond-head">
+        <p class="bb-eyebrow" data-bb>Beyond the apartment</p>
+        <h2 class="bb-h2" id="bb-t-beyond" data-bb>Some of the best rooms may not be inside your home.</h2>
+        <p class="bb-p" data-bb>The spaces shared by residents are approached with the same attention as the residences themselves.</p>
       </div>
-      <div class="bb-wrap bb-mat-row">
-        <figure class="bb-fig" data-bb-fig>
-          <img src="./media/images/bbl/mat-stone.webp" width="848" height="1264"
-               alt="Honed veined stone slab edge with a hand-polished mitre and a fine shadow joint"
+      <div class="bb-wrap bb-beyond-grid">
+        <figure class="bb-fig bb-beyond-a" data-bb-fig>
+          <img src="./media/images/bbl/amenity-pool.webp"
+               srcset="./media/images/bbl/amenity-pool-sm.webp 760w, ./media/images/bbl/amenity-pool.webp 1264w"
+               sizes="(max-width: 767px) 100vw, 62vw" width="1264" height="848"
+               alt="Private indoor residential pool with a slatted timber ceiling and tall windows onto greenery"
                loading="lazy" decoding="async" />
         </figure>
-        <figure class="bb-fig" data-bb-fig>
-          <img src="./media/images/bbl/mat-timber.webp" width="848" height="1264"
-               alt="Grain-matched oak door leaf with a shadow gap and a recessed bronze pull"
+        <figure class="bb-fig bb-beyond-b" data-bb-fig>
+          <img src="./media/images/bbl/amenity-fitness.webp"
+               srcset="./media/images/bbl/amenity-fitness-sm.webp 760w, ./media/images/bbl/amenity-fitness.webp 848w"
+               sizes="(max-width: 767px) 74vw, 28vw" width="848" height="1264"
+               alt="Residents' fitness room with an oak floor and full-height glazing onto mature foliage"
                loading="lazy" decoding="async" />
         </figure>
-        <figure class="bb-fig" data-bb-fig>
-          <img src="./media/images/bbl/mat-metal.webp" width="848" height="1264"
-               alt="Aged bronze trim meeting stitched leather panelling above a honed stone plinth"
+        <p class="bb-seq bb-beyond-seq" data-bb>A place to exercise.<br />A room to work.<br />Somewhere to meet.<br />A quiet hour in the spa.<br />A cinema without leaving home.<br />A garden that becomes part of the day.</p>
+        <figure class="bb-fig bb-beyond-c" data-bb-fig>
+          <img src="./media/images/bbl/amenity-cinema.webp"
+               srcset="./media/images/bbl/amenity-cinema-sm.webp 760w, ./media/images/bbl/amenity-cinema.webp 848w"
+               sizes="(max-width: 767px) 82vw, 34vw" width="848" height="1264"
+               alt="Small residential cinema room with dark leather chairs and warm step lighting"
                loading="lazy" decoding="async" />
         </figure>
+        <div class="bb-copy bb-beyond-copy">
+          <p class="bb-p" data-bb>Amenities are not added to complete a list.</p>
+          <p class="bb-line" data-bb>They are there to make the building more useful to the people who live in it.</p>
+        </div>
+        <figure class="bb-fig bb-beyond-d" data-bb-fig>
+          <img src="./media/images/bbl/amenity-courtyard.webp"
+               srcset="./media/images/bbl/amenity-courtyard-sm.webp 760w, ./media/images/bbl/amenity-courtyard.webp 1264w"
+               sizes="(max-width: 767px) 100vw, 52vw" width="1264" height="848"
+               alt="Landscaped residential courtyard with stone paving, clipped hedging and mature trees"
+               loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- residential hospitality -->
+    <section class="bb-hosp" aria-labelledby="bb-t-hosp">
+      <div class="bb-wrap bb-hosp-grid">
+        <figure class="bb-fig bb-hosp-fig" data-bb-fig>
+          <img src="./media/images/bbl/hospitality.webp"
+               srcset="./media/images/bbl/hospitality-sm.webp 760w, ./media/images/bbl/hospitality.webp 848w"
+               sizes="(max-width: 767px) 100vw, 40vw" width="848" height="1264"
+               alt="A door held open at a private residential entrance as a resident passes through"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="bb-copy bb-hosp-copy">
+          <p class="bb-eyebrow" data-bb>Residential hospitality</p>
+          <h2 class="bb-h2" id="bb-t-hosp" data-bb>Service should be present without becoming visible.</h2>
+          <p class="bb-p" data-bb>The best service does not make daily life feel managed.</p>
+          <p class="bb-p" data-bb>It simply removes friction.</p>
+          <p class="bb-seq" data-bb>A question is answered.<br />A request reaches the right person.<br />A guest is expected.<br />A reservation is being handled.<br />Something at home needs attention and the process has already started.</p>
+          <p class="bb-p" data-bb>That sense of ease is part of what Nova means by living beyond the residence itself.</p>
+        </div>
       </div>
       <div class="bb-wrap">
-        <p class="bb-cap" data-bb>Material, texture and craftsmanship are considered together.</p>
+        <p class="bb-standalone bb-standalone--m bb-hosp-note" data-bb-late>Available when needed.<br />Quiet when it is not.</p>
       </div>
     </section>
 
-    <section class="bb-sec bb-det" aria-labelledby="bb-t-det">
-      <div class="bb-det-grid">
-        <figure class="bb-fig bb-det-fig" data-bb-fig>
-          <img src="./media/images/bbl/detail.webp" width="1264" height="848"
-               alt="Aged bronze lever handle on a walnut door beside a ventilation grille integrated into the joinery"
+    <!-- the neighbourhood -->
+    <section class="bb-sec bb-nb" aria-labelledby="bb-t-nb">
+      <div class="bb-wrap bb-nb-head">
+        <p class="bb-eyebrow" data-bb>The neighbourhood</p>
+        <h2 class="bb-h2" id="bb-t-nb" data-bb>A good home becomes part of a good life around it.</h2>
+      </div>
+      <figure class="bb-fig bb-nb-a" data-bb-fig>
+        <img src="./media/images/bbl/nb-avenue.webp"
+             srcset="./media/images/bbl/nb-avenue-sm.webp 760w, ./media/images/bbl/nb-avenue.webp 1264w"
+             sizes="100vw" width="1264" height="848"
+             alt="Mature tree-lined residential avenue with low stone-faced apartment buildings in the afternoon"
+             loading="lazy" decoding="async" />
+      </figure>
+      <div class="bb-wrap bb-nb-grid">
+        <div class="bb-copy bb-nb-copy">
+          <p class="bb-p" data-bb>Where you live shapes more than the journey home.</p>
+          <p class="bb-p" data-bb>It is the places you return to, the streets you know, dinner close by, a morning walk, time by the coast or an evening with friends a few minutes away.</p>
+          <p class="bb-p" data-bb>Nova develops residences within established neighbourhoods where the city already has a rhythm of its own.</p>
+          <p class="bb-p" data-bb>The aim is not to separate residents from that life, but to make the connection to it feel effortless.</p>
+        </div>
+        <figure class="bb-fig bb-nb-b" data-bb-fig>
+          <img src="./media/images/bbl/nb-dining.webp"
+               srcset="./media/images/bbl/nb-dining-sm.webp 760w, ./media/images/bbl/nb-dining.webp 848w"
+               sizes="(max-width: 767px) 82vw, 34vw" width="848" height="1264"
+               alt="Neighbourhood restaurant terrace in the evening with linen tables and planted screens"
                loading="lazy" decoding="async" />
         </figure>
-        <div class="bb-copy bb-det-copy">
-          <p class="bb-eyebrow" data-bb>Detail</p>
-          <h2 class="bb-h2" id="bb-t-det" data-bb>Quality often appears where most people never look.</h2>
-          <p class="bb-p" data-bb>A junction that aligns correctly. A ventilation grille integrated into the joinery. A clean shadow gap. A stone edge that meets another material without compromise.</p>
-          <p class="bb-p" data-bb>These are small decisions, but they change the way a finished space feels.</p>
-          <p class="bb-line" data-bb>Good detailing rarely asks for attention.</p>
-          <p class="bb-line bb-line--late" data-bb-late>Its absence does.</p>
-        </div>
+        <figure class="bb-fig bb-nb-c" data-bb-fig>
+          <img src="./media/images/bbl/nb-cafe.webp"
+               srcset="./media/images/bbl/nb-cafe-sm.webp 760w, ./media/images/bbl/nb-cafe.webp 1264w"
+               sizes="(max-width: 767px) 74vw, 30vw" width="1264" height="848"
+               alt="Quiet neighbourhood café in the early morning with a single cup of coffee by the window"
+               loading="lazy" decoding="async" />
+        </figure>
+        <figure class="bb-fig bb-nb-d" data-bb-fig>
+          <img src="./media/images/bbl/nb-coast.webp"
+               srcset="./media/images/bbl/nb-coast-sm.webp 760w, ./media/images/bbl/nb-coast.webp 1264w"
+               sizes="(max-width: 767px) 100vw, 44vw" width="1264" height="848"
+               alt="Coastal residential promenade in the early morning with a runner and a walker in the distance"
+               loading="lazy" decoding="async" />
+        </figure>
+        <p class="bb-standalone bb-nb-note" data-bb>Close to the city.<br />At home in the neighbourhood.</p>
       </div>
     </section>
 
-    <section class="bb-sec bb-eng" aria-labelledby="bb-t-eng">
-      <div class="bb-wrap bb-eng-grid">
-        <div class="bb-eng-plates">
-          <figure class="bb-fig bb-eng-a" data-bb-fig>
-            <img src="./media/images/bbl/structure.webp" width="1264" height="848"
-                 alt="Reinforced concrete residential structure with column reinforcement cages and clean formwork"
-                 loading="lazy" decoding="async" />
-          </figure>
-          <figure class="bb-fig bb-eng-b" data-bb-fig>
-            <img src="./media/images/bbl/finished.webp" width="1264" height="848"
-                 alt="Finished entrance hall where fair-faced concrete meets oak panelling and a stone floor"
-                 loading="lazy" decoding="async" />
-          </figure>
+    <!-- beyond handover -->
+    <section class="bb-hand" aria-labelledby="bb-t-hand">
+      <div class="bb-wrap bb-hand-grid">
+        <p class="bb-eyebrow" data-bb>Beyond handover</p>
+        <h2 class="bb-h2 bb-h2--l" id="bb-t-hand" data-bb>The relationship should not end when the keys are delivered.</h2>
+        <div class="bb-hand-copy">
+          <p class="bb-p" data-bb>A building changes after people move into it.</p>
+          <p class="bb-p" data-bb>Homes are used, questions arise and the needs of residents continue.</p>
+          <p class="bb-p" data-bb>For Nova, completion is not the point at which the relationship disappears.</p>
+          <p class="bb-p" data-bb>Resident support, technical assistance and the Nova Membership experience keep that connection open beyond handover.</p>
         </div>
-        <div class="bb-copy bb-eng-copy">
-          <p class="bb-eyebrow" data-bb>Engineering</p>
-          <h2 class="bb-h2" id="bb-t-eng" data-bb>What you see depends on what you do not.</h2>
-          <p class="bb-p" data-bb>Architecture can only perform as intended when the structure, building envelope, waterproofing and building services behind it are properly resolved.</p>
-          <p class="bb-p" data-bb>For Nova, design and engineering are not separate disciplines brought together at the end of a project. They are coordinated from the beginning.</p>
-          <p class="bb-p" data-bb>A finished surface may be what remains visible. The work behind it is what allows it to last.</p>
-          <p class="bb-link-row" data-bb>
-            <a class="bb-link" href="construction.html" data-testid="bbl-cta-construction">Explore Construction &amp; Engineering</a>
-          </p>
-        </div>
+        <p class="bb-statement" data-bb-late>A residence is delivered once.<br />Living in it happens every day.</p>
       </div>
     </section>
 
-    <section class="bb-sec bb-land" aria-labelledby="bb-t-land">
-      <figure class="bb-fig bb-land-fig" data-bb-fig>
-        <img src="./media/images/bbl/landscape.webp" width="1264" height="848"
-             alt="Urban residential garden with stone paths, clipped hedging, mature trees and integrated seating"
+    <!-- final manifesto -->
+    <section class="bb-final" aria-labelledby="bb-t-final">
+      <figure class="bb-final-fig">
+        <img src="./media/images/bbl/closing.webp"
+             srcset="./media/images/bbl/closing-sm.webp 760w, ./media/images/bbl/closing.webp 1264w"
+             sizes="100vw" width="1264" height="848"
+             alt="A lived-in Nova residence in the evening with city lights beyond the glazing and a figure by the window"
              loading="lazy" decoding="async" />
       </figure>
-      <div class="bb-wrap bb-land-copy">
-        <p class="bb-eyebrow" data-bb>Landscape</p>
-        <h2 class="bb-h2" id="bb-t-land" data-bb>The experience of home continues outside.</h2>
-        <p class="bb-p" data-bb>Landscape shapes the arrival home, the view from a window and the distance between the building and the city around it.</p>
-        <p class="bb-p" data-bb>Trees provide shade and privacy. Planting changes with the seasons. Terraces and gardens create another layer of living beyond the interior.</p>
-        <p class="bb-line" data-bb>Architecture and landscape should feel as though they were always meant to be together.</p>
+      <div class="bb-wrap bb-final-body">
+        <p class="bb-eyebrow bb-eyebrow--light" data-bb>Build beyond living</p>
+        <h2 class="bb-h1 bb-h1--end" id="bb-t-final" data-bb>We build the home.<br />Then we think beyond it.</h2>
+        <div class="bb-final-copy">
+          <p class="bb-seq bb-seq--light" data-bb>Beyond the plan is comfort.<br />Beyond the building is service.<br />Beyond the private residence are spaces to meet, work, exercise and unwind.<br />Beyond handover is an ongoing relationship.</p>
+          <p class="bb-p" data-bb>And beyond all of them is the way a place becomes part of everyday life.</p>
+          <p class="bb-p" data-bb>That is what Build Beyond Living means at Nova.</p>
+        </div>
+        <p class="bb-standalone bb-standalone--light" data-bb>Not simply a residence.<br />A way of living around it.</p>
+        <div class="bb-final-cta" data-bb>
+          <a class="btn on-dark" href="projects.html" data-testid="bbl-cta-projects">Explore Nova Residences</a>
+          <a class="bb-link bb-link--light" href="#nova-membership" data-testid="bbl-cta-membership">Discover Nova Membership</a>
+        </div>
       </div>
     </section>
 
-    <section class="bb-sec bb-time" aria-labelledby="bb-t-time">
-      <div class="bb-wrap bb-time-head">
-        <p class="bb-eyebrow" data-bb>Built for time</p>
-        <h2 class="bb-h2 bb-h2--l" id="bb-t-time" data-bb>The best homes do not depend on a moment.</h2>
-        <div class="bb-time-copy">
-          <p class="bb-p" data-bb>Styles change. Materials age. The way people live evolves.</p>
-          <p class="bb-p" data-bb>What lasts is proportion, useful space, good materials and work that has been properly executed.</p>
-          <p class="bb-p" data-bb>A Nova residence is designed with today in mind, but not only for today.</p>
-        </div>
-        <p class="bb-standalone" data-bb>Built to remain relevant.</p>
-      </div>
-      <figure class="bb-fig bb-time-fig" data-bb-fig>
-        <img src="./media/images/bbl/time.webp" width="1264" height="848"
-             alt="Late sunlight raking across a honed stone wall and an oak window sill"
-             loading="lazy" decoding="async" />
-      </figure>
-    </section>
-
-    <section class="bb-end" aria-labelledby="bb-t-end">
-      <figure class="bb-end-fig">
-        <img src="./media/images/bbl/closing.webp" width="1264" height="848"
-             alt="Warm apartment interior at dusk with city lights beyond the glazing, a lamp lit and a book left open"
-             loading="lazy" decoding="async" />
-      </figure>
-      <div class="bb-wrap bb-end-body">
-        <p class="bb-eyebrow bb-eyebrow--light" data-bb>Nova</p>
-        <h2 class="bb-h1 bb-h1--end" id="bb-t-end" data-bb>Build beyond living</h2>
-        <div class="bb-end-copy">
-          <p class="bb-p" data-bb>For Nova, building beyond living means looking beyond square metres, finishes and the moment a project is completed.</p>
-          <p class="bb-p" data-bb>It means considering how a home feels in the morning, how it works after years of use, how it sits within its neighbourhood and what remains when trends have passed.</p>
-        </div>
-        <ul class="bb-pillars" data-bb>
-          <li>Architecture.</li>
-          <li>Engineering.</li>
-          <li>Material.</li>
-          <li>Detail.</li>
-          <li>Landscape.</li>
-        </ul>
-        <p class="bb-p bb-p--wide" data-bb>Brought together to create something more enduring than space alone.</p>
-        <p class="bb-standalone bb-standalone--light" data-bb>A better way to live begins with a better way to build.</p>
-        <p class="bb-link-row bb-link-row--pair" data-bb>
-          <a class="bb-link bb-link--light" href="projects.html" data-testid="bbl-cta-projects">Explore Our Projects</a>
-          <a class="bb-link bb-link--light" href="design.html" data-testid="bbl-cta-design">Discover Design at Nova</a>
-        </p>
+    <!-- brand frame -->
+    <section class="bb-frame" aria-label="Nova — Build Beyond Living">
+      <div class="bb-wrap">
+        <p class="bb-frame-mark" data-bb>Nova</p>
+        <p class="bb-frame-line" data-bb>Build beyond living</p>
       </div>
     </section>
 

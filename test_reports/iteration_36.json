@@ -1,0 +1,39 @@
+{
+  "summary": "Frontend-only validation of the rebuilt /build-beyond-living.html (10-section 'living with Nova' narrative). Tested 320/375/390/430/768/1024/1440 with full step-scrolls: zero horizontal overflow, zero console/page errors, all 14 images load, 22px mobile gutter held, no text box outside the viewport, no reveal element stuck at opacity 0. The Nova Membership sticky stage resolves position:sticky at every width and cycles features/screens 0->5 in order with exactly one screen on at a time and the active feature index always equal to the visible screen index; wheel scrolling is never trapped. All app UI copy (home screen + all six stage screens) is present and the Reservations flow is presented as a concierge request ('Concierge Confirming'), never a guaranteed booking. All CTAs, the hero scroll cue, hamburger menu, footer and the bbl-lit header contrast toggle work. prefers-reduced-motion behaves correctly (no bb-js class, everything visible, screens still switch). Regression on index/design/construction at 1440+390 is clean. Copy gate scripts/bbl_verify_copy.py still reports 139/139 ALL PRESENT. ONE real defect found: the Reservations app screen overflows the phone device screen on all mobile widths, so the bottom nav row is clipped away.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Nova Membership stage phone - Reservations screen (.bb-phone--stage .bb-scr[data-scr=\"4\"])",
+        "issue": "On mobile (<=767px MQ) the Reservations screen content is taller than the fixed-aspect .bb-phone-screen box (overflow:hidden), so the bottom nav row Home/Services/Amenities/Support and part of the 'Restaurant Reservation / Concierge Confirming' card are clipped outside the device screen. Measured content vs box height: 320px -> 386 vs 288 (nav 98px below the screen bottom); 375px -> 408 vs 356 (nav +52px); 390px -> 424 vs 371 (nav +54px); 430px -> 443 vs 389 (nav +54px). Screens 0,1,2,3,5 fit at 375/390/430 and every screen fits at 768/1024/1440. Cause: screen 4 has the extra dl.bb-ui-fields (4 rows) + .bb-ui-btns + .bb-ui-card + nav while .bb-phone--stage is limited to --bb-phone-w: min(46vw,188px) (44vw <360px), so the 9/19.3 box cannot hold the content. Suggested fix: tighten .bb-phone--stage .bb-scr[data-scr=\"4\"] spacing (fields row height / gaps) inside the 767px MQ, or pin .bb-ui-nav to the bottom of .bb-scr and let the field list compress, so nothing renders outside .bb-phone-screen.",
+        "selector": ".bb-phone--stage .bb-scr[data-scr=\"4\"] .bb-ui-nav",
+        "priority": "HIGH"
+      },
+      {
+        "component": "Nova Membership stage phone - Amenities screen at 320px",
+        "issue": "At 320px width the Amenities screen (data-scr=\"2\") content is 310px vs a 288px device screen, pushing its bottom nav 23px below the screen box (clipped). Only reproduces at 320; fine from 375 up.",
+        "selector": ".bb-phone--stage .bb-scr[data-scr=\"2\"] .bb-ui-nav",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix the mobile clipping of the Reservations app screen (data-scr=\"4\") so the bottom nav and the request card stay inside .bb-phone-screen at 320/375/390/430 - edit /app/frontend/css/bbl.css inside the 767px MQ (and the 359px MQ for 320), no HTML/copy change needed.",
+    "Fix the same clipping for the Amenities screen (data-scr=\"2\") at 320px."
+  ],
+  "critical_code_review_comments": [
+    "js/bbl.js sync() picks the active feature with a single activation line (stage.bottom + 40 on mobile, stage mid-height on desktop). Verified consistent (active feature index always equals the on-screen index, 0..5 in order) but it is O(features) on every scroll event with no rAF throttle - consider requestAnimationFrame coalescing if more features are added.",
+    "The ':root:has(body.page-bbl){overflow-x:clip}' override works as intended: computed root overflow-x is 'clip' and .bb-mem-stage resolves to 'sticky' at 320/375/390/430/768/1024/1440. Keep this rule documented, it is load-bearing for the whole section.",
+    "The phone device screen relies on overflow:hidden with a fixed 9/19.3 aspect-ratio, so any app-UI content growth silently disappears instead of failing loudly. Worth adding a min-height/auto-shrink strategy (or pinning .bb-ui-nav to the bottom) so future copy cannot be clipped unnoticed."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A - no backend", "frontend": "92%" },
+  "seed_data_creation": "none - static site",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 36 fully validated the rebuilt build-beyond-living.html: overflow, copy presence (139/139 copy gate), reveals (no element stuck at opacity 0 - transient 0.80-0.89 readings are just mid-GSAP-tween sampling), sticky membership stage + 6-screen sync at 1440/1024/768/430/390/375/320, app UI text content for the home screen and all six stage screens, CTAs (bbl-scroll-cue, bbl-cta-projects -> projects.html, bbl-cta-membership -> in-page #nova-membership), menu/footer BBL links, bbl-lit header contrast (transparent+white over hero, rgba(243,239,232,.95) bar with rgb(43,42,39) text after, including over the dark membership bands), prefers-reduced-motion, and regression on index/design/construction. Only open item is the mobile clipping of stage screen 4 (and screen 2 at 320) - retest by measuring, for each .bb-scr, scrollHeight vs .bb-phone-screen height and the .bb-ui-nav bottom delta at 320/375/390/430.",
+  "rca_of_the_issue": "The stage phone screen is a fixed 9/19.3 aspect-ratio box with overflow:hidden and absolutely positioned .bb-scr children. In the 767px MQ .bb-phone--stage is capped at min(46vw,188px) (44vw below 360px), which gives a 288-389px tall screen. The Reservations screen carries the most content (4-row definition list + action button + status card + nav), measuring 386-443px, so its last 52-98px - including the whole bottom nav - is cut off by the overflow:hidden. Desktop widths give a 480-569px screen so nothing clips there."
+}
