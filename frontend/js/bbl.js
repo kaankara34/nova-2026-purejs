@@ -14,12 +14,8 @@
   const hasGsap = !!(gsap && ScrollTrigger);
   const hero = document.querySelector('.bb-hero');
 
-  /* ---------- header ground: transparent over the hero, ivory after ---------- */
+  /* ---------- the hero image settles once ---------- */
   if (hero) {
-    const lit = () => body.classList.toggle('bbl-lit', hero.getBoundingClientRect().bottom <= 100);
-    addEventListener('scroll', lit, { passive: true });
-    addEventListener('resize', lit);
-    lit();
     requestAnimationFrame(() => hero.classList.add('is-in'));
   }
 

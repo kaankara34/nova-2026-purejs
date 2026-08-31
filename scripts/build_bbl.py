@@ -26,6 +26,9 @@ chrome = chrome.replace(
     '  <link rel="stylesheet" href="css/projects.css" />\n  <link rel="stylesheet" href="css/about.css" />',
     '  <link rel="stylesheet" href="css/bbl.css" />')
 chrome = chrome.replace('<body class="page-about">', '<body class="page-bbl">')
+chrome = chrome.replace('media/images/nova-logo.png', 'media/images/nova-logo-dark.png')
+# the shared chrome carries a stray slash in the logo tag; keep this page well-formed
+chrome = chrome.replace('class="logo-img" / decoding="async"', 'class="logo-img" decoding="async"')
 
 scripts = """
   <script src="js/script.js"></script>
