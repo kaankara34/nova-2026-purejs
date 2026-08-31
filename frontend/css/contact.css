@@ -1,0 +1,147 @@
+/* =========================================================
+   CONTACT — corporate, compact, information first.
+   Everything scoped to .page-contact
+   ========================================================= */
+.page-contact {
+  --ct-bg: #F3EFE8;
+  --ct-ink: #2B2A27;
+  --ct-ink-2: #56524C;
+  --ct-green: #5C6B4F;
+  --ct-rule: rgba(43, 42, 39, .18);
+  --ct-max: 1560px;
+  --ct-pad: clamp(22px, 5.2vw, 104px);
+  --ct-gap: clamp(24px, 3.2vw, 56px);
+  --ct-sec: clamp(48px, 6vw, 96px);
+  background: var(--ct-bg);
+  color: var(--ct-ink);
+}
+.page-contact ::selection { background: rgba(43, 42, 39, .12); }
+
+/* header on the ivory ground — same treatment as design.html */
+.page-contact .site-header,
+.page-contact .site-header.transparent {
+  background: rgba(243, 239, 232, .95);
+  border-bottom: 1px solid var(--ct-rule);
+  color: var(--ct-ink);
+}
+.page-contact .site-header .menu-toggle span { background: var(--ct-ink); }
+.page-contact .site-header .icon-link svg { stroke: var(--ct-ink); }
+.page-contact .site-header .lang-switch { color: var(--ct-ink); }
+.page-contact .site-header .btn.register {
+  background: transparent; color: var(--ct-ink); border-color: rgba(43, 42, 39, .34);
+}
+.page-contact .site-header .btn.register:hover { background: #2F2F2D; color: #F6F3ED; border-color: #2F2F2D; }
+.page-contact .site-header .icon-sep { background: var(--ct-rule); }
+
+.page-contact .ct-wrap { max-width: var(--ct-max); margin: 0 auto; padding: 0 var(--ct-pad); }
+
+/* ---------------- contact ---------------- */
+.page-contact .ct-top {
+  padding: clamp(148px, 14vw, 200px) 0 clamp(34px, 4vw, 58px);
+  min-height: 260px; display: flex; align-items: flex-end;
+}
+.page-contact .ct-top .ct-wrap { width: 100%; }
+.page-contact .ct-title {
+  margin: 0; font-family: var(--font-sans); font-weight: 400;
+  font-size: clamp(26px, 2.6vw, 38px); line-height: 1.1; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ct-ink);
+}
+.page-contact .ct-lead {
+  margin: clamp(16px, 1.6vw, 24px) 0 0; font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(14px, .98vw, 15.5px); line-height: 1.7; color: var(--ct-ink-2);
+}
+
+/* ---------------- contact information ---------------- */
+.page-contact .ct-info { padding-bottom: var(--ct-sec); }
+.page-contact .ct-info-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--ct-gap);
+}
+.page-contact .ct-item {
+  padding: clamp(18px, 1.9vw, 28px) 0 0;
+  border-top: 1px solid var(--ct-rule);
+}
+.page-contact .ct-label {
+  margin: 0 0 clamp(9px, 1vw, 14px); font-family: var(--font-sans); font-weight: 500;
+  font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(43, 42, 39, .55);
+}
+.page-contact .ct-value {
+  display: inline-block; font-family: var(--font-sans); font-weight: 400;
+  font-size: clamp(17px, 1.5vw, 23px); line-height: 1.3;
+  color: var(--ct-ink); word-break: break-word;
+  border-bottom: 1px solid transparent; padding-bottom: 3px;
+  transition: border-color .45s cubic-bezier(.22,.61,.36,1), color .45s cubic-bezier(.22,.61,.36,1);
+}
+.page-contact .ct-value:hover,
+.page-contact .ct-value:focus-visible { color: var(--ct-green); border-bottom-color: var(--ct-green); }
+.page-contact a:focus-visible { outline: 1px solid rgba(43, 42, 39, .6); outline-offset: 5px; }
+
+/* ---------------- offices ---------------- */
+.page-contact .ct-offices { padding-bottom: clamp(64px, 8vw, 124px); }
+.page-contact .ct-h2 {
+  margin: 0 0 clamp(20px, 2.2vw, 32px); font-family: var(--font-sans); font-weight: 500;
+  font-size: 12.5px; letter-spacing: .24em; text-transform: uppercase; color: rgba(43, 42, 39, .62);
+  padding-top: clamp(18px, 1.9vw, 28px); border-top: 1px solid var(--ct-rule);
+}
+.page-contact .ct-fig { margin: 0; overflow: hidden; }
+.page-contact .ct-fig img {
+  display: block; width: 100%; aspect-ratio: 18 / 6;
+  height: clamp(180px, 26vh, 300px);
+  object-fit: cover; object-position: 50% 60%; background: #EBE5DB;
+}
+.page-contact .ct-off-grid {
+  margin-top: clamp(30px, 3.4vw, 52px);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--ct-gap);
+}
+.page-contact .ct-place { padding-top: clamp(16px, 1.7vw, 24px); border-top: 1px solid var(--ct-rule); }
+.page-contact .ct-place-name {
+  margin: 0 0 clamp(10px, 1.1vw, 16px); font-family: var(--font-sans); font-weight: 500;
+  font-size: clamp(13px, 1.05vw, 15px); line-height: 1.35; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ct-ink);
+}
+.page-contact .ct-place-addr,
+.page-contact .ct-place-city {
+  margin: 0; font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(13px, .95vw, 14.5px); line-height: 1.72; color: var(--ct-ink-2);
+}
+.page-contact .ct-place-city { color: rgba(43, 42, 39, .55); }
+.page-contact .site-footer { position: relative; z-index: 3; }
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+@media (max-width: 1100px) {
+  .page-contact { --ct-pad: clamp(22px, 4.6vw, 56px); --ct-gap: clamp(22px, 3vw, 40px); }
+  .page-contact .ct-off-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(24px, 3vw, 36px); }
+  .page-contact .ct-top { padding-top: clamp(176px, 18vw, 200px); }
+  .page-contact .ct-place:nth-child(3) { grid-column: 1 / -1; max-width: 48%; }
+  .page-contact .ct-fig img { aspect-ratio: 18 / 7; height: clamp(170px, 22vh, 240px); }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 767px) {
+  .page-contact { --ct-pad: 22px; --ct-sec: clamp(40px, 9vw, 60px); }
+  .page-contact .ct-top {
+    min-height: 0; padding: clamp(150px, 40vw, 176px) 0 clamp(26px, 6vw, 36px);
+  }
+  .page-contact .ct-title { font-size: clamp(22px, 6.4vw, 27px); letter-spacing: .12em; }
+  .page-contact .ct-lead { font-size: 14.5px; }
+
+  .page-contact .ct-info-grid { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .page-contact .ct-value { font-size: clamp(17px, 4.8vw, 20px); padding-bottom: 5px; }
+
+  .page-contact .ct-fig img { aspect-ratio: 16 / 9; height: clamp(150px, 26vh, 200px); }
+  .page-contact .ct-off-grid { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+  .page-contact .ct-place:nth-child(3) { max-width: none; }
+  .page-contact .ct-offices { padding-bottom: clamp(52px, 12vw, 72px); }
+}
+
+/* =========================================================
+   REVEALS — a single quiet step, nothing more
+   ========================================================= */
+html.ct-js .page-contact [data-ct] { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  html.ct-js .page-contact [data-ct] { opacity: 1 !important; transform: none !important; }
+}

@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="Explore Nova Konut's portfolio of luxury residences across Istanbul. Find your next investment in Bağdat Caddesi and beyond." />
-  <title>Projects | Nova Konut</title>
+  <meta name="theme-color" content="#F3EFE8" />
+  <meta name="description" content="Contact Nova Konut — enquiries, project information and resident support, with offices on Bağdat Caddesi and in Etiler, Istanbul." />
+  <title>Contact | Nova Konut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/projects.css" />
+  <link rel="stylesheet" href="css/contact.css" />
 </head>
-<body class="page-projects">
+<body class="page-contact">
+
 
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
@@ -52,7 +53,7 @@
           <span></span><span></span><span></span>
         </button>
         <a href="index.html" class="logo-mark" aria-label="Nova Home">
-          <img src="media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" / decoding="async">
+          <img src="media/images/nova-logo-dark.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" decoding="async">
         </a>
       </div>
       <div class="header-actions">
@@ -74,20 +75,6 @@
     </div>
   </header>
 
-  <!-- Mobile bottom bar -->
-  <div class="mobile-bottom-bar" id="mobileBottomBar">
-    <button class="btn-bottom-register" data-scroll="register">REGISTER INTEREST</button>
-    <div class="bottom-icons">
-      <a href="tel:+12127151067" class="bottom-icon" aria-label="Call us">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-      </a>
-      <span class="bottom-sep"></span>
-      <a href="https://api.whatsapp.com/send?phone=97180040409" target="_blank" rel="noopener" class="bottom-icon" aria-label="WhatsApp us">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      </a>
-    </div>
-  </div>
-
   <!-- Side menu overlay + side menu (cloned from index.html for navigation consistency) -->
   <div class="side-menu-overlay" id="sideMenuOverlay"></div>
   <aside class="side-menu" id="sideMenu" aria-label="Main menu">
@@ -95,7 +82,6 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
     <div class="side-menu-grid">
-      <!-- Custom always-visible gold scrollbar for col-projects -->
       <div class="col-projects-sb" id="colProjectsSb" aria-hidden="true">
         <div class="col-projects-sb-thumb" id="colProjectsSbThumb"></div>
       </div>
@@ -117,7 +103,7 @@
       <div class="side-menu-col col-sub">
         <div class="col-sub-head">
           <button class="col-sub-back" id="colSubBack" aria-label="Back">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
           <span class="col-sub-title" id="colSubTitle"></span>
         </div>
@@ -182,222 +168,67 @@
     </div>
   </aside>
 
-  <!-- ============================= PAGE HERO ============================= -->
-  <section class="pj-hero">
-    <div class="pj-hero-media">
-      <img src="https://cdn.darglobal.co.uk/projects_bg_1920_7938dd65f1.webp" alt="Nova Projects" loading="eager" decoding="async" />
-    </div>
-    <div class="pj-hero-overlay"></div>
-    <div class="pj-hero-text">
-      <h1 class="pj-hero-title reveal-up">find your next investment</h1>
-    </div>
-  </section>
+<!-- ============================= CONTACT ============================= -->
+  <main class="ct" id="ctMain">
 
-  <!-- ============================= FILTER BAR ============================= -->
-  <section class="pj-filters">
-    <div class="container">
-      <div class="pj-pills" role="tablist" aria-label="Filter projects">
-        <button class="pj-pill is-active" data-filter="all" data-testid="filter-all">TÜMÜ</button>
-        <button class="pj-pill" data-filter="rezidans" data-testid="filter-rezidans">REZİDANS</button>
-        <button class="pj-pill" data-filter="karma" data-testid="filter-karma">KARMA KULLANIM</button>
-        <button class="pj-pill" data-filter="ofis" data-testid="filter-ofis">OFİS / TİCARİ</button>
-        <button class="pj-pill" data-filter="konaklama" data-testid="filter-konaklama">KONAKLAMA</button>
-        <button class="pj-pill" data-filter="gelecek" data-testid="filter-gelecek">GELECEK PROJELER</button>
-        <button class="pj-pill" data-filter="gecmis" data-testid="filter-gecmis">GEÇMİŞ PROJELER</button>
+    <!-- contact -->
+    <section class="ct-top">
+      <div class="ct-wrap">
+        <h1 class="ct-title" data-ct>Contact</h1>
+        <p class="ct-lead" data-ct>For enquiries and project information.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============================= PROJECT GRID ============================= -->
-  <section class="pj-grid-section">
-    <div class="container">
-      <div class="pj-grid" id="projectsGrid">
-
-        <a href="east-west.html" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/east-west-cover.webp" alt="The Residences East West" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Residences East West</div>
-        </a>
-
-        <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/tac-ai-render.webp" alt="The Apartments Taç" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">FENERYOLU, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Apartments Taç</div>
-        </a>
-
-        <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/ana_render.jpeg" alt="The Apartments Ana" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">CADDEBOSTAN, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Apartments Ana</div>
-        </a>
-
-        <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/amaya_1e8824a066.webp" alt="The Apartments Gür" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">KALAMIŞ, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">The Apartments Gür</div>
-        </a>
-         <a href="#" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="https://cdn.darglobal.co.uk/amaya_1e8824a066.webp" alt="The Apartments Gür" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">FİNANS MERKEZİ, ATAŞEHİR</div>
-          <div class="pj-card-title">Finance Nova</div>
-        </a>
-
-        <a href="bahar-residence.html" class="pj-card" data-filter="rezidans gelecek">
-          <div class="pj-card-img"><img src="./media/images/bahar-cover.JPG" alt="The Residences Marmara" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Bahar Residence</div>
-        </a>
-
-        <a href="marti-residence.html" class="pj-card" data-filter="rezidans karma gelecek">
-          <div class="pj-card-img"><img src="./media/images/marti-cover-xl.webp" alt="Martı Residence" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">SUADİYE, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Martı Residence</div>
-        </a>
-
-        <a href="mehtap-residence.html" class="pj-card" data-filter="karma konaklama gelecek">
-          <div class="pj-card-img"><img src="./media/images/mehtap-cover.webp" alt="Pera Penthouses" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Mehtap Residence</div>
-        </a>
-
-        <a href="dogan-residence.html" class="pj-card" data-filter="ofis karma gelecek">
-          <div class="pj-card-img"><img src="./media/images/dogan-cover.webp" alt="The Apartments Levent" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ERENKÖY, BAĞDAT CADDESİ</div>
-          <div class="pj-card-title">Doğan Residence</div>
-        </a>
-
-        <a href="mercan-bosphorus.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/mercan-cover.webp" alt="The Residences Nişantaşı" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">ÇENGELKÖY BOĞAZ</div>
-          <div class="pj-card-title">Mercan Bosphorus</div>
-        </a>
-
-        <a href="nisbetiye-on.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/nisbetiye-on-cover.webp" alt="Acarkent Villas" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">NİSBETİYE, BEŞİKTAŞ</div>
-          <div class="pj-card-title">Nisbetiye On</div>
-        </a>
-
-        <a href="falcon-plaza.html" class="pj-card" data-filter="rezidans konaklama gecmis">
-          <div class="pj-card-img"><img src="./media/images/falcon-plaza-cover.webp" alt="The Residences Maslak" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">LİBADİYE SOKAĞI, LEVENT</div>
-          <div class="pj-card-title">Falcon Plaza</div>
-        </a>
-
-        <a href="falcon-logistic.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/lojistik-cover.webp" alt="The Apartments Moda" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">İSTANBUL</div>
-          <div class="pj-card-title">Falcon Logistic</div>
-        </a>
-         <a href="konelsis-center.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/konelsis-cover.webp" alt="The Apartments Moda" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">YENİMAHALLE, ANKARA</div>
-          <div class="pj-card-title">Konelsis Center</div>
-        </a>
-         <a href="gebze-osb-management.html" class="pj-card" data-filter="rezidans gecmis">
-          <div class="pj-card-img"><img src="./media/images/osb-cover.webp" alt="The Apartments Moda" loading="lazy"/ decoding="async"></div>
-          <div class="pj-card-loc">GEBZE, KOCAELİ</div>
-          <div class="pj-card-title">Gebze OSB Management Building</div>
-        </a>
-
+    <!-- contact information -->
+    <section class="ct-info" aria-label="Contact information">
+      <div class="ct-wrap ct-info-grid" data-ct>
+        <div class="ct-item">
+          <p class="ct-label">Email</p>
+          <a class="ct-value" href="mailto:iletisim@nova.istanbul" data-testid="contact-email">iletisim@nova.istanbul</a>
+        </div>
+        <div class="ct-item">
+          <p class="ct-label">Phone</p>
+          <a class="ct-value" href="tel:+905335061972" data-testid="contact-phone">+90 (533) 506 1972</a>
+        </div>
       </div>
+    </section>
 
-      <!-- Empty state when filters return nothing -->
-      <div class="pj-empty" id="pjEmpty" hidden>
-        <p>No projects match your selected filters.</p>
-        <button class="pj-reset" id="pjReset" data-testid="filter-reset">Reset Filters</button>
+    <!-- offices -->
+    <section class="ct-offices" aria-labelledby="ct-t-off">
+      <div class="ct-wrap">
+        <h2 class="ct-h2" id="ct-t-off" data-ct>Offices</h2>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================= REGISTER YOUR INTEREST ============================= -->
-  <section class="pj-register" id="register">
-    <div class="container">
-      <h2 class="pj-register-title reveal-up">Register Your Interest</h2>
-      <p class="pj-register-sub reveal-up">Discover exclusive luxury real estate and investment opportunities with Nova Konut</p>
-      <p class="pj-register-help reveal-up">Please provide your details to register interest.</p>
-
-      <form class="pj-form reveal-up" id="pjForm" novalidate>
-        <div class="pj-field">
-          <label>Full Name</label>
-          <input type="text" name="fullname" required data-testid="form-fullname"/>
-        </div>
-        <div class="pj-field pj-phone">
-          <div>
-            <label>Code</label>
-            <select name="code" data-testid="form-code">
-              <option>+1</option><option>+44</option><option selected>+90</option><option>+971</option><option>+966</option>
-            </select>
-          </div>
-          <div>
-            <label>Phone</label>
-            <input type="tel" name="phone" data-testid="form-phone"/>
-          </div>
-        </div>
-        <div class="pj-field">
-          <label>Email</label>
-          <input type="email" name="email" required data-testid="form-email"/>
-        </div>
-        <div class="pj-field">
-          <label>Select Project</label>
-          <select name="project" data-testid="form-project">
-            <option>Select Project</option>
-            <option>The Residences East West, Bağdat Caddesi</option>
-            <option>The Apartments Taç, Bağdat Caddesi</option>
-            <option>The Apartments Ana, Bağdat Caddesi</option>
-            <option>The Apartments Gür, Bağdat Caddesi</option>
-            <option>The Residences Marmara, Caddebostan</option>
-            <option>Bosphorus Villas, Bebek</option>
-            <option>Pera Penthouses, Beyoğlu</option>
-            <option>The Apartments Levent, Şişli</option>
-            <option>The Residences Nişantaşı</option>
-            <option>Acarkent Villas, Beykoz</option>
-            <option>The Residences Maslak, Sarıyer</option>
-            <option>The Apartments Moda, Kadıköy</option>
-          </select>
-        </div>
-        <div class="pj-field">
-          <label>How did you hear about us?</label>
-          <select name="source" data-testid="form-source">
-            <option>How did you hear about us?</option>
-            <option>Google</option>
-            <option>Social Media (Facebook, Instagram, TikTok, etc)</option>
-            <option>LinkedIn</option>
-            <option>Other Online Ads</option>
-            <option>Word of Mouth</option>
-            <option>Event</option>
-            <option>Email Newsletter</option>
-            <option>Property Portal</option>
-            <option>Other (Please Specify)</option>
-          </select>
-        </div>
-        <div class="pj-checks">
-          <label><input type="checkbox" name="news" checked /> I&rsquo;d like to hear about news and offers</label>
-          <label><input type="checkbox" name="privacy" required data-testid="form-privacy"/> I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></label>
-        </div>
-        <button type="submit" class="pj-submit" data-testid="form-submit">Register Interest</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- ============================= GET IN TOUCH (sticky CTA strip) ============================= -->
-  <section class="pj-getintouch">
-    <div class="container">
-      <h3>Get In Touch</h3>
-      <div class="pj-touch-actions">
-        <a href="tel:+12127151067" class="pj-touch-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-          Call us
-        </a>
-        <a href="https://api.whatsapp.com/send?phone=97180040409" target="_blank" rel="noopener" class="pj-touch-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Chat with us on WhatsApp
-        </a>
+      <div class="ct-wrap">
+        <figure class="ct-fig" data-ct>
+          <img src="./media/images/bbl/nb-avenue.webp"
+               srcset="./media/images/bbl/nb-avenue-sm.webp 760w, ./media/images/bbl/nb-avenue.webp 1264w"
+               sizes="100vw" width="1264" height="422"
+               alt="A tree-lined residential avenue in Istanbul"
+               loading="lazy" decoding="async" />
+        </figure>
       </div>
-    </div>
-  </section>
+      <div class="ct-wrap ct-off-grid">
+        <article class="ct-place" data-ct data-testid="contact-office-1">
+          <h3 class="ct-place-name">Bağdat Caddesi — 1</h3>
+          <p class="ct-place-addr">Feneryolu Mah. Gülden Sk. 6/25</p>
+          <p class="ct-place-city">Kadıköy, İSTANBUL</p>
+        </article>
+        <article class="ct-place" data-ct data-testid="contact-office-2">
+          <h3 class="ct-place-name">Bağdat Caddesi — 2</h3>
+          <p class="ct-place-addr">Caddebostan Mah. Noter Sk. 32/23</p>
+          <p class="ct-place-city">Kadıköy, İSTANBUL</p>
+        </article>
+        <article class="ct-place" data-ct data-testid="contact-office-3">
+          <h3 class="ct-place-name">Etiler</h3>
+          <p class="ct-place-addr">Nispetiye Cad. 35/15</p>
+          <p class="ct-place-city">Beşiktaş, İSTANBUL</p>
+        </article>
+      </div>
+    </section>
 
-  <!-- ============================= FOOTER (same as index.html) ============================= -->
+  </main>
+
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -487,6 +318,8 @@
   </footer>
 
   <script src="js/script.js"></script>
-  <script src="js/projects.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+  <script src="js/contact.js"></script>
 </body>
 </html>
