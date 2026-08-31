@@ -743,3 +743,14 @@ Built, then reworked at the user's request: the first pass was too editorial (la
 - `frontend/js/contact.js` — a single opacity + 14px reveal per block, 0.8s, skipped entirely under `prefers-reduced-motion`.
 - `scripts/link_contact.py` — the existing side-menu CONTACT item now points at `contact.html` (was `#register`) on all 18 pages that carry it; nothing else on those pages changed.
 - **Verification (self-tested)**: 320/375/390/430/768/900/1024/1100/1440 — zero horizontal overflow, no element outside the viewport, header-to-title clearance 29–55px at every width, exactly 3 offices, mailto/tel correct, 0 forms/iframes, zero console errors, reduced motion leaves everything visible (`ct-js` not added), side menu CONTACT link resolves to contact.html.
+
+### contact.html — reference-style rebuild: full-bleed image + centred office panel (Jun 2026)
+Third iteration, following the user's reference screenshot (Bilgili Holding contact page): one full-viewport location image with a centred dark information panel holding the three offices.
+
+- `scripts/contact_main.html` + `scripts/build_contact.py` → `frontend/contact.html` (341 lines). One `<section class="ct-hero">` only: `100svh`, full-bleed background `<figure>`, a restrained vertical scrim (no blur, no gradient theatrics), and a centred `.ct-panel` (max 1180px, `rgba(20,19,15,.72)`, 1px hairline, 2px backdrop blur).
+- Panel head: `İLETİŞİM` (h1, 12.5px uppercase) + "Nova ile iletişime geçin." — no manifesto copy. Below it a 3-column grid with thin vertical dividers; each office is `NAME → E-POSTA → TELEFON → ADRES` stacked vertically with the supplied data verbatim. All three e-mails are `mailto:iletisim@nova.istanbul`, all three phones `tel:+905335061972`.
+- Header stays transparent over the image with the original light Nova logo (`.ct-hero` added to the shared `heroEl` selector in `js/script.js`), so the site's existing transparent→solid behaviour applies. Footer unchanged.
+- Responsive: 3 columns ≥1024px, 2+1 on tablet (third office on its own row above a hairline), single stack with hairline separators below 768px; panel never exceeds the viewport, 22px mobile gutters.
+- Animation: one fade + 14px rise, staggered across the panel head and the three offices; disabled under `prefers-reduced-motion`.
+- Background image: `media/images/contact/contact-bg.webp` (+ `-sm` 760w) — an interim generated dusk Bağdat-Caddesi-style avenue, since the user's own background image was not in the uploaded assets. **Swapping it is a one-file drop-in** (same filenames) or a two-line change in `scripts/contact_main.html`.
+- **Verification (self-tested)**: 320/375/390/430/768/1024/1440 — zero horizontal overflow, no element outside the viewport, panel-to-header clearance 31–86px, panel width 276→1180px, exactly 3 offices, 3 mailto + 3 tel links, 0 forms/iframes, h1 once + h2 ×3, reduced motion leaves everything visible, zero console errors.
