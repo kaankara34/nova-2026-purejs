@@ -24,7 +24,11 @@ chrome = chrome.replace('./media/images/about/about_hero.webp',
                         './media/images/design/hero.webp')
 chrome = chrome.replace(
     '  <link rel="stylesheet" href="css/projects.css" />\n  <link rel="stylesheet" href="css/about.css" />',
-    '  <link rel="stylesheet" href="css/design.css" />')
+    '  <link rel="stylesheet" href="css/design.css" />\n'
+    '  <script type="importmap">\n'
+    '    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",'
+    ' "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/" } }\n'
+    '  </script>')
 chrome = chrome.replace('<body class="page-about">', '<body class="page-design">')
 chrome = chrome.replace('media/images/nova-logo.png', 'media/images/nova-logo-dark.png')
 chrome = chrome.replace('<a class="menu-link" href="#"><span class="label">DESIGN</span></a>',
@@ -35,6 +39,7 @@ scripts = """
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
   <script src="js/design.js"></script>
+  <script src="js/materials3d.js" type="module"></script>
 </body>
 </html>
 """

@@ -15,7 +15,7 @@
   background: var(--dz-bg);
   color: var(--dz-ink);
 }
-html:has(.page-design) { background: #F1EBE3; overflow-x: clip; }
+html:has(.page-design) { background: #F1EBE3; }
 .page-design ::selection { background: rgba(45, 43, 40, .12); }
 
 /* header: the existing NOVA header, quietened for the ivory ground */
@@ -329,7 +329,7 @@ html:has(.page-design) { background: #F1EBE3; overflow-x: clip; }
   .page-design .dz-open-foot { margin-top: 34px; }
 
   /* text first, then a full-bleed portrait */
-  .page-design .dz-principles-main { width: auto; margin: 34px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-principles-main { width: 100vw; margin: 34px 0 0 calc(50% - 50vw); }
   .page-design .dz-principles-main img { aspect-ratio: 3 / 4; object-fit: cover; }
   .page-design .dz-principles-small { width: 74%; margin-left: 26%; margin-top: 26px; }
 
@@ -341,52 +341,139 @@ html:has(.page-design) { background: #F1EBE3; overflow-x: clip; }
 
   /* image before the copy: the room is seen, then explained */
   .page-design .dz-prop-grid { margin-top: 28px; }
-  .page-design .dz-prop-main { margin: 0 calc(var(--dz-pad) * -1); }
+  .page-design .dz-prop-main { width: 100vw; margin: 0 0 0 calc(50% - 50vw); }
   .page-design .dz-prop-main img { aspect-ratio: 4 / 3; object-fit: cover; }
   .page-design .dz-prop-aside { grid-template-columns: minmax(0, 1fr); margin-top: 30px; }
   .page-design .dz-prop-aside .dz-fig { width: 62%; }
   .page-design .dz-prop-aside .dz-statement { margin-top: 24px; }
 
-  .page-design .dz-light-fig { margin: 30px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-light-fig { width: 100vw; margin: 30px 0 0 calc(50% - 50vw); }
   .page-design .dz-light-fig img { height: auto; aspect-ratio: 3 / 4; }
   .page-design .dz-light-foot { margin-top: 28px; }
 
   .page-design .dz-mat-grid { display: block; margin-top: 26px; }
   .page-design .dz-mat-a { width: 74%; }
   .page-design .dz-mat-copy { padding: 26px 0 0; }
-  .page-design .dz-mat-b { margin: 30px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-mat-b { width: 100vw; margin: 30px 0 0 calc(50% - 50vw); }
   .page-design .dz-mat-b img { aspect-ratio: 4 / 3; object-fit: cover; }
   .page-design .dz-mat-c { width: 62%; margin: 30px 0 0 38%; }
   .page-design .dz-mat-note { margin-top: 28px; }
 
-  .page-design .dz-int-fig { margin: 0 calc(var(--dz-pad) * -1); }
+  .page-design .dz-int-fig { width: 100vw; margin: 0 0 0 calc(50% - 50vw); }
   .page-design .dz-int-fig img { aspect-ratio: 4 / 5; object-fit: cover; }
   .page-design .dz-int-copy { margin-top: 30px; }
 
   .page-design .dz-det-grid { display: block; margin-top: 32px; }
   .page-design .dz-det-a { width: 70%; margin-left: 30%; }
-  .page-design .dz-det-b { margin: 30px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-det-b { width: 100vw; margin: 30px 0 0 calc(50% - 50vw); }
   .page-design .dz-det-b img { aspect-ratio: 4 / 3; object-fit: cover; }
   .page-design .dz-det-copy { margin-top: 28px; }
 
   .page-design .dz-land-grid { display: block; margin-top: 28px; }
-  .page-design .dz-land-a { margin: 0 calc(var(--dz-pad) * -1); }
+  .page-design .dz-land-a { width: 100vw; margin: 0 0 0 calc(50% - 50vw); }
   .page-design .dz-land-a img { aspect-ratio: 4 / 3; object-fit: cover; }
   .page-design .dz-land-a .dz-cap { padding: 0 var(--dz-pad); }
   .page-design .dz-land-b { width: 64%; margin: 30px 0 0; }
   .page-design .dz-land-note { margin-top: 28px; }
 
-  .page-design .dz-ctx-fig { margin: 32px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-ctx-fig { width: 100vw; margin: 32px 0 0 calc(50% - 50vw); }
   .page-design .dz-ctx-fig img { height: auto; aspect-ratio: 4 / 5; }
 
   .page-design .dz-proc-row { grid-template-columns: 34px minmax(0, 1fr); row-gap: 10px; padding: 22px 0; }
   .page-design .dz-proc-row .dz-p { grid-column: 2; }
   .page-design .dz-proc-label { font-size: 21px; }
 
-  .page-design .dz-end-fig { margin: 32px calc(var(--dz-pad) * -1) 0; }
+  .page-design .dz-end-fig { width: 100vw; margin: 32px 0 0 calc(50% - 50vw); }
   .page-design .dz-end-fig img { height: auto; aspect-ratio: 4 / 5; }
   .page-design .dz-end-foot { grid-template-columns: minmax(0, 1fr); row-gap: 26px;
     padding-top: 30px; padding-bottom: 72px; }
+}
+
+/* =========================================================
+   MATERIAL REGISTER — sticky lit sample, five entries
+   ========================================================= */
+.page-design .dz-reg-head .dz-h2 { max-width: 20ch; }
+.page-design .dz-reg-grid {
+  margin-top: clamp(36px, 4.4vw, 82px);
+  display: grid; grid-template-columns: minmax(0, 50%) minmax(0, 42%);
+  justify-content: space-between; gap: var(--dz-gap); align-items: start;
+}
+/* the sample follows the reading column via JS transform: a global
+   `overflow-x: hidden` on html/body rules out position: sticky here */
+.page-design .dz-reg-stage { position: relative; will-change: transform; z-index: 2; }
+.page-design .dz-reg-canvas { position: relative; width: 100%; aspect-ratio: 4 / 3; }
+.page-design .dz-reg-canvas canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+.page-design .dz-reg-canvas canvas.is-drag { cursor: grabbing; }
+.page-design .dz-reg-tabs {
+  display: flex; flex-wrap: wrap; gap: clamp(14px, 1.6vw, 30px);
+  margin-top: clamp(14px, 1.6vw, 26px); padding-top: clamp(13px, 1.4vw, 18px);
+  border-top: 1px solid var(--dz-rule);
+}
+.page-design .dz-reg-tab {
+  background: none; border: 0; padding: 0 0 4px; cursor: pointer;
+  font-family: var(--font-sans); font-weight: 400; font-size: 10.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(45, 43, 40, .62);
+  border-bottom: 1px solid transparent;
+  transition: color .5s cubic-bezier(.22,.61,.36,1), border-color .5s cubic-bezier(.22,.61,.36,1);
+}
+.page-design .dz-reg-tab:hover { color: var(--dz-ink); border-bottom-color: rgba(45, 43, 40, .4); }
+.page-design .dz-reg-tab.is-on { color: var(--dz-ink); border-bottom-color: var(--dz-ink); }
+.page-design .dz-reg-hint {
+  margin: clamp(12px, 1.2vw, 18px) 0 0; font-family: var(--font-sans); font-weight: 400;
+  font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(45, 43, 40, .5);
+}
+.page-design .dz-reg-list { list-style: none; margin: 0; padding: 0; }
+.page-design .dz-reg-item {
+  padding: clamp(28px, 3.2vw, 54px) 0; border-top: 1px solid var(--dz-rule);
+  opacity: .55; transition: opacity .7s cubic-bezier(.22,.61,.36,1);
+}
+.page-design .dz-reg-item.is-on { opacity: 1; }
+.page-design .dz-reg-item:last-child { border-bottom: 1px solid var(--dz-rule); }
+.page-design .dz-reg-no {
+  margin: 0 0 10px; font-family: var(--font-sans); font-weight: 400; font-size: 10.5px;
+  letter-spacing: .2em; color: rgba(45, 43, 40, .62);
+}
+.page-design .dz-reg-name {
+  margin: 0 0 clamp(14px, 1.6vw, 26px); font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(21px, 2.1vw, 30px); line-height: 1.18; color: var(--dz-ink);
+}
+.page-design .dz-reg-rows { margin: 0; }
+.page-design .dz-reg-row {
+  display: grid; grid-template-columns: minmax(0, 30%) minmax(0, 1fr);
+  gap: clamp(14px, 1.6vw, 28px); padding: clamp(9px, 1vw, 14px) 0;
+  border-top: 1px solid rgba(45, 43, 40, .08);
+}
+.page-design .dz-reg-row:first-child { border-top: 0; padding-top: 0; }
+.page-design .dz-reg-row dt {
+  margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 9.5px;
+  letter-spacing: .18em; text-transform: uppercase; color: rgba(45, 43, 40, .62);
+  padding-top: 3px;
+}
+.page-design .dz-reg-row dd {
+  margin: 0; font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(13px, .95vw, 14.5px); line-height: 1.85; color: var(--dz-ink-2);
+}
+@media (max-width: 1100px) {
+  .page-design .dz-reg-grid { grid-template-columns: minmax(0, 1fr); }
+  .page-design .dz-reg-stage {
+    background: var(--dz-bg); padding-bottom: clamp(14px, 2vw, 22px);
+  }
+  .page-design .dz-reg-canvas { aspect-ratio: 16 / 10; }
+}
+@media (max-width: 720px) {
+  .page-design .dz-reg-canvas { aspect-ratio: 4 / 3; width: 100vw; margin-left: calc(50% - 50vw); }
+  .page-design .dz-reg-tabs {
+    gap: 0; flex-wrap: nowrap; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+    /* the row scrolls: the right edge fades so the hidden tabs are legible as such */
+    -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 82%, transparent 100%);
+  }
+  .page-design .dz-reg-tabs::-webkit-scrollbar { display: none; }
+  .page-design .dz-reg-tab { flex: 0 0 auto; }
+  .page-design .dz-reg-tab + .dz-reg-tab { margin-left: 24px; }
+  .page-design .dz-reg-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .page-design .dz-reg-item { opacity: 1; }
 }
 
 /* =========================================================

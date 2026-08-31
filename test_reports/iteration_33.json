@@ -1,0 +1,30 @@
+{
+  "summary": "Frontend-only test of the new material register (section 06b) in frontend/design.html plus the overflow/reveal regressions after the page-level `overflow-x: clip` removal. WebGL viewer renders correctly (walnut/bronze/glass plates visible in screenshots) at 1600x950, 1440x900, 1024x768 and 390x844 with zero page/console errors; three.js loads fine from the jsdelivr CDN in this sandbox. All five tabs set is-on + aria-selected=true on tab and matching entry, deselect the others and scroll the entry into view (verified desktop 1600x950 and mobile 390x844). Scroll spy runs walnut->stone->bronze->leather->glass on the way down and in reverse on the way up. Drag rotates the sample (before/after screenshots clearly differ). Regressions all pass: 0px horizontal document overflow at all 11 requested viewports, full-bleed figures span the whole width on mobile (10/16 figures == clientWidth at 430/390/375/360 vs 4/16 on desktop), every [data-dz] (64) and every [data-dz-fig] img (16) reach opacity 1 after a continuous scroll, design-index-* nav takes the active state and scrolls, side menu opens/closes, footer renders (874px, 35 links), design-cta-projects -> projects.html and design-link-construction -> construction.html both navigate, index.html and about.html load with no console/page errors and no horizontal overflow. ONE functional defect found: the JS follow() transforms the wrong element, so the transparent canvas slides down over the tab row and swallows the tab clicks.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "materials3d.js follow() / .dz-reg-canvas", "issue": "follow() uses `const stage = canvas.parentElement` which resolves to .dz-reg-canvas, not the .dz-reg-stage column (CSS clearly intends the stage: `.dz-reg-stage { position:relative; will-change:transform; z-index:2 }`). Consequences on desktop (>1100px): (1) only the canvas box translates (up to translateY(2475.8px)), the tab row + 'Drag the sample to turn it' hint stay pinned at the section top and scroll away; (2) the transparent canvas overlays the tab row - at section_top+450 document.elementFromPoint over the centre of ALL five tabs returns #dzMatCanvas, and real page.click() on material-tab-glass timed out (30s / 2.5s) at section_top+300 and +440, i.e. the tabs are effectively unclickable (and a drag there rotates the sample instead of pressing the button); (3) `room` is computed as grid.height - canvas.height instead of the full stage height, so the travel range is wrong. Mobile (<=1100px) is unaffected (transform cleared, no overlap, tabs clickable).", "selector": "[data-testid=\"material-tab-*\"] / .dz-reg-canvas", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "design.html #material-register (desktop)", "issues": ["Because of the bug above the sample drifts down out of alignment with its own tab row/hint; once the user scrolls a few hundred px into the section the tab row is no longer reachable, so material switching by click is only possible at the very top of the section.", "three.js console warning (non-fatal, repeated on every load): 'sigmaRadians, 0.05, is too large and will clip, as it requested 25 samples when the maximum is set to 20' - lower the PMREMGenerator.fromScene sigma (e.g. 0.04) to silence it."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "In frontend/js/materials3d.js use the .dz-reg-stage element (e.g. `const stage = canvas.closest('.dz-reg-stage')`) for both the follow() transform and the visibility IntersectionObserver, so the tabs+hint travel with the sample and the canvas never overlays the tab row; re-check `room = grid.height - stage.offsetHeight` with the full stage height. Rebuild with `python3 /app/scripts/build_design.py` if the section markup needs changes (do not edit design.html directly).",
+    "Optional: lower the PMREM sigmaRadians (0.05 -> ~0.04) to remove the recurring three.js warning."
+  ],
+  "critical_code_review_comments": [
+    "materials3d.js: `canvas.parentElement` is a fragile handle on the layout - it silently resolves to .dz-reg-canvas while the CSS prepares .dz-reg-stage for the transform. Query the intended element explicitly.",
+    "The translated canvas keeps pointer-events: auto over content it visually covers; consider pointer-events only on the canvas area actually occupied by the sample, or ensure the stage (tabs included) moves as one block."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (frontend-only request)", "frontend": "7/8 requested checks pass (desktop follow/containment check fails on the tab-row overlay)"},
+  "seed_data_creation": "none (static pages)",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "none required",
+  "context_for_next_testing_agent": "Test notes: html has `scroll-behavior: smooth` on design.html, so window.scrollTo/scrollBy from Playwright animates and any measurement taken right after a jump is stale - inject `html{scroll-behavior:auto !important}` via add_style_tag before doing scroll-position maths (this caused two false 'no transform / spy skips stages' results before I corrected it). Canvas pixel readback via drawImage returns transparent because preserveDrawingBuffer is false; verify the render with a screenshot instead. Reproduce the tab-overlay bug: load design.html at 1600x950, disable smooth scroll, scrollTo(section_top + 450), then document.elementFromPoint over any material-tab-* centre -> returns #dzMatCanvas.",
+  "rca_of_the_issue": "materials3d.js line 16: `const stage = canvas.parentElement;` points at .dz-reg-canvas instead of the .dz-reg-stage column. follow() therefore applies translateY only to the canvas wrapper: the tabs/hint stay behind, the transparent canvas is pushed down over the tab row and (pointer-events: auto) intercepts all clicks on the five tabs, and the travel range is computed from the canvas height rather than the stage height. Fix by resolving the stage element explicitly."
+}

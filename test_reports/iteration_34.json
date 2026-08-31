@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend-only fix verification for the material register (design.html #material-register) after the follow()/stage fix and the PMREM sigma change. THE HIGH-PRIORITY DEFECT FROM iteration_33 IS FIXED. At 1600x950 and 1440x900, scrolled to section_top +300/+450/+1200/+2200: document.elementFromPoint over each of the five material-tab-* centres returns the tab itself (0/40 canvas hits, was 5/5 canvas hits before), and a real page.click() with force=False on all five tabs succeeded within 5s at every offset (40/40 clicks OK). The transform is now applied to .dz-reg-stage, so canvas + tab row + 'DRAG THE SAMPLE TO TURN IT' hint travel as one block (screenshots confirm tabs+hint stay next to the sample), the stage stays pinned (stage top constant at 190px with headerBottom 110, 763-826px tall) and never leaves .dz-reg-grid bounds (CONTAINED_IN_GRID=True at all 8 measurements, incl. the extreme +2200 where translateY is clamped at 1879/1914px). The three.js PMREM sigmaRadians warning is GONE - console contains zero three.js warnings/errors on every run; the only console output is 4x Chromium/ANGLE 'GPU stall due to ReadPixels' performance notices, which are emitted by the headless GL driver when Playwright grabs screenshots and are not app code. Re-confirmed previously passing behaviour: WebGL sample renders non-blank (walnut grain, smoked-glass plate and mobile walnut visible in screenshots) at 1600x950 and 390x844; all five tabs set is-on + aria-selected=true with 0 other tabs on, mark the matching entry is-on and scroll it into view (itemTop 174 each time); scroll spy runs 0->1->2->3->4 down and 4->3->2->1->0 up; an 11-step pointer drag visibly rotates the plate (before/after screenshots clearly differ); mobile 390x844 keeps the stage in normal flow (transform: none), no overlap between .dz-reg-stage and .dz-reg-list, tabs hit-test to themselves and a real click on material-tab-bronze works (aria-selected=true, entry in view). Regressions all pass: 0px horizontal document overflow at 1920x1080, 1440x900, 1024x768, 834x1194, 390x844, 360x800; after a continuous full-page scroll all 64 [data-dz] and all 16 [data-dz-fig] img are at opacity 1; design-index-light click scrolls (y=4160) and takes class is-on; side menu opens (.side-menu open); design-cta-projects -> projects.html and design-link-construction -> construction.html both navigate.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "design.html #material-register (mobile 390x844)", "issues": ["Minor/expected: the 5th tab (SMOKED GLASS) centre lies outside the viewport in the horizontally scrollable .dz-reg-tabs row, so elementFromPoint over it returns null until the row is scrolled. Row is scroll-snap/overflow-x by design; no fix required unless a visual affordance for the hidden tab is desired."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "materials3d.js now resolves the stage with canvas.closest('.dz-reg-stage') and clamps translateY with room = grid.height - stage.offsetHeight - correct and verified. Optional hardening: guard for a null stage (canvas rendered outside .dz-reg-stage would throw in follow()).",
+    "follow() runs on every scroll event and calls getBoundingClientRect() + offsetHeight (layout read) each time; consider caching offsetHeight on resize to avoid per-frame layout thrash on low-end devices."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (frontend-only request)", "frontend": "100% - all 4 requested check groups pass (tab hit-test/click 40/40, stage containment 8/8, 0 three.js console warnings, all regressions)"},
+  "seed_data_creation": "none (static pages)",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": false,
+  "test_credentials": "none required",
+  "context_for_next_testing_agent": "design.html served by `npx serve` on http://localhost:3000. Always inject `html{scroll-behavior:auto !important}` via add_style_tag before scroll maths (page sets scroll-behavior: smooth). Canvas pixel readback is transparent (preserveDrawingBuffer false) - verify WebGL with screenshots. Tab clicks auto-scroll the entry into view, so re-set scrollTo() after each click when measuring at a fixed offset. Section top at 1600x950 is ~8062px, at 1440x900 ~7556px. Remaining console noise ('GPU stall due to ReadPixels') is headless-GL screenshot noise, not an app issue.",
+  "rca_of_the_issue": "iteration_33 RCA (canvas.parentElement resolving to .dz-reg-canvas instead of .dz-reg-stage) is resolved: materials3d.js:16 now uses canvas.closest('.dz-reg-stage'), so the transform, the travel range and the visibility IntersectionObserver all act on the whole stage column; the transparent canvas no longer overlays the tab row. PMREMGenerator.fromScene sigma lowered to 0.04, which removes the 'sigmaRadians ... is too large and will clip' warning."
+}

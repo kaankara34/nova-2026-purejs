@@ -14,6 +14,9 @@
 
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/design.css" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/" } }
+  </script>
 </head>
 <body class="page-design">
 
@@ -318,6 +321,89 @@
       </div>
     </section>
 
+    <!-- 06b · MATERIAL REGISTER (3D samples) -->
+    <section class="dz-sec dz-reg" id="material-register" aria-labelledby="dz-t-register">
+      <div class="dz-wrap dz-reg-head">
+        <p class="dz-eyebrow" data-dz>Material register</p>
+        <h2 class="dz-h2" id="dz-t-register" data-dz>Five surfaces, <br />read closely.</h2>
+        <div class="dz-copy dz-copy--narrow">
+          <p class="dz-p" data-dz>These are the surfaces we return to most often. Turn a sample to see how light moves across it, and read where each one comes from, how it is finished and what happens to it over the years.</p>
+        </div>
+      </div>
+      <div class="dz-wrap dz-reg-grid">
+        <div class="dz-reg-stage">
+          <div class="dz-reg-canvas" data-testid="material-viewer">
+            <canvas id="dzMatCanvas" aria-hidden="true"></canvas>
+          </div>
+          <div class="dz-reg-tabs" role="tablist" aria-label="Material samples">
+            <button type="button" class="dz-reg-tab is-on" data-mat="0" role="tab" aria-selected="true" data-testid="material-tab-walnut">Walnut</button>
+            <button type="button" class="dz-reg-tab" data-mat="1" role="tab" aria-selected="false" data-testid="material-tab-stone">Stone</button>
+            <button type="button" class="dz-reg-tab" data-mat="2" role="tab" aria-selected="false" data-testid="material-tab-bronze">Bronze</button>
+            <button type="button" class="dz-reg-tab" data-mat="3" role="tab" aria-selected="false" data-testid="material-tab-leather">Leather</button>
+            <button type="button" class="dz-reg-tab" data-mat="4" role="tab" aria-selected="false" data-testid="material-tab-glass">Smoked glass</button>
+          </div>
+          <p class="dz-reg-hint">Drag the sample to turn it</p>
+        </div>
+        <ol class="dz-reg-list">
+          <li class="dz-reg-item is-on" id="mat-walnut" data-mat-item="0" data-testid="material-entry-walnut">
+            <p class="dz-reg-no">01</p>
+            <h3 class="dz-reg-name">Walnut</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Origin</dt><dd>European walnut, sliced into crown and quartered leaves and sequence-matched from a single log.</dd></div>
+              <div class="dz-reg-row"><dt>Texture</dt><dd>Fine open grain with darker heart streaks; quartered leaves show a faint ray fleck when light crosses them.</dd></div>
+              <div class="dz-reg-row"><dt>Surface</dt><dd>Hand-sanded, then oiled with a matt lacquer. No stain — the colour is the wood.</dd></div>
+              <div class="dz-reg-row"><dt>Used for</dt><dd>Living-room panelling, wardrobe fronts, door leaves, integrated shelving.</dd></div>
+              <div class="dz-reg-row"><dt>How it ages</dt><dd>Warms and darkens slightly in daylight over the first years. Light scratches can be re-oiled in place.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-stone" data-mat-item="1" data-testid="material-entry-stone">
+            <p class="dz-reg-no">02</p>
+            <h3 class="dz-reg-name">Bookmatched stone</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Origin</dt><dd>Blocks chosen at the quarry and cut so that neighbouring slabs mirror each other along the vein.</dd></div>
+              <div class="dz-reg-row"><dt>Texture</dt><dd>Veining runs through the joint without a break; the pattern reads before the sheen does.</dd></div>
+              <div class="dz-reg-row"><dt>Surface</dt><dd>Honed to a low sheen, mitred and hand-polished at the edges, sealed against staining.</dd></div>
+              <div class="dz-reg-row"><dt>Used for</dt><dd>Entrance walls, fireplace surrounds, bathroom slabs, kitchen worktops.</dd></div>
+              <div class="dz-reg-row"><dt>How it ages</dt><dd>Colour holds. Honed surfaces pick up a soft sheen where hands and daylight reach them daily.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-bronze" data-mat-item="2" data-testid="material-entry-bronze">
+            <p class="dz-reg-no">03</p>
+            <h3 class="dz-reg-name">Aged bronze</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Origin</dt><dd>Solid and clad bronze, patinated and finished by hand in the workshop rather than coated on site.</dd></div>
+              <div class="dz-reg-row"><dt>Texture</dt><dd>A fine brushed grain under a warm brown-gold patina that shifts as you move past it.</dd></div>
+              <div class="dz-reg-row"><dt>Surface</dt><dd>Patinated, then waxed. Edges are left a little brighter where the hand naturally falls.</dd></div>
+              <div class="dz-reg-row"><dt>Used for</dt><dd>Ironmongery, joinery pulls, reveal trims, lighting details, balustrade rails.</dd></div>
+              <div class="dz-reg-row"><dt>How it ages</dt><dd>Darkens where it is left alone and brightens where it is touched. That contrast is intended.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-leather" data-mat-item="3" data-testid="material-entry-leather">
+            <p class="dz-reg-no">04</p>
+            <h3 class="dz-reg-name">Leather</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Origin</dt><dd>Full-grain aniline-dyed hides, tanned in Europe and cut for the piece they are made for.</dd></div>
+              <div class="dz-reg-row"><dt>Texture</dt><dd>Pores and growth marks left visible; nothing embossed, nothing corrected.</dd></div>
+              <div class="dz-reg-row"><dt>Surface</dt><dd>Wax finish, stitched in a matching tone with the seam pulled tight over the frame.</dd></div>
+              <div class="dz-reg-row"><dt>Used for</dt><dd>Seating, headboards, wardrobe interiors, drawer linings, handrail wraps.</dd></div>
+              <div class="dz-reg-row"><dt>How it ages</dt><dd>Softens and darkens along seats and armrests. Marks read as use, not as damage.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-glass" data-mat-item="4" data-testid="material-entry-glass">
+            <p class="dz-reg-no">05</p>
+            <h3 class="dz-reg-name">Smoked glass</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Origin</dt><dd>Body-tinted float glass, cut and polished for joinery fronts and screen elements.</dd></div>
+              <div class="dz-reg-row"><dt>Texture</dt><dd>A grey-brown tint that deepens with thickness while the reflection stays sharp.</dd></div>
+              <div class="dz-reg-row"><dt>Surface</dt><dd>Polished edges; low-iron on clear runs so the tint reads evenly across a set of doors.</dd></div>
+              <div class="dz-reg-row"><dt>Used for</dt><dd>Cabinet fronts, room dividers, shower screens, bar and shelving units.</dd></div>
+              <div class="dz-reg-row"><dt>How it ages</dt><dd>Stable. It does not yellow, and the tint stays as it was specified.</dd></div>
+            </dl>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <!-- 07 · INTERIORS -->
     <section class="dz-sec dz-int" id="interiors" aria-labelledby="dz-t-interiors">
       <div class="dz-wrap dz-int-grid">
@@ -575,5 +661,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
   <script src="js/design.js"></script>
+  <script src="js/materials3d.js" type="module"></script>
 </body>
 </html>
