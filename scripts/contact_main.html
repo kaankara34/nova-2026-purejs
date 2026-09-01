@@ -3,11 +3,29 @@
 
     <!-- intro -->
     <section class="ct-intro" aria-labelledby="ct-t">
-      <div class="ct-wrap">
-        <p class="ct-label ct-label--top" data-ct>Contact</p>
-        <h1 class="ct-h1" id="ct-t" data-ct>Contact Nova</h1>
-        <p class="ct-lead" data-ct>For project enquiries, appointments and general communication.</p>
-        <span class="ct-rule" aria-hidden="true" data-ct></span>
+      <div class="ct-wrap ct-intro-grid">
+        <div class="ct-intro-copy">
+          <p class="ct-label ct-label--top" data-ct>Contact</p>
+          <h1 class="ct-h1" id="ct-t" data-ct>Contact Nova</h1>
+          <p class="ct-lead" data-ct>For project enquiries, appointments and general communication.</p>
+          <span class="ct-rule" aria-hidden="true" data-ct></span>
+        </div>
+        <div class="ct-art" aria-hidden="true" data-ct>
+          <svg viewBox="0 0 340 420" role="presentation" focusable="false">
+            <g class="ct-art-orbit">
+              <circle class="ct-art-ring" cx="196" cy="176" r="152" />
+            </g>
+            <circle class="ct-art-disc" cx="196" cy="176" r="88" />
+            <circle class="ct-art-line" cx="196" cy="176" r="118" />
+            <path class="ct-art-arc" d="M196 24 A152 152 0 0 1 348 176" />
+            <path class="ct-art-arc ct-art-arc--soft" d="M44 176 A152 152 0 0 0 196 328" />
+            <line class="ct-art-line" x1="62" y1="16" x2="62" y2="404" />
+            <line class="ct-art-hair" x1="96" y1="16" x2="96" y2="404" />
+            <line class="ct-art-hair" x1="0" y1="318" x2="340" y2="318" />
+            <rect class="ct-art-block" x="62" y="318" width="34" height="86" />
+            <rect class="ct-art-brass" x="96" y="300" width="52" height="1.6" />
+          </svg>
+        </div>
       </div>
     </section>
 
@@ -22,6 +40,43 @@
           <p class="ct-label">Telefon</p>
           <a class="ct-value" href="tel:+905335061972" data-testid="contact-phone">+90 (533) 506 1972</a>
         </div>
+      </div>
+    </section>
+
+    <!-- instagram -->
+    <section class="ct-ig" aria-labelledby="ct-t-ig">
+      <div class="ct-wrap ct-ig-head">
+        <div>
+          <p class="ct-label" data-ct>Instagram</p>
+          <h2 class="ct-h2" id="ct-t-ig" data-ct>Latest from Nova</h2>
+        </div>
+        <a class="ct-ig-follow" href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer"
+           data-ct data-testid="contact-instagram-follow">@novakonut</a>
+      </div>
+      <div class="ct-wrap ct-ig-grid">
+        <a class="ct-ig-tile" href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer"
+           data-ct data-testid="contact-instagram-post-1" aria-label="Nova on Instagram">
+          <img src="./media/images/bbl/nb-avenue-sm.webp" width="760" height="510"
+               alt="A tree-lined residential avenue" loading="lazy" decoding="async" />
+        </a>
+        <a class="ct-ig-tile" href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer"
+           data-ct data-testid="contact-instagram-post-2" aria-label="Nova on Instagram">
+          <img src="./media/images/bbl/lounge-sm.webp" width="760" height="1133"
+               alt="A quiet residents' lounge" loading="lazy" decoding="async" />
+        </a>
+        <a class="ct-ig-tile" href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer"
+           data-ct data-testid="contact-instagram-post-3" aria-label="Nova on Instagram">
+          <img src="./media/images/bbl/amenity-courtyard-sm.webp" width="760" height="510"
+               alt="A landscaped residential courtyard" loading="lazy" decoding="async" />
+        </a>
+        <a class="ct-ig-tile" href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer"
+           data-ct data-testid="contact-instagram-post-4" aria-label="Nova on Instagram">
+          <img src="./media/images/bbl/hospitality-sm.webp" width="760" height="1133"
+               alt="A private residential entrance" loading="lazy" decoding="async" />
+        </a>
+      </div>
+      <div class="ct-wrap">
+        <p class="ct-ig-note" data-ct>Follow @novakonut for new residences, site progress and resident stories.</p>
       </div>
     </section>
 
@@ -51,4 +106,78 @@
     </section>
 
   </main>
+
+  <!-- ============================= REGISTER YOUR INTEREST ============================= -->
+  <section class="ct-reg" id="register" aria-labelledby="ct-t-reg">
+    <div class="ct-reg-inner">
+      <div class="ct-reg-left">
+        <h2 class="ct-reg-title" id="ct-t-reg" data-ct>
+          <span>REGISTER</span>
+          <span>YOUR</span>
+          <span>INTEREST</span>
+          <span class="ct-reg-sub">&mdash; get in touch</span>
+        </h2>
+        <p class="ct-reg-lead" data-ct>Discover exclusive residences and investment opportunities with Nova Konut.</p>
+      </div>
+
+      <div class="ct-reg-right">
+        <p class="ct-reg-note" data-ct>PLEASE PROVIDE YOUR DETAILS TO REGISTER INTEREST.</p>
+        <form class="ct-form" id="ctRegisterForm" novalidate data-ct data-testid="contact-register-form">
+          <div class="ct-field">
+            <label for="ct-fullname">Full Name</label>
+            <input id="ct-fullname" type="text" name="fullname" required data-testid="contact-register-name" />
+          </div>
+          <div class="ct-field ct-field--phone">
+            <label for="ct-phone">Phone</label>
+            <div class="ct-phone-row">
+              <select name="code" aria-label="Country code" data-testid="contact-register-code">
+                <option>+1</option><option>+44</option><option selected>+90</option><option>+971</option><option>+966</option>
+              </select>
+              <input id="ct-phone" type="tel" name="phone" data-testid="contact-register-phone" />
+            </div>
+          </div>
+          <div class="ct-field">
+            <label for="ct-email">Email</label>
+            <input id="ct-email" type="email" name="email" required data-testid="contact-register-email" />
+          </div>
+          <div class="ct-field">
+            <label for="ct-project">Select Project</label>
+            <select id="ct-project" name="project" data-testid="contact-register-project">
+              <option value="">Please select</option>
+              <option>The Residences East West, Bağdat Caddesi</option>
+              <option>Martı Residence, Suadiye</option>
+              <option>Bahar Residence</option>
+              <option>Doğan Residence</option>
+              <option>Mehtap Residence</option>
+              <option>Nisbetiye On</option>
+            </select>
+          </div>
+          <div class="ct-field">
+            <label for="ct-source">How did you hear about us?</label>
+            <select id="ct-source" name="source" data-testid="contact-register-source">
+              <option value="">Please select</option>
+              <option>Google</option>
+              <option>Social Media (Instagram, Facebook, TikTok)</option>
+              <option>LinkedIn</option>
+              <option>Other Online Ads</option>
+              <option>Word of Mouth</option>
+              <option>Event</option>
+              <option>Email Newsletter</option>
+              <option>Property Portal</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="ct-field">
+            <label for="ct-comments">Additional Comments</label>
+            <textarea id="ct-comments" name="comments" rows="2" data-testid="contact-register-comments"></textarea>
+          </div>
+          <div class="ct-checks">
+            <label><input type="checkbox" name="news" checked data-testid="contact-register-news" /> <span>I&rsquo;d like to hear about news and offers</span></label>
+            <label><input type="checkbox" name="privacy" required data-testid="contact-register-privacy" /> <span>I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></span></label>
+          </div>
+          <button type="submit" class="ct-submit" data-testid="contact-register-submit">REGISTER INTEREST</button>
+        </form>
+      </div>
+    </div>
+  </section>
 

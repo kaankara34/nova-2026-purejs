@@ -766,3 +766,6 @@ Fourth and current direction. The corporate overlay-panel version was dropped; t
 - The interim background image (`media/images/contact/contact-bg.webp`) is no longer referenced; it stays in the repo unused.
 - **Verification (self-tested)**: 320/375/390/430/768/1024/1440 — zero horizontal overflow, no element outside the viewport, no reveal left hidden, background resolves to `rgb(241,235,227)` and footer to `rgb(247,243,237)`, h1 is Cormorant Garamond at 60px desktop, exactly 3 offices, mailto/tel correct, all supplied text present verbatim, zero console errors.
 
+
+## 2026-06 — Contact: art mark + Instagram block + Register Interest
+See memory/CHANGELOG.md for the detailed entry. Contact now carries the intro art mark, an Instagram "Latest from Nova" block (static tiles linking to @novakonut — Instagram feeds cannot be scraped), and the project-page Register Interest form retoned warm above the footer. Agent-tested (desktop 1920 / mobile 390, form paths, lint); awaiting user visual confirmation.
