@@ -4,6 +4,28 @@
 (function () {
   'use strict';
 
+  /* instagram — always show the latest four posts, static tiles are the fallback */
+  const igGrid = document.querySelector('.ct-ig-grid');
+  if (igGrid) {
+    const base = document.body.dataset.api || '';
+    fetch(`${base}/api/instagram/latest`)
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
+      .then(data => {
+        const tiles = igGrid.querySelectorAll('.ct-ig-tile');
+        (data.posts || []).slice(0, tiles.length).forEach((post, i) => {
+          const tile = tiles[i];
+          const img = tile.querySelector('img');
+          const snapshot = img.getAttribute('src');
+          tile.href = post.permalink;
+          tile.setAttribute('aria-label', `Instagram post: ${post.caption || 'Nova Konut'}`);
+          img.alt = post.caption || 'Nova Konut Instagram post';
+          img.addEventListener('error', () => { img.src = snapshot; }, { once: true });
+          img.src = `${base}${post.image}`;
+        });
+      })
+      .catch(() => { /* keep the bundled snapshot */ });
+  }
+
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

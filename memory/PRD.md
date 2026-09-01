@@ -769,3 +769,6 @@ Fourth and current direction. The corporate overlay-panel version was dropped; t
 
 ## 2026-06 — Contact: art mark + Instagram block + Register Interest
 See memory/CHANGELOG.md for the detailed entry. Contact now carries the intro art mark, an Instagram "Latest from Nova" block (static tiles linking to @novakonut — Instagram feeds cannot be scraped), and the project-page Register Interest form retoned warm above the footer. Agent-tested (desktop 1920 / mobile 390, form paths, lint); awaiting user visual confirmation.
+
+## 2026-06 — Contact: canlı Instagram akışı + stabil kuş filmi
+Backend `/api/instagram/latest` + `/api/instagram/image/{shortcode}` (curl_cffi ile, 30 dk cache, Mongo fallback); contact.js kareleri her yüklemede son 4 gönderiyle günceller, yerel snapshot fallback. Kuş videosu stabilize edildi, 2.1x yavaşlatıldı ve soluk mavi-yeşil tonlandı. Detay: memory/CHANGELOG.md

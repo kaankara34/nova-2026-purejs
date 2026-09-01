@@ -73,13 +73,10 @@
 }
 .page-contact .ct-art-video {
   display: block; width: 100%; height: 100%; object-fit: cover;
-  filter: saturate(.3) contrast(1.02) brightness(1.16) sepia(.12);
 }
 .page-contact .ct-art-veil {
   position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(241, 235, 227, .16) 0%, rgba(241, 235, 227, .3) 100%),
-    radial-gradient(120% 90% at 50% 0%, rgba(154, 123, 79, .18), transparent 72%);
+  background: linear-gradient(180deg, rgba(241, 235, 227, .12) 0%, rgba(241, 235, 227, .26) 100%);
   mix-blend-mode: soft-light;
 }
 .page-contact .ct-art-frame {
