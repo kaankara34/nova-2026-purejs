@@ -1,98 +1,135 @@
 /* =========================================================
-   CONTACT — full-bleed location image, centred office panel.
+   CONTACT — quiet luxury: warm ground, Cormorant display,
+   spacing and hairlines doing the work.
    Everything scoped to .page-contact
    ========================================================= */
 .page-contact {
-  --ct-ink: #F1EDE6;
-  --ct-ink-2: rgba(241, 237, 230, .74);
-  --ct-ink-3: rgba(241, 237, 230, .54);
-  --ct-rule: rgba(241, 237, 230, .18);
-  --ct-green: #93A183;
-  --ct-pad: clamp(22px, 5.2vw, 80px);
-  background: #16150F;
+  --ct-bg: #F1EBE3;
+  --ct-bg-2: #F7F3ED;
+  --ct-ink: #33291F;
+  --ct-ink-2: #5B4F42;
+  --ct-ink-3: rgba(51, 41, 31, .56);
+  --ct-rule: rgba(51, 41, 31, .16);
+  --ct-accent: #5C6B4F;
+  --ct-max: 1400px;
+  --ct-pad: clamp(22px, 5.4vw, 108px);
+  --ct-gap: clamp(26px, 4vw, 84px);
+  background: var(--ct-bg);
   color: var(--ct-ink);
 }
-.page-contact ::selection { background: rgba(241, 237, 230, .2); }
+.page-contact ::selection { background: rgba(51, 41, 31, .12); }
 
-/* ---------------- hero ---------------- */
-.page-contact .ct-hero {
-  position: relative; min-height: 100svh; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-  padding: clamp(132px, 15vh, 190px) var(--ct-pad) clamp(56px, 9vh, 110px);
-}
-.page-contact .ct-bg { position: absolute; inset: 0; margin: 0; }
-.page-contact .ct-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
-.page-contact .ct-hero::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(14,13,10,.58) 0%, rgba(14,13,10,.3) 42%, rgba(14,13,10,.6) 100%);
-}
-
-/* ---------------- panel ---------------- */
-.page-contact .ct-panel {
-  position: relative; z-index: 2; width: 100%; max-width: 1180px;
-  padding: clamp(26px, 3.2vw, 52px) clamp(22px, 3.2vw, 56px) clamp(30px, 3.4vw, 56px);
-  background: rgba(20, 19, 15, .72);
-  border: 1px solid rgba(241, 237, 230, .14);
-  backdrop-filter: blur(2px);
-}
-.page-contact .ct-panel-head {
-  padding-bottom: clamp(20px, 2.2vw, 32px); margin-bottom: clamp(24px, 2.8vw, 42px);
+/* header on the warm ground — same discipline as the other light pages */
+.page-contact .site-header,
+.page-contact .site-header.transparent {
+  background: rgba(241, 235, 227, .94);
   border-bottom: 1px solid var(--ct-rule);
+  color: var(--ct-ink);
 }
-.page-contact .ct-kicker {
+.page-contact .site-header .menu-toggle span { background: var(--ct-ink); }
+.page-contact .site-header .icon-link svg { stroke: var(--ct-ink); }
+.page-contact .site-header .lang-switch { color: var(--ct-ink); }
+.page-contact .site-header .btn.register {
+  background: transparent; color: var(--ct-ink); border-color: rgba(51, 41, 31, .3);
+}
+.page-contact .site-header .btn.register:hover { background: #33291F; color: #F7F3ED; border-color: #33291F; }
+.page-contact .site-header .icon-sep { background: var(--ct-rule); }
+
+.page-contact .ct-wrap { max-width: var(--ct-max); margin: 0 auto; padding: 0 var(--ct-pad); }
+
+/* ---------------- shared type ---------------- */
+.page-contact .ct-label {
   margin: 0; font-family: var(--font-sans); font-weight: 500;
-  font-size: 12.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--ct-ink);
+  font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--ct-ink-3);
 }
-.page-contact .ct-sub {
-  margin: 10px 0 0; font-family: var(--font-sans); font-weight: 300;
-  font-size: 13.5px; line-height: 1.6; color: var(--ct-ink-3);
+.page-contact .ct-h1 {
+  margin: clamp(24px, 2.6vw, 40px) 0 0; font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(38px, 4.2vw, 62px); line-height: 1.06; letter-spacing: .01em; color: var(--ct-ink);
+}
+.page-contact .ct-h2 {
+  margin: clamp(18px, 2vw, 30px) 0 0; font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(28px, 2.9vw, 42px); line-height: 1.1; color: var(--ct-ink);
+}
+.page-contact .ct-lead {
+  margin: clamp(22px, 2.4vw, 36px) 0 0; font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(14px, 1vw, 15.5px); line-height: 1.85; color: var(--ct-ink-2); max-width: 44ch;
+}
+.page-contact .ct-rule {
+  display: block; width: clamp(64px, 8vw, 120px); height: 1px;
+  margin-top: clamp(40px, 4.6vw, 78px); background: var(--ct-rule);
 }
 
-/* ---------------- offices ---------------- */
-.page-contact .ct-grid {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(24px, 3vw, 56px);
-}
-.page-contact .ct-office + .ct-office {
-  padding-left: clamp(24px, 3vw, 56px); border-left: 1px solid var(--ct-rule);
-}
-.page-contact .ct-office-name {
-  margin: 0 0 clamp(18px, 2vw, 28px); font-family: var(--font-sans); font-weight: 500;
-  font-size: clamp(13px, 1.05vw, 15px); line-height: 1.35; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--ct-ink);
-}
-.page-contact .ct-field + .ct-field { margin-top: clamp(16px, 1.7vw, 24px); }
-.page-contact .ct-label {
-  margin: 0 0 6px; font-family: var(--font-sans); font-weight: 500;
-  font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ct-ink-3);
+/* ---------------- intro ---------------- */
+.page-contact .ct-intro { padding: clamp(168px, 20vh, 260px) 0 clamp(56px, 7vw, 108px); }
+
+/* ---------------- primary contact ---------------- */
+.page-contact .ct-detail { padding-bottom: clamp(84px, 11vw, 190px); }
+.page-contact .ct-detail-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--ct-gap);
 }
 .page-contact .ct-value {
-  display: inline-block; font-family: var(--font-sans); font-weight: 300;
-  font-size: clamp(14px, 1.05vw, 16px); line-height: 1.5; color: var(--ct-ink);
-  word-break: break-word; border-bottom: 1px solid transparent; padding-bottom: 2px;
-  transition: color .45s cubic-bezier(.22,.61,.36,1), border-color .45s cubic-bezier(.22,.61,.36,1);
+  display: inline-block; margin-top: clamp(14px, 1.5vw, 22px);
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(19px, 1.9vw, 28px); line-height: 1.3; letter-spacing: -.005em;
+  color: var(--ct-ink); word-break: break-word;
+  border-bottom: 1px solid transparent; padding-bottom: 4px;
+  transition: color .55s cubic-bezier(.22,.61,.36,1), border-color .55s cubic-bezier(.22,.61,.36,1);
 }
 .page-contact .ct-value:hover,
-.page-contact .ct-value:focus-visible { color: var(--ct-green); border-bottom-color: var(--ct-green); }
+.page-contact .ct-value:focus-visible { color: var(--ct-accent); border-bottom-color: var(--ct-accent); }
+.page-contact a:focus-visible { outline: 1px solid rgba(51, 41, 31, .55); outline-offset: 5px; }
+
+/* ---------------- locations ---------------- */
+.page-contact .ct-loc { padding-bottom: clamp(80px, 9vw, 150px); }
+.page-contact .ct-loc-grid {
+  margin-top: clamp(52px, 6.5vw, 112px);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--ct-gap);
+}
+.page-contact .ct-office { padding-top: clamp(22px, 2.4vw, 34px); border-top: 1px solid var(--ct-rule); }
+.page-contact .ct-office-name {
+  margin: 0 0 clamp(16px, 1.8vw, 26px); font-family: var(--font-serif); font-weight: 400;
+  font-size: clamp(17px, 1.4vw, 21px); line-height: 1.3; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ct-ink);
+}
 .page-contact .ct-addr {
   margin: 0; font-family: var(--font-sans); font-weight: 300;
-  font-size: clamp(14px, 1.05vw, 16px); line-height: 1.6; color: var(--ct-ink-2);
+  font-size: clamp(14px, 1vw, 15px); line-height: 1.85; color: var(--ct-ink-2);
 }
-.page-contact .ct-addr--city { color: var(--ct-ink-3); }
-.page-contact a:focus-visible { outline: 1px solid rgba(241, 237, 230, .8); outline-offset: 4px; }
-.page-contact .site-footer { position: relative; z-index: 3; }
+.page-contact .ct-addr--city { color: var(--ct-ink-3); letter-spacing: .02em; }
+
+/* =========================================================
+   FOOTER — softened to ivory so it continues the page
+   ========================================================= */
+.page-contact .site-footer {
+  position: relative; z-index: 3;
+  background: var(--ct-bg-2); color: var(--ct-ink-2);
+}
+.page-contact .site-footer .footer-grid,
+.page-contact .site-footer .footer-middle,
+.page-contact .site-footer .footer-social-section,
+.page-contact .site-footer .footer-col { border-color: var(--ct-rule); }
+.page-contact .site-footer .footer-col h3 { color: var(--ct-ink); }
+.page-contact .site-footer .footer-col ul li a,
+.page-contact .site-footer .footer-globe-links a,
+.page-contact .site-footer .footer-menu-links a,
+.page-contact .site-footer .social-icons-small a { color: var(--ct-ink-2); }
+.page-contact .site-footer .footer-col ul li a:hover,
+.page-contact .site-footer .footer-globe-links a:hover,
+.page-contact .site-footer .footer-menu-links a:hover,
+.page-contact .site-footer .social-icons-small a:hover,
+.page-contact .site-footer .footer-bottom-links a:hover { color: var(--ct-ink); }
+.page-contact .site-footer .footer-globe-icon { color: rgba(51, 41, 31, .35); }
+.page-contact .site-footer .social-label,
+.page-contact .site-footer .footer-bottom-links a,
+.page-contact .site-footer .footer-copyright-text { color: var(--ct-ink-3); }
 
 /* =========================================================
    TABLET
    ========================================================= */
 @media (max-width: 1023px) {
-  .page-contact .ct-hero { min-height: 0; padding-top: clamp(132px, 20vh, 190px); }
-  .page-contact .ct-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(26px, 3.4vw, 40px); }
-  .page-contact .ct-office + .ct-office { padding-left: clamp(20px, 3vw, 40px); }
-  .page-contact .ct-office:nth-child(3) {
-    grid-column: 1 / -1; padding-left: 0; border-left: 0;
-    padding-top: clamp(24px, 3vw, 34px); border-top: 1px solid var(--ct-rule); max-width: 50%;
-  }
+  .page-contact { --ct-pad: clamp(22px, 4.8vw, 60px); --ct-gap: clamp(24px, 3.6vw, 52px); }
+  .page-contact .ct-loc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(34px, 4.4vw, 52px); }
+  .page-contact .ct-office:nth-child(3) { grid-column: 1 / -1; max-width: 48%; }
 }
 
 /* =========================================================
@@ -100,20 +137,24 @@
    ========================================================= */
 @media (max-width: 767px) {
   .page-contact { --ct-pad: 22px; }
-  .page-contact .ct-hero { padding: 152px var(--ct-pad) 56px; }
-  .page-contact .ct-panel { padding: 26px 22px 30px; }
-  .page-contact .ct-grid { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
-  .page-contact .ct-office + .ct-office {
-    padding-left: 0; border-left: 0; margin-left: 0;
-    margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--ct-rule);
-  }
+  .page-contact .ct-intro { padding: clamp(152px, 40vw, 178px) 0 clamp(44px, 11vw, 64px); }
+  .page-contact .ct-h1 { font-size: clamp(33px, 9.4vw, 44px); }
+  .page-contact .ct-h2 { font-size: clamp(26px, 7.4vw, 34px); }
+  .page-contact .ct-lead { font-size: 15px; }
+  .page-contact .ct-rule { margin-top: 40px; }
+
+  .page-contact .ct-detail { padding-bottom: clamp(66px, 16vw, 96px); }
+  .page-contact .ct-detail-grid { grid-template-columns: minmax(0, 1fr); row-gap: clamp(34px, 8vw, 48px); }
+  .page-contact .ct-value { font-size: clamp(20px, 5.6vw, 25px); padding-bottom: 6px; }
+
+  .page-contact .ct-loc { padding-bottom: clamp(72px, 18vw, 108px); }
+  .page-contact .ct-loc-grid { margin-top: clamp(40px, 10vw, 56px); grid-template-columns: minmax(0, 1fr); row-gap: 30px; }
   .page-contact .ct-office:nth-child(3) { max-width: none; }
-  .page-contact .ct-value, .page-contact .ct-addr { font-size: 15px; }
-  .page-contact .ct-value { padding-bottom: 4px; }
+  .page-contact .ct-office-name { font-size: 17px; }
 }
 
 /* =========================================================
-   REVEAL — one quiet step
+   REVEAL — one soft step, staggered
    ========================================================= */
 html.ct-js .page-contact [data-ct] { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {

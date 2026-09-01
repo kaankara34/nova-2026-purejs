@@ -17,14 +17,13 @@ chrome = re.sub(r'<meta name="description"[^>]*>',
                 '<meta name="description" content="Contact Nova Konut — enquiries, project information and resident support, with offices on Bağdat Caddesi and in Etiler, Istanbul." />',
                 chrome, count=1)
 chrome = chrome.replace('<meta name="theme-color" content="#0b0b0b" />',
-                        '<meta name="theme-color" content="#16150F" />')
-chrome = re.sub(r'<link rel="preload"[^>]*>',
-                '<link rel="preload" as="image" href="./media/images/contact/contact-bg.webp" />',
-                chrome, count=1)
+                        '<meta name="theme-color" content="#F1EBE3" />')
+chrome = re.sub(r'\n *<link rel="preload"[^>]*>', '', chrome, count=1)
 chrome = chrome.replace(
     '  <link rel="stylesheet" href="css/projects.css" />\n  <link rel="stylesheet" href="css/about.css" />',
     '  <link rel="stylesheet" href="css/contact.css" />')
 chrome = chrome.replace('<body class="page-about">', '<body class="page-contact">')
+chrome = chrome.replace('media/images/nova-logo.png', 'media/images/nova-logo-dark.png')
 # the shared chrome carries a stray slash in the logo tag; keep this page well-formed
 chrome = chrome.replace('class="logo-img" / decoding="async"', 'class="logo-img" decoding="async"')
 

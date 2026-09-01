@@ -754,3 +754,15 @@ Third iteration, following the user's reference screenshot (Bilgili Holding cont
 - Animation: one fade + 14px rise, staggered across the panel head and the three offices; disabled under `prefers-reduced-motion`.
 - Background image: `media/images/contact/contact-bg.webp` (+ `-sm` 760w) — an interim generated dusk Bağdat-Caddesi-style avenue, since the user's own background image was not in the uploaded assets. **Swapping it is a one-file drop-in** (same filenames) or a two-line change in `scripts/contact_main.html`.
 - **Verification (self-tested)**: 320/375/390/430/768/1024/1440 — zero horizontal overflow, no element outside the viewport, panel-to-header clearance 31–86px, panel width 276→1180px, exactly 3 offices, 3 mailto + 3 tel links, 0 forms/iframes, h1 once + h2 ×3, reduced motion leaves everything visible, zero console errors.
+
+### contact.html — quiet-luxury rebuild (Aman / Finchatton mood) (Jun 2026)
+Fourth and current direction. The corporate overlay-panel version was dropped; the page is now typography-led on a warm ground, with no imagery at all.
+
+- `scripts/contact_main.html` + `scripts/build_contact.py` -> `frontend/contact.html` (319 lines). Three quiet sections: intro (CONTACT / "Contact Nova" / "For project enquiries, appointments and general communication." + a 120px hairline), primary contact (E-POSTA / TELEFON, two columns), locations (OFFICES / "Our Locations" + three columns above hairlines). No image, no map, no form, no extra copy.
+- `frontend/css/contact.css` — ground `#F1EBE3`, text deep brown `#33291F` (never pure black), Cormorant Garamond for the h1/h2 and the office names (uppercase, .1em tracking), Montserrat for labels, e-mail, phone and addresses. Hierarchy from spacing and 1px hairlines only.
+- **The footer is softened on this page only** to `#F7F3ED` with brown text and hairline separators, so it continues the page instead of cutting it with the site's `#0b0b0b` block. Header is the ivory bar with the coloured `nova-logo-dark.png` mark.
+- Responsive: 3 office columns >=1024px, 2+1 on tablet, single stack below 768px; intro/detail/locations rhythm re-tuned per breakpoint.
+- Animation: one fade + 14px rise per block, staggered across the offices, disabled under `prefers-reduced-motion`. `js/contact.js` unchanged; the `.ct-hero` entry added earlier to the shared `heroEl` selector in `js/script.js` was reverted since the page no longer has a dark hero.
+- The interim background image (`media/images/contact/contact-bg.webp`) is no longer referenced; it stays in the repo unused.
+- **Verification (self-tested)**: 320/375/390/430/768/1024/1440 — zero horizontal overflow, no element outside the viewport, no reveal left hidden, background resolves to `rgb(241,235,227)` and footer to `rgb(247,243,237)`, h1 is Cormorant Garamond at 60px desktop, exactly 3 offices, mailto/tel correct, all supplied text present verbatim, zero console errors.
+

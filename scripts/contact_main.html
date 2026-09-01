@@ -1,73 +1,52 @@
 <!-- ============================= CONTACT ============================= -->
   <main class="ct" id="ctMain">
 
-    <section class="ct-hero" aria-labelledby="ct-t">
-      <figure class="ct-bg">
-        <img src="./media/images/contact/contact-bg.webp"
-             srcset="./media/images/contact/contact-bg-sm.webp 760w, ./media/images/contact/contact-bg.webp 1264w"
-             sizes="100vw" width="1264" height="848"
-             alt="An upscale Istanbul residential avenue at dusk"
-             loading="eager" fetchpriority="high" decoding="async" />
-      </figure>
+    <!-- intro -->
+    <section class="ct-intro" aria-labelledby="ct-t">
+      <div class="ct-wrap">
+        <p class="ct-label ct-label--top" data-ct>Contact</p>
+        <h1 class="ct-h1" id="ct-t" data-ct>Contact Nova</h1>
+        <p class="ct-lead" data-ct>For project enquiries, appointments and general communication.</p>
+        <span class="ct-rule" aria-hidden="true" data-ct></span>
+      </div>
+    </section>
 
-      <div class="ct-panel">
-        <div class="ct-panel-head" data-ct>
-          <h1 class="ct-kicker" id="ct-t">İletişim</h1>
-          <p class="ct-sub">Nova ile iletişime geçin.</p>
+    <!-- primary contact -->
+    <section class="ct-detail" aria-label="Contact details">
+      <div class="ct-wrap ct-detail-grid">
+        <div class="ct-item" data-ct>
+          <p class="ct-label">E-Posta</p>
+          <a class="ct-value" href="mailto:iletisim@nova.istanbul" data-testid="contact-email">iletisim@nova.istanbul</a>
         </div>
-
-        <div class="ct-grid">
-          <article class="ct-office" data-ct data-testid="contact-office-1">
-            <h2 class="ct-office-name">Bağdat Caddesi — 1</h2>
-            <div class="ct-field">
-              <p class="ct-label">E-Posta</p>
-              <a class="ct-value" href="mailto:iletisim@nova.istanbul" data-testid="contact-email-1">iletisim@nova.istanbul</a>
-            </div>
-            <div class="ct-field">
-              <p class="ct-label">Telefon</p>
-              <a class="ct-value" href="tel:+905335061972" data-testid="contact-phone-1">+90 (533) 506 1972</a>
-            </div>
-            <div class="ct-field">
-              <p class="ct-label">Adres</p>
-              <p class="ct-addr">Feneryolu Mah. Gülden Sk. 6/25</p>
-              <p class="ct-addr ct-addr--city">Kadıköy, İSTANBUL</p>
-            </div>
-          </article>
-
-          <article class="ct-office" data-ct data-testid="contact-office-2">
-            <h2 class="ct-office-name">Bağdat Caddesi — 2</h2>
-            <div class="ct-field">
-              <p class="ct-label">E-Posta</p>
-              <a class="ct-value" href="mailto:iletisim@nova.istanbul" data-testid="contact-email-2">iletisim@nova.istanbul</a>
-            </div>
-            <div class="ct-field">
-              <p class="ct-label">Telefon</p>
-              <a class="ct-value" href="tel:+905335061972" data-testid="contact-phone-2">+90 (533) 506 1972</a>
-            </div>
-            <div class="ct-field">
-              <p class="ct-label">Adres</p>
-              <p class="ct-addr">Caddebostan Mah. Noter Sk. 32/23</p>
-              <p class="ct-addr ct-addr--city">Kadıköy, İSTANBUL</p>
-            </div>
-          </article>
-
-          <article class="ct-office" data-ct data-testid="contact-office-3">
-            <h2 class="ct-office-name">Etiler</h2>
-            <div class="ct-field">
-              <p class="ct-label">E-Posta</p>
-              <a class="ct-value" href="mailto:iletisim@nova.istanbul" data-testid="contact-email-3">iletisim@nova.istanbul</a>
-            </div>
-            <div class="ct-field">
-              <p class="ct-label">Telefon</p>
-              <a class="ct-value" href="tel:+905335061972" data-testid="contact-phone-3">+90 (533) 506 1972</a>
-            </div>
-            <div class="ct-field">
-              <p class="ct-label">Adres</p>
-              <p class="ct-addr">Nispetiye Cad. 35/15</p>
-              <p class="ct-addr ct-addr--city">Beşiktaş, İSTANBUL</p>
-            </div>
-          </article>
+        <div class="ct-item" data-ct>
+          <p class="ct-label">Telefon</p>
+          <a class="ct-value" href="tel:+905335061972" data-testid="contact-phone">+90 (533) 506 1972</a>
         </div>
+      </div>
+    </section>
+
+    <!-- locations -->
+    <section class="ct-loc" aria-labelledby="ct-t-loc">
+      <div class="ct-wrap ct-loc-head">
+        <p class="ct-label" data-ct>Offices</p>
+        <h2 class="ct-h2" id="ct-t-loc" data-ct>Our Locations</h2>
+      </div>
+      <div class="ct-wrap ct-loc-grid">
+        <article class="ct-office" data-ct data-testid="contact-office-1">
+          <h3 class="ct-office-name">Bağdat Caddesi — 1</h3>
+          <p class="ct-addr">Feneryolu Mah. Gülden Sk. 6/25</p>
+          <p class="ct-addr ct-addr--city">Kadıköy, İSTANBUL</p>
+        </article>
+        <article class="ct-office" data-ct data-testid="contact-office-2">
+          <h3 class="ct-office-name">Bağdat Caddesi — 2</h3>
+          <p class="ct-addr">Caddebostan Mah. Noter Sk. 32/23</p>
+          <p class="ct-addr ct-addr--city">Kadıköy, İSTANBUL</p>
+        </article>
+        <article class="ct-office" data-ct data-testid="contact-office-3">
+          <h3 class="ct-office-name">Etiler</h3>
+          <p class="ct-addr">Nispetiye Cad. 35/15</p>
+          <p class="ct-addr ct-addr--city">Beşiktaş, İSTANBUL</p>
+        </article>
       </div>
     </section>
 
