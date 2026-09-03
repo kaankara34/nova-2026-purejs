@@ -677,3 +677,9 @@ html:has(.page-cx) { scroll-behavior: auto; }
   .cx-final-dwg { place-items: start center; }
   .cx-final-dwg--d svg { width: 92%; margin-top: calc(var(--header-h) + 4px); }
 }
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
+}

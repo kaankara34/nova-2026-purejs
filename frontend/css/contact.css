@@ -335,3 +335,9 @@ html.ct-js .page-contact [data-ct] { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   html.ct-js .page-contact [data-ct] { opacity: 1 !important; transform: none !important; }
 }
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
+}

@@ -574,3 +574,9 @@ html.dz-js .page-design [data-dz-fig] img { opacity: 0; }
   html.dz-js .page-design [data-dz-fig] img { opacity: 1 !important; transform: none !important; }
   .page-design .dz-fig img { transition: none; }
 }
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
+}

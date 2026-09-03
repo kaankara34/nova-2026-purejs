@@ -675,3 +675,9 @@ html:has(.page-leed) { scroll-behavior: auto; }
   .lx-cue-line, .lx-cue-bead, .lx-cue, .lx-daylight, .lx-motes i, .lx-acoustic circle,
   .lx-hot-dot::before, .lx-hot-dot::after, .lx-hint::before { animation: none !important; }
 }
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
+}

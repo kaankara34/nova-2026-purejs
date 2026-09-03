@@ -614,3 +614,9 @@ html.bb-js .page-bbl [data-bb-fig] img { opacity: 0; }
   .page-bbl .bb-cue-line::after { animation: none; }
   .page-bbl .bb-scr, .page-bbl .bb-feat { transition: none; }
 }
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 0px;
+    }
+}
