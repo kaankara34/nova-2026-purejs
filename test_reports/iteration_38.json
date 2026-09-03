@@ -1,0 +1,40 @@
+{
+  "summary": "Frontend-only regression of the three scoped changes. DESIGN (/design.html): material register 3D viewer verified at 1440/1024/390 — all five samples (Walnut, Bookmatched stone, Aged bronze, Leather, Smoked glass) render with convincing PBR (walnut grain + clearcoat, mirrored Calacatta bookmatch, pitted patinated bronze, creased leather with sheen, transmissive smoked glass), zero console/WebGL errors, counter (data-mat-count) and name (data-mat-name) update on every tab click, prev/next arrows step 05->01 and are correctly disabled at both ends (arrows are intentionally CSS-hidden above 1100px — verified at 1024/390). Replaced imagery proportion-interior.webp and light-wide.webp both load (naturalWidth 1264) and are high-quality on-brand editorial interiors, correctly framed in their containers. Mobile Walnut figcaption still fits at 375/390/430 with 0 horizontal overflow. CONTACT (preview domain + localhost): email/phone now 16.56px compact type with working mailto:/tel: hrefs; all three office-hours blocks present with the exact three rows and consistent styling, visually secondary (11.5px vs 20.16px office name); birds video is 548px wide at 1440 (>=480 requirement met), autoplaying, muted, looping, readyState 4, and stays full-width (346px, left 22 / right 368) at 390; zero horizontal overflow at 1440/1024/768/390 and no element with scrollWidth > clientWidth; Instagram tiles serve from /api/instagram/image/<code> (naturalWidth 1080) on the preview domain and fall back to ./media/images/contact/ig/post-N.jpg (naturalWidth 760) on localhost, each linking to a valid instagram.com/p/ permalink; register-interest form shows the validation message on empty submit and the success message with name + email + privacy checked. CONSTRUCTION (/construction.html): hero contains no cxRebarCanvas, no canvas at all and no rebar image — background is solid rgb(11,13,14) with backgroundImage none; heading 'Construction & Engineering', kicker, claim, lead and both body columns all intact and legible; cxCageCanvas renders the reinforcement bars, all 8 element-list buttons click and toggle is-on, full-page scroll produced no JS errors, and 0 horizontal overflow at 1440/1024/768/390. No functional defects found; only two minor design observations reported below.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Contact page intro (desktop 1440/1024)",
+        "issues": [
+          "Enlarging the birds video to 548x684 leaves an approx. 290px vertical void in the left column between the intro rule and the E-POSTA/TELEFON row, which works against the requested 'denser corporate hierarchy'. Consider pulling the email/phone block up or letting the copy column align to the video's vertical centre."
+        ]
+      },
+      {
+        "screen": "Contact page office-hours block (all breakpoints)",
+        "issues": [
+          "Office-hours rows use rgba(51,41,31,.56) at 11.5px on rgb(241,235,227) = approx. 3.4:1 contrast, below WCAG AA 4.5:1 for text this small. Raising the alpha to ~.72 keeps it secondary to the office name (20.16px) while becoming comfortably legible."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: tighten the desktop Contact intro left column so the enlarged video does not leave a ~290px whitespace gap above E-POSTA/TELEFON.",
+    "Optional: raise .ct-hours dt/dd text alpha from .56 to ~.72 to clear WCAG AA at 11.5px."
+  ],
+  "critical_code_review_comments": [
+    "design.html: img[src*='proportion-interior'] computes object-fit: fill. It happens to be safe today because the rendered box (835x560) matches the asset's 1264x848 aspect exactly, but any future container change will distort the photo — prefer object-fit: cover for resilience.",
+    "js/construction.js hero block (lines ~270-331) is now dead code, correctly inert via the `if (gl && canvas)` guard but still shipped; consider removing it so the hero's THREE/WebGL setup is not parsed on every load.",
+    "js/materials3d.js is well guarded (canvas null-check, lazy loadSet()), no leaks or errors observed across 3 breakpoints and 10+ material switches."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "not tested (frontend-only request)", "frontend": "100% (8/8 requested scenarios pass)" },
+  "seed_data_creation": "Submitted the UI-only register-interest form once with TEST QA / qa@example.test (no backend persistence, nothing to clean up).",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "none required — static site, no auth",
+  "context_for_next_testing_agent": "Two important testing gotchas discovered this round. (1) The material register canvas is created WITHOUT preserveDrawingBuffer, so gl.readPixels() after a frame returns all zeros — this is a FALSE NEGATIVE for 'blank canvas'. Verify the samples with element-level screenshots (canvas.screenshot()) instead. (2) The material prev/next arrows (.dz-reg-nav) are display:none above 1100px by design (design.css:474 / media query at 530), so they can only be clicked at <=1100 widths; the tab strip is the desktop control. Also note the contact register form's FIRST checkbox is 'news' (pre-checked) — you must target [data-testid='contact-register-privacy'] explicitly or the happy-path submit will keep returning the validation error. Instagram tiles: /api/instagram/image/<code> on the preview domain, ./media/images/contact/ig/post-N.jpg fallback on localhost:3000 (no /api proxy there) — both verified working.",
+  "rca_of_the_issue": "No defects requiring RCA. The only two initial test failures were test-harness artefacts, both root-caused: gl.readPixels returning zeros because the WebGLRenderer is created without preserveDrawingBuffer (the canvas in fact renders correctly, proven by element screenshots), and the register-form happy path failing because the script checked the pre-checked 'news' checkbox rather than the required 'privacy' one. Both test scripts were corrected and re-run green; no application code was changed."
+}

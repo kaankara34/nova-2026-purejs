@@ -19,55 +19,144 @@ function start() {
   const base = './media/images/design/';
 
   const defs = [
-    { map: 'tex-walnut.webp', bump: 0.055, props: { roughness: 0.44, metalness: 0, clearcoat: 0.22, clearcoatRoughness: 0.38 } },
-    { map: 'tex-stone.webp', bump: 0.02, props: { roughness: 0.2, metalness: 0, clearcoat: 0.4, clearcoatRoughness: 0.16 } },
-    { map: 'tex-bronze.webp', bump: 0.035, props: { roughness: 0.33, metalness: 0.92, clearcoat: 0.1 } },
-    { map: 'tex-leather.webp', bump: 0.08, props: { roughness: 0.72, metalness: 0, sheen: 0.4, sheenRoughness: 0.6 } },
-    { map: null, props: { roughness: 0.06, metalness: 0, transmission: 0.9, thickness: 0.55, ior: 1.5, color: 0x63615b } }
+    {
+      slug: 'walnut', depth: 1,
+      props: {
+        roughness: 1, metalness: 0, clearcoat: 0.07, clearcoatRoughness: 0.62,
+        nScale: 0.45, envMapIntensity: 0.3
+      }
+    },
+    {
+      slug: 'stone', depth: 1.35,
+      props: {
+        roughness: 1, metalness: 0, clearcoat: 0.34, clearcoatRoughness: 0.14,
+        nScale: 0.35, envMapIntensity: 0.9
+      }
+    },
+    {
+      slug: 'bronze', depth: 0.8,
+      props: {
+        roughness: 1, metalness: 1, clearcoat: 0, nScale: 0.55, envMapIntensity: 0.75
+      }
+    },
+    {
+      slug: 'leather', depth: 0.92,
+      props: {
+        roughness: 1, metalness: 0, clearcoat: 0.04, clearcoatRoughness: 0.9,
+        nScale: 0.7, envMapIntensity: 0.28, sheen: 0.35, sheenRoughness: 0.85, sheenColor: 0x9c7250
+      }
+    },
+    {
+      slug: null, depth: 1.7,
+      props: {
+        roughness: 0.02, metalness: 0, transmission: 1, thickness: 0.5, ior: 1.52,
+        color: 0xffffff, attenuationColor: 0x8d938e, attenuationDistance: 1.4,
+        specularIntensity: 1, clearcoat: 0, envMapIntensity: 1.15
+      }
+    }
   ];
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.06;
+  renderer.toneMappingExposure = 0.86;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
   camera.position.set(0, 0, 4.1);
 
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.02).texture;
+  scene.environmentIntensity = 1;
 
-  const key = new THREE.DirectionalLight(0xffe3c2, 1.7);
+  const key = new THREE.DirectionalLight(0xffe9d2, 0.85);
   key.position.set(2.2, 2.6, 2.4);
-  const fill = new THREE.DirectionalLight(0xdde3ea, 0.5);
+  const fill = new THREE.DirectionalLight(0xdde3ea, 0.3);
   fill.position.set(-2.4, 0.8, -1.6);
-  scene.add(key, fill, new THREE.AmbientLight(0xffffff, 0.16));
+  const rim = new THREE.DirectionalLight(0xfff4e6, 0.45);
+  rim.position.set(-1.4, 1.6, -3.2);
+  scene.add(key, fill, rim, new THREE.AmbientLight(0xffffff, 0.03));
 
   const loader = new THREE.TextureLoader();
-  const maps = defs.map(d => {
-    if (!d.map) return null;
-    const t = loader.load(base + d.map);
-    t.colorSpace = THREE.SRGBColorSpace;
-    t.anisotropy = 4;
-    return t;
-  });
+  const anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  const sets = defs.map(() => null);
+  const loadSet = (i) => {
+    if (sets[i] || !defs[i].slug) return sets[i];
+    const slug = defs[i].slug;
+    const tex = (file, srgb) => {
+      const t = loader.load(base + file);
+      t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+      t.anisotropy = anisotropy;
+      /* the plate is wider than it is tall — the square scan is cropped rather
+         than stretched, except the bookmatched slab whose seam must stay centred */
+      if (slug !== 'stone') {
+        t.repeat.set(1, 0.63);
+        t.offset.set(0, 0.185);
+      }
+      return t;
+    };
+    sets[i] = {
+      map: tex(`tex-${slug}.webp`, true),
+      normalMap: tex(`tex-${slug}-n.webp`, false),
+      roughnessMap: tex(`tex-${slug}-r.webp`, false)
+    };
+    return sets[i];
+  };
+
+  /* a backdrop the colour of the page, so transmitted light through the glass
+     sample reads correctly instead of resolving to black */
+  const backdrop = new THREE.Mesh(
+    new THREE.PlaneGeometry(24, 16),
+    new THREE.MeshBasicMaterial({ color: 0xf1ebe3, toneMapped: false })
+  );
+  backdrop.position.z = -6;
+  scene.add(backdrop);
 
   const material = new THREE.MeshPhysicalMaterial({ color: 0xffffff });
   const mesh = new THREE.Mesh(new RoundedBoxGeometry(1.9, 1.2, 0.15, 4, 0.025), material);
   mesh.rotation.set(-0.2, -0.42, 0.02);
   scene.add(mesh);
 
+  /* a backing card, seen only through the glass sample, so the body tint,
+     transmission and refraction are readable */
+  const cardTex = (() => {
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const x = c.getContext('2d');
+    const g = x.createLinearGradient(0, 0, 256, 256);
+    g.addColorStop(0, '#FBF7F1'); g.addColorStop(0.55, '#EFE8DE'); g.addColorStop(1, '#D8CEC1');
+    x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+    x.strokeStyle = 'rgba(51,41,31,.42)'; x.lineWidth = 2;
+    x.beginPath(); x.moveTo(0, 98); x.lineTo(256, 86); x.moveTo(0, 174); x.lineTo(256, 188); x.stroke();
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
+  const card = new THREE.Mesh(
+    new THREE.PlaneGeometry(1.66, 1.02),
+    new THREE.MeshBasicMaterial({ map: cardTex, toneMapped: false })
+  );
+  card.position.z = -0.4;
+  card.visible = false;
+  mesh.add(card);
+
   const applyMaterial = (i) => {
     const d = defs[i];
+    const set = loadSet(i);
+    card.visible = !d.slug;
     material.setValues({
-      map: maps[i] || null,
-      bumpMap: maps[i] || null,
-      bumpScale: d.bump || 0,
-      color: 0xffffff, transmission: 0, thickness: 0, clearcoat: 0,
-      sheen: 0, metalness: 0, transparent: !!d.props.transmission,
+      map: set ? set.map : null,
+      normalMap: set ? set.normalMap : null,
+      roughnessMap: set ? set.roughnessMap : null,
+      bumpMap: null, bumpScale: 0,
+      color: 0xffffff, transmission: 0, thickness: 0, clearcoat: 0, clearcoatRoughness: 0,
+      sheen: 0, metalness: 0, roughness: 1, ior: 1.5, attenuationDistance: Infinity,
+      envMapIntensity: 1, specularIntensity: 1,
+      transparent: !!d.props.transmission,
       ...d.props
     });
+    material.normalScale.set(d.props.nScale || 1, d.props.nScale || 1);
+    mesh.scale.z = d.depth;
     material.needsUpdate = true;
   };
   applyMaterial(0);

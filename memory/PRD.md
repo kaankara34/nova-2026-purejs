@@ -772,3 +772,6 @@ See memory/CHANGELOG.md for the detailed entry. Contact now carries the intro ar
 
 ## 2026-06 — Contact: canlı Instagram akışı + stabil kuş filmi
 Backend `/api/instagram/latest` + `/api/instagram/image/{shortcode}` (curl_cffi ile, 30 dk cache, Mongo fallback); contact.js kareleri her yüklemede son 4 gönderiyle günceller, yerel snapshot fallback. Kuş videosu stabilize edildi, 2.1x yavaşlatıldı ve soluk mavi-yeşil tonlandı. Detay: memory/CHANGELOG.md
+
+## 2026-06 — Scoped round (design materials / contact density / construction hero)
+See memory/CHANGELOG.md. Testing agent report: test_reports/iteration_38.json — no functional defects.
