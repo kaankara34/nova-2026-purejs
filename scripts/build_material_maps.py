@@ -1,47 +1,56 @@
-"""Builds the design-page material register maps: albedo, normal and roughness."""
+"""Builds the design-page material maps: albedo, normal and roughness.
+
+Nero Portoro is delivered as two consecutive slabs; the bookmatch itself is done
+in the viewer by mirroring the second slab's UVs, so the scan stays a single slab.
+"""
 import io
-import sys
 import urllib.request
 
 import numpy as np
-from PIL import Image, ImageFilter
+from PIL import Image, ImageEnhance, ImageFilter
 
 OUT = "/app/frontend/media/images/design/"
+JOB = "https://static.prod-images.emergentagent.com/jobs/98214041-2973-42cf-b923-136a486faf23/images/"
 
 SRC = {
-    "walnut": "https://static.prod-images.emergentagent.com/jobs/98214041-2973-42cf-b923-136a486faf23/images/e03815e4a1aecc445dac08d1701749824e60d491265e8cb6093e8f360c5feba6.jpeg",
-    "stone": "https://static.prod-images.emergentagent.com/jobs/98214041-2973-42cf-b923-136a486faf23/images/eb5684b5bc6148fb6c9dd92cf3e8034438744db29f82f173bfde91f83e47b990.jpeg",
-    "bronze": "https://static.prod-images.emergentagent.com/jobs/98214041-2973-42cf-b923-136a486faf23/images/13ab4a2c2526d23ff9045c006064ab64a9aebc4bec862d4fdf835fdaf259f3e9.jpeg",
-    "leather": "https://static.prod-images.emergentagent.com/jobs/98214041-2973-42cf-b923-136a486faf23/images/49c4cf02092989c53e3b877cb1013aa4aad8b3346db2bfa550730b9f851f16d5.jpeg",
+    "walnut": JOB + "ba85cee7208675f07e74f96323f13371dbcd511f82b510657d9fb8685376d7e7.jpeg",
+    "pietra": JOB + "cf0809a956dec43835044a879dcaa49bbe63a13f4f74948b0631fe20eb0a0163.jpeg",
+    "bronze": JOB + "e084464d8e49d2cc2adf1af434c5ec751278c5198d5aa6d2e430f413208e4405.jpeg",
+    "leather": JOB + "f222b988d76b3883bc318f34bf96a2b10787f02377738db9fae01e3eaca105bf.jpeg",
 }
 
-# per material: (normal strength, roughness floor, roughness span, invert luminance)
+# normal strength, roughness floor, roughness span, invert luminance, rgb gain
 GRADE = {
-    "walnut": (2.6, 0.36, 0.20, True),
-    "stone": (1.1, 0.14, 0.12, True),
-    "bronze": (2.2, 0.30, 0.26, True),
-    "leather": (3.4, 0.58, 0.22, True),
+    "walnut": (1.8, 0.40, 0.16, True, (1.0, 0.98, 0.96)),
+    "pietra": (1.0, 0.40, 0.14, True, (0.99, 1.0, 1.02)),
+    "bronze": (1.3, 0.20, 0.22, True, (1.42, 1.20, 0.98)),
+    "leather": (2.0, 0.64, 0.18, True, (0.84, 0.86, 0.94)),
 }
 
 
 def fetch(url: str) -> Image.Image:
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    data = urllib.request.urlopen(req, timeout=90).read()
-    return Image.open(io.BytesIO(data)).convert("RGB")
+    return Image.open(io.BytesIO(urllib.request.urlopen(req, timeout=90).read())).convert("RGB")
 
 
-def bookmatch(img: Image.Image, size: int = 1024) -> Image.Image:
-    """Two consecutive slabs opened around a central seam."""
-    img = img.resize((size, size), Image.LANCZOS)
-    half = img.crop((size // 4, 0, size // 4 + size // 2, size))
-    out = Image.new("RGB", (size, size))
-    out.paste(half.transpose(Image.FLIP_LEFT_RIGHT), (0, 0))
-    out.paste(half, (size // 2, 0))
-    return out
+def grade(img: Image.Image, gain) -> Image.Image:
+    arr = np.asarray(img, dtype=np.float32) * np.array(gain, dtype=np.float32)
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
+
+
+def soft_bookmatch(img: Image.Image, strength: float = 0.5, spread: float = 0.2) -> Image.Image:
+    """Blends a mirrored copy of the field into the middle of the slab so a quiet
+    mirrored relationship reads on close inspection, with no axis, seam or V."""
+    a = np.asarray(img, dtype=np.float32)
+    b = a[:, ::-1, :]
+    x = np.linspace(0, 1, a.shape[1], dtype=np.float32)
+    w = strength * np.exp(-((x - 0.5) ** 2) / (2 * spread * spread))
+    mask = w[None, :, None]
+    return Image.fromarray(np.clip(a * (1 - mask) + b * mask, 0, 255).astype(np.uint8), "RGB")
 
 
 def normal_map(img: Image.Image, strength: float) -> Image.Image:
-    grey = np.asarray(img.convert("L").filter(ImageFilter.GaussianBlur(0.6)), dtype=np.float32) / 255.0
+    grey = np.asarray(img.convert("L").filter(ImageFilter.GaussianBlur(0.7)), dtype=np.float32) / 255.0
     dx = np.gradient(grey, axis=1) * strength * 8.0
     dy = np.gradient(grey, axis=0) * strength * 8.0
     nz = np.ones_like(grey)
@@ -51,7 +60,7 @@ def normal_map(img: Image.Image, strength: float) -> Image.Image:
 
 
 def roughness_map(img: Image.Image, floor: float, span: float, invert: bool) -> Image.Image:
-    grey = np.asarray(img.convert("L").filter(ImageFilter.GaussianBlur(1.2)), dtype=np.float32) / 255.0
+    grey = np.asarray(img.convert("L").filter(ImageFilter.GaussianBlur(1.4)), dtype=np.float32) / 255.0
     lo, hi = np.percentile(grey, 3), np.percentile(grey, 97)
     grey = np.clip((grey - lo) / max(hi - lo, 1e-4), 0, 1)
     if invert:
@@ -60,18 +69,18 @@ def roughness_map(img: Image.Image, floor: float, span: float, invert: bool) -> 
     return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8), "L").convert("RGB")
 
 
-def main() -> None:
-    for name, url in SRC.items():
-        img = fetch(url)
-        img = bookmatch(img) if name == "stone" else img.resize((1024, 1024), Image.LANCZOS)
-        strength, floor, span, invert = GRADE[name]
-        img.save(f"{OUT}tex-{name}.webp", "WEBP", quality=82, method=6)
-        normal_map(img, strength).resize((512, 512), Image.LANCZOS).save(
-            f"{OUT}tex-{name}-n.webp", "WEBP", quality=80, method=6)
-        roughness_map(img, floor, span, invert).resize((384, 384), Image.LANCZOS).save(
-            f"{OUT}tex-{name}-r.webp", "WEBP", quality=72, method=6)
-        print("built", name)
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+for name, url in SRC.items():
+    strength, floor, span, invert, gain = GRADE[name]
+    img = grade(fetch(url).resize((1024, 1024), Image.LANCZOS), gain)
+    if name == "leather":
+        img = ImageEnhance.Color(img).enhance(0.62)
+    if name == "pietra":
+        img = ImageEnhance.Color(img).enhance(0.68)
+    if name == "pietra":
+        img = soft_bookmatch(img)
+    img.save(f"{OUT}tex-{name}.webp", "WEBP", quality=82, method=6)
+    normal_map(img, strength).resize((512, 512), Image.LANCZOS).save(
+        f"{OUT}tex-{name}-n.webp", "WEBP", quality=80, method=6)
+    roughness_map(img, floor, span, invert).resize((384, 384), Image.LANCZOS).save(
+        f"{OUT}tex-{name}-r.webp", "WEBP", quality=72, method=6)
+    print("built", name)

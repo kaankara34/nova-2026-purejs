@@ -57,19 +57,21 @@
 }
 .page-contact .ct-rule {
   display: block; width: clamp(64px, 8vw, 120px); height: 1px;
-  margin-top: clamp(24px, 2.6vw, 40px); background: var(--ct-rule);
+  margin-top: clamp(22px, 2.4vw, 34px); background: var(--ct-rule);
 }
 
 /* ---------------- intro ---------------- */
-.page-contact .ct-intro { padding: clamp(140px, 16vh, 196px) 0 clamp(24px, 2.4vw, 36px); }
+.page-contact .ct-intro {
+  padding: calc(var(--header-h, 110px) + 40px + clamp(48px, 4vw, 64px)) 0 clamp(64px, 7vw, 116px);
+}
 .page-contact .ct-intro-grid {
-  display: grid; grid-template-columns: minmax(0, 46%) minmax(0, 44%);
-  justify-content: space-between; column-gap: var(--ct-gap); align-items: center;
+  display: grid; grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  column-gap: clamp(72px, 6vw, 110px); align-items: start;
 }
 /* the intro film — a flock rising, toned into the warm ground */
 .page-contact .ct-art {
-  position: relative; justify-self: end; margin: 0;
-  width: 100%; max-width: 560px; aspect-ratio: 4 / 5; overflow: hidden; background: #E4DCD0;
+  position: relative; justify-self: start; align-self: start; margin: 0;
+  width: 100%; max-width: 520px; aspect-ratio: 4 / 5; overflow: hidden; background: #E4DCD0;
 }
 .page-contact .ct-art-video {
   display: block; width: 100%; height: 100%; object-fit: cover;
@@ -84,15 +86,16 @@
   border: 1px solid rgba(51, 41, 31, .16);
 }
 
-/* ---------------- primary contact ---------------- */
-.page-contact .ct-detail { padding-bottom: clamp(52px, 6vw, 96px); }
+/* ---------------- primary contact — inside the hero's left column ---------------- */
 .page-contact .ct-detail-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--ct-gap);
+  margin-top: clamp(26px, 2.8vw, 40px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  column-gap: clamp(24px, 3vw, 52px); row-gap: clamp(22px, 2.4vw, 32px);
 }
 .page-contact .ct-value {
   display: inline-block; margin-top: clamp(8px, 0.9vw, 12px);
-  font-family: var(--font-sans); font-weight: 400;
-  font-size: clamp(15px, 1.15vw, 18px); line-height: 1.5; letter-spacing: .015em;
+  font-family: var(--font-sans); font-weight: 300;
+  font-size: clamp(18px, 1.5vw, 22px); line-height: 1.45; letter-spacing: .01em;
   color: var(--ct-ink); word-break: break-word;
   border-bottom: 1px solid transparent; padding-bottom: 4px;
   transition: color .55s cubic-bezier(.22,.61,.36,1), border-color .55s cubic-bezier(.22,.61,.36,1);
@@ -304,6 +307,8 @@
   .page-contact { --ct-pad: clamp(22px, 4.8vw, 60px); --ct-gap: clamp(24px, 3.6vw, 52px); }
   .page-contact .ct-loc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(34px, 4.4vw, 52px); }
   .page-contact .ct-office:nth-child(3) { grid-column: 1 / -1; max-width: 48%; }
+  .page-contact .ct-intro-grid { grid-template-columns: minmax(0, 1fr); row-gap: clamp(40px, 5vw, 60px); }
+  .page-contact .ct-art { max-width: 460px; }
   .page-contact .ct-reg-inner { grid-template-columns: minmax(0, 1fr); row-gap: clamp(34px, 5vw, 52px); }
   .page-contact .ct-reg-lead { max-width: 46ch; }
 }
@@ -313,14 +318,13 @@
    ========================================================= */
 @media (max-width: 767px) {
   .page-contact { --ct-pad: 22px; }
-  .page-contact .ct-intro { padding: clamp(152px, 40vw, 178px) 0 clamp(44px, 11vw, 64px); }
+  .page-contact .ct-intro { padding: calc(var(--header-h, 85px) + 76px) 0 clamp(56px, 13vw, 80px); }
   .page-contact .ct-h1 { font-size: clamp(33px, 9.4vw, 44px); }
   .page-contact .ct-h2 { font-size: clamp(26px, 7.4vw, 34px); }
   .page-contact .ct-lead { font-size: 15px; }
   .page-contact .ct-rule { margin-top: 40px; }
 
-  .page-contact .ct-detail { padding-bottom: clamp(66px, 16vw, 96px); }
-  .page-contact .ct-detail-grid { grid-template-columns: minmax(0, 1fr); row-gap: clamp(34px, 8vw, 48px); }
+  .page-contact .ct-detail-grid { margin-top: 28px; grid-template-columns: minmax(0, 1fr); row-gap: clamp(24px, 6vw, 34px); }
   .page-contact .ct-value { font-size: clamp(16px, 4.4vw, 19px); padding-bottom: 5px; }
 
   .page-contact .ct-loc { padding-bottom: clamp(72px, 18vw, 108px); }  .page-contact .ct-loc-grid { margin-top: clamp(40px, 10vw, 56px); grid-template-columns: minmax(0, 1fr); row-gap: 30px; }

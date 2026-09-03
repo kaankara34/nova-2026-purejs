@@ -775,3 +775,6 @@ Backend `/api/instagram/latest` + `/api/instagram/image/{shortcode}` (curl_cffi 
 
 ## 2026-06 — Scoped round (design materials / contact density / construction hero)
 See memory/CHANGELOG.md. Testing agent report: test_reports/iteration_38.json — no functional defects.
+
+## 2026-06 — Design shared-slab material register + Pietra Grey + 16:9 mobile hero
+See memory/CHANGELOG.md. Testing agent: test_reports/iteration_39.json (all checks passed).
