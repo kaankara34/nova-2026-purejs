@@ -1,0 +1,95 @@
+{
+  "summary": "First test run for the new /the-apartments-tac.html page. Executed 11 review-request checks via Playwright at multiple viewports (375/390/430/768/1024/1440). Result: page loads cleanly with zero console errors, zero horizontal overflow at every tested width, hero/intro/action-bar/floor-plan/map/form/nearby/east-west-regression/link-check all pass. Two minor observations reported to main agent, both non-blocking.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Floor plan lightbox close button (data-testid=tac-plan-close)", "issue": "At the exact instant #tacPlansLightbox gains .is-open the close button reports getBoundingClientRect w=0,h=0 (top=0,left=0) and Playwright refuses to click it with 'Element is not visible'. DOM .click() and keyboard Escape both dismiss the lightbox correctly and the button IS visually rendered in the top-right of the lightbox in a screenshot, so this looks like a transient layout/animation timing where the button briefly has no measured box. Users clicking with a real mouse are unlikely to hit that window, but it caused an automated test failure. Recommend ensuring the button has an explicit width/height (or removing the entering animation from the close button) so it always has a non-zero bounding rect once .is-open is applied.", "selector": "[data-testid=tac-plan-close]", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "Hero construction video", "issue": "During one Playwright run the request for /media/video/tac/tac-construction.webm was recorded as failed, but a direct curl to the same URL returns HTTP 200 with 5.16 MB of body and the <video> element ends up with readyState=4 and paused=false. This looks like a Playwright request-abort artifact when the page navigates during preload, not a real broken asset. Just flagging so main agent doesn't chase it.", "affected_selectors": ["[data-testid=tac-hero-video]"]}
+    ],
+    "design_issues": []
+  },
+  "detailed_findings": {
+    "overflow_by_width_px": {"375": 0, "390": 0, "430": 0, "768": 0, "1024": 0, "1440": 0},
+    "hero": {
+      "no_logo_image_inside_tac_hero_inner": true,
+      "tac_hero_meta_visible": true,
+      "under_construction_badge_present": true,
+      "hero_offsetHeight_vs_window_1440": "702 / 900 (NOT full viewport)",
+      "hero_offsetHeight_vs_window_390": "523 / 844 (NOT full viewport)",
+      "video": {"muted": true, "loop": true, "playsInline": true, "paused": false, "readyState": 4, "poster_set": true}
+    },
+    "action_bar": {
+      "book_unit_text": "BOOK UNIT",
+      "view_plan_text": "VIEW FLOOR PLAN",
+      "view_render_text": "VIEW RENDER",
+      "view_render_has_inline_svg_icon": true,
+      "dom_order_of_book_vs_plan": "tac-book-unit precedes tac-view-plan (correct)",
+      "visual_left_positions_1440": {"book": 953.9, "plan": 1142.8, "render": 56},
+      "click_book_unit_scrolls_to_register": "scrollY 6110 vs #register top 6878 (near, correct)",
+      "click_view_plan_scrolls_to_floorplan": "scrollY 2330 vs #floorplan top 2488 (correct)",
+      "click_view_render_scrolls_to_architecture": "scrollY 1016 vs #architecture top 1173 (correct)"
+    },
+    "intro_typography_match": {
+      "logo_visible_after_reveal": "opacity 1 after IntersectionObserver trigger; <img src=./media/images/logos/TAC_logo-tight.svg> renders as T A Ç lettermark on dark bg",
+      "tac_vs_ew_logo_style": {"fontSize": "16px vs 16px", "maxWidth": "min(560px, 75%) vs min(560px, 75%)", "margin": "-50px 384px 0px vs -50px 384px 0px"},
+      "tac_vs_ew_tag_style": {"fontSize": "12px vs 12px", "maxWidth": "640px vs 640px", "margin": "0px 344px 20px vs 0px 344px 20px"},
+      "tac_vs_ew_sub_style": {"fontSize": "12px vs 12px", "maxWidth": "620px vs 620px", "margin": "0px 354px vs 0px 354px"},
+      "typography_match": "IDENTICAL"
+    },
+    "floor_plan": {
+      "plan_img_src": "./media/images/tac/plans/tac-4plus1.png (1080x1350, loaded)",
+      "expand_button_opens_lightbox": true,
+      "close_button_dismisses_lightbox": "works via DOM/Escape, Playwright cursor click failed (see UI bug)",
+      "clicking_plan_image_opens_lightbox": true,
+      "print_button_click": "no console error thrown",
+      "detail_rows_text_captured": "GROSS AREA 190 M2, Net Area 149 m2, 1. Living Room 39.33, 2. Master Bedroom 20.22, 3. Bedroom 12.05, 4. Bedroom 11.84, 5. Bedroom 9.86, 6. Kitchen 13.29, 7. Balcony 7.11 - all present, readable on dark theme at 1440 and 390"
+    },
+    "location_map": {
+      "canvas_present": true,
+      "leaflet_tile_count": 15,
+      "tile_source": "https://tile.openstreetmap.org (dark filter applied on .leaflet-tile-pane)",
+      "gold_site_plan_overlay_img": "http://localhost:3000/media/images/tac/tac-site-map.webp (naturalW=2000, complete=true, NOT broken)",
+      "bronze_marker_tac_map_pin_visible": true,
+      "tac_map_link_href": "https://www.google.com/maps/search/?api=1&query=40.977442,29.048793 (correct)",
+      "scroll_wheel_zoom_test": {"maxZoom_before_wheel": 17, "maxZoom_after_wheel": 19, "tile_URLs_changed": true, "verdict": "WORKS"}
+    },
+    "enquiry_form": {
+      "default_project_field_value": "The Apartments Taç, Bağdat Caddesi (correct)",
+      "empty_submit_message": "Please complete your name, email and accept the Privacy Policy.",
+      "successful_submit_message": "Thank you. Your request has been received - we will be in touch shortly."
+    },
+    "nearby_grid": {
+      "card_count": 13,
+      "each_card_has_background_image": "yes - style=background-image:url('./media/images/ew/*.webp') on inner .tac-nearby-img, no failed image requests",
+      "distances_and_labels_present": "verified all 13 entries from Bağdat Avenue 15m through Zorlu Center 12,5km"
+    },
+    "east_west_regression": {
+      "loads_at_1440_and_390": true,
+      "overflow_1440_and_390": {"1440": 0, "390": 0},
+      "console_errors": 0
+    },
+    "link_check": {
+      "east_west_footer_link_to_tac": "href=the-apartments-tac.html, HTTP 200",
+      "projects_html_tac_card_link": "href=the-apartments-tac.html (Feneryolu, Bağdat Caddesi card)",
+      "marti_residence_footer_link_to_tac": "href=the-apartments-tac.html",
+      "http_status_the_apartments_tac_html": 200,
+      "http_status_east_west_html": 200
+    }
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: give [data-testid=tac-plan-close] explicit width/height (or a non-entering animation) so its bounding rect is non-zero the instant .is-open is applied - purely to make automated e2e clicks reliable; end users can already close via mouse click / Esc / plan-image toggle.",
+    "No other action required - all 11 review-request items pass."
+  ],
+  "critical_code_review_comments": [
+    "the-apartments-tac.html and css/the-apartments-tac.css are generated artefacts - future testers must not edit them directly; source lives in scripts/tac_main.html + scripts/tac_overrides.css and is rebuilt by scripts/build_tac.py. This is correctly documented in the review-request."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100% of the 11 review-request checks pass; 1 minor automation-only quirk"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Taç page is in a good state. If further changes are made, re-run: (1) overflow diff at 6 widths, (2) hero video attributes + hero_offsetHeight vs window at 390/1440, (3) action-bar DOM order + scroll targets, (4) tac vs ew intro computed styles, (5) floor-plan lightbox open/close/print (use DOM .click for the close button to avoid the 0-size flicker), (6) leaflet zoom before/after mouse.wheel, (7) form empty vs valid submit, (8) 13 nearby cards, (9) east-west regression. Do NOT edit generated files - use scripts/tac_main.html + scripts/tac_overrides.css + python3 scripts/build_tac.py."
+}

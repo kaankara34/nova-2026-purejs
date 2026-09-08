@@ -778,3 +778,19 @@ See memory/CHANGELOG.md. Testing agent report: test_reports/iteration_38.json �
 
 ## 2026-06 — Design shared-slab material register + Pietra Grey + 16:9 mobile hero
 See memory/CHANGELOG.md. Testing agent: test_reports/iteration_39.json (all checks passed).
+
+---
+
+## The Apartments Taç — page status (June 2026)
+
+Delivered and testing-agent verified (`/app/test_reports/iteration_40.json`, 11/11 pass).
+Build chain: edit `scripts/tac_main.html` + `scripts/tac_overrides.css`, then `python3 scripts/build_tac.py`.
+`frontend/the-apartments-tac.html` and `frontend/css/the-apartments-tac.css` are GENERATED — never edit directly.
+Full detail in `memory/CHANGELOG.md`.
+
+### Open items for this page
+- **P0 — client assets pending:** approved Taç 4+1 floor plan (the East West drawing and its room schedule are placeholders) and the real project construction footage (current hero clip is temporary licensed stock).
+- **P0 — data to be edited by client:** WHAT'S NEARBY currently repeats East West's 13 entries/photos verbatim, at the client's request.
+- **P1 — pre-production check:** confirm the 190 m² gross-area definition against the approved architectural/sales-area schedules (dev comment left in the markup next to the specification grid).
+- **P1 — awaiting user visual approval** of the page as a whole.
+- **P2 — optional:** align the gold site-plan `imageOverlay` bounds more precisely against the OSM basemap; a real Taç brochure action if one is produced.
