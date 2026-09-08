@@ -1,0 +1,147 @@
+{
+  "summary": "Second Playwright pass on /the-apartments-tac.html covering the 6 correction items (site-plan / map separation, tac-intro rhythm, alpha-transparent plan asset, functional 3+1 / 4+1 tabs with dim masks, room-data swap + alignment, mobile behaviour, keyboard accessibility, lightbox + print, east-west regression). All 14 review-request checks PASS. Zero console errors on both /the-apartments-tac.html and /east-west.html. Zero horizontal overflow at 375/390/430/768/1024/1440.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "detailed_findings": {
+    "overflow_scrollWidth_minus_innerWidth": {"375": 0, "390": 0, "430": 0, "768": 0, "1024": 0, "1440": 0},
+    "console_errors_on_tac_page": 0,
+    "site_plan_vs_map_separation": {
+      "site_plan_image_count": 1,
+      "site_plan_inside_tac_location_media": true,
+      "site_plan_img_tag": "IMG",
+      "site_plan_position": "static (no absolute / no negative margin)",
+      "leaflet_image_layers": 0,
+      "gap_between_site_plan_bottom_and_map_top_px": {"1440": 65.80, "768": 37.00, "390": 28.30},
+      "verdict": "site-plan is a normal <img> in flow, ABOVE the map, no overlap on z-axis or spatially at any width"
+    },
+    "map_health": {
+      "canvas_present": true,
+      "leaflet_tile_count": 15,
+      "tile_source": "OpenStreetMap raster tiles (dark filter)",
+      "map_pin_visible": true,
+      "canvas_height_390_px": 447.5,
+      "wheel_zoom_note": "window._tacMap not exposed globally for direct getZoom check, but tiles render, marker renders, no console error and previous iteration confirmed zoom works"
+    },
+    "intro_rhythm": {
+      "tac_intro_padding_1440": "100.8px / 100.8px",
+      "tac_intro_padding_390": "40px / 40px (smaller than desktop, correct)",
+      "logo_1440": {"marginTop": "0px (NOT negative)", "marginBottom": "46px", "fontSize": "16px", "lineHeight": "24px"},
+      "tag_1440": {"maxWidth": "464px (constrained, not 100% of section)", "marginBottom": "25.92px", "fontSize": "12px", "lineHeight": "23.4px"},
+      "sub_1440": {"maxWidth": "496px (constrained)", "marginBottom": "0px", "fontSize": "12px", "lineHeight": "23.4px"},
+      "tag_390": {"maxWidth": "406px", "fontSize": "11px", "lineHeight": "20.35px"},
+      "sub_390": {"maxWidth": "434px", "fontSize": "11px", "lineHeight": "20.35px"},
+      "verdict": "no negative top margin on logo, paragraphs have explicit max-width, mobile padding < desktop padding"
+    },
+    "floor_plan_asset": {
+      "src": "./media/images/tac/plans/tac-4plus1.png",
+      "naturalWidth": 925,
+      "naturalHeight": 1350,
+      "img_background_color": "rgba(0,0,0,0)",
+      "tac_plans_image_background": "rgba(0,0,0,0)",
+      "tac_plans_viewport_background": "rgba(0,0,0,0)",
+      "wrapper_border": "0px none",
+      "wrapper_box_shadow": "none",
+      "verdict": "genuinely alpha-transparent, no card / border / shadow"
+    },
+    "tabs_default_state": {
+      "t3_tag": "BUTTON", "t3_role": "tab",
+      "t4_tag": "BUTTON", "t4_role": "tab",
+      "tablist_role": "tablist",
+      "t3_aria_selected": "false", "t3_tabindex": "-1",
+      "t4_aria_selected": "true",  "t4_tabindex": "0",
+      "data_active_on_viewport": "4+1"
+    },
+    "tabs_after_click_3plus1": {
+      "t3_aria_selected": "true", "t3_tabindex": "0", "t3_class": "tac-plans-tab active",
+      "t4_aria_selected": "false", "t4_tabindex": "-1", "t4_class": "tac-plans-tab",
+      "data_active_on_viewport": "3+1"
+    },
+    "dim_masks_1440_with_3plus1_active": {
+      "image_width": 505.64, "image_left": 185.09, "image_right": 690.73,
+      "dimL": {"left": 185.09, "right": 437.92, "width": 252.83, "opacity": 0},
+      "dimR": {"left": 437.92, "right": 690.75, "width": 252.83, "opacity": 0.72},
+      "center_seam_offset_px": 0,
+      "transition": "opacity 0.38s (in 300-450ms band)"
+    },
+    "dim_masks_390_with_3plus1_active": {
+      "image_width": 350.00, "dimL_width": 175.00, "dimR_width": 175.00,
+      "opL": 0, "opR": 0.72,
+      "seam_and_alignment": "flush - dimL.right == dimR.left == image_center, no gap or overhang"
+    },
+    "room_data_4plus1": {
+      "title": "4+1",
+      "gross_area": "190 M²",
+      "net_area": "149 m²",
+      "rooms_ordered": [
+        "1. Living Room 39.33",
+        "2. Master Bedroom 20.22",
+        "3. Bedroom 12.05",
+        "4. Bedroom 11.84",
+        "5. Bedroom 9.86",
+        "6. Kitchen 13.29",
+        "7. Balcony 7.11"
+      ]
+    },
+    "room_data_3plus1": {
+      "title": "3+1",
+      "gross_area": "155 M²",
+      "net_area": "127 m²",
+      "rooms_ordered": [
+        "1. Living Room 39.33",
+        "2. Master Bedroom 20.22",
+        "3. Bedroom 12.05",
+        "4. Bedroom 11.84",
+        "5. Kitchen 13.29",
+        "6. Balcony 7.11"
+      ],
+      "copy_updated_to_127m2": true
+    },
+    "no_stale_rows_after_3_toggles": "after 3x round-trip, ends on 4+1 with exactly the 4+1 row set (row-count consistent with 4+1)",
+    "row_alignment_1440": {"distinct_val_right_edges": [1344], "distinct_name_left_edges": [837.4]},
+    "keyboard": {
+      "ArrowRight_moves_focus_and_selection_to_4plus1": true,
+      "ArrowLeft_moves_back_to_3plus1": true,
+      "Enter_on_focused_tab_selects_it": true,
+      "inactive_tabindex_negative_one_active_zero": true
+    },
+    "mobile_375": {
+      "overflow": 0,
+      "plan_above_rows": true,
+      "tab_button_height_px": 48,
+      "image_aspect_ratio_measured_vs_target": "0.68520 vs 0.68519 (925/1350)",
+      "dim_masks_half_width_and_flush": true
+    },
+    "mobile_390": {
+      "overflow": 0,
+      "plan_above_rows": true,
+      "tab_button_height_px": 48,
+      "image_aspect_ratio_measured_vs_target": "0.68520 vs 0.68519",
+      "dim_masks_half_width_and_flush": true
+    },
+    "lightbox": {
+      "expand_adds_open_class_display_flex": true,
+      "close_button_click_removes_open_display_none": true,
+      "Escape_closes": true,
+      "print_button_click_no_console_error": true
+    },
+    "east_west_regression": {
+      "loads": true,
+      "console_errors": 0,
+      "overflow_1440": 0,
+      "overflow_390": 0
+    }
+  },
+  "test_report_links": [],
+  "action_items": ["None - all 14 review-request items pass on /the-apartments-tac.html and the /east-west.html regression is clean."],
+  "critical_code_review_comments": [
+    "window._tacMap (Leaflet instance) is not exposed globally, so external e2e cannot programmatically read zoom level. Not a bug - tiles + marker render and previous iteration verified mouse-wheel zoom - but exposing it as window._tacMap would make future automated regressions cheaper.",
+    "Generated files frontend/the-apartments-tac.html + frontend/css/the-apartments-tac.css are correctly marked 'do not edit'; sources live in scripts/tac_main.html and scripts/tac_overrides.css and are rebuilt by scripts/build_tac.py. Confirmed and respected."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only per request)", "frontend": "100% (14/14 review-request checks pass)"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Taç page passes all 14 correction-round checks. Key measurements to reuse if page changes: gap between .tac-location-media img and .tac-map-card > 0 at every width (currently 66/37/28 px @ 1440/768/390); dim mask width == 0.5 * plan image width, seam offset 0; opacity transition 0.38s; naturalWidth 925 / naturalHeight 1350; 4+1 has 7 rooms ending 'Balcony 7.11', 3+1 has 6 rooms and copy mentions 127 m²; tab role=tab in role=tablist with aria-selected/tabindex flipping correctly and ArrowLeft/ArrowRight/Enter working. Lightbox uses '.open' class (previous iteration's '.is-open' bug is fixed). East-West regression clean.",
+  "rca of the issue": "N/A - no issues found this iteration."
+}

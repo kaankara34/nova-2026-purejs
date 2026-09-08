@@ -42,12 +42,32 @@
 .page-tac .tac-btn--gold:hover { background: #B8A98A; border-color: #B8A98A; color: #0B0B0A; }
 
 /* ---------------- introduction ---------------- */
-.page-tac .tac-intro { background: #050505; }
+.page-tac .tac-intro {
+  background: #050505;
+  padding: clamp(58px, 7vw, 108px) clamp(20px, 5vw, 56px) clamp(58px, 7vw, 108px);
+  text-align: initial;
+}
 .page-tac .tac-intro-logo {
   filter: none; mix-blend-mode: normal;
+  width: min(430px, 64%); max-width: none;
+  margin: 0 auto clamp(30px, 3.4vw, 46px);
 }
-.page-tac .tac-intro-tag { color: var(--tac-cream); }
-.page-tac .tac-intro-sub { color: var(--tac-grey); }
+.page-tac .tac-intro-tag {
+  text-align: center;
+  max-width: 58ch;
+  line-height: 1.95;
+  letter-spacing: .07em;
+  margin: 0 auto clamp(16px, 1.8vw, 26px);
+  color: var(--tac-cream);
+}
+.page-tac .tac-intro-sub {
+  text-align: center;
+  max-width: 62ch;
+  line-height: 1.95;
+  letter-spacing: .07em;
+  margin: 0 auto;
+  color: var(--tac-grey);
+}
 
 /* ---------------- the single architectural render ---------------- */
 .page-tac .tac-render { background: #050505; padding: clamp(64px, 8vw, 130px) clamp(20px, 4vw, 56px); }
@@ -92,23 +112,68 @@
 /* ---------------- floor plan ---------------- */
 .page-tac .tac-plans { background: #050505; }
 .page-tac .tac-plans-eyebrow { color: #A99A7B; }
-.page-tac .tac-plans-tabs { border-bottom: 1px solid #5D5A53; }
-.page-tac .tac-plans-tab { color: var(--tac-grey); cursor: default; }
-.page-tac .tac-plans-tab.active { color: var(--tac-cream); }
-.page-tac .tac-plans-tab.active::after { background: #A99A7B; }
-.page-tac .tac-plans-image { background: #121311; border: 1px solid rgba(240, 238, 232, .1); }
+.page-tac .tac-plans-tabs {
+  border-bottom: 1px solid #5D5A53;
+  gap: clamp(10px, 1.4vw, 18px);
+  justify-content: flex-start;
+  padding-bottom: 0;
+  margin-bottom: clamp(26px, 3vw, 40px);
+}
+.page-tac .tac-plans-tab {
+  min-width: 92px; min-height: 46px; padding: 0 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(240, 238, 232, .16);
+  border-bottom: 0;
+  background: transparent; color: var(--tac-grey); cursor: pointer;
+  font-size: 12px; letter-spacing: .18em;
+  transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+}
+.page-tac .tac-plans-tab:hover { color: var(--tac-cream); }
+.page-tac .tac-plans-tab:focus-visible { outline: 1px solid var(--tac-gold); outline-offset: 2px; }
+.page-tac .tac-plans-tab.active {
+  color: #0B0B0A; background: var(--tac-gold); border-color: var(--tac-gold);
+}
+.page-tac .tac-plans-tab.active::after { display: none; }
+.page-tac .tac-plans-image {
+  background: transparent; border: 0; padding: 0;
+  display: block; min-height: 0;
+}
 .page-tac .tac-plans-viewport {
-  display: flex; align-items: center; justify-content: center;
-  background: #E8E3D9; padding: clamp(14px, 1.8vw, 26px);
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  background: transparent;
+  padding: 0;
+  overflow: visible;
+  min-height: 0;
 }
 .page-tac .tac-plans-img {
-  width: 100%; height: auto; display: block; background: transparent; cursor: zoom-in;
+  display: block;
+  width: auto; height: auto;
+  max-width: 100%;
+  max-height: clamp(460px, 82vh, 880px);
+  background: transparent; cursor: zoom-in;
 }
+.page-tac .tac-plans-dim {
+  position: absolute; top: 0; bottom: 0; width: 50%;
+  background: #050505;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .38s ease;
+}
+.page-tac .tac-plans-dim--left { left: 0; }
+.page-tac .tac-plans-dim--right { right: 0; }
+.page-tac .tac-plans-viewport[data-active="4+1"] .tac-plans-dim--left { opacity: .72; }
+.page-tac .tac-plans-viewport[data-active="3+1"] .tac-plans-dim--right { opacity: .72; }
 .page-tac .tac-plans-expand { background: #121311; color: var(--tac-cream); border: 1px solid rgba(240, 238, 232, .24); }
 .page-tac .tac-plans-expand:hover { background: var(--tac-gold); color: #0B0B0A; border-color: var(--tac-gold); }
 .page-tac .tac-plans-download { background: #121311; color: var(--tac-cream); border: 1px solid rgba(240, 238, 232, .24); }
 .page-tac .tac-plans-download:hover { background: var(--tac-gold); color: #0B0B0A; border-color: var(--tac-gold); }
 .page-tac .tac-plans-row em { font-style: normal; color: var(--tac-gold); margin-right: 8px; }
+.page-tac .tac-plans-row > span:first-child { text-align: left; }
+.page-tac .tac-plans-val { text-align: right; white-space: nowrap; flex: 0 0 auto; }
 .page-tac .tac-plans-title { color: var(--tac-cream); }
 .page-tac .tac-plans-row { color: var(--tac-grey); border-bottom: 1px solid #5D5A53; }
 .page-tac .tac-plans-val { color: var(--tac-cream); }
@@ -126,7 +191,7 @@
   width: 44px; height: 44px; line-height: 1; opacity: 1; transform: none;
   display: inline-flex; align-items: center; justify-content: center;
 }
-.page-tac .tac-plans-lightbox img { background: #E8E3D9; padding: 12px; }
+.page-tac .tac-plans-lightbox img { background: transparent; padding: 0; }
 
 /* ---------------- designed around space ---------------- */
 .page-tac .tac-invest { background: #050505; }
@@ -139,6 +204,15 @@
 
 /* ---------------- location ---------------- */
 .page-tac .tac-location { background: #0B0B0A; }
+.page-tac .tac-location-media {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto clamp(36px, 4.5vw, 72px);
+  aspect-ratio: 2000 / 1115;
+  overflow: hidden;
+  border: 1px solid rgba(240, 238, 232, .12);
+}
+.page-tac .tac-location-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .page-tac .tac-location-title, .page-tac .tac-location-lead { color: var(--tac-cream); }
 .page-tac .tac-location-desc { color: var(--tac-grey); }
 .page-tac .tac-map-card {
@@ -225,13 +299,23 @@
   .page-tac .tac-render-figure img { aspect-ratio: 4 / 5; }
 }
 @media (max-width: 767px) {
-  .page-tac .tac-hero-inner { padding: 0 20px 34px; gap: 16px; align-items: center; text-align: center; }
+  .page-tac .tac-hero-inner { padding: 0 20px 18px; gap: 12px; align-items: center; text-align: center; }
   .page-tac .tac-hero-logo { width: min(62vw, 240px); }
   .page-tac .tac-hero-meta { gap: 12px; font-size: 10px; letter-spacing: .16em; }
   .page-tac .tac-hero-video { object-position: 50% 42%; }
+  .page-tac .tac-intro { padding: clamp(40px, 9vw, 58px) 22px; }
+  .page-tac .tac-intro-logo { width: min(78vw, 300px); margin-bottom: clamp(20px, 5vw, 30px); }
+  .page-tac .tac-intro-tag { margin-bottom: 14px; line-height: 1.85; }
+  .page-tac .tac-intro-sub { line-height: 1.85; }
   .page-tac .tac-render { padding: 48px 18px 56px; }
   .page-tac .tac-render-inner { padding: 20px; }
   .page-tac .tac-render-figure img { aspect-ratio: 3 / 4; }
+  .page-tac .tac-plans-tabs { justify-content: center; margin-bottom: 22px; }
+  .page-tac .tac-plans-tab { min-width: 84px; min-height: 48px; font-size: 12px; letter-spacing: .14em; }
+  .page-tac .tac-plans-img { max-height: none; width: 100%; }
   .page-tac .tac-plans-copy { font-size: 13px; }
+  .page-tac .tac-plans-row { font-size: 12.5px; gap: 14px; padding: 12px 0; }
+  .page-tac .tac-location-media { margin-bottom: clamp(24px, 7vw, 36px); }
+  .page-tac .tac-map-card { aspect-ratio: 4 / 5; min-height: 320px; }
   .page-tac .tac-spec-value span { margin-top: 2px; }
 }
