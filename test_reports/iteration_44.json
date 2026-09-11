@@ -1,0 +1,51 @@
+{
+  "summary": "Focused retest of the MEDIUM issue from iteration_43 (floor-plan schedule hanging below the plan at ≤1024). The new @media (max-width:1100px) block in scripts/tac_overrides.css resolves it. At 1440 and 1920 the schedule bottom is exactly aligned with the plan image bottom (delta 0.00px) in a true two-column layout; at 1024/768/430/390 the section correctly stacks with the plan image above the schedule and no dangling rows. All quick-regression checks pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "detailed_results": {
+    "floor_plan_alignment": {
+      "1920": {"imgBottom": 3599.4, "rowsBottom": 3599.4, "delta_px": 0.00, "grid_cols": "676.72px 501.28px (two-column)"},
+      "1440": {"imgBottom": 3530.3, "rowsBottom": 3530.3, "delta_px": 0.00, "grid_cols": "683.84px 506.56px (two-column)"},
+      "1024": {"imgTop": 3418.8, "imgBottom": 4188.4, "rowsTop": 4312.7, "rowsBottom": 4679.4, "stacked": true, "grid_cols": "942.09px (single)"},
+      "768":  {"imgTop": 3091.4, "imgBottom": 3668.6, "rowsTop": 3771.6, "rowsBottom": 4138.4, "stacked": true, "grid_cols": "706.56px (single)"},
+      "430":  {"imgTop": 2698.0, "imgBottom": 3016.6, "rowsTop": 3119.6, "rowsBottom": 3523.9, "stacked": true, "grid_cols": "390px (single)"},
+      "390":  {"imgTop": 2690.1, "imgBottom": 2976.0, "rowsTop": 3079.0, "rowsBottom": 3502.0, "stacked": true, "grid_cols": "350px (single)"}
+    },
+    "horizontal_overflow_scrollWidth_minus_innerWidth": {"390": 0, "430": 0, "768": 0, "1024": 0, "1440": 0, "1920": 0},
+    "console_errors_total": 0,
+    "schedule_rows_count": 15,
+    "schedule_rows_verified": [
+      "GROSS AREA 190 M²", "Net Area 149 m²",
+      "1. Salon / Living Room 45.29 m²", "2. Master Bedroom 20.16 m²",
+      "3. Bedroom 12.11 m²", "4. Bedroom 11.77 m²", "5. Bedroom 11.22 m²",
+      "6. Kitchen 13.38 m²", "7. Entrance Hall 7.67 m²", "8. Corridor 7.59 m²",
+      "9. En-suite Bathroom 3.50 m²", "10. Bathroom 5.80 m²", "11. WC 2.16 m²",
+      "12. Utility 3.00 m²", "13. Balcony 5.10 m²"
+    ],
+    "tac_plans_background": "rgb(17, 18, 16) — matches spec",
+    "footnote_position": "Below plan body at all widths",
+    "header_transparent_at_scrollY_0": true,
+    "header_loses_transparent_past_hero": true,
+    "lightbox_open_via_expand": true,
+    "lightbox_close_via_close_button": true,
+    "lightbox_close_via_Escape": true,
+    "print_button_no_console_error": true,
+    "east_west_1440_overflow": 0,
+    "east_west_console_errors": 0
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is minimal and well-scoped — the @media (max-width:1100px) override only relaxes the flex-1 stretch behaviour used for desktop bottom-alignment, so wide-desktop parity is preserved."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "iteration_43 MEDIUM issue (rows dangling 64.64px below plan image at 1024) is fully resolved. At 1440/1920 the two-column layout still perfectly aligns bottoms (delta 0.00). At 1024/768/430/390 the section stacks correctly, plan image above schedule, no overlap or wasted space. Zero overflow and zero console errors on all tested breakpoints and on east-west.html at 1440. Lightbox and print handlers intact."
+}
