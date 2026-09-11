@@ -789,7 +789,9 @@ Build chain: edit `scripts/tac_main.html` + `scripts/tac_overrides.css`, then `p
 Full detail in `memory/CHANGELOG.md`.
 
 ### Open items for this page
-- **P0 — client assets pending:** approved Taç 4+1 floor plan (the East West drawing and its room schedule are placeholders) and the real project construction footage (current hero clip is temporary licensed stock).
+- **DONE (June 2026):** the client's real typical floor plan is installed with its real 13-room schedule; the 3+1/4+1 tabs and dimming masks were removed because both apartments per floor are 4+1. ARCHITECTURE is a single #0A0A0A with an Apple-quiet reveal. New `#parking` (PRIVATE PARKING) and `#arrival` (ARRIVAL) sections sit between DESIGNED AROUND SPACE and LOCATION.
+- **P0 — client assets pending:** real project construction footage (current hero clip is temporary licensed stock) and approved renders for the underground car park and the vehicle entrance (currently AI-generated visualisations, labelled "Architectural visualisation").
+- **P0 — to confirm against approved documents:** the legal classification of the two parking spaces in the title deed (page currently says only "formally recorded in the relevant title-deed documentation" and does NOT call them separate properties), and whether vehicle access is direct from Bağdat Caddesi or via a connecting street (page currently uses the careful "A considered arrival from Bağdat Caddesi." wording without the word "directly").
 - **P0 — data to be edited by client:** WHAT'S NEARBY currently repeats East West's 13 entries/photos verbatim, at the client's request.
 - **P1 — pre-production check:** confirm the 190 m² gross-area definition against the approved architectural/sales-area schedules (dev comment left in the markup next to the specification grid).
 - **P1 — awaiting user visual approval** of the page as a whole.

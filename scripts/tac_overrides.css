@@ -319,3 +319,171 @@
   .page-tac .tac-map-card { aspect-ratio: 4 / 5; min-height: 320px; }
   .page-tac .tac-spec-value span { margin-top: 2px; }
 }
+
+/* =========================================================
+   PRIVATE PARKING + ARRIVAL
+   Two editorial sections sharing the existing Taç grid,
+   type scale and reveal language. Namespace: tac-parking-.
+   ========================================================= */
+.page-tac .tac-parking-section {
+  background: #050505;
+  padding: clamp(64px, 8vw, 128px) clamp(20px, 4vw, 56px);
+}
+.page-tac .tac-parking-section--arrival { background: #0A0A0A; }
+.page-tac .tac-parking-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 40fr) minmax(0, 60fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+.page-tac .tac-parking-inner--reverse .tac-parking-copy { order: 2; }
+.page-tac .tac-parking-inner--reverse .tac-parking-figure-media { order: 1; }
+.page-tac .tac-parking-copy { max-width: 46ch; }
+.page-tac .tac-parking-eyebrow {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; font-weight: 500;
+  font-size: 11px; letter-spacing: .28em; color: var(--tac-gold);
+}
+.page-tac .tac-parking-heading {
+  margin: 16px 0 22px;
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(26px, 2.9vw, 44px); line-height: 1.14;
+  letter-spacing: .005em; color: var(--tac-cream);
+}
+.page-tac .tac-parking-body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; font-weight: 300;
+  font-size: 14px; line-height: 1.9; color: var(--tac-grey);
+}
+.page-tac .tac-parking-figures {
+  margin: clamp(26px, 3vw, 40px) 0 0;
+  display: flex; flex-wrap: wrap; gap: clamp(26px, 4vw, 56px);
+  border-top: 1px solid rgba(240, 238, 232, .12);
+  padding-top: clamp(20px, 2.4vw, 30px);
+}
+.page-tac .tac-parking-figure dt {
+  margin: 0 0 8px;
+  font-family: 'Montserrat', sans-serif; font-weight: 500;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--tac-grey);
+}
+.page-tac .tac-parking-figure dd { margin: 0; }
+.page-tac .tac-parking-num {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(34px, 3.4vw, 52px); line-height: 1;
+  color: var(--tac-gold); font-variant-numeric: tabular-nums;
+}
+.page-tac .tac-parking-note {
+  margin: clamp(22px, 2.6vw, 32px) 0 0;
+  font-family: 'Montserrat', sans-serif; font-weight: 400;
+  font-size: 11.5px; letter-spacing: .1em; line-height: 1.8;
+  text-transform: uppercase; color: var(--tac-cream);
+}
+.page-tac .tac-parking-figure-media {
+  margin: 0;
+  background: #111210;
+  border: 1px solid rgba(240, 238, 232, .1);
+  padding: clamp(10px, 1vw, 16px);
+}
+.page-tac .tac-parking-figure-media img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 1264 / 848; object-fit: cover;
+  clip-path: inset(0 0 0 0);
+}
+.page-tac .tac-parking-figure-media figcaption {
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif; font-weight: 400;
+  font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--tac-grey);
+}
+
+/* motion: soft clip reveal for the image, quiet lift for the copy */
+@media (prefers-reduced-motion: no-preference) {
+  .page-tac [data-tac-parking-reveal].is-pending .tac-parking-eyebrow,
+  .page-tac [data-tac-parking-reveal].is-pending .tac-parking-heading,
+  .page-tac [data-tac-parking-reveal].is-pending .tac-parking-body,
+  .page-tac [data-tac-parking-reveal].is-pending .tac-parking-figures,
+  .page-tac [data-tac-parking-reveal].is-pending .tac-parking-note {
+    opacity: 0; transform: translate3d(0, 26px, 0);
+  }
+  .page-tac [data-tac-parking-reveal] .tac-parking-eyebrow,
+  .page-tac [data-tac-parking-reveal] .tac-parking-heading,
+  .page-tac [data-tac-parking-reveal] .tac-parking-body,
+  .page-tac [data-tac-parking-reveal] .tac-parking-figures,
+  .page-tac [data-tac-parking-reveal] .tac-parking-note {
+    transition: opacity 1s cubic-bezier(.22, .61, .36, 1), transform 1s cubic-bezier(.22, .61, .36, 1);
+    transition-delay: var(--tac-delay, 0s);
+  }
+  .page-tac [data-tac-parking-reveal].is-pending img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
+  .page-tac [data-tac-parking-reveal] img {
+    transition: clip-path 1.15s cubic-bezier(.22, .61, .36, 1), transform 1.3s cubic-bezier(.22, .61, .36, 1);
+  }
+  .page-tac [data-tac-parking-reveal].is-pending figcaption { opacity: 0; }
+  .page-tac [data-tac-parking-reveal] figcaption { transition: opacity .9s ease .25s; }
+}
+
+@media (max-width: 900px) {
+  .page-tac .tac-parking-inner { grid-template-columns: minmax(0, 1fr); gap: clamp(26px, 6vw, 40px); }
+  .page-tac .tac-parking-inner--reverse .tac-parking-copy,
+  .page-tac .tac-parking-inner--reverse .tac-parking-figure-media { order: initial; }
+  .page-tac .tac-parking-copy { max-width: none; }
+}
+@media (max-width: 767px) {
+  .page-tac .tac-parking-section { padding: clamp(44px, 10vw, 64px) 20px; }
+  .page-tac .tac-parking-heading { margin: 14px 0 18px; font-size: clamp(24px, 6.4vw, 30px); }
+  .page-tac .tac-parking-body { font-size: 13px; line-height: 1.85; }
+  .page-tac .tac-parking-figures { gap: 30px; margin-top: 24px; padding-top: 18px; }
+  .page-tac .tac-parking-num { font-size: 34px; }
+  .page-tac .tac-parking-note { margin-top: 20px; font-size: 11px; }
+}
+
+/* =========================================================
+   ARCHITECTURE — one single black, with an Apple-quiet reveal
+   ========================================================= */
+.page-tac .tac-render,
+.page-tac .tac-render-inner { background: #0A0A0A; }
+.page-tac .tac-render-inner { border-color: transparent; }
+@media (prefers-reduced-motion: no-preference) {
+  .page-tac .tac-render-inner.is-pending .tac-render-figure img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
+  .page-tac .tac-render-figure img {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 1.15s cubic-bezier(.22, .61, .36, 1), transform 1.3s cubic-bezier(.22, .61, .36, 1);
+  }
+  .page-tac .tac-render-inner.is-pending .tac-render-eyebrow,
+  .page-tac .tac-render-inner.is-pending .tac-render-title,
+  .page-tac .tac-render-inner.is-pending .tac-render-copy {
+    opacity: 0; transform: translate3d(0, 28px, 0);
+  }
+  .page-tac .tac-render-eyebrow,
+  .page-tac .tac-render-title,
+  .page-tac .tac-render-copy {
+    transition: opacity 1s cubic-bezier(.22, .61, .36, 1), transform 1s cubic-bezier(.22, .61, .36, 1);
+    transition-delay: var(--tac-delay, 0s);
+  }
+}
+
+/* single landscape plan: fill the column, masks are no longer used */
+.page-tac .tac-plans-viewport { width: auto; max-width: none; }
+.page-tac .tac-plans-img { width: 100%; height: auto; max-width: 100%; max-height: none; }
+.page-tac .tac-plans-body { align-items: start; }
+
+/* single residence label (no tabs): a plain bronze marker, not a filled chip */
+.page-tac .tac-plans-tabs { border-bottom: 1px solid #5D5A53; }
+.page-tac .tac-plans-tab.active {
+  background: transparent; color: var(--tac-cream);
+  border: 0; border-bottom: 1px solid var(--tac-gold);
+  min-width: 0; min-height: 0; padding: 0 0 12px; cursor: default;
+}
+
+/* reduced motion: complete static fallback for the shared reveal classes too */
+@media (prefers-reduced-motion: reduce) {
+  .page-tac .reveal-up,
+  .page-tac .reveal-fade,
+  .page-tac .reveal-stagger,
+  .page-tac .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    clip-path: none !important;
+  }
+}

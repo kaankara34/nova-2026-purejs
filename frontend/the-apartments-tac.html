@@ -276,9 +276,8 @@
   <!-- ============================= FLOOR PLAN ============================= -->
   <section class="tac-plans reveal-up" id="floorplan">
     <div class="tac-plans-eyebrow">TYPICAL RESIDENCE</div>
-    <div class="tac-plans-tabs" role="tablist" aria-label="Residence type">
-      <button class="tac-plans-tab" type="button" role="tab" id="tacTab3" aria-selected="false" aria-controls="tacPlanPanel" data-plan="3+1" data-testid="tac-plan-tab-3plus1">3+1</button>
-      <button class="tac-plans-tab active" type="button" role="tab" id="tacTab4" aria-selected="true" aria-controls="tacPlanPanel" data-plan="4+1" data-testid="tac-plan-tab-4plus1">4+1</button>
+    <div class="tac-plans-tabs">
+      <span class="tac-plans-tab active" data-testid="tac-plan-type">4+1</span>
     </div>
     <div class="tac-plans-body">
       <div class="tac-plans-image">
@@ -297,14 +296,12 @@
             <rect x="6" y="14" width="12" height="8"/>
           </svg>
         </button>
-        <div class="tac-plans-viewport" id="tacPlanPanel" role="tabpanel" aria-labelledby="tacTab4">
-          <!-- DEV NOTE: temporary drawing pending the approved Taç architectural plan.
-               The left half of the drawing is the 3+1 residence, the right half the 4+1. -->
+        <div class="tac-plans-viewport">
+          <!-- DEV NOTE: typical floor plan supplied by the client; both apartments on the
+               floor are 4+1, so the schedule beside it describes one 4+1 residence. -->
           <img class="tac-plans-img" id="tacPlanImg" src="./media/images/tac/plans/tac-4plus1.png"
-               width="925" height="1350" alt="The Apartments Taç — typical floor, 3+1 and 4+1 residences"
+               width="1748" height="1428" alt="The Apartments Taç — typical floor plan, 4+1 residences"
                loading="lazy" decoding="async" data-testid="tac-plan-image" />
-          <span class="tac-plans-dim tac-plans-dim--left" data-testid="tac-plan-dim-left" aria-hidden="true"></span>
-          <span class="tac-plans-dim tac-plans-dim--right" data-testid="tac-plan-dim-right" aria-hidden="true"></span>
         </div>
       </div>
       <div class="tac-plans-info">
@@ -318,15 +315,19 @@
             <span>Net Area</span>
             <span class="tac-plans-val">149 m²</span>
           </div>
-          <!-- DEV NOTE: placeholder room schedule taken from the East West plans.
-               Replace with the approved Taç room schedule when it is supplied. -->
-          <div class="tac-plans-row"><span><em>1.</em> Living Room</span><span class="tac-plans-val">39.33 m²</span></div>
-          <div class="tac-plans-row"><span><em>2.</em> Master Bedroom</span><span class="tac-plans-val">20.22 m²</span></div>
-          <div class="tac-plans-row"><span><em>3.</em> Bedroom</span><span class="tac-plans-val">12.05 m²</span></div>
-          <div class="tac-plans-row"><span><em>4.</em> Bedroom</span><span class="tac-plans-val">11.84 m²</span></div>
-          <div class="tac-plans-row"><span><em>5.</em> Bedroom</span><span class="tac-plans-val">9.86 m²</span></div>
-          <div class="tac-plans-row"><span><em>6.</em> Kitchen</span><span class="tac-plans-val">13.29 m²</span></div>
-          <div class="tac-plans-row"><span><em>7.</em> Balcony</span><span class="tac-plans-val">7.11 m²</span></div>
+          <div class="tac-plans-row"><span><em>1.</em> Salon / Living Room</span><span class="tac-plans-val">45.29 m²</span></div>
+          <div class="tac-plans-row"><span><em>2.</em> Master Bedroom</span><span class="tac-plans-val">20.16 m²</span></div>
+          <div class="tac-plans-row"><span><em>3.</em> Bedroom</span><span class="tac-plans-val">12.11 m²</span></div>
+          <div class="tac-plans-row"><span><em>4.</em> Bedroom</span><span class="tac-plans-val">11.77 m²</span></div>
+          <div class="tac-plans-row"><span><em>5.</em> Bedroom</span><span class="tac-plans-val">11.22 m²</span></div>
+          <div class="tac-plans-row"><span><em>6.</em> Kitchen</span><span class="tac-plans-val">13.38 m²</span></div>
+          <div class="tac-plans-row"><span><em>7.</em> Entrance Hall</span><span class="tac-plans-val">7.67 m²</span></div>
+          <div class="tac-plans-row"><span><em>8.</em> Corridor</span><span class="tac-plans-val">7.59 m²</span></div>
+          <div class="tac-plans-row"><span><em>9.</em> En-suite Bathroom</span><span class="tac-plans-val">3.50 m²</span></div>
+          <div class="tac-plans-row"><span><em>10.</em> Bathroom</span><span class="tac-plans-val">5.80 m²</span></div>
+          <div class="tac-plans-row"><span><em>11.</em> WC</span><span class="tac-plans-val">2.16 m²</span></div>
+          <div class="tac-plans-row"><span><em>12.</em> Utility</span><span class="tac-plans-val">3.00 m²</span></div>
+          <div class="tac-plans-row"><span><em>13.</em> Balcony</span><span class="tac-plans-val">5.10 m²</span></div>
         </div>
         <h4 class="tac-plans-sub">SPACE AS THE DEFINING FEATURE</h4>
         <p class="tac-plans-copy" id="tacPlanCopy">At 149 m² net, the plan provides the dimensions required for a genuine 4+1 residence. Living, private and service areas are organised through clear circulation, allowing the scale of the home to remain useful rather than merely numerical.</p>
@@ -353,6 +354,58 @@
         <li><span class="num">04</span><span class="txt">An established Selamiçeşme address near Bağdat Caddesi</span></li>
         <li><span class="num">05</span><span class="txt">A residence defined by privacy, proportion and permanence</span></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ============================= PRIVATE PARKING ============================= -->
+  <section class="tac-parking-section" id="parking" aria-labelledby="tac-parking-heading">
+    <div class="tac-parking-inner">
+      <div class="tac-parking-copy" data-tac-parking-reveal>
+        <p class="tac-parking-eyebrow">PRIVATE PARKING</p>
+        <h2 class="tac-parking-heading" id="tac-parking-heading">Two levels below ground.<br />Two spaces for every Nova residence.</h2>
+        <p class="tac-parking-body">Parking extends across two basement levels beneath The Apartments Taç. Each apartment within Nova&rsquo;s allocation includes two designated indoor parking spaces, formally recorded in the relevant title-deed documentation.</p>
+        <dl class="tac-parking-figures" data-testid="tac-parking-figures">
+          <div class="tac-parking-figure">
+            <dt>Basement levels</dt>
+            <dd><span class="tac-parking-num" data-tac-count="-2">&minus;2</span></dd>
+          </div>
+          <div class="tac-parking-figure">
+            <dt>Spaces per residence</dt>
+            <dd><span class="tac-parking-num" data-tac-count="2">2</span></dd>
+          </div>
+        </dl>
+        <p class="tac-parking-note">A permanent part of the residence&mdash;not an informal or temporary allocation.</p>
+      </div>
+      <figure class="tac-parking-figure-media" data-tac-parking-reveal>
+        <img src="./media/images/tac/tac-parking.webp"
+             srcset="./media/images/tac/tac-parking-800.webp 632w, ./media/images/tac/tac-parking.webp 1264w"
+             sizes="(max-width: 900px) 92vw, 56vw"
+             width="1264" height="848"
+             alt="Enclosed residential car park beneath The Apartments Taç, architectural visualisation"
+             loading="lazy" decoding="async" data-testid="tac-parking-image" />
+        <figcaption>Architectural visualisation</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================= ARRIVAL ============================= -->
+  <section class="tac-parking-section tac-parking-section--arrival" id="arrival" aria-labelledby="tac-arrival-heading">
+    <div class="tac-parking-inner tac-parking-inner--reverse">
+      <div class="tac-parking-copy" data-tac-parking-reveal>
+        <p class="tac-parking-eyebrow">ARRIVAL</p>
+        <h2 class="tac-parking-heading" id="tac-arrival-heading">A considered arrival from Bağdat Caddesi.</h2>
+        <p class="tac-parking-body">The vehicular approach from Bağdat Caddesi leads to the controlled entrance of The Apartments Taç and continues to the enclosed parking levels below the residence.</p>
+        <p class="tac-parking-note">A clear, secure and considered transition from the avenue to the building.</p>
+      </div>
+      <figure class="tac-parking-figure-media" data-tac-parking-reveal>
+        <img src="./media/images/tac/tac-arrival.webp"
+             srcset="./media/images/tac/tac-arrival-800.webp 632w, ./media/images/tac/tac-arrival.webp 1264w"
+             sizes="(max-width: 900px) 92vw, 56vw"
+             width="1264" height="848"
+             alt="Vehicular entrance to The Apartments Taç from Bağdat Caddesi, architectural visualisation"
+             loading="lazy" decoding="async" data-testid="tac-arrival-image" />
+        <figcaption>Architectural visualisation</figcaption>
+      </figure>
     </div>
   </section>
 

@@ -1,0 +1,31 @@
+{
+  "summary": "Frontend-only regression + new features test on /the-apartments-tac.html and /east-west.html. 14/15 spec bullets fully pass. Zero horizontal overflow at 390/430/768/1024/1440/1920 (all diffs = 0). Old 3+1/4+1 tabs, dim masks and role=tablist fully removed. Single 4+1 plan renders exactly 15 rows with correct m² values, val right-edges aligned (1344px at 1440, 370px at 390). Plan image loads tac-4plus1.png at 1748x1428, aspect matches at both breakpoints. Lightbox expand/close/img-click/Escape all work; print button throws no console error. ARCHITECTURE: outer + inner both rgb(10,10,10), inner border-color transparent, child reveals use 1s–1.3s transitions on opacity/transform/clip-path, no layout shift. Section order .tac-invest → #parking → #arrival → .tac-location verified at 1440 and 390 with no overlap. Parking + Arrival copy exactly matches spec (no 'directly', no cliches, no East-West values). Parking figures show -2 and 2. Desktop 40/60 split (502/754 cols, ~1360 max-w), parking text-left/image-right, arrival image-left/text-right (mirrored). Mobile stacks copy above image in both sections. Both new images are WebP, lazy, have srcset + explicit w/h + figcaption 'Architectural visualisation'. Reduced-motion: is-pending never applied, parking + arrival items all opacity 1 / clip-path none. East-west.html regression: 0 console errors, 0 overflow at 1440 and 390. Enquiry form empty submit shows validation error. One MINOR reduced-motion issue on the architecture <figure>.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": ".tac-render-figure.reveal-up (ARCHITECTURE image wrapper)",
+        "issue": "In prefers-reduced-motion, the outer <figure class='tac-render-figure reveal-up'> is still hidden pre-scroll (computed opacity: 0, transform: translateY(40px)). It only becomes visible after the IntersectionObserver adds the 'in-view' class. All other architecture items (eyebrow, title, copy, and the <img> itself) are correctly opacity:1. Spec requires a complete static fallback with reduced motion. Suggested fix: in the reduced-motion media query, force .tac-render-figure.reveal-up { opacity:1 !important; transform:none !important; } (and same for any other .reveal-up children in this section).",
+        "selector": ".tac-render-figure.reveal-up",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "In scripts/tac_overrides.css add a @media (prefers-reduced-motion: reduce) rule that resets .tac-render-figure.reveal-up (and any sibling .reveal-up inside .tac-render-inner) to opacity:1 and transform:none so the ARCHITECTURE figure is visible without scroll under reduced motion. Rebuild via python3 scripts/build_tac.py."
+  ],
+  "critical_code_review_comments": [
+    "ARCHITECTURE reveal mixes two systems: the new 'is-pending' driven reveal (correctly disabled under reduced motion) AND a legacy global '.reveal-up' + '.in-view' pattern on the figure. The legacy one is not gated by reduced-motion; consolidate on the is-pending system inside .tac-render-inner or ensure reduced-motion resets .reveal-up.",
+    "Two-column .tac-parking-inner grid template is fixed to '2fr 3fr'-ish px values (502/754) — verify it stays proportional between 1024 and 1440; currently OK but a fr/fr grid would be more robust."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "97%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "The Taç page has been thoroughly validated against iteration_42 spec. The only remaining nit is the .reveal-up figure inside .tac-render-inner still hiding under prefers-reduced-motion before scroll. Everything else (overflow, tab removal, single 4+1 plan, 15-row schedule, val alignment, lightbox, print, architecture single #0A0A0A, section order, parking/arrival exact copy, 40/60 desktop, mobile copy-above-image, WebP + srcset + figcaption + explicit w/h, reduced-motion for the new sections, east-west regression, enquiry empty-submit validation) is passing.",
+  "rca of the issue": "The .tac-render-figure element carries the legacy 'reveal-up' class from the site's global scroll-in animation system. That class sets opacity:0 and transform:translateY(40px) unconditionally, and only clears when 'in-view' is added by the observer. The new is-pending path added for iteration_42 skips itself under prefers-reduced-motion (verified: archPending=false, no is-pending applied anywhere), but it does not neutralise the co-existing .reveal-up baseline. Fix by adding a reduced-motion override that unsets .reveal-up transforms/opacities inside .tac-render-inner."
+}
