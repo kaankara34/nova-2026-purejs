@@ -1,0 +1,85 @@
+{
+  "summary": "Focused UI regression on the-apartments-tac.html covering the 5 targeted changes (asset weight/loading, reveal timing, parking visual, footnote right-flush, schedule readability, map coordinates) plus the requested regressions. All pass. Zero horizontal overflow and zero console errors on 390/430/768/1024/1440/1920. east-west.html also loads cleanly at 1440.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "detailed_results": {
+    "asset_loading": {
+      "tac-plan-image": {"src": "media/images/tac/plans/tac-4plus1.webp", "status": 200, "content_length_bytes": 271658, "naturalWidth": 1748, "naturalHeight": 1428, "loading": "lazy", "png_ever_requested": false},
+      "tac-render-image": {"loading": "eager", "fetchpriority": "high", "complete": true},
+      "tac-parking-image": {"loading": "lazy", "srcset": "tac-parking-800.webp 632w, tac-parking.webp 1264w", "complete": true, "content_length_bytes": 111666},
+      "tac-arrival-image": {"loading": "lazy", "srcset": "tac-arrival-800.webp 632w, tac-arrival.webp 1264w", "complete": true}
+    },
+    "reveal_timing": {
+      "intersectionObserver_rootMargin": "300px 0px 0px 0px (verified from JS)",
+      "image_clip_path_transition_from_css": "0.8s cubic-bezier(.22,.61,.36,1) on parking/architecture img",
+      "image_transform_transition_from_css": "0.95s",
+      "text_transition_from_css": "0.75s",
+      "all_images_reach_complete_and_lose_is-pending_after_scroll": true
+    },
+    "parking_visual": {
+      "renders_landscape_1440": true,
+      "renders_landscape_390": true,
+      "figcaption_present": "ARCHITECTURAL VISUALISATION",
+      "screenshot_description": "Underground concrete garage with 'KAT -1' pillar markings and ordinary dark executive saloons/SUVs parked between columns. No showroom staging, no supercars, no people, no marble, no coloured lighting."
+    },
+    "footnote_right_alignment": {
+      "1024": {"footRight": 983.05, "copyRight": 983.05, "delta_px": 0.0},
+      "1440": {"footRight": 1344.0, "copyRight": 1344.0, "delta_px": 0.0},
+      "1920": {"footRight": 1584.0, "copyRight": 1584.0, "delta_px": 0.0},
+      "767_and_below": "collapses to single column, no overflow"
+    },
+    "schedule_readability_1440": {
+      "row_font_size": "13px",
+      "row_color": "rgb(240, 238, 232)",
+      "row_border_bottom": "rgba(240, 238, 232, 0.14) 1px solid",
+      "num_em_color": "rgb(169, 154, 123) (bronze accent)",
+      "num_em_font_size": "11px",
+      "val_color": "rgb(255, 253, 247)",
+      "val_font_size": "13px",
+      "val_text_align": "right",
+      "val_font_variant_numeric": "tabular-nums",
+      "value_vs_bg_contrast_ratio": ">15:1 (rgb(255,253,247) on rgb(17,18,16))",
+      "schedule_bottom_aligned_with_plan_image": "delta 0.00px at 1440/1920 per prior iteration_44 measurements (unchanged)"
+    },
+    "schedule_readability_mobile": {
+      "390": {"row_font_size": "14px", "grid_template_columns": "350px (single column)", "val_right_edge_values": [370], "overflow_px": 0},
+      "430": {"row_font_size": "14px", "grid_template_columns": "390px (single column)", "val_right_edge_values": [410], "overflow_px": 0}
+    },
+    "map": {
+      "data_lat": "40.9771680668217",
+      "data_lng": "29.049068608464168",
+      "printed_label": "40.977168\u00b0N   29.049069\u00b0E",
+      "google_maps_link": "https://www.google.com/maps/search/?api=1&query=40.977168,29.049069",
+      "old_coord_present_anywhere": false,
+      "map_pin_present": true,
+      "wheel_zoom_verified": "tile count changed 15\u219218 after mouse.wheel(-600) confirming zoom level increased"
+    },
+    "horizontal_overflow_scrollWidth_minus_innerWidth": {"390": 0, "430": 0, "768": 0, "1024": 0, "1440": 0, "1920": 0},
+    "console_errors_total": 0,
+    "regressions": {
+      "header_transparent_at_scrollY_0": true,
+      "header_loses_transparent_past_hero": true,
+      "lightbox_open_via_expand": true,
+      "lightbox_src_is_webp": true,
+      "lightbox_close_via_Escape": true,
+      "print_button_no_console_error": true,
+      "section_order_correct": "tac-invest \u2192 #parking \u2192 #arrival \u2192 tac-location (tops 3765,4918,5688,6290)",
+      "nearby_cards_count": 13,
+      "enquiry_form_project_preselected": "The Apartments Ta\u00e7, Ba\u011fdat Caddesi",
+      "enquiry_form_required_fields": "name, email, privacy (HTML5 required)",
+      "east_west_1440_overflow": 0,
+      "east_west_console_errors": 0
+    }
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "All fixes are correctly applied: plan is now the 272 KB alpha WebP, render is eager+high priority, IO rootMargin extended to 300px, schedule typography and dividers are in place, footnote is right-flush, parking visual is understated, and every appearance of the coordinate uses 40.9771680668217 / 29.049068608464168."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration_45 verified all five requested change areas plus regressions. Plan WebP is 272 KB and no PNG is ever requested. Render is eager/fetchpriority=high. IntersectionObserver rootMargin is 300px 0px 0px 0px. Image reveal on parking/architecture uses 0.8s clip-path and 0.95s transform; text 0.75s (defined in tac_overrides.css lines 414-420 and 450-460). Footnote copy is right-flush at 1024/1440/1920 (delta 0.00px). Schedule rows 13px on desktop with bronze rgb(169,154,123) numbers and bright rgb(255,253,247) tabular values; 14px on 390/430 in single column. Map data attrs, printed label and Google Maps href all use the new coordinates and the old ones do not appear on the page."
+}

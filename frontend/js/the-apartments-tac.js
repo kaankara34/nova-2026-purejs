@@ -136,7 +136,7 @@
     groups.forEach(g => {
       g.classList.add('is-pending');
       [...g.querySelectorAll('.tac-parking-eyebrow, .tac-parking-heading, .tac-parking-body, .tac-parking-figures, .tac-parking-note, .tac-render-eyebrow, .tac-render-title, .tac-render-copy')]
-        .forEach((el, i) => el.style.setProperty('--tac-delay', (0.06 + i * 0.11).toFixed(2) + 's'));
+        .forEach((el, i) => el.style.setProperty('--tac-delay', (0.04 + i * 0.08).toFixed(2) + 's'));
     });
     const io = new IntersectionObserver((entries, obs) => {
       entries.forEach(e => {
@@ -144,7 +144,7 @@
         e.target.classList.remove('is-pending');
         obs.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.16 });
+    }, { rootMargin: '300px 0px 0px 0px', threshold: 0 });
     groups.forEach(g => io.observe(g));
   }
 })();

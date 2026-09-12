@@ -1682,12 +1682,12 @@
   .page-tac [data-tac-parking-reveal] .tac-parking-body,
   .page-tac [data-tac-parking-reveal] .tac-parking-figures,
   .page-tac [data-tac-parking-reveal] .tac-parking-note {
-    transition: opacity 1s cubic-bezier(.22, .61, .36, 1), transform 1s cubic-bezier(.22, .61, .36, 1);
+    transition: opacity .75s cubic-bezier(.22, .61, .36, 1), transform .75s cubic-bezier(.22, .61, .36, 1);
     transition-delay: var(--tac-delay, 0s);
   }
   .page-tac [data-tac-parking-reveal].is-pending img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
   .page-tac [data-tac-parking-reveal] img {
-    transition: clip-path 1.15s cubic-bezier(.22, .61, .36, 1), transform 1.3s cubic-bezier(.22, .61, .36, 1);
+    transition: clip-path .8s cubic-bezier(.22, .61, .36, 1), transform .95s cubic-bezier(.22, .61, .36, 1);
   }
   .page-tac [data-tac-parking-reveal].is-pending figcaption { opacity: 0; }
   .page-tac [data-tac-parking-reveal] figcaption { transition: opacity .9s ease .25s; }
@@ -1718,7 +1718,7 @@
   .page-tac .tac-render-inner.is-pending .tac-render-figure img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
   .page-tac .tac-render-figure img {
     clip-path: inset(0 0 0 0);
-    transition: clip-path 1.15s cubic-bezier(.22, .61, .36, 1), transform 1.3s cubic-bezier(.22, .61, .36, 1);
+    transition: clip-path .8s cubic-bezier(.22, .61, .36, 1), transform .95s cubic-bezier(.22, .61, .36, 1);
   }
   .page-tac .tac-render-inner.is-pending .tac-render-eyebrow,
   .page-tac .tac-render-inner.is-pending .tac-render-title,
@@ -1728,7 +1728,7 @@
   .page-tac .tac-render-eyebrow,
   .page-tac .tac-render-title,
   .page-tac .tac-render-copy {
-    transition: opacity 1s cubic-bezier(.22, .61, .36, 1), transform 1s cubic-bezier(.22, .61, .36, 1);
+    transition: opacity .75s cubic-bezier(.22, .61, .36, 1), transform .75s cubic-bezier(.22, .61, .36, 1);
     transition-delay: var(--tac-delay, 0s);
   }
 }
@@ -1812,4 +1812,71 @@
   .page-tac .tac-plans-body { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .page-tac .tac-plans-info { height: auto; }
   .page-tac .tac-plans-rows { flex: 0 0 auto; align-content: start; }
+}
+
+/* =========================================================
+   FLOOR PLAN SCHEDULE — clearer, better separated rows
+   ========================================================= */
+.page-tac .tac-plans-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; padding: 13px 0;
+  font-family: 'Montserrat', sans-serif; font-weight: 300;
+  font-size: 13.5px; letter-spacing: .035em; line-height: 1.5;
+  color: var(--tac-cream);
+  border-bottom: 1px solid rgba(240, 238, 232, .14);
+}
+.page-tac .tac-plans-row > span:first-child {
+  display: flex; align-items: baseline; gap: 10px;
+  color: var(--tac-cream);
+}
+.page-tac .tac-plans-row em {
+  font-style: normal; font-weight: 400; font-size: 11px;
+  letter-spacing: .06em; color: var(--tac-gold);
+  min-width: 1.8em; margin: 0; flex: 0 0 auto;
+}
+.page-tac .tac-plans-val {
+  font-weight: 400; font-size: 13.5px; letter-spacing: .05em;
+  color: #FFFDF7; font-variant-numeric: tabular-nums;
+  white-space: nowrap; flex: 0 0 auto; text-align: right;
+}
+.page-tac .tac-plans-row--total {
+  padding: 0 0 15px;
+  border-bottom: 1px solid #6E6A61;
+}
+.page-tac .tac-plans-row--total > span:first-child {
+  font-size: 11.5px; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--tac-grey);
+}
+.page-tac .tac-plans-row--total .tac-plans-val { font-size: 15px; letter-spacing: .1em; }
+.page-tac .tac-plans-rows > .tac-plans-row:nth-child(2) { padding: 13px 0; border-bottom-color: #5D5A53; }
+.page-tac .tac-plans-rows > .tac-plans-row:nth-child(2) > span:first-child {
+  font-size: 11.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--tac-grey);
+}
+.page-tac .tac-plans-rows > .tac-plans-row:nth-child(2) .tac-plans-val { font-size: 15px; letter-spacing: .1em; }
+
+/* footnote: label left, paragraph flush to the right edge of the container */
+.page-tac .tac-plans-footnote {
+  grid-template-columns: minmax(0, auto) minmax(0, 60ch);
+  justify-content: space-between;
+}
+.page-tac .tac-plans-footnote .tac-plans-copy { margin-left: auto; max-width: 60ch; }
+
+@media (max-width: 1100px) {
+  .page-tac .tac-plans-rows { column-gap: clamp(18px, 3vw, 34px); }
+}
+@media (max-width: 767px) {
+  .page-tac .tac-plans-rows { grid-template-columns: minmax(0, 1fr); }
+  .page-tac .tac-plans-rows > .tac-plans-row:nth-child(2),
+  .page-tac .tac-plans-row--total { grid-column: 1; }
+  .page-tac .tac-plans-row { font-size: 14px; padding: 14px 0; gap: 14px; }
+  .page-tac .tac-plans-val { font-size: 14px; }
+  .page-tac .tac-plans-row em { font-size: 11.5px; min-width: 2em; }
+}
+
+/* keep each schedule row on one line at desktop widths */
+@media (min-width: 1101px) {
+  .page-tac .tac-plans-row { font-size: 13px; }
+  .page-tac .tac-plans-val { font-size: 13px; }
+  .page-tac .tac-plans-row > span:first-child { gap: 8px; }
+  .page-tac .tac-plans-row em { min-width: 1.6em; }
 }

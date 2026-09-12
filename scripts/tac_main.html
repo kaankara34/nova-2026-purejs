@@ -44,7 +44,7 @@
     <div class="tac-render-inner">
       <figure class="tac-render-figure reveal-up">
         <img src="./media/images/tac-ai-render.webp" width="1800" height="2265"
-             alt="The Apartments Taç — architectural render" loading="lazy" decoding="async"
+             alt="The Apartments Taç — architectural render" loading="eager" decoding="async" fetchpriority="high"
              data-testid="tac-render-image" />
       </figure>
       <div class="tac-render-head reveal-up">
@@ -113,7 +113,7 @@
         <div class="tac-plans-viewport">
           <!-- DEV NOTE: typical floor plan supplied by the client; both apartments on the
                floor are 4+1, so the schedule beside it describes one 4+1 residence. -->
-          <img class="tac-plans-img" id="tacPlanImg" src="./media/images/tac/plans/tac-4plus1.png"
+          <img class="tac-plans-img" id="tacPlanImg" src="./media/images/tac/plans/tac-4plus1.webp"
                width="1748" height="1428" alt="The Apartments Taç — typical floor plan, 4+1 residences"
                loading="lazy" decoding="async" data-testid="tac-plan-image" />
         </div>
@@ -238,14 +238,14 @@
     </figure>
     <div class="tac-map reveal-up">
       <div class="tac-map-card">
-        <div class="tac-map-canvas" id="tacMap" data-lat="40.977441822155704" data-lng="29.04879347144911"
+        <div class="tac-map-canvas" id="tacMap" data-lat="40.9771680668217" data-lng="29.049068608464168"
              role="region" aria-label="Dark map showing the location of The Apartments Taç in Selamiçeşme"
              data-testid="tac-map-canvas"></div>
         <div class="tac-map-info">
           <div class="tac-map-loc">The Apartments Taç<span>Selamiçeşme, Bağdat Caddesi, Istanbul</span></div>
-          <div class="tac-map-coords">40.977442&deg;N &nbsp; 29.048793&deg;E</div>
+          <div class="tac-map-coords">40.977168&deg;N &nbsp; 29.049069&deg;E</div>
         </div>
-        <a class="tac-map-open" href="https://www.google.com/maps/search/?api=1&amp;query=40.977442,29.048793"
+        <a class="tac-map-open" href="https://www.google.com/maps/search/?api=1&amp;query=40.977168,29.049069"
            target="_blank" rel="noopener noreferrer" data-testid="tac-map-link">View on Google Maps &rarr;</a>
       </div>
     </div>
