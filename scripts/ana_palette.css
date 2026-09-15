@@ -28,6 +28,7 @@
 }
 
 /* ---------------- hero ---------------- */
+.page-ana .ana-hero { background-color: var(--ana-plum-dark); }
 .page-ana .ana-hero-scrim {
   background:
     linear-gradient(180deg,

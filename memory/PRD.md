@@ -796,3 +796,20 @@ Full detail in `memory/CHANGELOG.md`.
 - **P1 — pre-production check:** confirm the 190 m² gross-area definition against the approved architectural/sales-area schedules (dev comment left in the markup next to the specification grid).
 - **P1 — awaiting user visual approval** of the page as a whole.
 - **P2 — optional:** align the gold site-plan `imageOverlay` bounds more precisely against the OSM basemap; a real Taç brochure action if one is produced.
+
+
+---
+
+## The Apartments Ana — page status (June 2026)
+
+Delivered and testing-agent verified (`/app/test_reports/iteration_46.json`).
+Build chain: edit `scripts/build_ana.py` / `scripts/ana_palette.css`, then `python3 scripts/build_ana.py`.
+`frontend/the-apartments-ana.html`, `frontend/css/the-apartments-ana.css` and
+`frontend/js/the-apartments-ana.js` are GENERATED from the Taç page — never edit directly.
+Full detail in `memory/CHANGELOG.md`.
+
+### Open items for this page
+- **P0 — every piece of Ana content is still a Taç placeholder**: hero video/poster, architectural render, intro copy, specifications, 4+1 floor plan + 13-room schedule, DESIGNED AROUND SPACE list, private parking + arrival copy and visuals, location copy, map coordinates and the 13 nearby distances. Nothing Ana-specific was invented; all of it must be replaced with approved Ana data.
+- **P0 — the gold site-plan image has "THE APARTMENTS TAÇ" printed in the artwork**; it needs an Ana version before this page can go live.
+- **P1 — awaiting user visual approval** of the Ana plum/ivory palette.
+- **P2 — the Ana project cards on index.html and projects.html still use the Taç menu thumbnail** and (outside the Ana page) still link to `#`; update them when Ana imagery arrives.
