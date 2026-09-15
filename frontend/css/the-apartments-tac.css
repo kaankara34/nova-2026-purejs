@@ -1315,7 +1315,7 @@
 /* ---------------- introduction ---------------- */
 .page-tac .tac-intro {
   background: #050505;
-  padding: clamp(58px, 7vw, 108px) clamp(20px, 5vw, 56px) clamp(58px, 7vw, 108px);
+  padding: clamp(40px, 4vw, 64px) clamp(20px, 5vw, 56px);
   text-align: initial;
 }
 .page-tac .tac-intro-logo {
@@ -1325,7 +1325,7 @@
 }
 .page-tac .tac-intro-tag {
   text-align: center;
-  max-width: 58ch;
+  max-width: 90ch;
   line-height: 1.95;
   letter-spacing: .07em;
   margin: 0 auto clamp(16px, 1.8vw, 26px);
@@ -1333,7 +1333,7 @@
 }
 .page-tac .tac-intro-sub {
   text-align: center;
-  max-width: 62ch;
+  max-width: 80ch;
   line-height: 1.95;
   letter-spacing: .07em;
   margin: 0 auto;
@@ -1341,7 +1341,7 @@
 }
 
 /* ---------------- the single architectural render ---------------- */
-.page-tac .tac-render { background: #050505; padding: clamp(64px, 8vw, 130px) clamp(20px, 4vw, 56px); }
+.page-tac .tac-render { background: #050505;  padding: clamp(20px, 2.5vw, 40px) clamp(20px, 4vw, 56px); }
 .page-tac .tac-render-inner {
   max-width: 1360px; margin: 0 auto;
   background: #121311; border: 1px solid rgba(240, 238, 232, .1);
@@ -1378,7 +1378,7 @@
 .page-tac .tac-specs { background: #050505; }
 .page-tac .tac-spec-label { color: var(--tac-gold); }
 .page-tac .tac-spec-value { color: var(--tac-cream); }
-.page-tac .tac-spec-value span { display: block; color: var(--tac-grey); }
+.page-tac .tac-spec-value span { display: block; color: var(--tac-cream); }
 
 /* ---------------- floor plan ---------------- */
 .page-tac .tac-plans { background: #050505; }
@@ -1465,13 +1465,34 @@
 .page-tac .tac-plans-lightbox img { background: transparent; padding: 0; }
 
 /* ---------------- designed around space ---------------- */
-.page-tac .tac-invest { background: #050505; }
+.page-tac .tac-invest { background: #E8E3D8; }
 .page-tac .tac-invest-title { color: var(--tac-cream); }
 .page-tac .tac-invest-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .page-tac .tac-invest-list li { border-bottom: 1px solid rgba(245, 244, 238, .12); color: var(--tac-cream); }
 .page-tac .tac-invest-list li:first-child { border-top: 1px solid rgba(245, 244, 238, .12); }
 .page-tac .tac-invest-list .num { color: var(--tac-gold); }
 .page-tac .tac-invest-list .txt { color: var(--tac-grey); }
+
+.page-tac .tac-invest {
+  background: #E8E3D8;
+}
+
+.page-tac .tac-invest-title {
+  color: #171714;
+}
+
+.page-tac .tac-invest-list .txt {
+  color: #4F4D47;
+}
+
+.page-tac .tac-invest-list .num {
+  color: #8F7C58;
+}
+
+.page-tac .tac-invest-list li,
+.page-tac .tac-invest-list li:first-child {
+  border-color: rgba(23, 23, 20, 0.16);
+}
 
 /* ---------------- location ---------------- */
 .page-tac .tac-location { background: #0B0B0A; }
@@ -1712,7 +1733,7 @@
    ARCHITECTURE — one single black, with an Apple-quiet reveal
    ========================================================= */
 .page-tac .tac-render,
-.page-tac .tac-render-inner { background: #0A0A0A; }
+.page-tac .tac-render-inner { background: #050505; }
 .page-tac .tac-render-inner { border-color: transparent; }
 @media (prefers-reduced-motion: no-preference) {
   .page-tac .tac-render-inner.is-pending .tac-render-figure img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
