@@ -38,6 +38,9 @@ chrome = chrome.replace('<link rel="stylesheet" href="css/east-west.css" />',
 chrome = chrome.replace('<body class="page-project">', '<body class="page-project page-tac">')
 assert 'the-apartments-tac.css' in chrome and 'page-tac' in chrome
 
+# the East West gallery lightbox is not used on this page
+footer = re.sub(r'\n *<!-- =+ LIGHTBOX =+ -->\n.*?id="ewLightboxCount"></div>\n *</div>\n', '', footer, flags=re.S)
+
 scripts = re.findall(r'\n *<script[^>]*>.*?</script>|\n *<script[^>]*/>', footer, re.S)
 footer = footer.replace('js/east-west.js',
                         'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>\n  <script src="js/the-apartments-tac.js')
