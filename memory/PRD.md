@@ -817,3 +817,9 @@ Full detail in `memory/CHANGELOG.md`.
 ## Ana page — open item (June 2026)
 - P0: replacement **underground parking image** for `#parking` on the-apartments-ana.html was requested but never attached; the section still shows the Taç parking visualisation. Waiting on the user to upload the asset.
 - P2: `scripts/build_ana.py` is stale (upstream now hand-authors the Ana page). Either delete it or re-sync it from the current page before anyone runs it.
+
+## Portfolio pages — open items (June 2026)
+- P1: `mehtap-residence.html` is still a Martı-style placeholder and is not part of the six-page scope; it can be rebuilt on the same `pp-*` system when its authentic data/media are supplied.
+- P2: projects.html card covers for the six completed projects are still the AI-generated placeholders (user explicitly instructed not to modify projects.html in this task).
+- P2: the shared side menu / footer still list only the four Bağdat Caddesi developments; adding the completed portfolio there is a separate, site-wide task.
+- Data note: nova.istanbul lists Nisbetiye On as “Levent, Istanbul”; the page uses the user-supplied “Nisbetiye · Etiler–Levent · İstanbul”. Legacy names differ too (Doğan Apartmanı, Falcon Logistics Building, Gebze OSB Management) — public-facing names follow the user brief.

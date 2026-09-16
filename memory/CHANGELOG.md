@@ -162,3 +162,42 @@ generated, so do **not** re-run the generator; edit `frontend/the-apartments-ana
   (`.ana-kulup-logo-panel` → `.ana-kulup-logo-wrap`) and the whole section is Warm Ivory
   (`--ana-ivory`) with plum heading and aubergine body, so the navy logo reads correctly straight on
   the surface. Section rhythm is now dark parking → ivory Büyük Kulüp → bone arrival.
+
+## Six completed-portfolio project pages (16 June 2026)
+Doğan Residence, Falcon Plaza, Falcon Logistics Center, Konelsis Center, Nisbetiye On and
+Gebze OSB Management Building were all byte-identical Martı Residence clones (501 lines each, video
+hero, Martı copy/assets/form). They are now individually composed pages built from verified
+nova.istanbul project data and the 16 authentic project images.
+
+**New shared components (isolated behind the `pp-page` body class, `pp-*` namespace):**
+- `frontend/css/portfolio-project.css` — split/full heroes, intro, specification strip (dividers are
+  clipped `box-shadow` hairlines, so no dangling divider at any column count or breakpoint), media
+  frames + captions, 6-column gallery grid with span utilities, editorial blocks, programme rows,
+  enquiry form, viewport-level lightbox, one-time reveals + `prefers-reduced-motion` fallback.
+- `frontend/js/portfolio-project.js` — reveal observer, lightbox built from `[data-pp-open]` figures
+  (uses the shared `window.lockScroll/unlockScroll`, Escape/arrows/backdrop, keyboard-openable
+  figures), inline enquiry-form validation. Runs only when `.pp-page` exists.
+- `scripts/build_portfolio_pages.py` — GENERATOR for the six pages; it lifts the utility bar,
+  header, mobile bar, side menu and footer verbatim from `marti-residence.html`, so the shared
+  navigation stays byte-identical. **Edit the script, not the six HTML files.**
+- The six per-page CSS files were cut from 923-line Martı clones to ~20-line tonal override files
+  (CSS custom properties per project); the six per-page JS clones were deleted.
+
+**Assets** (converted to WebP from nova.istanbul, no upscaling): `media/images/dogan/` (5),
+`falcon-plaza/` (1), `falcon-logistics/` (4), `konelsis/` (1), `nisbetiye-on/` (3), `gebze-osb/` (2).
+
+**Composition per project** — density follows the available authentic material: Doğan is the richest
+(hero + 4-image gallery + 24-residence programme + 6 verified building systems), Falcon Logistics
+gets a full-width industrial hero + 3-image gallery, Nisbetiye On a full-width photograph hero +
+2 labelled visualisations + area/level programme + LEED-framework wording, Gebze a split hero photo +
+one labelled render, and Falcon Plaza / Konelsis are deliberately short single-image pages with no
+gallery. All renders are captioned ARCHITECTURAL VISUALISATION; photographs are captioned as such.
+
+**Untouched, as required:** `projects.html`, the shared header/side menu/footer markup, and the six
+completed pages (east-west, taç, ana, martı, bahar, mercan) — confirmed with `git status`.
+
+- Verified: testing agent `/app/test_reports/iteration_48.json` (~92%, three findings) then
+  `/app/test_reports/iteration_49.json` — **100%, 0 issues, retest_needed false**. Fixes applied:
+  Falcon Logistics hero added to its lightbox (now 4 images), Gebze no longer showed the same
+  photograph twice (the pair section became one labelled render beside the copy) and the Gebze hero
+  caption carries the completion year.

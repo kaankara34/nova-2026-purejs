@@ -1,0 +1,33 @@
+{
+  "summary": "Focused retest of the three issues reported in iteration_48 on falcon-logistic.html and gebze-osb-management.html, plus regression sweep on both pages. All three fixes verified. FIX 1 — Falcon Logistics hero <figure> now carries data-pp-open, so the lightbox contains 4 images (exterior hero + interior + facade + entrance); counter reads '1 / 4' when opened via hero and via [data-testid=flogistic-view-all]; ArrowRight cycles 1→2→3→4→1; Escape closes (aria-hidden=true). FIX 2 — Gebze OSB renders exactly two unique gebze-osb images (…-building.webp x1 as hero, …-render.webp x1 in a pp-editorial--reverse section); lightbox counter reads '… / 2'. FIX 3 — Gebze hero figcaption reads 'Completed Building · 2011' (photograph), render caption reads 'Architectural Visualisation'; no render is labelled as a photograph. Regression clean on both pages: zero horizontal overflow at 1440/1024/768/430/390/844x390, zero console errors, zero page errors, single h1, correct title/og:image, enquiry form project pre-selected correctly ('Falcon Logistics Center, İstanbul' / 'Gebze OSB Management Building, Kocaeli'), empty submit shows correct validation message, reduced-motion shows content immediately.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_items": [
+    "falcon-logistic.html: 4 [data-pp-open] figures; index 0 is the hero (data-testid=flogistic-hero-image, exterior.webp) followed by interior, facade, entrance. Programmatic click on hero opens the lightbox with counter '1 / 4'; ArrowRight cycles 'Warehouse Interior — 2 / 4' → 'Façade — 3 / 4' → 'Entrance Elevation — 4 / 4' → wraps to '1 / 4'. Escape sets #ppLightbox aria-hidden=true. [data-testid=flogistic-view-all] also opens the lightbox at '1 / 4'. Counter is reachable via [data-testid=pp-lightbox-counter].",
+    "gebze-osb-management.html: exactly 2 <img> under /media/images/gebze-osb/ — gebze-osb-building.webp (hero, x1) and gebze-osb-render.webp (editorial section, x1). No duplicates. Hero figcaption = 'Completed Building · 2011'; second figcaption = 'Architectural Visualisation'. Lightbox opens at 'Completed Building · 2011 — 1 / 2', cycles to 'Architectural Visualisation — 2 / 2' and wraps.",
+    "Zero horizontal overflow (scrollWidth − clientWidth = 0) on both pages at 1440x900, 1024x768, 768x1024, 430x844, 390x844, and 844x390.",
+    "Zero console errors and zero uncaught page errors on both pages at 1440.",
+    "Both pages: single <h1>, correct <title> ('Falcon Logistics Center | Nova Konut' / 'Gebze OSB Management Building | Nova Konut' — verified visually), og:image points at the project's own /media/images/ folder.",
+    "Enquiry form: on falcon-logistic.html [data-testid=pp-form-project] pre-selected 'Falcon Logistics Center, İstanbul'; empty submit shows 'Please complete your name, email and accept the privacy policy.' in [data-testid=pp-form-msg]. On gebze-osb-management.html [data-testid=pp-form-project] pre-selected correctly and same validation message shown on empty submit.",
+    "prefers-reduced-motion=reduce (gebze): reveal elements not held at low opacity — content shown immediately.",
+    "Shared header, side menu toggle, and green top contact bar render on both pages without overlay/scroll issues."
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "All three iteration_48 findings are resolved cleanly in the generator (scripts/build_portfolio_pages.py). No further changes required for these two pages.",
+    "Testing harness note: real Playwright locator.click() on the very top of a page occasionally hits the fixed green contact bar / sticky nav overlay on 1440x900 before it fully settles. Programmatic .click() (dispatched from within the target element via DOM) works reliably. Not a product bug — the hero <figure> click handler fires correctly for real users."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100% for the three targeted fixes and the falcon-logistic + gebze-osb regression scope"},
+  "test_credentials": "n/a — public static pages",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iteration_48's three issues are all fixed. falcon-logistic.html hero <figure> now has data-pp-open (4 lightbox images, counter '1 / 4', wraps at 4→1). gebze-osb-management.html now shows only two unique images (building hero + render in pp-editorial--reverse), hero caption is 'Completed Building · 2011', render caption is 'Architectural Visualisation'. Lightbox counter is exposed via [data-testid=pp-lightbox-counter] on all six portfolio pages. No further follow-up needed for the six NOVA portfolio pages unless build_portfolio_pages.py is re-run with new content.",
+  "rca of the issue": "n/a — all three previously reported issues resolved by main agent in scripts/build_portfolio_pages.py: (1) hero <figure> in falcon-logistic template now includes data-pp-open so portfolio-project.js discovers 4 lightbox items; (2) Gebze template replaced the redundant media-grid duplicate with a pp-editorial--reverse section using only the render, keeping gebze-osb-building.webp only in the hero; (3) hero figcaption text updated to 'Completed Building · 2011'."
+}
