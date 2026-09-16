@@ -3,22 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-  <meta name="theme-color" content="#0b0b0b" />
-  <meta name="description" content="Falcon Plaza — Commercial signature address by Nova Konut." />
+  <meta name="theme-color" content="#14120f" />
+  <meta name="description" content="Falcon Plaza — an eight-storey, 4,000 m² office building completed in 2015 on Libadiye Sokağı, Levent, İstanbul." />
   <title>Falcon Plaza | Nova Konut</title>
+
+  <link rel="canonical" href="https://nova.istanbul/falcon-plaza.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Nova Konut" />
+  <meta property="og:title" content="Falcon Plaza | Nova Konut" />
+  <meta property="og:description" content="Falcon Plaza — an eight-storey, 4,000 m² office building completed in 2015 on Libadiye Sokağı, Levent, İstanbul." />
+  <meta property="og:image" content="./media/images/falcon-plaza/falcon-plaza-exterior.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="./media/images/marti/marti-hero-poster.webp" type="image/webp" fetchpriority="high" />
-
-  <link rel="preload" as="video" href="./media/images/marti/marti-video.mp4" type="video/mp4" fetchpriority="high" />
+  <link rel="preload" as="image" href="./media/images/falcon-plaza/falcon-plaza-exterior.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/east-west.css" />
+  <link rel="stylesheet" href="css/portfolio-project.css" />
   <link rel="stylesheet" href="css/falcon-plaza.css" />
 </head>
-<body class="page-project page-fplaza">
+<body class="page-project page-fplaza pp-page">
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
     <div class="utility-bar-inner">
@@ -185,218 +191,134 @@
     </div>
   </aside>
 
-  <!-- ============================= PROJECT HERO ============================= -->
-  <section class="ew-hero" id="top">
-    <div class="ew-hero-media">
-      <video
-        id="fplazaHeroVideo"
-        class="ew-hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        webkit-playsinline="true"
-        preload="auto"
-        poster="media/images/marti/marti-hero-poster.webp"
-        disablepictureinpicture
-        aria-hidden="true">
-        <source src="./media/images/marti/marti-video.mp4" type="video/mp4" />
-      </video>
+  <main id="top">
+  <!-- ============================= HERO ============================= -->
+  <section class="pp-hero pp-hero--split pp-hero--compact">
+    <div class="pp-hero-inner">
+      <div class="pp-hero-copy">
+        <p class="pp-hero-eyebrow reveal-up">Completed Development &middot; 2015</p>
+        <h1 class="pp-hero-title reveal-up">Falcon Plaza</h1>
+        <p class="pp-hero-native reveal-up">Office Building</p>
+        <p class="pp-hero-loc reveal-up"><span>Libadiye Sokağı, Levent</span><em>/</em><span>İstanbul</span></p>
+      </div>
+      <figure class="pp-hero-media pp-hero-media--landscape pp-hero-media--contain pp-reveal-media" data-pp-open data-testid="fplaza-hero-image">
+        <img src="./media/images/falcon-plaza/falcon-plaza-exterior.webp" width="640" height="480"
+             sizes="(max-width: 960px) 92vw, 620px"
+             alt="Falcon Plaza — the completed eight-storey office building with its dark glazed façade and roof-level signage in Levent"
+             fetchpriority="high" decoding="async" />
+        <figcaption class="pp-media-caption">Completed Building</figcaption>
+      </figure>
     </div>
-    <button class="ew-gallery-trigger" id="ewGalleryTrigger" aria-label="Open gallery">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="9" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-      <span>GALLERY</span>
-    </button>
   </section>
 
-  <!-- Action strip directly below hero -->
-  <div class="ew-action-strip">
-    <div class="ew-action-inner">
-      <button class="ew-gallery-btn" id="ewGalleryBtn" data-testid="fplaza-gallery-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="9" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <span>GALLERY</span>
-      </button>
-      <div class="fplaza-status-group" data-testid="fplaza-status-group">
-        <div class="fplaza-status" data-testid="fplaza-all-sold">
-          <svg class="fplaza-status-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M16.5 6.5L7 16 3 12"/><path d="M21 6.5L11.5 16l-2.3-2.3"/>
-          </svg>
-          <div class="fplaza-status-text">
-            <span class="fplaza-status-label">All Units Sold</span>
-            <span class="fplaza-status-sub">Fully subscribed</span>
-          </div>
+  <!-- ============================= INTRODUCTION ============================= -->
+  <section class="pp-intro">
+    <div class="pp-intro-inner">
+      <p class="pp-eyebrow reveal-up">The Project</p>
+      <div class="reveal-up">
+        <p class="pp-intro-lead">Falcon Plaza is an eight-storey office building located on Libadiye Street in Levent.</p>
+        <p class="pp-body pp-intro-note">Completed in 2015, the project delivers 4,000 m² of corporate workspace within one of İstanbul&rsquo;s established business districts.</p>
+      </div>
+    </div>
+  </section>
+  <!-- ============================= SPECIFICATION STRIP ============================= -->
+  <section class="pp-specs reveal-up" aria-label="Project specification">
+    <div class="pp-specs-grid" data-testid="pp-specs">
+        <div class="pp-spec">
+          <div class="pp-spec-label">Project Type</div>
+          <div class="pp-spec-value">Office Building</div>
         </div>
-        <span class="fplaza-status-sep" aria-hidden="true"></span>
-        <div class="fplaza-status" data-testid="fplaza-completed">
-          <svg class="fplaza-status-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7l3-7z"/>
-          </svg>
-          <div class="fplaza-status-text">
-            <span class="fplaza-status-label">Completed Project</span>
-            <span class="fplaza-status-sub">Delivered 2019</span>
-          </div>
+        <div class="pp-spec">
+          <div class="pp-spec-label">Location</div>
+          <div class="pp-spec-value">Libadiye Sokağı, Levent<small>İstanbul</small></div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================= INTRO (editorial display) ============================= -->
-  <section class="fplaza-intro">
-    <h1 class="fplaza-intro-headline reveal-up">Martı Residence</h1>
-    <div class="fplaza-intro-loc reveal-up">
-      <span>SUADİYE, BAĞDAT CADDESİ</span>
-      <span class="fplaza-intro-loc-sep">|</span>
-      <span>İSTANBUL</span>
-    </div>
-    <div class="fplaza-intro-body reveal-up">
-      <p>Set on Noter Street, one of the most prestigious addresses off Bağdat Avenue, Martı Residence is a signature NOVA development offering panoramic sea views and exceptional sunset vistas. Its unobstructed outlook is preserved by the surrounding planning regulations, while premium amenities such as an outdoor swimming pool and secure underground parking complete the living experience.</p>
+        <div class="pp-spec">
+          <div class="pp-spec-label">Completion Year</div>
+          <div class="pp-spec-value">2015</div>
+        </div>
+        <div class="pp-spec">
+          <div class="pp-spec-label">Total Construction Area</div>
+          <div class="pp-spec-value">4,000 m²</div>
+        </div>
+        <div class="pp-spec">
+          <div class="pp-spec-label">Floors</div>
+          <div class="pp-spec-value">8</div>
+        </div>
+        <div class="pp-spec">
+          <div class="pp-spec-label">Status</div>
+          <div class="pp-spec-value">Completed Development</div>
+        </div>
     </div>
   </section>
-  <!-- ============================= PROPERTY SPECS (editorial grid) ============================= -->
-  <section class="fplaza-specs reveal-up">
-    <div class="fplaza-specs-grid">
-      <div class="fplaza-spec">
-        <div class="fplaza-spec-label">PROPERTY TYPE</div>
-        <div class="fplaza-spec-value">Panoramic Seafront Residence</div>
-      </div>
-      <div class="fplaza-spec">
-        <div class="fplaza-spec-label">UNIT TYPE</div>
-        <div class="fplaza-spec-value">3 &amp; 4 Bedroom Residences &amp; Duplex Penthouses</div>
-      </div>
-      <div class="fplaza-spec">
-        <div class="fplaza-spec-label">STATUS</div>
-        <div class="fplaza-spec-value">Completed Development</div>
-      </div>
-      <div class="fplaza-spec">
-        <div class="fplaza-spec-label">TOTAL CONSTRUCTION AREA (SQM)</div>
-        <div class="fplaza-spec-value">5600 m² (12-story building)</div>
-      </div>
-      <div class="fplaza-spec">
-        <div class="fplaza-spec-label">COMPLETION YEAR</div>
-        <div class="fplaza-spec-value">2019</div>
-      </div>
-      <div class="fplaza-spec">
-        <div class="fplaza-spec-label">FEATURING</div>
-        <div class="fplaza-spec-value">Direct sea views from residences</div>
+  <!-- ============================= PROJECT OVERVIEW ============================= -->
+  <section class="pp-editorial pp-editorial--single" aria-labelledby="fplaza-overview-title">
+    <div class="pp-editorial-inner">
+      <div class="pp-editorial-copy">
+        <p class="pp-eyebrow reveal-up">Project Overview</p>
+        <h2 class="pp-section-title reveal-up" id="fplaza-overview-title">Four thousand square metres of workspace, on eight floors.</h2>
+        <p class="pp-body reveal-up">Falcon Plaza was delivered in 2015 as a dedicated office building on Libadiye
+          Sokağı in Levent. Its 4,000 m² of construction area is organised over eight floors.</p>
+        <p class="pp-body reveal-up">The project is presented here through its single documented photograph and its
+          verified construction record. No further technical information is published for this development.</p>
       </div>
     </div>
   </section>
 
-  <!-- ============================= CHALLENGE / MANIFESTO ============================= -->
-  <section class="fplaza-manifesto reveal-up">
-    <div class="fplaza-manifesto-inner">
-      <h2 class="fplaza-manifesto-title">A New Standard On The Coast</h2>
-      <div class="fplaza-manifesto-grid">
-        <div class="fplaza-manifesto-img"><img src="./media/images/marti/marti-render-cover.webp" alt="Martı Residence — tower" loading="lazy"/ decoding="async"></div>
-        <div class="fplaza-manifesto-img"><img src="./media/images/marti/marti-1.webp" alt="Executive interior" loading="lazy"/ decoding="async"></div>
-        <div class="fplaza-manifesto-img"><img src="./media/images/marti/marti-2.webp" alt="Members pool" loading="lazy"/ decoding="async"></div>
+  <!-- ============================= REQUEST PROJECT INFORMATION ============================= -->
+  <section class="pp-enquiry" id="register">
+    <div class="pp-enquiry-inner">
+      <div class="pp-enquiry-copy">
+        <p class="pp-eyebrow reveal-up">NOVA KONUT</p>
+        <h2 class="pp-enquiry-title reveal-up">Request project information.</h2>
+        <p class="pp-enquiry-lead reveal-up">Contact Nova for further information about this completed project and our wider portfolio.</p>
       </div>
-      <button class="fplaza-view-all-btn" data-testid="fplaza-manifesto-view-all">View All Images</button>
-    </div>
-  </section>
-
-  <!-- ============================= KEY FEATURES (Three Worlds) ============================= -->
-  <section class="fplaza-features">
-    <h2 class="fplaza-features-title reveal-up">KEY FEATURES</h2>
-    <p class="fplaza-features-lead reveal-up">Martı Residence offers unobstructed panoramic sea views from one of the most desirable locations on the Bağdat Avenue coastline. Ideally situated between Bağdat Avenue and the waterfront, it combines the energy of the city with the tranquility of the sea. Exclusive amenities include a private outdoor swimming pool and secure underground parking, delivering a refined residential experience.</p>
-
-    <div class="fplaza-features-block reveal-up">
-      <div class="fplaza-features-img"><img src="./media/images/marti/marti-panaromik.webp" alt="Martı Residences" loading="lazy"/ decoding="async"></div>
-      <div class="fplaza-features-text">
-        <h3>Panoramic Sea Views</h3>
-        <p>Experience panoramic sea views from one of Suadiye's most privileged waterfront locations, just moments from both Bağdat Avenue and the coastline.</p>
-      </div>
-    </div>
-
-    <div class="fplaza-features-block fplaza-features-block--reverse reveal-up">
-      <div class="fplaza-features-img"><img src="./media/images/marti/marti-havuz.webp" alt="Members Marina Club" loading="lazy"/ decoding="async"></div>
-      <div class="fplaza-features-text">
-        <h3>Private Outdoor Pool</h3>
-        <p>Designed for everyday comfort, the private outdoor pool provides an exclusive setting for relaxation in a quiet, landscaped environment.</p>
-      </div>
-    </div>
-
-    <div class="fplaza-features-block reveal-up">
-      <div class="fplaza-features-img"><img src="./media/images/marti/noter-sok.webp" alt="Waterfront Retreat" loading="lazy"/ decoding="async"></div>
-      <div class="fplaza-features-text">
-        <h3>Prime Location</h3>
-        <p>Located on prestigious Noter Street in Suadiye, Martı Residence enjoys one of the most sought-after addresses between Bağdat Avenue and the Marmara coastline, offering effortless access to both city life and the sea.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================= REGISTER YOUR INTEREST (burgundy, split layout) ============================= -->
-  <section class="fplaza-register" id="register">
-    <div class="fplaza-register-inner">
-      <div class="fplaza-register-left">
-        <h2 class="fplaza-register-title reveal-up">
-          <span>REGISTER</span>
-          <span>YOUR</span>
-          <span>INTEREST</span>
-          <span class="fplaza-register-sub">— get in touch</span>
-        </h2>
-        <p class="fplaza-register-lead reveal-up">Discover exclusive waterfront residences and investment opportunities with Nova Konut.</p>
-      </div>
-
-      <div class="fplaza-register-right">
-        <p class="fplaza-register-note reveal-up">PLEASE PROVIDE YOUR DETAILS TO REGISTER INTEREST.</p>
-        <form class="fplaza-form reveal-up" id="ewEnquireForm" novalidate>
-          <div class="fplaza-field">
-            <label for="marti-fullname">Full Name</label>
-            <input id="marti-fullname" type="text" name="fullname" required data-testid="fplaza-form-name"/>
+      <div class="pp-enquiry-form-col">
+        <p class="pp-enquiry-note reveal-up">PLEASE PROVIDE YOUR DETAILS AND WE WILL BE IN TOUCH.</p>
+        <form class="pp-form reveal-up" id="ppEnquiryForm" novalidate>
+          <div class="pp-field">
+            <label for="pp-fullname">Full Name</label>
+            <input id="pp-fullname" type="text" name="fullname" required data-testid="pp-form-name" />
           </div>
-          <div class="fplaza-field fplaza-field--phone">
-            <label for="marti-phone">Phone</label>
-            <div class="fplaza-phone-row">
+          <div class="pp-field">
+            <label for="pp-phone">Phone</label>
+            <div class="pp-phone-row">
               <select name="code" aria-label="Country code">
                 <option>+1</option><option>+44</option><option selected>+90</option><option>+971</option><option>+966</option>
               </select>
-              <input id="marti-phone" type="tel" name="phone" data-testid="fplaza-form-phone"/>
+              <input id="pp-phone" type="tel" name="phone" data-testid="pp-form-phone" />
             </div>
           </div>
-          <div class="fplaza-field">
-            <label for="marti-email">Email</label>
-            <input id="marti-email" type="email" name="email" required data-testid="fplaza-form-email"/>
+          <div class="pp-field">
+            <label for="pp-email">Email</label>
+            <input id="pp-email" type="email" name="email" required data-testid="pp-form-email" />
           </div>
-          <div class="fplaza-field">
-            <label for="marti-project">Select Project</label>
-            <select id="marti-project" name="project">
-              <option selected>Martı Residence, Suadiye</option>
-              <option>The Residences East West, Bağdat Caddesi</option>
-              <option>The Apartments Taç, Bağdat Caddesi</option>
-              <option>The Apartments Ana, Bağdat Caddesi</option>
+          <div class="pp-field">
+            <label for="pp-project">Project</label>
+            <select id="pp-project" name="project" data-testid="pp-form-project">
+              <option>Doğan Residence, Erenköy</option>
+              <option selected>Falcon Plaza, Levent</option>
+              <option>Falcon Logistics Center, İstanbul</option>
+              <option>Konelsis Center, Ankara</option>
+              <option>Nisbetiye On, Etiler–Levent</option>
+              <option>Gebze OSB Management Building, Gebze</option>
             </select>
           </div>
-          <div class="fplaza-field">
-            <label for="marti-source">How did you hear about us?</label>
-            <select id="marti-source" name="source">
-              <option value="">Please select</option>
-              <option>Google</option>
-              <option>Social Media (Instagram, Facebook, TikTok)</option>
-              <option>LinkedIn</option>
-              <option>Other Online Ads</option>
-              <option>Word of Mouth</option>
-              <option>Event</option>
-              <option>Email Newsletter</option>
-              <option>Property Portal</option>
-              <option>Other</option>
-            </select>
+          <div class="pp-field pp-field--wide">
+            <label for="pp-comments">Your Enquiry</label>
+            <textarea id="pp-comments" name="comments" rows="2"></textarea>
           </div>
-          <div class="fplaza-field">
-            <label for="marti-comments">Additional Comments</label>
-            <textarea id="marti-comments" name="comments" rows="2"></textarea>
+          <div class="pp-checks">
+            <label><input type="checkbox" name="news" /> <span>I&rsquo;d like to receive news about Nova Konut projects</span></label>
+            <label><input type="checkbox" name="privacy" required data-testid="pp-form-privacy" /> <span>I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></span></label>
           </div>
-          <div class="fplaza-checks">
-            <label><input type="checkbox" name="news" checked /> <span>I&rsquo;d like to hear about news and offers</span></label>
-            <label><input type="checkbox" name="privacy" required /> <span>I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></span></label>
-          </div>
-          <button type="submit" class="fplaza-submit" data-testid="fplaza-form-submit">REGISTER INTEREST</button>
+          <button type="submit" class="pp-submit" data-testid="pp-form-submit">SEND REQUEST</button>
+          <p class="pp-form-msg" id="ppFormMsg" role="status" aria-live="polite" data-testid="pp-form-msg"></p>
         </form>
       </div>
     </div>
   </section>
+  </main>
 
-  <!-- ============================= FOOTER (same as index.html) ============================= -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -483,19 +405,16 @@
     </div>
   </footer>
 
-  <!-- ============================= LIGHTBOX ============================= -->
-  <div class="ew-lightbox" id="ewLightbox" aria-hidden="true">
-    <button class="ew-lightbox-close" id="ewLightboxClose" aria-label="Close">&times;</button>
-    <button class="ew-lightbox-prev" id="ewLightboxPrev" aria-label="Previous">&lsaquo;</button>
-    <button class="ew-lightbox-next" id="ewLightboxNext" aria-label="Next">&rsaquo;</button>
-    <div class="ew-lightbox-viewport" id="ewLightboxViewport">
-      <div class="ew-lightbox-track" id="ewLightboxTrack" data-nova-track></div>
-    </div>
-    <div class="ew-lightbox-counter" id="ewLightboxCount"></div>
+  <!-- ============================= GALLERY LIGHTBOX ============================= -->
+  <div class="pp-lightbox" id="ppLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project images">
+    <button class="pp-lightbox-close" id="ppLightboxClose" type="button" aria-label="Close images" data-testid="pp-lightbox-close">&times;</button>
+    <button class="pp-lightbox-prev" id="ppLightboxPrev" type="button" aria-label="Previous image" data-testid="pp-lightbox-prev">&lsaquo;</button>
+    <button class="pp-lightbox-next" id="ppLightboxNext" type="button" aria-label="Next image" data-testid="pp-lightbox-next">&rsaquo;</button>
+    <img id="ppLightboxImg" alt="" />
+    <p class="pp-lightbox-meta" id="ppLightboxMeta"></p>
   </div>
 
   <script src="js/script.js"></script>
-  <script src="js/swipe-carousel.js"></script>
-  <script src="js/falcon-plaza.js"></script>
+  <script src="js/portfolio-project.js"></script>
 </body>
 </html>
