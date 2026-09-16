@@ -143,3 +143,22 @@ generated, so do **not** re-run the generator; edit `frontend/the-apartments-ana
   0 overflow and 0 console errors at 1440/1024/768/430/390/844×390, modal rect equals the viewport
   everywhere, scroll position restored exactly over three open/close cycles, Taç and East West
   regression clean.
+
+### Ana follow-up fixes (16 June 2026)
+- **Mobile separators repaired.** The first attempt added structural `nth-child` overrides inside
+  `@media (max-width: 1100px)`, which also matched 430/390 and wrongly killed the divider after item 3
+  and the bottom border of item 4. The override is now **colour-only**
+  (`.page-ana .ana-spec { border-right-color / border-bottom-color: var(--ana-divider) }`), so each
+  breakpoint keeps its original 6 / 3 / 2-column pattern. Verified at 430: items 1/3/5 right border,
+  1–4 bottom border, nothing trailing after item 6.
+- **"Engineered for Structural Safety" footnote** no longer runs as a narrow 60ch column on phones —
+  a `@media (max-width: 900px)` rule after the flush-right block returns it to a single full-width
+  column (measured 390px of 390px at 430 viewport).
+- **Parking visual replaced with an Ana-specific render** (`media/images/ana/ana-parking.webp`
+  1264×848 + `ana-parking-800.webp`), generated in the same restrained style as Taç: two-level
+  concrete garage, warm linear lighting, four understated executive cars, no people or staging.
+  Wording and the two-basement / two-title-deed facts unchanged.
+- **Büyük Kulüp logo is now genuinely transparent on the page**: the ivory panel was dropped
+  (`.ana-kulup-logo-panel` → `.ana-kulup-logo-wrap`) and the whole section is Warm Ivory
+  (`--ana-ivory`) with plum heading and aubergine body, so the navy logo reads correctly straight on
+  the surface. Section rhythm is now dark parking → ivory Büyük Kulüp → bone arrival.

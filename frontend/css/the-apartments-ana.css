@@ -2132,27 +2132,14 @@
    (the inherited --ana-line is an ivory hairline and disappears
    on the Ana specs surface, so the plum divider token is used)
    ========================================================= */
-.page-ana .ana-spec,
-.page-ana .ana-spec:nth-child(odd),
-.page-ana .ana-spec:nth-child(3) {
+/* colour only — the structural rules per breakpoint already live above, so the
+   6 / 3 / 2 column patterns keep their own "no divider after the last group" logic */
+.page-ana .ana-spec {
   border-right-color: var(--ana-divider);
   border-bottom-color: var(--ana-divider);
 }
 .page-ana .ana-spec:last-child { border-right: 0; }
 .page-ana .ana-spec-value { overflow-wrap: break-word; }
-@media (max-width: 1100px) {
-  .page-ana .ana-spec:nth-child(3) { border-right: 0; }
-  .page-ana .ana-spec:nth-child(4),
-  .page-ana .ana-spec:nth-child(5),
-  .page-ana .ana-spec:nth-child(6) { border-bottom: 0; }
-}
-@media (max-width: 768px) {
-  .page-ana .ana-spec:nth-child(3) { border-right-color: var(--ana-divider); }
-  .page-ana .ana-spec:nth-child(even) { border-right: 0; }
-  .page-ana .ana-spec:nth-child(4) { border-bottom-color: var(--ana-divider); }
-  .page-ana .ana-spec:nth-child(5),
-  .page-ana .ana-spec:nth-child(6) { border-bottom: 0; }
-}
 
 /* =========================================================
    FLOOR PLAN — viewport-level fullscreen viewer
@@ -2203,7 +2190,7 @@
    LE CERCLE D'ORIENT BÜYÜK KULÜP
    ========================================================= */
 .page-ana .ana-kulup {
-  background: var(--ana-plum);
+  background: var(--ana-ivory);
   padding: clamp(64px, 8vw, 128px) clamp(20px, 4vw, 56px);
 }
 .page-ana .ana-kulup-inner {
@@ -2216,8 +2203,8 @@
 }
 .page-ana .ana-kulup-media {
   margin: 0;
-  background: var(--ana-plum-dark);
-  border: 1px solid rgba(243, 239, 231, .1);
+  background: var(--ana-bone);
+  border: 1px solid var(--ana-divider);
   padding: clamp(10px, 1vw, 16px);
 }
 .page-ana .ana-kulup-media img {
@@ -2230,12 +2217,9 @@
   clip-path: inset(0 0 0 0);
 }
 .page-ana .ana-kulup-copy { max-width: 46ch; }
-.page-ana .ana-kulup-logo-panel {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ana-ivory);
-  padding: clamp(16px, 1.6vw, 22px) clamp(20px, 2vw, 28px);
+/* the official logo sits directly on the ivory surface, transparency intact */
+.page-ana .ana-kulup-logo-wrap {
+  display: block;
   margin: 0 0 clamp(26px, 3vw, 38px);
 }
 .page-ana .ana-kulup-logo {
@@ -2254,12 +2238,12 @@
   margin: 16px 0 22px;
   font-family: 'Cormorant Garamond', serif; font-weight: 300;
   font-size: clamp(26px, 2.9vw, 44px); line-height: 1.14;
-  letter-spacing: .005em; color: var(--ana-ivory);
+  letter-spacing: .005em; color: var(--ana-plum);
 }
 .page-ana .ana-kulup-body {
   margin: 0;
   font-family: 'Montserrat', sans-serif; font-weight: 300;
-  font-size: 14px; line-height: 1.9; color: var(--ana-mushroom);
+  font-size: 14px; line-height: 1.9; color: var(--ana-aubergine);
 }
 
 @media (max-width: 900px) {
@@ -2269,20 +2253,30 @@
   .page-ana .ana-kulup-media img { aspect-ratio: 3 / 2; }
 }
 @media (max-width: 480px) {
-  .page-ana .ana-kulup-logo { height: 58px; }
-  .page-ana .ana-kulup-logo-panel { margin-bottom: 24px; }
+  .page-ana .ana-kulup-logo { height: 62px; }
+  .page-ana .ana-kulup-logo-wrap { margin-bottom: 24px; }
+}
+
+/* footnote below the schedule: full width on tablet and mobile instead of a
+   narrow 60ch column that stretches the paragraph vertically */
+@media (max-width: 900px) {
+  .page-ana .ana-plans-footnote {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .page-ana .ana-plans-footnote .ana-plans-copy { margin-left: 0; max-width: none; }
 }
 
 /* restrained, once-only reveal — skipped entirely when motion is reduced */
 @media (prefers-reduced-motion: no-preference) {
-  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-logo-panel,
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-logo-wrap,
   .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-eyebrow,
   .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-heading,
   .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-body {
     opacity: 0;
     transform: translateY(14px);
   }
-  .page-ana [data-ana-kulup-reveal] .ana-kulup-logo-panel,
+  .page-ana [data-ana-kulup-reveal] .ana-kulup-logo-wrap,
   .page-ana [data-ana-kulup-reveal] .ana-kulup-eyebrow,
   .page-ana [data-ana-kulup-reveal] .ana-kulup-heading,
   .page-ana [data-ana-kulup-reveal] .ana-kulup-body {
@@ -2291,7 +2285,7 @@
     transition: opacity .8s ease, transform .8s cubic-bezier(.22, .61, .36, 1);
     transition-delay: var(--ana-delay, 0s);
   }
-  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-logo-panel { transform: none; transition-duration: 1s; }
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-logo-wrap { transform: none; transition-duration: 1s; }
   .page-ana [data-ana-kulup-reveal].is-pending img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
   .page-ana [data-ana-kulup-reveal] img {
     transition: clip-path 1.05s cubic-bezier(.22, .61, .36, 1), transform 1.2s cubic-bezier(.22, .61, .36, 1);

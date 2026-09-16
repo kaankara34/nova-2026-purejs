@@ -145,7 +145,7 @@
     const groups = [...document.querySelectorAll('[data-ana-parking-reveal], [data-ana-kulup-reveal], .ana-render-inner')];
     groups.forEach(g => {
       g.classList.add('is-pending');
-      [...g.querySelectorAll('.ana-parking-eyebrow, .ana-parking-heading, .ana-parking-body, .ana-parking-figures, .ana-parking-note, .ana-render-eyebrow, .ana-render-title, .ana-render-copy, .ana-kulup-logo-panel, .ana-kulup-eyebrow, .ana-kulup-heading, .ana-kulup-body')]
+      [...g.querySelectorAll('.ana-parking-eyebrow, .ana-parking-heading, .ana-parking-body, .ana-parking-figures, .ana-parking-note, .ana-render-eyebrow, .ana-render-title, .ana-render-copy, .ana-kulup-logo-wrap, .ana-kulup-eyebrow, .ana-kulup-heading, .ana-kulup-body')]
         .forEach((el, i) => el.style.setProperty('--ana-delay', (0.04 + i * 0.08).toFixed(2) + 's'));
     });
     const io = new IntersectionObserver((entries, obs) => {
