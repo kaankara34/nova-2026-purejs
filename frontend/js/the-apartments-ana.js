@@ -43,22 +43,29 @@
   const close = document.getElementById('anaPlansLightboxClose');
   const expand = document.getElementById('anaPlansExpand');
   if (plan && box && boxImg) {
+    /* the viewer is a viewport-level modal: it never adds document height and
+       the page underneath is locked at its current scroll position (same
+       mechanism as The Residences East West) */
     const open = () => {
+      if (box.classList.contains('open')) return;
       boxImg.src = plan.currentSrc || plan.src;
       box.classList.add('open');
       box.setAttribute('aria-hidden', 'false');
-      boxImg.classList.remove('is-zoomed');
+      if (window.lockScroll) window.lockScroll();
     };
     const hide = () => {
+      if (!box.classList.contains('open')) return;
       box.classList.remove('open');
       box.setAttribute('aria-hidden', 'true');
+      if (window.unlockScroll) window.unlockScroll();
     };
     plan.addEventListener('click', open);
     if (expand) expand.addEventListener('click', open);
     if (close) close.addEventListener('click', hide);
     box.addEventListener('click', e => { if (e.target === box) hide(); });
-    boxImg.addEventListener('click', () => boxImg.classList.toggle('is-zoomed'));
-    addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+    addEventListener('keydown', e => {
+      if (e.key === 'Escape' && box.classList.contains('open')) hide();
+    });
   }
 
   /* location: dark OpenStreetMap with the Ana site plan laid over it */
@@ -84,10 +91,13 @@
       title: 'The Apartments Ana'
     }).addTo(map);
     map.fitBounds(bounds);
+    /* the card reveals with the section, so re-measure once it is laid out */
+    setTimeout(() => map.invalidateSize(), 400);
+    addEventListener('resize', () => map.invalidateSize());
   }
 
-  /* floor plan: a single 4+1 residence — both apartments on the typical floor are 4+1 */
-  const PLAN = { type: '4+1', gross: '190 m²', net: '149 m²' };
+  /* floor plan: a single 3+1 residence — both apartments on the typical floor are 3+1 */
+  const PLAN = { type: '3+1', gross: '150 m²', net: '112 m²' };
 
   /* floor plan: print sheet */
   const printBtn = document.getElementById('anaPlansPrint');
@@ -96,13 +106,13 @@
       const win = open('', '_blank');
       if (!win) return;
       win.document.write(
-        '<title>The Apartments Ta\u00e7 \u2014 4+1 Floor Plan</title>' +
+        '<title>The Apartments Ana \u2014 ' + PLAN.type + ' Floor Plan</title>' +
         '<style>@page{size:A4;margin:14mm}body{margin:0;font-family:Montserrat,Arial,sans-serif;text-align:center}' +
         'h1{font-size:14px;letter-spacing:.2em;text-transform:uppercase;margin:0 0 4px}' +
         'p{font-size:11px;letter-spacing:.1em;color:#555;margin:0 0 14px}' +
         'img{max-width:100%;max-height:76vh}</style>' +
-        '<h1>The Apartments Ta\u00e7 &mdash; ' + PLAN.type + '</h1>' +
-        '<p>' + PLAN.gross + ' gross &nbsp;&middot;&nbsp; ' + PLAN.net + ' net &nbsp;&middot;&nbsp; Selami\u00e7e\u015fme, Ba\u011fdat Caddesi</p>' +
+        '<h1>The Apartments Ana &mdash; ' + PLAN.type + '</h1>' +
+        '<p>' + PLAN.gross + ' gross &nbsp;&middot;&nbsp; ' + PLAN.net + ' net &nbsp;&middot;&nbsp; Kemal Sunal Sokak, Caddebostan</p>' +
         '<img src="' + (plan.currentSrc || plan.src) + '" alt="Floor plan" onload="window.focus();window.print()" />'
       );
       win.document.close();
@@ -132,10 +142,10 @@
 
   /* parking + arrival + architecture: quiet clip/lift reveal, staggered */
   if (!reduce) {
-    const groups = [...document.querySelectorAll('[data-ana-parking-reveal], .ana-render-inner')];
+    const groups = [...document.querySelectorAll('[data-ana-parking-reveal], [data-ana-kulup-reveal], .ana-render-inner')];
     groups.forEach(g => {
       g.classList.add('is-pending');
-      [...g.querySelectorAll('.ana-parking-eyebrow, .ana-parking-heading, .ana-parking-body, .ana-parking-figures, .ana-parking-note, .ana-render-eyebrow, .ana-render-title, .ana-render-copy')]
+      [...g.querySelectorAll('.ana-parking-eyebrow, .ana-parking-heading, .ana-parking-body, .ana-parking-figures, .ana-parking-note, .ana-render-eyebrow, .ana-render-title, .ana-render-copy, .ana-kulup-logo-panel, .ana-kulup-eyebrow, .ana-kulup-heading, .ana-kulup-body')]
         .forEach((el, i) => el.style.setProperty('--ana-delay', (0.04 + i * 0.08).toFixed(2) + 's'));
     });
     const io = new IntersectionObserver((entries, obs) => {

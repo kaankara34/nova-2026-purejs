@@ -2126,3 +2126,174 @@
 .page-ana .ana-consent a { color: var(--ana-mushroom); }
 .page-ana .ana-consent a:hover { color: var(--ana-ivory); }
 .page-ana .ana-form-msg { color: var(--ana-bone); }
+
+/* =========================================================
+   PROPERTY DETAILS — visible, low-contrast group separators
+   (the inherited --ana-line is an ivory hairline and disappears
+   on the Ana specs surface, so the plum divider token is used)
+   ========================================================= */
+.page-ana .ana-spec,
+.page-ana .ana-spec:nth-child(odd),
+.page-ana .ana-spec:nth-child(3) {
+  border-right-color: var(--ana-divider);
+  border-bottom-color: var(--ana-divider);
+}
+.page-ana .ana-spec:last-child { border-right: 0; }
+.page-ana .ana-spec-value { overflow-wrap: break-word; }
+@media (max-width: 1100px) {
+  .page-ana .ana-spec:nth-child(3) { border-right: 0; }
+  .page-ana .ana-spec:nth-child(4),
+  .page-ana .ana-spec:nth-child(5),
+  .page-ana .ana-spec:nth-child(6) { border-bottom: 0; }
+}
+@media (max-width: 768px) {
+  .page-ana .ana-spec:nth-child(3) { border-right-color: var(--ana-divider); }
+  .page-ana .ana-spec:nth-child(even) { border-right: 0; }
+  .page-ana .ana-spec:nth-child(4) { border-bottom-color: var(--ana-divider); }
+  .page-ana .ana-spec:nth-child(5),
+  .page-ana .ana-spec:nth-child(6) { border-bottom: 0; }
+}
+
+/* =========================================================
+   FLOOR PLAN — viewport-level fullscreen viewer
+   ========================================================= */
+.page-ana .ana-plans-img { object-fit: contain; }
+.page-ana .ana-plans-lightbox {
+  z-index: 4000;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(40, 27, 35, .96);
+  padding:
+    calc(env(safe-area-inset-top, 0px) + 64px)
+    calc(env(safe-area-inset-right, 0px) + 16px)
+    calc(env(safe-area-inset-bottom, 0px) + 20px)
+    calc(env(safe-area-inset-left, 0px) + 16px);
+  overflow: hidden;
+}
+.page-ana .ana-plans-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.page-ana .ana-plans-lightbox-close {
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  right: calc(env(safe-area-inset-right, 0px) + 12px);
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  color: var(--ana-ivory);
+  background: rgba(59, 38, 50, .82);
+  border: 1px solid rgba(243, 239, 231, .28);
+  border-radius: 50%;
+}
+.page-ana .ana-plans-lightbox-close:hover,
+.page-ana .ana-plans-lightbox-close:focus-visible {
+  background: var(--ana-bronze);
+  border-color: var(--ana-bronze);
+}
+@media (max-width: 768px) {
+  .page-ana .ana-plans-lightbox { padding-top: calc(env(safe-area-inset-top, 0px) + 72px); }
+}
+
+/* =========================================================
+   LE CERCLE D'ORIENT BÜYÜK KULÜP
+   ========================================================= */
+.page-ana .ana-kulup {
+  background: var(--ana-plum);
+  padding: clamp(64px, 8vw, 128px) clamp(20px, 4vw, 56px);
+}
+.page-ana .ana-kulup-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+.page-ana .ana-kulup-media {
+  margin: 0;
+  background: var(--ana-plum-dark);
+  border: 1px solid rgba(243, 239, 231, .1);
+  padding: clamp(10px, 1vw, 16px);
+}
+.page-ana .ana-kulup-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 42%;
+  clip-path: inset(0 0 0 0);
+}
+.page-ana .ana-kulup-copy { max-width: 46ch; }
+.page-ana .ana-kulup-logo-panel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ana-ivory);
+  padding: clamp(16px, 1.6vw, 22px) clamp(20px, 2vw, 28px);
+  margin: 0 0 clamp(26px, 3vw, 38px);
+}
+.page-ana .ana-kulup-logo {
+  display: block;
+  width: auto;
+  height: clamp(62px, 6vw, 84px);
+  max-width: 100%;
+  object-fit: contain;
+}
+.page-ana .ana-kulup-eyebrow {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; font-weight: 500;
+  font-size: 11px; letter-spacing: .28em; color: var(--ana-bronze);
+}
+.page-ana .ana-kulup-heading {
+  margin: 16px 0 22px;
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(26px, 2.9vw, 44px); line-height: 1.14;
+  letter-spacing: .005em; color: var(--ana-ivory);
+}
+.page-ana .ana-kulup-body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; font-weight: 300;
+  font-size: 14px; line-height: 1.9; color: var(--ana-mushroom);
+}
+
+@media (max-width: 900px) {
+  .page-ana .ana-kulup-inner { grid-template-columns: 1fr; gap: clamp(26px, 5vw, 40px); }
+  .page-ana .ana-kulup-media { order: 1; }
+  .page-ana .ana-kulup-copy { order: 2; max-width: none; }
+  .page-ana .ana-kulup-media img { aspect-ratio: 3 / 2; }
+}
+@media (max-width: 480px) {
+  .page-ana .ana-kulup-logo { height: 58px; }
+  .page-ana .ana-kulup-logo-panel { margin-bottom: 24px; }
+}
+
+/* restrained, once-only reveal — skipped entirely when motion is reduced */
+@media (prefers-reduced-motion: no-preference) {
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-logo-panel,
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-eyebrow,
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-heading,
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-body {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .page-ana [data-ana-kulup-reveal] .ana-kulup-logo-panel,
+  .page-ana [data-ana-kulup-reveal] .ana-kulup-eyebrow,
+  .page-ana [data-ana-kulup-reveal] .ana-kulup-heading,
+  .page-ana [data-ana-kulup-reveal] .ana-kulup-body {
+    opacity: 1;
+    transform: none;
+    transition: opacity .8s ease, transform .8s cubic-bezier(.22, .61, .36, 1);
+    transition-delay: var(--ana-delay, 0s);
+  }
+  .page-ana [data-ana-kulup-reveal].is-pending .ana-kulup-logo-panel { transform: none; transition-duration: 1s; }
+  .page-ana [data-ana-kulup-reveal].is-pending img { clip-path: inset(0 0 100% 0); transform: scale(1.03); }
+  .page-ana [data-ana-kulup-reveal] img {
+    transition: clip-path 1.05s cubic-bezier(.22, .61, .36, 1), transform 1.2s cubic-bezier(.22, .61, .36, 1);
+  }
+}
