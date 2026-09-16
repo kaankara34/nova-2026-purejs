@@ -98,3 +98,48 @@ Build: `python3 scripts/build_ana.py` (the three frontend files are GENERATED �
 - Links corrected inside the Ana page only: footer + mega-menu Ana card → `the-apartments-ana.html`, Taç card → `the-apartments-tac.html`, East West card/link → `east-west.html`.
 - **Still inherited from Taç as approved placeholders:** hero video + poster, architectural render, intro/specs/plans/parking/arrival/location/nearby copy and data, the 4+1 drawing and its 13-room schedule, the gold site-plan image (which has "THE APARTMENTS TAÇ" baked into the artwork), the parking/arrival visualisations, the map coordinates and the nearby distances. No Ana-specific facts were invented.
 - Verified: testing agent `/app/test_reports/iteration_46.json` — 0 console errors, 0 overflow at 375/390/430/768/1024/1440/1920, 0 `tac` namespace leftovers in the Ana html/css/js, section rhythm as specified, lightbox/print/map/form/reveals/reduced-motion all working, and a clean regression sweep of Taç, east-west, index, projects, contact, construction and design. Its single nit (`.ana-hero` computing to pure black under the video) was then fixed to `--ana-plum-dark` and re-measured as `rgb(40, 27, 35)`.
+
+## The Apartments Ana — authentic assets, fullscreen fix, Büyük Kulüp, map (16 June 2026)
+Working tree was first realigned to the **latest upstream `main` (`5d27fce` "ana updated")** for
+`the-apartments-ana.html`, `index.html`, `projects.html`, `the-apartments-tac.html` and the new
+`media/images/ana/*` + `media/video/ana-video.*` assets (no manual commit/push — platform handles it).
+NOTE: `scripts/build_ana.py` is now **stale** — the Ana page has been hand-authored upstream since it was
+generated, so do **not** re-run the generator; edit `frontend/the-apartments-ana.html` / `css` / `js` directly.
+
+- **Property details separators fixed.** The six groups used `--ana-line` (an ivory hairline) which is
+  invisible on the Ana specs surface; `.page-ana .ana-spec` now uses `--ana-divider`
+  (`rgba(59,38,50,.15)`) for the vertical rules at 1440/1024 and the horizontal rules when the grid
+  wraps at 768/430, with no divider after the final (LOCATION) group and `overflow-wrap: break-word`
+  on the values.
+- **Authentic floor plan.** `media/images/ana/plans/ana-typical-floor.webp` (1334×1180, from the
+  client PNG) replaces the Taç placeholder, shown with `object-fit: contain` and full labels.
+  Schedule rewritten from the drawing only: Living Room 38.43, Master Bedroom 19.40, Bedroom 11.23,
+  Bedroom 11.00, Kitchen 12.02, Entrance Hall 8.19, Corridor 2.86, Bathroom 5.46, En-suite Bathroom
+  3.09, Utility 3.00 m², above the confirmed 150 m² gross / 112 m² net. **Balcony areas on the plan
+  edges are not legible, so no balcony row is published** (KAT HOLÜ / YANGIN MERDİVENİ are shared
+  circulation and excluded). Print sheet and meta description updated to Ana 3+1 / 150 / 112.
+- **Fullscreen viewer bug root cause found:** the lightbox markup sat inside
+  `<section class="ana-plans reveal-up">`, whose `transform` made it the containing block for the
+  `position: fixed` modal (measured rect top `-82px`, hence the "scroll down to find the plan"
+  symptom). The modal is now a **top-level element** and adopts the East West mechanism:
+  `window.lockScroll()/unlockScroll()` from `js/script.js` (scroll-position preserving), `100dvh`,
+  safe-area padding, `z-index: 4000`, 48px round close control, Escape + backdrop + button close,
+  double-open guard.
+- **New Le Cercle d'Orient Büyük Kulüp section** (`#buyuk-kulup`, `ana-kulup-*`) directly between
+  `#parking` and `#arrival`: authentic photograph `media/images/ana/buyuk-kulup-interior.webp`
+  (2000×1500) as the principal 58% visual, official transparent logo
+  `media/images/ana/buyuk-kulup-logo.png` on a Warm Ivory panel in the 42% copy column (the logo's
+  navy ink has no contrast on plum), exact supplied copy, mobile order photo → logo → eyebrow →
+  heading → body, reveal reuses the existing IntersectionObserver and is skipped under
+  `prefers-reduced-motion`.
+- **Map corrected** to `40.97149665164465, 29.055055825082672` (centre, marker, `data-lat/lng`,
+  panel text `The Apartments Ana / Kemal Sunal Sokak / Caddebostan, Kadıköy, İstanbul`,
+  `40.971497° N · 29.055056° E`) with the external link exactly
+  `https://www.google.com/maps?q=40.97149665164465,29.055055825082672`; the old
+  40.977168/29.049069 pair is gone and `invalidateSize()` runs after reveal/resize.
+- **Not done — asset missing:** the replacement underground parking image was described but never
+  attached, so `#parking` still uses `./media/images/tac/tac-parking.webp`.
+- Verified: testing agent `/app/test_reports/iteration_47.json` — **frontend 100%, 0 issues**,
+  0 overflow and 0 console errors at 1440/1024/768/430/390/844×390, modal rect equals the viewport
+  everywhere, scroll position restored exactly over three open/close cycles, Taç and East West
+  regression clean.

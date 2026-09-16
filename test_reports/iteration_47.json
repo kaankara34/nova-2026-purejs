@@ -1,0 +1,32 @@
+{
+  "summary": "Frontend-only re-verification of The Apartments Ana page updates: PROPERTY DETAILS separators, authentic Ana floor plan + 10-row schedule, fullscreen floor-plan modal, new Le Cercle d'Orient Bueyuek Kulueup section, corrected Leaflet coordinates + Google Maps link, and regression on Tac/East-West. All acceptance criteria verified at 1440, 1024, 768, 430, 390 and 844x390. Zero horizontal overflow and zero console errors on all tested pages.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_items": [
+    "PROPERTY DETAILS: 6 ana-spec items with hairline border dividers (rgba(59,38,50,0.15)). At 1440 first five have right border, last has none. At 1024 (3-col) rows 3 and 6 no right border; 4-6 no bottom. At 768/430 (2-col) even items no right, 5-6 no bottom. Last-child has no trailing dividers on any breakpoint.",
+    "Floor plan image loads from ./media/images/ana/plans/ana-typical-floor.webp (natural 1334x1180, complete).",
+    "Room schedule shows Gross 150 M2, Net 112 m2 plus exactly the 10 required rows in order. Obsolete values (45.29, 20.16, 13.38, WC, Balcony) not present anywhere on page.",
+    "Floor plan modal at 390x844: opens via expand button, rect equals viewport (0,0,390,844). During open, body position:fixed with top offset, scroll locked (window.scrollY stays constant even when scrollTo(0,9999) is called). Close via button/Escape/backdrop each restores original scrollY (2468) exactly, over 3 iterations, docH restored to 12587. No listener accumulation observed.",
+    "Modal also fills viewport at 1440/1024/768/430 and mobile landscape 844x390.",
+    "Buyuk Kulup section is between #parking and #arrival in DOM. Contains both ana-kulup-image (photo) and ana-kulup-logo (transparent PNG). Copy exactly matches 'AN ESTABLISHED NEIGHBOUR' / 'A few steps from Le Cercle d'Orient.' + supplied paragraph. Mobile visual order at 390: media (y=81), logo (y=347), eyebrow (y=461), heading (y=494), body (y=575).",
+    "Leaflet map: data-lat=40.97149665164465, data-lng=29.055055825082672. Tiles load (24 tiles) at 1440 and 390 - no blank grey area. Info panel copy correct. ana-map-link href exactly https://www.google.com/maps?q=40.97149665164465,29.055055825082672",
+    "Zero console errors on the-apartments-ana.html at all tested viewports.",
+    "Regression: the-apartments-tac.html and east-west.html load with no console errors and no horizontal overflow at 390."
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Playwright automation quirk (not a real bug): clicking [data-testid=ana-plan-expand] via page.click() at large scroll offsets on mobile sometimes fails silently because the mobile sticky bottom action bar overlaps the button's target coordinate. Real user taps and dispatched .click() both work. Consider raising the expand button's z-index above the sticky bottom bar OR adding scroll-margin-bottom so a tap in that region is guaranteed to hit the button.",
+    "During modal open, document.documentElement.scrollHeight shrinks from 12587 to 844 (because body becomes position:fixed). Requirement 'must NOT grow' is satisfied, and full height is restored on close. No action needed - noted for future reviewers."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Ana page updates fully verified. Known intentional gap: underground parking image still points to ./media/images/tac/tac-parking.webp (user did not provide replacement asset - do not report). Balcony row intentionally omitted from schedule (not legible on authentic plan)."
+}

@@ -813,3 +813,7 @@ Full detail in `memory/CHANGELOG.md`.
 - **P0 — the gold site-plan image has "THE APARTMENTS TAÇ" printed in the artwork**; it needs an Ana version before this page can go live.
 - **P1 — awaiting user visual approval** of the Ana plum/ivory palette.
 - **P2 — the Ana project cards on index.html and projects.html still use the Taç menu thumbnail** and (outside the Ana page) still link to `#`; update them when Ana imagery arrives.
+
+## Ana page — open item (June 2026)
+- P0: replacement **underground parking image** for `#parking` on the-apartments-ana.html was requested but never attached; the section still shows the Taç parking visualisation. Waiting on the user to upload the asset.
+- P2: `scripts/build_ana.py` is stale (upstream now hand-authors the Ana page). Either delete it or re-sync it from the current page before anyone runs it.
