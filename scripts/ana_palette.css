@@ -1,0 +1,216 @@
+/* =========================================================
+   THE APARTMENTS ANA — palette layer
+   Structure, grid, spacing, type scale and motion are inherited
+   unchanged from the Taç system above. Only colour changes here.
+   ========================================================= */
+.page-ana {
+  --ana-plum: #3B2632;
+  --ana-plum-dark: #281B23;
+  --ana-aubergine: #59404A;
+
+  --ana-ivory: #F3EFE7;
+  --ana-bone: #E8E0D4;
+  --ana-mushroom: #B8AA9D;
+
+  --ana-bronze: #8B7257;
+  --ana-ink: #30292B;
+
+  --ana-divider: rgba(59, 38, 50, 0.15);
+  --ana-divider-dark: rgba(243, 239, 231, 0.16);
+
+  /* the inherited Taç tokens are re-pointed at the Ana palette */
+  --ana-cream: var(--ana-ivory);
+  --ana-grey: var(--ana-mushroom);
+  --ana-gold: var(--ana-bronze);
+
+  background: var(--ana-plum-dark);
+  color: var(--ana-ivory);
+}
+
+/* ---------------- hero ---------------- */
+.page-ana .ana-hero { background-color: var(--ana-plum-dark); }
+.page-ana .ana-hero-scrim {
+  background:
+    linear-gradient(180deg,
+      rgba(40, 27, 35, .30) 0%,
+      rgba(40, 27, 35, .10) 45%,
+      rgba(40, 27, 35, .58) 100%);
+}
+.page-ana .ana-hero-status {
+  border-color: rgba(243, 239, 231, .34);
+  color: var(--ana-bone);
+}
+
+/* ---------------- buttons ---------------- */
+.page-ana .ana-btn--gold {
+  background: var(--ana-bronze); border-color: var(--ana-bronze); color: var(--ana-ivory);
+}
+.page-ana .ana-btn--gold:hover,
+.page-ana .ana-btn--gold:focus-visible {
+  background: var(--ana-aubergine); border-color: var(--ana-aubergine); color: var(--ana-ivory);
+}
+.page-ana .ana-btn--outline {
+  border-color: rgba(243, 239, 231, .55); color: var(--ana-ivory); background: transparent;
+}
+.page-ana .ana-btn--outline:hover,
+.page-ana .ana-btn--outline:focus-visible {
+  background: var(--ana-ivory); color: var(--ana-plum); border-color: var(--ana-ivory);
+}
+.page-ana .ana-btn:focus-visible,
+.page-ana .ana-gallery-btn:focus-visible,
+.page-ana .ana-plans-expand:focus-visible,
+.page-ana .ana-plans-download:focus-visible {
+  outline: 2px solid var(--ana-bronze); outline-offset: 3px;
+}
+
+/* ---------------- action strip (dark) ---------------- */
+.page-ana .ana-action-strip { background: var(--ana-plum-dark); border-color: var(--ana-divider-dark); }
+.page-ana .ana-action-inner { border-color: var(--ana-divider-dark); }
+.page-ana .ana-gallery-btn { color: var(--ana-ivory); }
+
+/* =========================================================
+   LIGHT SECTIONS
+   ========================================================= */
+.page-ana .ana-intro,
+.page-ana .ana-plans,
+.page-ana .ana-parking-section,
+.page-ana .ana-nearby { background: var(--ana-ivory); }
+.page-ana .ana-render { background: var(--ana-ivory); }
+.page-ana .ana-render-inner { background: var(--ana-bone); border-color: var(--ana-divider); }
+.page-ana .ana-specs,
+.page-ana .ana-parking-section--arrival { background: var(--ana-bone); }
+
+/* introduction */
+/* the shared lettermark is light ink, so it is inverted and tinted plum
+   to sit on the ivory introduction surface */
+.page-ana .ana-intro-logo {
+  mix-blend-mode: normal;
+  filter: invert(1) sepia(.32) saturate(2.1) hue-rotate(272deg) brightness(.62) contrast(1.05);
+}
+.page-ana .ana-intro-tag { color: var(--ana-plum); }
+.page-ana .ana-intro-sub { color: var(--ana-ink); }
+
+/* architectural render */
+.page-ana .ana-render-eyebrow { color: var(--ana-bronze); }
+.page-ana .ana-render-title { color: var(--ana-plum); }
+.page-ana .ana-render-copy { color: var(--ana-ink); }
+.page-ana .ana-render-figure img { border-color: var(--ana-divider); }
+
+/* specifications */
+.page-ana .ana-specs-title { color: var(--ana-plum); }
+.page-ana .ana-spec-label { color: var(--ana-bronze); }
+.page-ana .ana-spec-value,
+.page-ana .ana-spec-value span { color: var(--ana-plum); }
+.page-ana .ana-spec-item { border-color: var(--ana-divider); }
+
+/* floor plan */
+.page-ana .ana-plans-eyebrow { color: var(--ana-bronze); }
+.page-ana .ana-plans-tabs { border-bottom-color: var(--ana-divider); }
+.page-ana .ana-plans-tab,
+.page-ana .ana-plans-tab.active { color: var(--ana-plum); border-bottom-color: var(--ana-bronze); }
+.page-ana .ana-plans-title { color: var(--ana-plum); }
+.page-ana .ana-plans-row { color: var(--ana-ink); border-bottom-color: var(--ana-divider); }
+.page-ana .ana-plans-row > span:first-child { color: var(--ana-ink); }
+.page-ana .ana-plans-row em { color: var(--ana-bronze); }
+.page-ana .ana-plans-val { color: var(--ana-plum); }
+.page-ana .ana-plans-row--total { border-bottom-color: rgba(59, 38, 50, .32); }
+.page-ana .ana-plans-row--total > span:first-child,
+.page-ana .ana-plans-rows > .ana-plans-row:nth-child(2) > span:first-child { color: var(--ana-bronze); }
+.page-ana .ana-plans-rows > .ana-plans-row:nth-child(2) { border-bottom-color: rgba(59, 38, 50, .32); }
+.page-ana .ana-plans-sub { color: var(--ana-plum); }
+.page-ana .ana-plans-copy { color: var(--ana-ink); }
+.page-ana .ana-plans-footnote { border-top-color: var(--ana-divider); }
+.page-ana .ana-plans-expand,
+.page-ana .ana-plans-download {
+  background: var(--ana-ivory); color: var(--ana-plum); border: 1px solid var(--ana-divider);
+}
+.page-ana .ana-plans-expand:hover,
+.page-ana .ana-plans-download:hover {
+  background: var(--ana-bronze); color: var(--ana-ivory); border-color: var(--ana-bronze);
+}
+.page-ana .ana-plans-lightbox { background: rgba(40, 27, 35, .96); }
+.page-ana .ana-plans-lightbox-close { color: var(--ana-ivory); }
+
+/* private parking + arrival */
+.page-ana .ana-parking-eyebrow { color: var(--ana-bronze); }
+.page-ana .ana-parking-heading { color: var(--ana-plum); }
+.page-ana .ana-parking-body { color: var(--ana-ink); }
+.page-ana .ana-parking-figures { border-top-color: var(--ana-divider); }
+.page-ana .ana-parking-figure dt { color: var(--ana-bronze); }
+.page-ana .ana-parking-num { color: var(--ana-plum); }
+.page-ana .ana-parking-note { color: var(--ana-plum); }
+.page-ana .ana-parking-figure-media {
+  background: var(--ana-bone); border: 1px solid var(--ana-divider);
+}
+.page-ana .ana-parking-section--arrival .ana-parking-figure-media { background: var(--ana-ivory); }
+.page-ana .ana-parking-figure-media figcaption { color: var(--ana-bronze); }
+
+/* what's nearby */
+.page-ana .ana-nearby-title { color: var(--ana-plum); }
+.page-ana .ana-nearby-desc { color: var(--ana-ink); }
+.page-ana .ana-nearby-card { background: var(--ana-bone); border: 1px solid var(--ana-divider); }
+.page-ana .ana-nearby-dist { color: var(--ana-plum); }
+.page-ana .ana-nearby-line { background: var(--ana-bronze); }
+.page-ana .ana-nearby-label { color: var(--ana-ink); }
+
+/* =========================================================
+   DARK SECTIONS
+   ========================================================= */
+.page-ana .ana-invest { background: var(--ana-plum-dark); }
+.page-ana .ana-invest-title { color: var(--ana-ivory); }
+.page-ana .ana-invest-list li,
+.page-ana .ana-invest-list li:first-child { border-color: var(--ana-divider-dark); }
+.page-ana .ana-invest-list .num { color: var(--ana-bronze); }
+.page-ana .ana-invest-list .txt { color: var(--ana-bone); }
+
+.page-ana .ana-location { background: var(--ana-plum-dark); }
+.page-ana .ana-location-media { border-color: var(--ana-divider-dark); }
+.page-ana .ana-location-title,
+.page-ana .ana-location-lead { color: var(--ana-ivory); }
+.page-ana .ana-location-desc { color: var(--ana-mushroom); }
+.page-ana .ana-map-card { background: var(--ana-plum); border-color: var(--ana-divider-dark); }
+.page-ana .ana-map-canvas,
+.page-ana .ana-map-canvas .leaflet-container { background: var(--ana-plum); }
+.page-ana .ana-map-canvas .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) saturate(.2) sepia(.3) brightness(.78) contrast(1.05);
+}
+.page-ana .ana-map-info {
+  background: rgba(40, 27, 35, .86); border-color: var(--ana-divider-dark);
+}
+.page-ana .ana-map-loc { color: var(--ana-ivory); }
+.page-ana .ana-map-coords { color: var(--ana-mushroom); }
+.page-ana .ana-map-open {
+  background: rgba(40, 27, 35, .86); color: var(--ana-bronze);
+  border-color: rgba(243, 239, 231, .24);
+}
+.page-ana .ana-map-open:hover {
+  background: var(--ana-bronze); color: var(--ana-ivory); border-color: var(--ana-bronze);
+}
+.page-ana .ana-map-pin {
+  background: var(--ana-bronze); box-shadow: 0 0 0 8px rgba(139, 114, 87, .24);
+}
+
+/* enquiry — the transition into the shared footer */
+.page-ana .ana-enquire { background: var(--ana-plum); }
+.page-ana .ana-enquire-title { color: var(--ana-ivory); }
+.page-ana .ana-enquire-lead,
+.page-ana .ana-form-note { color: var(--ana-mushroom); }
+.page-ana .ana-field label { color: var(--ana-bone); }
+.page-ana .ana-field input,
+.page-ana .ana-field select,
+.page-ana .ana-field textarea {
+  background: rgba(243, 239, 231, .04);
+  border-color: var(--ana-divider-dark);
+  color: var(--ana-ivory);
+}
+.page-ana .ana-field input:focus,
+.page-ana .ana-field select:focus,
+.page-ana .ana-field textarea:focus {
+  border-color: var(--ana-bronze); outline: none;
+}
+.page-ana .ana-field input::placeholder,
+.page-ana .ana-field textarea::placeholder { color: rgba(184, 170, 157, .7); }
+.page-ana .ana-consent,
+.page-ana .ana-consent a { color: var(--ana-mushroom); }
+.page-ana .ana-consent a:hover { color: var(--ana-ivory); }
+.page-ana .ana-form-msg { color: var(--ana-bone); }

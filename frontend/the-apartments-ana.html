@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-  <meta name="theme-color" content="#050505" />
-  <meta name="description" content="The Apartments Taç — a secure 4+1 residential address offering 190 m² gross and 149 m² net in Selamiçeşme, Bağdat Caddesi, Istanbul." />
-  <title>The Apartments Taç | Nova Konut</title>
+  <meta name="theme-color" content="#281B23" />
+  <meta name="description" content="The Apartments Ana — a secure 4+1 residential address offering 190 m² gross and 149 m² net in Selamiçeşme, Bağdat Caddesi, Istanbul." />
+  <title>The Apartments Ana | Nova Konut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,9 +14,9 @@
 
   <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="css/the-apartments-tac.css" />
+  <link rel="stylesheet" href="css/the-apartments-ana.css" />
 </head>
-<body class="page-project page-tac">
+<body class="page-project page-ana">
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
     <div class="utility-bar-inner">
@@ -128,7 +128,7 @@
             <a href="#"><span class="label">İSTANBUL</span><span class="chev" aria-hidden="true">›</span></a>
             <ul class="sub-accordion" aria-hidden="true">
               <li><a href="east-west.html">THE RESIDENCES EAST WEST</a></li>
-              <li><a href="#">THE APARTMENTS TAÇ</a></li>
+              <li><a href="#">THE APARTMENTS ANA</a></li>
               <li><a href="#">THE APARTMENTS ANA</a></li>
               <li><a href="index.html#projects" class="view-all-link">VIEW ALL</a></li>
             </ul>
@@ -152,7 +152,7 @@
             </div>
             <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
           </a>
-          <a href="#" class="proj-card">
+          <a href="the-apartments-tac.html" class="proj-card">
             <div class="proj-img">
               <img src="./media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
               <div class="proj-overlay"></div>
@@ -160,7 +160,7 @@
             </div>
             <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
           </a>
-          <a href="#" class="proj-card">
+          <a href="the-apartments-ana.html" class="proj-card">
             <div class="proj-img">
               <img src="./media/images/menu-thumbs/tac_render.webp" alt="The Apartments Ana" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
               <div class="proj-overlay"></div>
@@ -185,103 +185,103 @@
 
   <!-- ============================= PROJECT HERO ============================= -->
   <!-- ============================= HERO ============================= -->
-  <section class="tac-hero" id="top">
-    <div class="tac-hero-media">
-      <video class="tac-hero-video" id="tacHeroVideo" autoplay muted loop playsinline preload="metadata"
+  <section class="ana-hero" id="top">
+    <div class="ana-hero-media">
+      <video class="ana-hero-video" id="anaHeroVideo" autoplay muted loop playsinline preload="metadata"
              poster="./media/video/tac/tac-construction-poster.jpg" width="1280" height="720"
-             aria-label="Construction progress at The Apartments Taç" data-testid="tac-hero-video">
+             aria-label="Construction progress at The Apartments Ana" data-testid="ana-hero-video">
         <source src="./media/video/tac/tac-construction.webm" type="video/webm" />
         <source src="./media/video/tac/tac-construction.mp4" type="video/mp4" />
       </video>
-      <span class="tac-hero-scrim" aria-hidden="true"></span>
+      <span class="ana-hero-scrim" aria-hidden="true"></span>
     </div>
-    <div class="tac-hero-inner">
-      <p class="tac-hero-meta" data-testid="tac-hero-meta">
-        <span class="tac-hero-place">SELAMİÇEŞME &middot; BAĞDAT CADDESİ</span>
-        <span class="tac-hero-status">UNDER CONSTRUCTION</span>
+    <div class="ana-hero-inner">
+      <p class="ana-hero-meta" data-testid="ana-hero-meta">
+        <span class="ana-hero-place">SELAMİÇEŞME &middot; BAĞDAT CADDESİ</span>
+        <span class="ana-hero-status">UNDER CONSTRUCTION</span>
       </p>
     </div>
   </section>
 
   <!-- ============================= HERO ACTION BAR ============================= -->
-  <div class="tac-action-strip">
-    <div class="tac-action-inner">
-      <button class="tac-gallery-btn" id="tacRenderBtn" type="button" data-tac-scroll="architecture" data-testid="tac-view-render">
+  <div class="ana-action-strip">
+    <div class="ana-action-inner">
+      <button class="ana-gallery-btn" id="anaRenderBtn" type="button" data-ana-scroll="architecture" data-testid="ana-view-render">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5" /><circle cx="8.5" cy="9.5" r="1.6" /><path d="M3 16.5l4.5-4 3.5 3 3.5-3.2L21 17" /></svg>
         <span>VIEW RENDER</span>
       </button>
-      <div class="tac-action-cta">
-        <a class="tac-btn tac-btn--gold" href="#register" data-tac-scroll="register" data-testid="tac-book-unit">BOOK UNIT</a>
-        <a class="tac-btn tac-btn--outline" href="#floorplan" data-tac-scroll="floorplan" data-testid="tac-view-plan">VIEW FLOOR PLAN</a>
+      <div class="ana-action-cta">
+        <a class="ana-btn ana-btn--gold" href="#register" data-ana-scroll="register" data-testid="ana-book-unit">BOOK UNIT</a>
+        <a class="ana-btn ana-btn--outline" href="#floorplan" data-ana-scroll="floorplan" data-testid="ana-view-plan">VIEW FLOOR PLAN</a>
       </div>
     </div>
   </div>
 
   <!-- ============================= INTRODUCTION ============================= -->
-  <section class="tac-intro">
-    <img class="tac-intro-logo reveal-up" src="./media/images/logos/TAC_logo-tight.svg" width="300" height="100"
-         alt="The Apartments Taç" loading="lazy" />
-    <p class="tac-intro-tag reveal-up">A secure 4+1 residential address offering 190 m² gross and 149 m² net living space in Selamiçeşme, Bağdat Caddesi.</p>
-    <p class="tac-intro-sub reveal-up">Taç is defined by the scale of the home itself: generous rooms, clear circulation and the privacy of a composed residential building, without an unnecessary catalogue of shared amenities.</p>
+  <section class="ana-intro">
+    <img class="ana-intro-logo reveal-up" src="./media/images/logos/ANA_logo-tight.svg" width="300" height="100"
+         alt="The Apartments Ana" loading="lazy" />
+    <p class="ana-intro-tag reveal-up">A secure 4+1 residential address offering 190 m² gross and 149 m² net living space in Selamiçeşme, Bağdat Caddesi.</p>
+    <p class="ana-intro-sub reveal-up">Ana is defined by the scale of the home itself: generous rooms, clear circulation and the privacy of a composed residential building, without an unnecessary catalogue of shared amenities.</p>
   </section>
 
   <!-- ============================= ARCHITECTURAL RENDER ============================= -->
-  <section class="tac-render" id="architecture">
-    <div class="tac-render-inner">
-      <figure class="tac-render-figure reveal-up">
+  <section class="ana-render" id="architecture">
+    <div class="ana-render-inner">
+      <figure class="ana-render-figure reveal-up">
         <img src="./media/images/tac/tac-render2.webp" width="1118" height="1407"
-             alt="The Apartments Taç — architectural render" loading="eager" decoding="async" fetchpriority="high"
-             data-testid="tac-render-image" />
+             alt="The Apartments Ana — architectural render" loading="eager" decoding="async" fetchpriority="high"
+             data-testid="ana-render-image" />
       </figure>
-      <div class="tac-render-head reveal-up">
-        <h2 class="tac-render-eyebrow">ARCHITECTURE</h2>
-        <p class="tac-render-title">A composed residential presence.</p>
-        <p class="tac-render-copy">The architecture is defined by clear proportions, generous glazing and a restrained material palette. Its purpose is not to compete for attention, but to establish a calm and enduring residential presence within the established fabric of Bağdat Caddesi.</p>
+      <div class="ana-render-head reveal-up">
+        <h2 class="ana-render-eyebrow">ARCHITECTURE</h2>
+        <p class="ana-render-title">A composed residential presence.</p>
+        <p class="ana-render-copy">The architecture is defined by clear proportions, generous glazing and a restrained material palette. Its purpose is not to compete for attention, but to establish a calm and enduring residential presence within the established fabric of Bağdat Caddesi.</p>
       </div>
     </div>
   </section>
 
   <!-- ============================= SPECIFICATIONS ============================= -->
-  <section class="tac-specs reveal-up">
-    <div class="tac-specs-grid" data-testid="tac-specs-grid">
-      <div class="tac-spec">
-        <div class="tac-spec-label">property type</div>
-        <div class="tac-spec-value">Private Residences</div>
+  <section class="ana-specs reveal-up">
+    <div class="ana-specs-grid" data-testid="ana-specs-grid">
+      <div class="ana-spec">
+        <div class="ana-spec-label">property type</div>
+        <div class="ana-spec-value">Private Residences</div>
       </div>
-      <div class="tac-spec">
-        <div class="tac-spec-label">unit type</div>
-        <div class="tac-spec-value">4+1 Residences</div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">unit type</div>
+        <div class="ana-spec-value">4+1 Residences</div>
       </div>
-      <div class="tac-spec">
-        <div class="tac-spec-label">features</div>
-        <div class="tac-spec-value">Generous Planning and Controlled Residential Access</div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">features</div>
+        <div class="ana-spec-value">Generous Planning and Controlled Residential Access</div>
       </div>
       <!-- DEV NOTE: confirm the gross-area definition (190 m²) against the approved
            architectural and sales-area schedules before production release. -->
-      <div class="tac-spec">
-        <div class="tac-spec-label">area</div>
-        <div class="tac-spec-value">190 m² Gross<span>149 m² Net</span></div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">area</div>
+        <div class="ana-spec-value">190 m² Gross<span>149 m² Net</span></div>
       </div>
-      <div class="tac-spec">
-        <div class="tac-spec-label">status</div>
-        <div class="tac-spec-value">Under Construction</div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">status</div>
+        <div class="ana-spec-value">Under Construction</div>
       </div>
-      <div class="tac-spec">
-        <div class="tac-spec-label">location</div>
-        <div class="tac-spec-value">Selamiçeşme, Bağdat Caddesi</div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">location</div>
+        <div class="ana-spec-value">Selamiçeşme, Bağdat Caddesi</div>
       </div>
     </div>
   </section>
 
   <!-- ============================= FLOOR PLAN ============================= -->
-  <section class="tac-plans reveal-up" id="floorplan">
-    <div class="tac-plans-eyebrow">TYPICAL RESIDENCE</div>
-    <div class="tac-plans-tabs">
-      <span class="tac-plans-tab active" data-testid="tac-plan-type">4+1</span>
+  <section class="ana-plans reveal-up" id="floorplan">
+    <div class="ana-plans-eyebrow">TYPICAL RESIDENCE</div>
+    <div class="ana-plans-tabs">
+      <span class="ana-plans-tab active" data-testid="ana-plan-type">4+1</span>
     </div>
-    <div class="tac-plans-body">
-      <div class="tac-plans-image">
-        <button class="tac-plans-expand" id="tacPlansExpand" type="button" aria-label="Enlarge floor plan" data-testid="tac-plan-expand">
+    <div class="ana-plans-body">
+      <div class="ana-plans-image">
+        <button class="ana-plans-expand" id="anaPlansExpand" type="button" aria-label="Enlarge floor plan" data-testid="ana-plan-expand">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="15 3 21 3 21 9"/>
             <polyline points="9 21 3 21 3 15"/>
@@ -289,68 +289,68 @@
             <line x1="3" y1="21" x2="10" y2="14"/>
           </svg>
         </button>
-        <button class="tac-plans-download" id="tacPlansPrint" type="button" aria-label="Print floor plan" data-testid="tac-plan-print">
+        <button class="ana-plans-download" id="anaPlansPrint" type="button" aria-label="Print floor plan" data-testid="ana-plan-print">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="6 9 6 2 18 2 18 9"/>
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <rect x="6" y="14" width="12" height="8"/>
           </svg>
         </button>
-        <div class="tac-plans-viewport">
+        <div class="ana-plans-viewport">
           <!-- DEV NOTE: typical floor plan supplied by the client; both apartments on the
                floor are 4+1, so the schedule beside it describes one 4+1 residence. -->
-          <img class="tac-plans-img" id="tacPlanImg" src="./media/images/tac/plans/tac-4plus1.webp"
-               width="1748" height="1428" alt="The Apartments Taç — typical floor plan, 4+1 residences"
-               loading="lazy" decoding="async" data-testid="tac-plan-image" />
+          <img class="ana-plans-img" id="anaPlanImg" src="./media/images/tac/plans/tac-4plus1.webp"
+               width="1748" height="1428" alt="The Apartments Ana — typical floor plan, 4+1 residences"
+               loading="lazy" decoding="async" data-testid="ana-plan-image" />
         </div>
       </div>
-      <div class="tac-plans-info">
-        <h3 class="tac-plans-title" id="tacPlanTitle">4+1 Floor Plan</h3>
-        <div class="tac-plans-rows" id="tacPlanRows" data-testid="tac-plan-rows">
-          <div class="tac-plans-row tac-plans-row--total">
+      <div class="ana-plans-info">
+        <h3 class="ana-plans-title" id="anaPlanTitle">4+1 Floor Plan</h3>
+        <div class="ana-plans-rows" id="anaPlanRows" data-testid="ana-plan-rows">
+          <div class="ana-plans-row ana-plans-row--total">
             <span>Gross Area</span>
-            <span class="tac-plans-val">190 m²</span>
+            <span class="ana-plans-val">190 m²</span>
           </div>
-          <div class="tac-plans-row">
+          <div class="ana-plans-row">
             <span>Net Area</span>
-            <span class="tac-plans-val">149 m²</span>
+            <span class="ana-plans-val">149 m²</span>
           </div>
-          <div class="tac-plans-row"><span><em>1.</em> Living Room</span><span class="tac-plans-val">45.29 m²</span></div>
-          <div class="tac-plans-row"><span><em>2.</em> Master Bedroom</span><span class="tac-plans-val">20.16 m²</span></div>
-          <div class="tac-plans-row"><span><em>3.</em> Bedroom</span><span class="tac-plans-val">12.11 m²</span></div>
-          <div class="tac-plans-row"><span><em>4.</em> Bedroom</span><span class="tac-plans-val">11.77 m²</span></div>
-          <div class="tac-plans-row"><span><em>5.</em> Bedroom</span><span class="tac-plans-val">11.22 m²</span></div>
-          <div class="tac-plans-row"><span><em>6.</em> Kitchen</span><span class="tac-plans-val">13.38 m²</span></div>
-          <div class="tac-plans-row"><span><em>7.</em> Entrance Hall</span><span class="tac-plans-val">7.67 m²</span></div>
-          <div class="tac-plans-row"><span><em>8.</em> Corridor</span><span class="tac-plans-val">7.59 m²</span></div>
-          <div class="tac-plans-row"><span><em>9.</em> En-suite Bathroom</span><span class="tac-plans-val">3.50 m²</span></div>
-          <div class="tac-plans-row"><span><em>10.</em> Bathroom</span><span class="tac-plans-val">5.80 m²</span></div>
-          <div class="tac-plans-row"><span><em>11.</em> WC</span><span class="tac-plans-val">2.16 m²</span></div>
-          <div class="tac-plans-row"><span><em>12.</em> Utility</span><span class="tac-plans-val">3.00 m²</span></div>
-          <div class="tac-plans-row"><span><em>13.</em> Balcony</span><span class="tac-plans-val">5.10 m²</span></div>
+          <div class="ana-plans-row"><span><em>1.</em> Living Room</span><span class="ana-plans-val">45.29 m²</span></div>
+          <div class="ana-plans-row"><span><em>2.</em> Master Bedroom</span><span class="ana-plans-val">20.16 m²</span></div>
+          <div class="ana-plans-row"><span><em>3.</em> Bedroom</span><span class="ana-plans-val">12.11 m²</span></div>
+          <div class="ana-plans-row"><span><em>4.</em> Bedroom</span><span class="ana-plans-val">11.77 m²</span></div>
+          <div class="ana-plans-row"><span><em>5.</em> Bedroom</span><span class="ana-plans-val">11.22 m²</span></div>
+          <div class="ana-plans-row"><span><em>6.</em> Kitchen</span><span class="ana-plans-val">13.38 m²</span></div>
+          <div class="ana-plans-row"><span><em>7.</em> Entrance Hall</span><span class="ana-plans-val">7.67 m²</span></div>
+          <div class="ana-plans-row"><span><em>8.</em> Corridor</span><span class="ana-plans-val">7.59 m²</span></div>
+          <div class="ana-plans-row"><span><em>9.</em> En-suite Bathroom</span><span class="ana-plans-val">3.50 m²</span></div>
+          <div class="ana-plans-row"><span><em>10.</em> Bathroom</span><span class="ana-plans-val">5.80 m²</span></div>
+          <div class="ana-plans-row"><span><em>11.</em> WC</span><span class="ana-plans-val">2.16 m²</span></div>
+          <div class="ana-plans-row"><span><em>12.</em> Utility</span><span class="ana-plans-val">3.00 m²</span></div>
+          <div class="ana-plans-row"><span><em>13.</em> Balcony</span><span class="ana-plans-val">5.10 m²</span></div>
         </div>
       </div>
     </div>
-    <div class="tac-plans-footnote">
-      <h4 class="tac-plans-sub">SPACE AS THE DEFINING FEATURE</h4>
-      <p class="tac-plans-copy" id="tacPlanCopy">At 149 m² net, the plan provides the dimensions required for a genuine 4+1 residence. Living, private and service areas are organised through clear circulation, allowing the scale of the home to remain useful rather than merely numerical.</p>
+    <div class="ana-plans-footnote">
+      <h4 class="ana-plans-sub">SPACE AS THE DEFINING FEATURE</h4>
+      <p class="ana-plans-copy" id="anaPlanCopy">At 149 m² net, the plan provides the dimensions required for a genuine 4+1 residence. Living, private and service areas are organised through clear circulation, allowing the scale of the home to remain useful rather than merely numerical.</p>
     </div>
 
-    <div class="tac-plans-lightbox" id="tacPlansLightbox" aria-hidden="true" role="dialog" aria-label="Floor plan">
-      <button class="tac-plans-lightbox-close" id="tacPlansLightboxClose" type="button" aria-label="Close" data-testid="tac-plan-close">&times;</button>
-      <img id="tacPlansLightboxImg" alt="The Apartments Taç — 4+1 residence floor plan, enlarged" />
+    <div class="ana-plans-lightbox" id="anaPlansLightbox" aria-hidden="true" role="dialog" aria-label="Floor plan">
+      <button class="ana-plans-lightbox-close" id="anaPlansLightboxClose" type="button" aria-label="Close" data-testid="ana-plan-close">&times;</button>
+      <img id="anaPlansLightboxImg" alt="The Apartments Ana — 4+1 residence floor plan, enlarged" />
     </div>
   </section>
 
   <!-- ============================= DESIGNED AROUND SPACE ============================= -->
-  <section class="tac-invest">
-    <h2 class="tac-invest-title reveal-up">DESIGNED AROUND SPACE</h2>
-    <div class="tac-invest-grid reveal-up">
-      <div class="tac-invest-img">
+  <section class="ana-invest">
+    <h2 class="ana-invest-title reveal-up">DESIGNED AROUND SPACE</h2>
+    <div class="ana-invest-grid reveal-up">
+      <div class="ana-invest-img">
         <img src="./media/images/tac/tac-cadde1.webp" width="941" height="1672"
-             alt="The Apartments Taç" loading="lazy" decoding="async" />
+             alt="The Apartments Ana" loading="lazy" decoding="async" />
       </div>
-     <ul class="tac-invest-list" data-testid="tac-qualities">
+     <ul class="ana-invest-list" data-testid="ana-qualities">
   <li><span class="num">01</span><span class="txt">149 m² of net living space within a generously proportioned 4+1 plan</span></li>
   <li><span class="num">02</span><span class="txt">Exceptional room dimensions by Bağdat Caddesi residential standards</span></li>
   <li><span class="num">03</span><span class="txt">Two deed-registered private parking spaces for every Nova residence</span></li>
@@ -366,223 +366,223 @@
   </section>
 
   <!-- ============================= PRIVATE PARKING ============================= -->
-  <section class="tac-parking-section" id="parking" aria-labelledby="tac-parking-heading">
-    <div class="tac-parking-inner">
-      <div class="tac-parking-copy" data-tac-parking-reveal>
-        <p class="tac-parking-eyebrow">PRIVATE PARKING</p>
-        <h2 class="tac-parking-heading" id="tac-parking-heading">Two levels below ground.<br />Two spaces for every Nova residence.</h2>
-        <p class="tac-parking-body">Parking extends across two basement levels beneath The Apartments Taç. Each apartment within Nova&rsquo;s allocation includes two designated indoor parking spaces, formally recorded in the relevant title-deed documentation.</p>
-        <dl class="tac-parking-figures" data-testid="tac-parking-figures">
-          <div class="tac-parking-figure">
+  <section class="ana-parking-section" id="parking" aria-labelledby="ana-parking-heading">
+    <div class="ana-parking-inner">
+      <div class="ana-parking-copy" data-ana-parking-reveal>
+        <p class="ana-parking-eyebrow">PRIVATE PARKING</p>
+        <h2 class="ana-parking-heading" id="ana-parking-heading">Two levels below ground.<br />Two spaces for every Nova residence.</h2>
+        <p class="ana-parking-body">Parking extends across two basement levels beneath The Apartments Ana. Each apartment within Nova&rsquo;s allocation includes two designated indoor parking spaces, formally recorded in the relevant title-deed documentation.</p>
+        <dl class="ana-parking-figures" data-testid="ana-parking-figures">
+          <div class="ana-parking-figure">
             <dt>Basement levels</dt>
-            <dd><span class="tac-parking-num" data-tac-count="-2">&minus;2</span></dd>
+            <dd><span class="ana-parking-num" data-ana-count="-2">&minus;2</span></dd>
           </div>
-          <div class="tac-parking-figure">
+          <div class="ana-parking-figure">
             <dt>Spaces per residence</dt>
-            <dd><span class="tac-parking-num" data-tac-count="2">2</span></dd>
+            <dd><span class="ana-parking-num" data-ana-count="2">2</span></dd>
           </div>
         </dl>
-        <p class="tac-parking-note">A permanent part of the residence&mdash;not an informal or temporary allocation.</p>
+        <p class="ana-parking-note">A permanent part of the residence&mdash;not an informal or temporary allocation.</p>
       </div>
-      <figure class="tac-parking-figure-media" data-tac-parking-reveal>
+      <figure class="ana-parking-figure-media" data-ana-parking-reveal>
         <img src="./media/images/tac/tac-parking.webp"
              srcset="./media/images/tac/tac-parking-800.webp 632w, ./media/images/tac/tac-parking.webp 1264w"
              sizes="(max-width: 900px) 92vw, 56vw"
              width="1264" height="848"
-             alt="Enclosed residential car park beneath The Apartments Taç, architectural visualisation"
-             loading="lazy" decoding="async" data-testid="tac-parking-image" />
+             alt="Enclosed residential car park beneath The Apartments Ana, architectural visualisation"
+             loading="lazy" decoding="async" data-testid="ana-parking-image" />
         <figcaption>Architectural visualisation</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- ============================= ARRIVAL ============================= -->
-  <section class="tac-parking-section tac-parking-section--arrival" id="arrival" aria-labelledby="tac-arrival-heading">
-    <div class="tac-parking-inner tac-parking-inner--reverse">
-      <div class="tac-parking-copy" data-tac-parking-reveal>
-        <p class="tac-parking-eyebrow">ARRIVAL</p>
-        <h2 class="tac-parking-heading" id="tac-arrival-heading">A considered arrival from Bağdat Caddesi.</h2>
-        <p class="tac-parking-body">The vehicular approach from Bağdat Caddesi leads to the controlled entrance of The Apartments Taç and continues to the enclosed parking levels below the residence.</p>
-        <p class="tac-parking-note">A clear, secure and considered transition from the avenue to the building.</p>
+  <section class="ana-parking-section ana-parking-section--arrival" id="arrival" aria-labelledby="ana-arrival-heading">
+    <div class="ana-parking-inner ana-parking-inner--reverse">
+      <div class="ana-parking-copy" data-ana-parking-reveal>
+        <p class="ana-parking-eyebrow">ARRIVAL</p>
+        <h2 class="ana-parking-heading" id="ana-arrival-heading">A considered arrival from Bağdat Caddesi.</h2>
+        <p class="ana-parking-body">The vehicular approach from Bağdat Caddesi leads to the controlled entrance of The Apartments Ana and continues to the enclosed parking levels below the residence.</p>
+        <p class="ana-parking-note">A clear, secure and considered transition from the avenue to the building.</p>
       </div>
-      <figure class="tac-parking-figure-media" data-tac-parking-reveal>
+      <figure class="ana-parking-figure-media" data-ana-parking-reveal>
         <img src="./media/images/tac/tac-giris2.webp"
              srcset="./media/images/tac/tac-giris2-800.webp 809w, ./media/images/tac/tac-giris2.webp 1618w"
              sizes="(max-width: 900px) 92vw, 56vw"
              width="1618" height="972"
-             alt="Vehicular entrance to The Apartments Taç from Bağdat Caddesi, architectural visualisation"
-             loading="lazy" decoding="async" data-testid="tac-arrival-image" />
+             alt="Vehicular entrance to The Apartments Ana from Bağdat Caddesi, architectural visualisation"
+             loading="lazy" decoding="async" data-testid="ana-arrival-image" />
         <figcaption>Architectural visualisation</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- ============================= LOCATION ============================= -->
-  <section class="tac-location" id="location">
-    <h2 class="tac-location-title reveal-up">location</h2>
-    <p class="tac-location-lead reveal-up">AN ESTABLISHED RESIDENTIAL ADDRESS AROUND BAĞDAT CADDESİ.</p>
-    <p class="tac-location-desc reveal-up">The Apartments Taç is located in Selamiçeşme, within the established residential fabric surrounding Bağdat Caddesi. The address combines the privacy and scale of a generous home with access to the avenue&rsquo;s everyday services, dining, retail and transport connections.</p>
-    <figure class="tac-location-media reveal-up">
+  <section class="ana-location" id="location">
+    <h2 class="ana-location-title reveal-up">location</h2>
+    <p class="ana-location-lead reveal-up">AN ESTABLISHED RESIDENTIAL ADDRESS AROUND BAĞDAT CADDESİ.</p>
+    <p class="ana-location-desc reveal-up">The Apartments Ana is located in Selamiçeşme, within the established residential fabric surrounding Bağdat Caddesi. The address combines the privacy and scale of a generous home with access to the avenue&rsquo;s everyday services, dining, retail and transport connections.</p>
+    <figure class="ana-location-media reveal-up">
       <img src="./media/images/tac/tac-site-map.webp" width="2000" height="1115"
-           alt="The Apartments Taç site plan on Bağdat Caddesi, Selamiçeşme"
-           loading="lazy" decoding="async" data-testid="tac-site-plan-image" />
+           alt="The Apartments Ana site plan on Bağdat Caddesi, Selamiçeşme"
+           loading="lazy" decoding="async" data-testid="ana-site-plan-image" />
     </figure>
-    <div class="tac-map reveal-up">
-      <div class="tac-map-card">
-        <div class="tac-map-canvas" id="tacMap" data-lat="40.9771680668217" data-lng="29.049068608464168"
-             role="region" aria-label="Dark map showing the location of The Apartments Taç in Selamiçeşme"
-             data-testid="tac-map-canvas"></div>
-        <div class="tac-map-info">
-          <div class="tac-map-loc">The Apartments Taç<span>Selamiçeşme, Bağdat Caddesi, Istanbul</span></div>
-          <div class="tac-map-coords">40.977168&deg;N &nbsp; 29.049069&deg;E</div>
+    <div class="ana-map reveal-up">
+      <div class="ana-map-card">
+        <div class="ana-map-canvas" id="anaMap" data-lat="40.9771680668217" data-lng="29.049068608464168"
+             role="region" aria-label="Dark map showing the location of The Apartments Ana in Selamiçeşme"
+             data-testid="ana-map-canvas"></div>
+        <div class="ana-map-info">
+          <div class="ana-map-loc">The Apartments Ana<span>Selamiçeşme, Bağdat Caddesi, Istanbul</span></div>
+          <div class="ana-map-coords">40.977168&deg;N &nbsp; 29.049069&deg;E</div>
         </div>
-        <a class="tac-map-open" href="https://www.google.com/maps/search/?api=1&amp;query=40.977168,29.049069"
-           target="_blank" rel="noopener noreferrer" data-testid="tac-map-link">View on Google Maps &rarr;</a>
+        <a class="ana-map-open" href="https://www.google.com/maps/search/?api=1&amp;query=40.977168,29.049069"
+           target="_blank" rel="noopener noreferrer" data-testid="ana-map-link">View on Google Maps &rarr;</a>
       </div>
     </div>
   </section>
 
   <!-- ============================= WHAT'S NEARBY ============================= -->
-  <section class="tac-nearby">
-    <h2 class="tac-nearby-title reveal-up">WHAT&rsquo;S NEARBY</h2>
-    <p class="tac-nearby-desc reveal-up">Set within one of Istanbul&rsquo;s most established residential districts, Taç offers practical access to Bağdat Caddesi, the Marmara coastline, public transport and the everyday destinations of Kadıköy. Distances are indicative and measured from the project address.</p>
-    <div class="tac-nearby-grid reveal-stagger" data-testid="tac-nearby-grid">
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/bagdatcad.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">5 m</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Bağdat Avenue</div>
+  <section class="ana-nearby">
+    <h2 class="ana-nearby-title reveal-up">WHAT&rsquo;S NEARBY</h2>
+    <p class="ana-nearby-desc reveal-up">Set within one of Istanbul&rsquo;s most established residential districts, Ana offers practical access to Bağdat Caddesi, the Marmara coastline, public transport and the everyday destinations of Kadıköy. Distances are indicative and measured from the project address.</p>
+    <div class="ana-nearby-grid reveal-stagger" data-testid="ana-nearby-grid">
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/bagdatcad.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">5 m</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Bağdat Avenue</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/marmaray2.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">190 m</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Feneryolu Marmaray Station</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/marmaray2.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">190 m</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Feneryolu Marmaray Station</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/goztepe_park.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">1,1 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Göztepe 60th Year Park</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/goztepe_park.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,1 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Göztepe 60th Year Park</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/kalamis_marina.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">1,2 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Kalamış Marina</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/kalamis_marina.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,2 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Kalamış Marina</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/kalamis.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">1,3 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Kalamış Waterfront</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/kalamis.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,3 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Kalamış Waterfront</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/caddebostan-plaji.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">1,9 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Caddebostan Waterfront</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/caddebostan-plaji.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,9 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Caddebostan Waterfront</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/fb-parki.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">1,5 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Fenerbahçe Park</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/fb-parki.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,5 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Fenerbahçe Park</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/fb-stadium.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">1,5 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Fenerbahçe Stadium</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/fb-stadium.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,5 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Fenerbahçe Stadium</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/akasya-acibadem.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">4,1 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Akasya Shopping Mall</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/akasya-acibadem.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">4,1 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Akasya Shopping Mall</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/emaar.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">5,1 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Emaar Square Mall</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/emaar.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">5,1 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Emaar Square Mall</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/avrasya.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">6 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Eurasia Tunnel</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/avrasya.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">6 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Eurasia Tunnel</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/15temmuz.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">8,6 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">15 July Martyrs Bridge</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/15temmuz.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">8,6 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">15 July Martyrs Bridge</div>
         </div>
       </div>
-      <div class="tac-nearby-card">
-        <div class="tac-nearby-img" style="background-image:url('./media/images/ew/zorlu.webp');"></div>
-        <div class="tac-nearby-text">
-          <div class="tac-nearby-dist">12 km</div>
-          <div class="tac-nearby-line"></div>
-          <div class="tac-nearby-label">Zorlu Center</div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/zorlu.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">12 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Zorlu Center</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================= ENQUIRE ============================= -->
-  <section class="tac-enquire" id="register">
+  <section class="ana-enquire" id="register">
     <div class="container">
-      <h2 class="tac-enquire-title reveal-up">REQUEST PROJECT INFORMATION</h2>
-      <form class="tac-form reveal-up" id="tacEnquireForm" novalidate data-testid="tac-enquire-form">
-        <div class="tac-field">
-          <label for="tac-fullname">Full Name</label>
-          <input id="tac-fullname" type="text" name="fullname" required data-testid="tac-form-name" />
+      <h2 class="ana-enquire-title reveal-up">REQUEST PROJECT INFORMATION</h2>
+      <form class="ana-form reveal-up" id="anaEnquireForm" novalidate data-testid="ana-enquire-form">
+        <div class="ana-field">
+          <label for="ana-fullname">Full Name</label>
+          <input id="ana-fullname" type="text" name="fullname" required data-testid="ana-form-name" />
         </div>
-        <div class="tac-field tac-phone">
+        <div class="ana-field ana-phone">
           <div>
-            <label for="tac-code">Code</label>
-            <select id="tac-code" name="code" data-testid="tac-form-code">
+            <label for="ana-code">Code</label>
+            <select id="ana-code" name="code" data-testid="ana-form-code">
               <option selected>+90</option><option>+1</option><option>+44</option><option>+971</option><option>+966</option><option>+49</option>
             </select>
           </div>
           <div>
-            <label for="tac-phone">Phone</label>
-            <input id="tac-phone" type="tel" name="phone" data-testid="tac-form-phone" />
+            <label for="ana-phone">Phone</label>
+            <input id="ana-phone" type="tel" name="phone" data-testid="ana-form-phone" />
           </div>
         </div>
-        <div class="tac-field">
-          <label for="tac-email">Email</label>
-          <input id="tac-email" type="email" name="email" required data-testid="tac-form-email" />
+        <div class="ana-field">
+          <label for="ana-email">Email</label>
+          <input id="ana-email" type="email" name="email" required data-testid="ana-form-email" />
         </div>
-        <div class="tac-field">
-          <label for="tac-project">Select Project</label>
-          <select id="tac-project" name="project" data-testid="tac-form-project">
-            <option selected>The Apartments Taç, Bağdat Caddesi</option>
+        <div class="ana-field">
+          <label for="ana-project">Select Project</label>
+          <select id="ana-project" name="project" data-testid="ana-form-project">
+            <option selected>The Apartments Ana, Bağdat Caddesi</option>
             <option>The Residences East West, Bağdat Caddesi</option>
             <option>Martı Residence, Suadiye</option>
             <option>Bahar Residence</option>
@@ -591,9 +591,9 @@
             <option>Nisbetiye On</option>
           </select>
         </div>
-        <div class="tac-field">
-          <label for="tac-source">How did you hear about us?</label>
-          <select id="tac-source" name="source" data-testid="tac-form-source">
+        <div class="ana-field">
+          <label for="ana-source">How did you hear about us?</label>
+          <select id="ana-source" name="source" data-testid="ana-form-source">
             <option value="">Please select</option>
             <option>Google</option>
             <option>Social Media (Instagram, Facebook, TikTok)</option>
@@ -606,12 +606,12 @@
             <option>Other</option>
           </select>
         </div>
-        <div class="tac-checks">
-          <label><input type="checkbox" name="news" checked data-testid="tac-form-news" /> <span>I&rsquo;d like to hear about news and offers</span></label>
-          <label><input type="checkbox" name="privacy" required data-testid="tac-form-privacy" /> <span>I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></span></label>
+        <div class="ana-checks">
+          <label><input type="checkbox" name="news" checked data-testid="ana-form-news" /> <span>I&rsquo;d like to hear about news and offers</span></label>
+          <label><input type="checkbox" name="privacy" required data-testid="ana-form-privacy" /> <span>I&rsquo;ve read and agree to the <a href="#">Privacy Policy</a></span></label>
         </div>
-        <button type="submit" class="tac-submit" data-testid="tac-form-submit">REQUEST INFORMATION</button>
-        <p class="tac-form-msg" id="tacFormMsg" role="status" data-testid="tac-form-message"></p>
+        <button type="submit" class="ana-submit" data-testid="ana-form-submit">REQUEST INFORMATION</button>
+        <p class="ana-form-msg" id="anaFormMsg" role="status" data-testid="ana-form-message"></p>
       </form>
     </div>
   </section>
@@ -623,9 +623,9 @@
         <div class="footer-col">
           <h3>Discover Luxury Properties</h3>
           <ul>
-            <li><a href="#">The Residences East West</a></li>
+            <li><a href="east-west.html">The Residences East West</a></li>
             <li><a href="the-apartments-tac.html">The Apartments Taç</a></li>
-            <li><a href="#">The Apartments Ana</a></li>
+            <li><a href="the-apartments-ana.html">The Apartments Ana</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -705,6 +705,6 @@
   <script src="js/script.js"></script>
   <script src="js/swipe-carousel.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="js/the-apartments-tac.js"></script>
+  <script src="js/the-apartments-ana.js"></script>
 </body>
 </html>

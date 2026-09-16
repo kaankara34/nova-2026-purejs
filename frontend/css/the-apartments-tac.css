@@ -1901,3 +1901,11 @@
   .page-tac .tac-plans-row > span:first-child { gap: 8px; }
   .page-tac .tac-plans-row em { min-width: 1.6em; }
 }
+
+/* floor plan: carry #111210 edge to edge instead of leaving black side bands */
+.page-tac .tac-plans {
+  max-width: none;
+  margin: 0;
+  padding-left: max(clamp(20px, 4vw, 56px), calc((100% - 1360px) / 2));
+  padding-right: max(clamp(20px, 4vw, 56px), calc((100% - 1360px) / 2));
+}
