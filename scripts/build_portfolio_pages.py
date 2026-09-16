@@ -28,7 +28,7 @@ LIGHTBOX = """  <!-- ============================= GALLERY LIGHTBOX ============
     <button class="pp-lightbox-prev" id="ppLightboxPrev" type="button" aria-label="Previous image" data-testid="pp-lightbox-prev">&lsaquo;</button>
     <button class="pp-lightbox-next" id="ppLightboxNext" type="button" aria-label="Next image" data-testid="pp-lightbox-next">&rsaquo;</button>
     <img id="ppLightboxImg" alt="" />
-    <p class="pp-lightbox-meta" id="ppLightboxMeta"></p>
+    <p class="pp-lightbox-meta" id="ppLightboxMeta" data-testid="pp-lightbox-counter"></p>
   </div>
 """
 
@@ -371,7 +371,7 @@ flogistic_meta = dict(
 flogistic_body = (
     """  <!-- ============================= HERO ============================= -->
   <section class="pp-hero pp-hero--full">
-    <figure class="pp-hero-media" data-testid="flogistic-hero-image">
+    <figure class="pp-hero-media" data-pp-open data-testid="flogistic-hero-image">
       <img src="./media/images/falcon-logistics/falcon-logistics-exterior.webp" width="1241" height="874"
            sizes="100vw"
            alt="Falcon Logistics Center — the completed warehouse facility with its loading docks and glazed office frontage"
@@ -617,7 +617,7 @@ gebze_body = (
              sizes="(max-width: 960px) 92vw, 640px"
              alt="Gebze OSB Management Building — the completed administration building of the Gebze Güzeller Organized Industrial Zone"
              fetchpriority="high" decoding="async" />
-        <figcaption class="pp-media-caption">Completed Building</figcaption>
+        <figcaption class="pp-media-caption">Completed Building &middot; 2011</figcaption>
       </figure>
     </div>
   </section>
@@ -638,36 +638,24 @@ gebze_body = (
         ('Status', 'Completed Development', None),
     ])
     + """  <!-- ============================= DESIGN AND DELIVERY ============================= -->
-  <section class="pp-gallery" aria-labelledby="gebze-visuals-title">
-    <div class="pp-gallery-head">
-      <p class="pp-eyebrow reveal-up">Design and Delivery</p>
-      <h2 class="pp-section-title reveal-up" id="gebze-visuals-title">From visualisation to completed building.</h2>
-      <p class="pp-body reveal-up">The two images held for the project are shown side by side and identified by media
-        type: the design-stage visualisation, and the building as completed in 2011.</p>
-    </div>
-    <div class="pp-gallery-grid" data-pp-stagger>
+  <section class="pp-editorial pp-editorial--reverse" aria-labelledby="gebze-visuals-title">
+    <div class="pp-editorial-inner">
+      <div class="pp-editorial-media">
 """
     + frame('media/images/gebze-osb/gebze-osb-render.webp',
             'Gebze OSB Management Building — design-stage architectural visualisation of the administration building',
-            'pp-span-3', 'pp-ratio-landscape', caption='Architectural Visualisation',
+            '', 'pp-ratio-landscape', caption='Architectural Visualisation',
             sizes='(max-width: 960px) 92vw, 46vw', width=650, height=487) + '\n'
-    + frame('media/images/gebze-osb/gebze-osb-building.webp',
-            'Gebze OSB Management Building — photograph of the completed administration building in Gebze, Kocaeli',
-            'pp-span-3', 'pp-ratio-landscape', caption='Completed Building &middot; 2011',
-            sizes='(max-width: 960px) 92vw, 46vw', width=650, height=488) + '\n'
-    + """    </div>
-  </section>
-
-  <!-- ============================= INSTITUTIONAL PROGRAMME ============================= -->
-  <section class="pp-editorial pp-editorial--single" aria-labelledby="gebze-programme-title">
-    <div class="pp-editorial-inner">
+    + """      </div>
       <div class="pp-editorial-copy">
-        <p class="pp-eyebrow reveal-up">Institutional Programme</p>
-        <h2 class="pp-section-title reveal-up" id="gebze-programme-title">An administrative address for an industrial zone.</h2>
+        <p class="pp-eyebrow reveal-up">Design and Delivery</p>
+        <h2 class="pp-section-title reveal-up" id="gebze-visuals-title">From visualisation to completed building.</h2>
+        <p class="pp-body reveal-up">The design-stage visualisation beside this text and the photograph of the finished
+          building in the hero are the two images held for the project, each identified by its media type.</p>
         <p class="pp-body reveal-up">The building was delivered for the Gebze Güzeller Organized Industrial Zone as the
-          administrative centre of the zone, with a total construction area of 5,500 m².</p>
-        <p class="pp-body reveal-up">Only the completion year, project type, organisation and construction area are
-          documented for this development; no further programme detail is published.</p>
+          administrative centre of the zone, with a total construction area of 5,500 m². Only the completion year,
+          project type, organisation and construction area are documented for this development; no further programme
+          detail is published.</p>
       </div>
     </div>
   </section>

@@ -1,0 +1,70 @@
+{
+  "summary": "Frontend-only verification of the six newly built NOVA Konut project pages (Doğan Residence, Falcon Plaza, Falcon Logistics Center, Konelsis Center, Nisbetiye On, Gebze OSB Management Building). Verified: page load, HTTP 200, correct h1/title/meta/og:image, absence of forbidden Martı content in main region, no <video>, no Martı images referenced in main, specs strip column counts across breakpoints, hero/gallery imagery, lightbox behaviour (viewport-level rect, n/total counter, Arrow keys, Escape/close-button/backdrop close, docH preserved, keyboard Enter open), enquiry form heading/lead/validation/valid-submit-with-reset, single-image-only rule for Falcon Plaza and Konelsis, render vs photograph captioning on Nisbetiye + Gebze, prefers-reduced-motion visibility, zero horizontal overflow at 1440/1280/1024/768/430/390/844x390, and full regression on projects.html + the six previously completed pages. Two functional/asset issues and one minor caption inconsistency found on Falcon Logistics and Gebze OSB.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "falcon-logistic.html hero",
+        "issue": "Hero figure (falcon-logistics-exterior.webp) is not marked data-pp-open, so the gallery lightbox contains only 3 images and its counter reads '1 / 3'. Spec expects Falcon Logistics gallery to have 4 images (matching the 4 authentic assets in /media/images/falcon-logistics/). Doğan, Nisbetiye, Falcon Plaza and Konelsis all include their hero in the lightbox; Falcon Logistics is the outlier.",
+        "selector": "section.pp-hero--full > figure.pp-hero-media[data-testid=flogistic-hero-image]",
+        "priority": "MEDIUM",
+        "fix_hint": "Add data-pp-open (and, if desired, tabindex=0 for keyboard parity with the other pages) to the hero <figure> at falcon-logistic.html:197."
+      },
+      {
+        "component": "gebze-osb-management.html media grid",
+        "issue": "The same photograph gebze-osb-building.webp is rendered twice on the page: once as the hero with caption 'COMPLETED BUILDING' (line 204) and again as a media-frame figure with caption 'Completed Building · 2011' (line 266). Only two unique assets exist for this project (building + render), so the duplicate media-frame is redundant and also inflates the gallery lightbox by an extra copy of the same image.",
+        "selector": "figure.pp-media-frame.pp-span-3 > img[src$='/gebze-osb/gebze-osb-building.webp']",
+        "priority": "MEDIUM",
+        "fix_hint": "Either (a) remove the duplicate media-frame figure at lines 266-269 and move the '· 2011' caption onto the hero, or (b) replace one of the two occurrences with a different authentic asset. Recommended (a) to avoid inventing media."
+      },
+      {
+        "component": "gebze-osb-management.html hero caption",
+        "issue": "Hero figcaption reads 'COMPLETED BUILDING' but spec text calls for 'Completed Building · 2011' on the photograph. Currently the year is only on the duplicate media-frame caption below.",
+        "selector": "figure[data-testid=gebze-hero-image] figcaption",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Falcon Logistics gallery lightbox",
+        "issues": ["Hero image is not accessible via lightbox (see UI bug above) — feels inconsistent with the other five pages where clicking the hero opens the overlay."]
+      }
+    ]
+  },
+  "verified_items": [
+    "All six pages: HTTP 200, correct <title> of form '<Project> | Nova Konut', unique meta description, og:title/og:image pointing at the project's own /media/images/<slug>/ folder, exactly one h1 with the correct project name.",
+    "Forbidden strings in <main>: 0 hits for Suadiye, waterfront, panoramic sea, private outdoor pool. Zero <video> elements. Zero /media/images/marti/ image requests inside <main>.",
+    "Enquiry form on every page: heading 'Request project information.', project select pre-selected (e.g. 'Doğan Residence, Erenköy', 'Falcon Plaza, Levent', 'Konelsis Center, Ankara', etc.), empty submit shows 'Please complete your name, email and accept the privacy policy.' in [data-testid=pp-form-msg], valid submit (name+email+privacy) shows 'Thank you. Your request has been received — our team will be in touch.' and the name/email inputs reset to empty. No 'Book a Unit' text anywhere.",
+    "Specs strip columns per breakpoint: Doğan/Falcon Plaza/Konelsis/Nisbetiye/Gebze = 6 items → 6/3/2/1 at 1440/1024/768/390. Falcon Logistics = 5 items → 5/3/2/1. Matches spec.",
+    "Horizontal overflow (scrollWidth − clientWidth) = 0 at 1440, 1280, 1024, 768, 430, 390 and 844x390 on all six pages.",
+    "Zero console errors and zero uncaught page errors across all six pages at 1440.",
+    "Doğan Residence: hero figure carries data-testid=dogan-hero-image and wraps dogan-building-front.webp (frontal photograph). Programme text is exactly '3+1 Residences 18 / 2+1 Residences 4 / Duplex Residences 2 / TOTAL RESIDENCES 24'. Feature list has 6 items including 'Designed in compliance with the applicable earthquake regulations at the time of construction'; no occurrence of 'earthquake-proof'.",
+    "Lightbox on Doğan (5 images): rect equals viewport exactly (0,0,1440,900), counter reads '1 / 5' initially and increments to '2 / 5' on ArrowRight, closes via Escape / [data-testid=pp-lightbox-close] / backdrop click, still_open=false after close, document.documentElement.scrollHeight identical before/after (docH_match=true) across 3 repeat cycles. Focused figure + Enter opens the overlay.",
+    "Falcon Logistics gallery counter labelling works ('WAREHOUSE INTERIOR — 1 / 3') and cycles.",
+    "Falcon Plaza: exactly one image (falcon-plaza-exterior.webp, natural 640×480, rendered ~615 px wide, object-fit:contain). No .pp-gallery grid.",
+    "Konelsis Center: exactly one image (konelsis-render.webp, natural 1600×900, object-fit:contain, rendered complete). No .pp-gallery grid. 'ARCHITECTURAL VISUALISATION' caption present.",
+    "Nisbetiye On figures: entrance photograph (no arch-vis caption), plus two design-stage images each captioned 'ARCHITECTURAL VISUALISATION' (visualisation-day.webp and visualisation-night.webp).",
+    "Gebze OSB figures: hero uses gebze-osb-building.webp, second figure uses gebze-osb-render.webp captioned 'ARCHITECTURAL VISUALISATION'. Third figure duplicates the photograph — see UI bug.",
+    "prefers-reduced-motion=reduce: on all six pages, 0 of the .pp-reveal / .pp-reveal-media / .reveal-up elements have opacity<0.9 (17–29 per page).",
+    "Regression: projects.html, marti-residence.html, east-west.html, the-apartments-tac.html, the-apartments-ana.html, bahar-residence.html, mercan-bosphorus.html all return 200 with zero console errors and zero horizontal overflow at 1440. projects.html contains anchor hrefs for all six new pages (dogan-residence.html, nisbetiye-on.html, falcon-plaza.html, falcon-logistic.html, konelsis-center.html, gebze-osb-management.html)."
+  ],
+  "test_report_links": [],
+  "action_items": [
+    "Add data-pp-open to the Falcon Logistics hero <figure> (falcon-logistic.html:197) so the gallery lightbox contains the exterior image and the counter reads '… / 4' — bringing it in line with Doğan/Nisbetiye/Falcon Plaza/Konelsis.",
+    "Gebze OSB: remove the duplicate gebze-osb-building.webp media-frame figure at gebze-osb-management.html:266-269 and move the 'Completed Building · 2011' caption onto the hero figcaption (currently just 'COMPLETED BUILDING'). This eliminates showing the same photograph twice."
+  ],
+  "critical_code_review_comments": [
+    "Consistency: hero figures on 5 of 6 pages are data-pp-open; only Falcon Logistics is not. Choose one policy and apply it uniformly in scripts/build_portfolio_pages.py so future rebuilds don't reintroduce this drift.",
+    "Nice-to-have: expose a data-testid on the .pp-lightbox-meta counter (e.g. data-testid=pp-lightbox-counter). Currently the counter is only reachable by class, and the counter is arguably the most information-dense element in the overlay for QA to assert against.",
+    "Preload strategy is duplicated (og:image link + preload link both hard-code the same URL on all six pages). Not a bug — flagged for future maintenance if hero image is ever renamed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "~92% (2 medium-priority asset/markup issues, 1 caption nit; all core acceptance criteria otherwise met)"},
+  "test_credentials": "n/a — public static pages",
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "When re-verifying: (1) On falcon-logistic.html the gallery-lightbox counter must reach '4 / 4' via ArrowRight from the hero. (2) On gebze-osb-management.html the DOM should contain exactly two <img> elements referencing /media/images/gebze-osb/ (one …-building.webp, one …-render.webp) and no duplicate; hero figcaption should read 'Completed Building · 2011'. All other checks in this iteration passed cleanly and don't need re-running unless the shared portfolio-project.js/css is edited. Playwright quirk: scroll restoration after Escape can appear off on the very first open when the test itself calls window.scrollTo() then locator.click() (Playwright auto-scrolls-into-view before click, which changes the 'before' scroll value); repeat opens 2 and 3 consistently restored scrollY exactly, so lockScroll/unlockScroll works — this is a test-harness artefact, not a real regression.",
+  "rca of the issue": "1) Falcon Logistics 3-vs-4 image mismatch: build_portfolio_pages.py emits the hero <figure> for Falcon Logistics without the data-pp-open attribute (see falcon-logistic.html:197 vs dogan-residence.html:hero which has data-pp-open). Since portfolio-project.js gathers lightbox images from [data-pp-open] figures only, the hero exterior image is excluded from the lightbox. 2) Gebze duplicate: build_portfolio_pages.py appears to have re-emitted gebze-osb-building.webp in both the hero slot and one of the media-frame slots (only two unique assets exist for the project). Fix in the generator, not in the emitted HTML alone."
+}
