@@ -13,6 +13,8 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List
 import uuid
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 
 ROOT_DIR = Path(__file__).parent
@@ -159,8 +161,40 @@ async def instagram_image(shortcode: str):
                     headers={"Cache-Control": "public, max-age=3600"})
 
 
-# Include the router in the main app
+# ----------------------------------------------------------------- Newsroom
+from news.api import router as news_router  # noqa: E402
+from news.ingest import ensure_indexes, run_ingestion  # noqa: E402
+
+app.state.db = db
+NEWS_INGEST_HOURS = int(os.environ.get("NEWS_INGEST_INTERVAL_HOURS", "6"))
+scheduler: AsyncIOScheduler | None = None
+
+
+async def _scheduled_ingestion():
+    try:
+        await run_ingestion(db)
+    except Exception as exc:  # a scheduler run must never kill the process
+        logging.getLogger(__name__).error("news: scheduled ingestion failed: %s", exc)
+
+
+@app.on_event("startup")
+async def start_news_scheduler():
+    global scheduler
+    await ensure_indexes(db)
+    if os.environ.get("NEWS_INGEST_ENABLED", "true").lower() != "true":
+        return
+    scheduler = AsyncIOScheduler(timezone=ZoneInfo("Europe/Istanbul"))
+    scheduler.add_job(_scheduled_ingestion, "interval", hours=NEWS_INGEST_HOURS,
+                      id="news-ingestion", max_instances=1, coalesce=True,
+                      misfire_grace_time=3600)
+    scheduler.start()
+    if await db.news_items.count_documents({"status": "published"}) == 0:
+        asyncio.create_task(_scheduled_ingestion())
+
+
+# Include the routers in the main app
 app.include_router(api_router)
+app.include_router(news_router)
 
 app.add_middleware(
     CORSMiddleware,
