@@ -38,8 +38,26 @@
   const viewAllBtn = $('#ewViewAll');
   const galleryTriggerBtn = $('#ewGalleryTrigger');
 
-  const images = slideEls.map(it => ({ src: it.src, alt: it.alt || '' }));
+  const images = slideEls.map(it => ({ src: it.dataset.src || it.src, alt: it.alt || '' }));
   let lbSwiper = null;
+
+  /* The hero slider holds nine full-width renders (~4.5 MB). Slides 3+ carry
+     their source in data-src; each one is attached two slides ahead of its turn,
+     which at 3500 ms per slide is ~7 s of lead time, so a slide is always fully
+     decoded before it becomes visible. Visually the slider is unchanged — it
+     simply stops downloading renders the visitor never reaches. */
+  function ensureSlide(i) {
+    const el = slideEls[(i + slideEls.length) % slideEls.length];
+    if (el && el.dataset.src && !el.getAttribute('src')) {
+      el.setAttribute('src', el.dataset.src);
+    }
+  }
+  function ensureAllSlides() { slideEls.forEach((_, i) => ensureSlide(i)); }
+  (function primeFirstSlides() {
+    const prime = () => { ensureSlide(1); ensureSlide(2); };
+    if (document.readyState === 'complete') prime();
+    else addEventListener('load', prime, { once: true });
+  })();
 
   function buildLightboxTrack() {
     if (!lightboxTrack || lightboxTrack.dataset.built === '1') return;
@@ -54,6 +72,7 @@
   }
   function openLightbox(idx) {
     if (!lightbox || !images.length) return;
+    ensureAllSlides();
     /* Capture scrollY IMMEDIATELY — before any DOM changes that could shift
        the viewport (focus, sticky-header re-layout, etc). */
     window.lockScroll();
@@ -116,6 +135,10 @@
       sliderIdx = idx;
       slides[sliderIdx].classList.add('active');
       if (segs[sliderIdx]) segs[sliderIdx].classList.add('active');
+      ensureSlide(idx);
+      ensureSlide(idx + 1);
+      ensureSlide(idx + 2);
+      ensureSlide(idx - 1);
     }
 
     function next() { setSlide((sliderIdx + 1) % slides.length); }

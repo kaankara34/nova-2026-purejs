@@ -10,8 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="./media/images/marti/marti-hero-poster.webp" type="image/webp" fetchpriority="high" />
-
-  <link rel="preload" as="video" href="./media/images/marti/marti-video.mp4" type="video/mp4" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
@@ -55,7 +53,7 @@
           <span></span><span></span><span></span>
         </button>
         <a href="index.html" class="logo-mark" aria-label="Nova Home">
-          <img src="media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" / decoding="async">
+          <img src="media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img"  decoding="async" />
         </a>
       </div>
       <div class="header-actions">
@@ -148,15 +146,15 @@
         <div class="projects-preview" data-id="istanbul">
           <a href="east-west.html" class="proj-card">
             <div class="proj-img">
-              <img src="./media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West" width="280" height="234" loading="eager" decoding="async" fetchpriority="high" />
+              <img src="./media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West" width="280" height="234" loading="lazy" decoding="async" />
               <div class="proj-overlay"></div>
-              <div class="proj-logo-overlay"><img src="./media/images/logos/EASTWEST_v2-tight.svg" alt="The Residences East West" width="180" height="40" loading="eager" decoding="async" /></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/EASTWEST_v2-tight.svg" alt="The Residences East West" width="180" height="40" loading="lazy" decoding="async" /></div>
             </div>
             <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
           </a>
           <a href="marti-residence.html" class="proj-card">
             <div class="proj-img">
-              <img src="./media/images/marti-cover-xl.webp" alt="Martı Residence" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <img src="./media/images/marti-cover-xl.webp" alt="Martı Residence" width="280" height="352" loading="lazy" decoding="async" />
               <div class="proj-overlay"></div>
               <div class="proj-logo-overlay"><span style="font-family:'Cormorant Garamond',serif;color:#fff;font-size:26px;letter-spacing:.14em;">MARTI RESIDENCE</span></div>
             </div>
@@ -164,9 +162,9 @@
           </a>
           <a href="#" class="proj-card">
             <div class="proj-img">
-              <img src="./media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <img src="./media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="lazy" decoding="async" />
               <div class="proj-overlay"></div>
-              <div class="proj-logo-overlay"><img src="./media/images/logos/TAC_logo-tight.svg" alt="The Apartments Taç" width="180" height="44" loading="eager" decoding="async" /></div>
+              <div class="proj-logo-overlay"><img src="./media/images/logos/TAC_logo-tight.svg" alt="The Apartments Taç" width="180" height="44" loading="lazy" decoding="async" /></div>
             </div>
             <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
           </a>
@@ -196,7 +194,7 @@
         loop
         playsinline
         webkit-playsinline="true"
-        preload="auto"
+        preload="metadata"
         poster="media/images/marti/marti-hero-poster.webp"
         disablepictureinpicture
         aria-hidden="true">
@@ -287,9 +285,9 @@
     <div class="mehtap-manifesto-inner">
       <h2 class="mehtap-manifesto-title">A New Standard On The Coast</h2>
       <div class="mehtap-manifesto-grid">
-        <div class="mehtap-manifesto-img"><img src="./media/images/marti/marti-render-cover.webp" alt="Martı Residence — tower" loading="lazy"/ decoding="async"></div>
-        <div class="mehtap-manifesto-img"><img src="./media/images/marti/marti-1.webp" alt="Executive interior" loading="lazy"/ decoding="async"></div>
-        <div class="mehtap-manifesto-img"><img src="./media/images/marti/marti-2.webp" alt="Members pool" loading="lazy"/ decoding="async"></div>
+        <div class="mehtap-manifesto-img"><img src="./media/images/marti/marti-render-cover.webp" alt="Martı Residence — tower" loading="lazy" decoding="async" srcset="./media/images/marti/marti-render-cover-850.webp 850w, ./media/images/marti/marti-render-cover.webp 1440w" sizes="404px" /></div>
+        <div class="mehtap-manifesto-img"><img src="./media/images/marti/marti-1.webp" alt="Executive interior" loading="lazy" decoding="async" srcset="./media/images/marti/marti-1-850.webp 850w, ./media/images/marti/marti-1.webp 1158w" sizes="404px" /></div>
+        <div class="mehtap-manifesto-img"><img src="./media/images/marti/marti-2.webp" alt="Members pool" loading="lazy" decoding="async" srcset="./media/images/marti/marti-2-850.webp 850w, ./media/images/marti/marti-2.webp 1086w" sizes="404px" /></div>
       </div>
       <button class="mehtap-view-all-btn" data-testid="mehtap-manifesto-view-all">View All Images</button>
     </div>
@@ -301,7 +299,7 @@
     <p class="mehtap-features-lead reveal-up">Martı Residence offers unobstructed panoramic sea views from one of the most desirable locations on the Bağdat Avenue coastline. Ideally situated between Bağdat Avenue and the waterfront, it combines the energy of the city with the tranquility of the sea. Exclusive amenities include a private outdoor swimming pool and secure underground parking, delivering a refined residential experience.</p>
 
     <div class="mehtap-features-block reveal-up">
-      <div class="mehtap-features-img"><img src="./media/images/marti/marti-panaromik.webp" alt="Martı Residences" loading="lazy"/ decoding="async"></div>
+      <div class="mehtap-features-img"><img src="./media/images/marti/marti-panaromik.webp" alt="Martı Residences" loading="lazy" decoding="async" srcset="./media/images/marti/marti-panaromik-1300.webp 1300w, ./media/images/marti/marti-panaromik.webp 1670w" sizes="626px" /></div>
       <div class="mehtap-features-text">
         <h3>Panoramic Sea Views</h3>
         <p>Experience panoramic sea views from one of Suadiye's most privileged waterfront locations, just moments from both Bağdat Avenue and the coastline.</p>
@@ -309,7 +307,7 @@
     </div>
 
     <div class="mehtap-features-block mehtap-features-block--reverse reveal-up">
-      <div class="mehtap-features-img"><img src="./media/images/marti/marti-havuz.webp" alt="Members Marina Club" loading="lazy"/ decoding="async"></div>
+      <div class="mehtap-features-img"><img src="./media/images/marti/marti-havuz.webp" alt="Members Marina Club" loading="lazy" decoding="async" /></div>
       <div class="mehtap-features-text">
         <h3>Private Outdoor Pool</h3>
         <p>Designed for everyday comfort, the private outdoor pool provides an exclusive setting for relaxation in a quiet, landscaped environment.</p>
@@ -317,7 +315,7 @@
     </div>
 
     <div class="mehtap-features-block reveal-up">
-      <div class="mehtap-features-img"><img src="./media/images/marti/noter-sok.webp" alt="Waterfront Retreat" loading="lazy"/ decoding="async"></div>
+      <div class="mehtap-features-img"><img src="./media/images/marti/noter-sok.webp" alt="Waterfront Retreat" loading="lazy" decoding="async" srcset="./media/images/marti/noter-sok-1300.webp 1300w, ./media/images/marti/noter-sok.webp 1678w" sizes="626px" /></div>
       <div class="mehtap-features-text">
         <h3>Prime Location</h3>
         <p>Located on prestigious Noter Street in Suadiye, Martı Residence enjoys one of the most sought-after addresses between Bağdat Avenue and the Marmara coastline, offering effortless access to both city life and the sea.</p>

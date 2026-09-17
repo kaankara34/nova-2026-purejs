@@ -1,0 +1,236 @@
+[
+ {
+  "file": "media/images/bahar/bahar-1.webp",
+  "dim": "1500x2000",
+  "q": 80,
+  "kb_old": 262,
+  "kb_new": 203,
+  "saved_pct": 23,
+  "psnr": 40.8
+ },
+ {
+  "file": "media/images/bahar/bahar-asansor.webp",
+  "dim": "1086x1448",
+  "q": 80,
+  "kb_old": 216,
+  "kb_new": 159,
+  "saved_pct": 26,
+  "psnr": 39.5
+ },
+ {
+  "file": "media/images/design/design1.webp",
+  "dim": "1027x1531",
+  "q": 80,
+  "kb_old": 239,
+  "kb_new": 190,
+  "saved_pct": 21,
+  "psnr": 38.9
+ },
+ {
+  "file": "media/images/design/design2.webp",
+  "dim": "1531x1027",
+  "q": 80,
+  "kb_old": 191,
+  "kb_new": 144,
+  "saved_pct": 25,
+  "psnr": 39.5
+ },
+ {
+  "file": "media/images/dogan/dogan-facade-detail.webp",
+  "dim": "1536x2048",
+  "q": 80,
+  "kb_old": 279,
+  "kb_new": 202,
+  "saved_pct": 28,
+  "psnr": 40.7
+ },
+ {
+  "file": "media/images/ew/ew_cinema_room.webp",
+  "dim": "1254x1254",
+  "q": 80,
+  "kb_old": 152,
+  "kb_new": 115,
+  "saved_pct": 24,
+  "psnr": 40.9
+ },
+ {
+  "file": "media/images/ew/ew_hall.webp",
+  "dim": "1536x1024",
+  "q": 80,
+  "kb_old": 180,
+  "kb_new": 121,
+  "saved_pct": 33,
+  "psnr": 40.4
+ },
+ {
+  "file": "media/images/ew/ew_lounge.webp",
+  "dim": "1254x1254",
+  "q": 80,
+  "kb_old": 310,
+  "kb_new": 240,
+  "saved_pct": 23,
+  "psnr": 38.1
+ },
+ {
+  "file": "media/images/ew/ew_meeting.webp",
+  "dim": "1254x1254",
+  "q": 80,
+  "kb_old": 265,
+  "kb_new": 203,
+  "saved_pct": 23,
+  "psnr": 38.6
+ },
+ {
+  "file": "media/images/ew/ew_music_room.webp",
+  "dim": "1086x1448",
+  "q": 80,
+  "kb_old": 156,
+  "kb_new": 116,
+  "saved_pct": 26,
+  "psnr": 40.3
+ },
+ {
+  "file": "media/images/ew/render/ew-render3.webp",
+  "dim": "1901x1070",
+  "q": 80,
+  "kb_old": 380,
+  "kb_new": 303,
+  "saved_pct": 20,
+  "psnr": 38.6
+ },
+ {
+  "file": "media/images/ew/render/ew-render9.webp",
+  "dim": "1901x1070",
+  "q": 80,
+  "kb_old": 371,
+  "kb_new": 260,
+  "saved_pct": 30,
+  "psnr": 38.6
+ },
+ {
+  "file": "media/images/konelsis/konelsis-render.webp",
+  "dim": "1600x900",
+  "q": 80,
+  "kb_old": 181,
+  "kb_new": 103,
+  "saved_pct": 43,
+  "psnr": 39.1
+ },
+ {
+  "file": "media/images/marti/marti-render-cover.webp",
+  "dim": "1440x1620",
+  "q": 80,
+  "kb_old": 313,
+  "kb_new": 250,
+  "saved_pct": 20,
+  "psnr": 38.7
+ },
+ {
+  "file": "media/images/mercan/mercan-fitness.webp",
+  "dim": "1671x941",
+  "q": 80,
+  "kb_old": 248,
+  "kb_new": 191,
+  "saved_pct": 23,
+  "psnr": 38.1
+ },
+ {
+  "file": "media/images/mercan/mercan-fitness2.webp",
+  "dim": "1672x941",
+  "q": 80,
+  "kb_old": 175,
+  "kb_new": 133,
+  "saved_pct": 24,
+  "psnr": 39.6
+ },
+ {
+  "file": "media/images/mercan/mercan-havuz3.webp",
+  "dim": "1672x941",
+  "q": 80,
+  "kb_old": 197,
+  "kb_new": 145,
+  "saved_pct": 26,
+  "psnr": 38.8
+ },
+ {
+  "file": "media/images/mercan/mercan-hol.webp",
+  "dim": "1672x941",
+  "q": 80,
+  "kb_old": 200,
+  "kb_new": 152,
+  "saved_pct": 24,
+  "psnr": 38.7
+ },
+ {
+  "file": "media/images/mercan/mercan-hol2.webp",
+  "dim": "1672x941",
+  "q": 80,
+  "kb_old": 167,
+  "kb_new": 126,
+  "saved_pct": 25,
+  "psnr": 39.7
+ },
+ {
+  "file": "media/images/mercan/mercan-hol4.webp",
+  "dim": "1672x941",
+  "q": 80,
+  "kb_old": 195,
+  "kb_new": 144,
+  "saved_pct": 26,
+  "psnr": 39.6
+ },
+ {
+  "file": "media/images/nisbetiye-on/nisbetiye-on-entrance.webp",
+  "dim": "1600x1067",
+  "q": 80,
+  "kb_old": 328,
+  "kb_new": 233,
+  "saved_pct": 29,
+  "psnr": 38.1
+ },
+ {
+  "file": "media/images/nisbetiye-on/nisbetiye-on-visualisation-day.webp",
+  "dim": "1800x1483",
+  "q": 80,
+  "kb_old": 248,
+  "kb_new": 190,
+  "saved_pct": 23,
+  "psnr": 40.5
+ },
+ {
+  "file": "media/images/nisbetiye-on/nisbetiye-on-visualisation-night.webp",
+  "dim": "1800x1570",
+  "q": 80,
+  "kb_old": 238,
+  "kb_new": 182,
+  "saved_pct": 24,
+  "psnr": 41.3
+ },
+ {
+  "file": "media/images/tac-new-render.webp",
+  "dim": "1118x1407",
+  "q": 80,
+  "kb_old": 219,
+  "kb_new": 128,
+  "saved_pct": 42,
+  "psnr": 38.6
+ },
+ {
+  "file": "media/images/tac/plans/tac-4plus1.webp",
+  "dim": "1748x1428",
+  "q": 80,
+  "kb_old": 265,
+  "kb_new": 188,
+  "saved_pct": 29,
+  "psnr": 40.2
+ },
+ {
+  "file": "media/images/tac/tac-render2.webp",
+  "dim": "1118x1407",
+  "q": 80,
+  "kb_old": 237,
+  "kb_new": 184,
+  "saved_pct": 22,
+  "psnr": 38.7
+ }
+]

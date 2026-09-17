@@ -72,6 +72,9 @@
   function openMenu() {
     menu.classList.add('open');
     overlay.classList.add('show');
+    /* The drawer's project thumbnails are lazy so they cost nothing on page
+       load; the moment the drawer opens they are needed, so force them in. */
+    $$('img[loading="lazy"]', menu).forEach(img => { img.loading = 'eager'; });
     window.lockScroll();
   }
   function closeMenu() {
@@ -718,4 +721,28 @@
     }, 250);
   });
 
+})();
+
+/* ===== Hero video: start playback after the page load event =====
+   Hero videos now use preload="metadata" so several megabytes of film no longer
+   compete with the poster/LCP on the critical path. Once the page has loaded we
+   explicitly kick the download and playback, so the autoplay behaviour, the
+   poster→film transition and the muted/loop/inline attributes stay exactly as
+   they were before. */
+(function () {
+  'use strict';
+  const start = () => {
+    document.querySelectorAll('video[autoplay]').forEach(v => {
+      v.muted = true;
+      const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      if (v.readyState >= 2) play();
+      else {
+        v.addEventListener('loadeddata', play, { once: true });
+        try { v.load(); } catch (_) { /* noop */ }
+        play();
+      }
+    });
+  };
+  if (document.readyState === 'complete') start();
+  else addEventListener('load', start, { once: true });
 })();

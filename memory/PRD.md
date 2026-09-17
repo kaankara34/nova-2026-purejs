@@ -823,3 +823,30 @@ Full detail in `memory/CHANGELOG.md`.
 - P2: projects.html card covers for the six completed projects are still the AI-generated placeholders (user explicitly instructed not to modify projects.html in this task).
 - P2: the shared side menu / footer still list only the four Bağdat Caddesi developments; adding the completed portfolio there is a separate, site-wide task.
 - Data note: nova.istanbul lists Nisbetiye On as “Levent, Istanbul”; the page uses the user-supplied “Nisbetiye · Etiler–Levent · İstanbul”. Legacy names differ too (Doğan Apartmanı, Falcon Logistics Building, Gebze OSB Management) — public-facing names follow the user brief.
+
+## Performance — status & open items (June 2026)
+Two evidence-based passes are complete (see `memory/CHANGELOG.md` for measurements and the exact
+regression evidence). Verdict: the slowdown is **media-bound, not code-bound and not
+hosting-bound** — no render-blocking scripts, no duplicate CSS/JS, CLS 0, largest CSS 76 KB.
+
+Standing rules for any future performance work on this site:
+- **Never re-encode, recompress or resize a hero video.** Only loading behaviour may change.
+- Keep exactly one eager `fetchpriority="high"` image per page and make sure it is the real LCP.
+- Gallery/card grids use `srcset` + an exact px `sizes`; the **master file must stay untouched**
+  because lightboxes read `el.src`. Regenerate variants with `scripts/srcset_pass.py`.
+- Lossy re-encoding is gated on PSNR ≥ 34 dB **and** SSIM ≥ 0.99 **and** ≥ 20 % saving
+  (`scripts/reencode_pass.py`). Originals go to `media_originals/` and are never deleted.
+- `projects.html`, the shared navigation and the footer may receive loading attributes only —
+  no content, layout, crop, order or styling change.
+
+### Open items
+- **P1 — hero-video playback needs confirming in a normal browser.** The automation Chromium has
+  no H.264 decoder (`canPlayType` returns `""`), so `east-west`, `marti`, `bahar`, `mehtap`,
+  `mercan` and the homepage collaboration film could not be played end-to-end here. Forcing
+  `preload="auto"` reproduces the same failure, so the preload change is not the cause.
+- **P2 — awaiting user visual confirmation** of the 26 re-encoded photographic assets and the
+  800×800 nav logo. 100 % crops were checked and are indistinguishable, but no user sign-off yet.
+- **P2 — server-side caching/compression** (`Cache-Control`, `immutable` for hashed media, Brotli)
+  is a hosting-layer setting and cannot be fixed from this repo.
+- **P3 — orphaned `media/images/*-cover.png` masters** (2–3 MB each) are referenced by nothing.
+  They cost no bandwidth; delete only on request.

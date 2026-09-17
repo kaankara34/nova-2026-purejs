@@ -1,0 +1,58 @@
+[
+ {
+  "file": "media/images/ana_render.jpeg",
+  "dim_old": "1256x1600",
+  "dim_new": "1256x1600",
+  "kb_old": 828,
+  "kb_new": 675,
+  "saved_pct": 18
+ },
+ {
+  "file": "media/images/bahar/bahar-1.webp",
+  "dim_old": "6144x8192",
+  "dim_new": "1500x2000",
+  "kb_old": 688,
+  "kb_new": 262,
+  "saved_pct": 62
+ },
+ {
+  "file": "media/images/bahar/bahar-2.webp",
+  "dim_old": "3071x3180",
+  "dim_new": "1931x2000",
+  "kb_old": 595,
+  "kb_new": 468,
+  "saved_pct": 21
+ },
+ {
+  "file": "media/images/bahar/bahar-4.webp",
+  "dim_old": "6144x7424",
+  "dim_new": "1655x2000",
+  "kb_old": 763,
+  "kb_new": 385,
+  "saved_pct": 50
+ },
+ {
+  "file": "media/images/brand/nova-logo.jpg",
+  "dim_old": "2048x2048",
+  "dim_new": "2000x2000",
+  "kb_old": 971,
+  "kb_new": 81,
+  "saved_pct": 92
+ },
+ {
+  "file": "media/images/tac/tac-site-map.webp",
+  "dim_old": "2000x1115",
+  "dim_new": "2000x1115",
+  "kb_old": 250,
+  "kb_new": 112,
+  "saved_pct": 55
+ },
+ {
+  "file": "media/images/tac_render.jpeg",
+  "dim_old": "1271x1600",
+  "dim_new": "1271x1600",
+  "kb_old": 585,
+  "kb_new": 496,
+  "saved_pct": 15
+ }
+]

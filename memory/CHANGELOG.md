@@ -201,3 +201,106 @@ completed pages (east-west, taç, ana, martı, bahar, mercan) — confirmed with
   Falcon Logistics hero added to its lightbox (now 4 images), Gebze no longer showed the same
   photograph twice (the pair section became one labelled render beside the copy) and the Gebze hero
   caption carries the completion year.
+
+## Site-wide performance pass (17 June 2026)
+Measured first (Playwright resource-timing, cold document per page), then optimised. Scripts:
+`scripts/perf_pass.py` (HTML pass) — re-runnable; originals of every re-encoded image kept in
+`/app/media_originals/` (outside the served folder).
+
+**Evidence — the new portfolio pages are NOT the bottleneck:** dogan 1,212 KB / 19 requests and
+nisbetiye 1,133 KB / 18 requests were already the lightest project pages on the site (east-west
+9,385 KB / 54 req, mercan 7,007, bahar 4,896, marti 2,986, ana 2,945 / 80 req). Shared
+`portfolio-project.css` 26 KB + `portfolio-project.js` 5 KB, single shared IntersectionObserver,
+early return when `.pp-page` is absent, no video, 0 console errors.
+
+**Real causes found:** (1) `<link rel="preload" as="video" fetchpriority="high">` + `preload="auto"`
+on five hero videos pulled 8–24 MB at top priority before the poster could paint; (2) the closed
+side-menu drawer loaded 6 images per page as `loading="eager" fetchpriority="high"`, competing with
+every page's LCP; (3) the East West hero slider holds nine 1901×1070 renders stacked in the viewport,
+so all ~4.5 MB downloaded during load; (4) index.html's 6.7 MB collaboration film used
+`preload="auto"` although it sits far below the fold; (5) a handful of images were stored at absurd
+dimensions (bahar-1 6144×8192 displayed at ~800 px).
+
+**Changes:** video preload hints removed and `preload="metadata"` (collab film `preload="none"`) with
+a post-`load` playback kick appended to `js/script.js` so autoplay/poster behaviour is unchanged;
+side-menu images lazy; 25 index images lazified; inactive slider slides `fetchpriority="low"`;
+East West slides 3–9 hold their source in `data-src` and are attached on `load` (lightbox list reads
+`dataset.src || src`); `preconnect` added for jsdelivr / unpkg / darglobal on the pages that use them;
+7 oversized images re-encoded (4,680 → 2,479 KB, −47 %), unused `brand/nova-logo.jpg` restored to its
+original.
+
+**Result (total transferred, cold):** east-west critical-path images 6,913 → 2,998 KB (−57 %);
+bahar 4,896 → 3,582 (−27 %); marti 2,986 → 2,549 (−15 %); mercan 7,007 → 6,625; ana 2,945 → 2,766;
+dogan 1,212 → 884 (−27 %); nisbetiye 1,133 → 805 (−29 %); partners 844 → 782. 0 console errors,
+0 broken images, hero videos play, slider + lightbox + menu thumbnails verified.
+
+## 2026-06 — Performance pass 2 (evidence-based, continued)
+
+Measured with the browser performance/resource-timing API at 1920×900 and 390×844 on the preview
+origin. Protocol for the comparable numbers below: `load` + 2500 ms, no scroll.
+
+**Root cause (measured, not assumed):** the slowdown is almost entirely **media**, not code.
+Largest CSS is 76 KB and largest JS is 48 KB, no duplicate stylesheets or scripts, and every script
+sits at the bottom of `<body>` (nothing render-blocking). CLS is 0 on every page measured. The cost
+is (a) 10–24 MB hero videos and (b) gallery/card images served at 2.5–3.6× the pixels they are ever
+displayed at. The new portfolio system (`portfolio-project.css/js`, six project pages) is **not** a
+contributor — `dogan-residence.html` loads in 203 KB / 15 requests.
+
+**Changes**
+- `js/east-west.js` — hero slider slides are now attached **two slides ahead of their turn**
+  (~7 s lead time at 3500 ms/slide) instead of all on `load`; `ensureAllSlides()` on lightbox open.
+- `scripts/srcset_pass.py` (new) — 60 correctly-sized variants for the fixed-width gallery/card
+  grids (`pj-card-img` 421px, `mercan-manifesto-img` 611px, `mercan-features-img` 409px,
+  `bahar/marti/mehtap-manifesto-img` 404px, `marti/mehtap-features-img` 626px,
+  `ew-amenity-img` 347px). Each grid renders at the *same* CSS px width at 390/768/1024/1440/
+  1920/2560, so `sizes` is an exact px value and the browser can never pick a too-small candidate.
+  Variant width = ceil(2× CSS width) so DPR 1 **and** DPR 2 both get the small file; DPR 3 still
+  gets the master. Masters are untouched, so lightboxes (which read `el.src`) stay full resolution.
+- `scripts/reencode_pass.py` (new) — 26 photographic assets re-encoded at q80, gated on
+  PSNR ≥ 34 dB **and** SSIM ≥ 0.99 **and** ≥ 20 % saving (6,212 → 4,605 KB). 71 candidates were
+  rejected by the gate because they were already encoded near q85 — re-encoding them would have
+  cost quality for ~15 % bytes, so they were left alone. Originals in `media_originals/`.
+- `media/images/nova-logo.png` + `nova-logo-dark.png` — 2000×2000 → 800×800 (rendered max 260 px
+  CSS; 800 covers DPR 3). 201→51 KB and 149→52 KB **on every page**.
+- `dogan-residence.html` — `rel=preload` pointed at a below-the-fold lazy image
+  (`dogan-facade-detail`) competing with the real hero; now preloads `dogan-building-front`.
+- `index.html` — removed 3 `rel=preload as=image` hints for side-drawer thumbnails (the drawer is
+  closed and the images are lazy, so the preload was defeating the lazy attribute);
+  `collabVid` `preload="none"` → `"metadata"` so the first frame paints instead of a black box.
+- `js/script.js` — `openMenu()` flips the drawer's lazy images to eager, so the thumbnails are
+  present the instant the drawer opens (previously 2 of 6 were still blank after 1.8 s).
+- 102 malformed `<img ... / decoding="async">` tags across 20 pages fixed to valid markup.
+
+**Result (images transferred, load + 2.5 s, no scroll, 1920×900)**
+| page | before | after |
+|---|---|---|
+| projects.html | 3,032 KB | 1,972 KB (−35 %) |
+| east-west.html | 6,613 KB | 2,387 KB (−64 %) |
+| mercan-bosphorus.html | 6,214 KB | 3,853 KB (−38 %) |
+| every page (nav logo) | 201 KB | 51 KB |
+
+**Regression evidence:** all 23 pages at 1920×900 and 390×844 — horizontal overflow 0, broken
+images 0, HTTP ≥ 400 responses 0, JS console errors 0. Interactive: side drawer 6/6 thumbnails
+loaded on open; East West lightbox 9 slides all loaded at natural width 1901 (master, not a
+variant), next/close OK; Mercan "View All Images" lightbox 29 slides, first at natural width 1599,
+next/close OK; Ana floor-plan fullscreen opens at 1334 px with `document.scrollHeight` unchanged
+and closes; Ana/Taç Leaflet maps render tiles; contact form intact (1 form, 9 fields, submit);
+projects.html filters 15 → 13 cards. Visual QA: 100 % crops of the re-encoded floor plan
+(`tac-4plus1`, line art + dimension text) and two photographic renders are indistinguishable from
+the originals. `node --check` clean on every JS file.
+
+**Not changed / limitations**
+- **No video was re-encoded.** Resolution, bitrate, frame rate, duration and visible quality of
+  every hero video are byte-identical; only `preload` and the removal of the high-priority
+  `<link rel=preload as=video>` hints changed. `autoplay`/`muted`/`loop`/`playsinline` and every
+  poster are intact and verified present.
+- H.264 playback **cannot be verified in this environment**: the automation Chromium returns `""`
+  for `canPlayType('video/mp4; codecs="avc1.640028"')`. Forcing `preload="auto"` reproduces the
+  identical failure, which proves the preload change is not the cause, but hero-video playback
+  needs confirming in a normal browser.
+- Chrome's own lazy-load threshold still pulls images ~5,200 px below the fold on a "4g" desktop
+  connection. That is browser policy, not something the markup controls.
+- OpenStreetMap tile requests intermittently fail from this IP (third-party rate limiting).
+- `*-cover.png` masters (2–3 MB each) are orphaned — referenced by nothing, so they cost no
+  bandwidth. Left in place rather than deleted.
+- Server-side caching/compression headers are controlled by the hosting layer, not the codebase.
