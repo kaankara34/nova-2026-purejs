@@ -201,3 +201,80 @@ completed pages (east-west, taç, ana, martı, bahar, mercan) — confirmed with
   Falcon Logistics hero added to its lightbox (now 4 images), Gebze no longer showed the same
   photograph twice (the pair section became one labelled render beside the copy) and the Gebze hero
   caption carries the completion year.
+
+## Mehtap Residence + Finance Nova, Doğan scale, caption fixes (16 June 2026)
+- **Mehtap Residence** (`mehtap-residence.html`, was a Martı clone) rebuilt on the `pp-*` system with
+  `page-mehtap`: facts from nova.istanbul project-detail?proje=3 — Oyuncak Müzesi / Bağdat Caddesi,
+  2014, 8,000 m², 15 floors, 47 residences, and the eight documented amenities. Two authentic renders
+  → `media/images/mehtap/mehtap-render-street.webp`, `mehtap-render-facade.webp`.
+  Order: hero (street render, framed split) → intro → 6 specs → on-site amenities editorial
+  (façade render + 8-item list) → enquiry → footer.
+- **Finance Nova** (`finance-nova.html`, new, `page-finance`) built solely from the supplied
+  “NOVA ATAŞEHİR ENG 2” PDF: 55,000 m² mixed-use in Barbaros, Ataşehir — 27,000 residence/home office,
+  10,000 workplace, 8,000 hotel (140 rooms), 10,000 closed garage; planned solar power, rainwater
+  collection, smart-home tech; eight social facilities; eight verified distances. Four renders
+  extracted from the PDF’s embedded images with PyMuPDF (no page screenshots) →
+  `media/images/finance-nova/finance-nova-{towers,terraces,podium,landscape}.webp`.
+  Order: full-bleed hero → intro → 6 specs → programme breakdown → 3-render gallery → planned
+  facilities (dark) → connections → enquiry → footer.
+  **Omitted on purpose:** all construction-cost, sales-revenue, endorsement and net-profit figures
+  (investor material), the district population statistics and the neighbouring projects’ unit counts
+  (not Nova facts). Conflict noted: the cover OCR reads “NOVA ATEŞEHIR” and page 5 summarises the
+  programme loosely; the detailed page 15 breakdown was used.
+- **Doğan image scale reduced**: hero media column capped at 560 px with the image at
+  `min(64vh, 640px)` (measured 490×576 at 1440, was ~684×912); the gallery became a 1080 px-wide
+  four-column grid with 280–400 px frame heights (measured 521×416, was ~520×693); at ≤520 px the
+  frames use `width: calc(100% - 32px)` with `margin-inline: auto` and `min(52vh, 400px)` height.
+  Lightbox still opens at full size (verified 1/5 with scroll restore).
+- **Visible “Architectural Visualisation” labels removed** from konelsis-center and
+  gebze-osb-management (the other three listed pages never had one); accuracy is preserved in the alt
+  text and copy. No empty caption wrappers left.
+- **Falcon Logistics captions fixed**: the mismatched `span-4 pano + span-2 portrait` row became three
+  equal `span-2` landscape frames, so each `figcaption` sits 4–10 px directly under its own image; the
+  descriptive paragraph and the View-all button moved to the gallery footer. Shared
+  `.pp-media-caption` restyled to 12 px / .08em / title case, and `.pp-gallery-grid` got
+  `align-items: start` so a caption can never drift into the next row.
+- `projects.html`: **one-line change only** — the Finance Nova card `href="#"` → `finance-nova.html`
+  (verified with `git diff`: 1 insertion, 1 deletion). Mehtap card already pointed to the right page.
+- Verified by self-test: 0 console errors and 0 horizontal overflow on all eight portfolio pages at
+  1440/1280/768/430/390 and 844×390; lightboxes open viewport-level with correct counters
+  (Doğan 1/5, Falcon Logistics 1/4, Finance 1/4, Mehtap 1/2) and restore scroll; lint 0 errors.
+
+## 2026-06 — Homepage content update (index.html): launches grid, marquee, AIDA component
+Scope: content/media/link update only inside three existing homepage sections. No redesign; header,
+navigation, footer, hero, news, collaborations, LEED and all other sections untouched.
+
+- **Latest Luxury Property Launches**: removed The Apartments Gür card (the only card using an
+  external DarGlobal CDN image). Heading, `VIEW ALL PROJECTS →` CTA, `NOW SELLING` badges, overlays,
+  location/sales lines, hover and reveal behaviour preserved verbatim. Fixed dead links:
+  CTA → `projects.html`, Taç → `the-apartments-tac.html`, Ana → `the-apartments-ana.html`
+  (East West already correct). No card uses `href="#"`.
+- **Desktop grid (>1366px)**: `.projects-grid` now `repeat(3, 1fr)` with a scoped
+  `@media (min-width:1367px) { max-width: calc(75% - 6px); margin-inline: auto; }` so the three cards
+  keep the original 4-column card size (measured 327×437 at 1440, was ~331 wide) and sit centred in
+  the existing container. Tablet (768–1366 flex carousel) and mobile (single-column) rules untouched;
+  carousel JS already derives counts from `cards.length`, so no JS change was needed.
+- **Marquee section** (`.section-featured`): heading text → `PARTNERS & DESIGNERS`, paragraph replaced
+  with the supplied collaboration sentence. All nine external press logos removed. Track now carries
+  15 local partner logos from `partners.html` (`media/images/partners/*.webp`: Porsche Design,
+  Armani/Casa, Planac Mimarlık + 12 financial institutions) duplicated once for the seamless loop;
+  duplicates are `alt="" aria-hidden="true"`, all items `loading="lazy" decoding="async"` with
+  intrinsic width/height to avoid CLS. Layout, gap (90px), 46px logo height, 38s speed/direction and
+  hover-pause unchanged.
+  - The four “architect” assets in partners.html (Ömer Çamoğlu, Philippe Starck, Kay Ngee Tan,
+    Boran Ekinci) are **portrait photographs, not logos**, so they were not placed in the logo track.
+  - Technical necessity: the old treatment `grayscale(1) brightness(0)` silhouetted transparent press
+    PNGs but turned the opaque-background partner logos into solid black boxes. Changed to
+    `grayscale(1)` + `mix-blend-mode: multiply` (monochrome treatment kept, hover still reveals
+    colour). Added a scoped `prefers-reduced-motion` block: animation off, track wraps, duplicates
+    hidden, all 15 logos visible, no overflow.
+- **AIDA promotional component**: same markup/classes (`aida-*` untouched) now presents The Residences
+  East West — logo `media/images/east-west/ew-intro-logo.webp`, heading “Discover The Residences East
+  West”, the supplied description, `DISCOVER NOW` → `east-west.html`, banner
+  `media/images/ew/render/ew-render1.webp` (local, both towers visible). All AIDA text, logo, images
+  and external CDN requests removed. Banner `object-fit: fill` → `cover` so the render is not
+  stretched; frame size (384px desktop / 16:12 mobile) unchanged.
+- Self-tested at 1440/1280/1024/768/430/390 and 844×390: 0 horizontal overflow, 3 cards and 3 badges
+  at every breakpoint, marquee height 46px, no broken logo (`naturalWidth>0` for all), no stretched
+  logos, keyboard focus reachable on the CTA, no new console errors (only the pre-existing
+  `collab-video.mp4` ERR_ABORTED from viewport switching; the file returns 200). JS syntax clean.

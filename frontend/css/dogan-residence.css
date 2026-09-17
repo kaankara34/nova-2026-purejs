@@ -14,15 +14,52 @@
   --pp-spec-cols: 6;
 }
 
-/* the hero photograph is tall and highly textured: give it the taller frame
-   and keep the crop centred on the façade rather than the sky */
-.page-dogan .pp-hero-media--portrait img { aspect-ratio: 3 / 4; object-position: 50% 42%; }
+/* ---- hero: a deliberately sized media column, not a full-bleed photograph ---- */
+.page-dogan .pp-hero--split .pp-hero-inner {
+  grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
+  min-height: 78vh;
+}
+.page-dogan .pp-hero-media {
+  max-width: 560px;
+  margin-left: auto;
+}
+.page-dogan .pp-hero-media--portrait img {
+  aspect-ratio: auto;
+  height: min(64vh, 640px);
+  object-position: 50% 40%;
+}
 
-/* the five façade views are all vertical, so the gallery keeps a portrait
-   rhythm instead of forcing a landscape crop */
-.page-dogan .pp-gallery-grid { align-items: start; }
+/* ---- gallery: smaller framed images inside a composed four-column grid ---- */
+.page-dogan .pp-gallery-grid {
+  max-width: 1080px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 32px);
+}
+.page-dogan .pp-gallery-grid .pp-span-3 { grid-column: span 2; }
+.page-dogan .pp-media-frame img {
+  aspect-ratio: auto;
+  height: clamp(280px, 30vw, 400px);
+  object-position: 50% 38%;
+}
 .page-dogan .pp-programme-val { letter-spacing: .02em; }
 
 @media (max-width: 960px) {
-  .page-dogan .pp-hero-media--portrait img { aspect-ratio: 4 / 5; }
+  .page-dogan .pp-hero--split .pp-hero-inner { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .page-dogan .pp-hero-media {
+    max-width: none;
+    width: calc(100% - 24px);
+    margin-inline: auto;
+  }
+  .page-dogan .pp-hero-media--portrait img { height: min(54vh, 460px); }
+  .page-dogan .pp-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-dogan .pp-gallery-grid .pp-span-3 { grid-column: auto; }
+  .page-dogan .pp-media-frame img { height: clamp(220px, 34vw, 300px); }
+}
+@media (max-width: 520px) {
+  .page-dogan .pp-gallery-grid { grid-template-columns: minmax(0, 1fr); }
+  .page-dogan .pp-media-frame {
+    width: calc(100% - 32px);
+    margin-inline: auto;
+  }
+  .page-dogan .pp-media-frame img { height: min(52vh, 400px); }
 }

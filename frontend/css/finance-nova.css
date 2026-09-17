@@ -1,0 +1,22 @@
+/* ================================================================
+   FINANCE NOVA (Nova Ataşehir) — project-specific tone and layout
+   Shared structure lives in css/portfolio-project.css (pp-* system).
+   ================================================================ */
+.page-finance {
+  --pp-ink: #121A15;
+  --pp-ink-soft: #4C5A51;
+  --pp-paper: #F1F3EF;
+  --pp-paper-2: #E2E7E1;
+  --pp-dark: #0F1512;
+  --pp-dark-2: #18201B;
+  --pp-accent: #5C7A5B;
+  --pp-line: rgba(18, 26, 21, .14);
+  --pp-spec-cols: 6;
+}
+
+/* the hero render is high-resolution, so it carries a full-width band */
+.page-finance .pp-hero--full .pp-hero-media { height: clamp(500px, 76vh, 860px); }
+.page-finance .pp-hero--full .pp-hero-media img { object-position: 50% 52%; }
+.page-finance .pp-hero--full .pp-hero-title { max-width: 16ch; }
+.page-finance .pp-programme-val { white-space: nowrap; }
+.page-finance .pp-programme-key { max-width: 34ch; }

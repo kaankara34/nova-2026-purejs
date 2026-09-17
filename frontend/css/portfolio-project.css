@@ -279,12 +279,13 @@
 .pp-page .pp-ratio-pano img { aspect-ratio: 3 / 2; }
 
 .pp-page .pp-media-caption {
-  margin-top: 12px;
+  margin-top: 10px;
   font-family: var(--pp-sans);
-  font-weight: 500;
-  font-size: 9.5px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: .08em;
+  text-transform: none;
   color: var(--pp-ink-soft);
 }
 .pp-page .pp-media-frame--contain .pp-media-caption { color: rgba(244, 241, 235, .6); }
@@ -304,6 +305,8 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(14px, 1.8vw, 26px);
+  /* figures keep their own height so a caption can never drift into the next row */
+  align-items: start;
 }
 .pp-page .pp-span-2 { grid-column: span 2; }
 .pp-page .pp-span-3 { grid-column: span 3; }

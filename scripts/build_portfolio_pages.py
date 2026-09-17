@@ -39,6 +39,8 @@ PROJECT_OPTIONS = [
     ('konelsis', 'Konelsis Center, Ankara'),
     ('nisbetiye', 'Nisbetiye On, Etiler–Levent'),
     ('gebze', 'Gebze OSB Management Building, Gebze'),
+    ('mehtap', 'Mehtap Residence, Bağdat Caddesi'),
+    ('finance', 'Finance Nova, Ataşehir'),
 ]
 
 
@@ -411,22 +413,21 @@ flogistic_body = (
 """
     + frame('media/images/falcon-logistics/falcon-logistics-interior.webp',
             'Falcon Logistics Center — the warehouse interior with its concrete column grid, stacked pallets and a forklift in operation',
-            'pp-span-4', 'pp-ratio-pano', caption='Warehouse Interior',
-            sizes='(max-width: 960px) 92vw, 60vw', width=1076, height=754) + '\n'
+            'pp-span-2', 'pp-ratio-landscape', caption='Warehouse Interior',
+            sizes='(max-width: 960px) 92vw, 30vw', width=1076, height=754) + '\n'
     + frame('media/images/falcon-logistics/falcon-logistics-facade.webp',
             'Falcon Logistics Center — the ribbed metal and glass façade of the facility seen against the sky',
-            'pp-span-2', 'pp-ratio-portrait', caption='Façade',
+            'pp-span-2', 'pp-ratio-landscape', caption='Façade',
             sizes='(max-width: 960px) 92vw, 30vw', width=768, height=1024) + '\n'
     + frame('media/images/falcon-logistics/falcon-logistics-entrance.webp',
             'Falcon Logistics Center — the main entrance elevation with its glazed office volume and planted forecourt',
-            'pp-span-2', 'pp-ratio-portrait', caption='Entrance Elevation',
+            'pp-span-2', 'pp-ratio-landscape', caption='Entrance Elevation',
             sizes='(max-width: 960px) 92vw, 30vw', width=768, height=1024) + '\n'
-    + """      <div class="pp-gallery-note pp-span-4 reveal-up">
-        <p class="pp-body">Warehouse, circulation and office functions share one envelope on a single site. The images
-          above are the complete authentic photographic record held for the project: an interior bay, the façade
-          system and the entrance elevation.</p>
-        <button class="pp-textlink" type="button" data-pp-open-all data-testid="flogistic-view-all">View all images</button>
-      </div>
+    + """    </div>
+    <div class="pp-gallery-foot reveal-up">
+      <p class="pp-body">Warehouse, circulation and office functions share one envelope on a single site. These three
+        views, together with the exterior above, are the complete authentic photographic record held for the project.</p>
+      <button class="pp-textlink" type="button" data-pp-open-all data-testid="flogistic-view-all">View all images</button>
     </div>
   </section>
 
@@ -458,7 +459,6 @@ konelsis_body = (
              sizes="(max-width: 960px) 92vw, 54vw"
              alt="Konelsis Center — architectural visualisation of the corporate headquarters building in Yenimahalle, Ankara"
              fetchpriority="high" decoding="async" />
-        <figcaption class="pp-media-caption">Architectural Visualisation</figcaption>
       </figure>
     </div>
   </section>
@@ -644,7 +644,7 @@ gebze_body = (
 """
     + frame('media/images/gebze-osb/gebze-osb-render.webp',
             'Gebze OSB Management Building — design-stage architectural visualisation of the administration building',
-            '', 'pp-ratio-landscape', caption='Architectural Visualisation',
+            '', 'pp-ratio-landscape',
             sizes='(max-width: 960px) 92vw, 46vw', width=650, height=487) + '\n'
     + """      </div>
       <div class="pp-editorial-copy">
@@ -664,6 +664,225 @@ gebze_body = (
     + enquiry('gebze'))
 
 
+# =====================================================================
+# 7. MEHTAP RESIDENCE
+# =====================================================================
+mehtap_meta = dict(
+    file='mehtap-residence.html', cls='page-mehtap', css='mehtap-residence.css', js='',
+    title='Mehtap Residence | Nova Konut',
+    desc='Mehtap Residence — forty-seven residences across fifteen floors within an 8,000 m² development on '
+         'Bağdat Caddesi beside the Oyuncak Müzesi, completed in 2014.',
+    og='media/images/mehtap/mehtap-render-street.webp')
+
+mehtap_body = (
+    """  <!-- ============================= HERO ============================= -->
+  <section class="pp-hero pp-hero--split">
+    <div class="pp-hero-inner">
+      <div class="pp-hero-copy">
+        <p class="pp-hero-eyebrow reveal-up">Completed Development &middot; 2014</p>
+        <h1 class="pp-hero-title reveal-up">Mehtap Residence</h1>
+        <p class="pp-hero-native reveal-up">Residential Development</p>
+        <p class="pp-hero-loc reveal-up"><span>Oyuncak Müzesi, Bağdat Caddesi</span><em>/</em><span>İstanbul</span></p>
+      </div>
+      <figure class="pp-hero-media pp-hero-media--landscape pp-reveal-media" data-pp-open data-testid="mehtap-hero-image">
+        <img src="./media/images/mehtap/mehtap-render-street.webp" width="1800" height="1125"
+             sizes="(max-width: 960px) 92vw, 54vw"
+             alt="Mehtap Residence — architectural render of the fifteen-storey building seen from Bağdat Caddesi"
+             fetchpriority="high" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+"""
+    + intro(
+        'The Project',
+        'Completed in 2014 on Bağdat Caddesi beside the Oyuncak Müzesi, Mehtap Residence gathers forty-seven '
+        'residences across fifteen floors within an 8,000 m² development.',
+        'On-site amenities include two levels of underground parking, a swimming pool, a fitness centre, a '
+        'meeting room and a children&rsquo;s play area.')
+    + specs([
+        ('Project Type', 'Residential Development', None),
+        ('Location', 'Oyuncak Müzesi, Bağdat&nbsp;Caddesi', 'İstanbul'),
+        ('Completion Year', '2014', None),
+        ('Total Construction Area', '8,000 m²', None),
+        ('Floors', '15', None),
+        ('Residences', '47', None),
+    ])
+    + """  <!-- ============================= ON-SITE AMENITIES ============================= -->
+  <section class="pp-editorial pp-editorial--reverse" aria-labelledby="mehtap-amenities-title">
+    <div class="pp-editorial-inner">
+      <div class="pp-editorial-media">
+"""
+    + frame('media/images/mehtap/mehtap-render-facade.webp',
+            'Mehtap Residence — architectural render of the balconied façade of the completed fifteen-storey building',
+            '', 'pp-ratio-portrait',
+            sizes='(max-width: 960px) 92vw, 46vw', width=1800, height=1438) + '\n'
+    + """      </div>
+      <div class="pp-editorial-copy">
+        <p class="pp-eyebrow reveal-up">On Site</p>
+        <h2 class="pp-section-title reveal-up" id="mehtap-amenities-title">Forty-seven residences, fifteen floors.</h2>
+        <p class="pp-body reveal-up">The 8,000 m² development was delivered in 2014. The documented amenities below are
+          the complete project record; no further programme detail is published.</p>
+        <ul class="pp-facts reveal-up" data-testid="mehtap-features">
+          <li><span>01</span><span>Two levels of underground parking</span></li>
+          <li><span>02</span><span>Swimming pool</span></li>
+          <li><span>03</span><span>Fitness centre</span></li>
+          <li><span>04</span><span>Meeting room</span></li>
+          <li><span>05</span><span>Children&rsquo;s play area</span></li>
+          <li><span>06</span><span>Private storage</span></li>
+          <li><span>07</span><span>Full-capacity generator</span></li>
+          <li><span>08</span><span>24/7 security</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+"""
+    + enquiry('mehtap'))
+
+# =====================================================================
+# 8. FINANCE NOVA  (Nova Ataşehir)
+# =====================================================================
+finance_meta = dict(
+    file='finance-nova.html', cls='page-finance', css='finance-nova.css', js='',
+    title='Finance Nova | Nova Konut',
+    desc='Finance Nova (Nova Ataşehir) — a 55,000 m² mixed-use development of residences, home offices, '
+         'commercial space and a hotel in Barbaros, Ataşehir, one kilometre from the Istanbul Financial Center.',
+    og='media/images/finance-nova/finance-nova-towers.webp')
+
+finance_body = (
+    """  <!-- ============================= HERO ============================= -->
+  <section class="pp-hero pp-hero--full">
+    <figure class="pp-hero-media" data-pp-open data-testid="finance-hero-image">
+      <img src="./media/images/finance-nova/finance-nova-towers.webp" width="2000" height="1333"
+           sizes="100vw"
+           alt="Finance Nova — architectural render of the two planted, terraced towers of the Nova Ataşehir development"
+           fetchpriority="high" decoding="async" />
+      <div class="pp-hero-scrim" aria-hidden="true"></div>
+    </figure>
+    <div class="pp-hero-copy">
+      <p class="pp-hero-eyebrow reveal-up">In Development &middot; Mixed-Use</p>
+      <h1 class="pp-hero-title reveal-up">Finance Nova</h1>
+      <p class="pp-hero-native reveal-up">Nova Ataşehir</p>
+      <p class="pp-hero-loc reveal-up"><span>Barbaros, Ataşehir</span><em>/</em><span>İstanbul</span></p>
+    </div>
+  </section>
+
+"""
+    + intro(
+        'The Project',
+        'Finance Nova &mdash; Nova Ataşehir &mdash; is a 55,000 m² mixed-use development in Ataşehir, one kilometre '
+        'from the Istanbul Financial Center and 300 metres from the Ataşehir metro station.',
+        'The project brings residences and home offices together with commercial space, a hotel and enclosed '
+        'parking on a single site, alongside shared office space and guest accommodation rooms for residence '
+        'owners.')
+    + specs([
+        ('Project Type', 'Mixed-Use Development', None),
+        ('Location', 'Barbaros, Ataşehir', 'İstanbul'),
+        ('Status', 'In Development', None),
+        ('Total Closed Area', '55,000 m²', None),
+        ('Programme', 'Residence &middot; Home office', 'Commercial &middot; Hotel &middot; Parking'),
+        ('Hotel Rooms', '140', None),
+    ])
+    + """  <!-- ============================= PROGRAMME ============================= -->
+  <section class="pp-programme" aria-labelledby="finance-programme-title">
+    <div class="pp-programme-inner">
+      <div>
+        <p class="pp-eyebrow reveal-up">Programme</p>
+        <h2 class="pp-section-title reveal-up" id="finance-programme-title">Fifty-five thousand square metres, four functions.</h2>
+        <p class="pp-body pp-programme-note reveal-up">The residence and home-office space is planned with terraces
+          and gardens, while the workplace space includes its own garden area and can be configured across larger and
+          smaller units.</p>
+      </div>
+      <div class="reveal-up">
+        <div class="pp-programme-rows" data-testid="finance-programme">
+          <div class="pp-programme-row"><span class="pp-programme-key">Residence and home office, with terrace and garden</span><span class="pp-programme-val">27,000 m²</span></div>
+          <div class="pp-programme-row"><span class="pp-programme-key">Workplace space and garden area</span><span class="pp-programme-val">10,000 m²</span></div>
+          <div class="pp-programme-row"><span class="pp-programme-key">Hotel space</span><span class="pp-programme-val">8,000 m²</span></div>
+          <div class="pp-programme-row"><span class="pp-programme-key">Closed garage space</span><span class="pp-programme-val">10,000 m²</span></div>
+          <div class="pp-programme-row pp-programme-row--total"><span class="pp-programme-key">Total Closed Space</span><span class="pp-programme-val">55,000 m²</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= PROJECT RENDERS ============================= -->
+  <section class="pp-gallery" aria-labelledby="finance-visuals-title">
+    <div class="pp-gallery-head">
+      <p class="pp-eyebrow reveal-up">Design</p>
+      <h2 class="pp-section-title reveal-up" id="finance-visuals-title">Planted terraces above a landscaped podium.</h2>
+      <p class="pp-body reveal-up">Design-stage images of the development. Select any image to view it at full size.</p>
+    </div>
+    <div class="pp-gallery-grid" data-pp-stagger>
+"""
+    + frame('media/images/finance-nova/finance-nova-terraces.webp',
+            'Finance Nova — architectural render of the terraced residential levels and their planting',
+            'pp-span-2', 'pp-ratio-landscape',
+            sizes='(max-width: 960px) 92vw, 30vw', width=2000, height=1125) + '\n'
+    + frame('media/images/finance-nova/finance-nova-podium.webp',
+            'Finance Nova — architectural render of the landscaped podium and the curved base of the towers',
+            'pp-span-2', 'pp-ratio-landscape',
+            sizes='(max-width: 960px) 92vw, 30vw', width=1920, height=956) + '\n'
+    + frame('media/images/finance-nova/finance-nova-landscape.webp',
+            'Finance Nova — architectural render of the water feature and pool terrace within the landscaped grounds',
+            'pp-span-2', 'pp-ratio-landscape',
+            sizes='(max-width: 960px) 92vw, 30vw', width=1920, height=1280) + '\n'
+    + """    </div>
+    <div class="pp-gallery-foot reveal-up">
+      <button class="pp-textlink" type="button" data-pp-open-all data-testid="finance-view-all">View all images</button>
+    </div>
+  </section>
+
+  <!-- ============================= FACILITIES AND SYSTEMS ============================= -->
+  <section class="pp-editorial pp-editorial--dark" aria-labelledby="finance-facilities-title">
+    <div class="pp-editorial-inner">
+      <div class="pp-editorial-copy">
+        <p class="pp-eyebrow reveal-up">Planned Facilities</p>
+        <h2 class="pp-section-title reveal-up" id="finance-facilities-title">Designed as a green mixed-use address.</h2>
+        <p class="pp-body reveal-up">The development is planned as a green project generating its electricity from
+          solar energy and collecting rainwater, with smart-home technology throughout.</p>
+        <p class="pp-body reveal-up">Residence owners are also provided with shared office space and guest
+          accommodation rooms within the development.</p>
+      </div>
+      <ul class="pp-facts reveal-up" data-testid="finance-facilities">
+        <li><span>01</span><span>Indoor and outdoor swimming pools</span></li>
+        <li><span>02</span><span>Spa</span></li>
+        <li><span>03</span><span>Gym</span></li>
+        <li><span>04</span><span>Private jogging track</span></li>
+        <li><span>05</span><span>Cinema</span></li>
+        <li><span>06</span><span>Private event space</span></li>
+        <li><span>07</span><span>Shared office for residence owners</span></li>
+        <li><span>08</span><span>Guest accommodation rooms</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================= CONNECTIONS ============================= -->
+  <section class="pp-programme" aria-labelledby="finance-connections-title">
+    <div class="pp-programme-inner">
+      <div>
+        <p class="pp-eyebrow reveal-up">Connections</p>
+        <h2 class="pp-section-title reveal-up" id="finance-connections-title">Distances recorded for the site.</h2>
+        <p class="pp-body pp-programme-note reveal-up">The project sits beside Ataşehir&rsquo;s business district,
+          within walking distance of the metro and the Water Garden.</p>
+      </div>
+      <div class="pp-programme-rows reveal-up" data-testid="finance-connections">
+        <div class="pp-programme-row"><span class="pp-programme-key">Metro station</span><span class="pp-programme-val">300 m</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">Water Garden</span><span class="pp-programme-val">400 m</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">Ülker Sports Arena</span><span class="pp-programme-val">450 m</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">Palladium</span><span class="pp-programme-val">750 m</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">TEM highway</span><span class="pp-programme-val">800 m</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">Istanbul Financial Center</span><span class="pp-programme-val">1 km</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">Private hospitals district</span><span class="pp-programme-val">1 km</span></div>
+        <div class="pp-programme-row"><span class="pp-programme-key">Sabiha Gökçen Airport</span><span class="pp-programme-val">22 km</span></div>
+      </div>
+    </div>
+  </section>
+
+"""
+    + enquiry('finance'))
+
+
 PAGES = [
     (dogan_meta, dogan_body),
     (fplaza_meta, fplaza_body),
@@ -671,6 +890,8 @@ PAGES = [
     (konelsis_meta, konelsis_body),
     (nisbetiye_meta, nisbetiye_body),
     (gebze_meta, gebze_body),
+    (mehtap_meta, mehtap_body),
+    (finance_meta, finance_body),
 ]
 
 for meta, body in PAGES:

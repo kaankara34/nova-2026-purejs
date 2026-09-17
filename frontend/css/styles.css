@@ -1225,7 +1225,16 @@ body.no-scroll {
 .projects-grid {
   display: grid; 
   gap: clamp(18px, 2.2vw, 22px);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Desktop: keep the three remaining cards at the original card size, centred */
+@media (min-width: 1367px) {
+  .projects-grid {
+    max-width: calc(75% - 6px);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* Carousel navigation arrows - REMOVED */
@@ -1538,7 +1547,8 @@ body.no-scroll {
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-track img {
   max-height: 46px; width: auto; object-fit: contain;
-  filter: grayscale(1) brightness(0);
+  filter: grayscale(1);
+  mix-blend-mode: multiply;
   opacity: 1;
   transition: filter .3s var(--easing);
 }
@@ -1546,6 +1556,19 @@ body.no-scroll {
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+/* Reduced motion: stop the loop and keep every logo visible */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow: hidden; }
+  .marquee-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 36px 90px;
+  }
+  .marquee-track img[aria-hidden="true"] { display: none; }
 }
 
 /* =========================================================
@@ -1652,7 +1675,7 @@ body.no-scroll {
   display: block;
   width: 100%;
   height: 384px;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 @media (max-width: 768px) {
