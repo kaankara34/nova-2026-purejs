@@ -823,3 +823,20 @@ Full detail in `memory/CHANGELOG.md`.
 - P2: projects.html card covers for the six completed projects are still the AI-generated placeholders (user explicitly instructed not to modify projects.html in this task).
 - P2: the shared side menu / footer still list only the four Bağdat Caddesi developments; adding the completed portfolio there is a separate, site-wide task.
 - Data note: nova.istanbul lists Nisbetiye On as “Levent, Istanbul”; the page uses the user-supplied “Nisbetiye · Etiler–Levent · İstanbul”. Legacy names differ too (Doğan Apartmanı, Falcon Logistics Building, Gebze OSB Management) — public-facing names follow the user brief.
+
+---
+
+## Addendum — NOVA Journal newsroom (static requirements, June 2026)
+- The newsroom aggregates **third-party** reporting in two editorial areas: (a) art, culture, design,
+  exhibitions, galleries and museums; (b) built environment — construction, urban transformation,
+  Kadıköy/İstanbul urban policy, technical and legal/regulatory change.
+- Hard rules: server-side ingestion only (never fetch feeds from the browser); strict source
+  allowlist with recorded reasons for disabled publishers; never republish a full article; always
+  show the publisher and a direct link to the original; never present aggregated reporting as
+  original NOVA journalism; no invented facts, dates or legal conclusions.
+- Gemini free-tier summarisation is an **optional enhancement**, never a dependency: the system must
+  stay fully functional with `GEMINI_API_KEY` unset or its quota exhausted.
+- Card clicks open the internal NOVA summary page (`news-detail.html?slug=…`); the external source
+  link is always additionally visible.
+- Implementation status and verified source list: see `memory/CHANGELOG.md` (2026-06 entry).
+- Remaining backlog: see `memory/ROADMAP.md`.

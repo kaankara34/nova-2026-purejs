@@ -1,0 +1,22 @@
+{
+  "summary": "End-to-end verification of NOVA newsroom + homepage refresh. 14/14 backend pytest cases passed against the live preview URL. Frontend UI verified across 1440/1280/1024/768/430/390 and 844x390 landscape: 3 portrait project cards with correct hrefs and 0.75/0.833 ratios per breakpoint, marquee with exactly 7 unique architect/designer units duplicated to 14 (170x60 desktop, 125x46 mobile), zero bank logos in marquee, no horizontal overflow at any size, EW feature uses ew-render5.webp with ~210px logo and Discover Now → east-west.html, homepage news grid shows 6 attributed cards linking to internal news-detail.html with target=_blank+rel=noopener on source link. Newsroom page: single h1, 9 filters, 12 initial cards, load-more 12→24, URL syncs ?category= and ?search=, count label '176 articles'. news-detail: 101-word summary, related items, external CTA has target=_blank rel='noopener noreferrer', title updated; unknown slug shows 'Article not available' with working back link. No console errors. No admin token / GEMINI key leaked in HTML. Partners.html still shows bank logos (7). east-west.html renders. Deduplication verified via admin refresh endpoint.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_newsroom_api.py",
+    "/app/test_reports/pytest/newsroom_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "news-detail unknown-slug page reaches domcontentloaded but never fires 'load' idle within 30s — minor; likely long-lived polling/timer. Not user-visible; consider clearing pending fetches on missing state.",
+    "Frontend fetches use relative /api — works only through the preview/ingress. Static file server on :3000 will not proxy /api. Acceptable per task setup but worth noting."
+  ],
+  "updated_files": ["/app/backend/tests/test_newsroom_api.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "X-Admin-Token: nova-newsroom-4f1c8b2ad96e47 (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "None; used existing 176 ingested items.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend list endpoint returns {items, pagination:{page,limit,pages,has_more}, category, generated_at}. Detail returns {item, related}. Limit is capped at 24 (limit>24 => 422). All 14 pytest cases in /app/backend/tests/test_newsroom_api.py are stable and reusable for regression. Marquee has 14 mq-units total (7 unique + 7 aria-hidden duplicates). Project cards are anchors directly (a.project-card).",
+  "rca of the issue": "N/A — no bugs found."
+}

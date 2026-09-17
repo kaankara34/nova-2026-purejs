@@ -278,3 +278,87 @@ navigation, footer, hero, news, collaborations, LEED and all other sections unto
   at every breakpoint, marquee height 46px, no broken logo (`naturalWidth>0` for all), no stretched
   logos, keyboard focus reachable on the CTA, no new console errors (only the pre-existing
   `collab-video.mp4` ERR_ABORTED from viewport switching; the file returns 200). JS syntax clean.
+
+## 2026-06 — Homepage refinements + automated NOVA Journal newsroom
+Tested by testing agent (iteration_50.json): backend 100% (14/14 pytest cases), frontend 100%,
+no issues, `retest_needed: false`.
+
+### Homepage (index.html, css/styles.css)
+- **Project grid**: `.projects-grid` is now `repeat(3, minmax(0, 1fr))` with a 28px gap and no
+  max-width cap, so the row spans the full inner container (measured left 32 / right 1408 at 1440 —
+  identical to the heading and `VIEW ALL PROJECTS →` CTA). Cards measured 440×587 (ratio 0.75 = the
+  original 3/4 portrait) at 1440/430/390; the 768–1366 carousel keeps its pre-existing 5/6 ratio.
+  Badges, overlays, location and sales lines, hover/reveal behaviour and links untouched.
+- **Marquee → ARCHITECTS & DESIGNERS**: heading + paragraph replaced; every bank/portfolio logo
+  removed from the homepage (all still present on partners.html). Track now holds 7 units — the four
+  authentic architect portraits (Ömer Çamoğlu, Philippe Starck, Kay Ngee Tan, Boran Ekinci) as 46×46
+  monochrome square crops with the name set beside them, plus Porsche Design, Armani/Casa and Planac
+  Mimarlık logos centred with `object-fit: contain`. Equal outer units (170×60 desktop, 125×46
+  ≤767px), duplicated once with `aria-hidden` + empty alt, 38s seamless loop, hover pause, and a
+  `prefers-reduced-motion` block that stops the animation and wraps all units.
+- **East West feature** replaces the old AIDA component: new `.ew-feature` 36/64 editorial split
+  using `media/images/ew/render/ew-render5.webp` (907×614 at 1440), a 210px East West logo
+  (175–190 tablet, 155 mobile), bronze eyebrow + hairline rule, heading, supplied copy and a bronze
+  `DISCOVER NOW → east-west.html` CTA. Pale blue #D7E3EB ground and bronze #6B5E43 accents kept; all
+  `aida-*` CSS/markup removed (no other page used it). Mobile order: logo, heading, copy, CTA, image.
+- **#news → NOVA JOURNAL**: all six DarGlobal/Emirates NBD/World Liberty placeholder cards removed;
+  the section now renders six live items from `/api/news/featured`. Out-of-scope homepage sections
+  (hero, DarGlobal hero images, "DISCOVER DARGLOBAL", register form) were deliberately left alone.
+
+### Newsroom backend (new: backend/news/{__init__,sources,filters,summarise,ingest,api}.py)
+- Extends the existing FastAPI + MongoDB app. Collections: `news_items` (unique indexes on `slug`
+  and `canonical_url`; indexes on `published_at`, `status+category+published_at`, `content_hash`,
+  `title_key`), `news_sources` (ETag / Last-Modified / last_success_at), `news_runs` (run reports).
+- **Verified enabled feeds (14, all fetched and parsed with real requests)**: Hyperallergic,
+  The Guardian Art & Design, Artnet News, Colossal, La Biennale di Venezia, Dezeen, designboom,
+  ArchDaily (feeds.feedburner.com/Archdaily), The Guardian Cities, Arkitera, Arkitektüel, TMMOB,
+  Anadolu Ajansı (güncel + ekonomi).
+- **Left disabled** (recorded in `DISABLED_SOURCES` with reasons): Resmî Gazete, Çevre ve Şehircilik
+  Bakanlığı, Kentsel Dönüşüm Başkanlığı, İBB, Kadıköy Belediyesi, TÜİK, AFAD, İMSAD, TMB, Mimarlar
+  Odası, yapi.com.tr, emlakkulisi.com, İstanbul Modern/SALT/Arter/Pera/Sabancı/Borusan/İKSV/Istanbul
+  Biennial, Tate/MoMA/Louvre/Pompidou/Art Basel, The Art Newspaper, Frieze, Reuters.
+- Fetching: https-only allowlist by hostname, DNS resolution rejected for private/loopback/link-local
+  IPs, ≤3 redirects re-validated against the allowlist, 4MB cap, 20s timeout, descriptive UA, ETag /
+  Last-Modified conditional requests, defusedxml parsing with entity expansion forbidden, bleach
+  stripping of all tags/scripts/handlers, tracking-parameter stripping (utm_*, fbclid, gclid…).
+- Dedupe on canonical URL, feed GUID + source, normalised title and content hash. Relevance uses a
+  STRONG/WEAK term model (an item needs at least one unambiguous topic term) plus exclusions
+  (sport, crime, celebrity, crypto, generic finance, listings, exams, party politics) and a 30-day
+  freshness window; `published_at` is always the publisher's date, `fetched_at` separate.
+- Summaries: optional Gemini free tier (`GEMINI_API_KEY`, `GEMINI_MODEL=gemini-3.5-flash-lite`,
+  `NEWS_AI_MAX_REQUESTS_PER_RUN=10`, strict JSON output, validation rejects invented numbers and
+  low confidence, bounded backoff on 429/5xx). Key is unset in this environment, so every current
+  summary comes from the deterministic chain (shortened feed description → source excerpt →
+  headline + attribution). No full third-party article body is ever stored or shown.
+- Scheduler: APScheduler `AsyncIOScheduler`, 6-hour interval, timezone Europe/Istanbul, started in
+  the FastAPI startup hook (supervisor keeps the process alive); one first run when the collection is
+  empty. Protected manual trigger `POST /api/admin/news/refresh` with `X-Admin-Token`.
+- API: `GET /api/news` (category/page/limit≤24/search/language, validated, ETag + Cache-Control,
+  in-memory rate limit 120/min), `GET /api/news/featured` (editorially balanced six), `GET
+  /api/news/{slug}` (+3 related), `GET /api/news-sources/status` (health only).
+- Verified: full run accepted 176 items from 14/14 sources with 0 failures; an immediate second run
+  accepted 0 and reported 39 duplicates.
+
+### Newsroom frontend (new: newsroom.html, news-detail.html, css/newsroom.css, js/news.js,
+### data/news-fallback.json)
+- `newsroom.html`: single h1, text-led hero, nine accessible filter buttons with `aria-pressed` and
+  `?category=` URL state (back/forward supported), debounced search with `?search=`, lead article +
+  supporting grid, LOAD MORE (verified 12 → 24), article count, refined empty/error states.
+- `news-detail.html?slug=…`: NOVA-branded summary page — category, date, headline, `SOURCE ·
+  PUBLISHER`, 80–160 word summary, optional publisher-syndicated image with credit, regulatory
+  disclaimer for TECHNICAL_AND_LEGAL, prominent `Read original article →` (new tab,
+  `rel="noopener noreferrer"`), up to three related items, dynamic title/description/OG/canonical and
+  WebPage + BreadcrumbList JSON-LD (never NewsArticle with NOVA as publisher). Unknown slug shows a
+  not-found state with a link back to the newsroom; API failure shows a service state.
+- All cards are `<article>` with an internal detail link plus a separate external source link; every
+  node is built with `createElement`/`textContent` (no `innerHTML`), no feed is ever fetched from the
+  browser, and `data/news-fallback.json` (6 verified items) keeps the layout alive if `/api` is down.
+
+### Environment variables added to backend/.env
+`NEWS_ADMIN_TOKEN`, `NEWS_INGEST_ENABLED`, `NEWS_INGEST_INTERVAL_HOURS`,
+`NEWS_AI_MAX_REQUESTS_PER_RUN`, `GEMINI_API_KEY` (empty), `GEMINI_MODEL`.
+
+### Also fixed
+- Added the missing `/app/eslint.config.js` (ESLint 9 flat config) — this was the cause of the
+  recurring platform "JavaScript linting failed due to a linter engine error"; `npx eslint .` is now
+  clean.
