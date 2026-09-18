@@ -23,8 +23,9 @@ PUBLIC_BASE = "media/news"
 
 CARD_SIZE = (1200, 750)     # 16 / 10
 DETAIL_SIZE = (1600, 900)   # 16 / 9
-MIN_SOURCE_WIDTH = 720
-PREFERRED_SOURCE_WIDTH = 900
+MIN_SOURCE_WIDTH = 1000
+MIN_SOURCE_HEIGHT = 550
+PREFERRED_SOURCE_WIDTH = 1200
 MAX_DOWNLOAD = 8 * 1024 * 1024
 MIN_BYTES = 12 * 1024
 MIN_SHARPNESS = 6.0
@@ -77,6 +78,8 @@ def _rejects(url: str, raw: bytes, img: Image.Image) -> str | None:
     w, h = img.size
     if w < MIN_SOURCE_WIDTH:
         return f"source-too-narrow ({w}px)"
+    if h < MIN_SOURCE_HEIGHT:
+        return f"source-too-short ({h}px)"
     ratio = w / h if h else 0
     if ratio < 0.75 or ratio > 3.2:
         return f"extreme-aspect-ratio ({ratio:.2f})"

@@ -409,6 +409,12 @@
       if (chunk.trim()) summaryHost.appendChild(el('p', 'nd-paragraph', chunk.trim()));
     });
 
+    const REGIONS = { TR: 'Türkiye', INTERNATIONAL: 'International' };
+    document.getElementById('factPublisher').textContent = item.source_name;
+    document.getElementById('factPublished').textContent = formatDate(item.published_at);
+    document.getElementById('factCategory').textContent = categoryLabel(item.category);
+    document.getElementById('factRegion').textContent = REGIONS[item.region] || item.region || '—';
+
     if (item.category === 'TECHNICAL_AND_LEGAL') {
       document.getElementById('detailDisclaimer').hidden = false;
     }

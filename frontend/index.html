@@ -311,12 +311,13 @@
   <!-- ============================= ARCHITECTS & DESIGNERS ============================= -->
   <section class="section-architects" id="architects" aria-labelledby="architectsHeading">
     <div class="container">
-      <div class="ad-head reveal-up">
+      <div class="ad-head ad-head--center reveal-up">
         <div class="eyebrow gold" id="architectsHeading">ARCHITECTS &amp; DESIGNERS</div>
         <p class="ad-lead">Nova works with architects and designers whose distinct perspectives contribute to the identity, material character and spatial quality of its projects.</p>
       </div>
     </div>
 
+    <div class="ad-bound">
     <div class="ad-marquee" id="architectsMarquee" role="group" aria-label="Architects and designers" tabindex="0" data-testid="architects-marquee">
       <div class="ad-track" id="architectsTrack">
         <div class="ad-group" data-ad-group>
@@ -411,6 +412,7 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- ============================= THE RESIDENCES EAST WEST ============================= -->
@@ -422,8 +424,12 @@
         <p class="ew-feature-desc">The Residences East West brings together 135 m&sup2; net 3+1 and 4+1 residences in Çiftehavuzlar, moments from Bağdat Caddesi and the Marmara coastline.</p>
         <a class="ew-feature-cta" href="east-west.html" data-testid="ew-feature-cta">Discover now <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </div>
-      <div class="ew-feature-media">
-        <img src="./media/images/ew/render/ew-render5.webp" alt="The Residences East West — architectural visualisation of the residences in Çiftehavuzlar" width="1901" height="1070" loading="lazy" decoding="async" data-testid="ew-feature-image">
+      <div class="ew-feature-media" id="ewFeatureMedia" data-testid="ew-feature-media">
+        <img class="ew-slide is-active" src="./media/images/ew/render/ew-render5.webp" alt="The Residences East West — towers seen from Çiftehavuzlar" width="1901" height="1070" loading="eager" decoding="async" data-ew-slide="0">
+        <img class="ew-slide" src="./media/images/ew/render/ew-render1.webp" alt="The Residences East West — street elevation of the two towers" width="1901" height="1070" loading="lazy" decoding="async" data-src-deferred="1" data-ew-slide="1">
+        <img class="ew-slide" src="./media/images/ew/render/ew-render2.webp" alt="The Residences East West — towers among the surrounding streetscape" width="1901" height="1070" loading="lazy" decoding="async" data-src-deferred="1" data-ew-slide="2">
+        <img class="ew-slide" src="./media/images/ew/render/ew-render6.webp" alt="The Residences East West — entrance approach and landscaped forecourt" width="1901" height="1070" loading="lazy" decoding="async" data-src-deferred="1" data-ew-slide="3">
+        <img class="ew-slide" src="./media/images/ew/render/ew-render3.webp" alt="The Residences East West — tower façade against the skyline" width="1901" height="1070" loading="lazy" decoding="async" data-src-deferred="1" data-ew-slide="4">
       </div>
     </div>
   </section>
@@ -469,13 +475,11 @@
   <!-- ============================= NOVA JOURNAL ============================= -->
   <section class="section-news" id="news" data-news-home>
     <div class="container">
-      <div class="section-head reveal-up">
-        <div>
-          <div class="eyebrow gold" style="margin-bottom:14px;">NOVA JOURNAL</div>
-          <h2 class="title">ART, CITY &amp; THE BUILT ENVIRONMENT</h2>
-          <div class="news-intro"><p>A considered selection of developments in art, architecture, construction and urban transformation from Türkiye and around the world.</p></div>
-        </div>
-        <a href="newsroom.html" class="link-gold" data-testid="news-view-all">VIEW ALL <span class="arrow">&rarr;</span></a>
+      <div class="news-head-center reveal-up">
+        <p class="nova-journal-wordmark">Nova Journal</p>
+        <h2 class="title news-subtitle">ART, CITY &amp; THE BUILT ENVIRONMENT</h2>
+        <div class="news-intro"><p>A considered selection of developments in art, architecture, construction and urban transformation from Türkiye and around the world.</p></div>
+        <a href="newsroom.html" class="link-gold news-head-cta" data-testid="news-view-all">VIEW ALL <span class="arrow">&rarr;</span></a>
       </div>
 
       <div class="news-grid reveal-stagger" id="newsHomeGrid" data-testid="news-home-grid" aria-busy="true">
@@ -708,6 +712,7 @@
 
   <script src="js/script.js"></script>
   <script src="js/architects.js" defer></script>
+  <script src="js/east-west-feature.js" defer></script>
   <script src="js/news.js" defer></script>
 </body>
 </html>

@@ -19,6 +19,7 @@ from defusedxml import ElementTree as DefusedET
 from email.utils import parsedate_to_datetime
 
 from . import images, summarise
+from .validate import normalise_editorial, validate_source_url
 from .filters import is_excluded, normalise, relevance_score
 from .sources import ALLOWED_HOSTS, enabled_sources
 
@@ -286,6 +287,9 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
     if is_excluded(title, description):
         return "rejected"
 
+    title = normalise_editorial(title)
+    description = normalise_editorial(description)
+
     score, category, matched = relevance_score(title, description, source, age_days)
     if score < MIN_SCORE or not matched:
         return "rejected"
@@ -322,6 +326,12 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
             if ai["category"]:
                 category = ai["category"]
 
+    # An article is only published when its source link resolves to a real article page.
+    ok, resolved = await validate_source_url(item["link"] or url)
+    if not ok:
+        return "rejected"
+    url = canonical_url(resolved) or url
+
     image_fields = await images.pick_image(image_candidates, category, url, og_budget)
     if image_credit and image_fields["image_kind"] == "cached":
         image_fields["image_credit"] = image_credit
@@ -335,7 +345,7 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
         "slug": slug,
         "title": display_title,
         "original_title": title,
-        "summary": summary_text,
+        "summary": normalise_editorial(summary_text),
         "summary_origin": summary_origin,
         "source_name": source["name"],
         "source_url": item["link"],
@@ -360,8 +370,9 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
         "title_key": title_key,
         "relevance_score": score,
         "matched_terms": matched[:8],
-        "status": "published",
+        "status": "published" if image_fields["image_kind"] == "cached" else "pending",
         "is_featured": False,
+        "source_checked_at": now.isoformat(),
         "created_at": now.isoformat(),
         "updated_at": now.isoformat(),
     }
@@ -395,6 +406,7 @@ async def run_ingestion(db) -> dict:
         report["rejected"] += item.get("rejected", 0)
         if item.get("status") == "failed":
             report["failed"] += 1
+    await revalidate_sources(db)
     report["finished_at"] = datetime.now(timezone.utc).isoformat()
     report["ai_requests_used"] = max(0, int(os.environ.get("NEWS_AI_MAX_REQUESTS_PER_RUN", "10")) - budget[0])
     await db.news_runs.insert_one(dict(report))
@@ -444,6 +456,33 @@ async def build_featured(db, limit: int = 6) -> list[dict]:
     take(await newest({}, limit + 24), limit, cap_category=3)
     take(await newest({}, limit + 24), limit)
     return picked[:limit]
+
+
+async def revalidate_sources(db, batch: int = 40, max_age_hours: int = 24) -> dict:
+    """Re-check published source links at most once a day; unpublish dead links."""
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=max_age_hours)).isoformat()
+    docs = await db.news_items.find(
+        {"status": "published",
+         "$or": [{"source_checked_at": {"$exists": False}}, {"source_checked_at": {"$lt": cutoff}}]},
+        {"slug": 1, "canonical_url": 1}).limit(batch).to_list(length=batch)
+    checked = unpublished = 0
+    for doc in docs:
+        ok, resolved = await validate_source_url(doc["canonical_url"])
+        checked += 1
+        now = datetime.now(timezone.utc).isoformat()
+        if ok:
+            await db.news_items.update_one(
+                {"_id": doc["_id"]},
+                {"$set": {"source_checked_at": now, "canonical_url": canonical_url(resolved) or doc["canonical_url"]}})
+        else:
+            unpublished += 1
+            await db.news_items.update_one(
+                {"_id": doc["_id"]},
+                {"$set": {"status": "archived", "source_checked_at": now,
+                          "unpublished_reason": "source-unreachable"}})
+    if checked:
+        logger.info("news: revalidated %s source links, unpublished %s", checked, unpublished)
+    return {"checked": checked, "unpublished": unpublished}
 
 
 async def _refresh_featured(db) -> None:
