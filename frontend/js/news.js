@@ -1,14 +1,15 @@
 /* ==========================================================
    NOVA JOURNAL — homepage strip, newsroom index, detail page.
-   All data comes from the NOVA backend (/api/news*). No feed is
-   ever fetched from the browser. Nodes are built with
-   createElement/textContent, never innerHTML.
+   Data only ever comes from the NOVA backend (/api/news*) or the
+   pre-generated local snapshot. The browser never contacts a
+   publisher feed. Nodes are built with createElement/textContent.
    ========================================================== */
 (function () {
   'use strict';
 
   const API = document.body.dataset.api || '';
-  const FALLBACK_URL = 'data/news-fallback.json';
+  const SNAPSHOT_URL = 'data/news-featured.json';
+  const REQUEST_TIMEOUT = 2200;
   const CATEGORY_LABELS = {
     ART: 'Art',
     EXHIBITIONS: 'Exhibitions',
@@ -19,7 +20,6 @@
     KADIKOY: 'Kadıköy',
     TECHNICAL_AND_LEGAL: 'Technical & Legal'
   };
-  const LEGAL_CATEGORIES = ['TECHNICAL_AND_LEGAL'];
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -34,16 +34,21 @@
     return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
-  function categoryLabel(key) {
-    return CATEGORY_LABELS[key] || 'Journal';
+  const categoryLabel = function (key) { return CATEGORY_LABELS[key] || 'Journal'; };
+  const detailHref = function (item) { return 'news-detail.html?slug=' + encodeURIComponent(item.slug); };
+  const safeExternal = function (url) { return /^https:\/\//i.test(url || '') ? url : ''; };
+
+  function fallbackCover(category, variant) {
+    const slug = String(category || 'ART').toLowerCase().replace(/_/g, '-');
+    return 'media/news/fallback/' + slug + '-' + variant + '.webp';
   }
 
-  function detailHref(item) {
-    return 'news-detail.html?slug=' + encodeURIComponent(item.slug);
+  function cardImage(item) {
+    return item.image_card || fallbackCover(item.category, 'card');
   }
 
-  function safeExternal(url) {
-    return /^https:\/\//i.test(url || '') ? url : '';
+  function detailImage(item) {
+    return item.image_detail || fallbackCover(item.category, 'detail');
   }
 
   async function request(path, signal) {
@@ -56,43 +61,55 @@
     return res.json();
   }
 
-  async function fallbackItems() {
-    try {
-      const res = await fetch(FALLBACK_URL, { headers: { Accept: 'application/json' } });
-      if (!res.ok) return [];
-      const data = await res.json();
-      return Array.isArray(data.items) ? data.items : [];
-    } catch (err) {
-      return [];
+  function timedRequest(path) {
+    const controller = new AbortController();
+    const timer = setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT);
+    return request(path, controller.signal).finally(function () { clearTimeout(timer); });
+  }
+
+  let snapshotPromise = null;
+  function snapshot() {
+    if (!snapshotPromise) {
+      snapshotPromise = fetch(SNAPSHOT_URL, { headers: { Accept: 'application/json' } })
+        .then(function (res) { return res.ok ? res.json() : { items: [] }; })
+        .then(function (data) { return Array.isArray(data.items) ? data.items : []; })
+        .catch(function () { return []; });
     }
+    return snapshotPromise;
   }
 
   /* ---------------------------------------------------------------- cards */
   function buildCard(item, options) {
     const opts = options || {};
-    const card = el('article', 'news-card' + (opts.lead ? ' news-card--lead' : ''));
+    const card = el('article', 'news-card');
     card.setAttribute('data-testid', 'news-card');
     card.setAttribute('data-category', item.category);
+    card.setAttribute('data-image-kind', item.image_kind || 'fallback');
 
     const link = el('a', 'news-card-link');
     link.href = detailHref(item);
     link.setAttribute('data-testid', 'news-card-link');
 
-    const image = safeExternal(item.image_url);
-    if (image && opts.allowImage !== false) {
+    if (opts.showImage !== false) {
       const wrap = el('div', 'img-wrap');
       const img = el('img');
-      img.src = image;
-      img.alt = item.title;
-      img.loading = 'lazy';
+      img.src = cardImage(item);
+      img.alt = item.image_kind === 'cached'
+        ? item.title
+        : categoryLabel(item.category) + ' — NOVA Journal category cover';
+      img.loading = opts.eager ? 'eager' : 'lazy';
       img.decoding = 'async';
-      img.width = 800;
-      img.height = 500;
-      img.addEventListener('error', function () { wrap.remove(); card.classList.add('news-card--text'); }, { once: true });
+      img.width = item.image_card_width || 1200;
+      img.height = item.image_card_height || 750;
+      img.addEventListener('error', function () {
+        if (img.dataset.fallbackApplied) return;
+        img.dataset.fallbackApplied = '1';
+        img.src = fallbackCover(item.category, 'card');
+        img.alt = categoryLabel(item.category) + ' — NOVA Journal category cover';
+      }, { once: true });
+      img.addEventListener('load', function () { wrap.classList.add('is-loaded'); }, { once: true });
       wrap.appendChild(img);
       link.appendChild(wrap);
-    } else {
-      card.classList.add('news-card--text');
     }
 
     const meta = el('div', 'news-meta');
@@ -105,19 +122,13 @@
 
     link.appendChild(el('h3', 'title', item.title));
     link.appendChild(el('p', 'excerpt', item.summary));
-    link.appendChild(el('span', 'news-source', 'Source · ' + item.source_name));
-    card.appendChild(link);
 
-    const external = safeExternal(item.canonical_url || item.source_url);
-    if (external) {
-      const source = el('a', 'news-source-link', 'Read at source →');
-      source.href = external;
-      source.target = '_blank';
-      source.rel = 'noopener noreferrer';
-      source.setAttribute('aria-label', 'Read the original article at ' + item.source_name + ' (opens in a new tab)');
-      source.setAttribute('data-testid', 'news-source-link');
-      card.appendChild(source);
-    }
+    const foot = el('div', 'news-foot');
+    foot.appendChild(el('span', 'news-source', 'Source · ' + item.source_name));
+    foot.appendChild(el('span', 'news-more', 'Read more →'));
+    link.appendChild(foot);
+
+    card.appendChild(link);
     return card;
   }
 
@@ -129,31 +140,52 @@
     container.appendChild(state);
   }
 
+  function renderInto(grid, items, opts) {
+    grid.textContent = '';
+    items.forEach(function (item, i) {
+      grid.appendChild(buildCard(item, { eager: !!(opts && opts.eager) && i < 3 }));
+    });
+  }
+
   /* ---------------------------------------------------------------- homepage */
-  async function initHome() {
+  function initHome() {
     const grid = document.getElementById('newsHomeGrid');
     if (!grid) return;
-    let items = [];
-    let stale = false;
-    try {
-      const data = await request('/api/news/featured?limit=6');
-      items = data.items || [];
-    } catch (err) {
-      items = await fallbackItems();
-      stale = true;
+    let requested = false;
+
+    async function hydrate() {
+      if (requested) return;
+      requested = true;
+
+      const cached = await snapshot();
+      if (cached.length) {
+        renderInto(grid, cached.slice(0, 6));
+        grid.setAttribute('aria-busy', 'false');
+      }
+
+      try {
+        const data = await timedRequest('/api/news/featured?limit=6');
+        const items = (data.items || []).slice(0, 6);
+        if (items.length) renderInto(grid, items);
+      } catch (err) {
+        if (!cached.length) {
+          renderState(grid, 'The newsroom could not be updated at this time. Please try again shortly.',
+            'news-home-empty');
+        }
+      } finally {
+        grid.setAttribute('aria-busy', 'false');
+      }
     }
-    grid.setAttribute('aria-busy', 'false');
-    if (!items.length) {
-      renderState(grid, 'No articles are currently available.', 'news-home-empty');
-      return;
-    }
-    grid.textContent = '';
-    items.slice(0, 6).forEach(function (item) { grid.appendChild(buildCard(item)); });
-    if (stale) {
-      const note = el('p', 'news-state news-state--note',
-        'The newsroom could not be updated at this time. Previously published items remain available.');
-      note.setAttribute('data-testid', 'news-home-fallback-note');
-      grid.appendChild(note);
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { io.disconnect(); hydrate(); }
+        });
+      }, { rootMargin: '600px 0px' });
+      io.observe(grid);
+    } else {
+      hydrate();
     }
   }
 
@@ -165,7 +197,7 @@
     const moreBtn = document.getElementById('newsroomMore');
     const searchInput = document.getElementById('newsroomSearch');
     const countLabel = document.getElementById('newsroomCount');
-    const state = { category: '', search: '', page: 1, pages: 0 };
+    const state = { category: '', search: '', page: 1 };
     let controller = null;
     let debounce = null;
 
@@ -196,44 +228,39 @@
         grid.setAttribute('aria-busy', 'true');
         renderState(grid, 'Loading articles…', 'newsroom-loading');
       }
-      const timer = setTimeout(function () { controller.abort(); }, 12000);
+      const timer = setTimeout(function () { controller.abort(); }, 8000);
       try {
         const data = await request('/api/news?' + params.toString(), controller.signal);
         clearTimeout(timer);
         const items = data.items || [];
-        state.pages = (data.pagination && data.pagination.pages) || 0;
         if (!append) grid.textContent = '';
         if (!items.length && !append) {
           renderState(grid, 'No articles are currently available in this category.', 'newsroom-empty');
         }
-        items.forEach(function (item, index) {
-          grid.appendChild(buildCard(item, { lead: !append && state.page === 1 && index === 0 }));
+        items.forEach(function (item, i) {
+          grid.appendChild(buildCard(item, { eager: !append && state.page === 1 && i < 3 }));
         });
         if (countLabel && data.pagination) {
-          countLabel.textContent = data.pagination.total + (data.pagination.total === 1 ? ' article' : ' articles');
+          countLabel.textContent = data.pagination.total +
+            (data.pagination.total === 1 ? ' article' : ' articles');
         }
-        if (moreBtn) {
-          const hasMore = !!(data.pagination && data.pagination.has_more);
-          moreBtn.hidden = !hasMore;
-        }
+        if (moreBtn) moreBtn.hidden = !(data.pagination && data.pagination.has_more);
       } catch (err) {
         clearTimeout(timer);
-        if (err.name === 'AbortError') return;
-        if (!append) {
-          const items = await fallbackItems();
-          grid.textContent = '';
-          if (items.length) {
-            items.forEach(function (item) { grid.appendChild(buildCard(item)); });
-            const note = el('p', 'news-state news-state--note',
-              'The newsroom could not be updated at this time. Previously published items remain available.');
-            note.setAttribute('data-testid', 'newsroom-fallback-note');
-            grid.appendChild(note);
-          } else {
-            renderState(grid, 'The newsroom could not be updated at this time. Please try again shortly.',
-              'newsroom-error');
-          }
-          if (moreBtn) moreBtn.hidden = true;
+        if (err.name === 'AbortError' || append) return;
+        const cached = await snapshot();
+        grid.textContent = '';
+        if (cached.length) {
+          cached.forEach(function (item) { grid.appendChild(buildCard(item)); });
+          const note = el('p', 'news-state news-state--note',
+            'The newsroom could not be updated at this time. Previously published items remain available.');
+          note.setAttribute('data-testid', 'newsroom-fallback-note');
+          grid.appendChild(note);
+        } else {
+          renderState(grid, 'The newsroom could not be updated at this time. Please try again shortly.',
+            'newsroom-error');
         }
+        if (moreBtn) moreBtn.hidden = true;
       } finally {
         grid.setAttribute('aria-busy', 'false');
       }
@@ -262,17 +289,8 @@
     }
 
     if (moreBtn) {
-      moreBtn.addEventListener('click', function () {
-        state.page += 1;
-        load(true);
-      });
+      moreBtn.addEventListener('click', function () { state.page += 1; load(true); });
     }
-
-    window.addEventListener('popstate', function () {
-      readUrl();
-      syncFilterUI();
-      load(false);
-    });
 
     function readUrl() {
       const params = new URLSearchParams(location.search);
@@ -282,6 +300,12 @@
       state.page = 1;
       if (searchInput) searchInput.value = state.search;
     }
+
+    window.addEventListener('popstate', function () {
+      readUrl();
+      syncFilterUI();
+      load(false);
+    });
 
     readUrl();
     syncFilterUI();
@@ -323,22 +347,22 @@
       return;
     }
     const item = data.item;
-    if (!item) {
-      showMissing('This article could not be found.');
-      return;
-    }
+    if (!item) { showMissing('This article could not be found.'); return; }
 
     document.title = item.title + ' | NOVA Journal';
+    const shortSummary = item.summary.length > 180 ? item.summary.slice(0, 177) + '…' : item.summary;
     const setMeta = function (selector, value) {
       const node = document.head.querySelector(selector);
       if (node) node.setAttribute('content', value);
     };
-    const shortSummary = item.summary.length > 180 ? item.summary.slice(0, 177) + '…' : item.summary;
     setMeta('meta[name="description"]', shortSummary);
     setMeta('meta[property="og:title"]', item.title + ' | NOVA Journal');
     setMeta('meta[property="og:description"]', shortSummary);
+    setMeta('meta[property="og:image"]', location.origin + '/' + detailImage(item));
     const canonical = document.head.querySelector('link[rel="canonical"]');
-    if (canonical) canonical.href = location.origin + location.pathname + '?slug=' + encodeURIComponent(item.slug);
+    if (canonical) {
+      canonical.href = location.origin + location.pathname + '?slug=' + encodeURIComponent(item.slug);
+    }
 
     document.getElementById('detailCategory').textContent = categoryLabel(item.category);
     const time = document.getElementById('detailDate');
@@ -346,7 +370,6 @@
     time.dateTime = item.published_at;
     document.getElementById('detailTitle').textContent = item.title;
     document.getElementById('detailSource').textContent = 'Source · ' + item.source_name.toUpperCase();
-    document.getElementById('detailSummary').textContent = item.summary;
 
     const originalTitle = document.getElementById('detailOriginalTitle');
     if (item.original_title && item.original_title !== item.title) {
@@ -354,35 +377,56 @@
       originalTitle.hidden = false;
     }
 
-    const image = safeExternal(item.image_url);
     const figure = document.getElementById('detailFigure');
-    if (image) {
-      const img = figure.querySelector('img');
-      img.src = image;
-      img.alt = item.title;
-      img.addEventListener('error', function () { figure.hidden = true; }, { once: true });
-      const credit = figure.querySelector('figcaption');
-      credit.textContent = item.image_credit ? 'Image: ' + item.image_credit : 'Image: ' + item.source_name;
-      figure.hidden = false;
-    }
+    const img = figure.querySelector('img');
+    img.src = detailImage(item);
+    img.width = item.image_detail_width || 1600;
+    img.height = item.image_detail_height || 900;
+    img.alt = item.image_kind === 'cached'
+      ? item.title
+      : categoryLabel(item.category) + ' — NOVA Journal category cover';
+    img.addEventListener('error', function () {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      img.src = fallbackCover(item.category, 'detail');
+      img.alt = categoryLabel(item.category) + ' — NOVA Journal category cover';
+    }, { once: true });
+    figure.classList.toggle('nd-figure--fallback', item.image_kind !== 'cached');
+    figure.querySelector('figcaption').textContent = item.image_kind === 'cached'
+      ? 'Image: ' + (item.image_credit || item.source_name)
+      : 'NOVA Journal category cover — not a photograph of the reported event.';
+    figure.hidden = false;
 
-    const disclaimer = document.getElementById('detailDisclaimer');
-    if (LEGAL_CATEGORIES.indexOf(item.category) !== -1) disclaimer.hidden = false;
+    const summaryHost = document.getElementById('detailSummary');
+    summaryHost.textContent = '';
+    const sentences = item.summary.split(/(?<=[.!?])\s+/);
+    const chunks = [];
+    const perChunk = sentences.length > 4 ? Math.ceil(sentences.length / 2) : sentences.length;
+    for (let i = 0; i < sentences.length; i += perChunk) {
+      chunks.push(sentences.slice(i, i + perChunk).join(' '));
+    }
+    chunks.forEach(function (chunk) {
+      if (chunk.trim()) summaryHost.appendChild(el('p', 'nd-paragraph', chunk.trim()));
+    });
+
+    if (item.category === 'TECHNICAL_AND_LEGAL') {
+      document.getElementById('detailDisclaimer').hidden = false;
+    }
 
     const cta = document.getElementById('detailSourceCta');
     const external = safeExternal(item.canonical_url || item.source_url);
     if (external) {
       cta.href = external;
       cta.setAttribute('aria-label', 'Read the original article at ' + item.source_name + ' (opens in a new tab)');
-      const label = cta.querySelector('[data-cta-source]');
+      const label = cta.parentNode.querySelector('[data-cta-source]');
       if (label) label.textContent = item.source_name;
     } else {
       cta.hidden = true;
     }
 
-    const breadcrumbScript = document.getElementById('detailStructuredData');
-    if (breadcrumbScript) {
-      breadcrumbScript.textContent = JSON.stringify({
+    const structured = document.getElementById('detailStructuredData');
+    if (structured) {
+      structured.textContent = JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: item.title,
@@ -400,9 +444,11 @@
     }
 
     article.hidden = false;
-    const relatedItems = (data.related || []).filter(function (r) { return r.slug !== item.slug; }).slice(0, 3);
+    const relatedItems = (data.related || [])
+      .filter(function (r) { return r.slug !== item.slug; })
+      .slice(0, 3);
     if (relatedItems.length && relatedGrid) {
-      relatedItems.forEach(function (r) { relatedGrid.appendChild(buildCard(r, { allowImage: false })); });
+      relatedItems.forEach(function (r) { relatedGrid.appendChild(buildCard(r)); });
       related.hidden = false;
     }
   }

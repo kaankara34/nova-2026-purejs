@@ -362,3 +362,29 @@ no issues, `retest_needed: false`.
 - Added the missing `/app/eslint.config.js` (ESLint 9 flat config) — this was the cause of the
   recurring platform "JavaScript linting failed due to a linter engine error"; `npx eslint .` is now
   clean.
+
+## 2026-06 — ARCHITECTS & DESIGNERS rebuilt as a compact card marquee (replaces rejected split panel)
+- `frontend/index.html`: the oversized split-screen showcase (`.ad-slide/.ad-panel/.ad-visual/.ad-dot/
+  .ad-arrow`) was removed entirely and replaced by one horizontal strip of 7 equal cards repeated in
+  3 `aria-hidden` groups (21 nodes, same 7 local assets, duplicates carry empty alt). Heading and
+  intro copy unchanged.
+- `frontend/css/styles.css`: rejected showcase CSS deleted (0 references remain). New compact card
+  system — `width: clamp(180px, 14vw, 220px)`, `aspect-ratio: 4/5`, `max-height: 275px`, 3px radius,
+  1px hairline border, 44px charcoal name strip (rgba(17,17,17,.82), 14px / 13px mobile), grayscale
+  portraits with per-card `object-position`, logo cards centred with `object-fit: contain`
+  (Porsche Design gets a charcoal field because its source asset has a dark ground). Tablet
+  170–190px, mobile 155×194 with 42px strip; section padding 56–88px desktop / 56px mobile.
+- `frontend/js/architects.js`: rewritten as a rAF `translate3d` marquee (36s pass, GPU transform
+  only) with modular offset normalisation, pointer drag / touch swipe takeover (8px threshold so
+  vertical scrolling is untouched), 2s resume without resetting position, pause on hover, on
+  *keyboard* focus only (`:focus-visible`), when the tab is hidden and when the strip is outside the
+  viewport (IntersectionObserver), arrow-key stepping, drag-click suppression, resize/font
+  re-measure, and a reduced-motion mode that stops the loop and turns the strip into a snap-scroll row.
+- Verified at 1600/1440/1280/1024/768/430/390: cards identical at every width (202×252 at 1440 with
+  5–7 fully visible; 220×275 at 1600; 155×194 mobile with ~2 cards + part of the next), 0 horizontal
+  overflow, no broken assets, no console errors, 24px seam gap only (i.e. no empty area) at 1920,
+  drag → resume, keyboard pause, off-screen pause and reduced-motion all confirmed.
+- Untouched: project grid (3 cards + 3 NOW SELLING badges verified), East West section, news system,
+  newsroom, header/nav/footer, partners.html.
+- Note carried over from the interrupted newsroom task: a few feed-sourced summaries still end in a
+  publisher's own "…" truncation; polishing that is part of the newsroom summary work, not this task.

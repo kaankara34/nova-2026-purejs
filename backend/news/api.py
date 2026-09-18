@@ -19,7 +19,7 @@ router = APIRouter(prefix="/api")
 
 PUBLIC_FIELDS = {
     "_id": 0, "title_key": 0, "matched_terms": 0, "relevance_score": 0, "content_hash": 0,
-    "feed_guid": 0,
+    "feed_guid": 0, "image_source_url": 0,
 }
 _RATE: dict[str, list[float]] = {}
 RATE_LIMIT = 120          # requests
@@ -36,10 +36,10 @@ def _rate_limit(request: Request) -> None:
         raise HTTPException(status_code=429, detail="Too many requests")
 
 
-def _cache(response: Response, payload: dict) -> None:
+def _cache(response: Response, payload: dict, max_age: int = 300, swr: int = 600) -> None:
     body = json.dumps(payload, sort_keys=True, default=str).encode()
     response.headers["ETag"] = hashlib.sha256(body).hexdigest()[:32]
-    response.headers["Cache-Control"] = "public, max-age=300, stale-while-revalidate=600"
+    response.headers["Cache-Control"] = f"public, max-age={max_age}, stale-while-revalidate={swr}"
 
 
 def get_db(request: Request):
@@ -94,46 +94,19 @@ async def list_news(
 
 @router.get("/news/featured")
 async def featured_news(request: Request, response: Response, limit: int = Query(6, ge=1, le=12)):
-    """Latest published items with editorial balance: culture + built environment."""
+    """Serves the pre-computed, materialised selection. Never fetches upstream sources."""
     _rate_limit(request)
     db = get_db(request)
-    culture = ["ART", "EXHIBITIONS", "GALLERIES_AND_MUSEUMS"]
-    built = ["ARCHITECTURE_AND_DESIGN", "CONSTRUCTION", "URBAN_TRANSFORMATION",
-             "KADIKOY", "TECHNICAL_AND_LEGAL"]
-
-    async def newest(query, count):
-        return await db.news_items.find({"status": "published", **query}, PUBLIC_FIELDS).sort(
-            [("published_at", -1), ("relevance_score", -1)]).limit(count).to_list(length=count)
-
-    picked: list[dict] = []
-    seen_slugs: set[str] = set()
-    per_source: dict[str, int] = {}
-    per_category: dict[str, int] = {}
-
-    def take(candidates, cap, cap_category=None):
-        for doc in candidates:
-            if len(picked) >= limit or cap <= 0:
-                return
-            if doc["slug"] in seen_slugs:
-                continue
-            if per_source.get(doc["source_name"], 0) >= 2:
-                continue
-            if cap_category and per_category.get(doc["category"], 0) >= cap_category:
-                continue
-            picked.append(doc)
-            seen_slugs.add(doc["slug"])
-            per_source[doc["source_name"]] = per_source.get(doc["source_name"], 0) + 1
-            per_category[doc["category"]] = per_category.get(doc["category"], 0) + 1
-            cap -= 1
-
-    take(await newest({"category": "KADIKOY"}, 2), 1)
-    take(await newest({"category": {"$in": culture}}, 10), 2, cap_category=2)
-    take(await newest({"category": {"$in": built}}, 10), 2, cap_category=2)
-    take(await newest({}, limit + 20), limit, cap_category=3)
-    take(await newest({}, limit + 20), limit)
-
-    payload = {"items": picked[:limit], "generated_at": datetime.now(timezone.utc).isoformat()}
-    _cache(response, payload)
+    doc = await db.news_featured.find_one({"key": "homepage"}, {"_id": 0})
+    if not doc:
+        items = await db.news_items.find({"status": "published"}, PUBLIC_FIELDS).sort(
+            [("published_at", -1)]).limit(limit).to_list(length=limit)
+        payload = {"items": items, "generated_at": datetime.now(timezone.utc).isoformat(),
+                   "source": "fallback-query"}
+    else:
+        payload = {"items": doc.get("items", [])[:limit],
+                   "generated_at": doc.get("generated_at"), "source": "materialised"}
+    _cache(response, payload, max_age=300, swr=86400)
     return payload
 
 

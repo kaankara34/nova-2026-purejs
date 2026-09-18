@@ -50,18 +50,65 @@ def model_name() -> str:
     return os.environ.get("GEMINI_MODEL") or DEFAULT_MODEL
 
 
+ARTEFACTS = [
+    r"continue reading.*$", r"read more.*$", r"read the full (story|article).*$",
+    r"\[\s*…?\s*\]", r"\[\.{3}\]", r"the post .*appeared first on.*$",
+    r"this article (first )?appeared.*$", r"sign up (to|for) .*newsletter.*$",
+    r"subscribe (to|for) .*$", r"we use cookies.*$", r"support (our|independent) journalism.*$",
+    r"share this article.*$", r"follow us on .*$", r"photo(graph)?s? by .*$",
+    r"devamını oku.*$", r"haberin detayları.*$", r"abone ol.*$",
+    r"all rights reserved.*$", r"©.*$",
+]
+_ARTEFACT_RE = [re.compile(p, re.IGNORECASE | re.DOTALL) for p in ARTEFACTS]
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
+
+
+def clean_source_text(text: str) -> str:
+    """Remove feed artefacts, boilerplate and trailing fragments."""
+    text = re.sub(r"\s+", " ", text or "").strip()
+    for pattern in _ARTEFACT_RE:
+        text = pattern.sub(" ", text)
+    text = re.sub(r"\s+", " ", text).strip(" -–—·|")
+    return text
+
+
+def _complete_sentences(text: str, min_words: int, max_words: int) -> str:
+    """Keep whole sentences only, up to max_words."""
+    sentences = [s.strip() for s in _SENTENCE_END.split(text) if s.strip()]
+    kept: list[str] = []
+    words = 0
+    for sentence in sentences:
+        count = len(sentence.split())
+        if kept and words + count > max_words:
+            break
+        kept.append(sentence)
+        words += count
+        if words >= max_words:
+            break
+    if not kept:
+        return ""
+    result = " ".join(kept).strip()
+    if not result.endswith((".", "!", "?", "…", '"', "”")):
+        # drop the trailing incomplete clause rather than showing a cut-off sentence
+        if len(kept) > 1:
+            result = " ".join(kept[:-1]).strip()
+        else:
+            return ""
+    return result
+
+
 def deterministic_summary(title: str, description: str, source_name: str, limit: int = 600) -> tuple[str, str]:
-    """Fallback chain: shortened feed description -> source excerpt -> headline + attribution."""
-    text = re.sub(r"\s+", " ", description or "").strip()
-    if len(text) >= 80:
-        if len(text) > limit:
-            cut = text[:limit]
-            last = max(cut.rfind(". "), cut.rfind("? "), cut.rfind("! "))
-            text = (cut[: last + 1] if last > 200 else cut.rstrip() + "…")
-        return text, "feed_description"
-    if text:
-        return text, "source_excerpt"
-    return f"{title.strip()} — reported by {source_name}.", "headline_only"
+    """Fallback chain: cleaned feed description -> source excerpt -> headline + attribution."""
+    text = clean_source_text(description)
+    complete = _complete_sentences(text, 35, 160)
+    if len(complete.split()) >= 30:
+        return complete, "feed_description"
+    if len(text.split()) >= 18:
+        excerpt = _complete_sentences(text, 12, 160) or text[:limit].rsplit(" ", 1)[0]
+        if not excerpt.endswith((".", "!", "?", "…")):
+            excerpt = excerpt.rstrip(" ,;:") + "."
+        return excerpt, "source_excerpt"
+    return f"{title.strip().rstrip('.')}. Reported by {source_name}.", "headline_only"
 
 
 def _validate(payload: dict, title: str, description: str) -> dict | None:

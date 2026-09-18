@@ -3,6 +3,7 @@
 import asyncio
 import hashlib
 import ipaddress
+import json
 import logging
 import os
 import re
@@ -17,7 +18,7 @@ import httpx
 from defusedxml import ElementTree as DefusedET
 from email.utils import parsedate_to_datetime
 
-from . import summarise
+from . import images, summarise
 from .filters import is_excluded, normalise, relevance_score
 from .sources import ALLOWED_HOSTS, enabled_sources
 
@@ -131,18 +132,39 @@ def canonical_url(url: str) -> str:
     ))
 
 
-def _image_from(node) -> tuple[str, str]:
+_IMG_SRC = re.compile(r"""<img[^>]+src=["\']([^"\']+)["\']""", re.IGNORECASE)
+
+
+def _image_candidates(node, raw_description: str) -> tuple[list[str], str]:
+    """Ordered image candidates: widest media:content, thumbnails, enclosure, then feed HTML."""
+    scored: list[tuple[int, str]] = []
     for media in list(node.findall(f"{MEDIA}content")) + list(node.findall(f"{MEDIA}thumbnail")):
         url = media.get("url", "")
-        if url.startswith("https://"):
-            credit = _text(node.find(f"{MEDIA}credit")) or ""
-            return url, credit
+        if not url.startswith("https://"):
+            continue
+        try:
+            width = int(media.get("width") or 0)
+        except ValueError:
+            width = 0
+        scored.append((width, url))
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    candidates = [url for _, url in scored]
+
     enclosure = node.find("enclosure")
-    if enclosure is not None and (enclosure.get("type", "").startswith("image/")):
+    if enclosure is not None and enclosure.get("type", "").startswith("image/"):
         url = enclosure.get("url", "")
         if url.startswith("https://"):
-            return url, ""
-    return "", ""
+            candidates.append(url)
+
+    for match in _IMG_SRC.findall(raw_description or ""):
+        url = html_lib.unescape(match)
+        if url.startswith("https://"):
+            candidates.append(url)
+
+    credit = _text(node.find(f"{MEDIA}credit")) or ""
+    seen: set[str] = set()
+    unique = [u for u in candidates if not (u in seen or seen.add(u))]
+    return unique[:6], credit
 
 
 def parse_items(body: bytes) -> list[dict]:
@@ -151,13 +173,15 @@ def parse_items(body: bytes) -> list[dict]:
     root = DefusedET.fromstring(body, forbid_dtd=False, forbid_entities=True, forbid_external=True)
     items: list[dict] = []
     for node in root.iter("item"):
+        raw_description = _text(node.find("description")) or _text(node.find(f"{CONTENT}encoded"))
+        raw_content = _text(node.find(f"{CONTENT}encoded"))
         items.append({
             "title": _clean(_text(node.find("title"))),
             "link": _text(node.find("link")),
             "guid": _text(node.find("guid")) or _text(node.find(f"{DC}identifier")),
-            "description": _clean(_text(node.find("description")) or _text(node.find(f"{CONTENT}encoded"))),
+            "description": _clean(raw_description),
             "published": _text(node.find("pubDate")) or _text(node.find(f"{DC}date")),
-            "image": _image_from(node),
+            "image": _image_candidates(node, f"{raw_description} {raw_content}"),
         })
     for node in root.iter(f"{ATOM}entry"):
         link = ""
@@ -165,13 +189,14 @@ def parse_items(body: bytes) -> list[dict]:
             if candidate.get("rel", "alternate") == "alternate":
                 link = candidate.get("href", "")
                 break
+        raw_description = _text(node.find(f"{ATOM}summary")) or _text(node.find(f"{ATOM}content"))
         items.append({
             "title": _clean(_text(node.find(f"{ATOM}title"))),
             "link": link,
             "guid": _text(node.find(f"{ATOM}id")),
-            "description": _clean(_text(node.find(f"{ATOM}summary")) or _text(node.find(f"{ATOM}content"))),
+            "description": _clean(raw_description),
             "published": _text(node.find(f"{ATOM}published")) or _text(node.find(f"{ATOM}updated")),
-            "image": _image_from(node),
+            "image": _image_candidates(node, raw_description),
         })
     return items
 
@@ -200,7 +225,7 @@ async def ensure_indexes(db) -> None:
 
 
 # ---------------------------------------------------------------- ingestion
-async def ingest_source(db, source: dict, ai_budget: list[int]) -> dict:
+async def ingest_source(db, source: dict, ai_budget: list[int], og_budget: list[int]) -> dict:
     state = await db.news_sources.find_one({"key": source["key"]}) or {}
     result = {"source": source["key"], "fetched": 0, "accepted": 0, "duplicates": 0,
               "rejected": 0, "status": "ok"}
@@ -230,7 +255,7 @@ async def ingest_source(db, source: dict, ai_budget: list[int]) -> dict:
             items = []
         result["fetched"] = len(items)
         for item in items:
-            outcome = await _store_item(db, source, item, now, ai_budget)
+            outcome = await _store_item(db, source, item, now, ai_budget, og_budget)
             result[outcome] = result.get(outcome, 0) + 1
 
     await db.news_sources.update_one(
@@ -243,7 +268,8 @@ async def ingest_source(db, source: dict, ai_budget: list[int]) -> dict:
     return result
 
 
-async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: list[int]) -> str:
+async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: list[int],
+                      og_budget: list[int]) -> str:
     title = item["title"]
     description = item["description"]
     url = canonical_url(item["link"])
@@ -281,7 +307,7 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
                       "updated_at": now.isoformat()}})
         return "duplicates"
 
-    image_url, image_credit = item["image"]
+    image_candidates, image_credit = item["image"]
     summary_text, summary_origin = summarise.deterministic_summary(title, description, source["name"])
     display_title = title
 
@@ -295,6 +321,10 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
                 display_title = ai["translated_title"]
             if ai["category"]:
                 category = ai["category"]
+
+    image_fields = await images.pick_image(image_candidates, category, url, og_budget)
+    if image_credit and image_fields["image_kind"] == "cached":
+        image_fields["image_credit"] = image_credit
 
     slug = slugify(display_title, published)
     if await db.news_items.find_one({"slug": slug}):
@@ -315,8 +345,16 @@ async def _store_item(db, source: dict, item: dict, now: datetime, ai_budget: li
         "region": source["region"],
         "published_at": published.isoformat(),
         "fetched_at": now.isoformat(),
-        "image_url": image_url,
-        "image_credit": image_credit,
+        "image_url": image_fields["image_card"],
+        "image_source_url": image_fields.get("image_origin", ""),
+        "image_credit": image_fields.get("image_credit") or (source["name"] if image_fields["image_kind"] == "cached" else ""),
+        "image_kind": image_fields["image_kind"],
+        "image_card": image_fields["image_card"],
+        "image_detail": image_fields["image_detail"],
+        "image_card_width": image_fields["image_card_width"],
+        "image_card_height": image_fields["image_card_height"],
+        "image_detail_width": image_fields["image_detail_width"],
+        "image_detail_height": image_fields["image_detail_height"],
         "feed_guid": item["guid"],
         "content_hash": digest,
         "title_key": title_key,
@@ -339,9 +377,10 @@ async def run_ingestion(db) -> dict:
     """Ingest every enabled source. One failing source never stops the others."""
     await ensure_indexes(db)
     budget = [int(os.environ.get("NEWS_AI_MAX_REQUESTS_PER_RUN", "10"))]
+    og_budget = [int(os.environ.get("NEWS_OG_MAX_REQUESTS_PER_RUN", "40"))]
     started = datetime.now(timezone.utc)
     results = await asyncio.gather(
-        *(ingest_source(db, source, budget) for source in enabled_sources()),
+        *(ingest_source(db, source, budget, og_budget) for source in enabled_sources()),
         return_exceptions=True,
     )
     report = {"started_at": started.isoformat(), "sources": [], "accepted": 0, "duplicates": 0,
@@ -366,14 +405,63 @@ async def run_ingestion(db) -> dict:
     return report
 
 
+CULTURE = ["ART", "EXHIBITIONS", "GALLERIES_AND_MUSEUMS"]
+BUILT = ["ARCHITECTURE_AND_DESIGN", "CONSTRUCTION", "URBAN_TRANSFORMATION", "KADIKOY",
+         "TECHNICAL_AND_LEGAL"]
+PUBLIC_PROJECTION = {"_id": 0, "title_key": 0, "matched_terms": 0, "relevance_score": 0,
+                     "content_hash": 0, "feed_guid": 0, "image_source_url": 0}
+SNAPSHOT_PATH = os.environ.get("NEWS_SNAPSHOT_PATH", "/app/frontend/data/news-featured.json")
+
+
+async def build_featured(db, limit: int = 6) -> list[dict]:
+    """Editorially balanced selection: >=2 culture, >=2 built, <=2 per source, <=3 per category."""
+    async def newest(query, count):
+        return await db.news_items.find({"status": "published", **query}, PUBLIC_PROJECTION).sort(
+            [("published_at", -1), ("relevance_score", -1)]).limit(count).to_list(length=count)
+
+    picked: list[dict] = []
+    slugs: set[str] = set()
+    per_source: dict[str, int] = {}
+    per_category: dict[str, int] = {}
+
+    def take(candidates, cap, cap_category=None):
+        for doc in candidates:
+            if len(picked) >= limit or cap <= 0:
+                return
+            if doc["slug"] in slugs or per_source.get(doc["source_name"], 0) >= 2:
+                continue
+            if cap_category and per_category.get(doc["category"], 0) >= cap_category:
+                continue
+            picked.append(doc)
+            slugs.add(doc["slug"])
+            per_source[doc["source_name"]] = per_source.get(doc["source_name"], 0) + 1
+            per_category[doc["category"]] = per_category.get(doc["category"], 0) + 1
+            cap -= 1
+
+    take(await newest({"category": "KADIKOY"}, 2), 1)
+    take(await newest({"category": {"$in": CULTURE}}, 12), 2, cap_category=2)
+    take(await newest({"category": {"$in": BUILT}}, 12), 2, cap_category=2)
+    take(await newest({}, limit + 24), limit, cap_category=3)
+    take(await newest({}, limit + 24), limit)
+    return picked[:limit]
+
+
 async def _refresh_featured(db) -> None:
-    """Mark the strongest recent item in each editorial area as featured."""
+    """Materialise the featured selection and write the homepage snapshot file."""
+    items = await build_featured(db)
+    generated_at = datetime.now(timezone.utc).isoformat()
+    await db.news_featured.update_one(
+        {"key": "homepage"},
+        {"$set": {"key": "homepage", "items": items, "generated_at": generated_at}},
+        upsert=True)
     await db.news_items.update_many({"is_featured": True}, {"$set": {"is_featured": False}})
-    for categories in (["ART", "EXHIBITIONS", "GALLERIES_AND_MUSEUMS"],
-                       ["ARCHITECTURE_AND_DESIGN", "CONSTRUCTION", "URBAN_TRANSFORMATION",
-                        "KADIKOY", "TECHNICAL_AND_LEGAL"]):
-        doc = await db.news_items.find_one(
-            {"status": "published", "category": {"$in": categories}},
-            sort=[("published_at", -1), ("relevance_score", -1)])
-        if doc:
-            await db.news_items.update_one({"_id": doc["_id"]}, {"$set": {"is_featured": True}})
+    if items:
+        await db.news_items.update_many(
+            {"slug": {"$in": [i["slug"] for i in items[:2]]}}, {"$set": {"is_featured": True}})
+    try:
+        os.makedirs(os.path.dirname(SNAPSHOT_PATH), exist_ok=True)
+        with open(SNAPSHOT_PATH, "w", encoding="utf-8") as handle:
+            json.dump({"generated_at": generated_at, "items": items}, handle,
+                      ensure_ascii=False, indent=1)
+    except OSError as exc:
+        logger.warning("news: could not write homepage snapshot: %s", exc)

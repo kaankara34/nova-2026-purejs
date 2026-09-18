@@ -309,55 +309,106 @@
   </section>
 
   <!-- ============================= ARCHITECTS & DESIGNERS ============================= -->
-  <section class="section-featured">
+  <section class="section-architects" id="architects" aria-labelledby="architectsHeading">
     <div class="container">
-      <div class="section-head-center reveal-up">
-        <div class="eyebrow gold">ARCHITECTS &amp; DESIGNERS</div>
-        <p style="margin-top:18px;">Nova works with architects and designers whose distinct perspectives contribute to the identity, material character and spatial quality of its projects.</p>
+      <div class="ad-head reveal-up">
+        <div class="eyebrow gold" id="architectsHeading">ARCHITECTS &amp; DESIGNERS</div>
+        <p class="ad-lead">Nova works with architects and designers whose distinct perspectives contribute to the identity, material character and spatial quality of its projects.</p>
       </div>
+    </div>
 
-      <div class="marquee">
-      <div class="marquee-track" id="marqueeTrack">
-        <!-- Set 1 -->
-        <div class="mq-unit">
-          <span class="mq-portrait"><img src="./media/images/partners/omer-camoglu.webp" alt="Ömer Çamoğlu" width="350" height="350" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Ömer Çamoğlu</span>
+    <div class="ad-marquee" id="architectsMarquee" role="group" aria-label="Architects and designers" tabindex="0" data-testid="architects-marquee">
+      <div class="ad-track" id="architectsTrack">
+        <div class="ad-group" data-ad-group>
+          <figure class="ad-card ad-card--portrait" data-testid="architect-card-omer-camoglu">
+            <img src="./media/images/partners/omer-camoglu.webp" alt="Portrait of Ömer Çamoğlu" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 20%;">
+            <figcaption class="ad-card-name">Ömer Çamoğlu</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait" data-testid="architect-card-philippe-starck">
+            <img src="./media/images/partners/philippe-starck.webp" alt="Portrait of Philippe Starck" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 18%;">
+            <figcaption class="ad-card-name">Philippe Starck</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait" data-testid="architect-card-kay-ngee-tan">
+            <img src="./media/images/partners/kay-ngee-tan.webp" alt="Portrait of Kay Ngee Tan" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 22%;">
+            <figcaption class="ad-card-name">Kay Ngee Tan</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait" data-testid="architect-card-boran-ekinci">
+            <img src="./media/images/partners/boran-ekinci.webp" alt="Portrait of Boran Ekinci" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 18%;">
+            <figcaption class="ad-card-name">Boran Ekinci</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo ad-card--logo-dark" data-testid="architect-card-porsche-design">
+            <img src="./media/images/partners/porsche-design.webp" alt="Porsche Design logo" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Porsche Design</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo" data-testid="architect-card-armani-casa">
+            <img src="./media/images/partners/armani-casa.webp" alt="Armani/Casa logo" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Armani/Casa</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo" data-testid="architect-card-planac-mimarlik">
+            <img src="./media/images/partners/planac-mimarlik.webp" alt="Planac Mimarlık logo" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Planac Mimarlık</figcaption>
+          </figure>
         </div>
-        <div class="mq-unit">
-          <span class="mq-portrait"><img src="./media/images/partners/philippe-starck.webp" alt="Philippe Starck" width="700" height="700" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Philippe Starck</span>
+        <div class="ad-group" aria-hidden="true" data-ad-group>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/omer-camoglu.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 20%;">
+            <figcaption class="ad-card-name">Ömer Çamoğlu</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/philippe-starck.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 18%;">
+            <figcaption class="ad-card-name">Philippe Starck</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/kay-ngee-tan.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 22%;">
+            <figcaption class="ad-card-name">Kay Ngee Tan</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/boran-ekinci.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 18%;">
+            <figcaption class="ad-card-name">Boran Ekinci</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo ad-card--logo-dark">
+            <img src="./media/images/partners/porsche-design.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Porsche Design</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo">
+            <img src="./media/images/partners/armani-casa.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Armani/Casa</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo">
+            <img src="./media/images/partners/planac-mimarlik.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Planac Mimarlık</figcaption>
+          </figure>
         </div>
-        <div class="mq-unit">
-          <span class="mq-portrait"><img src="./media/images/partners/kay-ngee-tan.webp" alt="Kay Ngee Tan" width="450" height="450" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Kay Ngee Tan</span>
+        <div class="ad-group" aria-hidden="true" data-ad-group>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/omer-camoglu.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 20%;">
+            <figcaption class="ad-card-name">Ömer Çamoğlu</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/philippe-starck.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 18%;">
+            <figcaption class="ad-card-name">Philippe Starck</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/kay-ngee-tan.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 22%;">
+            <figcaption class="ad-card-name">Kay Ngee Tan</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--portrait">
+            <img src="./media/images/partners/boran-ekinci.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false" style="object-position:center 18%;">
+            <figcaption class="ad-card-name">Boran Ekinci</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo ad-card--logo-dark">
+            <img src="./media/images/partners/porsche-design.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Porsche Design</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo">
+            <img src="./media/images/partners/armani-casa.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Armani/Casa</figcaption>
+          </figure>
+          <figure class="ad-card ad-card--logo">
+            <img src="./media/images/partners/planac-mimarlik.webp" alt="" width="700" height="700" loading="lazy" decoding="async" draggable="false">
+            <figcaption class="ad-card-name">Planac Mimarlık</figcaption>
+          </figure>
         </div>
-        <div class="mq-unit">
-          <span class="mq-portrait"><img src="./media/images/partners/boran-ekinci.webp" alt="Boran Ekinci" width="700" height="700" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Boran Ekinci</span>
-        </div>
-        <div class="mq-unit mq-unit--logo"><img src="./media/images/partners/porsche-design.webp" alt="Porsche Design" width="500" height="500" loading="lazy" decoding="async"></div>
-        <div class="mq-unit mq-unit--logo"><img src="./media/images/partners/armani-casa.webp" alt="Armani/Casa" width="400" height="400" loading="lazy" decoding="async"></div>
-        <div class="mq-unit mq-unit--logo"><img src="./media/images/partners/planac-mimarlik.webp" alt="Planac Mimarlık" width="400" height="400" loading="lazy" decoding="async"></div>
-        <!-- Set 2 (decorative duplicate, keeps the loop seamless) -->
-        <div class="mq-unit" aria-hidden="true">
-          <span class="mq-portrait"><img src="./media/images/partners/omer-camoglu.webp" alt="" width="350" height="350" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Ömer Çamoğlu</span>
-        </div>
-        <div class="mq-unit" aria-hidden="true">
-          <span class="mq-portrait"><img src="./media/images/partners/philippe-starck.webp" alt="" width="700" height="700" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Philippe Starck</span>
-        </div>
-        <div class="mq-unit" aria-hidden="true">
-          <span class="mq-portrait"><img src="./media/images/partners/kay-ngee-tan.webp" alt="" width="450" height="450" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Kay Ngee Tan</span>
-        </div>
-        <div class="mq-unit" aria-hidden="true">
-          <span class="mq-portrait"><img src="./media/images/partners/boran-ekinci.webp" alt="" width="700" height="700" loading="lazy" decoding="async"></span>
-          <span class="mq-name">Boran Ekinci</span>
-        </div>
-        <div class="mq-unit mq-unit--logo" aria-hidden="true"><img src="./media/images/partners/porsche-design.webp" alt="" width="500" height="500" loading="lazy" decoding="async"></div>
-        <div class="mq-unit mq-unit--logo" aria-hidden="true"><img src="./media/images/partners/armani-casa.webp" alt="" width="400" height="400" loading="lazy" decoding="async"></div>
-        <div class="mq-unit mq-unit--logo" aria-hidden="true"><img src="./media/images/partners/planac-mimarlik.webp" alt="" width="400" height="400" loading="lazy" decoding="async"></div>
       </div>
     </div>
   </section>
@@ -366,9 +417,7 @@
   <section class="ew-feature reveal-up" id="eastWestFeature" aria-labelledby="ewFeatureTitle">
     <div class="ew-feature-inner">
       <div class="ew-feature-copy">
-        <p class="ew-feature-eyebrow">NOW SELLING &middot; ÇİFTEHAVUZLAR</p>
         <img class="ew-feature-logo" src="./media/images/east-west/ew-intro-logo.webp" alt="The Residences East West" width="1000" height="299" loading="lazy" decoding="async" data-testid="ew-feature-logo">
-        <span class="ew-feature-rule" aria-hidden="true"></span>
         <h2 class="ew-feature-title" id="ewFeatureTitle">Discover The Residences East West</h2>
         <p class="ew-feature-desc">The Residences East West brings together 135 m&sup2; net 3+1 and 4+1 residences in Çiftehavuzlar, moments from Bağdat Caddesi and the Marmara coastline.</p>
         <a class="ew-feature-cta" href="east-west.html" data-testid="ew-feature-cta">Discover now <span class="arrow" aria-hidden="true">&rarr;</span></a>
@@ -658,6 +707,7 @@
   <div id="root"></div>
 
   <script src="js/script.js"></script>
-  <script src="js/news.js"></script>
+  <script src="js/architects.js" defer></script>
+  <script src="js/news.js" defer></script>
 </body>
 </html>
