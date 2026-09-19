@@ -56,16 +56,31 @@ language or completed project pages unless explicitly asked.
 (`gemini-2.5-flash-lite`), `GEMINI_DAILY_REQUEST_LIMIT`, `GEMINI_DAILY_INPUT_TOKEN_LIMIT`,
 `GEMINI_DAILY_OUTPUT_TOKEN_LIMIT`, `GEMINI_MAX_CONCURRENCY`, `GEMINI_REQUEST_TIMEOUT_SECONDS`.
 
-## Current state (2026-09-19)
+## Current state (2026-06, updated after the site-wide nav/brand cleanup)
+- **Site-wide navigation, contact and Dar Global cleanup: DONE and verified** (testing agent
+  iteration_53.json, frontend 100%, zero open issues). See CHANGELOG for the full file/destination
+  list. Highlights: TAÇ/ANA menu destinations fixed on all 25 non-index pages, featured menu cards
+  fixed, VIEW ALL/PORTFOLIO/NEWSROOM correct on all 26 pages, dead ANATOLIAN/EUROPEAN SIDE entries
+  removed, "The Apartments Gür" card deleted, every Instagram link → instagram.com/novakonut/,
+  homepage hero Dar Global wordmark + "LIVE ALL IN" + broken `cdn.Nova.co.uk` images replaced with
+  the NOVA logo / "BUILD BEYOND LIVING" / local renders, east-west "Premiere Edition COLLECTION"
+  badge replaced, footer geography columns replaced with NOVA's three projects on all 26 pages
+  (design preserved), all 17 register forms reduced to the three current projects, Escape/
+  aria-expanded/focus-return added to the side menu, touch targets ≥44px, no horizontal overflow
+  at 1440/1280/1024/768/430/390/844×390.
+- The site has **no `sms:` link anywhere** — there is no SMS button in the design, so there was
+  nothing to standardise. WhatsApp is the messaging destination.
 - East West homepage feature: contained (panel 540px desktop), 5s slide duration, 600ms
   crossfade, SVG perimeter progress synchronised to the same timer, mobile 779px @390 and
   841px @430.
 - Get in Touch styled on `newsroom.html` and `news-detail.html`.
-- Navigation: PORTFOLIO → `projects.html`, NEWSROOM → `newsroom.html` on all 26 pages.
 - Newsroom database: 148 `pending_editorial`, 10 `insufficient_source`, 1 `needs_review`,
   4 `rejected` (1 irrelevant livestock, 3 brand-unsafe negative). 0 published — every
   article is waiting for the Gemini long-form synthesis.
 - Images: 112 authentic cached vs 51 NOVA covers across stored records.
+- `/app/clean-site/` is an unserved reference scaffold and still contains the original Dar Global
+  markup, old phone numbers and a `lang-switch`. It is not part of the published site; delete it
+  if it ever risks being served.
 
 ## Backlog
 - P0: add `GEMINI_API_KEY` secret → run the 15-day synthesis backfill, verify rendered

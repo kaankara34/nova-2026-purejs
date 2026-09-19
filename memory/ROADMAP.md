@@ -23,11 +23,23 @@
   so an editor can hold or drop an item before it appears publicly.
 - Social-crawler SEO for `news-detail.html?slug=…` needs server-side rendering or prerendering; the
   page updates its metadata client-side today.
-- Global navigation still points NEWSROOM at `index.html#news`; changing it to `newsroom.html` was
-  deliberately skipped because the shared header/nav is out of scope. Needs a decision.
 
 ## P2
-- Homepage hero, the three DarGlobal hero images and the "DISCOVER DARGLOBAL" section are still
-  DarGlobal placeholders (explicitly out of scope in the June 2026 task).
-- Footer link lists and the register-form project options still contain DarGlobal-era content.
+- The duplicated header / side-menu / footer markup across 26 HTML files has already drifted twice
+  (`construction.html` + `leed.html` footers). Worth a build-time include or partial, plus a CI grep
+  gate for the banned strings: `LIVE ALL IN`, `DAR GLOBAL`, `DARGLOBAL`, `PREMIERE EDITION`,
+  `Luxury Villas`, `api.whatsapp.com`, `tel:+12127151067`, `tel:+908502000000`.
+- Remaining `href="#"` placeholders that are not brand issues: footer `AGENT CONNECT`,
+  `INVESTOR RELATIONS`, `BLOGS`, `PRESS`, `CAREERS`, `Get in Touch`, `Why Invest`,
+  `Data Privacy Statement`, `TERMS AND CONDITIONS`, side-menu `BOARD`, and the Facebook / Twitter /
+  LinkedIn / Linktree social icons (no NOVA accounts supplied yet). Need real destinations from the
+  client.
+- `projects.html` still lists "The Apartments Gür" in no card (deleted) but the project itself has
+  no page — confirm whether it is a real future project.
 - `newsroom.html` could gain an RSS/Atom feed of NOVA's own selections.
+
+## Done (do not re-open)
+- Global navigation NEWSROOM → `newsroom.html` and PORTFOLIO → `projects.html` on all 26 pages.
+- Homepage hero Dar Global identity, the three Dar Global hero images and the "DISCOVER DARGLOBAL"
+  band: all replaced with NOVA content (June 2026).
+- Footer link lists and every register-form project option list: now NOVA-only (June 2026).

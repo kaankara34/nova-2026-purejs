@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## 2026-06 — Site-wide navigation, contact & Dar Global brand cleanup (COMPLETE, testing agent 100% — iteration_53.json)
+All 26 pages in `/app/frontend`.
+
+**Navigation destinations**
+- LATEST DEVELOPMENTS submenu accordion on all 25 non-index pages: `THE APARTMENTS TAÇ → the-apartments-tac.html`, `THE APARTMENTS ANA → the-apartments-ana.html` (were `#`).
+- The three featured `.proj-card` menu cards on every page: `east-west.html` / `the-apartments-tac.html` / `the-apartments-ana.html` (2nd + 3rd were `#`). Homepage card presentation untouched.
+- `PORTFOLIO → projects.html`, `NEWSROOM → newsroom.html`, `VIEW ALL → projects.html` verified on all pages; `index.html#projects` (east-west, tac, ana pages) replaced with `projects.html`.
+- Dead `ANATOLIAN SIDE` / `EUROPEAN SIDE` menu entries removed everywhere (per user decision — all current projects are on the Anatolian side; İSTANBUL already opens the 3 projects).
+- `projects.html`: "The Apartments Ana" card → `the-apartments-ana.html`; **"The Apartments Gür" card deleted** (per user); 9 stale `alt` texts corrected to the real project names.
+
+**Contact destinations (already standardised in the prior batch, re-verified)**
+- 75× `tel:+905335061972`, 48× `https://wa.me/905335061972`, 27× `mailto:iletisim@nova.istanbul`, 27× visible `+90 (533) 506 1972`. Zero `tel:+12127151067`, `tel:+908502000000`, `api.whatsapp.com`, `phone=97180040409`.
+- NOTE: the site has **no `sms:` link and no SMS button anywhere** — nothing to standardise; user confirmed the WhatsApp destination is the one that matters.
+- Every `aria-label="Instagram"` link (78 across 26 pages) → `https://www.instagram.com/novakonut/` with `target="_blank" rel="noopener noreferrer"` (was `#`).
+
+**Dar Global identity removal**
+- Homepage hero was still fully Dar Global: a CSS-drawn `D A(globe) R GLOBAL` wordmark, the `LIVE ALL IN` tagline, and 3 slides + 1 band image loading from the non-existent `cdn.Nova.co.uk` domain (broken network requests). Replaced with the NOVA logo (`media/images/nova-logo.png`, `.hero-brand-mark`), the `BUILD BEYOND LIVING` tagline, and local project renders (`ew-render1`, `tac-render2`, `ana-render2`, band `ew-render5`). `.globe-lg` / `.big-logo .sub` CSS removed.
+- `section#liveAllIn` → `section#buildBeyondLiving`; HTML + CSS comments renamed.
+- `east-west.html` club badge `Premiere Edition / COLLECTION` → `Residents Only / AMENITIES` (design/classes preserved).
+- Footer legacy geography columns ("Luxury Villas in UAE", "Luxury Properties in Saudi Arabia" …) replaced on all 26 pages, footer **design preserved**, with NOVA's own three projects: `Discover Our Residences` / `Residences By Location` / `Explore Nova Konut`. `construction.html` + `leed.html` had drifted to a footer with no grid at all — rebuilt to the canonical version.
+- Footer globe links `PREMIERE EDITION` / `COLLECTION` → `PORTFOLIO` / `NEWSROOM`.
+- `index.html` EXCLUSIVE COLLABORATIONS intro copy rewritten to NOVA's own wording.
+
+**Register / interest forms**
+- Every `select[name="project"]` across all 17 forms now lists only the three current projects (East West / Taç / Ana). Removed the whole inherited Dar Global list (Trump International Hotel & Resort Maldives, Trump Mansions, D'Mansions, Rayana, Amaya, Lumaia, Da Vinci Tower, W Residences, Les Vagues …) and the fictional Istanbul entries (Pera Penthouses, Acarkent Villas, Bosphorus Villas, The Apartments Moda, The Apartments Gür …).
+
+**Accessibility / responsive (`js/script.js`, `css/styles.css`)**
+- Side menu: `Escape` now closes it (and first closes an open mobile sub-panel), `#menuToggle` `aria-expanded` toggles, focus returns to `#menuToggle` on close, `closeMenu()` is idempotent so scroll lock always releases, 3 consecutive open/close cycles verified clean.
+- Touch targets ≥44px: `.menu-toggle` 42→44, `.bottom-icon` min 44×44, `.col-sub .submenu .sub-accordion a` min-height 44, `.utility-item[href^="tel:"]::after` expanded hit area.
+- Verified no horizontal overflow at 1440 / 1280 / 1024 / 768 / 430 / 390 / 844×390 landscape.
+
+**Language** — all 26 pages `lang="en"`, zero language selectors in the DOM (the only residual `lang-switch` markup lives in `/app/clean-site/`, the unserved reference scaffold).
+
+**Not a bug** — `projects.html [data-testid="filter-reset"]` sits inside the `#pjEmpty` empty-state block and is correctly revealed only when a filter returns zero results.
+
+**Out of scope this round** — newsroom stays empty (published = 0) pending `GEMINI_API_KEY`; the 600+ word body quality gate is intentionally holding articles back.
+
+
 ## 2026-06 — Contact page additions (contact.html)
 - `ct-intro`: added a quiet constructivist SVG art mark (brass arc, dotted slow-orbit ring, sage/brass disc, stone block, hairlines). Respects `prefers-reduced-motion`.
 - New Instagram section between `ct-detail` and `ct-loc`: "Latest from Nova" head, `@novakonut` follow link, 4 square tiles (NOVA-generated imagery, all linking to the profile), follow note. 4 columns desktop / 2 columns ≤767px.

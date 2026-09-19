@@ -1,0 +1,33 @@
+{
+  "summary": "Retest of iteration_52 fixes on static NOVA site. All 5 previously reported issues verified as fixed. Regression checks (navigation, hero, contacts, overflow, mobile touch targets) all pass. Zero occurrences of 'Premiere Edition', 'COLLECTION', 'LIVE ALL IN', 'DAR GLOBAL', 'DARGLOBAL' across all HTML/CSS/JS files (case-sensitive as spec'd). All 26 pages contain the canonical 3-column footer with the three required headings. No dar/cdn network requests intercepted. No broken images on index.html.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verification_details": {
+    "FIX1_east_west_badge": "PASS — .ew-premiere-mark text now reads 'Residents Only\\nAMENITIES'. Grep across HTML/CSS/JS finds zero occurrences of 'Premiere Edition' or 'COLLECTION'.",
+    "FIX2_construction_leed_footer": "PASS — construction.html and leed.html both contain the 3 canonical footer headings. All 26 pages verified to contain 'Discover Our Residences'.",
+    "FIX3_live_all_in_and_darglobal": "PASS — zero occurrences of 'LIVE ALL IN', 'DAR GLOBAL', 'DARGLOBAL' anywhere. Section id is now 'buildBeyondLiving' (verified live). Note: lowercase class 'section-live-all-in' still present but spec explicitly targets uppercase literal 'LIVE ALL IN'.",
+    "FIX4_mobile_touch_targets": "PASS at 390x844 and 430x932 — #menuToggle 44x44, #mobileBottomBar tel & wa.me anchors 44x44 visible, utility tel::after height=44px with content, .sub-accordion a min-height:44px and measured 44px height when the İSTANBUL sub-panel is expanded.",
+    "FIX5_filter_reset_not_a_bug": "CONFIRMED — [data-testid='filter-reset'] lives inside #pjEmpty[hidden] which is only revealed on zero-result filter combos. Behaviour is correct by design.",
+    "regression_navigation": "PASS — #menuToggle opens sideMenu (class open, overlay show, body no-scroll, aria-expanded=true). LATEST DEVELOPMENTS reveals sub-view; VIEW ALL->projects.html; menu-card links resolve to east-west.html/the-apartments-tac.html/the-apartments-ana.html; PORTFOLIO->projects.html; NEWSROOM->newsroom.html. Escape closes menu (open/show classes removed, body scroll unlocked, aria=false, focus returned to #menuToggle — menu element remains display:flex with transform translateX(-100%) which is the intended hide mechanism).",
+    "regression_no_menu_side_entries": "PASS — 'ANATOLIAN SIDE'/'EUROPEAN SIDE' do NOT appear as menu entries. The one occurrence in index.html (line 492) is editorial H3 copy ('DISCOVER NOVA KONUT: RESIDENTIAL DEVELOPMENT ON İSTANBUL'S ANATOLIAN SIDE'), not a nav item.",
+    "regression_hero": "PASS — .hero-brand-mark present, 'BUILD BEYOND LIVING' tagline present, no broken images on index.html, zero requests to darglobal/cdn.nova.co.uk domains.",
+    "regression_horizontal_overflow": "PASS — no horizontal overflow on index/projects/construction/leed at 1440x900, 1280x800, 1024x768, 768x1024, 430x932, 390x844, 844x390.",
+    "regression_contacts_sitewide": "PASS on sampled pages (index, projects, east-west, construction, leed, contact) — tel:+905335061972, https://wa.me/905335061972, mailto:iletisim@nova.istanbul, visible '+90 (533) 506 1972', Instagram->https://www.instagram.com/novakonut/, lang='en', select[name='project'] contains exactly the 3 current projects (construction.html and leed.html have no project select which is fine).",
+    "collab_intro_copy": "PASS — reads exactly 'Nova works with leading architects, designers and engineers to shape every residence.' Carousel below renders without layout breakage."
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Minor (non-blocking): CSS class name 'section-live-all-in' still exists on index.html hero section. Spec grep target was uppercase 'LIVE ALL IN' only, so this passes as written, but consider renaming class to 'section-bbl' for full consistency with the id/comment renames."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All iteration_52 findings resolved. Mobile sub-accordion links require drilling into LATEST DEVELOPMENTS then İSTANBUL to become visible — heights become 44px only when the İSTANBUL sub-panel is expanded (drilldown UI, not classic accordion). Cookie banner uses button#cookieAccept ('ACCEPT'); can be dismissed but often sits below viewport on mobile — not blocking menu interactions in these tests."
+}
