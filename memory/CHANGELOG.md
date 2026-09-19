@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## 2026-06 — Promo video, form→e-mail, East West floor plans (COMPLETE, testing agent 100% backend + 100% frontend — iteration_54.json)
+
+**1. Homepage EXCLUSIVE COLLABORATIONS video replaced**
+- The Dar Global-era clip and its `TRUMP / THE TRUMP ORGANIZATION` overlay (`.collab-trump-text` markup + CSS) are gone.
+- User's `promo.mp4` remuxed to `media/videos/collab-nova.mp4` (H.264, CRF 24, `+movflags faststart` — the original had its `moov` atom at the end and would not start streaming) plus a VP9 `collab-nova.webm` fallback listed first, because the preview's headless Chromium ships without H.264.
+- `<video>` now uses two `<source>` elements. Section box untouched: `.collab-video` is still `aspect-ratio: 3/1` desktop / `16/10` ≤900px, `object-fit: cover`. **NOTE: a 16:9 video in a 3:1 box is cinematically cropped top/bottom — the section dimensions were preserved exactly as the user instructed.**
+- Old `collab-video.mp4` deleted.
+
+**2. Register Interest forms now actually send e-mail**
+- User asked for "PHP mail"; this stack is FastAPI + static HTML, so it was built as a backend endpoint (integration_expert SMTP playbook).
+- New `backend/enquiries.py`:
+  - `POST /api/enquiries` — Pydantic validation (EmailStr, length caps, CR/LF header-injection rejection, phone shape, privacy consent required), hidden `website` honeypot, Mongo-backed rate limit of 5/min per IP (`x-forwarded-for` aware), **insert into Mongo `enquiries` first**, then `BackgroundTasks` SMTP send so a mail outage never fails the request or loses the lead.
+  - `GET /api/admin/enquiries` — `X-Admin-Token` (reuses `NEWS_ADMIN_TOKEN`), newest first, 200 max.
+  - `aiosmtplib` with STARTTLS/SSL switch, fixed `From`, visitor only in `Reply-To`, UTF-8 MIME so Turkish characters survive.
+  - `email_status`: `queued` → `sent` / `failed` / `smtp_not_configured`.
+- `backend/.env` additions: `MAIL_TO=iletisim@nova.istanbul`, plus blank `MAIL_FROM`, `SMTP_HOST`, `SMTP_PORT=587`, `SMTP_SECURITY=starttls`, `SMTP_USERNAME`, `SMTP_PASSWORD`. **PENDING: the user must supply their nova.istanbul mailbox host/port/user/password. Until then every submission is stored with `email_status: smtp_not_configured` — nothing is lost, but no mail goes out.**
+- New `frontend/js/nova-forms.js`: one shared module that auto-wires **every** form containing `[name=fullname]` + `[name=email]` (17 forms across 17 pages), injects the honeypot, POSTs JSON, and renders `[data-nova-form-msg]` with `data-state` pending/ok/error. Added to all 17 pages; styles appended to `css/styles.css`.
+- Deleted all 11 legacy mock handlers (`alert()` / fake "THANK YOU" button swap) from `js/about.js`, `bahar-residence.js`, `contact.js`, `east-west.js`, `marti-residence.js`, `mercan-bosphorus.js`, `portfolio-project.js`, `projects.js`, `the-apartments-ana.js`, `the-apartments-tac.js`, `script.js`.
+
+**3. East West floor plans corrected**
+- User's three new drawings identified and processed by `scripts/process_ew_plans.py`: white paper and the pale-green page decoration keyed to alpha, trimmed to content, then normalised on the **building footprint width (1180px)** onto a shared **1240×1860** transparent canvas — so all four plans render at identical size and the plan no longer jumps between tabs (measured 589×883 on every tab).
+- `media/images/ew/plans/3plus1.webp`, `4plus1.webp`, `duplex-lower.webp`, `duplex-upper.webp` (WebP with alpha, ~0.27–0.5 MB each vs 1.5–2.6 MB as PNG).
+- 4+1 darkening: `.ew-plans-figure[data-dim="left"]::after` puts a masked 62% dark wash over the LEFT half, leaving the right-hand 4+1 apartment bright. Only the 4+1 plan carries `data-dim` (user declined it on the symmetric 3+1). Mirrored in the fullscreen lightbox, which also gained a white plate (`.ew-plans-lightbox-figure`) because the plans are now transparent and would vanish on the dark backdrop.
+- `.ew-plans-figure` is `display:inline-block` so it shrink-wraps the image and the 50% dim boundary lands exactly on the plan's symmetry axis; `.ew-plans-image` switched to `align-items: stretch` and the viewport min-height to `clamp(420px, 42vw, 660px)` so the plan reads at a usable size.
+- Room schedules rewritten in full English from the drawings: Y.G.H. → **Fire Lobby**, ANTRE → Entrance Hall, HOL → Hall, KORD. → Corridor, YARDIMCI OD. → Utility Room, DUŞ-WC → Shower Room, KAT HOLÜ → Floor Lobby, YANGIN MERD. → Fire Escape Stair, SERV. MERD. → Service Stair, frn. balkon → French Balconies. Totals recomputed from the listed rooms (3+1 and 4+1 both ≈124 m²; duplex lower ≈124 m²) replacing the previously invented net/gross pair — the A4 print now shows a single "Total Internal Area".
+- Tabs relabelled `DUPLEX LOWER` / `DUPLEX UPPER`. **DUPLEX UPPER still uses the old remote artifact image — the user will send the new drawing.**
+
+**4. Instagram + link hygiene**
+- Every `aria-label="Instagram"` link → `https://www.instagram.com/novakonut/`.
+- All 161 external links across the 26 pages normalised to `rel="noopener noreferrer"` (26 files had bare `rel="noopener"`).
+
+
 ## 2026-06 — Site-wide navigation, contact & Dar Global brand cleanup (COMPLETE, testing agent 100% — iteration_53.json)
 All 26 pages in `/app/frontend`.
 

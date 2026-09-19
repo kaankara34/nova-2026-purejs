@@ -1,0 +1,29 @@
+{
+  "summary": "Backend /api/enquiries + /api/admin/enquiries: 10/10 pytest tests pass (validation, honeypot, rate limit, Turkish round-trip, admin auth, newest-first, no SMTP password leak, email_status='smtp_not_configured' as expected). Frontend: all 6 mandated Register Interest flows (index, east-west, projects, contact, the-apartments-tac, the-apartments-ana) submit successfully — status becomes ok with 'Thank you. Your request has reached our sales team…', form resets, matching record appears in /api/admin/enquiries. Empty submit and unchecked-privacy show data-state='error'. No alert() dialogs and no fake button swaps anywhere. Homepage EXCLUSIVE COLLABORATIONS <video id='collabVid'> loads collab-nova.webm (readyState 4), plays (currentTime advances after play()), muted+autoplay attributes set, .collab-video aspect-ratio 3/1, ZERO .collab-trump-text elements, no 'TRUMP' text anywhere. East-west floor plans: 3+1, 4+1, DUPLEX-LOWER all load from ./media/images/ew/plans/ at natural 1240×1860 and render identically at 589×883 (no jump between tabs). 4+1 figure carries data-dim='left'; 3+1 and duplex-lower have no dim attribute. Lightbox on 4+1 gains data-dim='left' and Escape closes. Room schedules are complete English (Fire Lobby present; no Y.G.H./ANTRE/DUBLEKS). Download button (#ewPlansDownload) opens a print window rendering the plan + single 'Total Internal Area' metric with no JS error. Side menu opens via #menuToggle and closes on Escape. No JS errors on index/east-west/projects/contact.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "topbar utility-social Instagram link on every page", "issues": ["Was rel=\"noopener\" only (missing noreferrer). Fixed by testing agent — all pages now rel=\"noopener noreferrer\"."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_enquiries.py", "/app/test_reports/pytest/enquiries.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "enquiries.py: /api/admin/enquiries returns entire stored doc — safe today (SMTP password never persisted, only email_status/email_error) but worth an explicit projection if extra fields are added later.",
+    "Rate limiter keyed on X-Forwarded-For first hop; behind untrusted proxies this can be spoofed. Currently fine for preview but consider trusting only known proxy hop count in production.",
+    "nova-forms.js: submit-button lookup 'button:not([type=\"button\"])' can accidentally match nav/menu buttons if a page ever puts one inside <form>; consider requiring type=submit."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_enquiries.py",
+    "/app/frontend/*.html (Instagram topbar link rel=\"noopener\" -> \"noopener noreferrer\" across 17 pages)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "NEWS_ADMIN_TOKEN=nova-newsroom-4f1c8b2ad96e47 (read from /app/backend/.env). No user accounts.",
+  "seed_data_creation": "Approx 15-20 TEST_-tagged enquiry rows inserted into MongoDB (enquiries collection) by pytest and Playwright submissions. All are prefixed with TEST_ or Playwright/Test names so they can be cleaned later; they do not conflict with real data.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend suite lives at /app/backend/tests/test_enquiries.py — re-runnable with `pytest backend/tests/test_enquiries.py`. SMTP env vars are intentionally blank so email_status='smtp_not_configured' is the correct behaviour, NOT a bug. Video autoplay initially reported paused=True in headless Chromium before scroll; explicit vid.play() resumed it (readyState 4, muted+autoplay attrs set) — code is correct, this is just a browser autoplay policy quirk. East-west plans use Swiper loop mode which clones slides, so DOM has 6 .ew-plans-slide nodes (indexes 0 and 5 are clones); the three real plans (3plus1/4plus1/duplex-lower webp) are all 1240×1860 and render at identical 589×883, DUPLEX UPPER intentionally still uses the legacy CDN PNG (1080×1350). Topbar Instagram rel fix applied by tester.",
+  "rca of the issue": "N/A — no functional bugs found. The only deviation from spec was a small security/attribute hygiene issue (topbar Instagram anchor missing noreferrer alongside noopener) which was fixed in-place across all pages."
+}
