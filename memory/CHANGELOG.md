@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 2026-06 — Compact floor-plan section, East West brochure PDF, Taç hero still image
+
+**1. Floor-plan section compacted (`css/east-west.css`)**
+- No viewport-based heights remain anywhere in the block: `.ew-plans-image` lost `min-height: 460px`, `.ew-plans-viewport` lost `min-height: clamp(420px,42vw,660px)` and `height:100%`, `.ew-plans-track` / `.ew-plans-slide` lost `height:100%`. The section height is now purely content-driven.
+- Section vertical padding `clamp(28px, 2.8vw, 42px)` (was `clamp(60px,8vw,110px)` top / `clamp(50px,6vw,90px)` bottom).
+- Plan image: `width/height:auto`, `max-width:100%`, `object-fit:contain`, `max-height: clamp(360px, 46vh, 470px)` desktop, `58vh` tablet (768–1024), `50vh` mobile. Aspect ratio verified identical to the source on every breakpoint — never cropped or stretched.
+- Two-column composition kept (plan left, title + area table right), both vertically centred; grid changed from `1.35fr 1fr` to `minmax(0,1fr) minmax(320px,540px)` with `gap: clamp(28px,4vw,64px)` to kill the horizontal dead space.
+- Right column compacted: eyebrow `clamp(17px,1.5vw,21px)` / margin 10, tower + type tab rows padding 11/9 and margin 12 (underline offsets adjusted to −12/−10), title `clamp(24px,2.4vw,32px)` / margin 10, table rows `padding: 3px 0` (5px tablet, 9px mobile), nav arrows `margin-top: 10px`. Font sizes for labels and values unchanged at 13px.
+- Measured section heights (same content, 14 rows): **1920×1080 → 738px = 68% of the viewport / 79% below the navbar** (was ~1000px); **1440×900 → 683px = 76% / 91%** (was 952px = 106%). 1280×800 → 667px. No horizontal overflow at 1920/1440/1280/1024/768/430/390.
+- Honest note: with 14 table rows at readable 13px the right column has a ~460px floor, so 1440×900 lands at 91% below the navbar rather than the requested 70–78%; going lower would require shrinking the table text, which the brief forbade. 1920×1080 is inside the target.
+- Slider, dim overlay, lightbox (Escape + close button), A4 print, tabs and all values untouched and re-verified.
+
+**2. East West DOWNLOAD BROCHURE now serves the real catalogue**
+- User's `THE_RESIDENCES_EAST_WEST_BASKILI_KATALOG_compressed.pdf` saved to `media/docs/the-residences-east-west-brochure.pdf` (4.2 MB).
+- The hero button was `href="#brochure"` pointing at a non-existent anchor; now a real download link with `download="The-Residences-East-West-Brochure.pdf"` and `data-testid="ew-download-brochure"`. Verified HTTP 200 `application/pdf`.
+
+**3. The Apartments Taç hero: video → premium construction still**
+- The `<video>` (webm+mp4) was replaced with a `<picture>`: `media/images/tac/tac-construction-aerial.webp` (1672×941, 591 KB) with a 1280px variant for ≤767px and a JPEG fallback poster. Preload hint and `fetchpriority="high"` updated; the now-dead `tacHeroVideo` play/pause block was removed from `js/the-apartments-tac.js` and `media/video/tac/` (10 MB) deleted.
+- Premium treatment matching the other project pages: `filter: saturate(.82) contrast(1.06) brightness(.9)`, a 26s `tacHeroDrift` scale/parallax (disabled under `prefers-reduced-motion`), `object-position: 50% 42%`, and the existing `.tac-hero-scrim` black filter strengthened with a radial vignette plus the two linear gradients so the overlaid meta text stays legible.
+
+
 ## 2026-06 — East West: TOTAL AREA now includes balconies; West Duplex Upper added
 - Header label changed from "Total Internal Area" to **"Total Area"** (`js/east-west.js` list + A4 print metric, `east-west.html` static fallback). CSS already uppercases it, so typography/spacing/layout are untouched.
 - **Totals now sum EVERY listed row, balconies and French balconies included** (user's rule: nothing excluded). Verified in the browser for all 8 tabs — the printed total equals the sum of the rows exactly:

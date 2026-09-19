@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="media/video/tac/tac-construction-poster.jpg" type="image/jpeg" fetchpriority="high" />
+  <link rel="preload" as="image" href="media/images/tac/tac-construction-aerial.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
@@ -181,12 +181,14 @@
   <!-- ============================= HERO ============================= -->
   <section class="tac-hero" id="top">
     <div class="tac-hero-media">
-      <video class="tac-hero-video" id="tacHeroVideo" autoplay muted loop playsinline preload="metadata"
-             poster="./media/video/tac/tac-construction-poster.jpg" width="1280" height="720"
-             aria-label="Construction progress at The Apartments Taç" data-testid="tac-hero-video">
-        <source src="./media/video/tac/tac-construction.webm" type="video/webm" />
-        <source src="./media/video/tac/tac-construction.mp4" type="video/mp4" />
-      </video>
+      <picture>
+        <source media="(max-width: 767px)" srcset="./media/images/tac/tac-construction-aerial-1280.webp" type="image/webp" />
+        <source srcset="./media/images/tac/tac-construction-aerial.webp" type="image/webp" />
+        <img class="tac-hero-image" src="./media/images/tac/tac-construction-aerial-poster.jpg"
+             alt="Aerial view of construction progress at The Apartments Taç, Selamiçeşme"
+             width="1672" height="941" fetchpriority="high" decoding="async"
+             data-testid="tac-hero-image" />
+      </picture>
       <span class="tac-hero-scrim" aria-hidden="true"></span>
     </div>
     <div class="tac-hero-inner">

@@ -426,33 +426,33 @@
    ========================================================= */
 .ew-plans {
   position: relative;
-  padding: clamp(60px, 8vw, 110px) clamp(20px, 4vw, 56px) clamp(50px, 6vw, 90px);
+  padding: clamp(28px, 2.8vw, 42px) clamp(20px, 4vw, 56px) clamp(28px, 2.8vw, 40px);
   background: #fff;
   max-width: 1360px;
   margin: 0 auto;
 }
 .ew-plans-eyebrow {
   font-family: var(--font-sans);
-  font-size: clamp(20px, 2.2vw, 30px);
+  font-size: clamp(17px, 1.5vw, 21px);
   font-weight: 500;
   letter-spacing: 0.06em;
   color: #1a1a1a;
-  margin: 0 0 28px;
+  margin: 0 0 10px;
 }
 .ew-plans-tabs {
   display: flex;
   gap: clamp(24px, 3vw, 56px);
   border-bottom: 1px solid #e2ddd0;
-  padding-bottom: 18px;
-  margin-bottom: 32px;
+  padding-bottom: 9px;
+  margin-bottom: 12px;
   overflow-x: auto;
   scrollbar-width: none;
 }
 .ew-plans-tabs--tower {
   gap: clamp(28px, 4vw, 64px);
   border-bottom: 1px solid #d4cec0;
-  padding-bottom: 22px;
-  margin-bottom: 22px;
+  padding-bottom: 11px;
+  margin-bottom: 12px;
 }
 .ew-plans-tabs--tower .ew-plans-tab {
   font-size: clamp(14px, 1.1vw, 16px);
@@ -460,7 +460,7 @@
   color: #6a6555;
 }
 .ew-plans-tabs--tower .ew-plans-tab.active { color: #1a1a1a; }
-.ew-plans-tabs--tower .ew-plans-tab.active::after { bottom: -23px; background: #1a1a1a; height: 2px; }
+.ew-plans-tabs--tower .ew-plans-tab.active::after { bottom: -12px; background: #1a1a1a; height: 2px; }
 .ew-plans-tabs::-webkit-scrollbar { display: none; }
 .ew-plans-tab {
   background: transparent;
@@ -484,7 +484,7 @@
   content: '';
   position: absolute;
   left: 0; right: 0;
-  bottom: -19px;
+  bottom: -10px;
   height: 1px;
   background: #b3a37e;
 }
@@ -525,24 +525,22 @@
 
 .ew-plans-body {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: clamp(30px, 4vw, 70px);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 540px);
+  gap: clamp(28px, 4vw, 64px);
   align-items: center;
 }
 .ew-plans-image {
   position: relative;
   background: #fff;
-  padding: clamp(20px, 3vw, 44px);
+  padding: clamp(14px, 1.8vw, 26px);
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
-  min-height: 460px;
 }
 .ew-plans-viewport {
   position: relative;
   width: 100%;
-  height: 100%;
-  min-height: clamp(420px, 42vw, 660px);
+  height: auto;
   overflow: hidden;
   touch-action: pan-y;
   -webkit-user-select: none;
@@ -553,13 +551,11 @@
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-  height: 100%;
   will-change: transform;
 }
 .ew-plans-slide {
   flex: 0 0 100%;
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -570,7 +566,6 @@
   position: relative;
   display: inline-block;
   max-width: 100%;
-  max-height: 100%;
   line-height: 0;
 }
 .ew-plans-figure[data-dim] img { position: relative; z-index: 0; }
@@ -602,9 +597,10 @@
 }
 .ew-plans-slide img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: clamp(360px, 46vh, 470px);
   width: auto;
   height: auto;
+  object-fit: contain;
   display: block;
   pointer-events: none;
   cursor: zoom-in;
@@ -619,11 +615,11 @@
 }
 .ew-plans-title {
   font-family: var(--font-serif, 'Cormorant Garamond', serif);
-  font-size: clamp(30px, 3.6vw, 48px);
+  font-size: clamp(24px, 2.4vw, 32px);
   font-weight: 500;
   letter-spacing: 0.02em;
   color: #1a1a1a;
-  margin: 0 0 28px;
+  margin: 0 0 10px;
 }
 .ew-plans-rows {
   display: flex;
@@ -633,7 +629,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 14px 0;
+  padding: 3px 0;
   border-bottom: 1px solid #e6e0d1;
   font-family: var(--font-sans);
   font-size: 13px;
@@ -667,7 +663,7 @@
   display: flex;
   gap: 24px;
   align-items: center;
-  margin-top: 36px;
+  margin-top: 10px;
   color: #1a1a1a;
 }
 .ew-plans-arrow {
@@ -747,13 +743,23 @@
 .ew-plans-lightbox-close:hover { opacity: 1; }
 
 @media (max-width: 768px) {
-  .ew-plans-body { grid-template-columns: 1fr; gap: 30px; }
-  .ew-plans-image { min-height: 320px; padding: 20px; }
+  .ew-plans-body { grid-template-columns: 1fr; gap: 22px; }
+  .ew-plans { padding: 30px 20px 32px; }
+  .ew-plans-image { padding: 14px; }
+  .ew-plans-slide img { max-height: 50vh; }
+  .ew-plans-row { padding: 9px 0; }
+  .ew-plans-nav { margin-top: 14px; }
   .ew-plans-expand { top: 10px; right: 10px; bottom: auto; width: 36px; height: 36px; }
   .ew-plans-download { top: 10px; right: 54px; bottom: auto; width: 36px; height: 36px; }
   .ew-plans-nav { justify-content: center; }
   .ew-plans-tab { font-size: 10.5px; letter-spacing: 0.12em; }
   .ew-plans-tabs { gap: 22px; }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .ew-plans { padding: 32px 24px 34px; }
+  .ew-plans-slide img { max-height: 58vh; }
+  .ew-plans-row { padding: 5px 0; }
 }
 
 /* =========================================================
