@@ -16,6 +16,7 @@ FILES = {
     "west-3plus1": "llglcuv5.png",
     "west-4plus1": "i0tzg7yt.png",
     "west-duplex-lower": "xbzywfuz.png",
+    "west-duplex-upper": "ivysy09s.png",
 }
 
 CANVAS = (1240, 1860)

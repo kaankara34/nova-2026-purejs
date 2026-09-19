@@ -1,8 +1,8 @@
 /* Floor plan data for The Residences East West — EAST and WEST buildings.
-   Areas transcribed from the architectural drawings; totals are the sum of the
-   listed interior rooms. Balconies and terraces are listed separately and are
-   NOT part of the internal area. Shared circulation (floor lobby, fire escape
-   stair, service stair, lifts, roof void) is excluded; the fire lobby (Y.G.H.)
+   Areas transcribed from the architectural drawings. TOTAL AREA is the sum of
+   every row listed for that plan, balconies and terraces included. Shared
+   circulation (floor lobby, fire escape stair, service stair, lifts, roof void)
+   is not part of an apartment and is not listed; the fire lobby (Y.G.H.)
    belongs to the apartment and is included. */
 window.EW_PLANS = (function () {
   'use strict';
@@ -59,17 +59,19 @@ window.EW_PLANS = (function () {
     ];
   }
 
-  var DUPLEX_UPPER_ROOMS = [
-    { name: 'Master Bedroom', size: '29.81 m²' },
-    { name: 'Master Bathroom', size: '7.92 m²' },
-    { name: 'Bedroom', size: '17.90 m²' },
-    { name: 'Bathroom', size: '3.02 m²' },
-    { name: 'Bedroom', size: '10.00 m²' },
-    { name: 'Bathroom', size: '3.06 m²' },
-    { name: 'Corridor', size: '4.62 m²' },
-    { name: 'Entrance Hall', size: '2.04 m²' },
-    { name: 'Terraces (3)', size: '9.52 m²' }
-  ];
+  function duplexUpper(master) {
+    return [
+      { name: 'Master Bedroom', size: master },
+      { name: 'Master Bathroom', size: '7.92 m²' },
+      { name: 'Bedroom', size: '17.90 m²' },
+      { name: 'Bathroom', size: '3.02 m²' },
+      { name: 'Bedroom', size: '10.00 m²' },
+      { name: 'Bathroom', size: '3.06 m²' },
+      { name: 'Corridor', size: '4.62 m²' },
+      { name: 'Entrance Hall', size: '2.04 m²' },
+      { name: 'Terraces (3)', size: '9.52 m²' }
+    ];
+  }
 
   var P = 'media/images/ew/plans/';
 
@@ -79,29 +81,29 @@ window.EW_PLANS = (function () {
         title: '3+1',
         img: P + 'east-3plus1.webp',
         dim: null,
-        total: '126.93 m² / 1366 sq ft',
+        total: '142.50 m² / 1,534 sq ft',
         rooms: typical('39.33 m²', '7.11 m²', CORE_3PLUS1, FRENCH_7)
       },
       {
         title: '4+1',
         img: P + 'east-4plus1.webp',
         dim: 'left',
-        total: '126.59 m² / 1363 sq ft',
+        total: '142.16 m² / 1,530 sq ft',
         rooms: typical('39.33 m²', '7.11 m²', CORE_4PLUS1, FRENCH_7)
       },
       {
         title: 'DUPLEX — LOWER FLOOR',
         img: P + 'east-duplex-lower.webp',
         dim: null,
-        total: '124.31 m² / 1338 sq ft — duplex 202.68 m² / 2182 sq ft',
+        total: '136.38 m² / 1,468 sq ft — duplex 224.27 m² / 2,414 sq ft',
         rooms: duplexLower('59.05 m²', '2.56 m²', '7.00 m²')
       },
       {
         title: 'DUPLEX — UPPER FLOOR',
         img: P + 'east-duplex-upper.webp',
         dim: null,
-        total: '78.37 m² / 844 sq ft — duplex 202.68 m² / 2182 sq ft',
-        rooms: DUPLEX_UPPER_ROOMS
+        total: '87.89 m² / 946 sq ft — duplex 224.27 m² / 2,414 sq ft',
+        rooms: duplexUpper('29.81 m²')
       }
     ],
     WEST: [
@@ -109,29 +111,29 @@ window.EW_PLANS = (function () {
         title: '3+1',
         img: P + 'west-3plus1.webp',
         dim: null,
-        total: '124.40 m² / 1339 sq ft',
+        total: '138.40 m² / 1,490 sq ft',
         rooms: typical('36.80 m²', '5.54 m²', CORE_3PLUS1, FRENCH_7)
       },
       {
         title: '4+1',
         img: P + 'west-4plus1.webp',
         dim: 'left',
-        total: '124.06 m² / 1335 sq ft',
+        total: '138.06 m² / 1,486 sq ft',
         rooms: typical('36.80 m²', '5.54 m²', CORE_4PLUS1, FRENCH_7)
       },
       {
         title: 'DUPLEX — LOWER FLOOR',
         img: P + 'west-duplex-lower.webp',
         dim: null,
-        total: '121.94 m² / 1313 sq ft — duplex 200.31 m² / 2156 sq ft',
+        total: '132.45 m² / 1,426 sq ft — duplex 217.48 m² / 2,341 sq ft',
         rooms: duplexLower('56.51 m²', '2.73 m²', '5.44 m²')
       },
       {
         title: 'DUPLEX — UPPER FLOOR',
-        img: P + 'east-duplex-upper.webp',
+        img: P + 'west-duplex-upper.webp',
         dim: null,
-        total: '78.37 m² / 844 sq ft — duplex 200.31 m² / 2156 sq ft',
-        rooms: DUPLEX_UPPER_ROOMS
+        total: '85.03 m² / 915 sq ft — duplex 217.48 m² / 2,341 sq ft',
+        rooms: duplexUpper('26.95 m²')
       }
     ]
   };

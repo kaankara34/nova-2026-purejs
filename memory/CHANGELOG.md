@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2026-06 — East West: TOTAL AREA now includes balconies; West Duplex Upper added
+- Header label changed from "Total Internal Area" to **"Total Area"** (`js/east-west.js` list + A4 print metric, `east-west.html` static fallback). CSS already uppercases it, so typography/spacing/layout are untouched.
+- **Totals now sum EVERY listed row, balconies and French balconies included** (user's rule: nothing excluded). Verified in the browser for all 8 tabs — the printed total equals the sum of the rows exactly:
+  - EAST: 3+1 **142.50 m² / 1,534 sq ft** · 4+1 **142.16 / 1,530** · Duplex Lower **136.38 / 1,468** · Duplex Upper **87.89 / 946** · duplex combined **224.27 / 2,414**
+  - WEST: 3+1 **138.40 / 1,490** · 4+1 **138.06 / 1,486** · Duplex Lower **132.45 / 1,426** · Duplex Upper **85.03 / 915** · duplex combined **217.48 / 2,341**
+- **West Duplex Upper drawing received and installed** (`west-duplex-upper.webp`). It differs from East only in the master bedroom: **E.YATAK ODASI 26.95 m²** vs East 29.81; everything else identical (E.Banyo 7.92, Yatak 17.90, Banyo 3.02, Yatak 10.00, Banyo 3.06, Kor. 4.62, Antre 2.04, 3 terraces 9.52). KAT HOLÜ 4.05 and ÇATI ARASI BOŞLUĞU stay excluded as shared/roof void.
+- All 8 plans are transparent WebP on the same 1240×1860 canvas; every tab renders at an identical box. Left-half dim still only on the 4+1 tabs. Individual room areas, labels, typography, spacing and layout unchanged.
+- `js/ew-plans-data.js` gained a `duplexUpper(master)` factory so EAST/WEST share the schedule and differ only on the master bedroom.
+- Scope note: the "Total Internal Area" label on `bahar-residence.js`, `marti-residence.js` and `mercan-bosphorus.js` was left as-is — this instruction applied to the East West page.
+
+
 ## 2026-06 — East West floor plans: EAST + WEST complete, schedules and totals corrected
 - User's 4 new drawings added: **East Duplex Upper**, **West 3+1**, **West 4+1**, **West Duplex Lower**. Processed through `scripts/process_ew_plans.py` (white paper + pale-green page decoration keyed to alpha, trimmed, normalised on the 1180px footprint width onto the shared **1240×1860** transparent canvas). All 7 files in `media/images/ew/plans/` are `east-*` / `west-*` named; every tab renders at an identical 592×888 box.
 - The WEST tab no longer mirrors EAST — it has its own data. West differs from East in the living room and balcony: **Salon 36.80 m²** (East 39.33) and **Balkon 5.54 m²** (East 7.11) on the typical floors; West Duplex Lower **Salon 56.51 / WC 2.73 / Balkon 5.44** (East 59.05 / 2.56 / 7.00).
