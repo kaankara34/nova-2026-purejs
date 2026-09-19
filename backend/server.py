@@ -197,8 +197,11 @@ async def start_news_scheduler():
 
 
 # Include the routers in the main app
+from enquiries import router as enquiries_router  # noqa: E402
+
 app.include_router(api_router)
 app.include_router(news_router)
+app.include_router(enquiries_router)
 
 app.add_middleware(
     CORSMiddleware,

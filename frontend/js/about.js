@@ -5,23 +5,6 @@
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
 
-  /* ---- Register form (UI-only mock, matches projects.html pattern) ---- */
-  const form = document.getElementById('abForm');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const fullname = form.querySelector('[name="fullname"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const privacy = form.querySelector('[name="privacy"]').checked;
-      if (!fullname || !email || !privacy) {
-        alert('Please complete required fields and accept the privacy policy.');
-        return;
-      }
-      alert('Thank you. Your registration has been received.');
-      form.reset();
-    });
-  }
-
   /* ---- Split a text node into word spans for staggered reveal (keeps real spaces for copy/screen-readers) ---- */
   function splitWords(el) {
     const text = el.textContent;

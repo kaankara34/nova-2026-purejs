@@ -204,22 +204,6 @@
     }
   }
 
-  /* ========== Form submit (UI-only) ========== */
-  const form = $('#ewEnquireForm');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const fullname = form.querySelector('[name="fullname"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const privacy = form.querySelector('[name="privacy"]').checked;
-      if (!fullname || !email || !privacy) {
-        alert('Please fill required fields and accept the privacy policy.');
-        return;
-      }
-      alert('Thank you. Your enquiry has been received.');
-      form.reset();
-    });
-  }
 
   /* ========== Typical Apartments (tabs + plans + lightbox) ========== */
   const plansRoot = $('.ew-plans');
@@ -227,57 +211,81 @@
     const EAST_PLANS = [
       {
         title: '3+1',
-        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/fe9f3f7t_3%2B1.png',
-        total: '~127 m² / 1367 sq ft',
-        net: '127 m²',
-        gross: '155 m²',
+        img: './media/images/ew/plans/3plus1.webp',
+        dim: null,
+        total: '~124 m² / 1334 sq ft',
         rooms: [
-          { i: 1, name: 'Living Room', size: '39.33 m²' },
+          { i: 1, name: 'Living / Dining Room', size: '39.33 m²' },
           { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
-          { i: 3, name: 'Bedroom', size: '12.05 m²' },
-          { i: 4, name: 'Bedroom', size: '11.84 m²' },
-          { i: 5, name: 'Kitchen', size: '13.29 m²' },
-          { i: 6, name: 'Balcony', size: '7.11 m²' }
+          { i: 3, name: 'Master Bathroom', size: '4.60 m²' },
+          { i: 4, name: 'Bedroom', size: '12.05 m²' },
+          { i: 5, name: 'Bedroom', size: '11.84 m²' },
+          { i: 6, name: 'Kitchen', size: '13.29 m²' },
+          { i: 7, name: 'Hall', size: '8.69 m²' },
+          { i: 8, name: 'Bathroom', size: '4.55 m²' },
+          { i: 9, name: 'Guest WC', size: '2.52 m²' },
+          { i: 10, name: 'Entrance Hall', size: '6.84 m²' },
+          { i: 11, name: 'Balcony', size: '7.11 m²' },
+          { i: 12, name: 'French Balconies', size: '0.85 · 0.92 · 1.55 · 0.92 · 1.60 · 1.70 m²' },
+          { i: 13, name: 'Fire Lobby (shared core)', size: '3.00 m²' },
+          { i: 14, name: 'Floor Lobby (shared core)', size: '4.50 m²' },
+          { i: 15, name: 'Fire Escape Stair (shared core)', size: '11.63 m²' },
+          { i: 16, name: 'Service Stair (shared core)', size: '6.13 m²' }
         ]
       },
       {
         title: '4+1',
-        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/6l1vxd82_4%2B1.png',
-        total: '~150 m² / 1614 sq ft',
-        net: '150 m²',
-        gross: '182 m²',
+        img: './media/images/ew/plans/4plus1.webp',
+        dim: 'left',
+        total: '~124 m² / 1334 sq ft',
         rooms: [
-          { i: 1, name: 'Living Room', size: '39.33 m²' },
-          { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
-          { i: 3, name: 'Bedroom', size: '12.05 m²' },
-          { i: 4, name: 'Bedroom', size: '11.84 m²' },
-          { i: 5, name: 'Bedroom', size: '9.86 m²' },
-          { i: 6, name: 'Kitchen', size: '13.29 m²' },
-          { i: 7, name: 'Balcony', size: '7.11 m²' }
+          { i: 1, name: 'Living / Dining Room', size: '39.33 m²' },
+          { i: 2, name: 'Master Bedroom', size: '15.81 m²' },
+          { i: 3, name: 'Master Bathroom', size: '3.20 m²' },
+          { i: 4, name: 'Bedroom', size: '9.86 m²' },
+          { i: 5, name: 'Bedroom', size: '9.64 m²' },
+          { i: 6, name: 'Bedroom', size: '9.86 m²' },
+          { i: 7, name: 'Kitchen', size: '13.29 m²' },
+          { i: 8, name: 'Hall', size: '8.69 m²' },
+          { i: 9, name: 'Bathroom', size: '4.55 m²' },
+          { i: 10, name: 'Guest WC', size: '2.52 m²' },
+          { i: 11, name: 'Entrance Hall', size: '6.84 m²' },
+          { i: 12, name: 'Balcony', size: '7.11 m²' },
+          { i: 13, name: 'French Balconies', size: '0.85 · 0.92 · 1.55 · 0.92 · 1.60 · 1.70 m²' },
+          { i: 14, name: 'Fire Lobby (shared core)', size: '3.00 m²' },
+          { i: 15, name: 'Floor Lobby (shared core)', size: '4.50 m²' },
+          { i: 16, name: 'Fire Escape Stair (shared core)', size: '11.63 m²' },
+          { i: 17, name: 'Service Stair (shared core)', size: '6.13 m²' }
         ]
       },
       {
-        title: 'DUBLEKS ALT',
-        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/4tvpokq3_DubleksAlt.png',
-        total: '~135 m² / 1453 sq ft',
-        net: '135 m²',
-        gross: '163 m²',
+        title: 'DUPLEX — LOWER FLOOR',
+        img: './media/images/ew/plans/duplex-lower.webp',
+        dim: null,
+        total: '~124 m² / 1334 sq ft (lower floor)',
         rooms: [
-          { i: 1, name: 'Living Room', size: '59.05 m²' },
+          { i: 1, name: 'Living / Dining Room', size: '59.05 m²' },
           { i: 2, name: 'Master Bedroom', size: '16.75 m²' },
-          { i: 3, name: 'Kitchen', size: '18.83 m²' },
-          { i: 4, name: 'Utility Room', size: '4.89 m²' },
-          { i: 5, name: 'Entrance', size: '6.66 m²' },
-          { i: 6, name: 'Master Bathroom', size: '4.60 m²' },
-          { i: 7, name: 'Balcony', size: '7.00 m²' }
+          { i: 3, name: 'Master Bathroom', size: '4.60 m²' },
+          { i: 4, name: 'Kitchen', size: '18.83 m²' },
+          { i: 5, name: 'Utility Room', size: '4.89 m²' },
+          { i: 6, name: 'Shower Room', size: '2.52 m²' },
+          { i: 7, name: 'Guest WC', size: '2.56 m²' },
+          { i: 8, name: 'Corridor', size: '8.45 m²' },
+          { i: 9, name: 'Entrance Hall', size: '6.66 m²' },
+          { i: 10, name: 'Balcony', size: '7.00 m²' },
+          { i: 11, name: 'French Balconies', size: '0.85 · 0.92 · 1.60 · 1.70 m²' },
+          { i: 12, name: 'Floor Lobby (shared core)', size: '4.50 m²' },
+          { i: 13, name: 'Fire Escape Stair (shared core)', size: '11.62 m²' },
+          { i: 14, name: 'Passenger Lift AS-1 (200/200)', size: '—' },
+          { i: 15, name: 'Stretcher / Goods Lift AS-2 (200/250)', size: '—' }
         ]
       },
       {
-        title: 'DUBLEKS ÜST',
+        title: 'DUPLEX — UPPER FLOOR',
         img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/jaq8uvnq_DubleksU%CC%88st.png',
-        total: '~85 m² / 915 sq ft',
-        net: '85 m²',
-        gross: '102 m²',
+        dim: null,
+        total: '~85 m² / 915 sq ft (upper floor)',
         rooms: [
           { i: 1, name: 'Master Bedroom', size: '29.81 m²' },
           { i: 2, name: 'Bedroom', size: '17.90 m²' },
@@ -312,8 +320,8 @@
     function buildPlanSlides() {
       if (!trackEl) return;
       const list = currentPlans();
-      trackEl.innerHTML = list.map((p, i) =>
-        `<div class="ew-plans-slide"><img src="${p.img}" alt="${p.title} floor plan" draggable="false"/></div>`
+      trackEl.innerHTML = list.map((p) =>
+        `<div class="ew-plans-slide"><div class="ew-plans-figure"${p.dim ? ` data-dim="${p.dim}"` : ''}><img src="${p.img}" alt="${p.title} floor plan" draggable="false"/></div></div>`
       ).join('');
     }
 
@@ -374,8 +382,11 @@
 
     function openPlanLightbox() {
       if (!lightbox) return;
-      lightboxImg.src = currentPlans()[planIdx].img;
-      lightboxImg.alt = currentPlans()[planIdx].title;
+      const p = currentPlans()[planIdx];
+      lightboxImg.src = p.img;
+      lightboxImg.alt = p.title;
+      if (p.dim) lightbox.setAttribute('data-dim', p.dim);
+      else lightbox.removeAttribute('data-dim');
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
       window.lockScroll();
@@ -394,8 +405,7 @@
       if (!w) return;
       const buildingLabel = 'THE RESIDENCES EAST WEST — ' + currentTower + ' BUILDING';
       const planTitle = p.title + ' PLAN';
-      const netVal = p.net || '';
-      const grossVal = p.gross || '';
+      const netVal = p.total || '';
       w.document.write(
         '<!doctype html><html lang="en"><head><title>' + planTitle + '</title>' +
         '<meta charset="utf-8"/>' +
@@ -423,9 +433,7 @@
         '<div class="rule"></div>' +
         '<div class="plan-img-wrap"><img src="' + p.img + '" alt="' + p.title + ' floor plan" crossorigin="anonymous"/></div>' +
         '<div class="metrics">' +
-        '<div class="metric"><div class="metric-label">Net Area</div><div class="metric-value">' + netVal + '</div></div>' +
-        '<div class="divider-v"></div>' +
-        '<div class="metric"><div class="metric-label">Gross Area</div><div class="metric-value">' + grossVal + '</div></div>' +
+        '<div class="metric"><div class="metric-label">Total Internal Area</div><div class="metric-value">' + netVal + '</div></div>' +
         '</div></div>' +
         '<script>window.onload = function(){ var img = document.querySelector("img"); function go(){ setTimeout(function(){ window.focus(); window.print(); }, 250); } if (img.complete) go(); else img.onload = go;'
         + '};<\/script></body></html>'

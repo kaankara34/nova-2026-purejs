@@ -534,7 +534,7 @@
   background: #fff;
   padding: clamp(20px, 3vw, 44px);
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   min-height: 460px;
 }
@@ -542,7 +542,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 380px;
+  min-height: clamp(420px, 42vw, 660px);
   overflow: hidden;
   touch-action: pan-y;
   -webkit-user-select: none;
@@ -566,18 +566,51 @@
   -webkit-user-select: none;
   user-select: none;
 }
+.ew-plans-figure {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+  line-height: 0;
+}
+.ew-plans-figure[data-dim] img { position: relative; z-index: 0; }
+.ew-plans-figure[data-dim="left"]::after,
+.ew-plans-figure[data-dim="right"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(16, 15, 13, 0.62);
+  animation: ewPlanDim .55s ease both;
+}
+.ew-plans-figure[data-dim="left"]::after {
+  left: 0;
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+}
+.ew-plans-figure[data-dim="right"]::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(270deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(270deg, #000 78%, transparent 100%);
+}
+@keyframes ewPlanDim { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ew-plans-figure[data-dim]::after { animation: none; }
+}
 .ew-plans-slide img {
-  max-width: 80%;
+  max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain;
   display: block;
   pointer-events: none;
   cursor: zoom-in;
   -webkit-user-drag: none;
 }
-.ew-plans-image img {
+.ew-plans-image > img {
   max-width: 80%;
   height: auto;
   display: block;
@@ -662,9 +695,38 @@
   padding: 40px;
 }
 .ew-plans-lightbox.open { display: flex; }
-.ew-plans-lightbox img {
+.ew-plans-lightbox-figure {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: clamp(12px, 2vw, 28px);
   max-width: 95vw;
   max-height: 90vh;
+}
+.ew-plans-lightbox[data-dim] .ew-plans-lightbox-figure::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  pointer-events: none;
+  background: rgba(16, 15, 13, 0.62);
+}
+.ew-plans-lightbox[data-dim="left"] .ew-plans-lightbox-figure::after {
+  left: 0;
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+}
+.ew-plans-lightbox[data-dim="right"] .ew-plans-lightbox-figure::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(270deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(270deg, #000 78%, transparent 100%);
+}
+.ew-plans-lightbox img {
+  max-width: calc(95vw - 56px);
+  max-height: calc(90vh - 56px);
   width: auto;
   height: auto;
   object-fit: contain;

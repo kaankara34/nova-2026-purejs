@@ -119,27 +119,6 @@
     });
   }
 
-  /* enquiry form — UI only, same validation pattern as the other project pages */
-  const form = document.getElementById('anaEnquireForm');
-  const msg = document.getElementById('anaFormMsg');
-  if (form && msg) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = form.querySelector('[name="fullname"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const privacy = form.querySelector('[name="privacy"]').checked;
-      if (!name || !email || !privacy) {
-        msg.dataset.state = 'error';
-        msg.textContent = 'Please complete your name, email and accept the Privacy Policy.';
-        return;
-      }
-      msg.dataset.state = 'ok';
-      msg.textContent = 'Thank you. Your request has been received — we will be in touch shortly.';
-      form.reset();
-      form.querySelector('[name="project"]').selectedIndex = 0;
-    });
-  }
-
   /* parking + arrival + architecture: quiet clip/lift reveal, staggered */
   if (!reduce) {
     const groups = [...document.querySelectorAll('[data-ana-parking-reveal], [data-ana-kulup-reveal], .ana-render-inner')];

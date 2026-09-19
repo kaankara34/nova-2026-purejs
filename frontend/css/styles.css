@@ -1833,13 +1833,6 @@ body.no-scroll {
 .collab-video video {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }
-.collab-trump-text {
-  position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);
-  color: #fff; text-align: center; letter-spacing: 0.2em; pointer-events: none;
-  font-family: var(--font-serif); z-index: 1;
-}
-.collab-trump-text .t1 { font-size: clamp(32px, 5vw, 72px); display: block; font-weight: 300; }
-.collab-trump-text .t2 { font-size: clamp(11px, 1vw, 14px); letter-spacing: 0.4em; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.5); display: inline-block; margin-top: 10px; }
 .video-mute {
   position: absolute; right: 16px; bottom: 16px; z-index: 3;
   width: 40px; height: 40px; border-radius: 50%;
@@ -2470,3 +2463,20 @@ body.no-scroll {
 tagline { padding: 10px 20px; }
 }
 }
+
+/* ---------------------------------------------------------------
+   Register Interest submission status (shared by every form)
+   --------------------------------------------------------------- */
+[data-nova-form-msg] {
+  grid-column: 1 / -1;
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  min-height: 1.2em;
+  transition: color .25s ease;
+}
+[data-nova-form-msg]:empty { margin: 0; min-height: 0; }
+[data-nova-form-msg][data-state="pending"] { color: #6f6243; }
+[data-nova-form-msg][data-state="ok"] { color: #3f6b4a; }
+[data-nova-form-msg][data-state="error"] { color: #9a3b33; }

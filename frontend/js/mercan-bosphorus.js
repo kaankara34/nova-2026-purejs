@@ -213,22 +213,6 @@
     }
   }
 
-  /* ========== Form submit (UI-only) ========== */
-  const form = $('#ewEnquireForm');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const fullname = form.querySelector('[name="fullname"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const privacy = form.querySelector('[name="privacy"]').checked;
-      if (!fullname || !email || !privacy) {
-        alert('Please fill required fields and accept the privacy policy.');
-        return;
-      }
-      alert('Thank you. Your enquiry has been received.');
-      form.reset();
-    });
-  }
 
   /* ========== Typical Apartments (Marti plans) ========== */
   const plansRoot = $('.ew-plans');

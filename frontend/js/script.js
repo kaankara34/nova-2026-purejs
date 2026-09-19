@@ -388,24 +388,6 @@
     if (next) next.scrollIntoView({ behavior: 'smooth' });
   });
 
-  /* ========== Register form (mock) ========== */
-  $('#registerForm')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = e.target.querySelector('button.submit');
-    const original = btn.textContent;
-    btn.textContent = 'THANK YOU — WE WILL BE IN TOUCH';
-    btn.disabled = true;
-    btn.style.background = '#e0cfa5';
-    btn.style.color = '#5a2c30';
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.disabled = false;
-      btn.style.background = '';
-      btn.style.color = '';
-      e.target.reset();
-    }, 3200);
-  });
-
   /* ========== Register Interest button scrolls to form ========== */
   $$('[data-scroll="register"]').forEach(b => b.addEventListener('click', (e) => {
     e.preventDefault();

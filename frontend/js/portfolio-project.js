@@ -104,24 +104,6 @@
     }
   }
 
-  /* ---------- enquiry form ---------- */
-  const form = $('#ppEnquiryForm');
-  if (form) {
-    const msg = $('#ppFormMsg');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = form.querySelector('[name="fullname"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const privacy = form.querySelector('[name="privacy"]').checked;
-      if (!name || !email || !privacy) {
-        msg.textContent = 'Please complete your name, email and accept the privacy policy.';
-        return;
-      }
-      msg.textContent = 'Thank you. Your request has been received — our team will be in touch.';
-      form.reset();
-    });
-  }
-
   /* the shared header / bottom-bar REGISTER INTEREST buttons are handled by
      js/script.js, which scrolls to #register — no extra listener needed here */
 })();

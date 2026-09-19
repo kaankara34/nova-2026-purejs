@@ -38,23 +38,6 @@
     applyFilters();
   });
 
-  /* Form submit (UI-only) */
-  const form = $('#pjForm');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const fullname = form.querySelector('[name="fullname"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const privacy = form.querySelector('[name="privacy"]').checked;
-      if (!fullname || !email || !privacy) {
-        alert('Please complete required fields and accept the privacy policy.');
-        return;
-      }
-      alert('Thank you. Your registration has been received.');
-      form.reset();
-    });
-  }
-
   /* Smooth scroll for [data-scroll] buttons */
   $$('[data-scroll]').forEach(btn => {
     btn.addEventListener('click', e => {
