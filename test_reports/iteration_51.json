@@ -1,0 +1,24 @@
+{
+  "summary": "Full backend + frontend regression of the NOVA correction pass. 24/24 pytest cases pass (14 pre-existing newsroom + 10 new gating/URL/capitalisation/snapshot). Verified against preview URL. Frontend UI verified at 1440 and 390: architects section 488px tall with 7 unique cards at 158x198 (desktop) / 128x160 (mobile), no bank/finance logos, reduced-motion turns marquee into overflow-x auto scrollable row with all 7 cards; East West section 490px tall, no NOW SELLING label, no ÇİFTEHAVUZLAR visible text (TreeWalker returned 0 nodes), 5 crossfade slides advance ew-render5→1→2→6→3, Discover Now → east-west.html, logo present; Nova Journal block fully centered with italic 300 serif 'Nova Journal' wordmark, 6 cards render 3-col desktop / 1-col mobile, all images sharp (naturalWidth 1184-1200), all titles/summaries start capitalised, links → news-detail.html?slug=…; news-detail on 390 shows title top 203px vs header bottom 121px (82px gap), body 17px/1.75 line-height, desktop column 780px, hero image 1200x675 (16:9 sharp), verified facts block shows all 4 fields (Publisher/Published/Subject/Region), Read Original CTA has target=_blank rel='noopener noreferrer', exactly 3 related items rendered, unknown slug shows missing state; newsroom regression: 1 col @390, 3 col @1440, 12 initial cards, 0 lowercase titles, 0 overflow; homepage independence verified: with /api/news* delayed 10s the DOM was ready in 0.66s and 6 snapshot cards still rendered from data/news-featured.json alongside hero + 3 project cards. Source URL integrity confirmed live-fetch on 8 published items (all non-homepage, all 2xx). Image gating confirmed: 100% of list + featured items are image_kind='cached', .webp local paths, ≥1000px source width, all files return 200 image/webp. Snapshot file present with ≥6 items. No console errors on index, news-detail, or newsroom.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_newsroom_api.py",
+    "/app/backend/tests/test_ingestion_gating.py",
+    "/app/test_reports/pytest/newsroom_results_51.xml",
+    "/app/test_reports/pytest/ingestion_gating_51.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Some source_excerpt summaries end at an abbreviated fragment (e.g. '… until 12.') because the RSS excerpt is truncated by the publisher; sentence terminator is present so passes the test, but a smarter trim-back-to-last-full-sentence in normalise_editorial() would produce cleaner cards. Non-blocking.",
+    "Frontend uses relative /api paths — only works via the preview ingress; unchanged from previous iterations, documented."
+  ],
+  "updated_files": ["/app/backend/tests/test_ingestion_gating.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "X-Admin-Token: nova-newsroom-4f1c8b2ad96e47 (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "None — used the existing 88 published / 56 pending items.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Two reusable pytest suites: test_newsroom_api.py (API contract, 14 tests) and test_ingestion_gating.py (image gating, source URL live check, capitalisation, snapshot file, 10 tests). Both target preview URL. data-testids covering the new features: architects-marquee, architect-card-<slug>, ew-feature-media, ew-feature-cta, ew-feature-logo, news-home-grid, news-card, news-card-link, news-view-all, newsroom-grid, news-detail-article/title/summary/facts/source-cta/related/missing. Under prefers-reduced-motion the architects marquee switches to overflow-x:auto and shows all 7 cards.",
+  "rca of the issue": "N/A — no bugs found."
+}

@@ -1,8 +1,10 @@
-"""Editorial relevance filtering for the NOVA newsroom.
+"""Editorial relevance filtering and multi-category classification.
 
 An item is only accepted when it matches at least one STRONG term — an unambiguous signal
 for NOVA's editorial fields. WEAK terms never qualify an item on their own; they only add
-to the score. This keeps general news agency feeds from leaking unrelated stories in.
+to the score. Categories are multi-valued: a Kadıköy renewal regulation story can be
+KADIKOY + URBAN_TRANSFORMATION + TECHNICAL_AND_LEGAL, but a category is only attached when
+the text genuinely supports it.
 """
 
 import re
@@ -32,27 +34,35 @@ STRONG_TERMS = {
     ],
     "CONSTRUCTION": [
         "construction sector", "construction industry", "construction project",
-        "contractor", "contractors", "building materials", "structural engineering",
-        "housing supply", "residential development", "building site",
+        "construction firm", "contractor", "contractors", "building materials",
+        "structural engineering", "housing supply", "residential development",
+        "building site", "groundbreaking", "topping out", "site works",
         "inşaat sektörü", "inşaat firması", "müteahhit", "yapı malzemesi", "betonarme",
         "şantiye", "yapı sektörü", "konut üretimi", "konut projesi", "inşaat projesi",
+        "temeli atıldı", "teslim edildi", "inşaat maliyeti", "yapım işi", "ihalesi",
     ],
     "URBAN_TRANSFORMATION": [
         "urban transformation", "urban renewal", "urban regeneration", "urban planning",
         "zoning plan", "planning permission", "city master plan", "densification",
-        "public realm", "kentsel dönüşüm", "kentsel yenileme", "imar planı", "imar durumu",
-        "riskli yapı", "rezerv yapı alanı", "şehir planlama", "nazım imar",
+        "public realm", "regeneration scheme", "kentsel dönüşüm", "kentsel yenileme",
+        "imar planı", "imar durumu", "riskli yapı", "riskli ilan", "rezerv yapı alanı",
+        "şehir planlama", "nazım imar", "istanbul yenileniyor", "yenileme projesi",
+        "hak sahibi", "hak sahipleri", "yıkım", "dönüşüm projesi",
     ],
     "KADIKOY": [
         "kadıköy", "kadikoy", "bağdat caddesi", "bagdat caddesi", "fikirtepe",
         "çiftehavuzlar", "göztepe", "selamiçeşme", "caddebostan", "kalamış", "suadiye",
+        "feneryolu", "acıbadem", "koşuyolu", "erenköy", "bostancı", "fenerbahçe mahallesi",
+        "haydarpaşa",
     ],
     "TECHNICAL_AND_LEGAL": [
         "building code", "building regulation", "seismic code", "earthquake regulation",
         "construction legislation", "planning legislation", "technical standard",
+        "court ruling", "regulatory amendment", "energy performance regulation",
         "resmî gazete", "resmi gazete", "yönetmelik", "yönetmeliği", "mevzuat",
         "kanun teklifi", "tebliğ", "genelge", "yapı denetim", "deprem yönetmeliği",
-        "imar kanunu", "iskan ruhsatı", "yapı ruhsatı",
+        "imar kanunu", "iskan ruhsatı", "yapı ruhsatı", "danıştay", "yargı kararı",
+        "enerji kimlik belgesi", "deprem yönetmeliğine",
     ],
 }
 
@@ -60,12 +70,22 @@ WEAK_TERMS = [
     "design", "tasarım", "gallery space", "heritage", "restoration", "restorasyon",
     "concrete", "beton", "steel", "çelik", "engineering", "mühendislik", "housing",
     "konut", "planning", "planlama", "city", "kent", "şehir", "istanbul", "i̇stanbul",
-    "biennial pavilion", "exhibition space", "sanat", "kültür", "culture",
+    "biennial pavilion", "exhibition space", "sanat", "kültür", "culture", "deprem",
+    "earthquake", "sustainability", "sürdürülebilir", "belediye", "municipality",
 ]
 
 GEO_TERMS = [
     "türkiye", "turkiye", "turkey", "istanbul", "i̇stanbul", "anadolu", "kadıköy",
     "ankara", "izmir", "marmara",
+]
+
+# Context a Kadıköy mention must have before the KADIKOY category is attached.
+KADIKOY_CONTEXT = [
+    "kentsel dönüşüm", "imar", "riskli", "yenileme", "inşaat", "konut", "proje",
+    "belediye", "meclis", "yıkım", "ruhsat", "plan", "mimari", "mimarlık", "sergi",
+    "müze", "galeri", "kültür", "iskele", "metro", "cadde", "mahalle", "ilçe",
+    "urban", "construction", "housing", "exhibition", "museum", "gallery", "district",
+    "municipality", "regeneration", "renovation", "architecture",
 ]
 
 EXCLUDE_TERMS = [
@@ -74,8 +94,8 @@ EXCLUDE_TERMS = [
     "transfer", "maç", "futbol", "basketbol", "şampiyonlar ligi", "premier lig", "süper lig",
     "goal", "striker", "fixture", "match report", "world cup", "olympics",
     "cinayet", "tutuklandı", "gözaltına", "operasyonu", "silahlı", "yakalandı",
-    "murder", "arrested", "police raid", "shooting", "verdict", "lawsuit against",
-    "faiz kararı", "borsa", "döviz kuru", "enflasyon", "hisse", "kredi faizi",
+    "murder", "arrested", "police raid", "shooting", "verdict against",
+    "faiz kararı", "borsa", "döviz kuru", "enflasyon oranı", "hisse", "kredi faizi",
     "sponsored", "advertorial", "promoted content", "advertisement feature",
     "satılık", "kiralık", "fırsat konut", "kampanyası", "indirim", "taksitle",
     "horoscope", "burç", "lottery", "piyango", "yks", "lgs", "sınav sonuç",
@@ -107,8 +127,8 @@ def _matches(haystack: str, term: str, prefix: bool) -> bool:
     return bool(pattern.search(haystack))
 
 
-def classify(title: str, summary: str, source: dict) -> tuple[str, int, list[str]]:
-    """Return (category, strong_hits, matched_strong_terms)."""
+def classify(title: str, summary: str, source: dict) -> tuple[str, list[str], int, list[str]]:
+    """Return (primary category, all categories, strong hit count, matched terms)."""
     haystack = normalise(f"{title} {summary}")
     scores: dict[str, int] = {}
     matched: list[str] = []
@@ -117,15 +137,32 @@ def classify(title: str, summary: str, source: dict) -> tuple[str, int, list[str
         if hits:
             scores[category] = len(hits)
             matched.extend(hits)
-    if not scores:
-        return source["default_category"], 0, []
+
+    # A Kadıköy mention alone is not a Kadıköy story: it needs district-level context.
     if "KADIKOY" in scores:
-        category = "KADIKOY"
+        other = {k for k in scores if k != "KADIKOY"}
+        has_context = any(_matches(haystack, term, True) for term in KADIKOY_CONTEXT)
+        if not other and not has_context:
+            scores.pop("KADIKOY")
+
+    if not scores:
+        return source["default_category"], [source["default_category"]], 0, []
+
+    categories = sorted(scores, key=lambda k: (-scores[k], k))
+    # Only keep a category with a single weak hit when it is the strongest signal.
+    strongest = scores[categories[0]]
+    categories = [c for c in categories if scores[c] >= 2 or scores[c] == strongest
+                  or c in ("KADIKOY", "TECHNICAL_AND_LEGAL")]
+    if "KADIKOY" in scores:
+        primary = "KADIKOY"
     elif scores.get("TECHNICAL_AND_LEGAL", 0) >= 2:
-        category = "TECHNICAL_AND_LEGAL"
+        primary = "TECHNICAL_AND_LEGAL"
     else:
-        category = max(scores, key=lambda k: (scores[k], k == source["default_category"]))
-    return category, sum(scores.values()), sorted(set(matched))
+        primary = max(scores, key=lambda k: (scores[k], k == source["default_category"]))
+    if primary in categories:
+        categories.remove(primary)
+    categories.insert(0, primary)
+    return primary, categories[:4], sum(scores.values()), sorted(set(matched))
 
 
 def is_excluded(title: str, summary: str) -> str | None:
@@ -136,10 +173,11 @@ def is_excluded(title: str, summary: str) -> str | None:
     return None
 
 
-def relevance_score(title: str, summary: str, source: dict, age_days: float) -> tuple[int, str, list[str]]:
-    category, strong_hits, matched = classify(title, summary, source)
+def relevance_score(title: str, summary: str, source: dict,
+                    age_days: float) -> tuple[int, str, list[str], list[str]]:
+    primary, categories, strong_hits, matched = classify(title, summary, source)
     if not matched:
-        return 0, category, []
+        return 0, primary, categories, []
     haystack = normalise(f"{title} {summary}")
     score = min(strong_hits, 5) * 3
     score += int(source.get("weight", 1))
@@ -154,6 +192,6 @@ def relevance_score(title: str, summary: str, source: dict, age_days: float) -> 
         score += 2
     elif age_days <= 30:
         score += 1
-    if category in ("KADIKOY", "TECHNICAL_AND_LEGAL"):
+    if primary in ("KADIKOY", "TECHNICAL_AND_LEGAL", "URBAN_TRANSFORMATION", "CONSTRUCTION"):
         score += 2
-    return score, category, matched
+    return score, primary, categories, matched

@@ -1,6 +1,6 @@
 
 
-/* DarGlobal Clone - Interactions */
+/* Nova Konut — Interactions */
 
 /* ========== GLOBAL scroll-lock (used by every lightbox / modal) =========
    `document.body.style.overflow='hidden'` alone is unreliable — iOS Safari
@@ -69,20 +69,38 @@
     if (subTitleEl) subTitleEl.textContent = '';
   }
 
+  let menuReturnFocus = null;
   function openMenu() {
+    menuReturnFocus = document.activeElement;
     menu.classList.add('open');
     overlay.classList.add('show');
+    if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
     window.lockScroll();
+    if (closeBtn) closeBtn.focus();
   }
   function closeMenu() {
+    if (!menu.classList.contains('open')) return;
     menu.classList.remove('open');
     overlay.classList.remove('show');
+    if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
     window.unlockScroll();
     setTimeout(resetMenuState, 500);
+    if (menuReturnFocus && typeof menuReturnFocus.focus === 'function') menuReturnFocus.focus();
+    menuReturnFocus = null;
   }
+  if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
   openBtn && openBtn.addEventListener('click', openMenu);
   closeBtn && closeBtn.addEventListener('click', closeMenu);
   overlay && overlay.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape' || !menu.classList.contains('open')) return;
+    if (menu.classList.contains('sub-open')) {
+      menu.classList.remove('sub-open');
+      $$('.col-main .menu-item').forEach(it => it.classList.remove('active'));
+      return;
+    }
+    closeMenu();
+  });
 
   // Back button (mobile): close sub-panel and return to main
   subBackBtn && subBackBtn.addEventListener('click', () => {

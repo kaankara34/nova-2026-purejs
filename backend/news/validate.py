@@ -44,10 +44,12 @@ def _protected(word: str) -> bool:
 
 def normalise_editorial(text: str) -> str:
     """Capitalise the first letter of the text and of every sentence, without touching
-    acronyms, proper names or intentional internal casing."""
+    acronyms, proper names or intentional internal casing. All-caps institutional
+    headlines are converted to sentence case rather than shouted on the page."""
     text = re.sub(r"\s+", " ", text or "").strip()
     if not text:
         return text
+    text = _de_shout(text)
     parts = _SENTENCE_SPLIT.split(text)
     rebuilt = []
     for part in parts:
@@ -57,6 +59,30 @@ def normalise_editorial(text: str) -> str:
         else:
             rebuilt.append(part)
     return "".join(rebuilt).strip()
+
+
+_TR_LOWER = str.maketrans("IİĞÜŞÖÇ", "ıiğüşöç")
+_KNOWN_CAPS = {"İBB", "IBB", "KİPTAŞ", "TOKİ", "TOKI", "AFAD", "TMMOB", "TÜİK", "OSB",
+               "AKM", "İSKİ", "İETT", "ÇŞB", "MEB", "AVM", "TL", "GYO", "LEED", "AŞ"}
+
+
+def _de_shout(text: str) -> str:
+    """Convert an all-caps headline to sentence case, preserving known acronyms."""
+    letters = [c for c in text if c.isalpha()]
+    if len(letters) < 12:
+        return text
+    upper = sum(1 for c in letters if c.isupper())
+    if upper / len(letters) < 0.85:
+        return text
+    words = []
+    for word in text.split(" "):
+        bare = word.strip("“”\"'()[].,:;!?—–-’")
+        if bare in _KNOWN_CAPS or (len(bare) <= 3 and bare.isalpha() and bare.isupper()
+                                   and bare not in ("VE", "İLE", "BİR")):
+            words.append(word)
+        else:
+            words.append(word.translate(_TR_LOWER).lower())
+    return " ".join(words)
 
 
 def _bad_final_url(final_url: str, original: str) -> bool:

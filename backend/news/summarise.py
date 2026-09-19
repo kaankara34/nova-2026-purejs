@@ -87,6 +87,9 @@ def _complete_sentences(text: str, min_words: int, max_words: int) -> str:
             break
     if not kept:
         return ""
+    # Avoid finishing on a publisher's truncated fragment such as "… until 12." or "… no."
+    while len(kept) > 1 and re.search(r"(?:\s|^)(?:\d{1,4}|[A-Za-z]{1,3})\.$", kept[-1]):
+        kept.pop()
     result = " ".join(kept).strip()
     if not result.endswith((".", "!", "?", "…", '"', "”")):
         # drop the trailing incomplete clause rather than showing a cut-off sentence
@@ -109,6 +112,31 @@ def deterministic_summary(title: str, description: str, source_name: str, limit:
             excerpt = excerpt.rstrip(" ,;:") + "."
         return excerpt, "source_excerpt"
     return f"{title.strip().rstrip('.')}. Reported by {source_name}.", "headline_only"
+
+
+def build_excerpt(*texts: str, min_words: int = 45, max_words: int = 75) -> str:
+    """Card excerpt: whole sentences only, 45-75 words, no slicing mid-word."""
+    for raw in texts:
+        text = clean_source_text(raw)
+        if not text:
+            continue
+        sentences = [s.strip() for s in _SENTENCE_END.split(text) if s.strip()]
+        kept: list[str] = []
+        words = 0
+        for sentence in sentences:
+            count = len(sentence.split())
+            if kept and words + count > max_words:
+                break
+            kept.append(sentence)
+            words += count
+            if words >= min_words:
+                break
+        while kept and not kept[-1].endswith((".", "!", "?", "…", "”", '"')):
+            kept.pop()
+        candidate = " ".join(kept).strip()
+        if len(candidate.split()) >= 20:
+            return candidate
+    return ""
 
 
 def _validate(payload: dict, title: str, description: str) -> dict | None:

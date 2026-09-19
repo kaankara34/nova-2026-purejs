@@ -388,3 +388,83 @@ no issues, `retest_needed: false`.
   newsroom, header/nav/footer, partners.html.
 - Note carried over from the interrupted newsroom task: a few feed-sourced summaries still end in a
   publisher's own "…" truncation; polishing that is part of the newsroom summary work, not this task.
+
+## 2026-06 — Correction pass: compact architects strip, shorter East West, Nova Journal, news quality
+Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), frontend 100%, no issues,
+`retest_needed: false`.
+
+### Architects & Designers (index.html, css/styles.css)
+- Heading and intro centred (`.ad-head--center`, lead `max-width: 720px`), marquee now inside
+  `.ad-bound` = `min(100% - 96px, 1400px)` (1344px @1440 with 48px margins; 704px @768; calc(100%-40px)
+  mobile) — no edge-to-edge strip, `overflow: hidden`, no viewport-height anywhere.
+- Cards reduced to `clamp(150px, 11vw, 170px)` / `4:5` / `max-height: 212px` → 170×212 @1600,
+  158×198 @1440, 150×188 @1280, 146–155 tablet, 128×160 mobile; name strip 38px desktop / 34px
+  mobile at 13.5/12.5px. Section padding `clamp(46px, 5vw, 72px)` → total height 406–506px.
+
+### East West feature
+- Fixed split height `clamp(470px, 34vw, 520px)` (450px 1024–1100), padding trimmed, logo
+  `clamp(260px, 76%, 420px)`; measured 490px @1440, 470 @1280, 450 @1024, 718–767px stacked mobile.
+- New `js/east-west-feature.js`: five local renders (ew-render5 → 1 → 2 → 6 → 3) crossfade every 6s
+  inside an absolutely positioned, fixed-ratio frame (no layout shift); only the next image is
+  preloaded; pauses off-screen, on hidden tab and on hover; reduced motion shows one static frame.
+- No NOW SELLING / ÇİFTEHAVUZLAR label and no decorative rule in the section (hero and project card
+  keep their own location lines — out of scope and untouched).
+
+### Nova Journal homepage block
+- Whole heading group centred (`.news-head-center`, 760px) with the wordmark rendered as
+  “Nova Journal” in `font-family: "garamond-premier-pro", "Cormorant Garamond", Georgia, serif`,
+  weight 300, italic, `clamp(42px, 5vw, 76px)`, VIEW ALL beneath the intro.
+  Note: Garamond Premier Pro is an Adobe-licensed font and is **not** bundled; the already-licensed
+  Cormorant Garamond 300 italic renders as the fallback until an Adobe kit is added.
+
+### Newsroom data quality (backend)
+- New `news/validate.py`: `normalise_editorial()` capitalises the first letter of every headline,
+  summary and sentence while preserving acronyms (AI, LEED, İBB, UNESCO, TMMOB…), Turkish dotted İ
+  and intentional internal brand lowercase; `validate_source_url()` resolves redirects with a browser
+  UA (HEAD first, then a ranged GET — a blocked HEAD is never treated as failure, 7s timeout) and
+  rejects malformed URLs, error/404 pages, parked domains, cross-domain hops and homepage redirects.
+- `ingest.py` now normalises titles/summaries, stores the resolved canonical URL, refuses to publish
+  an article whose link does not validate, and marks items without a valid image as `pending` so they
+  never reach the homepage, newsroom or API. `revalidate_sources()` re-checks up to 40 published
+  links per run, at most once every 24h, and archives dead ones.
+- `images.py` thresholds raised to 1000×550 minimum (1200 preferred) with sharpness, MIME, decode and
+  aspect checks; local WebP card/detail derivatives only, never upscaled.
+- Re-ingested from scratch: 88 published (all with validated links + sharp local images), 56 pending.
+- `summarise.py` also trims back past a publisher's truncated fragment (e.g. “… until 12.”).
+
+### news-detail.html
+- Top padding now `calc(var(--header-h) + clamp(72px, 6vw, 96px))` desktop / `+42px` mobile — 82px
+  clear gap between header and title at 390px; 780px centred column; title `clamp(30px, 3.2vw, 44px)`
+  at 1.08; body 16–19px at 1.72–1.75; stable 16/9 image frame; paragraphs split from the summary; new
+  verified-facts block (Publisher / Published / Subject / Region) plus an attribution note; safe-area
+  bottom padding. Newsroom hero also clears the fixed header now.
+- Honest limitation: internal summaries are ~60–160 words, not the requested 400–700. No AI
+  summariser is configured (`GEMINI_API_KEY` deliberately empty) and fabricating content is
+  forbidden, so the page shows the fullest verified material plus metadata context. Setting a free
+  Gemini key enables the longer summaries through the existing, already-wired path.
+
+### Homepage performance (already in place, re-verified)
+- `js/news.js` deferred, hydrates via IntersectionObserver (600px rootMargin), single in-flight
+  request, 2.2s AbortController, snapshot-first from `data/news-featured.json` (written by ingestion).
+  With `/api/news/featured` hung for 10s: DOM ready in 0.66–1.18s, hero/nav/project cards
+  interactive, six snapshot cards rendered, no leftover loading state.
+
+## 2026-09-19 — Correction & production-completion pass
+- East West homepage feature: containment fixed (min-height panel, no fixed height, CTA
+  64px above the panel base at 1440), slide duration 5s, crossfade 600ms, SVG perimeter
+  progress line synchronised to one rAF timer (pause/resume on hover, viewport, tab,
+  reduced motion), mobile height reduced to 779px @390 and 841px @430.
+- Get in Touch component styled in css/newsroom.css (was unstyled markup relying on
+  projects.css, which those pages never load).
+- Navigation: PORTFOLIO → projects.html, NEWSROOM → newsroom.html across 26 pages;
+  index.html placeholder <button> items replaced with real links.
+- Newsroom backend: editorial.py brand-safety/relevance gate, extract.py JSON-LD/Twitter
+  image discovery + AA-style body extraction fallback, images.py image precedence with
+  image_source_type, ingest.py reprocess_active() + enrich_sources() + lifecycle states,
+  api.py health/synthesise endpoints, ai.py Gemini provider with daily budgets and the
+  long-form quality gate.
+- Database reprocessed: 4 rejected (livestock regulation, European construction decline,
+  2 other negative/irrelevant), 112 short-body records demoted to pending_editorial,
+  images upgraded to authentic sources where available (112 cached vs 51 NOVA covers).
+- NEWS_PUBLISH_WITHOUT_AI=false: no article is published until its ≥600-word synthesis
+  passes the quality gate. Waiting on the GEMINI_API_KEY secret.

@@ -119,23 +119,24 @@ async def _og_image(article_url: str) -> str:
     return url if url.startswith("https://") else ""
 
 
-async def pick_image(candidates: list[str], category: str, article_url: str,
+async def pick_image(candidates, category: str, article_url: str,
                      og_budget: list[int]) -> dict:
-    """Feed media -> enclosure -> feed HTML image -> permitted Open Graph -> local fallback."""
+    """Authentic source imagery first, NOVA category cover only as a last resort.
+
+    `candidates` is an ordered list of {"url", "type"} dicts following the editorial
+    precedence: feed media -> enclosure -> JSON-LD -> Open Graph -> Twitter -> article.
+    """
     for candidate in candidates or []:
-        result = await cache_image(candidate, category)
+        url = candidate["url"] if isinstance(candidate, dict) else candidate
+        kind = candidate.get("type", "feed") if isinstance(candidate, dict) else "feed"
+        result = await cache_image(url, category)
         if result["image_kind"] == "cached":
-            result["image_origin"] = candidate
+            result["image_origin"] = url
+            result["image_source_type"] = kind
             return result
-    if og_budget and og_budget[0] > 0:
-        og_budget[0] -= 1
-        og_url = await _og_image(article_url)
-        if og_url:
-            result = await cache_image(og_url, category)
-            if result["image_kind"] == "cached":
-                result["image_origin"] = og_url
-                return result
-    return fallback_for(category)
+    fallback = fallback_for(category)
+    fallback["image_source_type"] = "nova_fallback"
+    return fallback
 
 
 async def cache_image(url: str, category: str) -> dict:

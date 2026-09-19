@@ -121,7 +121,7 @@
     link.appendChild(meta);
 
     link.appendChild(el('h3', 'title', item.title));
-    link.appendChild(el('p', 'excerpt', item.summary));
+    link.appendChild(el('p', 'excerpt', item.excerpt || item.summary || ''));
 
     const foot = el('div', 'news-foot');
     foot.appendChild(el('span', 'news-source', 'Source · ' + item.source_name));
@@ -167,6 +167,9 @@
         const data = await timedRequest('/api/news/featured?limit=6');
         const items = (data.items || []).slice(0, 6);
         if (items.length) renderInto(grid, items);
+        else if (!cached.length) {
+          renderState(grid, 'New NOVA Journal selections are being prepared.', 'news-home-empty');
+        }
       } catch (err) {
         if (!cached.length) {
           renderState(grid, 'The newsroom could not be updated at this time. Please try again shortly.',
@@ -350,7 +353,8 @@
     if (!item) { showMissing('This article could not be found.'); return; }
 
     document.title = item.title + ' | NOVA Journal';
-    const shortSummary = item.summary.length > 180 ? item.summary.slice(0, 177) + '…' : item.summary;
+    const source = item.excerpt || item.summary || '';
+    const shortSummary = source.length > 180 ? source.slice(0, 177) + '…' : source;
     const setMeta = function (selector, value) {
       const node = document.head.querySelector(selector);
       if (node) node.setAttribute('content', value);
@@ -397,17 +401,41 @@
       : 'NOVA Journal category cover — not a photograph of the reported event.';
     figure.hidden = false;
 
-    const summaryHost = document.getElementById('detailSummary');
-    summaryHost.textContent = '';
-    const sentences = item.summary.split(/(?<=[.!?])\s+/);
-    const chunks = [];
-    const perChunk = sentences.length > 4 ? Math.ceil(sentences.length / 2) : sentences.length;
-    for (let i = 0; i < sentences.length; i += perChunk) {
-      chunks.push(sentences.slice(i, i + perChunk).join(' '));
+    const standfirstHost = document.getElementById('detailStandfirst');
+    const bodyHost = document.getElementById('detailBody');
+    bodyHost.textContent = '';
+    const sections = Array.isArray(item.body_sections) ? item.body_sections : [];
+    standfirstHost.textContent = item.standfirst || item.summary || '';
+    if (sections.length) {
+      sections.forEach(function (section) {
+        const block = el('section', 'nd-body-section');
+        if (section.heading) block.appendChild(el('h2', 'nd-body-heading', section.heading));
+        (section.paragraphs || []).forEach(function (paragraph) {
+          if (String(paragraph).trim()) block.appendChild(el('p', 'nd-paragraph', paragraph));
+        });
+        bodyHost.appendChild(block);
+      });
+    } else {
+      const text = item.summary || item.excerpt || '';
+      text.split(/(?<=[.!?])\s+/).reduce(function (buffer, sentence, index, all) {
+        buffer.push(sentence);
+        if (buffer.length === 3 || index === all.length - 1) {
+          const paragraph = buffer.join(' ').trim();
+          if (paragraph) bodyHost.appendChild(el('p', 'nd-paragraph', paragraph));
+          buffer.length = 0;
+        }
+        return buffer;
+      }, []);
+      standfirstHost.textContent = item.standfirst || '';
+      standfirstHost.hidden = !standfirstHost.textContent;
     }
-    chunks.forEach(function (chunk) {
-      if (chunk.trim()) summaryHost.appendChild(el('p', 'nd-paragraph', chunk.trim()));
-    });
+
+    const note = document.getElementById('detailNote');
+    if (note) {
+      note.textContent = sections.length
+        ? 'This is an original NOVA Journal synthesis of verified third-party reporting. Facts are taken from the publication credited below; read the original article at the source for its complete account.'
+        : 'NOVA Journal summarises verified third-party reporting with full source attribution. Read the original article at the source for the publisher’s complete account.';
+    }
 
     const REGIONS = { TR: 'Türkiye', INTERNATIONAL: 'International' };
     document.getElementById('factPublisher').textContent = item.source_name;
@@ -430,8 +458,25 @@
       cta.hidden = true;
     }
 
-    const structured = document.getElementById('detailStructuredData');
-    if (structured) {
+    const extraSources = (item.source_urls || []).filter(function (url) {
+      return safeExternal(url) && url !== (item.canonical_url || item.source_url);
+    });
+    if (extraSources.length && cta.parentNode) {
+      const list = el('p', 'nd-cta-note');
+      list.appendChild(el('span', null, 'Sources: ' + item.source_name));
+      extraSources.forEach(function (url, i) {
+        const link = el('a', null, (item.contributing_sources || [])[i] || 'additional source');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        list.appendChild(el('span', null, ' · '));
+        list.appendChild(link);
+      });
+      list.setAttribute('data-testid', 'news-detail-sources');
+      cta.parentNode.appendChild(list);
+    }
+
+    const structured = document.getElementById('detailStructuredData');    if (structured) {
       structured.textContent = JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebPage',
