@@ -1,0 +1,36 @@
+{
+  "summary": "Frontend-only static site QA across the NOVA real-estate site (26 HTML pages). Combined static grep audit + Playwright browser testing on 8 core pages (index, projects, east-west, the-apartments-tac, the-apartments-ana, newsroom, contact, about) and 7 viewports (1440/1280/1024/768/430/390 + 844x390 landscape). Nearly all requested cleanup work is in place. Two real issues found: (1) east-west.html still contains forbidden 'Premiere Edition' + 'COLLECTION' text explicitly banned by this round; (2) construction.html and leed.html use a completely different footer that lacks the 3 required NOVA-project columns present on the other 23 pages.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "east-west.html hero for The Club", "issue": "Contains forbidden 'Premiere Edition' script text and 'COLLECTION' caps text at lines 305-306 inside .ew-premiere-mark. Review round explicitly forbids 'PREMIERE EDITION' or 'COLLECTION' anywhere on the site.", "selector": ".ew-premiere-mark .ew-premiere-script / .ew-premiere-caps", "priority": "HIGH"},
+      {"component": "construction.html & leed.html footer", "issue": "These 2 pages use a legacy footer structure (footer-middle > footer-globe-section / footer-menu-links) and DO NOT contain the required 3 columns 'Discover Our Residences', 'Residences By Location', 'Explore Nova Konut' that the review mandates for every page. The other 23 pages match spec.", "selector": "footer.site-footer", "priority": "HIGH"},
+      {"component": "index.html hero section marker", "issue": "HTML comment '<!-- LIVE ALL IN -->' still present at line 226 and section id='liveAllIn' also still present. Not user-visible text, but review says 'no LIVE ALL IN text anywhere'. Cosmetic cleanup recommended (rename to buildBeyondLiving and update comment).", "selector": "section#liveAllIn", "priority": "LOW"},
+      {"component": "Mobile touch targets", "issue": "On 390x844 the tel:+905335061972 anchor renders at ~116x15 px (far below 44px min). WhatsApp anchor (a[href*='wa.me']) resolves to a 0x0 hidden element on mobile view — verify the mobile top-bar/utility strip surfaces the WhatsApp icon at an accessible size. Hamburger #menuToggle is 42x42 (borderline, just under 44).", "selector": "a[href^='tel:'], a[href*='wa.me'], #menuToggle", "priority": "MEDIUM"},
+      {"component": "projects.html filter-reset button", "issue": "After clicking [data-testid='filter-rezidans'] the [data-testid='filter-reset'] button has computed display:inline-block but its parent is hidden so offsetParent is null (button not visible to user). Likely wrapper .pj-reset-wrap is display:none regardless of filter state — reset UX unreachable via UI, though pill 'TÜMÜ' still resets filtering.", "selector": "[data-testid='filter-reset']", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_52.json"],
+  "action_items": [
+    "Remove 'Premiere Edition' + 'COLLECTION' text block from east-west.html (.ew-premiere-mark, lines ~304-308).",
+    "Replace the legacy footer in construction.html and leed.html with the standard 3-column NOVA footer used on the other 23 pages (Discover Our Residences / Residences By Location / Explore Nova Konut).",
+    "Optional: remove the '<!-- LIVE ALL IN -->' comment and rename section#liveAllIn in index.html (line 226-231) to avoid the string 'LIVE ALL IN' remaining in the DOM.",
+    "Ensure mobile call/WhatsApp icons in the utility strip are surfaced as ~44x44 tap targets on <=430px viewports; verify WhatsApp icon is not hidden.",
+    "Fix projects.html reset filter visibility so it becomes reachable once a category filter is applied (or hide it permanently and rely on TÜMÜ pill)."
+  ],
+  "critical_code_review_comments": [
+    "Footer markup is duplicated across 25 HTML files — construction.html/leed.html drifted from the canonical version, confirming the need for a build-time include or template partial to keep header/footer/menu markup DRY.",
+    "index.html hero section id 'liveAllIn' and its HTML comment are dead branding artefacts from the previous Dar Global identity; naming should follow the new BUILD BEYOND LIVING copy for consistency.",
+    "east-west.html appears to have missed this round's brand-pruning pass (Premiere Edition/COLLECTION); recommend a repo-wide grep gate in CI for the banned strings: LIVE ALL IN, DAR GLOBAL, PREMIERE EDITION, COLLECTION (as a marketing wordmark), ANATOLIAN SIDE (as a menu label), EUROPEAN SIDE, Luxury Villas, api.whatsapp.com."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "~92%"},
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Verified across 8 pages + 7 viewports: side-menu hrefs (TAC/ANA/EW/projects/newsroom) correct on all pages; no ANATOLIAN/EUROPEAN SIDE entries; Escape closes menu; aria-expanded toggles; focus returns to #menuToggle; body scroll unlocks; 3 open/close cycles work; hero shows 'BUILD BEYOND LIVING' with no visible DAR GLOBAL/LIVE ALL IN text; no cdn.darglobal or cdn.Nova.co.uk network requests; no broken images on index.html; projects.html has no Gür card and pj-card-ana links to the-apartments-ana.html; TAÇ/ANA/EW target pages render real content; every register form select[name='project'] contains exactly the 3 required options (grep-verified across all pages); every tel: is +905335061972, every wa.me is 905335061972, every mailto is iletisim@nova.istanbul, every Instagram aria-label points to instagram.com/novakonut/; lang='en' and 0 language switchers on all 8 tested pages; no horizontal overflow at 1440/1280/1024/768/430/390/844x390. Only remaining defects: east-west.html Premiere/COLLECTION strings, construction.html & leed.html non-conforming footer, cosmetic LIVE-ALL-IN comment on index.html, mobile touch-target sizing for tel/WhatsApp, projects.html reset-filter button not visible.",
+  "test_credentials": "N/A (public static site)",
+  "rca_of_the_issue": "east-west.html Premiere/COLLECTION text: the round's find-and-replace sweep targeted footer/menu/form scopes but missed the in-page club-hero marketing badge which uses page-specific class names (ew-premiere-*). construction.html/leed.html footer drift: these two pages were authored earlier with a different footer template and were not rewritten during the footer-column replacement pass."
+}
