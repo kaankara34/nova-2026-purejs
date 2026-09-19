@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2026-06 — East West floor plans: EAST + WEST complete, schedules and totals corrected
+- User's 4 new drawings added: **East Duplex Upper**, **West 3+1**, **West 4+1**, **West Duplex Lower**. Processed through `scripts/process_ew_plans.py` (white paper + pale-green page decoration keyed to alpha, trimmed, normalised on the 1180px footprint width onto the shared **1240×1860** transparent canvas). All 7 files in `media/images/ew/plans/` are `east-*` / `west-*` named; every tab renders at an identical 592×888 box.
+- The WEST tab no longer mirrors EAST — it has its own data. West differs from East in the living room and balcony: **Salon 36.80 m²** (East 39.33) and **Balkon 5.54 m²** (East 7.11) on the typical floors; West Duplex Lower **Salon 56.51 / WC 2.73 / Balkon 5.44** (East 59.05 / 2.56 / 7.00).
+- **Shared circulation removed from every schedule** per the user: Floor Lobby (KAT HOLÜ), Fire Escape Stair (YANGIN MERD.), Service Stair (SERV. MERD.), the two lifts and ÇATI ARASI BOŞLUĞU. **Fire Lobby (Y.G.H. 3.00 m²) is NOT shared core** — it belongs to the apartment and is now inside the net area.
+- **Totals recomputed as the exact sum of the listed interior rooms** (the earlier "~124 m²" figures were wrong). Balconies/terraces are listed but excluded from the total:
+  - EAST 3+1 **126.93 m² / 1366 sq ft** · EAST 4+1 **126.59 / 1363** · EAST Duplex Lower **124.31 / 1338** · EAST Duplex Upper **78.37 / 844** (duplex 202.68 / 2182)
+  - WEST 3+1 **124.40 / 1339** · WEST 4+1 **124.06 / 1335** · WEST Duplex Lower **121.94 / 1313** · duplex 200.31 / 2156
+  - French Balconies grouped: 7 × on typical floors = 8.46 m²; 4 × on duplex lower = 5.07 m²; Duplex Upper terraces 3 × = 9.52 m².
+- Plan data extracted out of `js/east-west.js` into **`js/ew-plans-data.js`** (`window.EW_PLANS` with `EAST` / `WEST` arrays); `east-west.js` now just reads it and numbers the rows from the array index. The static fallback list in `east-west.html` was updated to match EAST 3+1. A4 print shows the single "Total Internal Area".
+- Left-half darkening still applies only to the 4+1 tabs (EAST and WEST), verified via `data-dim="left"` on the active `.ew-plans-figure`.
+- **PENDING: the WEST Duplex Upper drawing was not supplied — that tab currently shows the EAST duplex upper plan.**
+
+
 ## 2026-06 — Promo video, form→e-mail, East West floor plans (COMPLETE, testing agent 100% backend + 100% frontend — iteration_54.json)
 
 **1. Homepage EXCLUSIVE COLLABORATIONS video replaced**

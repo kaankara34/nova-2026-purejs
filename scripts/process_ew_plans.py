@@ -9,19 +9,22 @@ OUT = Path("/app/frontend/media/images/ew/plans")
 OUT.mkdir(parents=True, exist_ok=True)
 
 FILES = {
-    "3plus1": "t2xhqv4e.png",
-    "4plus1": "xmy3f4x3.png",
-    "duplex-lower": "myckmqfk.png",
-    "duplex-upper": "dubleksust.png",
+    "east-3plus1": "t2xhqv4e.png",
+    "east-4plus1": "xmy3f4x3.png",
+    "east-duplex-lower": "myckmqfk.png",
+    "east-duplex-upper": "pedl1ofc.png",
+    "west-3plus1": "llglcuv5.png",
+    "west-4plus1": "i0tzg7yt.png",
+    "west-duplex-lower": "xbzywfuz.png",
 }
 
 CANVAS = (1240, 1860)
+TARGET_W = 1180
 
 
 def transparent(img: Image.Image) -> Image.Image:
     a = np.array(img.convert("RGBA")).astype(np.int16)
     rgb = a[:, :, :3]
-    # near-white paper and the pale green page decoration become fully transparent
     light = rgb.min(axis=2) > 232
     g = rgb[:, :, 1]
     greenish = (g > 205) & (g > rgb[:, :, 0] + 3) & (g > rgb[:, :, 2] + 3)
@@ -30,7 +33,6 @@ def transparent(img: Image.Image) -> Image.Image:
 
 
 def trim(img: Image.Image) -> Image.Image:
-    # ignore near-transparent speckle when computing the content box
     alpha = np.array(img.getchannel("A"))
     solid = alpha > 40
     cols = np.where(solid.any(axis=0))[0]
@@ -38,15 +40,8 @@ def trim(img: Image.Image) -> Image.Image:
     return img.crop((cols[0], rows[0], cols[-1] + 1, rows[-1] + 1))
 
 
-results = {}
-trimmed = {}
 for key, name in FILES.items():
     img = trim(transparent(Image.open(SRC / name)))
-    trimmed[key] = img
-
-# normalise on the building footprint width: every floor of the same tower shares it
-TARGET_W = 1180
-for key, img in trimmed.items():
     scale = min(TARGET_W / img.width, (CANVAS[1] - 40) / img.height)
     w, h = round(img.width * scale), round(img.height * scale)
     resized = img.resize((w, h), Image.LANCZOS)
@@ -54,7 +49,4 @@ for key, img in trimmed.items():
     canvas.paste(resized, ((CANVAS[0] - w) // 2, (CANVAS[1] - h) // 2), resized)
     dest = OUT / f"{key}.webp"
     canvas.save(dest, format="WEBP", quality=90, method=6)
-    results[key] = (dest.stat().st_size, img.size, (w, h))
-
-for k, v in results.items():
-    print(k, "bytes", v[0], "trimmed", v[1], "drawn", v[2], "canvas", CANVAS)
+    print(key, "bytes", dest.stat().st_size, "drawn", (w, h))

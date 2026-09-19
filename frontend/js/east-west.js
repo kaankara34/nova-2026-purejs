@@ -208,98 +208,7 @@
   /* ========== Typical Apartments (tabs + plans + lightbox) ========== */
   const plansRoot = $('.ew-plans');
   if (plansRoot) {
-    const EAST_PLANS = [
-      {
-        title: '3+1',
-        img: './media/images/ew/plans/3plus1.webp',
-        dim: null,
-        total: '~124 m² / 1334 sq ft',
-        rooms: [
-          { i: 1, name: 'Living / Dining Room', size: '39.33 m²' },
-          { i: 2, name: 'Master Bedroom', size: '20.22 m²' },
-          { i: 3, name: 'Master Bathroom', size: '4.60 m²' },
-          { i: 4, name: 'Bedroom', size: '12.05 m²' },
-          { i: 5, name: 'Bedroom', size: '11.84 m²' },
-          { i: 6, name: 'Kitchen', size: '13.29 m²' },
-          { i: 7, name: 'Hall', size: '8.69 m²' },
-          { i: 8, name: 'Bathroom', size: '4.55 m²' },
-          { i: 9, name: 'Guest WC', size: '2.52 m²' },
-          { i: 10, name: 'Entrance Hall', size: '6.84 m²' },
-          { i: 11, name: 'Balcony', size: '7.11 m²' },
-          { i: 12, name: 'French Balconies', size: '0.85 · 0.92 · 1.55 · 0.92 · 1.60 · 1.70 m²' },
-          { i: 13, name: 'Fire Lobby (shared core)', size: '3.00 m²' },
-          { i: 14, name: 'Floor Lobby (shared core)', size: '4.50 m²' },
-          { i: 15, name: 'Fire Escape Stair (shared core)', size: '11.63 m²' },
-          { i: 16, name: 'Service Stair (shared core)', size: '6.13 m²' }
-        ]
-      },
-      {
-        title: '4+1',
-        img: './media/images/ew/plans/4plus1.webp',
-        dim: 'left',
-        total: '~124 m² / 1334 sq ft',
-        rooms: [
-          { i: 1, name: 'Living / Dining Room', size: '39.33 m²' },
-          { i: 2, name: 'Master Bedroom', size: '15.81 m²' },
-          { i: 3, name: 'Master Bathroom', size: '3.20 m²' },
-          { i: 4, name: 'Bedroom', size: '9.86 m²' },
-          { i: 5, name: 'Bedroom', size: '9.64 m²' },
-          { i: 6, name: 'Bedroom', size: '9.86 m²' },
-          { i: 7, name: 'Kitchen', size: '13.29 m²' },
-          { i: 8, name: 'Hall', size: '8.69 m²' },
-          { i: 9, name: 'Bathroom', size: '4.55 m²' },
-          { i: 10, name: 'Guest WC', size: '2.52 m²' },
-          { i: 11, name: 'Entrance Hall', size: '6.84 m²' },
-          { i: 12, name: 'Balcony', size: '7.11 m²' },
-          { i: 13, name: 'French Balconies', size: '0.85 · 0.92 · 1.55 · 0.92 · 1.60 · 1.70 m²' },
-          { i: 14, name: 'Fire Lobby (shared core)', size: '3.00 m²' },
-          { i: 15, name: 'Floor Lobby (shared core)', size: '4.50 m²' },
-          { i: 16, name: 'Fire Escape Stair (shared core)', size: '11.63 m²' },
-          { i: 17, name: 'Service Stair (shared core)', size: '6.13 m²' }
-        ]
-      },
-      {
-        title: 'DUPLEX — LOWER FLOOR',
-        img: './media/images/ew/plans/duplex-lower.webp',
-        dim: null,
-        total: '~124 m² / 1334 sq ft (lower floor)',
-        rooms: [
-          { i: 1, name: 'Living / Dining Room', size: '59.05 m²' },
-          { i: 2, name: 'Master Bedroom', size: '16.75 m²' },
-          { i: 3, name: 'Master Bathroom', size: '4.60 m²' },
-          { i: 4, name: 'Kitchen', size: '18.83 m²' },
-          { i: 5, name: 'Utility Room', size: '4.89 m²' },
-          { i: 6, name: 'Shower Room', size: '2.52 m²' },
-          { i: 7, name: 'Guest WC', size: '2.56 m²' },
-          { i: 8, name: 'Corridor', size: '8.45 m²' },
-          { i: 9, name: 'Entrance Hall', size: '6.66 m²' },
-          { i: 10, name: 'Balcony', size: '7.00 m²' },
-          { i: 11, name: 'French Balconies', size: '0.85 · 0.92 · 1.60 · 1.70 m²' },
-          { i: 12, name: 'Floor Lobby (shared core)', size: '4.50 m²' },
-          { i: 13, name: 'Fire Escape Stair (shared core)', size: '11.62 m²' },
-          { i: 14, name: 'Passenger Lift AS-1 (200/200)', size: '—' },
-          { i: 15, name: 'Stretcher / Goods Lift AS-2 (200/250)', size: '—' }
-        ]
-      },
-      {
-        title: 'DUPLEX — UPPER FLOOR',
-        img: 'https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/jaq8uvnq_DubleksU%CC%88st.png',
-        dim: null,
-        total: '~85 m² / 915 sq ft (upper floor)',
-        rooms: [
-          { i: 1, name: 'Master Bedroom', size: '29.81 m²' },
-          { i: 2, name: 'Bedroom', size: '17.90 m²' },
-          { i: 3, name: 'Bedroom', size: '10.00 m²' },
-          { i: 4, name: 'Master Bathroom', size: '7.92 m²' },
-          { i: 5, name: 'Bathroom', size: '3.06 m²' },
-          { i: 6, name: 'Terrace', size: '4.37 m²' }
-        ]
-      }
-    ];
-    // WEST plans reuse same layouts by default — replace image URLs / dims when supplied
-    const WEST_PLANS = EAST_PLANS.map(p => ({ ...p, rooms: p.rooms.slice() }));
-
-    const PLANS_BY_TOWER = { EAST: EAST_PLANS, WEST: WEST_PLANS };
+    const PLANS_BY_TOWER = window.EW_PLANS;
     const towerTabs = $$('.ew-plans-tab--tower', plansRoot);
     const tabs = $$('.ew-plans-tab:not(.ew-plans-tab--tower)', plansRoot);
     const titleEl = $('#ewPlansTitle');
@@ -332,8 +241,8 @@
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
       titleEl.textContent = p.title;
       const rows = [`<div class="ew-plans-row ew-plans-row--total"><span>Total Internal Area</span><span class="ew-plans-val">${p.total}</span></div>`];
-      p.rooms.forEach(r => {
-        rows.push(`<div class="ew-plans-row"><span><em>${r.i}.</em> ${r.name}</span><span class="ew-plans-val">${r.size}</span></div>`);
+      p.rooms.forEach((r, i) => {
+        rows.push(`<div class="ew-plans-row"><span><em>${i + 1}.</em> ${r.name}</span><span class="ew-plans-val">${r.size}</span></div>`);
       });
       rowsEl.innerHTML = rows.join('');
     }

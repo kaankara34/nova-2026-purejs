@@ -59,7 +59,7 @@ language or completed project pages unless explicitly asked.
 ## Current state (2026-06, updated after the promo video / form-mail / floor-plan round)
 - **Register Interest e-mail pipeline: BUILT and verified** (`POST /api/enquiries`, 10/10 backend tests, 6/6 form flows). **BLOCKED on the user's nova.istanbul SMTP credentials** — submissions are stored in Mongo with `email_status: smtp_not_configured` until `SMTP_HOST/PORT/SECURITY/USERNAME/PASSWORD` and `MAIL_FROM` are filled in `backend/.env`. `MAIL_TO` is already `iletisim@nova.istanbul`. Read the queue any time with `GET /api/admin/enquiries` + `X-Admin-Token`.
 - **Homepage collaborations video:** now the user's promo (`collab-nova.webm` VP9 + `collab-nova.mp4` faststart H.264). Section dimensions untouched (3/1 desktop, 16/10 mobile, `object-fit: cover`) — the 16:9 source is therefore cropped top/bottom by design.
-- **East West floor plans:** 3+1 / 4+1 / DUPLEX LOWER replaced with the user's drawings, transparent WebP, all normalised to 1240×1860 so tabs never resize the plan; 4+1 dims its left half; schedules fully in English. **DUPLEX UPPER still shows the old image pending the user's new drawing.**
+- **East West floor plans:** EAST and WEST both complete with the user's own drawings (7 transparent WebP files, all 1240×1860, identical render box). Shared circulation removed from the schedules; Fire Lobby counted inside the net area; totals are the exact sum of the listed rooms (EAST 3+1 126.93 m², EAST 4+1 126.59, EAST duplex 202.68; WEST 3+1 124.40, WEST 4+1 124.06, WEST duplex 200.31). 4+1 dims its left half. Plan data lives in `js/ew-plans-data.js`. **PENDING: WEST Duplex Upper drawing — that tab shows the EAST plan until the user sends it.**
 - **Site-wide navigation, contact and Dar Global cleanup: DONE and verified** (iteration_53.json, frontend 100%). TAÇ/ANA menu destinations on all 25 non-index pages, featured menu cards, VIEW ALL/PORTFOLIO/NEWSROOM, dead ANATOLIAN/EUROPEAN SIDE entries removed, "The Apartments Gür" card deleted, every Instagram link → instagram.com/novakonut/, homepage hero Dar Global wordmark + "LIVE ALL IN" + broken `cdn.Nova.co.uk` images replaced with the NOVA logo / "BUILD BEYOND LIVING" / local renders, east-west "Premiere Edition COLLECTION" badge replaced, footer geography columns replaced with NOVA's three projects on all 26 pages (design preserved), all 17 register forms reduced to the three current projects, Escape/aria-expanded/focus-return on the side menu, touch targets ≥44px, no horizontal overflow at 1440/1280/1024/768/430/390/844×390.
 - The site has **no `sms:` link anywhere** — there is no SMS button in the design. WhatsApp is the messaging destination.
 - East West homepage feature: contained (panel 540px desktop), 5s slide duration, 600ms crossfade, SVG perimeter progress on the same timer, mobile 779px @390 and 841px @430.
@@ -80,8 +80,8 @@ language or completed project pages unless explicitly asked.
   the mail host so the notifications are not spam-filed.
 - P0: add `GEMINI_API_KEY` secret → run the 15-day synthesis backfill, verify rendered
   detail pages, report pass/fail counts per category.
-- P1: DUPLEX UPPER floor plan — the user will send the drawing; process it through
-  `scripts/process_ew_plans.py` so it matches the 1240×1860 transparent canvas.
+- P1: WEST Duplex Upper floor plan — the user will send the drawing; process it through
+  `scripts/process_ew_plans.py` (add a `west-duplex-upper` entry) and point `WEST[3].img` at it.
 - P1: Kadıköy coverage depends on new KİPTAŞ/press publications; keep monitoring daily.
 - P2: durable platform scheduler wired to `POST /api/admin/news/refresh`.
 - P2: a MongoDB outbox worker for enquiry e-mail (the current `BackgroundTasks` send is lost if
