@@ -190,14 +190,14 @@
   <!-- ============================= FILTER BAR ============================= -->
   <section class="pj-filters">
     <div class="container">
-      <div class="pj-pills" role="tablist" aria-label="Filter projects">
-        <button class="pj-pill is-active" data-filter="all" data-testid="filter-all">TÜMÜ</button>
-        <button class="pj-pill" data-filter="rezidans" data-testid="filter-rezidans">REZİDANS</button>
-        <button class="pj-pill" data-filter="karma" data-testid="filter-karma">KARMA KULLANIM</button>
-        <button class="pj-pill" data-filter="ofis" data-testid="filter-ofis">OFİS / TİCARİ</button>
-        <button class="pj-pill" data-filter="konaklama" data-testid="filter-konaklama">KONAKLAMA</button>
-        <button class="pj-pill" data-filter="gelecek" data-testid="filter-gelecek">GELECEK PROJELER</button>
-        <button class="pj-pill" data-filter="gecmis" data-testid="filter-gecmis">GEÇMİŞ PROJELER</button>
+      <div class="pj-pills" role="group" aria-label="Filter projects">
+        <button class="pj-pill is-active" type="button" data-filter-kind="all" data-filter-value="all" aria-pressed="true" data-testid="filter-all">ALL</button>
+        <button class="pj-pill" type="button" data-filter-kind="type" data-filter-value="residential" aria-pressed="false" data-testid="filter-residential">RESIDENTIAL</button>
+        <button class="pj-pill" type="button" data-filter-kind="type" data-filter-value="mixed-use" aria-pressed="false" data-testid="filter-mixed-use">MIXED USE</button>
+        <button class="pj-pill" type="button" data-filter-kind="type" data-filter-value="office-commercial" aria-pressed="false" data-testid="filter-office-commercial">OFFICE / COMMERCIAL</button>
+        <button class="pj-pill" type="button" data-filter-kind="status" data-filter-value="future" aria-pressed="false" data-testid="filter-future">FUTURE PROJECTS</button>
+        <button class="pj-pill" type="button" data-filter-kind="status" data-filter-value="ongoing" aria-pressed="false" data-testid="filter-ongoing">ONGOING PROJECTS</button>
+        <button class="pj-pill" type="button" data-filter-kind="status" data-filter-value="completed" aria-pressed="false" data-testid="filter-completed">COMPLETED PROJECTS</button>
       </div>
     </div>
   </section>
@@ -207,83 +207,83 @@
     <div class="container">
       <div class="pj-grid" id="projectsGrid">
 
-        <a href="east-west.html" class="pj-card" data-filter="rezidans gelecek">
+        <a href="east-west.html" class="pj-card" data-project-slug="east-west" data-project-type="residential" data-project-status="ongoing">
           <div class="pj-card-img"><img src="./media/images/east-west-cover.webp" alt="The Residences East West" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">The Residences East West</div>
         </a>
 
-        <a href="the-apartments-tac.html" class="pj-card" data-filter="rezidans gelecek">
+        <a href="the-apartments-tac.html" class="pj-card" data-project-slug="the-apartments-tac" data-project-type="residential" data-project-status="ongoing">
           <div class="pj-card-img"><img src="./media/images/tac/tac-render2.webp" alt="The Apartments Taç" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">FENERYOLU, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">The Apartments Taç</div>
         </a>
 
-        <a href="the-apartments-ana.html" class="pj-card" data-filter="rezidans gelecek" data-testid="pj-card-ana">
+        <a href="the-apartments-ana.html" class="pj-card" data-project-slug="the-apartments-ana" data-project-type="residential" data-project-status="ongoing" data-testid="pj-card-ana">
           <div class="pj-card-img"><img src="./media/images/ana/ana-render2.webp" alt="The Apartments Ana" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">CADDEBOSTAN, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">The Apartments Ana</div>
         </a>
 
-         <a href="finance-nova.html" class="pj-card" data-filter="rezidans gelecek">
+         <a href="finance-nova.html" class="pj-card" data-project-slug="finance-nova" data-project-type="mixed-use" data-project-status="future">
           <div class="pj-card-img"><img src="./media/images/east-west-cover.webp" alt="Finance Nova" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">FİNANS MERKEZİ, ATAŞEHİR</div>
           <div class="pj-card-title">Finance Nova</div>
         </a>
 
-        <a href="bahar-residence.html" class="pj-card" data-filter="rezidans gelecek">
+        <a href="bahar-residence.html" class="pj-card" data-project-slug="bahar-residence" data-project-type="residential" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/bahar-cover.JPG" alt="Bahar Residence" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">Bahar Residence</div>
         </a>
 
-        <a href="marti-residence.html" class="pj-card" data-filter="rezidans karma gelecek">
+        <a href="marti-residence.html" class="pj-card" data-project-slug="marti-residence" data-project-type="residential" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/marti-cover-xl.webp" alt="Martı Residence" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">SUADİYE, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">Martı Residence</div>
         </a>
 
-        <a href="mehtap-residence.html" class="pj-card" data-filter="karma konaklama gelecek">
+        <a href="mehtap-residence.html" class="pj-card" data-project-slug="mehtap-residence" data-project-type="residential" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/mehtap-cover.webp" alt="Mehtap Residence" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">Mehtap Residence</div>
         </a>
 
-        <a href="dogan-residence.html" class="pj-card" data-filter="ofis karma gelecek">
+        <a href="dogan-residence.html" class="pj-card" data-project-slug="dogan-residence" data-project-type="residential" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/dogan-cover.webp" alt="Doğan Residence" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">ERENKÖY, BAĞDAT CADDESİ</div>
           <div class="pj-card-title">Doğan Residence</div>
         </a>
 
-        <a href="mercan-bosphorus.html" class="pj-card" data-filter="rezidans gecmis">
+        <a href="mercan-bosphorus.html" class="pj-card" data-project-slug="mercan-bosphorus" data-project-type="residential" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/mercan-cover.webp" alt="Mercan Bosphorus" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">ÇENGELKÖY BOĞAZ</div>
           <div class="pj-card-title">Mercan Bosphorus</div>
         </a>
 
-        <a href="nisbetiye-on.html" class="pj-card" data-filter="rezidans gecmis">
+        <a href="nisbetiye-on.html" class="pj-card" data-project-slug="nisbetiye-on" data-project-type="mixed-use" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/nisbetiye-on-cover.webp" alt="Nisbetiye On" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">NİSBETİYE, BEŞİKTAŞ</div>
           <div class="pj-card-title">Nisbetiye On</div>
         </a>
 
-        <a href="falcon-plaza.html" class="pj-card" data-filter="rezidans konaklama gecmis">
+        <a href="falcon-plaza.html" class="pj-card" data-project-slug="falcon-plaza" data-project-type="office-commercial" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/falcon-plaza-cover.webp" alt="Falcon Plaza" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">LİBADİYE SOKAĞI, LEVENT</div>
           <div class="pj-card-title">Falcon Plaza</div>
         </a>
 
-        <a href="falcon-logistic.html" class="pj-card" data-filter="rezidans gecmis">
+        <a href="falcon-logistic.html" class="pj-card" data-project-slug="falcon-logistic" data-project-type="office-commercial" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/lojistik-cover.webp" alt="Falcon Logistic" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">İSTANBUL</div>
           <div class="pj-card-title">Falcon Logistic</div>
         </a>
-         <a href="konelsis-center.html" class="pj-card" data-filter="rezidans gecmis">
+         <a href="konelsis-center.html" class="pj-card" data-project-slug="konelsis-center" data-project-type="office-commercial" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/konelsis-cover.webp" alt="Konelsis Center" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">YENİMAHALLE, ANKARA</div>
           <div class="pj-card-title">Konelsis Center</div>
         </a>
-         <a href="gebze-osb-management.html" class="pj-card" data-filter="rezidans gecmis">
+         <a href="gebze-osb-management.html" class="pj-card" data-project-slug="gebze-osb-management" data-project-type="office-commercial" data-project-status="completed">
           <div class="pj-card-img"><img src="./media/images/osb-cover.webp" alt="Gebze OSB Management Building" loading="lazy"/ decoding="async"></div>
           <div class="pj-card-loc">GEBZE, KOCAELİ</div>
           <div class="pj-card-title">Gebze OSB Management Building</div>

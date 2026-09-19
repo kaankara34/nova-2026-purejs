@@ -9,34 +9,45 @@
   const grid = $('#projectsGrid');
   const empty = $('#pjEmpty');
   const reset = $('#pjReset');
-  let currentFilter = 'all';
+  let currentKind = 'all';
+  let currentValue = 'all';
+
+  function matches(card) {
+    if (currentKind === 'all') return true;
+    if (currentKind === 'type') return card.dataset.projectType === currentValue;
+    return card.dataset.projectStatus === currentValue;
+  }
 
   function applyFilters() {
     if (!grid) return;
     let visible = 0;
     $$('.pj-card', grid).forEach(card => {
-      const filters = (card.dataset.filter || '').split(/\s+/);
-      const show = currentFilter === 'all' || filters.includes(currentFilter);
+      const show = matches(card);
       card.classList.toggle('hidden', !show);
       if (show) visible++;
     });
     if (empty) empty.hidden = visible > 0;
   }
 
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pills.forEach(p => p.classList.remove('is-active'));
-      pill.classList.add('is-active');
-      currentFilter = pill.dataset.filter;
-      applyFilters();
+  function activate(pill) {
+    pills.forEach(p => {
+      const on = p === pill;
+      p.classList.toggle('is-active', on);
+      p.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-  });
+    currentKind = pill.dataset.filterKind;
+    currentValue = pill.dataset.filterValue;
+    applyFilters();
+  }
+
+  pills.forEach(pill => pill.addEventListener('click', () => activate(pill)));
 
   if (reset) reset.addEventListener('click', () => {
-    pills.forEach(p => p.classList.toggle('is-active', p.dataset.filter === 'all'));
-    currentFilter = 'all';
-    applyFilters();
+    const all = pills.find(p => p.dataset.filterKind === 'all');
+    if (all) activate(all);
   });
+
+  applyFilters();
 
   /* Smooth scroll for [data-scroll] buttons */
   $$('[data-scroll]').forEach(btn => {

@@ -91,6 +91,13 @@
   border-color: var(--pj-text);
 }
 
+/* seven filters: tighten just enough to sit on one line on wide desktops,
+   then wrap into balanced rows below */
+@media (min-width: 1200px) {
+  .pj-pills { gap: 10px; }
+  .pj-pill { padding: 13px 18px; letter-spacing: 0.13em; }
+}
+
 @media (max-width: 768px) {
   .pj-pills { gap: 8px 10px; }
   .pj-pill { font-size: 10px; padding: 10px 16px; letter-spacing: 0.14em; }

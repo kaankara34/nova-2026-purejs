@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 2026-06 — Floor-plan compaction reverted; projects.html filter system rebuilt in English
+
+**1. East West floor-plan compaction REVERTED**
+- `css/east-west.css` restored to its pre-compaction state via `git checkout 54d4db0 -- frontend/css/east-west.css` (user asked for it back). Section is 1395px again at 1440×900, padding `clamp(60px,8vw,110px)/clamp(50px,6vw,90px)`, `.ew-plans-image` min-height 460px, `.ew-plans-viewport` min-height `clamp(420px,42vw,660px)`, plan renders at 597×896.
+- Everything else from that turn was kept and re-verified: the 4+1 left-half dim, the 1240×1860 transparent plans, the TOTAL AREA figures, the lightbox white plate, the brochure PDF link and the Taç hero still image.
+
+**2. `projects.html` filtering system rebuilt (14 cards, all preserved)**
+- Filter labels are now English, in this order: `ALL`, `RESIDENTIAL`, `MIXED USE`, `OFFICE / COMMERCIAL`, `FUTURE PROJECTS`, `ONGOING PROJECTS`, `COMPLETED PROJECTS`. The `KONAKLAMA` button, its `konaklama` value and all Turkish filter strings are gone from the HTML, JS and CSS.
+- Type and status are now **two independent attributes** plus a stable slug on every card: `data-project-slug`, `data-project-type` (`residential` / `mixed-use` / `office-commercial`), `data-project-status` (`ongoing` / `future` / `completed`). The old single space-separated `data-filter` string was removed entirely. No visible-text matching anywhere.
+- Classification (type from each project's own page metadata, not guesswork):
+  - ongoing: east-west, the-apartments-tac, the-apartments-ana — all `residential`
+  - future: finance-nova — `mixed-use` (its own page: "55,000 m² mixed-use development of residences, home offices, commercial space and a hotel")
+  - completed residential: bahar-residence, marti-residence, mehtap-residence (47 residences), dogan-residence (24 homes), mercan-bosphorus
+  - completed mixed-use: nisbetiye-on ("36,000 m² mixed-use development")
+  - completed office-commercial: falcon-plaza (8-storey office building), falcon-logistic (21,500 m² logistics warehouse), konelsis-center (corporate HQ), gebze-osb-management (OIZ administration building)
+  - The two former `konaklama` cards were reclassified, not deleted: mehtap-residence → residential, falcon-plaza → office-commercial.
+- `js/projects.js`: `activate(pill)` sets a single active pill, toggles `aria-pressed` on all seven, stores `currentKind`/`currentValue` and filters on the matching data attribute. `ALL` is the default and the reset button returns to it. Cards hide via the existing `.pj-card.hidden { display: none }` so the grid reflows with no empty cells; no reload, existing transitions and hover effects untouched.
+- `css/projects.css`: pill design, typography, borders, letter spacing, hover and black active state unchanged. Added a `@media (min-width: 1200px)` rule (`gap: 10px`, `padding: 13px 18px`, `letter-spacing: .13em`) so all seven sit on one line on wide desktops and wrap cleanly below.
+- Verified with assertions at 1920/1440/1280/1024/768/430/390: ALL 14, ONGOING exactly [East West, Taç, Ana], FUTURE exactly [Finance Nova], COMPLETED the other 10, RESIDENTIAL 8, MIXED USE 2, OFFICE / COMMERCIAL 4; exactly one active pill and one `aria-pressed="true"` at all times; pill rows 1/1/1/2/2/3/4; zero clipped labels; equal 42px (35px mobile) heights; no horizontal overflow; no console errors.
+
+
 ## 2026-06 — Compact floor-plan section, East West brochure PDF, Taç hero still image
 
 **1. Floor-plan section compacted (`css/east-west.css`)**
