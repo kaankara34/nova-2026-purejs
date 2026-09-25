@@ -23,6 +23,7 @@
   --container: 1536px;
   --gutter: clamp(16px, 2.2vw, 40px);
   --header-h: 110px;
+  --utility-h: 40px;
   --easing: cubic-bezier(.2, .7, .2, 1);
 }
 
@@ -196,6 +197,7 @@ body.no-scroll {
   width: 16px; height: 16px;
 }
 @media (max-width: 768px) {
+  :root { --utility-h: 36px; }
   .utility-bar { height: 36px; font-size: 11px; }
   .utility-bar-inner { padding: 0 14px; gap: 10px; }
   .utility-left { gap: 16px; }
@@ -1099,64 +1101,47 @@ body.no-scroll {
 }
 
 /* =========================================================
-   Hero
+   Intro video hero — contained, below the header
    ========================================================= */
 .hero {
-  position: relative; height: 100vh; min-height: 680px;
+  --notch-width: 20px;
+  --notch-height: 18px;
+  position: relative;
+  margin-top: calc(var(--utility-h) + var(--header-h));
+  height: clamp(540px, 62vh, 720px);
+  min-height: 0;
   overflow: hidden; color: #fff;
   display: flex; align-items: center; justify-content: center;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--notch-height)),
+    calc(50% + var(--notch-width)) calc(100% - var(--notch-height)),
+    50% 100%,
+    calc(50% - var(--notch-width)) calc(100% - var(--notch-height)),
+    0 calc(100% - var(--notch-height))
+  );
 }
 .hero::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.55));
+  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.42));
   z-index: 1;
+  pointer-events: none;
 }
 .hero-media {
   position: absolute; inset: 0; z-index: 0;
+  background: #0b0b0b;
 }
-.hero-media .slide {
-  position: absolute; inset: 0; background-size: cover; background-position: center;
-  opacity: 0; transform: scale(1.08);
-  transition: opacity 1.6s ease, transform 8s linear;
-}
-.hero-media .slide.active { opacity: 1; transform: scale(1); }
-
-.hero-inner {
-  position: relative; z-index: 2; text-align: center;
-  padding: 0 var(--gutter);
-  max-width: 1100px;
-}
-.hero-brand {
-  display: flex; flex-direction: column; align-items: center; gap: 24px;
-  opacity: 0; transform: translateY(30px);
-  animation: heroRise 1.4s var(--easing) .3s forwards;
-}
-.hero-brand .big-logo {
-  display: flex; align-items: center; justify-content: center;
-  line-height: 1;
-}
-.hero-brand .big-logo .hero-brand-mark {
+.hero-video {
   display: block;
-  width: clamp(280px, 34vw, 480px);
-  height: auto;
-  filter: drop-shadow(0 4px 34px rgba(0,0,0,0.45));
-}
-.hero-tagline {
-  font-family: var(--font-serif);
-  font-size: clamp(28px, 4vw, 56px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 14px 40px;
-  border-top: 1px solid rgba(255,255,255,0.7);
-  border-bottom: 1px solid rgba(255,255,255,0.7);
-}
-@keyframes heroRise {
-  to { opacity: 1; transform: translateY(0); }
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .hero-scroll {
-  position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: calc(var(--notch-height) + 34px);
+  transform: translateX(-50%);
   z-index: 3;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   color: #fff; opacity: .8;
@@ -1166,6 +1151,22 @@ body.no-scroll {
 @keyframes scrollBob {
   0%,100% { transform: translate(-50%, 0); opacity: .5; }
   50% { transform: translate(-50%, 8px); opacity: 1; }
+}
+@media (max-width: 1024px) {
+  .hero { height: clamp(480px, 58svh, 640px); }
+}
+@media (max-width: 768px) {
+  .hero {
+    --notch-width: 15px;
+    --notch-height: 14px;
+    margin-top: calc(var(--utility-h) + var(--header-h));
+    height: clamp(410px, 58svh, 560px);
+  }
+  .hero-video { object-position: center 40%; }
+  .hero-scroll { bottom: calc(var(--notch-height) + 22px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll { animation: none; }
 }
 
 /* =========================================================
@@ -2456,12 +2457,6 @@ body.no-scroll {
    ========================================================= */
 @media (max-width: 640px) {
   .section-head { flex-direction: column; align-items: flex-start; }
-  .hero-brand .big-logo .hero-brand-mark { width: clamp(220px, 62vw, 320px); }
-  .hero-tagline { padding: 10px 20px; }
-}
-}
-tagline { padding: 10px 20px; }
-}
 }
 
 /* ---------------------------------------------------------------

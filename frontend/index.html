@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/newsroom.css" />
 
+  <!-- Intro video poster — reserves and paints the hero before video metadata arrives -->
+  <link rel="preload" as="image" href="./media/videos/hero-nova-poster.webp" type="image/webp" fetchpriority="high" />
+
   <!-- Preload menu project thumbnails (≤62KB each) for instant hover reveal -->
   <link rel="preload" as="image" href="./media/images/menu-thumbs/dogubati_render.webp" type="image/webp" fetchpriority="low" />
   <link rel="preload" as="image" href="./media/images/tac-new-render.webp" type="image/webp" fetchpriority="low" />
@@ -49,7 +52,7 @@
   </div>
 
   <!-- ============================= HEADER ============================= -->
-  <header class="site-header transparent" id="siteHeader">
+  <header class="site-header" id="siteHeader">
     <div class="header-inner">
       <div class="header-left">
         <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
@@ -200,21 +203,32 @@
     </div>
   </aside>
 
-  <!-- ============================= HERO ============================= -->
-  <section class="hero" id="top">
+  <!-- ============================= INTRODUCTION VIDEO ============================= -->
+  <section class="hero" id="top" data-testid="intro-video-hero">
     <div class="hero-media">
-      <div class="slide" style="background-image:url('./media/images/ew/render/ew-render1.webp');"></div>
-      <div class="slide" style="background-image:url('./media/images/tac/tac-render2.webp');"></div>
-      <div class="slide" style="background-image:url('./media/images/ana/ana-render2.webp');"></div>
-    </div>
-
-    <div class="hero-inner">
-      <div class="hero-brand">
-        <div class="big-logo">
-          <img src="./media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="hero-brand-mark" width="560" height="560" decoding="async" fetchpriority="high" />
-        </div>
-        <div class="hero-tagline">BUILD BEYOND LIVING</div>
-      </div>
+      <video class="hero-video" id="heroVideo" autoplay muted loop playsinline
+             preload="metadata" poster="./media/videos/hero-nova-poster.webp"
+             aria-label="Nova Konut introduction film" data-testid="intro-video">
+        <source id="heroVideoSource" src="./media/videos/hero-nova-1280.mp4" type="video/mp4" />
+        <source src="./media/videos/hero-nova-1280.webm" type="video/webm" />
+      </video>
+      <script>
+        /* Pick the lightest intro-video rendition for the device before playback starts. */
+        (function () {
+          var video = document.getElementById('heroVideo');
+          var source = document.getElementById('heroVideoSource');
+          if (!video || !source) return;
+          var width = window.innerWidth || document.documentElement.clientWidth;
+          var rendition = width <= 640 ? '960' : (width <= 1100 ? '1280' : '1600');
+          if (rendition !== '1280') {
+            source.src = './media/videos/hero-nova-' + rendition + '.mp4';
+            video.load();
+          }
+          var start = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+          if (video.readyState >= 2) start();
+          video.addEventListener('loadeddata', start, { once: true });
+        })();
+      </script>
     </div>
 
     <button class="hero-scroll" id="heroScroll" aria-label="Scroll down">

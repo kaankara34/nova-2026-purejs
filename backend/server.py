@@ -13,8 +13,6 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List
 import uuid
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 
 ROOT_DIR = Path(__file__).parent
@@ -161,46 +159,12 @@ async def instagram_image(shortcode: str):
                     headers={"Cache-Control": "public, max-age=3600"})
 
 
-# ----------------------------------------------------------------- Newsroom
-from news.api import router as news_router  # noqa: E402
-from news.ingest import ensure_indexes, reclaim_leases, run_ingestion  # noqa: E402
-
 app.state.db = db
-NEWS_REFRESH_HOUR = int(os.environ.get("NEWS_REFRESH_HOUR", "6"))
-NEWS_REFRESH_MINUTE = int(os.environ.get("NEWS_REFRESH_MINUTE", "0"))
-scheduler: AsyncIOScheduler | None = None
-
-
-async def _scheduled_refresh():
-    """Daily editorial refresh. A failure is logged and never kills the process."""
-    try:
-        await run_ingestion(db)
-    except Exception as exc:
-        logging.getLogger(__name__).error("news: scheduled refresh failed: %s", exc)
-
-
-@app.on_event("startup")
-async def start_news_scheduler():
-    global scheduler
-    await ensure_indexes(db)
-    await reclaim_leases(db)
-    if os.environ.get("NEWS_INGEST_ENABLED", "true").lower() != "true":
-        return
-    scheduler = AsyncIOScheduler(timezone=ZoneInfo("Europe/Istanbul"))
-    scheduler.add_job(_scheduled_refresh, "cron", hour=NEWS_REFRESH_HOUR,
-                      minute=NEWS_REFRESH_MINUTE, id="news-daily-refresh",
-                      max_instances=1, coalesce=True, misfire_grace_time=6 * 3600)
-    scheduler.start()
-    # Idempotent first-run backfill: only when the window holds nothing publishable.
-    if await db.news_items.count_documents({"status": "published"}) == 0:
-        asyncio.create_task(_scheduled_refresh())
-
 
 # Include the routers in the main app
 from enquiries import router as enquiries_router  # noqa: E402
 
 app.include_router(api_router)
-app.include_router(news_router)
 app.include_router(enquiries_router)
 
 app.add_middleware(
