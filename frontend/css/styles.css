@@ -568,6 +568,7 @@ body.no-scroll {
    ========================================================= */
 .side-menu {
   position: fixed; top: 0; left: 0; height: 100vh;
+  height: 100dvh;
   width: 420px;
   background: #fff; z-index: 200;
   transform: translateX(-100%); transition: transform .6s var(--easing);
@@ -927,6 +928,14 @@ body.no-scroll {
   white-space: nowrap;
 }
 
+.side-menu-foot .menu-company {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  padding-bottom: 8px;
+}
 .side-menu-foot .terms {
   font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
   color: #888;
@@ -1017,7 +1026,7 @@ body.no-scroll {
     margin-bottom: 0;
     overflow: hidden;
     position: relative;
-    height: calc(100vh - 64px - 220px); /* leave room for footer */
+    height: calc(100dvh - 64px - 240px); /* leave room for footer + browser chrome */
   }
   .side-menu-col {
     height: auto;
@@ -1065,7 +1074,7 @@ body.no-scroll {
     left: auto;
     bottom: auto;
     margin: 24px calc(-1 * clamp(28px, 4vw, 56px)) 0;
-    padding: 18px clamp(28px, 4vw, 56px) 0;
+    padding: 18px clamp(28px, 4vw, 56px) calc(18px + env(safe-area-inset-bottom, 0px));
     border-top: 1px solid #ececec;
   }
 
@@ -1107,8 +1116,9 @@ body.no-scroll {
   --notch-width: 20px;
   --notch-height: 18px;
   position: relative;
-  margin-top: calc(var(--utility-h) + var(--header-h));
-  height: clamp(540px, 62vh, 720px);
+  /* The footage runs edge-to-edge behind the transparent header, while the
+     framed part below the header keeps its bounded height. */
+  height: calc(clamp(540px, 62vh, 720px) + var(--utility-h) + var(--header-h));
   min-height: 0;
   overflow: hidden; color: #fff;
   display: flex; align-items: center; justify-content: center;
@@ -1126,12 +1136,13 @@ body.no-scroll {
   position: absolute; inset: 0; z-index: 0;
   background: #0b0b0b;
 }
-/* Dark band behind the fixed header so the restored transparent navbar
-   keeps its previous look while the video still starts below the header. */
-body.has-intro-video {
-  background-image: linear-gradient(#0b0b0b, #0b0b0b);
-  background-repeat: no-repeat;
-  background-size: 100% calc(var(--utility-h) + var(--header-h));
+/* Legibility scrim for the transparent header only — the footage itself is untouched. */
+.hero-media::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: calc(var(--utility-h) + var(--header-h) + 40px);
+  background: linear-gradient(180deg, rgba(0,0,0,0.42), rgba(0,0,0,0));
+  pointer-events: none;
 }
 .hero-video {
   display: block;
@@ -1154,14 +1165,13 @@ body.has-intro-video {
   50% { transform: translate(-50%, 8px); opacity: 1; }
 }
 @media (max-width: 1024px) {
-  .hero { height: clamp(480px, 58svh, 640px); }
+  .hero { height: calc(clamp(480px, 58svh, 640px) + var(--utility-h) + var(--header-h)); }
 }
 @media (max-width: 768px) {
   .hero {
     --notch-width: 15px;
     --notch-height: 14px;
-    margin-top: calc(var(--utility-h) + var(--header-h));
-    height: clamp(410px, 58svh, 560px);
+    height: calc(clamp(410px, 58svh, 560px) + var(--utility-h) + var(--header-h));
   }
   .hero-video { object-position: center 40%; }
   .hero-scroll { bottom: calc(var(--notch-height) + 22px); }

@@ -636,3 +636,21 @@ Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), fronte
   (`--utility-h` + `--header-h` tall) behind the fixed header, and the header switches to its
   solid state as soon as the page is scrolled (`window.scrollY >= 8`) so the nav stays legible
   over the bright footage. Hero geometry, video renditions, news feed and caching untouched.
+
+## 2026-06-25 (3) — Navbar over the footage, menu footer, newsroom CTA
+- Navbar restored to the requested reference: `.hero` no longer has a `margin-top`; its height
+  now includes the header strip (`calc(clamp(...) + var(--utility-h) + var(--header-h))`) so the
+  footage runs edge-to-edge behind the transparent header, while the framed part below the
+  header keeps exactly the same bounded height (desktop 540 / tablet 640-480 / mobile 560-410).
+  `body.has-intro-video` band and the scrollY-based transparency tweak were reverted, so
+  `js/script.js` is byte-identical to the pre-optimization logic.
+- Only legibility treatment: `.hero-media::after`, a top-only scrim limited to
+  header height + 40px. The video body has no overlay at any breakpoint (the old full-section
+  `.hero::after` stays deleted) and the video files themselves were never re-encoded.
+- Side menu footer (all 26 pages, via `scripts/menu_foot_update.py`): Facebook / X / Linktree
+  removed, icons are now Instagram, LinkedIn, WhatsApp and mail; `NOVA KONUT İNŞAAT YATIRIM A.Ş`
+  added above `TERMS AND CONDITIONS`; panel uses `100dvh` and the footer adds
+  `env(safe-area-inset-bottom)` so Safari's bottom bar no longer covers it.
+- newsroom.css ≤520px: `.pj-touch-btn { flex: 0 0 auto }` — the 220px flex-basis from the
+  ≤860px rule was inflating the CALL US / WHATSAPP buttons to ~340px tall in a column flex
+  container. Now 48px tall, full width, same as other pages.

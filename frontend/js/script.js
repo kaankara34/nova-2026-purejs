@@ -308,14 +308,8 @@
       return;
     }
     const heroBottom = heroEl.getBoundingClientRect().bottom;
-    // The contained intro video sits below the header: once the dark intro band
-    // scrolls away the header must become solid again to stay legible.
-    const containedIntro = heroEl.classList.contains('hero');
-    if (heroBottom > 100 && (!containedIntro || window.scrollY < 8)) {
-      header.classList.add('transparent');
-    } else {
-      header.classList.remove('transparent');
-    }
+    if (heroBottom > 100) header.classList.add('transparent');
+    else header.classList.remove('transparent');
   }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });

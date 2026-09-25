@@ -630,5 +630,7 @@ body.page-news-detail { background: #fff; }
 @media (max-width: 520px) {
   .pj-getintouch { padding: clamp(44px, 12vw, 56px) 0; }
   .pj-touch-actions { flex-direction: column; }
-  .pj-touch-btn { width: 100%; }
+  /* Reset the 220px flex-basis from the wider breakpoint: in a column flex
+     container it applies to the height and inflates the buttons. */
+  .pj-touch-btn { flex: 0 0 auto; width: 100%; }
 }
