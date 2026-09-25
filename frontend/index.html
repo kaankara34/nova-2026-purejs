@@ -215,18 +215,20 @@
       <script>
         /* Pick the lightest intro-video rendition for the device before playback starts. */
         (function () {
-          var video = document.getElementById('heroVideo');
-          var source = document.getElementById('heroVideoSource');
-          if (!video || !source) return;
-          var width = window.innerWidth || document.documentElement.clientWidth;
-          var rendition = width <= 640 ? '960' : (width <= 1100 ? '1280' : '1600');
-          if (rendition !== '1280') {
-            source.src = './media/videos/hero-nova-' + rendition + '.mp4';
-            video.load();
-          }
-          var start = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
-          if (video.readyState >= 2) start();
-          video.addEventListener('loadeddata', start, { once: true });
+          try {
+            var video = document.getElementById('heroVideo');
+            var source = document.getElementById('heroVideoSource');
+            if (!video || !source) return;
+            var width = window.innerWidth || document.documentElement.clientWidth;
+            var rendition = width <= 640 ? '960' : (width <= 1100 ? '1280' : '1600');
+            if (rendition !== '1280') {
+              source.src = './media/videos/hero-nova-' + rendition + '.mp4';
+              video.load();
+            }
+            var start = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+            if (video.readyState >= 2) start();
+            video.addEventListener('loadeddata', start, { once: true });
+          } catch (err) { /* the markup source keeps playing on its own */ }
         })();
       </script>
     </div>

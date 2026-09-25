@@ -190,17 +190,19 @@
   }
 
   /* Resolve the feed for the current language.
-     onData may be called twice: once from a valid cache, once after refresh. */
+     onData may be called twice: once from a valid cache, once after refresh.
+     The third argument tells the consumer whether a refresh is still pending. */
   function loadFeed(onData, onError) {
     const cached = readCache(LANG);
+    const refreshing = !cached || (Date.now() - cached.savedAt >= CACHE_TTL);
     let served = false;
     if (cached) {
       served = true;
-      onData(cached.feed, true);
-      if (Date.now() - cached.savedAt < CACHE_TTL) return;
+      onData(cached.feed, true, refreshing);
+      if (!refreshing) return;
     }
     fetchFeed(LANG).then(function (feed) {
-      onData(feed, false);
+      onData(feed, false, false);
     }).catch(function () {
       if (!served && onError) onError();
     });
@@ -604,8 +606,9 @@
       }
     }
 
-    loadFeed(function (feed, fromCache) {
-      if (fromCache && !feed.articles.some(function (a) { return a.id === wanted; })) return;
+    loadFeed(function (feed, fromCache, refreshing) {
+      const found = feed.articles.some(function (a) { return a.id === wanted; });
+      if (fromCache && refreshing && !found) return;
       render(feed);
     }, function () {
       showMissing(T.unavailable);

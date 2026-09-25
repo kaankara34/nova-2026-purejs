@@ -3,13 +3,30 @@
 Last updated: 2026-09-19
 
 ## Product
-Static NOVA Konut marketing website (vanilla HTML/CSS/JS in `/app/frontend`) with a
-FastAPI + MongoDB backend (`/app/backend`) that powers **NOVA Journal**, an aggregated
-newsroom (homepage strip, `newsroom.html`, `news-detail.html`).
+Static NOVA Konut marketing website (vanilla HTML/CSS/JS in `/app/frontend`). **Since
+2026-06-25 the site is frontend-only:** NOVA Journal reads pre-generated JSON committed by
+GitHub Actions in the separate `kaankara34/nova-news-feed` repository. The Python news
+backend (FastAPI + MongoDB + Gemini) has been removed. The remaining `/app/backend`
+(`server.py`, `enquiries.py`) only serves the Register-Interest form + Instagram strip and is
+NOT required to publish the site to cPanel.
 
 Brand rules: preserve the established NOVA visual language; never change global
 header/nav/footer structure, the homepage project grid, project-card badges, sales
 language or completed project pages unless explicitly asked.
+
+## News architecture (static)
+- Feeds: `https://raw.githubusercontent.com/kaankara34/nova-news-feed/main/data/news-en.json`
+  and `.../news-tr.json`. GitHub Actions generates and commits them; the browser only GETs
+  the committed file (normal browser caching, no `no-store`).
+- `frontend/js/news.js` is the single loader/renderer (homepage strip, `newsroom.html`,
+  `news-detail.html?id=<article.id>`), validates the payload, caches the last valid feed in
+  `localStorage` per language (`nova-news-feed:en` / `:tr`, 30-minute TTL then background
+  refresh), renders with `createElement`/`textContent` only, falls back to the NOVA category
+  covers in `media/news/fallback/` on a missing or failing image, filters/searches in memory
+  (no refetch on filter change) and shows “News is temporarily unavailable.” /
+  “Haberler geçici olarak kullanılamıyor.” when there is no valid cache.
+- Language comes from `document.documentElement.lang` (`tr*` → Turkish feed, else English).
+
 
 ## Architecture
 - Frontend: static pages, `css/styles.css` (global + East West feature), `css/newsroom.css`
@@ -56,7 +73,32 @@ language or completed project pages unless explicitly asked.
 (`gemini-2.5-flash-lite`), `GEMINI_DAILY_REQUEST_LIMIT`, `GEMINI_DAILY_INPUT_TOKEN_LIMIT`,
 `GEMINI_DAILY_OUTPUT_TOKEN_LIMIT`, `GEMINI_MAX_CONCURRENCY`, `GEMINI_REQUEST_TIMEOUT_SECONDS`.
 
-## Current state (2026-06, updated after the promo video / form-mail / floor-plan round)
+## Current state (2026-06-25 — static conversion + contained intro-video hero)
+- **News backend removed.** Deleted `backend/news/` (12 modules incl. `ai.py` Gemini
+  integration), `backend/tests/test_ingestion_gating.py`, `backend/tests/test_newsroom_api.py`,
+  `scripts/probe_feeds.py`, the APScheduler job and the `/api/news*` routes from
+  `backend/server.py`, plus `frontend/data/news-featured.json` / `news-fallback.json`.
+  No `GEMINI_API_KEY`, no Gemini/Mongo/news code anywhere in the project; no API key in
+  frontend code. `frontend/` is deployable to cPanel `public_html` as-is.
+- **Homepage intro video:** the user's promo (`WEB_PROMO (1).mp4`, 1926×1080, 44.5s, 22.6MB)
+  is now the hero. Renditions in `frontend/media/videos/`: `hero-nova-960.mp4` (3.3MB),
+  `hero-nova-1280.mp4` (6.4MB), `hero-nova-1600.mp4` (7.6MB), `hero-nova-1280.webm` (5.4MB,
+  codec fallback), `hero-nova-poster.webp` (56KB). Original kept at
+  `/app/media-source/WEB_PROMO-original.mp4` (outside the deployable folder).
+- **Hero geometry:** `.hero` is contained — `margin-top: calc(var(--utility-h) + var(--header-h))`,
+  `height: clamp(540px,62vh,720px)` desktop / `clamp(480px,58svh,640px)` ≤1024 /
+  `clamp(410px,58svh,560px)` ≤768, with a centred downward triangle produced by a `clip-path`
+  polygon (`--notch-width/--notch-height`). The overlaid NOVA logo (`.hero-brand`,
+  `.big-logo`, `.hero-brand-mark`), the overlaid `BUILD BEYOND LIVING` line (`.hero-tagline`
+  with its rules) and the `heroRise` animation were deleted from the DOM and CSS — the header
+  logo and the white-section BBL heading are untouched. The homepage header is now always
+  solid (`.hero` removed from the transparency selector in `js/script.js`).
+- **Register Interest e-mail pipeline** still exists in `backend/enquiries.py` but is a
+  server feature: on static cPanel hosting the forms will POST to a non-existent `/api`
+  endpoint until a static form service (Formspree/Netlify Forms) or a mail script is wired.
+- East West floor plans, projects filters, Taç hero, navigation/contact cleanup: unchanged
+  (see CHANGELOG).
+
 - **Register Interest e-mail pipeline: BUILT and verified** (`POST /api/enquiries`, 10/10 backend tests, 6/6 form flows). **BLOCKED on the user's nova.istanbul SMTP credentials** — submissions are stored in Mongo with `email_status: smtp_not_configured` until `SMTP_HOST/PORT/SECURITY/USERNAME/PASSWORD` and `MAIL_FROM` are filled in `backend/.env`. `MAIL_TO` is already `iletisim@nova.istanbul`. Read the queue any time with `GET /api/admin/enquiries` + `X-Admin-Token`.
 - **Homepage collaborations video:** now the user's promo (`collab-nova.webm` VP9 + `collab-nova.mp4` faststart H.264). Section dimensions untouched (3/1 desktop, 16/10 mobile, `object-fit: cover`) — the 16:9 source is therefore cropped top/bottom by design.
 - **East West floor-plan section:** left at its original generous height — the compaction pass was reverted at the user's request (section ~1395px at 1440×900, plan 597×896). Do not re-apply it unless asked.
@@ -77,6 +119,12 @@ language or completed project pages unless explicitly asked.
   if it ever risks being served.
 
 ## Backlog
+- **P0: static form delivery.** The Register Interest forms still POST to `/api/enquiries`
+  (Python). For cPanel, wire them to a static form service or a small PHP mail handler, or
+  keep the FastAPI service on a separate host.
+- P1: Turkish site version — the news loader already switches on `document.documentElement.lang`,
+  so only the page copy/language toggle is missing.
+- P2: WebP/AVIF sweep and lazy-loading audit for the remaining project renders.
 - **P0: SMTP credentials for `iletisim@nova.istanbul`.** Fill `SMTP_HOST`, `SMTP_PORT`,
   `SMTP_SECURITY` (`starttls` for 587 / `ssl` for 465), `SMTP_USERNAME`, `SMTP_PASSWORD` and
   `MAIL_FROM` in `backend/.env`, restart the backend, submit one test form and confirm

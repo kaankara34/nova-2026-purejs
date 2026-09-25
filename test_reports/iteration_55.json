@@ -1,0 +1,33 @@
+{
+  "summary": "Frontend-only regression for (1) static-JSON news feed and (2) contained intro-video hero. Homepage hero: at 1440/1280/1024/768/430/390/375 the hero top ALWAYS equals header bottom (never behind header), heights measured 522-558px (contained, not full-screen), no overlay elements inside hero (no 'BUILD BEYOND LIVING' text, no .hero-brand-mark), no horizontal overflow, and no gap between hero and the white BBL section (gap=0). Video: muted+loop+autoplay+playsinline set, readyState=4, paused=false, currentSrc=hero-nova-1280.webm (headless Chromium H.264 fallback — expected per user note). Clip-path polygon at hero forms the small centered downward triangle (--notch-width:20/15, --notch-height:18/14). Header NOVA logo present, BBL heading present in white section below, side menu opens on #menuToggle and closes on Escape, REGISTER INTEREST scrolls page, sticky header stays position:fixed at top<10px after scroll, 3 tel + 2 wa.me links present. Homepage NOVA Journal: 6 news cards rendered from static GitHub JSON with hrefs like news-detail.html?id=<hex>. Newsroom: 12 cards initially, Load more reveals 22, ALL 10 category filters present and single-active, filter clicks trigger 0 additional raw.githubusercontent.com requests (in-memory filter). Search works. news-detail with valid id renders title, body (1185 chars), image, source CTA with href to Guardian, target=_blank, rel=noopener noreferrer, plus 3 related cards. Regression sweep on projects/east-west/the-apartments-tac/contact/build-beyond-living: all render, headers/footers intact, zero console errors, zero horizontal overflow at 1440 and 390. Zero /api/news or localhost:8000 requests anywhere. ONE FUNCTIONAL BUG FOUND: news-detail.html?id=<invalid> silently stays blank when localStorage cache is warm — 'could not be found' state is never shown.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "news-detail.html / js/news.js initDetail()",
+        "issue": "When localStorage news cache is fresh (within CACHE_TTL) and the URL contains an id that does NOT exist in the cached feed, the page silently renders nothing — neither [data-testid=news-detail-article] nor [data-testid=news-detail-missing] is shown. Verified: cold cache -> missing state IS shown (correct); warm cache after visiting newsroom -> both stay hidden=true (bug). Root cause: js/news.js line 607-609 — `loadFeed(function(feed, fromCache){ if (fromCache && !feed.articles.some(a=>a.id===wanted)) return; render(feed); }, ...)` combined with loadFeed line 200 skipping the network refetch when cached savedAt is within CACHE_TTL. Result: render() (which would call showMissing) is never invoked.",
+        "selector": "[data-testid=news-detail-missing]",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix news.js initDetail cache path: change the loadFeed callback so it either calls render(feed) (which will invoke showMissing) or explicitly calls showMissing(T.missing) when fromCache && item not in feed. Suggested patch inside initDetail: `loadFeed(function(feed, fromCache){ if (fromCache && !feed.articles.some(a=>a.id===wanted)) { showMissing(T.missing); return; } render(feed); }, function(){ showMissing(T.unavailable); });`"
+  ],
+  "critical_code_review_comments": [
+    "news.js loadFeed short-circuits the network refresh when the cache is within TTL, but the detail-page consumer relies on a second (fromCache=false) callback to trigger showMissing for unknown ids. Either surface a not-found signal from loadFeed or let render(feed) run for the fromCache callback and let it decide.",
+    "news.js validates the id regex `/^[A-Za-z0-9._-]{3,160}$/`; ids shorter than 3 chars silently fall through to showMissing which is fine, but a totally empty ?id (no query) also renders nothing on warm cache for the same reason above — same fix covers it.",
+    "index.html hero inline rendition-picker script runs before <script src='js/script.js'>; safe today because it only mutates the video element, but if it ever throws it will halt parsing — consider wrapping in try/catch (currently the play() catch handles the play-rejected case but not a source assignment throw)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "~95% (1 medium bug on cached invalid-id detail path)"},
+  "test_credentials": "none required",
+  "seed_data_creation": "",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "The intro-video hero geometry and news static-JSON integration all pass at 7 breakpoints; only the invalid-id detail state fails when the browser has a fresh cached feed in localStorage. To reproduce: (1) load /newsroom.html to warm cache, (2) navigate to /news-detail.html?id=notarealid_xyz_9999, (3) observe both [data-testid=news-detail-article] and [data-testid=news-detail-missing] remain hidden=true. Cold-cache repro is a fresh incognito load; that path works correctly. Do not clear localStorage between checks or the bug won't show. Also note: preview Chromium falls back to WebM for the hero video (H.264 not decodable); real browsers use the mp4 source — do not flag this as a bug.",
+  "rca of the issue": "js/news.js initDetail's loadFeed callback treats the fromCache case as a no-op when the wanted id isn't in the cache, waiting for a subsequent network callback that never fires because loadFeed returns early when cache is within TTL. Fix by making the fromCache branch call showMissing (or simply call render(feed) which internally handles missing items)."
+}

@@ -604,3 +604,21 @@ Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), fronte
   images upgraded to authentic sources where available (112 cached vs 51 NOVA covers).
 - NEWS_PUBLISH_WITHOUT_AI=false: no article is published until its ≥600-word synthesis
   passes the quality gate. Waiting on the GEMINI_API_KEY secret.
+
+## 2026-06-25 — Static conversion (news backend removed) + contained intro-video hero
+- Removed the Python news backend: `backend/news/` (incl. Gemini `ai.py`), news pytest files,
+  `scripts/probe_feeds.py`, `/api/news*` routes, APScheduler news job, and the
+  `frontend/data/news-*.json` snapshots. No Gemini key/reference remains in the project.
+- `frontend/js/news.js` rewritten: fetches the static GitHub feeds
+  (`news-en.json` / `news-tr.json`), per-language `localStorage` cache with 30-min TTL and
+  background refresh, in-memory filters/search (no refetch), category fallback covers,
+  restrained unavailable message, detail pages keyed by `?id=`.
+- `newsroom.html`: added the `Fashion & Luxury` filter (feed category).
+- Homepage hero replaced with the user's promo video in a contained section below the header
+  (clamped heights, clip-path bottom triangle); the overlaid NOVA logo and
+  `BUILD BEYOND LIVING` text and their CSS were deleted. Header logo and white-section BBL
+  heading untouched.
+- Video renditions 960/1280/1600 mp4 + 1280 webm + webp poster; original kept in
+  `/app/media-source/`.
+- Verified: hero geometry at 1440/1280/1024/768/430/390/375, EN+TR feed switching, offline and
+  cached fallbacks, filters, detail rendering, invalid-id missing state (iteration_55.json).
