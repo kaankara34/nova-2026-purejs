@@ -1122,15 +1122,16 @@ body.no-scroll {
     0 calc(100% - var(--notch-height))
   );
 }
-.hero::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.42));
-  z-index: 1;
-  pointer-events: none;
-}
 .hero-media {
   position: absolute; inset: 0; z-index: 0;
   background: #0b0b0b;
+}
+/* Dark band behind the fixed header so the restored transparent navbar
+   keeps its previous look while the video still starts below the header. */
+body.has-intro-video {
+  background-image: linear-gradient(#0b0b0b, #0b0b0b);
+  background-repeat: no-repeat;
+  background-size: 100% calc(var(--utility-h) + var(--header-h));
 }
 .hero-video {
   display: block;

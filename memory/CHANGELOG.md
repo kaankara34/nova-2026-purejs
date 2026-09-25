@@ -622,3 +622,17 @@ Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), fronte
   `/app/media-source/`.
 - Verified: hero geometry at 1440/1280/1024/768/430/390/375, EN+TR feed switching, offline and
   cached fallbacks, filters, detail rendering, invalid-id missing state (iteration_55.json).
+
+## 2026-06-25 (later) — Intro video brightness + navbar restore
+- Verified frame-by-frame (t=5/10/20/30/40s) that `hero-nova-1600/1280.mp4` and `-1280.webm`
+  are colour-identical to `/app/media-source/WEB_PROMO-original.mp4` (mean RGB delta ≤0.6/255,
+  identical bt709 / tv-range metadata) and that the poster webp is marginally brighter, not
+  darker. The darkening came from CSS: the legacy `.hero::after` black gradient
+  (rgba(0,0,0,0.15 → 0.42)) that existed to keep the removed hero logo/slogan legible.
+  `.hero::after` deleted — no `filter: brightness()` compensation used.
+- Navbar restored to its pre-optimization implementation: `<header class="site-header transparent">`
+  in index.html and `.hero` back in the header-transparency selector in `js/script.js`.
+  Because the video now starts below the header, `body.has-intro-video` paints a #0b0b0b band
+  (`--utility-h` + `--header-h` tall) behind the fixed header, and the header switches to its
+  solid state as soon as the page is scrolled (`window.scrollY >= 8`) so the nav stays legible
+  over the bright footage. Hero geometry, video renditions, news feed and caching untouched.
