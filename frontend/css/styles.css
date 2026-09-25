@@ -928,14 +928,6 @@ body.no-scroll {
   white-space: nowrap;
 }
 
-.side-menu-foot .menu-company {
-  font-family: var(--font-serif, 'Cormorant Garamond', serif);
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #1a1a1a;
-  padding-bottom: 8px;
-}
 .side-menu-foot .terms {
   font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
   color: #888;

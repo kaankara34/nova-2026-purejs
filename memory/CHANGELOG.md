@@ -654,3 +654,19 @@ Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), fronte
 - newsroom.css ≤520px: `.pj-touch-btn { flex: 0 0 auto }` — the 220px flex-basis from the
   ≤860px rule was inflating the CALL US / WHATSAPP buttons to ~340px tall in a column flex
   container. Now 48px tall, full width, same as other pages.
+
+## 2026-06-25 (4) — Menu line removed, East West plan sizing, duplex totals
+- `NOVA KONUT İNŞAAT YATIRIM A.Ş` line removed from the side-menu footer on all 26 pages and
+  its CSS block deleted (`.side-menu-foot .menu-company`).
+- East West floor plans: `.ew-plans-viewport` now has a fixed frame height
+  (`clamp(500px, 74vh, 820px)`, mobile `clamp(380px, 58svh, 540px)`), `.ew-plans-figure` carries
+  the plans' 1240/1860 aspect ratio and the image uses `object-fit: contain`. All eight plans
+  (EAST/WEST × 3+1, 4+1, duplex lower, duplex upper) therefore render at exactly the same size
+  (1440px: 444×666, mobile: 310×490) and at the same Y position (`align-items: start` +
+  `minmax(0, …)` grid tracks, which also fixed the min-content blow-out that stretched the
+  viewport to 2664px). Section height dropped from ~1630px to ~1256px — no more long scroll,
+  room m² labels still readable, lightbox/download unchanged.
+- Duplex plans: the combined duplex area is now its own prominent gold row
+  (`.ew-plans-row--duplex`, "DUPLEX TOTAL AREA") on BOTH lower and upper floors, driven by a new
+  `duplexTotal` field in `js/ew-plans-data.js`; it is also printed as a second metric in the
+  A4 plan download.

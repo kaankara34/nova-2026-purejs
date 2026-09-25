@@ -95,14 +95,16 @@ window.EW_PLANS = (function () {
         title: 'DUPLEX — LOWER FLOOR',
         img: P + 'east-duplex-lower.webp',
         dim: null,
-        total: '136.38 m² / 1,468 sq ft — duplex 224.27 m² / 2,414 sq ft',
+        total: '136.38 m² / 1,468 sq ft',
+        duplexTotal: '224.27 m² / 2,414 sq ft',
         rooms: duplexLower('59.05 m²', '2.56 m²', '7.00 m²')
       },
       {
         title: 'DUPLEX — UPPER FLOOR',
         img: P + 'east-duplex-upper.webp',
         dim: null,
-        total: '87.89 m² / 946 sq ft — duplex 224.27 m² / 2,414 sq ft',
+        total: '87.89 m² / 946 sq ft',
+        duplexTotal: '224.27 m² / 2,414 sq ft',
         rooms: duplexUpper('29.81 m²')
       }
     ],
@@ -125,14 +127,16 @@ window.EW_PLANS = (function () {
         title: 'DUPLEX — LOWER FLOOR',
         img: P + 'west-duplex-lower.webp',
         dim: null,
-        total: '132.45 m² / 1,426 sq ft — duplex 217.48 m² / 2,341 sq ft',
+        total: '132.45 m² / 1,426 sq ft',
+        duplexTotal: '217.48 m² / 2,341 sq ft',
         rooms: duplexLower('56.51 m²', '2.73 m²', '5.44 m²')
       },
       {
         title: 'DUPLEX — UPPER FLOOR',
         img: P + 'west-duplex-upper.webp',
         dim: null,
-        total: '85.03 m² / 915 sq ft — duplex 217.48 m² / 2,341 sq ft',
+        total: '85.03 m² / 915 sq ft',
+        duplexTotal: '217.48 m² / 2,341 sq ft',
         rooms: duplexUpper('26.95 m²')
       }
     ]

@@ -241,6 +241,9 @@
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
       titleEl.textContent = p.title;
       const rows = [`<div class="ew-plans-row ew-plans-row--total"><span>Total Area</span><span class="ew-plans-val">${p.total}</span></div>`];
+      if (p.duplexTotal) {
+        rows.push(`<div class="ew-plans-row ew-plans-row--duplex"><span>Duplex Total Area</span><span class="ew-plans-val">${p.duplexTotal}</span></div>`);
+      }
       p.rooms.forEach((r, i) => {
         rows.push(`<div class="ew-plans-row"><span><em>${i + 1}.</em> ${r.name}</span><span class="ew-plans-val">${r.size}</span></div>`);
       });
@@ -343,6 +346,9 @@
         '<div class="plan-img-wrap"><img src="' + p.img + '" alt="' + p.title + ' floor plan" crossorigin="anonymous"/></div>' +
         '<div class="metrics">' +
         '<div class="metric"><div class="metric-label">Total Area</div><div class="metric-value">' + netVal + '</div></div>' +
+        (p.duplexTotal
+          ? '<div class="divider-v"></div><div class="metric"><div class="metric-label">Duplex Total Area</div><div class="metric-value">' + p.duplexTotal + '</div></div>'
+          : '') +
         '</div></div>' +
         '<script>window.onload = function(){ var img = document.querySelector("img"); function go(){ setTimeout(function(){ window.focus(); window.print(); }, 250); } if (img.complete) go(); else img.onload = go;'
         + '};<\/script></body></html>'
