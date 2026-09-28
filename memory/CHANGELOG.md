@@ -670,3 +670,26 @@ Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), fronte
   (`.ew-plans-row--duplex`, "DUPLEX TOTAL AREA") on BOTH lower and upper floors, driven by a new
   `duplexTotal` field in `js/ew-plans-data.js`; it is also printed as a second metric in the
   A4 plan download.
+
+## 2026-09-28 — Legal pages, footer legal links, mobile menu + form fixes
+- New static pages generated from the shared page skeleton (`scripts/build_legal_pages.py`):
+  `privacy-notice.html`, `cookie-notice.html`, `ethical-principles.html`, styled by the new
+  `css/legal.css` (restrained numbered-section editorial layout, 860px reading column).
+- Bottom footer row on all 26 existing pages (`scripts/footer_legal_links.py` + regex pass):
+  "Data Privacy Statement" → "Privacy Notice", "Anti slavery and human trafficking statement"
+  → "Ethical Principles & Labour Standards", new "Cookie Notice" link. Get in Touch / Why Invest /
+  FAQ / copyright untouched. Register-interest consent checkbox now links to privacy-notice.html
+  on all 17 form pages.
+- Cookie notice (bottom banner, index only) reworded to the verified position: no analytics,
+  advertising or profiling technologies; buttons are now "COOKIE NOTICE" and "GOT IT" (no fake
+  consent UI, because no optional technology exists).
+- Mobile side menu: `.side-menu-foot` (terms + social icons) hidden below 1100px.
+- `.field select` arrow: added `background-size: 10px 6px` + `background-position: right 2px center`
+  (the inline SVG had no size and was scaling to the full field height).
+- Homepage: "Build Beyond Living" link in the intro paragraph → build-beyond-living.html;
+  LEED section "LEARN MORE" → leed.html.
+- Verified technologies (runtime): no first-party HTTP cookies (`document.cookie` empty);
+  localStorage `dg_cookie_ok` + `nova-news-feed:en|tr`; third parties Google Fonts, jsDelivr,
+  raw.githubusercontent.com, publisher image hosts, OpenStreetMap embed (east-west only).
+  `static.cloudflareinsights.com` and `__cf_bm` come from the Emergent preview host, not from the
+  site code, and are deliberately not listed in the Cookie Notice.

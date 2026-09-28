@@ -1059,16 +1059,8 @@ body.no-scroll {
   .col-projects,
   .col-projects-sb { display: none !important; }
 
-  /* Footer becomes static at the bottom of main panel; line extends full device width */
-  .side-menu-foot {
-    position: static;
-    width: auto;
-    left: auto;
-    bottom: auto;
-    margin: 24px calc(-1 * clamp(28px, 4vw, 56px)) 0;
-    padding: 18px clamp(28px, 4vw, 56px) calc(18px + env(safe-area-inset-bottom, 0px));
-    border-top: 1px solid #ececec;
-  }
+  /* Mobile panel: terms + social icons are not shown (they live in the footer) */
+  .side-menu-foot { display: none; }
 
   /* Menu items: bigger touch targets */
   .col-main .menu-link {
@@ -1088,12 +1080,6 @@ body.no-scroll {
     font-size: 12px; padding: 14px 0;
   }
   .brand-block {
-    margin-left: -22px;
-    margin-right: -22px;
-    padding-left: 22px;
-    padding-right: 22px;
-  }
-  .side-menu-foot {
     margin-left: -22px;
     margin-right: -22px;
     padding-left: 22px;
@@ -2090,7 +2076,7 @@ body.no-scroll {
   transition: border-color .3s var(--easing);
   appearance: none;
 }
-.field select { cursor: pointer; background-image: url("data:image/svg+xml;utf8,<svg fill='white' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'><path d='M1 1l4 4 4-4'/></svg>"); background-repeat: no-repeat; background-position: right center; padding-right: 22px; }
+.field select { cursor: pointer; background-image: url("data:image/svg+xml;utf8,<svg fill='white' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'><path d='M1 1l4 4 4-4'/></svg>"); background-repeat: no-repeat; background-size: 10px 6px; background-position: right 2px center; padding-right: 22px; }
 .field select option { color: #111; background: #fff; }
 .field input:focus, .field select:focus { outline: none; border-color: #e0cfa5; }
 .field.phone { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: end; }
