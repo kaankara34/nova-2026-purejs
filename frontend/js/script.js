@@ -374,10 +374,10 @@
   /* ========== Cookie banner ========== */
   const cookie = $('#cookieBanner');
   if (cookie) {
-    if (!localStorage.getItem('dg_cookie_ok')) {
+    if (!localStorage.getItem('nova_cookie_notice_dismissed')) {
       setTimeout(() => cookie.classList.add('show'), 800);
     }
-    const accept = () => { localStorage.setItem('dg_cookie_ok', '1'); cookie.classList.remove('show'); };
+    const accept = () => { localStorage.setItem('nova_cookie_notice_dismissed', '1'); cookie.classList.remove('show'); };
     $('#cookieAccept')?.addEventListener('click', accept);
     $('#cookieClose')?.addEventListener('click', accept);
   }

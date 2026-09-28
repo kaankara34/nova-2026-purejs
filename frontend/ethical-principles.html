@@ -122,6 +122,8 @@
           <li><a href="about.html"><span class="label">ABOUT NOVA</span></a></li>
           <li><a href="#"><span class="label">BOARD</span></a></li>
           <li><a href="team.html"><span class="label">TEAM</span></a></li>
+          <li><a href="careers.html" data-testid="menu-link-careers"><span class="label">CAREERS</span></a></li>
+          <li><a href="anonymous-reporting.html" data-testid="menu-link-speakup"><span class="label">SPEAK UP</span></a></li>
         </ul>
       </div>
       <div class="side-menu-col col-projects">
@@ -179,7 +181,7 @@
         <section class="legal-section">
           <h2><span class="legal-num">01</span> Scope</h2>
           <p>NOVA KONUT İNŞAAT YATIRIM A.Ş. regards lawful working conditions, respect for human dignity, and occupational health and safety as fundamental principles in its construction and real estate development activities. This statement sets out the Company&rsquo;s expectations in its own operations and its relationships with contractors and suppliers.</p>
-          <p>This is a statement of corporate principles. It is not a statutory statement made under the United Kingdom Modern Slavery Act, and it does not indicate that the Company is subject to a reporting obligation under that legislation.</p>
+          <p>This is a statement of corporate principles. It is not a statutory statement made under the United Kingdom Modern Slavery Act and does not indicate that the Company is subject to a reporting obligation under that legislation.</p>
         </section>
         <section class="legal-section">
           <h2><span class="legal-num">02</span> Working conditions</h2>
@@ -191,12 +193,12 @@
         </section>
         <section class="legal-section">
           <h2><span class="legal-num">04</span> Contractors and suppliers</h2>
-          <p>NOVA expects contractors and suppliers to comply with the employment, social security, and occupational health and safety laws relevant to their work. Reported concerns are assessed in light of their nature and the available information. Contractual or legal steps may be taken where appropriate.</p>
+          <p>NOVA expects contractors and suppliers to comply with the employment, social security, and occupational health and safety laws relevant to their work. Reported concerns are assessed in light of their nature and the available information, and contractual or legal steps may be taken where appropriate.</p>
           <p>This statement is not a guarantee that every supplier is continuously audited or that no non-compliance can occur.</p>
         </section>
         <section class="legal-section">
-          <h2><span class="legal-num">05</span> Reporting concerns</h2>
-          <p>Specific concerns relating to these principles may be raised through the Company&rsquo;s published contact channels: by e-mail to <a href="mailto:iletisim@nova.istanbul">iletisim@nova.istanbul</a>, through the <a href="contact.html">Contact</a> page, or by formal electronic notification to the Company&rsquo;s KEP address <a href="mailto:novakonut@hs01.kep.tr">novakonut@hs01.kep.tr</a>. The website does not operate a separate anonymous whistleblowing line.</p>
+          <h2><span class="legal-num">05</span> Raising a concern</h2>
+          <p>Concerns relating to these principles can be raised through <a href="anonymous-reporting.html">Speak Up</a>, the Company&rsquo;s reporting page, which explains what can be reported and which channels are available. The Speak Up page also states the current operational status of each channel: the online submission form is prepared but not yet active, while e-mail and formal electronic notification are available now and are not anonymous.</p>
           <p>Personal data submitted in a report is processed to assess the concern and, where necessary, to carry out related procedures in accordance with applicable data protection law. The right to contact competent authorities in cases involving immediate danger or a suspected offence remains unaffected.</p>
         </section>
       </article>
@@ -206,36 +208,15 @@
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h3>Discover Our Residences</h3>
-          <ul>
-            <li><a href="east-west.html">The Residences East West</a></li>
-            <li><a href="the-apartments-tac.html">The Apartments Ta&ccedil;</a></li>
-            <li><a href="the-apartments-ana.html">The Apartments Ana</a></li>
-            <li><a href="projects.html">View All Projects</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>Residences By Location</h3>
-          <ul>
-            <li><a href="east-west.html">East West &mdash; &Ccedil;iftehavuzlar</a></li>
-            <li><a href="the-apartments-tac.html">The Apartments Ta&ccedil; &mdash; Feneryolu</a></li>
-            <li><a href="the-apartments-ana.html">The Apartments Ana &mdash; Caddebostan</a></li>
-            <li><a href="projects.html">Ba&#287;dat Caddesi Portfolio</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>Explore Nova Konut</h3>
-          <ul>
-            <li><a href="about.html">About Nova</a></li>
-            <li><a href="design.html">Design</a></li>
-            <li><a href="construction.html">Construction</a></li>
-            <li><a href="leed.html">LEED</a></li>
-            <li><a href="build-beyond-living.html">Build Beyond Living</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
+      <!-- Discover Our Residences — editorial row -->
+      <div class="footer-discover">
+        <h3 class="footer-discover-title">Discover Our Residences</h3>
+        <ul class="footer-discover-row">
+          <li><a href="east-west.html"><span class="fd-name">The Residences East West</span><span class="fd-meta">&Ccedil;iftehavuzlar</span></a></li>
+          <li><a href="the-apartments-tac.html"><span class="fd-name">The Apartments Ta&ccedil;</span><span class="fd-meta">Feneryolu</span></a></li>
+          <li><a href="the-apartments-ana.html"><span class="fd-name">The Apartments Ana</span><span class="fd-meta">Caddebostan</span></a></li>
+          <li><a href="projects.html"><span class="fd-name">View All Projects</span><span class="fd-meta">Ba&#287;dat Caddesi portfolio</span></a></li>
+        </ul>
       </div>
 
       <div class="footer-middle">
@@ -247,19 +228,18 @@
               <line x1="2" y1="25" x2="48" y2="25"/>
             </svg>
           </div>
-          <div class="footer-globe-links">
-            <a href="projects.html">PORTFOLIO</a>
-            <a href="newsroom.html">NEWSROOM</a>
-          </div>
         </div>
         <div class="footer-menu-links">
+          <a href="projects.html" data-testid="footer-link-portfolio">PORTFOLIO</a>
+          <a href="newsroom.html" data-testid="footer-link-newsroom">NEWSROOM</a>
           <a href="design.html" data-testid="footer-link-design">DESIGN</a>
           <a href="build-beyond-living.html" data-testid="footer-link-bbl">BUILD BEYOND LIVING</a>
           <a href="#">AGENT CONNECT</a>
           <a href="#">INVESTOR RELATIONS</a>
           <a href="#">BLOGS</a>
           <a href="#">PRESS</a>
-          <a href="#">CAREERS</a>
+          <a href="careers.html" data-testid="footer-link-careers">CAREERS</a>
+          <a href="anonymous-reporting.html" data-testid="footer-link-speakup">SPEAK UP</a>
         </div>
       </div>
 
@@ -276,12 +256,10 @@
 
       <div class="footer-bottom-section">
         <div class="footer-bottom-links">
-          <a href="#">Get in Touch</a>
-          <a href="#">Why Invest</a>
+          <a href="index.html#register" data-testid="footer-link-getintouch">Get in Touch</a>
           <a href="privacy-notice.html">Privacy Notice</a>
           <a href="cookie-notice.html">Cookie Notice</a>
           <a href="ethical-principles.html">Ethical Principles &amp; Labour Standards</a>
-          <a href="#">FAQ - Frequently Asked Questions</a>
         </div>
         <div class="footer-copyright-text">
           <span>© 2026 Nova Konut. All rights reserved.</span>

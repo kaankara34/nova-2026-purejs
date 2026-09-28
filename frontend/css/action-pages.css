@@ -1,0 +1,291 @@
+/* ==========================================================
+   NOVA — Speak Up & Careers pages (forms + notices)
+   Built on css/legal.css; light editorial surface, NOVA gold accents.
+   ========================================================== */
+
+.legal-subtitle {
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #6f6243;
+  margin: -6px 0 22px;
+}
+
+/* ---------------------------------------------------------- status notice */
+.notice-block {
+  border: 1px solid #e2ddd1;
+  border-left: 3px solid #6f6243;
+  background: #faf9f7;
+  padding: clamp(20px, 2.6vw, 30px) clamp(20px, 2.6vw, 32px);
+  margin: 0 0 clamp(34px, 4vw, 52px);
+}
+.notice-block .notice-title {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.7vw, 21px);
+  font-weight: 400;
+  margin: 0 0 10px;
+  color: #1a1a1a;
+}
+.notice-block p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #3a3a3a;
+  max-width: 74ch;
+}
+
+/* ---------------------------------------------------------- vacancy list */
+.vacancy-list { list-style: none; margin: 0 0 18px; padding: 0; }
+.vacancy-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 22px 0;
+  border-top: 1px solid #ececec;
+}
+.vacancy-item:last-child { border-bottom: 1px solid #ececec; }
+.vacancy-item-title {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 1.9vw, 22px);
+  font-weight: 400;
+  margin: 0 0 6px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.vacancy-item-meta {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8b8b8b;
+}
+.vacancy-item-link {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6f6243;
+  border-bottom: 1px solid rgba(111, 98, 67, 0.4);
+  padding-bottom: 3px;
+  text-decoration: none;
+  transition: color .25s ease, border-color .25s ease;
+}
+.vacancy-item-link:hover { color: #1a1a1a; border-color: #1a1a1a; }
+
+.mail-cta {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 14px 26px;
+  border: 1px solid #1a1a1a;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  transition: background-color .25s ease, color .25s ease;
+}
+.mail-cta:hover { background: #1a1a1a; color: #fff !important; }
+
+/* ---------------------------------------------------------- form shell */
+.nova-ui-form { margin-top: 26px; }
+.form-intro {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #3a3a3a;
+  margin: 0 0 6px;
+}
+.form-row { margin-bottom: 24px; }
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(20px, 2.4vw, 32px);
+}
+.form-fieldset { border: 0; padding: 0; margin-inline: 0; }
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.form-label .req { color: #9a3b2f; }
+.form-hint {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #777;
+  margin: 0 0 10px;
+}
+.form-count {
+  font-size: 12px;
+  color: #8b8b8b;
+  margin: 6px 0 0;
+}
+
+.form-control {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d8d4cb;
+  border-radius: 0;
+  padding: 13px 14px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: #1a1a1a;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  appearance: none;
+}
+textarea.form-control { line-height: 1.7; resize: vertical; }
+select.form-control {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%236f6243' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'><path d='M1 1l4 4 4-4'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 10px 6px;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+.form-control:hover { border-color: #b9b2a3; }
+.form-control:focus {
+  outline: none;
+  border-color: #6f6243;
+  box-shadow: 0 0 0 3px rgba(111, 98, 67, 0.14);
+}
+.form-control:focus-visible { outline: none; }
+.form-control[aria-invalid="true"] { border-color: #9a3b2f; }
+.form-control[readonly] { background: #f4f2ee; color: #6a6a6a; }
+
+.form-radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+}
+.form-radios label,
+.form-check label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #3a3a3a;
+  cursor: pointer;
+}
+.form-radios input,
+.form-check input { margin-top: 4px; accent-color: #6f6243; }
+.form-check a { color: #6f6243; text-decoration: underline; text-underline-offset: 3px; }
+
+.form-error {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #9a3b2f;
+}
+.form-alert {
+  border: 1px solid #e3c9c3;
+  background: #fbf4f2;
+  padding: 18px 20px;
+  margin-bottom: 26px;
+}
+.form-alert h3 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9a3b2f;
+}
+.form-alert ul { margin: 0; padding-left: 18px; }
+.form-alert li { font-size: 14px; line-height: 1.8; }
+.form-alert a { color: #9a3b2f; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------- file field */
+.file-field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.file-input {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+.file-button {
+  display: inline-block;
+  padding: 12px 22px;
+  border: 1px solid #1a1a1a;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .25s ease, color .25s ease;
+}
+.file-button:hover { background: #1a1a1a; color: #fff; }
+.file-input:focus-visible + .file-button {
+  outline: 2px solid #6f6243;
+  outline-offset: 3px;
+}
+.file-name { font-size: 14px; color: #3a3a3a; }
+.file-remove {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(154, 59, 47, 0.5);
+  padding: 0 0 2px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a3b2f;
+  cursor: pointer;
+}
+.file-remove:hover { color: #1a1a1a; border-color: #1a1a1a; }
+
+/* ---------------------------------------------------------- actions */
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.form-submit,
+.form-secondary {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 16px 34px;
+  cursor: pointer;
+  border: 1px solid #1a1a1a;
+  transition: background-color .25s ease, color .25s ease, opacity .25s ease;
+}
+.form-submit { background: #1a1a1a; color: #fff; }
+.form-submit:hover { background: #6f6243; border-color: #6f6243; }
+.form-submit[disabled] { opacity: .6; cursor: progress; }
+.form-secondary { background: transparent; color: #1a1a1a; }
+.form-secondary:hover { background: #1a1a1a; color: #fff; }
+.form-submit:focus-visible,
+.form-secondary:focus-visible {
+  outline: 2px solid #6f6243;
+  outline-offset: 3px;
+}
+
+.form-result {
+  margin: 22px 0 0;
+  padding: 16px 18px;
+  border-left: 3px solid #6f6243;
+  background: #faf9f7;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+.form-result.is-error { border-left-color: #9a3b2f; background: #fbf4f2; }
+.form-result.is-ok { border-left-color: #4f6f4a; background: #f4f8f3; }
+
+@media (max-width: 680px) {
+  .form-grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .form-actions { gap: 12px; }
+  .form-submit,
+  .form-secondary { width: 100%; text-align: center; }
+  .vacancy-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+}

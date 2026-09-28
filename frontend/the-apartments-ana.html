@@ -134,6 +134,8 @@
           <li><a href="about.html"><span class="label">ABOUT NOVA</span></a></li>
           <li><a href="#"><span class="label">BOARD</span></a></li>
           <li><a href="team.html"><span class="label">TEAM</span></a></li>
+          <li><a href="careers.html" data-testid="menu-link-careers"><span class="label">CAREERS</span></a></li>
+          <li><a href="anonymous-reporting.html" data-testid="menu-link-speakup"><span class="label">SPEAK UP</span></a></li>
         </ul>
       </div>
       <div class="side-menu-col col-projects">
@@ -639,36 +641,15 @@ REMOVED FROM THE NOISE.</p>
   <!-- ============================= FOOTER (same as index.html) ============================= -->
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h3>Discover Our Residences</h3>
-          <ul>
-            <li><a href="east-west.html">The Residences East West</a></li>
-            <li><a href="the-apartments-tac.html">The Apartments Ta&ccedil;</a></li>
-            <li><a href="the-apartments-ana.html">The Apartments Ana</a></li>
-            <li><a href="projects.html">View All Projects</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>Residences By Location</h3>
-          <ul>
-            <li><a href="east-west.html">East West &mdash; &Ccedil;iftehavuzlar</a></li>
-            <li><a href="the-apartments-tac.html">The Apartments Ta&ccedil; &mdash; Feneryolu</a></li>
-            <li><a href="the-apartments-ana.html">The Apartments Ana &mdash; Caddebostan</a></li>
-            <li><a href="projects.html">Ba&#287;dat Caddesi Portfolio</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>Explore Nova Konut</h3>
-          <ul>
-            <li><a href="about.html">About Nova</a></li>
-            <li><a href="design.html">Design</a></li>
-            <li><a href="construction.html">Construction</a></li>
-            <li><a href="leed.html">LEED</a></li>
-            <li><a href="build-beyond-living.html">Build Beyond Living</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
+      <!-- Discover Our Residences — editorial row -->
+      <div class="footer-discover">
+        <h3 class="footer-discover-title">Discover Our Residences</h3>
+        <ul class="footer-discover-row">
+          <li><a href="east-west.html"><span class="fd-name">The Residences East West</span><span class="fd-meta">&Ccedil;iftehavuzlar</span></a></li>
+          <li><a href="the-apartments-tac.html"><span class="fd-name">The Apartments Ta&ccedil;</span><span class="fd-meta">Feneryolu</span></a></li>
+          <li><a href="the-apartments-ana.html"><span class="fd-name">The Apartments Ana</span><span class="fd-meta">Caddebostan</span></a></li>
+          <li><a href="projects.html"><span class="fd-name">View All Projects</span><span class="fd-meta">Ba&#287;dat Caddesi portfolio</span></a></li>
+        </ul>
       </div>
 
       <div class="footer-middle">
@@ -680,21 +661,18 @@ REMOVED FROM THE NOISE.</p>
               <line x1="2" y1="25" x2="48" y2="25"/>
             </svg>
           </div>
-          <div class="footer-globe-links">
-            <a href="projects.html">PORTFOLIO</a>
-            <a href="newsroom.html">NEWSROOM</a>
-          </div>
         </div>
         <div class="footer-menu-links">
-          <a href="#">CONNECT</a>
-          <a href="#">NOVA MEMBERSHIP</a>
-          <a href="about.html">ABOUT NOVA</a>
-          <a href="#">PROJECTS</a>
+          <a href="projects.html" data-testid="footer-link-portfolio">PORTFOLIO</a>
+          <a href="newsroom.html" data-testid="footer-link-newsroom">NEWSROOM</a>
+          <a href="design.html" data-testid="footer-link-design">DESIGN</a>
+          <a href="build-beyond-living.html" data-testid="footer-link-bbl">BUILD BEYOND LIVING</a>
+          <a href="#">AGENT CONNECT</a>
+          <a href="#">INVESTOR RELATIONS</a>
           <a href="#">BLOGS</a>
-          <a href="#">NEWS</a>
           <a href="#">PRESS</a>
-          <a href="#">CAREERS</a>
-          <a href="#">GET IN TOUCH</a>
+          <a href="careers.html" data-testid="footer-link-careers">CAREERS</a>
+          <a href="anonymous-reporting.html" data-testid="footer-link-speakup">SPEAK UP</a>
         </div>
       </div>
 
@@ -709,12 +687,10 @@ REMOVED FROM THE NOISE.</p>
 
       <div class="footer-bottom-section">
         <div class="footer-bottom-links">
+          <a href="index.html#register" data-testid="footer-link-getintouch">Get in Touch</a>
           <a href="privacy-notice.html">Privacy Notice</a>
           <a href="cookie-notice.html">Cookie Notice</a>
           <a href="ethical-principles.html">Ethical Principles &amp; Labour Standards</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Cookie Policy</a>
-          <a href="#">FAQ - Frequently Asked Questions</a>
         </div>
         <div class="footer-copyright-text">
           <span>© 2026 Nova Konut. All rights reserved.</span>

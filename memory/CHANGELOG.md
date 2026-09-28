@@ -693,3 +693,31 @@ Tested by testing agent (iteration_51.json): backend 100% (24/24 pytest), fronte
   raw.githubusercontent.com, publisher image hosts, OpenStreetMap embed (east-west only).
   `static.cloudflareinsights.com` and `__cf_bm` come from the Emergent preview host, not from the
   site code, and are deliberately not listed in the Cookie Notice.
+
+## 2026-09-28 (2) — Speak Up, Careers, footer rebuild, concise legal notices
+- Legal notices rewritten (`scripts/build_legal_pages.py`): category-level descriptions instead of
+  dependency lists; new §05 International transfers states what leaves Türkiye and explicitly does
+  NOT assert an Article 9 condition; Cookie Notice distinguishes first-party cookies (none),
+  browser storage (2 items), third-party cookies and direct third-party requests; informational
+  banner only ("GOT IT" = dismissal). Full verified inventory kept internally in
+  `memory/technical-inventory.md`.
+- Ethical Principles: removed the unverified "no anonymous whistleblowing line" claim; §05 now
+  links to Speak Up and states each channel's operational status.
+- New pages (`scripts/build_action_pages.py`): `anonymous-reporting.html` (Speak Up) and
+  `careers.html`, styled by `css/action-pages.css`, with `js/speak-up.js` and `js/careers.js`.
+  Both forms are frontend-complete with a single adapter each (`REPORT_ENDPOINT` /
+  `APPLICATION_ENDPOINT`, both null). No transmission, no browser storage, no URL parameters
+  (`onsubmit="return false"` guard), honest "not yet available" result states, input retained,
+  copy-report-text action, mailto application path with fixed subject line.
+- Footer rebuilt on all 31 pages (`scripts/footer_rebuild.py` + regex pass):
+  "Residences By Location" and "Explore Nova Konut" columns removed; "Discover Our Residences"
+  is now a 4-across editorial row with hairline separators (2 cols ≤900px, 1 col ≤520px);
+  PORTFOLIO and NEWSROOM moved onto the same baseline as the other secondary links (verified:
+  single row top), CAREERS → careers.html, SPEAK UP added; bottom row = Get in Touch
+  (index.html#register), Privacy Notice, Cookie Notice, Ethical Principles; FAQ and the
+  non-functional "Why Invest" link removed. Secondary row is now visible on mobile as a 2-column
+  grid (it used to be display:none).
+- Side menu: CAREERS and SPEAK UP added under NOVA KONUT on all pages.
+- Remaining placeholders (reported, not invented): footer AGENT CONNECT / INVESTOR RELATIONS /
+  BLOGS / PRESS, footer social icons for Facebook / X / LinkedIn / the asterisk mark, and
+  side-menu BOARD.
