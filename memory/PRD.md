@@ -137,3 +137,33 @@ language or completed project pages unless explicitly asked.
 - P2: durable platform scheduler wired to `POST /api/admin/news/refresh`.
 - P2: a MongoDB outbox worker for enquiry e-mail (the current `BackgroundTasks` send is lost if
   the process dies mid-flight; the submission itself is always persisted first).
+
+## 2026-06-28 — Speak Up & Careers interfaces, footer/nav restructure, legal notices
+
+Implemented (frontend only, tested — `test_reports/iteration_56.json`, frontend 100%):
+- `frontend/anonymous-reporting.html` + `js/speak-up.js` — Speak Up confidential reporting interface.
+- `frontend/careers.html` + `js/careers.js` — Construction Site Manager (Architect) application interface.
+- `frontend/css/action-pages.css` — shared styling for both.
+- Footer restructured on all 31 static pages; CAREERS / SPEAK UP added to the side menu; `Get in Touch` → `index.html#register`.
+- `privacy-notice.html`, `cookie-notice.html`, `ethical-principles.html` rewritten via `scripts/build_legal_pages.py`; technical provider inventory kept internally in `memory/technical-inventory.md`.
+- Cookie banner is informational only; storage key `nova_cookie_notice_dismissed`.
+
+### NOT built — explicit product boundary
+Both new forms are interfaces, not systems. They send nothing, store nothing and show an
+explicit "not sent / not saved" notice. Do not wire them to a backend or show a success
+state without the user's approval and a real secure pipeline.
+
+### Backlog added by this work
+- **P0 — Speak Up backend.** Requires a defined reporting workflow, access control, confidentiality
+  model, investigation/escalation procedure, retention schedule and secure attachment scanning +
+  storage before any submission channel is enabled. Reference IDs only if genuinely generated.
+- **P0 — Careers backend.** Secure CV object storage, file scanning, recipient list, retention
+  schedule and an applicant privacy notice matching the actual processing.
+- **P0 — NOVA/legal confirmations still open:** hosting & e-mail provider locations and whether they
+  involve cross-border transfer; the Article 9 lawful transfer condition/safeguard actually relied on;
+  applicant and reporter data recipients, systems and retention periods; whether an actual anonymous
+  channel will exist. Legal compliance is NOT claimed anywhere on the site.
+- **P1** — reduce avoidable third-party requests (self-host typefaces and the animation library) to
+  shrink the cross-border transfer surface described in the Privacy Notice.
+- **P2** — the duplicated header/side-menu/footer markup across 31 files drifted again
+  (`construction.html`). A build-time partial + a CI grep gate for banned strings is overdue.

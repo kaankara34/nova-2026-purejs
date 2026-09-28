@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## 2026-06-28 — Speak Up + Careers pages, global footer/nav restructure, legal notices simplified
+
+**Tested by testing_agent: `/app/test_reports/iteration_56.json` — frontend 100%, 0 issues.**
+
+**1. New page: Speak Up — `frontend/anonymous-reporting.html` + `frontend/js/speak-up.js`**
+- Title `Speak Up | Confidential and Anonymous Reporting | NOVA Konut`. Reportable categories (OHS, unlawful/unethical conduct, harassment/discrimination, coercion/forced labour, corruption/conflict of interest, contractor & supplier concerns), emergency/public-authority warning, and a disclosure BEFORE the form that online anonymous submission is not active.
+- Fields: category, description, approximate date, project/location, ongoing status, people/organisations involved, optional file, optional contact method (with an explicit warning it may identify the reporter). Error summary + inline errors, labels, keyboard and responsive behaviour.
+- FRONTEND ONLY. On submit: `Online report submission is not yet available. Your report has not been sent or saved.` Typed data is kept in the page, never persisted. 0 API requests, localStorage/sessionStorage empty — verified by the testing agent.
+- `Copy report text` action → `The report text has been copied to your clipboard. It has not been sent to NOVA.`
+
+**2. New page: Careers — `frontend/careers.html` + `frontend/js/careers.js`**
+- Title `Careers | Construction Site Manager (Architect) | NOVA Konut`. One vacancy: Construction Site Manager (Architect), Kadıköy / Bağdat Caddesi, Istanbul. No age / maximum-experience / military-service / associate-degree criteria; no promise of formal Şantiye Şefi appointment. Applicant-privacy section included.
+- Form: name, e-mail, phone, city, prefilled vacancy, years of site experience, project narrative, CV upload (PDF/DOC/DOCX only — `Please choose a PDF, DOC or DOCX file.`), file name + size display, remove/replace, privacy acknowledgment, error summary.
+- FRONTEND ONLY. On submit: `Online applications are not yet being received. Your application and CV have not been sent or saved.` 0 API requests, nothing in browser storage.
+- Interim real route: `mailto:iletisim@nova.istanbul` with subject exactly `Application — Construction Site Manager (Architect) — NOVA Konut`, plus a clear note that the applicant attaches the CV in their own mail client.
+
+**3. Global footer restructured on all 31 static pages** (`scripts/footer_rebuild.py`)
+- Removed `Residences By Location` and `Explore Nova Konut`. `Discover Our Residences` is now a horizontal row: East West / Taç / Ana / View All Projects.
+- `footer-menu-links` is one horizontal row: PORTFOLIO, NEWSROOM, DESIGN, BUILD BEYOND LIVING, AGENT CONNECT, INVESTOR RELATIONS, BLOGS, PRESS, CAREERS → `careers.html`, SPEAK UP → `anonymous-reporting.html`.
+- Bottom links: `Get in Touch` → `index.html#register` (works cross-page, scrolls to the register form), Privacy Notice, Cookie Notice, Ethical Principles & Labour Standards. FAQ removed.
+- `construction.html` was the last page still on the old markup (stale `CAREERS href="#"`, old `footer-globe-links`, extra `About` link) — synced this session.
+
+**4. Side menu** — `CAREERS` and `SPEAK UP` added to the `NOVA KONUT` submenu on every page (`menu-link-careers`, `menu-link-speakup`).
+
+**5. Legal notices** (`scripts/build_legal_pages.py`) — `privacy-notice.html`, `cookie-notice.html`, `ethical-principles.html`
+- Public notices now use recipient/technology *categories*; the long third-party provider inventory was moved to the internal `memory/technical-inventory.md`.
+- International transfers section states plainly that connection data reaches providers abroad, that the hosting/e-mail position is still being verified with providers, and that NO Article 9 condition or safeguard is asserted as being in place. No invented legal facts.
+- Ethical Principles no longer claims NOVA has no anonymous whistleblowing line; it links to Speak Up (3 links).
+
+**6. Cookie banner (index.html only)**
+- localStorage key renamed `dg_cookie_ok` → `nova_cookie_notice_dismissed`; copy now states the banner is informational, that no consent is recorded and that closing it only hides it on that browser. `GOT IT` and the close button both only dismiss. No consent panel, because no optional consent-requiring technology exists.
+
+**Validation:** `npx eslint .` exit 0, `node --check` clean on all `frontend/js/*.js`, no horizontal overflow at 390×844, 0 console errors desktop + mobile.
+
 ## 2026-06 — Floor-plan compaction reverted; projects.html filter system rebuilt in English
 
 **1. East West floor-plan compaction REVERTED**

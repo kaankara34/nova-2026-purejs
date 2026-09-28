@@ -1,0 +1,92 @@
+{
+  "summary": "Full frontend testing pass on NOVA Konut static site for the new Speak Up page, Careers page, restructured global footer/nav across 12 canonical pages, cookie banner rename, and mobile responsive behaviour. All acceptance criteria from the review request PASS. Both new forms are strictly non-transmitting (no /api or backend network requests, no form values in localStorage/sessionStorage, exact user-facing 'not sent / not saved' notices verified verbatim, typed data preserved). Cookie banner uses only the new key 'nova_cookie_notice_dismissed' (old 'dg_cookie_ok' key is gone).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "No blocking issues. Static site behaves exactly as specified. Non-transmitting-form behaviour is a deliberate product requirement; do not 'wire it up' to a backend without explicit user approval."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (static site, backend testing explicitly skipped)", "frontend": "100%"},
+  "test_credentials": "None required",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Site is static HTML+JS served via npx serve on port 3000, exposed at https://darg-clone-1.preview.emergentagent.com. Do NOT test /app/backend — it is legacy and not part of runtime. Both forms (Speak Up at /anonymous-reporting.html and Careers at /careers.html) MUST remain non-transmitting: no fetch/XHR on submit, no writes to localStorage/sessionStorage, exact literal notices required. Cookie banner writes only key 'nova_cookie_notice_dismissed'='1' — old key 'dg_cookie_ok' is deprecated. All 12 canonical pages must carry the same footer with data-testids footer-link-portfolio/newsroom/design/bbl/careers/speakup/getintouch, plus menu-link-careers and menu-link-speakup inside the NOVA KONUT side-menu submenu.",
+  "detailed_results": {
+    "speak_up": {
+      "title_ok": true,
+      "pre_form_disclosure_before_form": true,
+      "emergency_public_authority_warning": true,
+      "empty_submit_error_summary": "'2 FIELDS NEED YOUR ATTENTION' + inline errors for category + description",
+      "filled_submit_exact_notice_verbatim": "Online report submission is not yet available. Your report has not been sent or saved.",
+      "typed_data_preserved_after_submit": true,
+      "api_requests_on_submit": 0,
+      "localStorage_after_submit": "empty",
+      "sessionStorage_after_submit": "empty",
+      "copy_report_text_confirmation": "The report text has been copied to your clipboard. It has not been sent to NOVA.",
+      "console_errors": 0
+    },
+    "careers": {
+      "title_ok": true,
+      "vacancy_content_ok": "Construction Site Manager (Architect), Kadıköy / Bağdat Caddesi, Istanbul",
+      "applicant_privacy_section_present": true,
+      "empty_submit_error_summary": "8 FIELDS NEED YOUR ATTENTION (name, email, phone, city, experience, narrative, CV, privacy)",
+      "cv_invalid_message_verbatim": "Please choose a PDF, DOC or DOCX file.",
+      "cv_valid_pdf_shows_filename_and_size": "test_cv.pdf · 424 B",
+      "cv_remove_resets_to_no_file_selected": true,
+      "filled_submit_exact_notice_verbatim": "Online applications are not yet being received. Your application and CV have not been sent or saved.",
+      "typed_data_preserved_after_submit": true,
+      "api_requests_on_submit": 0,
+      "storage_after_submit_empty": true,
+      "mailto_href_ok": "mailto:iletisim@nova.istanbul?subject=Application%20%E2%80%94%20Construction%20Site%20Manager%20(Architect)%20%E2%80%94%20NOVA%20Konut",
+      "mailto_subject_verbatim_match": true,
+      "kep_email_present": "novakonut@hs01.kep.tr",
+      "attach_cv_manually_disclosure": true,
+      "console_errors": 0
+    },
+    "ethical_principles": {
+      "links_to_speakup": 3,
+      "removed_stale_no_anonymous_claim": true
+    },
+    "global_footer_and_nav_12_pages": {
+      "pages_tested": ["index.html","about.html","construction.html","east-west.html","projects.html","newsroom.html","contact.html","privacy-notice.html","cookie-notice.html","ethical-principles.html","careers.html","anonymous-reporting.html"],
+      "all_footer_testids_present": true,
+      "menu_testids_present": true,
+      "footer_link_careers_href_all": "careers.html",
+      "footer_link_speakup_href_all": "anonymous-reporting.html",
+      "footer_link_getintouch_href_all": "index.html#register",
+      "discover_our_residences_heading_all": true,
+      "no_faq_no_residences_by_location_no_explore_nova_konut_no_hash_careers": true
+    },
+    "get_in_touch_cross_page": {
+      "from_construction_html": "index.html#register + register form scrolled into viewport (scrollY=5720)",
+      "from_cookie_notice_html": "index.html#register + register visible"
+    },
+    "cookie_banner_index_only": {
+      "initial_visible": true,
+      "informational_no_consent_text": true,
+      "cookie_notice_link_and_got_it_button": true,
+      "localStorage_after_accept": {"nova_cookie_notice_dismissed": "1"},
+      "dg_cookie_ok_absent": true,
+      "banner_hidden_after_reload": true
+    },
+    "mobile_390x844": {
+      "no_horizontal_overflow_on_all_target_pages": true,
+      "pages_tested": ["anonymous-reporting.html","careers.html","index.html","construction.html","privacy-notice.html","ethical-principles.html"],
+      "side_menu_opens_on_mobile": true,
+      "menu_shows_nova_konut_submenu_toggle": true
+    },
+    "console_errors_all_pages_desktop_and_mobile": 0
+  },
+  "exact_strings_verified_verbatim": {
+    "speakup_submit_notice": "Online report submission is not yet available. Your report has not been sent or saved.",
+    "careers_submit_notice": "Online applications are not yet being received. Your application and CV have not been sent or saved.",
+    "careers_cv_invalid_file_notice": "Please choose a PDF, DOC or DOCX file.",
+    "careers_mailto_subject": "Application — Construction Site Manager (Architect) — NOVA Konut",
+    "careers_mailto_to": "iletisim@nova.istanbul",
+    "kep_email": "novakonut@hs01.kep.tr"
+  },
+  "rca_of_the_issue": "N/A — no defects found. All 15 requested feature checkpoints pass."
+}
