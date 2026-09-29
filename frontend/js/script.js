@@ -371,17 +371,6 @@
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>';
   }
 
-  /* ========== Cookie banner ========== */
-  const cookie = $('#cookieBanner');
-  if (cookie) {
-    if (!localStorage.getItem('nova_cookie_notice_dismissed')) {
-      setTimeout(() => cookie.classList.add('show'), 800);
-    }
-    const accept = () => { localStorage.setItem('nova_cookie_notice_dismissed', '1'); cookie.classList.remove('show'); };
-    $('#cookieAccept')?.addEventListener('click', accept);
-    $('#cookieClose')?.addEventListener('click', accept);
-  }
-
   /* ========== Smooth scroll-down button in hero ========== */
   $('#heroScroll')?.addEventListener('click', () => {
     const next = $('#liveAllIn');

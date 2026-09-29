@@ -1,17 +1,17 @@
 /* ==========================================================
-   NOVA — Careers application form (frontend only)
+   NOVA — Careers application form
 
-   No application backend exists yet. APPLICATION_ENDPOINT is the single
-   integration point: set it to the future API URL and the adapter below will
-   post the application and CV as multipart/form-data. Until then nothing is
-   transmitted, and no application data or CV is written to browser storage.
+   APPLICATION_ENDPOINT is the single integration point: set it to the API URL
+   and the adapter below posts the application and CV as multipart/form-data.
+   While it is null nothing is transmitted, nothing is written to browser
+   storage and no success state is shown.
    ========================================================== */
 (function () {
   'use strict';
 
-  const APPLICATION_ENDPOINT = null; // e.g. '/api/careers/applications' once the backend exists
+  const APPLICATION_ENDPOINT = null; // set to the API URL once the backend exists
   const NOT_AVAILABLE =
-    'Online applications are not yet being received. Your application and CV have not been sent or saved.';
+    'Online submission is temporarily unavailable. Your application has not been sent. Please apply by email.';
   const MAX_CV_BYTES = 10 * 1024 * 1024;
   const ALLOWED = ['pdf', 'doc', 'docx'];
 
@@ -170,8 +170,8 @@
     }
 
     check(fields.privacy, 'appPrivacyError',
-      'Please confirm that you have read the applicant privacy information.',
-      'Confirm the applicant privacy information.', fields.privacy.checked);
+      'Please confirm that you have read the Applicant Privacy Notice.',
+      'Confirm that you have read the Applicant Privacy Notice.', fields.privacy.checked);
 
     showSummary(errors);
     return errors.length === 0;
@@ -225,8 +225,8 @@
       submitBtn.textContent = 'Submit application';
       submitBtn.disabled = false;
       showResult(error && error.code === 'APPLICATIONS_NOT_AVAILABLE'
-        ? NOT_AVAILABLE + ' Your details are still in the form — please apply by e-mail using the address and subject line above.'
-        : 'The application could not be submitted. Please try again later or apply by e-mail.',
+        ? NOT_AVAILABLE
+        : 'The application could not be submitted. Please try again later or apply by email.',
         'error');
     });
   });

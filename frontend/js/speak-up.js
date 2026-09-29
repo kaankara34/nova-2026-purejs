@@ -1,17 +1,17 @@
 /* ==========================================================
-   NOVA — Speak Up report form (frontend only)
+   NOVA — Speak Up report form
 
-   The reporting channel does not exist yet. REPORT_ENDPOINT is the single
-   integration point: set it to the future API URL and the adapter below will
-   post the report as multipart/form-data. Until then nothing is transmitted,
-   and nothing is written to localStorage, sessionStorage or the console.
+   REPORT_ENDPOINT is the single integration point: set it to the API URL and
+   the adapter below posts the report as multipart/form-data. While it is null
+   nothing is transmitted, nothing is written to localStorage, sessionStorage
+   or the console, and no success state is shown.
    ========================================================== */
 (function () {
   'use strict';
 
-  const REPORT_ENDPOINT = null; // e.g. '/api/speak-up/reports' once the backend exists
+  const REPORT_ENDPOINT = null; // set to the API URL once the backend exists
   const NOT_AVAILABLE =
-    'Online report submission is not yet available. Your report has not been sent or saved.';
+    'Online reporting is temporarily unavailable. Your report has not been sent.';
   const MAX_FILE_BYTES = 10 * 1024 * 1024;
   const ALLOWED = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'];
 
@@ -27,7 +27,6 @@
   const summary = document.getElementById('reportErrorSummary');
   const result = document.getElementById('reportResult');
   const submitBtn = document.getElementById('reportSubmit');
-  const copyBtn = document.getElementById('reportCopy');
 
   /* ---------------------------------------------------------- adapter */
   function collect() {
@@ -161,25 +160,6 @@
     return errors.length === 0;
   }
 
-  function reportText() {
-    const data = collect();
-    const lines = [
-      'NOVA Konut — Speak Up report',
-      '',
-      'Category: ' + (data.category || '—'),
-      'Incident date: ' + (data.incidentDate || 'not stated'),
-      'Project or location: ' + (data.location || 'not stated'),
-      'Ongoing: ' + (data.ongoing || 'not stated'),
-      'People or organisations involved: ' + (data.involved || 'not stated'),
-      'Contact method for follow-up: ' + (data.contact || 'none provided (anonymous)'),
-      'Supporting document: ' + (data.attachment ? data.attachment.name : 'none selected'),
-      '',
-      'Description:',
-      data.description || '—'
-    ];
-    return lines.join('\n');
-  }
-
   /* ---------------------------------------------------------- events */
   function updateCounter() {
     counter.textContent = description.value.length.toLocaleString('en-GB') + ' / 5,000 characters';
@@ -208,34 +188,6 @@
     fileInput.focus();
   });
 
-  copyBtn.addEventListener('click', function () {
-    const text = reportText();
-    const done = function (ok) {
-      showResult(ok
-        ? 'The report text has been copied to your clipboard. It has not been sent to NOVA.'
-        : 'Your browser blocked the copy. Please select the text in the fields and copy it manually.',
-        ok ? 'ok' : 'error');
-    };
-    const legacyCopy = function () {
-      const holder = document.createElement('textarea');
-      holder.value = text;
-      holder.setAttribute('readonly', 'readonly');
-      holder.style.position = 'fixed';
-      holder.style.top = '-1000px';
-      document.body.appendChild(holder);
-      holder.select();
-      let ok = false;
-      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
-      document.body.removeChild(holder);
-      done(ok);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { done(true); }, legacyCopy);
-    } else {
-      legacyCopy();
-    }
-  });
-
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     if (!validate()) {
@@ -254,8 +206,8 @@
       submitBtn.textContent = 'Submit report';
       submitBtn.disabled = false;
       showResult(error && error.code === 'CHANNEL_NOT_AVAILABLE'
-        ? NOT_AVAILABLE + ' Your text is still in the form — use “Copy report text” to keep it, or send it through one of the identified channels above.'
-        : 'The report could not be submitted. Please try again later or use one of the identified channels above.',
+        ? NOT_AVAILABLE
+        : 'The report could not be submitted. Please try again later.',
         'error');
     });
   });
