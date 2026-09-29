@@ -8,11 +8,12 @@ this file — update both together.**
 ## First-party storage
 | Item | Type | Purpose | Expiry |
 |---|---|---|---|
+| `nova_cookie_notice_dismissed` | localStorage | Marks the informational cookie banner as dismissed (`js/script.js`, `index.html` only). Dismissal flag only — NOT a consent record | No expiry; cleared by the user |
 | `nova-news-feed:en`, `nova-news-feed:tr` | localStorage | Cached copy of the last valid news JSON (`js/news.js`), 30-minute freshness window | No expiry; overwritten on refresh |
 
-The cookie information banner was removed on 29 September 2026 (markup deleted from
-`index.html`, handler deleted from `js/script.js`). The site therefore writes exactly one
-localStorage item, the news cache. No consent record of any kind is created.
+The cookie information banner is present on `index.html` only. Its copy is deliberately short and
+it records no consent: "GOT IT" and the close button both only set the dismissal flag above. The
+banner was briefly removed on 29 September 2026 and restored the same day at the user's request.
 
 No HTTP cookies are set by the site: `document.cookie` is empty at runtime and there is no
 `document.cookie` write anywhere in `/app/frontend/js`.

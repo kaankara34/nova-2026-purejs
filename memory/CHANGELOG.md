@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 2026-09-29 (later) — Cookie banner restored; unrequested Privacy/Cookie Notice rewrite reverted
+
+Narrowly scoped correction to the previous run. Four files touched plus the generator kept in
+sync; **nothing else was reverted** (Careers landing, vacancy page, Applicant Privacy Notice,
+Speak Up, navigation, footer, CSS and both form adapters are untouched).
+
+- `frontend/index.html` — cookie-banner markup restored exactly as it was before the previous run
+  (placement above `#root`, `.cookie-banner` / `.cookie-close` / `h6` / `.actions` /
+  `.find-more` / `.accept` structure, `.show` slide-in animation, responsive CSS unchanged).
+  Only the paragraph copy is new: "We use essential technologies to operate this website and
+  remember your preferences. For more information, please read our Cookie Notice."
+- `frontend/js/script.js` — banner handler restored; `localStorage` key
+  `nova_cookie_notice_dismissed` records dismissal only. Handler function renamed `accept` →
+  `dismiss` so the code cannot be read as a consent record. No other hunk in the file touched.
+- `frontend/privacy-notice.html`, `frontend/cookie-notice.html` — restored to their state
+  immediately before the previous run (commit `fee4941`). The single kept edit is the §01 link in
+  the Privacy Notice, which now points at the new `applicant-privacy-notice.html` instead of
+  `careers.html`; that page no longer carries applicant privacy information.
+- `scripts/build_legal_pages.py` — the privacy §02/§05 and the whole cookie-notice block were
+  reverted to the pre-run text so the generator reproduces the shipped HTML byte-for-byte
+  (verified). The applicant-privacy-notice generator and the ethics §05 change were kept.
+- `memory/technical-inventory.md` was NOT reverted; the banner row/key was re-added to it.
+
+Verified in the browser: banner appears on a fresh visit (desktop 1920 and mobile 390×844), copy
+matches exactly, both "Cookie Notice" links open `cookie-notice.html`, GOT IT and the close button
+dismiss it, the key is the only thing written, it stays dismissed after navigation and reload,
+`careers.html` View Details still opens `construction-site-manager-architect.html`, the Speak Up
+form is still visible, no console errors and no horizontal overflow.
+
 ## 2026-09-29 — Cookie banner removed; Careers split into landing + vacancy page; Applicant Privacy Notice; Speak Up refined
 
 **Tested by testing_agent: `/app/test_reports/iteration_57.json` — frontend 100%, 0 issues (17 checkpoints, desktop + 390x844).**

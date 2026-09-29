@@ -201,3 +201,10 @@ host injects its own scripts or cookies. Legal compliance is NOT claimed anywher
 ### P1 / P2
 - P1: self-host typefaces and the animation library to shrink the cross-border request surface.
 - P2: build-time partial for header/side-menu/footer + CI grep gate (markup has drifted twice).
+
+### 2026-09-29 (correction) — cookie banner is IN SCOPE and must stay
+The informational cookie banner on `index.html` was removed in error and has been restored with
+the user's concise copy. Do not remove it again. `nova_cookie_notice_dismissed` is a dismissal
+flag only — never treat or describe it as a consent record, and never reuse it for marketing.
+The public Privacy Notice and Cookie Notice are back to their pre-29-September text; do not
+rewrite them again without an explicit request.
