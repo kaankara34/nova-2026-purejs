@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## 2026-09-29 — Cookie banner removed; Careers split into landing + vacancy page; Applicant Privacy Notice; Speak Up refined
+
+**Tested by testing_agent: `/app/test_reports/iteration_57.json` — frontend 100%, 0 issues (17 checkpoints, desktop + 390x844).**
+
+**1. Cookie banner removed completely**
+- Markup deleted from `index.html`; handler deleted from `js/script.js`. No consent/dismissal key is written any more; the only localStorage item left is the news cache. Cookie Notice footer link kept on all 33 pages. Justification: the site sets no cookies of its own and uses no optional consent-requiring technology, so an informational banner was noise and risked reading as consent.
+
+**2. Legal notices tightened** (`scripts/build_legal_pages.py`)
+- `privacy-notice.html`, `cookie-notice.html`: removed the banner/storage row and the "NOVA is verifying this / under review / will be updated once confirmed" sentences. Transfers section now states the fact (connection data reaches providers outside Türkiye) and that any transfer is subject to Article 9 conditions, **without asserting that any condition or safeguard applies**. No vendor names in public text.
+- `ethical-principles.html`: removed the channel-status commentary from §05.
+- **NEW `applicant-privacy-notice.html`** — controller, scope, data processed, purposes/grounds, recipient categories, transfers, retention, rights. States explicitly that it is information, not a consent form, and that acknowledging it does not authorise processing not otherwise permitted.
+
+**3. Careers split into two pages** (`scripts/build_action_pages.py`)
+- `careers.html` is now a landing page only: restrained intro + `Open positions` with one editorial listing (title / location / Full time · On site / View Details). Removed the status notice box and "No other positions are open at present."
+- **NEW `construction-site-manager-architect.html`** — directly loadable vacancy page (real navigation, not `careers.html#vacancyDetail`): polished role intro, 13 requirements, 8 responsibilities, the complete visible application form, and an `Apply by Email` block.
+- Removed "rather than direct the work from a distance" and the public şantiye-şefi disclaimer. No age limit, no 25-year cap, no associate-degree or military-service criteria.
+
+**4. Visual refinement** (`css/action-pages.css`)
+- Vacancy listing rebuilt: full-row link, serif title `clamp(23px,2.7vw,34px)`, location/arrangement at 13px with normal tracking and a hairline dot separator, generous vertical rhythm, hairline separators, hover shifts the row and slides the arrow 8px, visible focus ring, stacked layout below 560px. New `.vacancy-facts`, `.legal-back`, `.apply-alt` and inline `.form-result` styles.
+
+**5. Both forms — visible, complete, non-transmitting**
+- `js/careers.js`: `APPLICATION_ENDPOINT = null`; single `submitApplication()` adapter; only message on submit is "Online submission is temporarily unavailable. Your application has not been sent. Please apply by email."
+- `js/speak-up.js`: `REPORT_ENDPOINT = null`; single `submitReport()` adapter; only message is "Online reporting is temporarily unavailable. Your report has not been sent." The copy-report feature was removed.
+- Verified: 0 API requests on submit, localStorage/sessionStorage empty, typed values and chosen file retained, no success state.
+
+**6. Speak Up page rewritten**
+- The "Online submission is not yet active" box and the long "How to report now" section are gone. Structure now: purpose + link to Ethical Principles & Labour Standards → what to report → your identity → immediate danger → visible report form → compact "Other ways to raise a concern" block labelling e-mail and KEP as identified, not anonymous. No promise of anonymity, encryption, delivery, tracking code or response deadline.
+
+**7. Sweep** — no rendered page contains "backend", "connected later", "not yet in operation", "not yet active", "not yet being received", "is not saved", "feature flag" or "will be connected". `npx eslint .` exit 0, `node --check` clean, no console errors, no horizontal overflow.
+
 ## 2026-06-28 — Speak Up + Careers pages, global footer/nav restructure, legal notices simplified
 
 **Tested by testing_agent: `/app/test_reports/iteration_56.json` — frontend 100%, 0 issues.**

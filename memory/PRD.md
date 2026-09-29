@@ -167,3 +167,37 @@ state without the user's approval and a real secure pipeline.
   shrink the cross-border transfer surface described in the Privacy Notice.
 - **P2** — the duplicated header/side-menu/footer markup across 31 files drifted again
   (`construction.html`). A build-time partial + a CI grep gate for banned strings is overdue.
+
+
+## 2026-09-29 — Careers split, Applicant Privacy Notice, Speak Up refinement, cookie banner removed
+
+New URLs: `construction-site-manager-architect.html`, `applicant-privacy-notice.html`.
+Changed: `careers.html` (landing only), `anonymous-reporting.html`, `privacy-notice.html`,
+`cookie-notice.html`, `ethical-principles.html`, `index.html`, `js/script.js`, `js/careers.js`,
+`js/speak-up.js`, `css/action-pages.css`, `scripts/build_action_pages.py`,
+`scripts/build_legal_pages.py`. Tested: `test_reports/iteration_57.json` (frontend 100%).
+
+### Product boundary — unchanged and deliberate
+Both forms are complete, visible front ends with a single isolated submission adapter each
+(`submitApplication()` / `submitReport()`), endpoint `null`. They transmit nothing, store nothing
+and never show a success state. No visitor-facing page explains this. Do not add an endpoint, a
+success message or storage without the user's approval and a real receiving service.
+
+### P0 — backends to connect
+- **Careers**: secure receiving service + CV object storage with virus scanning, recipient list,
+  retention schedule. Set `APPLICATION_ENDPOINT` in `js/careers.js` only.
+- **Speak Up**: defined reporting workflow, access control, confidentiality model, investigation
+  and escalation procedure, retention schedule, attachment scanning. Set `REPORT_ENDPOINT` in
+  `js/speak-up.js` only. Introduce acknowledgement/reference IDs only if genuinely generated.
+- **Register Interest** forms still POST to `/api/enquiries` (FastAPI) — needs a static-hosting
+  solution for cPanel.
+
+### P0 — items NOVA must verify (see `memory/technical-inventory.md` §Open questions)
+Hosting and mailbox provider locations; Article 9 condition/safeguard per overseas connection;
+retention periods for enquiries, reports and applications; who receives Speak Up reports; whether
+a talent-pool retention period (and separate explicit consent) is wanted; whether the production
+host injects its own scripts or cookies. Legal compliance is NOT claimed anywhere on the site.
+
+### P1 / P2
+- P1: self-host typefaces and the animation library to shrink the cross-border request surface.
+- P2: build-time partial for header/side-menu/footer + CI grep gate (markup has drifted twice).
