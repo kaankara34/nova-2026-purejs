@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 2026-10-02 — Bilingual architecture (/tr default + /en), localised Turkish URLs, language selector
+
+**Architecture**
+- Approved English pages moved out of the web root to `/app/source-pages/` (source of truth, 33 files) and built into `/app/frontend/en/` and `/app/frontend/tr/` by `scripts/build_i18n.py`.
+- English output verified byte-faithful against the source apart from four allowed changes: absolute asset paths, the head link block, the language selector, and the two approved renames (`east-west.html` -> `the-residences-east-west.html`, `anonymous-reporting.html` -> `speak-up.html`). Automated check reports **0 pages differing beyond those changes**.
+- Shared assets kept where they were (`/css`, `/js`, `/media`) and referenced absolutely, so both languages share one cache. No duplicated image or video.
+- `.htaccess` (production/cPanel) + `serve.json` (preview): `/` -> `/tr/` 301, and a single-hop 301 from every legacy root URL (`/projects.html` and `/projects`) to `/en/...`. No redirect chains, no JS redirect, no language auto-detection.
+- `sitemap.xml` regenerated with all 66 URLs and reciprocal `xhtml:link` hreflang; `robots.txt` allows both folders.
+- Every page: `html lang`, self-canonical, reciprocal `hreflang` tr/en/x-default (x-default = Turkish), `og:url`, `og:locale`.
+
+**Turkish URLs** (localised slugs, ASCII-safe): projeler, hakkimizda, iletisim, organizasyon, partnerler, tasarim, muhendislik, leed, medya, haber, kariyer, santiye-muduru-mimar, bildirim, gizlilik-bildirimi, cerez-bildirimi, etik-ilkeler, aday-aydinlatma-metni, falcon-lojistik-merkezi, gebze-osb-yonetim-binasi, konelsis-merkezi. Protected brand names keep their slugs in both languages: the-residences-east-west, the-apartments-tac, the-apartments-ana, falcon-plaza, finance-nova, nisbetiye-on, mercan-bosphorus, marti/bahar/dogan/mehtap-residence, build-beyond-living.
+
+**Language selector** — restored on the existing `.lang-switch` hook in the navbar plus the mobile drawer. 18 CSS lines appended (additive only, 0 deletions); navbar height, logo, transparency and scroll behaviour untouched. It maps page-to-page through `PAGE_MAP`, so `/tr/projeler.html` <-> `/en/projects.html` and `/tr/falcon-lojistik-merkezi.html` <-> `/en/falcon-logistic.html`. Verified in the browser.
+
+**Turkish copy** — hand-written dictionaries in `scripts/i18n_tr/*.json` (753 entries). All chrome (navbar, side menu, footer, forms, cookie banner, UI labels, project meta labels) is Turkish on every page. **21 of 33 pages are fully localised; 12 page bodies are still English** — see ROADMAP. Anything not in a dictionary stays English by design and is listed in `scripts/i18n_missing.json`, so no page is ever half-broken.
+
 ## 2026-09-29 (later) — Cookie banner restored; unrequested Privacy/Cookie Notice rewrite reverted
 
 Narrowly scoped correction to the previous run. Four files touched plus the generator kept in

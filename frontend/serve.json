@@ -1,51 +1,401 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/east-west", "destination": "/east-west.html" },
-    { "source": "/marti-residence", "destination": "/marti-residence.html" },
-    { "source": "/bahar-residence", "destination": "/bahar-residence.html" },
-    { "source": "/mehtap-residence", "destination": "/mehtap-residence.html" },
-    { "source": "/dogan-residence", "destination": "/dogan-residence.html" },
-    { "source": "/mercan-bosphorus", "destination": "/mercan-bosphorus.html" },
-    { "source": "/nisbetiye-on", "destination": "/nisbetiye-on.html" },
-    { "source": "/falcon-plaza", "destination": "/falcon-plaza.html" },
-    { "source": "/falcon-logistic", "destination": "/falcon-logistic.html" },
-    { "source": "/konelsis-center", "destination": "/konelsis-center.html" },
-    { "source": "/gebze-osb-management", "destination": "/gebze-osb-management.html" },
-    { "source": "/projects", "destination": "/projects.html" },
-    { "source": "/partners", "destination": "/partners.html" },
-    { "source": "/leed", "destination": "/leed.html" },
-    { "source": "/construction", "destination": "/construction.html" }
-  ],
   "headers": [
     {
       "source": "**/*.html",
-      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     },
     {
       "source": "media/**",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "**/*.webp",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "**/*.{png,jpg,jpeg,gif,svg,ico}",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "**/*.{mp4,webm,mov}",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "**/*.{woff,woff2,ttf,otf}",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "**/*.{css,js}",
-      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/tr/",
+      "type": 301
+    },
+    {
+      "source": "/index.html",
+      "destination": "/tr/",
+      "type": 301
+    },
+    {
+      "source": "/projects.html",
+      "destination": "/en/projects.html",
+      "type": 301
+    },
+    {
+      "source": "/projects",
+      "destination": "/en/projects.html",
+      "type": 301
+    },
+    {
+      "source": "/about.html",
+      "destination": "/en/about.html",
+      "type": 301
+    },
+    {
+      "source": "/about",
+      "destination": "/en/about.html",
+      "type": 301
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/en/contact.html",
+      "type": 301
+    },
+    {
+      "source": "/contact",
+      "destination": "/en/contact.html",
+      "type": 301
+    },
+    {
+      "source": "/team.html",
+      "destination": "/en/team.html",
+      "type": 301
+    },
+    {
+      "source": "/team",
+      "destination": "/en/team.html",
+      "type": 301
+    },
+    {
+      "source": "/partners.html",
+      "destination": "/en/partners.html",
+      "type": 301
+    },
+    {
+      "source": "/partners",
+      "destination": "/en/partners.html",
+      "type": 301
+    },
+    {
+      "source": "/design.html",
+      "destination": "/en/design.html",
+      "type": 301
+    },
+    {
+      "source": "/design",
+      "destination": "/en/design.html",
+      "type": 301
+    },
+    {
+      "source": "/construction.html",
+      "destination": "/en/construction.html",
+      "type": 301
+    },
+    {
+      "source": "/construction",
+      "destination": "/en/construction.html",
+      "type": 301
+    },
+    {
+      "source": "/leed.html",
+      "destination": "/en/leed.html",
+      "type": 301
+    },
+    {
+      "source": "/leed",
+      "destination": "/en/leed.html",
+      "type": 301
+    },
+    {
+      "source": "/build-beyond-living.html",
+      "destination": "/en/build-beyond-living.html",
+      "type": 301
+    },
+    {
+      "source": "/build-beyond-living",
+      "destination": "/en/build-beyond-living.html",
+      "type": 301
+    },
+    {
+      "source": "/newsroom.html",
+      "destination": "/en/newsroom.html",
+      "type": 301
+    },
+    {
+      "source": "/newsroom",
+      "destination": "/en/newsroom.html",
+      "type": 301
+    },
+    {
+      "source": "/news-detail.html",
+      "destination": "/en/news-detail.html",
+      "type": 301
+    },
+    {
+      "source": "/news-detail",
+      "destination": "/en/news-detail.html",
+      "type": 301
+    },
+    {
+      "source": "/careers.html",
+      "destination": "/en/careers.html",
+      "type": 301
+    },
+    {
+      "source": "/careers",
+      "destination": "/en/careers.html",
+      "type": 301
+    },
+    {
+      "source": "/construction-site-manager-architect.html",
+      "destination": "/en/construction-site-manager-architect.html",
+      "type": 301
+    },
+    {
+      "source": "/construction-site-manager-architect",
+      "destination": "/en/construction-site-manager-architect.html",
+      "type": 301
+    },
+    {
+      "source": "/anonymous-reporting.html",
+      "destination": "/en/speak-up.html",
+      "type": 301
+    },
+    {
+      "source": "/anonymous-reporting",
+      "destination": "/en/speak-up.html",
+      "type": 301
+    },
+    {
+      "source": "/privacy-notice.html",
+      "destination": "/en/privacy-notice.html",
+      "type": 301
+    },
+    {
+      "source": "/privacy-notice",
+      "destination": "/en/privacy-notice.html",
+      "type": 301
+    },
+    {
+      "source": "/cookie-notice.html",
+      "destination": "/en/cookie-notice.html",
+      "type": 301
+    },
+    {
+      "source": "/cookie-notice",
+      "destination": "/en/cookie-notice.html",
+      "type": 301
+    },
+    {
+      "source": "/ethical-principles.html",
+      "destination": "/en/ethical-principles.html",
+      "type": 301
+    },
+    {
+      "source": "/ethical-principles",
+      "destination": "/en/ethical-principles.html",
+      "type": 301
+    },
+    {
+      "source": "/applicant-privacy-notice.html",
+      "destination": "/en/applicant-privacy-notice.html",
+      "type": 301
+    },
+    {
+      "source": "/applicant-privacy-notice",
+      "destination": "/en/applicant-privacy-notice.html",
+      "type": 301
+    },
+    {
+      "source": "/east-west.html",
+      "destination": "/en/the-residences-east-west.html",
+      "type": 301
+    },
+    {
+      "source": "/east-west",
+      "destination": "/en/the-residences-east-west.html",
+      "type": 301
+    },
+    {
+      "source": "/the-apartments-tac.html",
+      "destination": "/en/the-apartments-tac.html",
+      "type": 301
+    },
+    {
+      "source": "/the-apartments-tac",
+      "destination": "/en/the-apartments-tac.html",
+      "type": 301
+    },
+    {
+      "source": "/the-apartments-ana.html",
+      "destination": "/en/the-apartments-ana.html",
+      "type": 301
+    },
+    {
+      "source": "/the-apartments-ana",
+      "destination": "/en/the-apartments-ana.html",
+      "type": 301
+    },
+    {
+      "source": "/finance-nova.html",
+      "destination": "/en/finance-nova.html",
+      "type": 301
+    },
+    {
+      "source": "/finance-nova",
+      "destination": "/en/finance-nova.html",
+      "type": 301
+    },
+    {
+      "source": "/falcon-logistic.html",
+      "destination": "/en/falcon-logistic.html",
+      "type": 301
+    },
+    {
+      "source": "/falcon-logistic",
+      "destination": "/en/falcon-logistic.html",
+      "type": 301
+    },
+    {
+      "source": "/falcon-plaza.html",
+      "destination": "/en/falcon-plaza.html",
+      "type": 301
+    },
+    {
+      "source": "/falcon-plaza",
+      "destination": "/en/falcon-plaza.html",
+      "type": 301
+    },
+    {
+      "source": "/gebze-osb-management.html",
+      "destination": "/en/gebze-osb-management.html",
+      "type": 301
+    },
+    {
+      "source": "/gebze-osb-management",
+      "destination": "/en/gebze-osb-management.html",
+      "type": 301
+    },
+    {
+      "source": "/konelsis-center.html",
+      "destination": "/en/konelsis-center.html",
+      "type": 301
+    },
+    {
+      "source": "/konelsis-center",
+      "destination": "/en/konelsis-center.html",
+      "type": 301
+    },
+    {
+      "source": "/nisbetiye-on.html",
+      "destination": "/en/nisbetiye-on.html",
+      "type": 301
+    },
+    {
+      "source": "/nisbetiye-on",
+      "destination": "/en/nisbetiye-on.html",
+      "type": 301
+    },
+    {
+      "source": "/mercan-bosphorus.html",
+      "destination": "/en/mercan-bosphorus.html",
+      "type": 301
+    },
+    {
+      "source": "/mercan-bosphorus",
+      "destination": "/en/mercan-bosphorus.html",
+      "type": 301
+    },
+    {
+      "source": "/marti-residence.html",
+      "destination": "/en/marti-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/marti-residence",
+      "destination": "/en/marti-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/bahar-residence.html",
+      "destination": "/en/bahar-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/bahar-residence",
+      "destination": "/en/bahar-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/dogan-residence.html",
+      "destination": "/en/dogan-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/dogan-residence",
+      "destination": "/en/dogan-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/mehtap-residence.html",
+      "destination": "/en/mehtap-residence.html",
+      "type": 301
+    },
+    {
+      "source": "/mehtap-residence",
+      "destination": "/en/mehtap-residence.html",
+      "type": 301
     }
   ]
 }

@@ -371,5 +371,5 @@ for name, content in [
     ('construction-site-manager-architect.html', vacancy_head + vacancy_body + vacancy_suffix),
     ('anonymous-reporting.html', speak_head + speak_body + speak_suffix),
 ]:
-    open('/app/frontend/' + name, 'w', encoding='utf-8').write(content)
+    open('/app/source-pages/' + name, 'w', encoding='utf-8').write(content)
     print('wrote', name, len(content))

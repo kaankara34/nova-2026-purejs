@@ -6,7 +6,7 @@ service providers rather than naming every technical dependency. The verified
 technical inventory is kept internally in /app/memory/technical-inventory.md."""
 import re
 
-SRC = '/app/frontend/newsroom.html'
+SRC = '/app/source-pages/newsroom.html'
 src = open(SRC, encoding='utf-8').read()
 
 prefix = src[:src.index('</aside>') + len('</aside>')]
@@ -256,5 +256,5 @@ if __name__ == '__main__':
                           ('cookie-notice.html', cookies),
                           ('ethical-principles.html', ethics),
                           ('applicant-privacy-notice.html', applicant)]:
-        open('/app/frontend/' + name, 'w', encoding='utf-8').write(content)
+        open('/app/source-pages/' + name, 'w', encoding='utf-8').write(content)
         print('wrote', name, len(content))

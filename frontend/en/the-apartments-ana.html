@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <meta name="theme-color" content="#281B23" />
+  <meta name="description" content="The Apartments Ana — a secure 3+1 residential address offering 150 m² gross and 112 m² net on Kemal Sunal Sokak, Caddebostan, Kadıköy, Istanbul." />
+  <title>The Apartments Ana | Nova Konut</title>
+  <link rel="canonical" href="https://nova.istanbul/en/the-apartments-ana.html" />
+  <link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-apartments-ana.html" />
+  <link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-apartments-ana.html" />
+  <link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-apartments-ana.html" />
+  <meta property="og:url" content="https://nova.istanbul/en/the-apartments-ana.html" />
+  <meta property="og:locale" content="en_GB" />
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="/media/images/ana/ana-render.webp" type="image/webp" fetchpriority="high" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/css/the-apartments-ana.css" />
+</head>
+<body class="page-project page-ana">
+  <!-- ============================= TOP UTILITY BAR ============================= -->
+  <div class="utility-bar" id="utilityBar">
+    <div class="utility-bar-inner">
+      <div class="utility-left">
+        <a href="#" class="utility-item" aria-label="Konum">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Nova Konut</span>
+        </a>
+        <a href="tel:+905335061972" class="utility-item" aria-label="Telefon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+90 (533) 506 1972</span>
+        </a>
+      </div>
+      <div class="utility-socials">
+        <a href="mailto:iletisim@nova.istanbul" class="utility-social utility-social--mail" aria-label="E-posta">
+          <span class="utility-mail-text">iletisim@nova.istanbul</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://www.instagram.com/novakonut/" class="utility-social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg>
+        </a>
+        <a href="#" class="utility-social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M20.5 3h-17A.5.5 0 0 0 3 3.5v17a.5.5 0 0 0 .5.5h17a.5.5 0 0 0 .5-.5v-17a.5.5 0 0 0-.5-.5zM8.3 18.3H5.7V9.7h2.7v8.6zM7 8.5c-.9 0-1.6-.7-1.6-1.6S6.1 5.3 7 5.3s1.6.7 1.6 1.6S7.9 8.5 7 8.5zm11.3 9.8h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.7V9.7h2.6v1.2h.1c.4-.7 1.3-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= HEADER (shared) ============================= -->
+  <header class="site-header transparent" id="siteHeader">
+    <div class="header-inner">
+      <div class="header-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="logo-mark" aria-label="Nova Home">
+          <img src="/media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" / decoding="async">
+        </a>
+      </div>
+      <div class="header-actions">
+        <button class="btn register" data-scroll="register" aria-label="Register Interest">REGISTER INTEREST</button>
+        <div class="lang-switch" role="group" aria-label="Language" data-testid="lang-switch"><a class="lang-opt" href="/tr/the-apartments-ana.html" hreflang="tr" lang="tr"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#E30A17"/><circle cx="9" cy="8" r="4.2" fill="#fff"/><circle cx="10.4" cy="8" r="3.4" fill="#E30A17"/><path fill="#fff" d="M14.7 8l3.4-1.1-2.1 2.9V5.2l2.1 2.9z"/></svg><span>TR</span></a><a class="lang-opt is-active" href="/en/the-apartments-ana.html" hreflang="en" lang="en" aria-current="true"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#012169"/><path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="1.9"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.4"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/></svg><span>EN</span></a></div>
+        <div class="icon-links">
+          <a href="tel:+905335061972" class="icon-link" aria-label="Call us">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+          <span class="icon-sep"></span>
+          <a href="https://wa.me/905335061972" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="WhatsApp us">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================= MOBILE BOTTOM BAR ============================= -->
+  <div class="mobile-bottom-bar" id="mobileBottomBar">
+    <button class="btn-bottom-register" data-scroll="register">REGISTER INTEREST</button>
+    <div class="bottom-icons">
+      <a href="tel:+905335061972" class="bottom-icon" aria-label="Call us">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <span class="bottom-sep"></span>
+      <a href="https://wa.me/905335061972" target="_blank" rel="noopener noreferrer" class="bottom-icon" aria-label="WhatsApp us">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================= SIDE MENU (shared, simplified - clones from index.html) ============================= -->
+  <div class="side-menu-overlay" id="sideMenuOverlay"></div>
+  <aside class="side-menu" id="sideMenu" aria-label="Main menu">
+    <button class="side-menu-close" id="menuClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+          <div class="lang-switch lang-switch--menu" role="group" aria-label="Language" data-testid="lang-switch"><a class="lang-opt" href="/tr/the-apartments-ana.html" hreflang="tr" lang="tr"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#E30A17"/><circle cx="9" cy="8" r="4.2" fill="#fff"/><circle cx="10.4" cy="8" r="3.4" fill="#E30A17"/><path fill="#fff" d="M14.7 8l3.4-1.1-2.1 2.9V5.2l2.1 2.9z"/></svg><span>TR</span></a><a class="lang-opt is-active" href="/en/the-apartments-ana.html" hreflang="en" lang="en" aria-current="true"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#012169"/><path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="1.9"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.4"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/></svg><span>EN</span></a></div>
+    <div class="side-menu-grid">
+      <!-- Custom always-visible gold scrollbar for col-projects -->
+      <div class="col-projects-sb" id="colProjectsSb" aria-hidden="true">
+        <div class="col-projects-sb-thumb" id="colProjectsSbThumb"></div>
+      </div>
+      <nav class="side-menu-col col-main">
+        <ul class="menu-list">
+          <li class="menu-item"><a class="menu-link" href="index.html"><span class="label">HOMEPAGE</span></a></li>
+          <li class="menu-item has-sub" data-target="nova-konut"><button class="menu-link"><span class="label">NOVA KONUT</span><span class="chev" aria-hidden="true">›</span></button></li>
+          <li class="menu-item has-sub" data-target="devs"><button class="menu-link"><span class="label">LATEST DEVELOPMENTS</span><span class="chev" aria-hidden="true">›</span></button></li>
+          <li class="menu-item"><a class="menu-link" href="projects.html"><span class="label">PORTFOLIO</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="newsroom.html"><span class="label">NEWSROOM</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="design.html" data-testid="menu-link-design"><span class="label">DESIGN</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="construction.html" data-testid="menu-link-construction"><span class="label">CONSTRUCTION</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="partners.html"><span class="label">PARTNERS</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="leed.html" data-testid="menu-link-leed"><span class="label">LEED</span></a></li>
+          <li class="menu-item bb-living"><a class="menu-link" href="build-beyond-living.html" data-testid="menu-link-bbl"><span class="label">BUILD BEYOND LIVING</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="contact.html" data-testid="menu-link-contact"><span class="label">CONTACT</span></a></li>
+        </ul>
+      </nav>
+      <div class="side-menu-col col-sub">
+        <div class="col-sub-head">
+          <button class="col-sub-back" id="colSubBack" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <span class="col-sub-title" id="colSubTitle"></span>
+        </div>
+        <ul class="submenu" data-id="devs" data-title="LATEST DEVELOPMENTS">
+          <li><a href="projects.html"><span class="label">VIEW ALL</span></a></li>
+          <li class="has-projects" data-projects="istanbul">
+            <a href="#"><span class="label">İSTANBUL</span><span class="chev" aria-hidden="true">›</span></a>
+            <ul class="sub-accordion" aria-hidden="true">
+              <li><a href="the-residences-east-west.html">THE RESIDENCES EAST WEST</a></li>
+              <li><a href="the-apartments-ana.html">THE APARTMENTS ANA</a></li>
+              <li><a href="the-apartments-ana.html">THE APARTMENTS ANA</a></li>
+              <li><a href="projects.html" class="view-all-link">VIEW ALL</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="submenu" data-id="nova-konut" data-title="NOVA KONUT">
+          <li><a href="about.html"><span class="label">ABOUT NOVA</span></a></li>
+          <li><a href="#"><span class="label">BOARD</span></a></li>
+          <li><a href="team.html"><span class="label">TEAM</span></a></li>
+          <li><a href="careers.html" data-testid="menu-link-careers"><span class="label">CAREERS</span></a></li>
+          <li><a href="speak-up.html" data-testid="menu-link-speakup"><span class="label">SPEAK UP</span></a></li>
+        </ul>
+      </div>
+      <div class="side-menu-col col-projects">
+        <div class="projects-preview" data-id="istanbul">
+          <a href="the-residences-east-west.html" class="proj-card">
+            <div class="proj-img">
+              <img src="/media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West" width="280" height="234" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="/media/images/logos/EASTWEST_v2-tight.svg" alt="The Residences East West" width="180" height="40" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="the-apartments-tac.html" class="proj-card">
+            <div class="proj-img">
+              <img src="/media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="/media/images/logos/TAC_logo-tight.svg" alt="The Apartments Taç" width="180" height="44" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="the-apartments-ana.html" class="proj-card">
+            <div class="proj-img">
+              <img src="/media/images/menu-thumbs/tac_render.webp" alt="The Apartments Ana" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="/media/images/logos/ANA_logo-tight.svg" alt="The Apartments Ana" width="180" height="44" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="side-menu-foot">
+      <div class="terms">TERMS AND CONDITIONS</div>
+      <div class="socials">
+        <a href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
+        <a href="https://wa.me/905335061972" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a href="mailto:iletisim@nova.istanbul" aria-label="E-posta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================= PROJECT HERO ============================= -->
+  <!-- ============================= HERO ============================= -->
+  <section class="ana-hero" id="top">
+    <div class="ana-hero-media">
+      <video class="ana-hero-video" id="anaHeroVideo" autoplay muted loop playsinline preload="metadata"
+             poster="/media/images/ana/ana-render.webp" width="1280" height="720"
+             aria-label="Construction progress at The Apartments Ana" data-testid="ana-hero-video">
+        <source src="/media/video/ana-video.webm" type="video/webm" />
+        <source src="/media/video/ana-video.mp4" type="video/mp4" />
+      </video>
+      <span class="ana-hero-scrim" aria-hidden="true"></span>
+    </div>
+    <div class="ana-hero-inner">
+      <p class="ana-hero-meta" data-testid="ana-hero-meta">
+        <span class="ana-hero-place">KEMAL SUNAL SOKAK &middot; CADDEBOSTAN &middot; BAĞDAT CADDESİ</span>
+        <span class="ana-hero-status">UNDER CONSTRUCTION</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================= HERO ACTION BAR ============================= -->
+  <div class="ana-action-strip">
+    <div class="ana-action-inner">
+      <button class="ana-gallery-btn" id="anaRenderBtn" type="button" data-ana-scroll="architecture" data-testid="ana-view-render">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5" /><circle cx="8.5" cy="9.5" r="1.6" /><path d="M3 16.5l4.5-4 3.5 3 3.5-3.2L21 17" /></svg>
+        <span>VIEW RENDER</span>
+      </button>
+      <div class="ana-action-cta">
+        <a class="ana-btn ana-btn--gold" href="#register" data-ana-scroll="register" data-testid="ana-book-unit">BOOK UNIT</a>
+        <a class="ana-btn ana-btn--outline" href="#floorplan" data-ana-scroll="floorplan" data-testid="ana-view-plan">VIEW FLOOR PLAN</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= INTRODUCTION ============================= -->
+  <section class="ana-intro">
+    <img class="ana-intro-logo reveal-up" src="/media/images/logos/ANA_logo-tight.svg" width="300" height="100"
+         alt="The Apartments Ana" loading="lazy" />
+    <p class="ana-intro-tag reveal-up">A PRIVATE 3+1 RESIDENTIAL ADDRESS ON KEMAL SUNAL STREET, SHAPED AROUND THE QUIETER SIDE OF LIFE NEAR BAĞDAT CADDESİ.</p>
+    <p class="ana-intro-sub reveal-up">Ana brings together the peaceful, family-oriented character of Kemal Sunal Street with the everyday advantages of Caddebostan. With Büyük Kulüp just a few steps away and Bağdat Caddesi moments from home, it offers a composed residential setting where neighbourhood calm, privacy and everyday convenience come naturally together.</p>
+  </section>
+
+  <!-- ============================= ARCHITECTURAL RENDER ============================= -->
+  <section class="ana-render" id="architecture">
+    <div class="ana-render-inner">
+      <figure class="ana-render-figure reveal-up">
+        <img src="/media/images/ana/ana-render2.webp" width="1118" height="1407"
+             alt="The Apartments Ana — architectural render" loading="eager" decoding="async" fetchpriority="high"
+             data-testid="ana-render-image" />
+      </figure>
+      <div class="ana-render-head reveal-up">
+        <h2 class="ana-render-eyebrow">ARCHITECTURE</h2>
+        <p class="ana-render-title">A distinctive form, composed for its setting.</p>
+        <p class="ana-render-copy">The architecture combines clear proportions, generous glazing and a restrained material palette with a strong vertical expression. Contrasting façade elements give the building its identity, while the overall composition remains measured and residential in character. Set within the calm surroundings of Kemal Sunal Street, Ana is conceived as a contemporary addition naturally integrated into its neighbourhood.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SPECIFICATIONS ============================= -->
+  <section class="ana-specs reveal-up">
+    <div class="ana-specs-grid" data-testid="ana-specs-grid">
+      <div class="ana-spec">
+        <div class="ana-spec-label">property type</div>
+        <div class="ana-spec-value">Private Residences</div>
+      </div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">unit type</div>
+        <div class="ana-spec-value">3+1 Residences<br>(13-story building)</div>
+      </div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">features</div>
+        <div class="ana-spec-value">Private Family Living and Controlled Residential Access</div>
+      </div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">area</div>
+        <div class="ana-spec-value">150 m² Gross<span>112 m² Net</span></div>
+      </div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">status</div>
+        <div class="ana-spec-value">Under Construction</div>
+      </div>
+      <div class="ana-spec">
+        <div class="ana-spec-label">location</div>
+        <div class="ana-spec-value">Kemal Sunal Sok. Caddebostan, Bağdat Caddesi</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= FLOOR PLAN ============================= -->
+  <section class="ana-plans reveal-up" id="floorplan">
+    <div class="ana-plans-eyebrow">TYPICAL RESIDENCE</div>
+    <div class="ana-plans-tabs">
+      <span class="ana-plans-tab active" data-testid="ana-plan-type">3+1</span>
+    </div>
+    <div class="ana-plans-body">
+      <div class="ana-plans-image">
+        <button class="ana-plans-expand" id="anaPlansExpand" type="button" aria-label="Enlarge floor plan" data-testid="ana-plan-expand">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+        </button>
+        <button class="ana-plans-download" id="anaPlansPrint" type="button" aria-label="Print floor plan" data-testid="ana-plan-print">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+        </button>
+        <div class="ana-plans-viewport">
+          <!-- Authentic typical floor plan supplied by the client. Both residences on the
+               typical floor are 3+1, so the schedule beside it describes one 3+1 residence. -->
+          <img class="ana-plans-img" id="anaPlanImg" src="/media/images/ana/plans/ana-typical-floor.webp"
+               width="1334" height="1180" alt="The Apartments Ana — authentic typical floor plan showing two 3+1 residences with room names and areas in square metres"
+               loading="lazy" decoding="async" data-testid="ana-plan-image" />
+        </div>
+      </div>
+      <div class="ana-plans-info">
+        <h3 class="ana-plans-title" id="anaPlanTitle">3+1 Floor Plan</h3>
+        <div class="ana-plans-rows" id="anaPlanRows" data-testid="ana-plan-rows">
+          <div class="ana-plans-row ana-plans-row--total">
+            <span>Gross Area</span>
+            <span class="ana-plans-val">150 m²</span>
+          </div>
+          <div class="ana-plans-row">
+            <span>Net Area</span>
+            <span class="ana-plans-val">112 m²</span>
+          </div>
+          <!-- Room names and areas read directly from the authentic Ana floor plan.
+               Balcony areas are not legible on the supplied drawing and are omitted. -->
+          <div class="ana-plans-row"><span><em>1.</em> Living Room</span><span class="ana-plans-val">38.43 m²</span></div>
+          <div class="ana-plans-row"><span><em>2.</em> Master Bedroom</span><span class="ana-plans-val">19.40 m²</span></div>
+          <div class="ana-plans-row"><span><em>3.</em> Bedroom</span><span class="ana-plans-val">11.23 m²</span></div>
+          <div class="ana-plans-row"><span><em>4.</em> Bedroom</span><span class="ana-plans-val">11.00 m²</span></div>
+          <div class="ana-plans-row"><span><em>5.</em> Kitchen</span><span class="ana-plans-val">12.02 m²</span></div>
+          <div class="ana-plans-row"><span><em>6.</em> Entrance Hall</span><span class="ana-plans-val">8.19 m²</span></div>
+          <div class="ana-plans-row"><span><em>7.</em> Corridor</span><span class="ana-plans-val">2.86 m²</span></div>
+          <div class="ana-plans-row"><span><em>8.</em> Bathroom</span><span class="ana-plans-val">5.46 m²</span></div>
+          <div class="ana-plans-row"><span><em>9.</em> En-suite Bathroom</span><span class="ana-plans-val">3.09 m²</span></div>
+          <div class="ana-plans-row"><span><em>10.</em> Utility</span><span class="ana-plans-val">3.00 m²</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ana-plans-footnote">
+      <h4 class="ana-plans-sub">Engineered for Structural Safety</h4>
+      <p class="ana-plans-copy" id="anaPlanCopy">The structural design of The Apartments Ana has been reviewed by our structural consultant, Prof. Dr. Cem Yalçın.
+
+Following a project-specific structural assessment, Prof. Dr. Yalçın reviewed the structural system, design assumptions and engineering approach, and provided his formal engineering approval for the adopted structural design.
+
+The project has therefore been subject to an additional level of technical review beyond the standard design and approval process.
+</p>
+    </div>
+
+  </section>
+
+  <!-- Floor plan viewer — kept outside .ana-plans because that section is
+       transformed by .reveal-up, which would otherwise become the containing
+       block for the fixed modal and push it out of the viewport. -->
+  <div class="ana-plans-lightbox" id="anaPlansLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Floor plan">
+    <button class="ana-plans-lightbox-close" id="anaPlansLightboxClose" type="button" aria-label="Close" data-testid="ana-plan-close">&times;</button>
+    <img id="anaPlansLightboxImg" alt="The Apartments Ana — typical 3+1 floor plan, enlarged" />
+  </div>
+
+  <!-- ============================= DESIGNED AROUND SPACE ============================= -->
+  <section class="ana-invest">
+    <h2 class="ana-invest-title reveal-up">DESIGNED AROUND LIFE</h2>
+    <div class="ana-invest-grid reveal-up">
+      <div class="ana-invest-img">
+        <img src="/media/images/ana/kemal-sunal.webp" width="941" height="1672"
+             alt="The Apartments Ana" loading="lazy" decoding="async" />
+      </div>
+     <ul class="ana-invest-list" data-testid="ana-qualities">
+  <li><span class="num">01</span><span class="txt">A composed 3+1 residence designed around contemporary family life</span></li>
+<li><span class="num">02</span><span class="txt">A quieter residential setting on Kemal Sunal Street</span></li>
+<li><span class="num">03</span><span class="txt">Two deed-registered private parking spaces for every Nova residence</span></li>
+<li><span class="num">04</span><span class="txt">Two underground parking levels with controlled residential access</span></li>
+<li><span class="num">05</span><span class="txt">A secure residential environment shaped around privacy and everyday ease</span></li>
+<li><span class="num">06</span><span class="txt">Büyük Kulüp within the immediate neighbourhood</span></li>
+<li><span class="num">07</span><span class="txt">Bağdat Caddesi within easy reach while remaining removed from its busiest frontage</span></li>
+<li><span class="num">08</span><span class="txt">Convenient access to the coastline, parks, schools and everyday destinations of Kadıköy</span></li>
+<li><span class="num">09</span><span class="txt">A residential setting suited to the routines of long-term family living</span></li>
+<li><span class="num">10</span><span class="txt">The balance of neighbourhood calm, connectivity and private residential living</span></li>
+</ul>
+    </div>
+  </section>
+
+  <!-- ============================= PRIVATE PARKING ============================= -->
+  <section class="ana-parking-section" id="parking" aria-labelledby="ana-parking-heading">
+    <div class="ana-parking-inner">
+      <div class="ana-parking-copy" data-ana-parking-reveal>
+        <p class="ana-parking-eyebrow">PRIVATE PARKING</p>
+        <h2 class="ana-parking-heading" id="ana-parking-heading">Two levels below ground.<br />Two spaces for every Nova residence.</h2>
+        <p class="ana-parking-body">Parking extends across two basement levels beneath The Apartments Ana. Each apartment within Nova&rsquo;s allocation includes two designated indoor parking spaces, formally recorded in the relevant title-deed documentation.</p>
+        <dl class="ana-parking-figures" data-testid="ana-parking-figures">
+          <div class="ana-parking-figure">
+            <dt>Basement levels</dt>
+            <dd><span class="ana-parking-num" data-ana-count="-2">&minus;2</span></dd>
+          </div>
+          <div class="ana-parking-figure">
+            <dt>Spaces per residence</dt>
+            <dd><span class="ana-parking-num" data-ana-count="2">2</span></dd>
+          </div>
+        </dl>
+        <p class="ana-parking-note">A permanent part of the residence&mdash;not an informal or temporary allocation.</p>
+      </div>
+      <figure class="ana-parking-figure-media" data-ana-parking-reveal>
+        <img src="/media/images/ana/ana-parking.webp"
+             srcset="/media/images/ana/ana-parking-800.webp 632w, ./media/images/ana/ana-parking.webp 1264w"
+             sizes="(max-width: 900px) 92vw, 56vw"
+             width="1264" height="848"
+             alt="Enclosed residential car park beneath The Apartments Ana, architectural visualisation"
+             loading="lazy" decoding="async" data-testid="ana-parking-image" />
+        <figcaption>Architectural visualisation</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================= LE CERCLE D'ORIENT BÜYÜK KULÜP ============================= -->
+  <section class="ana-kulup" id="buyuk-kulup" aria-labelledby="ana-kulup-heading">
+    <div class="ana-kulup-inner" data-ana-kulup-reveal>
+      <figure class="ana-kulup-media">
+        <img src="/media/images/ana/buyuk-kulup-interior.webp"
+             width="2000" height="1500" sizes="(max-width: 900px) 92vw, 58vw"
+             alt="The grand reception hall of Le Cercle d&rsquo;Orient Büyük Kulüp in Caddebostan, lit by crystal chandeliers during an evening gathering"
+             loading="lazy" decoding="async" data-testid="ana-kulup-image" />
+      </figure>
+      <div class="ana-kulup-copy">
+        <div class="ana-kulup-logo-wrap">
+          <img class="ana-kulup-logo" src="/media/images/ana/buyuk-kulup-logo.png"
+               width="460" height="567" alt="Le Cercle d&rsquo;Orient Büyük Kulüp logo"
+               loading="lazy" decoding="async" data-testid="ana-kulup-logo" />
+        </div>
+        <p class="ana-kulup-eyebrow">AN ESTABLISHED NEIGHBOUR</p>
+        <h2 class="ana-kulup-heading" id="ana-kulup-heading">A few steps from Le Cercle d&rsquo;Orient.</h2>
+        <p class="ana-kulup-body">The Apartments Ana is located on Kemal Sunal Street, within a short walk of Le Cercle d&rsquo;Orient B&uuml;y&uuml;k Kul&uuml;p, one of Caddebostan&rsquo;s long-established social landmarks. Its proximity places a recognised part of the neighbourhood&rsquo;s social and cultural life within the immediate surroundings of the residence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ARRIVAL ============================= -->
+  <section class="ana-parking-section ana-parking-section--arrival" id="arrival" aria-labelledby="ana-arrival-heading">
+    <div class="ana-parking-inner ana-parking-inner--reverse">
+      <div class="ana-parking-copy" data-ana-parking-reveal>
+        <p class="ana-parking-eyebrow">ARRIVAL</p>
+        <h2 class="ana-parking-heading" id="ana-arrival-heading">A considered arrival from Bağdat Caddesi.</h2>
+        <p class="ana-parking-body">The vehicular approach from Bağdat Caddesi leads to the controlled entrance of The Apartments Ana and continues to the enclosed parking levels below the residence.</p>
+        <p class="ana-parking-note">A clear, secure and considered transition from the avenue to the building.</p>
+      </div>
+      <figure class="ana-parking-figure-media" data-ana-parking-reveal>
+        <img src="/media/images/tac/tac-giris2.webp"
+             srcset="/media/images/tac/tac-giris2-800.webp 809w, ./media/images/tac/tac-giris2.webp 1618w"
+             sizes="(max-width: 900px) 92vw, 56vw"
+             width="1618" height="972"
+             alt="Vehicular entrance to The Apartments Ana from Bağdat Caddesi, architectural visualisation"
+             loading="lazy" decoding="async" data-testid="ana-arrival-image" />
+        <figcaption>Architectural visualisation</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================= LOCATION ============================= -->
+  <section class="ana-location" id="location">
+    <h2 class="ana-location-title reveal-up">location</h2>
+    <p class="ana-location-lead reveal-up">CLOSE TO EVERYTHING.
+REMOVED FROM THE NOISE.</p>
+    <p class="ana-location-desc reveal-up">The Apartments Ana is set on Kemal Sunal Street, within an established residential pocket just off Bağdat Caddesi. Its position brings together the calm and privacy of neighbourhood life with convenient access to Büyük Kulüp, the avenue, the coastline and the everyday destinations of Kadıköy.</p>
+    <figure class="ana-location-media reveal-up">
+      <img src="/media/images/ana/ana-location.webp" width="2000" height="1115"
+           alt="The Apartments Ana site plan on Bağdat Caddesi, Selamiçeşme"
+           loading="lazy" decoding="async" data-testid="ana-site-plan-image" />
+    </figure>
+    <div class="ana-map reveal-up">
+      <div class="ana-map-card">
+        <div class="ana-map-canvas" id="anaMap" data-lat="40.97149665164465" data-lng="29.055055825082672"
+             role="region" aria-label="Dark map showing the location of The Apartments Ana on Kemal Sunal Sokak, Caddebostan"
+             data-testid="ana-map-canvas"></div>
+        <div class="ana-map-info">
+          <div class="ana-map-loc">The Apartments Ana<span>Kemal Sunal Sokak</span><span>Caddebostan, Kadıköy, İstanbul</span></div>
+          <div class="ana-map-coords">40.971497&deg; N &middot; 29.055056&deg; E</div>
+        </div>
+        <a class="ana-map-open" href="https://www.google.com/maps?q=40.97149665164465,29.055055825082672"
+           target="_blank" rel="noopener noreferrer" data-testid="ana-map-link">View on Google Maps &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= WHAT'S NEARBY ============================= -->
+  <section class="ana-nearby">
+    <h2 class="ana-nearby-title reveal-up">WHAT&rsquo;S NEARBY</h2>
+    <p class="ana-nearby-desc reveal-up">From the quiet residential setting of Kemal Sunal Street, Ana places Büyük Kulüp just a few steps from home, while Bağdat Caddesi, the Marmara coastline and the established destinations of Caddebostan remain within easy reach.</p>
+    <div class="ana-nearby-grid reveal-stagger" data-testid="ana-nearby-grid">
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/bagdatcad.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">150 m</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Bağdat Avenue</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ana/buyuk_kulup.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">250 m</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Büyük Kulüp</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/goztepe_park.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">350 m</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Göztepe 60th Year Park</div>
+        </div>
+      </div>
+        <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/caddebostan-plaji.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">900 m</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Caddebostan Waterfront</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ana/boyner-cadde.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,5 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Boyner Cadde</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/kalamis_marina.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">1,7 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Kalamış Marina</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/kalamis.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">2,2 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Kalamış Waterfront</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/fb-stadium.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">2,2 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Fenerbahçe Stadium</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/akasya-acibadem.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">5,8 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Akasya Shopping Mall</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/emaar.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">6,3 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Emaar Square Mall</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/avrasya.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">7,4 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Eurasia Tunnel</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/15temmuz.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">10,8 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">15 July Martyrs Bridge</div>
+        </div>
+      </div>
+      <div class="ana-nearby-card">
+        <div class="ana-nearby-img" style="background-image:url('./media/images/ew/zorlu.webp');"></div>
+        <div class="ana-nearby-text">
+          <div class="ana-nearby-dist">14 km</div>
+          <div class="ana-nearby-line"></div>
+          <div class="ana-nearby-label">Zorlu Center</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ENQUIRE ============================= -->
+  <section class="ana-enquire" id="register">
+    <div class="container">
+      <h2 class="ana-enquire-title reveal-up">REQUEST PROJECT INFORMATION</h2>
+      <form class="ana-form reveal-up" id="anaEnquireForm" novalidate data-testid="ana-enquire-form">
+        <div class="ana-field">
+          <label for="ana-fullname">Full Name</label>
+          <input id="ana-fullname" type="text" name="fullname" required data-testid="ana-form-name" />
+        </div>
+        <div class="ana-field ana-phone">
+          <div>
+            <label for="ana-code">Code</label>
+            <select id="ana-code" name="code" data-testid="ana-form-code">
+              <option selected>+90</option><option>+1</option><option>+44</option><option>+971</option><option>+966</option><option>+49</option>
+            </select>
+          </div>
+          <div>
+            <label for="ana-phone">Phone</label>
+            <input id="ana-phone" type="tel" name="phone" data-testid="ana-form-phone" />
+          </div>
+        </div>
+        <div class="ana-field">
+          <label for="ana-email">Email</label>
+          <input id="ana-email" type="email" name="email" required data-testid="ana-form-email" />
+        </div>
+        <div class="ana-field">
+          <label for="ana-project">Select Project</label>
+          <select id="ana-project" name="project" data-testid="ana-form-project">
+              <option value="">Select Project</option>
+              <option>The Residences East West, Ba&#287;dat Caddesi</option>
+              <option>The Apartments Ta&ccedil;, Ba&#287;dat Caddesi</option>
+              <option>The Apartments Ana, Ba&#287;dat Caddesi</option>
+            
+          </select>
+        </div>
+        <div class="ana-field">
+          <label for="ana-source">How did you hear about us?</label>
+          <select id="ana-source" name="source" data-testid="ana-form-source">
+            <option value="">Please select</option>
+            <option>Google</option>
+            <option>Social Media (Instagram, Facebook, TikTok)</option>
+            <option>LinkedIn</option>
+            <option>Other Online Ads</option>
+            <option>Word of Mouth</option>
+            <option>Event</option>
+            <option>Email Newsletter</option>
+            <option>Property Portal</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="ana-checks">
+          <label><input type="checkbox" name="news" checked data-testid="ana-form-news" /> <span>I&rsquo;d like to hear about news and offers</span></label>
+          <label><input type="checkbox" name="privacy" required data-testid="ana-form-privacy" /> <span>I&rsquo;ve read and agree to the <a href="privacy-notice.html">Privacy Notice</a></span></label>
+        </div>
+        <button type="submit" class="ana-submit" data-testid="ana-form-submit">REQUEST INFORMATION</button>
+        <p class="ana-form-msg" id="anaFormMsg" role="status" data-testid="ana-form-message"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================= FOOTER (same as index.html) ============================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <!-- Discover Our Residences — editorial row -->
+      <div class="footer-discover">
+        <h3 class="footer-discover-title">Discover Our Residences</h3>
+        <ul class="footer-discover-row">
+          <li><a href="the-residences-east-west.html"><span class="fd-name">The Residences East West</span><span class="fd-meta">&Ccedil;iftehavuzlar</span></a></li>
+          <li><a href="the-apartments-tac.html"><span class="fd-name">The Apartments Ta&ccedil;</span><span class="fd-meta">Feneryolu</span></a></li>
+          <li><a href="the-apartments-ana.html"><span class="fd-name">The Apartments Ana</span><span class="fd-meta">Caddebostan</span></a></li>
+          <li><a href="projects.html"><span class="fd-name">View All Projects</span><span class="fd-meta">Ba&#287;dat Caddesi portfolio</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-middle">
+        <div class="footer-globe-section">
+          <div class="footer-globe-icon">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="25" cy="25" r="23"/>
+              <ellipse cx="25" cy="25" rx="10" ry="23"/>
+              <line x1="2" y1="25" x2="48" y2="25"/>
+            </svg>
+          </div>
+        </div>
+        <div class="footer-menu-links">
+          <a href="projects.html" data-testid="footer-link-portfolio">PORTFOLIO</a>
+          <a href="newsroom.html" data-testid="footer-link-newsroom">NEWSROOM</a>
+          <a href="design.html" data-testid="footer-link-design">DESIGN</a>
+          <a href="build-beyond-living.html" data-testid="footer-link-bbl">BUILD BEYOND LIVING</a>
+          <a href="#">AGENT CONNECT</a>
+          <a href="#">INVESTOR RELATIONS</a>
+          <a href="#">BLOGS</a>
+          <a href="#">PRESS</a>
+          <a href="careers.html" data-testid="footer-link-careers">CAREERS</a>
+          <a href="speak-up.html" data-testid="footer-link-speakup">SPEAK UP</a>
+        </div>
+      </div>
+
+      <div class="footer-social-section">
+        <span class="social-label">FOLLOW US ON</span>
+        <div class="social-icons-small">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/novakonut/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
+          <a href="#" aria-label="Asterisk"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <div class="footer-bottom-links">
+          <a href="index.html#register" data-testid="footer-link-getintouch">Get in Touch</a>
+          <a href="privacy-notice.html">Privacy Notice</a>
+          <a href="cookie-notice.html">Cookie Notice</a>
+          <a href="ethical-principles.html">Ethical Principles &amp; Labour Standards</a>
+        </div>
+        <div class="footer-copyright-text">
+          <span>© 2026 Nova Konut. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/script.js"></script>
+  <script src="/js/swipe-carousel.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/the-apartments-ana.js"></script>
+<script src="/js/nova-forms.js"></script>
+</body>
+</html>

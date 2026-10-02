@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://nova.istanbul/tr/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/index.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/index.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/projeler.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/projeler.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/projeler.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/projects.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/projeler.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/projeler.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/hakkimizda.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/hakkimizda.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/hakkimizda.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/hakkimizda.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/hakkimizda.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/iletisim.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/iletisim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/iletisim.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/iletisim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/iletisim.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/organizasyon.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/organizasyon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/team.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/organizasyon.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/team.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/organizasyon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/team.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/organizasyon.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/partnerler.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/partnerler.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/partners.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/partnerler.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/partners.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/partnerler.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/partners.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/partnerler.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/tasarim.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/tasarim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/design.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/tasarim.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/design.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/tasarim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/design.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/tasarim.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/muhendislik.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/muhendislik.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/construction.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/muhendislik.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/construction.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/muhendislik.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/construction.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/muhendislik.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/leed.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/leed.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/leed.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/leed.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/leed.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/leed.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/leed.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/leed.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/build-beyond-living.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/build-beyond-living.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/build-beyond-living.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/build-beyond-living.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/build-beyond-living.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/build-beyond-living.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/build-beyond-living.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/build-beyond-living.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/medya.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/medya.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/newsroom.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/medya.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/newsroom.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/medya.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/newsroom.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/medya.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/haber.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/haber.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/news-detail.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/haber.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/news-detail.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/haber.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/news-detail.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/haber.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/kariyer.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/kariyer.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/careers.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/kariyer.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/careers.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/kariyer.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/careers.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/kariyer.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/santiye-muduru-mimar.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/santiye-muduru-mimar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/construction-site-manager-architect.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/santiye-muduru-mimar.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/construction-site-manager-architect.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/santiye-muduru-mimar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/construction-site-manager-architect.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/santiye-muduru-mimar.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/bildirim.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/bildirim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/speak-up.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/bildirim.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/speak-up.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/bildirim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/speak-up.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/bildirim.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/gizlilik-bildirimi.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/gizlilik-bildirimi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/privacy-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/gizlilik-bildirimi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/privacy-notice.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/gizlilik-bildirimi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/privacy-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/gizlilik-bildirimi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/cerez-bildirimi.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/cerez-bildirimi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/cookie-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/cerez-bildirimi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/cookie-notice.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/cerez-bildirimi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/cookie-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/cerez-bildirimi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/etik-ilkeler.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/etik-ilkeler.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/ethical-principles.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/etik-ilkeler.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/ethical-principles.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/etik-ilkeler.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/ethical-principles.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/etik-ilkeler.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/aday-aydinlatma-metni.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/aday-aydinlatma-metni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/applicant-privacy-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/aday-aydinlatma-metni.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/applicant-privacy-notice.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/aday-aydinlatma-metni.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/applicant-privacy-notice.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/aday-aydinlatma-metni.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/the-residences-east-west.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-residences-east-west.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-residences-east-west.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-residences-east-west.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/the-residences-east-west.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-residences-east-west.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-residences-east-west.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-residences-east-west.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/the-apartments-tac.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-apartments-tac.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-apartments-tac.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-apartments-tac.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/the-apartments-tac.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-apartments-tac.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-apartments-tac.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-apartments-tac.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/the-apartments-ana.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-apartments-ana.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-apartments-ana.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-apartments-ana.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/the-apartments-ana.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/the-apartments-ana.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/the-apartments-ana.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/the-apartments-ana.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/finance-nova.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/finance-nova.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/finance-nova.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/finance-nova.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/finance-nova.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/finance-nova.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/finance-nova.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/finance-nova.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/falcon-lojistik-merkezi.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/falcon-lojistik-merkezi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/falcon-logistic.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/falcon-lojistik-merkezi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/falcon-logistic.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/falcon-lojistik-merkezi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/falcon-logistic.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/falcon-lojistik-merkezi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/falcon-plaza.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/falcon-plaza.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/falcon-plaza.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/falcon-plaza.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/falcon-plaza.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/falcon-plaza.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/falcon-plaza.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/falcon-plaza.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/gebze-osb-yonetim-binasi.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/gebze-osb-yonetim-binasi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/gebze-osb-management.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/gebze-osb-yonetim-binasi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/gebze-osb-management.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/gebze-osb-yonetim-binasi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/gebze-osb-management.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/gebze-osb-yonetim-binasi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/konelsis-merkezi.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/konelsis-merkezi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/konelsis-center.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/konelsis-merkezi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/konelsis-center.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/konelsis-merkezi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/konelsis-center.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/konelsis-merkezi.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/nisbetiye-on.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/nisbetiye-on.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/nisbetiye-on.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/nisbetiye-on.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/nisbetiye-on.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/nisbetiye-on.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/nisbetiye-on.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/nisbetiye-on.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/mercan-bosphorus.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/mercan-bosphorus.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/mercan-bosphorus.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/mercan-bosphorus.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/mercan-bosphorus.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/mercan-bosphorus.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/mercan-bosphorus.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/mercan-bosphorus.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/marti-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/marti-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/marti-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/marti-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/marti-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/marti-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/marti-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/marti-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/bahar-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/bahar-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/bahar-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/bahar-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/bahar-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/bahar-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/bahar-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/bahar-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/dogan-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/dogan-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/dogan-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/dogan-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/dogan-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/dogan-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/dogan-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/dogan-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/tr/mehtap-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/mehtap-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/mehtap-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/mehtap-residence.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/mehtap-residence.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/mehtap-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/mehtap-residence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/mehtap-residence.html"/>
+  </url>
+</urlset>

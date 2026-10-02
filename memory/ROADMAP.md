@@ -43,3 +43,28 @@
 - Homepage hero Dar Global identity, the three Dar Global hero images and the "DISCOVER DARGLOBAL"
   band: all replaced with NOVA content (June 2026).
 - Footer link lists and every register-form project option list: now NOVA-only (June 2026).
+
+
+## P0 — finish the Turkish localisation (2026-10-02)
+Add entries to `scripts/i18n_tr/*.json` and re-run `python3 scripts/build_i18n.py`.
+Remaining page bodies (word counts from `scripts/i18n_missing.json`):
+
+| /tr page | words |
+|---|---|
+| muhendislik.html | 5849 |
+| tasarim.html | 1502 |
+| build-beyond-living.html | 1147 |
+| gizlilik-bildirimi.html | 937 |
+| the-apartments-ana.html | 817 |
+| cerez-bildirimi.html | 814 |
+| aday-aydinlatma-metni.html | 722 |
+| the-apartments-tac.html | 648 |
+| leed.html | 630 |
+| the-residences-east-west.html | 499 |
+| finance-nova.html | 385 |
+| santiye-muduru-mimar.html | 377 |
+
+Total 14,327 words. Rules: protected names (The Residences East West / The Apartments Taç /
+The Apartments Ana, NOVA, place and person names, Falcon Plaza, Finance Nova, Build Beyond Living,
+X Residence) stay unchanged; never alter m², floor counts, dates, addresses or phone numbers.
+The legal pages must keep the same legal scope as the English source — no new Article 9 assertions.

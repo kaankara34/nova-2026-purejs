@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#F1EBE3" />
+  <meta name="description" content="Nova Konut'ta tasarım — İstanbul konut mimarisinde mimari oran, mekânsal netlik, malzeme bütünlüğü ve disiplinli detay çözümleri." />
+  <title>Tasarım | Nova Konut</title>
+  <link rel="canonical" href="https://nova.istanbul/tr/tasarim.html" />
+  <link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/tasarim.html" />
+  <link rel="alternate" hreflang="en" href="https://nova.istanbul/en/design.html" />
+  <link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/tasarim.html" />
+  <meta property="og:url" content="https://nova.istanbul/tr/tasarim.html" />
+  <meta property="og:locale" content="tr_TR" />
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="/media/images/design/hero.webp" type="image/webp" fetchpriority="high" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/design.css" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/" } }
+  </script>
+</head>
+<body class="page-design">
+
+
+  <!-- ============================= TOP UTILITY BAR ============================= -->
+  <div class="utility-bar" id="utilityBar">
+    <div class="utility-bar-inner">
+      <div class="utility-left">
+        <a href="#" class="utility-item" aria-label="Konum">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Nova Konut</span>
+        </a>
+        <a href="tel:+905335061972" class="utility-item" aria-label="Telefon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+90 (533) 506 1972</span>
+        </a>
+      </div>
+      <div class="utility-socials">
+        <a href="mailto:iletisim@nova.istanbul" class="utility-social utility-social--mail" aria-label="E-posta">
+          <span class="utility-mail-text">iletisim@nova.istanbul</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+        <a href="https://www.instagram.com/novakonut/" class="utility-social" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg>
+        </a>
+        <a href="#" class="utility-social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M20.5 3h-17A.5.5 0 0 0 3 3.5v17a.5.5 0 0 0 .5.5h17a.5.5 0 0 0 .5-.5v-17a.5.5 0 0 0-.5-.5zM8.3 18.3H5.7V9.7h2.7v8.6zM7 8.5c-.9 0-1.6-.7-1.6-1.6S6.1 5.3 7 5.3s1.6.7 1.6 1.6S7.9 8.5 7 8.5zm11.3 9.8h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.7V9.7h2.6v1.2h.1c.4-.7 1.3-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================= HEADER (same as index.html) ============================= -->
+  <header class="site-header transparent" id="siteHeader">
+    <div class="header-inner">
+      <div class="header-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="index.html" class="logo-mark" aria-label="Nova anasayfa">
+          <img src="/media/images/nova-logo-dark.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" / decoding="async">
+        </a>
+      </div>
+      <div class="header-actions">
+        <button class="btn register" data-scroll="register" aria-label="Bilgi Talebi">BİLGİ TALEBİ</button>
+        <div class="lang-switch" role="group" aria-label="Dil seçimi" data-testid="lang-switch"><a class="lang-opt is-active" href="/tr/tasarim.html" hreflang="tr" lang="tr" aria-current="true"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#E30A17"/><circle cx="9" cy="8" r="4.2" fill="#fff"/><circle cx="10.4" cy="8" r="3.4" fill="#E30A17"/><path fill="#fff" d="M14.7 8l3.4-1.1-2.1 2.9V5.2l2.1 2.9z"/></svg><span>TR</span></a><a class="lang-opt" href="/en/design.html" hreflang="en" lang="en"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#012169"/><path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="1.9"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.4"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/></svg><span>EN</span></a></div>
+        <div class="icon-links">
+          <a href="tel:+905335061972" class="icon-link" aria-label="Bizi arayın">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+          <span class="icon-sep"></span>
+          <a href="https://wa.me/905335061972" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="WhatsApp'tan yazın">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Side menu overlay + side menu (cloned from index.html for navigation consistency) -->
+  <div class="side-menu-overlay" id="sideMenuOverlay"></div>
+  <aside class="side-menu" id="sideMenu" aria-label="Ana menü">
+    <button class="side-menu-close" id="menuClose" aria-label="Menüyü kapat">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+          <div class="lang-switch lang-switch--menu" role="group" aria-label="Dil seçimi" data-testid="lang-switch"><a class="lang-opt is-active" href="/tr/tasarim.html" hreflang="tr" lang="tr" aria-current="true"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#E30A17"/><circle cx="9" cy="8" r="4.2" fill="#fff"/><circle cx="10.4" cy="8" r="3.4" fill="#E30A17"/><path fill="#fff" d="M14.7 8l3.4-1.1-2.1 2.9V5.2l2.1 2.9z"/></svg><span>TR</span></a><a class="lang-opt" href="/en/design.html" hreflang="en" lang="en"><svg class="lang-flag" viewBox="0 0 24 16" aria-hidden="true"><rect width="24" height="16" fill="#012169"/><path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="1.9"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.4"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/></svg><span>EN</span></a></div>
+    <div class="side-menu-grid">
+      <div class="col-projects-sb" id="colProjectsSb" aria-hidden="true">
+        <div class="col-projects-sb-thumb" id="colProjectsSbThumb"></div>
+      </div>
+      <nav class="side-menu-col col-main">
+        <ul class="menu-list">
+          <li class="menu-item"><a class="menu-link" href="index.html"><span class="label">ANASAYFA</span></a></li>
+          <li class="menu-item has-sub" data-target="nova-konut"><button class="menu-link"><span class="label">NOVA KONUT</span><span class="chev">›</span></button></li>
+          <li class="menu-item has-sub" data-target="devs"><button class="menu-link"><span class="label">GÜNCEL PROJELER</span><span class="chev">›</span></button></li>
+          <li class="menu-item"><a class="menu-link" href="projeler.html"><span class="label">PORTFÖY</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="medya.html"><span class="label">MEDYA</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="tasarim.html" data-testid="menu-link-design"><span class="label">TASARIM</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="muhendislik.html" data-testid="menu-link-construction"><span class="label">MÜHENDİSLİK</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="partnerler.html"><span class="label">PARTNERLER</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="leed.html" data-testid="menu-link-leed"><span class="label">LEED</span></a></li>
+          <li class="menu-item bb-living"><a class="menu-link" href="build-beyond-living.html" data-testid="menu-link-bbl"><span class="label">BUILD BEYOND LIVING</span></a></li>
+          <li class="menu-item"><a class="menu-link" href="iletisim.html" data-testid="menu-link-contact"><span class="label">İLETİŞİM</span></a></li>
+        </ul>
+      </nav>
+      <div class="side-menu-col col-sub">
+        <div class="col-sub-head">
+          <button class="col-sub-back" id="colSubBack" aria-label="Geri">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <span class="col-sub-title" id="colSubTitle"></span>
+        </div>
+        <ul class="submenu" data-id="devs" data-title="GÜNCEL PROJELER">
+          <li><a href="projeler.html"><span class="label">TÜMÜNÜ GÖR</span></a></li>
+          <li class="has-projects" data-projects="istanbul">
+            <a href="#"><span class="label">İSTANBUL</span><span class="chev">›</span></a>
+            <ul class="sub-accordion">
+              <li><a href="the-residences-east-west.html">THE RESIDENCES EAST WEST</a></li>
+              <li><a href="the-apartments-tac.html">THE APARTMENTS TAÇ</a></li>
+              <li><a href="the-apartments-ana.html">THE APARTMENTS ANA</a></li>
+              <li><a href="projeler.html" class="view-all-link">TÜMÜNÜ GÖR</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="submenu" data-id="nova-konut" data-title="NOVA KONUT">
+          <li><a href="hakkimizda.html"><span class="label">NOVA HAKKINDA</span></a></li>
+          <li><a href="#"><span class="label">YÖNETİM KURULU</span></a></li>
+          <li><a href="organizasyon.html"><span class="label">ORGANİZASYON</span></a></li>
+          <li><a href="kariyer.html" data-testid="menu-link-careers"><span class="label">KARİYER</span></a></li>
+          <li><a href="bildirim.html" data-testid="menu-link-speakup"><span class="label">BİLDİRİM HATTI</span></a></li>
+        </ul>
+      </div>
+      <div class="side-menu-col col-projects">
+        <div class="projects-preview" data-id="istanbul">
+          <a href="the-residences-east-west.html" class="proj-card">
+            <div class="proj-img">
+              <img src="/media/images/menu-thumbs/dogubati_render.webp" alt="The Residences East West" width="280" height="234" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="/media/images/logos/EASTWEST_v2-tight.svg" alt="The Residences East West" width="180" height="40" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">ÇİFTEHAVUZLAR, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="the-apartments-tac.html" class="proj-card">
+            <div class="proj-img">
+              <img src="/media/images/menu-thumbs/tac-ai-render.webp" alt="The Apartments Taç" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="/media/images/logos/TAC_logo-tight.svg" alt="The Apartments Taç" width="180" height="44" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">SELAMİÇEŞME, BAĞDAT CADDESİ</div>
+          </a>
+          <a href="the-apartments-ana.html" class="proj-card">
+            <div class="proj-img">
+              <img src="/media/images/menu-thumbs/tac_render.webp" alt="The Apartments Ana" width="280" height="352" loading="eager" decoding="async" fetchpriority="high" />
+              <div class="proj-overlay"></div>
+              <div class="proj-logo-overlay"><img src="/media/images/logos/ANA_logo-tight.svg" alt="The Apartments Ana" width="180" height="44" loading="eager" decoding="async" /></div>
+            </div>
+            <div class="proj-loc">GÖZTEPE, BAĞDAT CADDESİ</div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="side-menu-foot">
+      <div class="terms">KULLANIM KOŞULLARI</div>
+      <div class="socials">
+        <a href="https://www.instagram.com/novakonut/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
+        <a href="https://wa.me/905335061972" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a href="mailto:iletisim@nova.istanbul" aria-label="E-posta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+<!-- ============================= DESIGN — EDITORIAL BODY ============================= -->
+  <main class="dz" id="dzMain">
+
+    <!-- SECTION RAIL — fixed, names the section you are reading -->
+    <nav class="dz-rail" id="dzIndex" aria-label="Tasarım dizini">
+      <span class="dz-rail-now" data-rail-now aria-live="polite"></span>
+      <a class="dz-rail-link" href="#architecture" data-dz-link data-testid="design-index-architecture"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Mimari</span></a>
+      <a class="dz-rail-link" href="#light" data-dz-link data-testid="design-index-light"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Işık</span></a>
+      <a class="dz-rail-link" href="#materials" data-dz-link data-testid="design-index-materials"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Malzemeler</span></a>
+      <a class="dz-rail-link" href="#interiors" data-dz-link data-testid="design-index-interiors"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">İç Mekânlar</span></a>
+      <a class="dz-rail-link" href="#detail" data-dz-link data-testid="design-index-detail"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Detay</span></a>
+      <a class="dz-rail-link" href="#landscape" data-dz-link data-testid="design-index-landscape"><span class="dz-rail-mark" aria-hidden="true"></span><span class="dz-rail-label">Peyzaj</span></a>
+    </nav>
+
+
+    <!-- 01 · OPENING -->
+    <section class="dz-open" id="dz-top">
+      <div class="dz-wrap">
+        <header class="dz-open-head">
+          <p class="dz-eyebrow" data-dz>Nova'da Tasarım</p>
+          <h1 class="dz-h1" data-dz>Mimari, oranla <br />başlar.</h1>
+        </header>
+      </div>
+      <figure class="dz-open-fig" data-dz-fig>
+        <img src="/media/images/design/hero.webp" width="1264" height="848"
+             alt="Büyük ebatlı taş, eskitilmiş bronz çerçeveler, derin niş detayları ve sıcak iç mekân ışığıyla çağdaş bir İstanbul konut cephesi"
+             loading="eager" fetchpriority="high" decoding="async" />
+      </figure>
+      <div class="dz-wrap dz-open-foot">
+        <p class="dz-statement" data-dz>İçeriden dışarıya <br />planlanır.</p>
+        <div class="dz-open-copy">
+          <p class="dz-lead" data-dz>Bir konut planıyla başlar. Oran, yönlenme, gün ışığı ve odalar arasındaki ilişki, kaplamalar düşünülmeden önce kurulur. Bu ilk kararlar evin nasıl işleyeceğini belirler ve sonrasında gelen her şeyin yönünü tayin eder.</p>
+          <p class="dz-p" data-dz>Günlük rutinler plan kurgusunu biçimlendirir. Yaşam alanları açıklık, özel odalar ayrışma, sirkülasyon ise netlik gerektirir. Plan doğru olduğunda bunların hiçbirini açıklamak gerekmez.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · A CONSIDERED ARCHITECTURE -->
+    <section class="dz-sec dz-principles" id="architecture" aria-labelledby="dz-t-architecture">
+      <div class="dz-wrap dz-principles-grid">
+        <div class="dz-copy">
+          <p class="dz-eyebrow" data-dz>Mimari</p>
+          <h2 class="dz-h2" id="dz-t-architecture" data-dz>Gerekçesi olan <br />mimari.</h2>
+          <p class="dz-p" data-dz>Nova mimariyi net bir planlama ve ölçülü oranlar üzerinden geliştirir. Taşıyıcı sistem, sirkülasyon, cephe ve iç mekân birlikte çözülür; böylece yapı tutarlı bir bütün olarak işler.</p>
+          <p class="dz-p" data-dz>Cephe; ölçeğe, yönlenmeye, mahremiyete ve bulunduğu çevrenin karakterine yanıt verir. İçeride vurgu kullanışlı oda ölçüleri, doğrudan sirkülasyon ve gün ışığındadır. Amaç, tamamlandıktan uzun süre sonra da inandırıcı kalan bir evdir.</p>
+        </div>
+        <figure class="dz-fig dz-fig--portrait dz-principles-main" data-dz-fig>
+          <img src="/media/images/design/design1.webp" width="848" height="1264"
+               alt="Bir konut cephesinde kitap açımı taş ayaklar, meşe kaplı loggialar ve ince bronz korkuluklar"
+               loading="lazy" decoding="async" />
+        </figure>
+      </div>
+      <div class="dz-wrap dz-principles-second">
+        <figure class="dz-fig dz-principles-small" data-dz-fig>
+          <img src="/media/images/design/principles-small.webp" width="1264" height="848"
+               alt="Tam boy ceviz kaplaması, büyük ebatlı taş zemini ve bronz gölge hattıyla konut lobisi"
+               loading="lazy" decoding="async" />
+          <figcaption class="dz-cap" data-dz>Giriş dizisi — ceviz kaplama, taş zemin, bronz gölge detayı</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 · SPACE & PROPORTION -->
+    <section class="dz-sec dz-prop" id="proportion" aria-labelledby="dz-t-proportion">
+      <div class="dz-wrap dz-prop-head">
+        <div class="dz-copy dz-copy--narrow">
+          <p class="dz-eyebrow" data-dz>Mekân ve Oran</p>
+          <h2 class="dz-h2" id="dz-t-proportion" data-dz>Odaların kullanım biçimine göre oranlandı.</h2>
+        </div>
+        <div class="dz-copy dz-copy--right">
+          <p class="dz-p" data-dz>Oda büyüklüğü bir planın yalnızca tek ölçütüdür. Görüş aksları, sirkülasyon, mobilya yerleşimi, eşikler ve geçişler birlikte çalışılır; çünkü her odanın değeri bir sonrakiyle kurduğu ilişkiye bağlıdır.</p>
+          <p class="dz-p" data-dz>Yaşam alanları yararlı olduğu yerde açık kalır; yatak odaları ve daha sakin alanlar mahremiyetini korur. Taşıyıcı sistem, servis şaftları ve mimari plan, teknik zorunluluklar iç mekânı belirlemeye başlamadan önce erken aşamada koordine edilir.</p>
+        </div>
+      </div>
+      <div class="dz-wrap dz-prop-grid">
+        <figure class="dz-fig dz-prop-main" data-dz-fig>
+          <img src="/media/images/design/proportion-interior.webp" width="1264" height="848"
+               alt="Özel üretim mobilyası, koyu deri oturma grubu ve kente bakan tam boy cam yüzeyiyle meşe kaplı salon"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="dz-prop-aside">
+          <figure class="dz-fig dz-fig--portrait" data-dz-fig>
+            <img src="/media/images/design/proportion-detail.webp" width="848" height="1264"
+                 alt="Büyük ebatlı taşın ince bir bronz gölge boşluğuyla özel meşe mobilyaya birleştiği eşik detayı"
+                 loading="lazy" decoding="async" />
+          </figure>
+          <p class="dz-statement dz-statement--s" data-dz>Sonuç, içeri girdiğiniz andan itibaren anlaşılan bir plandır.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · LIGHT -->
+    <section class="dz-sec dz-light" id="light" aria-labelledby="dz-t-light">
+      <div class="dz-wrap dz-light-head">
+        <div class="dz-copy dz-copy--narrow">
+          <p class="dz-eyebrow" data-dz>Işık</p>
+          <h2 class="dz-h2" id="dz-t-light" data-dz>Işık, planın bir parçasıdır.</h2>
+        </div>
+      </div>
+      <figure class="dz-fig dz-light-fig" data-dz-fig>
+        <img src="/media/images/design/light-wide.webp" width="1264" height="848"
+             alt="Yüksek cam yüzeyleri, şifon perdeleri, meşe kaplaması ve gizli sıcak aydınlatma nişiyle daire salonu"
+             loading="lazy" decoding="async" />
+      </figure>
+      <div class="dz-wrap dz-light-foot">
+        <p class="dz-cap dz-cap--rule" data-dz>Kontrollü açıklık</p>
+        <div class="dz-copy dz-copy--right">
+          <p class="dz-p" data-dz>Gün ışığı gün boyunca odanın içinde yer değiştirir. Bu nedenle pencere ölçüleri, yönlenme, oda derinliği ve cephe boşlukları tek bir kompozisyon olarak değerlendirilir.</p>
+          <p class="dz-p" data-dz>Daha fazla cam her zaman daha iyi değildir. Manzara, mahremiyet, güneş etkisi ve ısıl konfor boşlukların yerini belirler. Hava karardıktan sonra gizli aydınlatma, mobilya içi aydınlatma ve işlev aydınlatması; odayı düzleştirmeden ayrı katmanlar oluşturur.</p>
+          <p class="dz-statement dz-statement--s" data-dz>Işık odaya hizmet etmeli, ona hâkim olmamalıdır.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · MATERIALITY -->
+    <section class="dz-sec dz-mat" id="materials" aria-labelledby="dz-t-materials">
+      <div class="dz-wrap dz-mat-head">
+        <p class="dz-eyebrow" data-dz>Malzeme</p>
+        <h2 class="dz-h2" id="dz-t-materials" data-dz>Özü olan <br />malzemeler.</h2>
+      </div>
+      <div class="dz-wrap dz-mat-grid">
+        <figure class="dz-fig dz-fig--portrait dz-mat-a" data-dz-fig>
+          <img src="/media/images/design/material-stone.webp" width="848" height="1264"
+               alt="İnce bronz kakma ve ceviz kenarla birleşen kitap açımı damarlı taş panel"
+               loading="lazy" decoding="async" />
+          <figcaption class="dz-cap">Kitap açımı taş — bronz kakma, ceviz kenar</figcaption>
+        </figure>
+        <div class="dz-mat-copy">
+          <p class="dz-p" data-dz>Malzemeler görünümü, dokunuşu ve kullanımdaki performansıyla değerlendirilir. Taş, ahşap, metal, deri ve cam zamanla farklı biçimde yaşlanır; bunların zaman içindeki davranışı, teslim günündeki görünümleri kadar önemlidir.</p>
+          <p class="dz-p" data-dz>Ahşap damarı, taş dokusu, derz genişlikleri ve geçişler bilinçli olarak kurgulanır. Birbiriyle uyumlu, ölçülü bir malzeme grubu; dikkat çekmek için yarışan bir kaplama kataloğundan daha güçlü bir iç mekân kurar.</p>
+        </div>
+        <figure class="dz-fig dz-mat-b" data-dz-fig>
+          <img src="/media/images/design/material-timber.webp" width="1264" height="848"
+               alt="Gölge boşluğu, gömme pirinç kulp ve arkasında füme camla damar eşleştirmeli ceviz dolap"
+               loading="lazy" decoding="async" />
+          <figcaption class="dz-cap">Ceviz dolap — damar eşleştirmeli, fırçalanmış pirinç kulp</figcaption>
+        </figure>
+        <figure class="dz-fig dz-fig--portrait dz-mat-c" data-dz-fig>
+          <img src="/media/images/design/material-metal.webp" width="848" height="1264"
+               alt="Honlanmış taş söveyle birleşen ceviz kapı kanadı üzerinde eskitilmiş bronz kol"
+               loading="lazy" decoding="async" />
+          <figcaption class="dz-cap">Metal donanım — ceviz üzerinde eskitilmiş bronz, taş söve</figcaption>
+        </figure>
+        <p class="dz-statement dz-statement--s dz-mat-note" data-dz>İki malzemenin birleşimi işin standardını ortaya koyar.</p>
+      </div>
+    </section>
+
+    <!-- 06b · MATERIAL REGISTER (3D samples) -->
+    <section class="dz-sec dz-reg" id="material-register" aria-labelledby="dz-t-register">
+      <div class="dz-wrap dz-reg-head">
+        <p class="dz-eyebrow" data-dz>Malzeme çalışması</p>
+        <h2 class="dz-h2" id="dz-t-register" data-dz>Beş yüzey, <br />yakından incelendi.</h2>
+        <div class="dz-copy dz-copy--narrow">
+          <p class="dz-p" data-dz>Proje programına ve müşteri tercihine göre seçilen bu beş yüzey, Nova'nın malzeme dilinin bir parçasıdır. Her numunenin kökenini, yüzey işlemini ve zaman içindeki davranışını incelemek için numuneyi döndürün.</p>
+        </div>
+      </div>
+      <div class="dz-wrap dz-reg-grid">
+        <div class="dz-reg-stage">
+          <div class="dz-reg-canvas" data-testid="material-viewer">
+            <canvas id="dzMatCanvas" aria-hidden="true"></canvas>
+            <p class="dz-reg-badge" data-mat-badge>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+                <path d="M20 12a8 8 0 1 1-2.6-5.9" /><path d="M20 4v4h-4" />
+              </svg>
+              3D — drag to inspect
+            </p>
+          </div>
+          <div class="dz-reg-tabs" role="tablist" aria-label="Malzeme numuneleri">
+            <button type="button" class="dz-reg-tab is-on" data-mat="0" role="tab" aria-selected="true" data-testid="material-tab-walnut">Ceviz</button>
+            <button type="button" class="dz-reg-tab" data-mat="1" role="tab" aria-selected="false" data-testid="material-tab-stone">Taş</button>
+            <button type="button" class="dz-reg-tab" data-mat="2" role="tab" aria-selected="false" data-testid="material-tab-bronze">Bronz</button>
+            <button type="button" class="dz-reg-tab" data-mat="3" role="tab" aria-selected="false" data-testid="material-tab-leather">Deri</button>
+            <button type="button" class="dz-reg-tab" data-mat="4" role="tab" aria-selected="false" data-testid="material-tab-glass">Füme cam</button>
+          </div>
+          <div class="dz-reg-nav">
+            <button type="button" class="dz-reg-arrow" data-mat-prev aria-label="Önceki malzeme" data-testid="material-prev">&#8592;</button>
+            <p class="dz-reg-count"><span data-mat-count>01</span> / 05 &nbsp;·&nbsp; <span data-mat-name>Ceviz</span></p>
+            <button type="button" class="dz-reg-arrow" data-mat-next aria-label="Sonraki malzeme" data-testid="material-next">&#8594;</button>
+          </div>
+        </div>
+        <ol class="dz-reg-list">
+          <li class="dz-reg-item is-on" id="mat-walnut" data-mat-item="0" data-testid="material-entry-walnut">
+            <p class="dz-reg-no">01</p>
+            <h3 class="dz-reg-name">Ceviz</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Köken</dt><dd>Amerikan siyah cevizi — Juglans nigra — Amerika Birleşik Devletleri'nin doğusu ve Kanada'nın güneydoğusundan tedarik edilir.</dd></div>
+              <div class="dz-reg-row"><dt>Kesim</dt><dd>Düz biçilmiş kaplamalar geniş katedral damarı gösterir; çeyrek biçim ise daha sakin ve çizgisel bir doku verir.</dd></div>
+              <div class="dz-reg-row"><dt>Yüzey</dt><dd>Sıra eşleştirmeli, elde zımparalanmış ve damarı kapatmadan doğal yağ ya da mat verniğle bitirilmiştir.</dd></div>
+              <div class="dz-reg-row"><dt>Kullanım alanı</dt><dd>Duvar kaplamaları, gardırop kapakları, kapı kanatları ve gömme mobilya.</dd></div>
+              <div class="dz-reg-row"><dt>Zamanla değişimi</dt><dd>Gün ışığı koyu kahve tonunu zamanla daha sıcak bir amber yönünde yumuşatır; küçük izler bölgesel olarak yenilenebilir.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-stone" data-mat-item="1" data-testid="material-entry-stone">
+            <p class="dz-reg-no">02</p>
+            <h3 class="dz-reg-name">Kitap açımı taş</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Köken</dt><dd>İran'ın İsfahan bölgesinden Pietra Grey; numaralandırılmış, ardışık plakalar hâlinde seçilir.</dd></div>
+              <div class="dz-reg-row"><dt>Desen</dt><dd>Ölçülü bir ayna kompozisyonu, ince açık renkli damarları kesintisiz antrasit bir zemin üzerinde hizalar.</dd></div>
+              <div class="dz-reg-row"><dt>Yüzey</dt><dd>Sakin ve dokunsal bir yüzey için honlanmıştır; daha fazla derinlik gerektiğinde yalnızca hafif cila uygulanır.</dd></div>
+              <div class="dz-reg-row"><dt>Kullanım alanı</dt><dd>Giriş duvarları, vurgu panelleri, banyo yüzeyleri ve seçili tezgâhlar.</dd></div>
+              <div class="dz-reg-row"><dt>Zamanla değişimi</dt><dd>Emprenye edilmiş yüzeyler tonunu korur; aside duyarlı kalkerli taş uygun bakım gerektirir.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-bronze" data-mat-item="2" data-testid="material-entry-bronze">
+            <p class="dz-reg-no">03</p>
+            <h3 class="dz-reg-name">Eskitilmiş bronz</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Köken</dt><dd>Kuzey İtalya'daki uzman dökümhaneler ve metal atölyelerinde üretilen masif bronz ve masif pirinç bileşenler.</dd></div>
+              <div class="dz-reg-row"><dt>Bileşim</dt><dd>Döküm bronz heykelsi parçaları oluşturur; masif pirinç hassas donanım için ayrılmıştır.</dd></div>
+              <div class="dz-reg-row"><dt>Yüzey</dt><dd>Elde fırçalanmış, kimyasal olarak patinalanmış, ardından mum veya şeffaf vernikle korunmuştur.</dd></div>
+              <div class="dz-reg-row"><dt>Kullanım alanı</dt><dd>Metal donanım, mobilya kulpları, gölge profilleri, aydınlatma detayları ve korkuluklar.</dd></div>
+              <div class="dz-reg-row"><dt>Zamanla değişimi</dt><dd>Verniksiz patina derinleşir; sık temas edilen kenarlar zamanla parlar.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-leather" data-mat-item="3" data-testid="material-entry-leather">
+            <p class="dz-reg-no">04</p>
+            <h3 class="dz-reg-name">Deri</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Köken</dt><dd>Floransa ile Pisa arasındaki Toskana'da uzman tabakhanelerde bitkisel tabaklanmış tam tabakalı dana derileri.</dd></div>
+              <div class="dz-reg-row"><dt>Doku</dt><dd>Doğal doku ve derideki ince farklılıklar görünür kalır; yüzey kabartılmamıştır.</dd></div>
+              <div class="dz-reg-row"><dt>Yüzey</dt><dd>Anilin ile tambur boyalı, yağ ve mumla beslenmiş; kenarları perdahlı ve aynı tonda saraç dikişli.</dd></div>
+              <div class="dz-reg-row"><dt>Kullanım alanı</dt><dd>Oturma grupları, başlıklar, gardırop içleri, çekmece astarları ve küpeşte kaplamaları.</dd></div>
+              <div class="dz-reg-row"><dt>Zamanla değişimi</dt><dd>Kullanımla yumuşar, rengi derinleşir ve kendine özgü bir patina kazanır.</dd></div>
+            </dl>
+          </li>
+          <li class="dz-reg-item" id="mat-glass" data-mat-item="4" data-testid="material-entry-glass">
+            <p class="dz-reg-no">05</p>
+            <h3 class="dz-reg-name">Füme cam</h3>
+            <dl class="dz-reg-rows">
+              <div class="dz-reg-row"><dt>Köken</dt><dd>Belçika, Almanya veya Türkiye'nin önde gelen mimari cam üreticilerinden kütle renklendirilmiş float cam.</dd></div>
+              <div class="dz-reg-row"><dt>Bileşim</dt><dd>Harmana eklenen mineral renklendiriciler gri veya bronz bir kütle rengi oluşturur.</dd></div>
+              <div class="dz-reg-row"><dt>Yüzey</dt><dd>Kenarları rodajlı; güvenlik ve yük gereksinimlerine göre temperli veya lamine edilir.</dd></div>
+              <div class="dz-reg-row"><dt>Kullanım alanı</dt><dd>Dolap kapakları, mekân ayırıcıları, duş bölmeleri, barlar ve raf sistemleri.</dd></div>
+              <div class="dz-reg-row"><dt>Zamanla değişimi</dt><dd>Kütle rengi kalıcıdır ve yüzeyden soyulamaz.</dd></div>
+            </dl>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 07 · INTERIORS -->
+    <section class="dz-sec dz-int" id="interiors" aria-labelledby="dz-t-interiors">
+      <div class="dz-wrap dz-int-grid">
+        <figure class="dz-fig dz-int-fig" data-dz-fig>
+          <img src="/media/images/design/design2.webp" width="1264" height="848"
+               alt="Meşe kaplaması, çikolata rengi deri oturma grubu, zeytin yeşili koltukları, sanat eserleri ve seçilmiş objelerle özel tasarım lounge"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="dz-copy dz-int-copy">
+          <p class="dz-eyebrow" data-dz>İç Mekânlar</p>
+          <h2 class="dz-h2 dz-h2--s" id="dz-t-interiors" data-dz>Aşırıya kaçmayan <br />sıcaklık.</h2>
+          <p class="dz-p" data-dz>İç mekân, mimarinin bir parçası olarak geliştirilir. Duvar kaplamaları, gömme mobilya, aydınlatma, malzeme geçişleri ve tesisat detayları; plan tamamlandıktan sonra ayrı katmanlar olarak eklenmek yerine en baştan koordine edilir.</p>
+          <p class="dz-p" data-dz>Palet sıcak ve ölçülüdür. Ahşap, taş, metal, deri ve tekstil odalara görsel gürültü yaratmadan derinlik kazandırır. Böylece mobilya, sanat eserleri ve kişisel objeler mekânda mimariyle yarışmadan yer bulur.</p>
+          <p class="dz-p" data-dz>Standart kullanımda ortaya çıkar: bir kapının kapanışı, iki panelin hizası, bir kulpun ağırlığı, bir gölge boşluğunun derinliği ve bir yüzeyin dokunuşu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 · DETAIL -->
+    <section class="dz-sec dz-det" id="detail" aria-labelledby="dz-t-detail">
+      <div class="dz-wrap dz-det-head">
+        <p class="dz-eyebrow" data-dz>Detay</p>
+        <h2 class="dz-statement dz-statement--l" id="dz-t-detail" data-dz>Hassasiyet <br />kenarlarda görünür.</h2>
+      </div>
+      <div class="dz-wrap dz-det-grid">
+        <figure class="dz-fig dz-fig--portrait dz-det-a" data-dz-fig>
+          <img src="/media/images/design/detail-reveal.webp" width="848" height="1264"
+               alt="Üstünde gömme ince menfeziyle meşe kaplama içinde gizli lineer aydınlatma nişi"
+               loading="lazy" decoding="async" />
+        </figure>
+        <figure class="dz-fig dz-det-b" data-dz-fig>
+          <img src="/media/images/design/detail-stair.webp" width="1264" height="848"
+               alt="Damar eşleştirmeli meşe kaplama önünde ince eskitilmiş bronz küpeşteli honlanmış taş merdiven"
+               loading="lazy" decoding="async" />
+        </figure>
+        <div class="dz-copy dz-det-copy">
+          <p class="dz-p" data-dz>Gölge boşlukları, eşikler, mobilya hatları, metal işleri, gömme menfezler ve gizli tesisatlar kaplamalara başlanmadan önce çözülür. Amaç dikkat çekmek değil; bir odayı zayıflatan görsel kesintileri ortadan kaldırmaktır.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 · LANDSCAPE -->
+    <section class="dz-sec dz-land" id="landscape" aria-labelledby="dz-t-landscape">
+      <div class="dz-wrap dz-land-head">
+        <div class="dz-copy dz-copy--narrow">
+          <p class="dz-eyebrow" data-dz>Peyzaj</p>
+          <h2 class="dz-h2" id="dz-t-landscape" data-dz>Plan dışarıda <br />devam eder.</h2>
+        </div>
+        <div class="dz-copy dz-copy--right">
+          <p class="dz-p" data-dz>Peyzaj, konut planının bir parçasıdır. Girişler, teraslar, avlular, bitkilendirme ve açık oturma alanları yapıyla birlikte geliştirilir; böylece iç ve dış mekân arasındaki güzergâh net bir amaç kazanır.</p>
+          <p class="dz-p" data-dz>Mevcut ağaçlar, her dem yeşil kurgu ve mevsimlik bitkilendirme; mahremiyet, gölge ve derinlik açısından değerlendirilir. Bitkilendirme bir çevre kurmalı, yalnızca kalan zemini doldurmamalıdır.</p>
+        </div>
+      </div>
+      <div class="dz-wrap dz-land-grid">
+        <figure class="dz-fig dz-fig--portrait dz-land-b" data-dz-fig>
+          <img src="/media/images/design/landscape-vertical.webp" width="848" height="1264"
+               alt="Heykelsi bir ağaç, budanmış bitkilendirme ve bronz tonlu bir paravanla samimi bir kent avlusu"
+               loading="lazy" decoding="async" />
+        </figure>
+        <figure class="dz-fig dz-land-a" data-dz-fig>
+          <img src="/media/images/design/landscape-wide.webp" width="1264" height="848"
+               alt="Taş döşeme, mimari çit kurgusu, durgun su ögesi ve gömme oturma alanıyla özel teras"
+               loading="lazy" decoding="async" />
+          <figcaption class="dz-cap">Teras — taş döşeme, mimari çit kurgusu, gömme oturma</figcaption>
+        </figure>
+        <p class="dz-statement dz-statement--s dz-land-note" data-dz>Yapı ve peyzaj tek bir adres olarak kurgulanır.</p>
+      </div>
+    </section>
+
+    <!-- 10 · CONTEXT -->
+    <section class="dz-sec dz-ctx" aria-labelledby="dz-t-context">
+      <div class="dz-wrap dz-ctx-head">
+        <p class="dz-eyebrow" data-dz>Bağlam</p>
+        <h2 class="dz-h2 dz-h2--c" id="dz-t-context" data-dz>Adresine özgü.</h2>
+        <div class="dz-copy dz-copy--centered">
+          <p class="dz-p" data-dz>Tasarım adresle başlar. Sokak genişliği, komşu yapılar, yönlenme, mevcut bitki dokusu, manzara ve gün ışığı; her biri projeye kendi gerekliliklerini getirir.</p>
+          <p class="dz-p" data-dz>Bu durum özellikle Bağdat Caddesi ve çevresindeki köklü konut semtleri için geçerlidir. Yeni yapılar, katıldıkları sokakların ölçeğine, ritmine ve karakterine saygı gösterirken günümüz beklentilerini de karşılamalıdır.</p>
+          <p class="dz-p" data-dz>Adres, mimaride okunabilir olmalıdır.</p>
+        </div>
+      </div>
+      <figure class="dz-fig dz-ctx-fig" data-dz-fig>
+        <img src="/media/images/design/context.webp" width="1264" height="848"
+             alt="Taş kaplamalı apartmanları, bronz çerçeveleri ve olgun çınarlarıyla köklü ve seçkin bir İstanbul caddesi"
+             loading="lazy" decoding="async" />
+      </figure>
+    </section>
+
+    <!-- 11 · PROCESS -->
+    <section class="dz-sec dz-proc" aria-labelledby="dz-t-process">
+      <div class="dz-wrap">
+        <div class="dz-proc-head">
+          <p class="dz-eyebrow" data-dz>Tasarım süreci</p>
+          <h2 class="dz-h2" id="dz-t-process" data-dz>İlk çizgiden <br />son detaya</h2>
+        </div>
+        <ol class="dz-proc-list">
+          <li class="dz-proc-row" data-dz>
+            <span class="dz-proc-no">01</span>
+            <h3 class="dz-proc-label">Bağlam</h3>
+            <p class="dz-p">Arsa koşulları, yönlenme, imar kısıtları ve çevre semt dokusu proje programını tanımlar.</p>
+          </li>
+          <li class="dz-proc-row" data-dz>
+            <span class="dz-proc-no">02</span>
+            <h3 class="dz-proc-label">Oran</h3>
+            <p class="dz-p">Odalar arası ilişkiler, sirkülasyon ve taşıyıcı sistem geometrisi tek bir plan içinde birlikte sınanır.</p>
+          </li>
+          <li class="dz-proc-row" data-dz>
+            <span class="dz-proc-no">03</span>
+            <h3 class="dz-proc-label">Malzeme</h3>
+            <p class="dz-p">Malzemeler; performans, dayanıklılık, doku ve tamamlanmış mekân içindeki uyum açısından değerlendirilir.</p>
+          </li>
+          <li class="dz-proc-row" data-dz>
+            <span class="dz-proc-no">04</span>
+            <h3 class="dz-proc-label">Koordinasyon</h3>
+            <p class="dz-p">Mimari, taşıyıcı sistem, cephe, iç mekân ve tesisat; sahada uygulamaya geçilmeden önce koordine edilir.</p>
+          </li>
+          <li class="dz-proc-row" data-dz>
+            <span class="dz-proc-no">05</span>
+            <h3 class="dz-proc-label">Detay</h3>
+            <p class="dz-p">Kritik birleşimler; uygulamadan önce çizimler, numuneler, örnek imalatlar ve saha incelemesiyle doğrulanır.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 12 · CRAFT & EXECUTION -->
+    <section class="dz-sec dz-craft" aria-labelledby="dz-t-craft">
+      <div class="dz-wrap dz-craft-grid">
+        <div class="dz-copy dz-copy--narrow">
+          <p class="dz-eyebrow" data-dz>Tasarım ve uygulama</p>
+          <h2 class="dz-h2" id="dz-t-craft" data-dz>Çizim, şantiyede <br />ayakta kalmalıdır.</h2>
+        </div>
+        <div class="dz-copy dz-copy--right">
+          <p class="dz-p" data-dz>Yalnızca çizimler sonucu güvence altına almaz. Tasarım niyetinin sahada korunması için ölçüler, altyapı yüzeyleri, toleranslar ve malzeme birleşimleri yapım sürecinde kontrol edilmelidir.</p>
+          <p class="dz-p" data-dz>Numuneler ve örnek imalatlar; renk, doku, damar yönü ve komşu kaplamaların nihai tedarik ve uygulamadan önce incelenmesini sağlar.</p>
+          <p class="dz-p" data-dz>Tamamlanan iş, çizimin disiplinini korumalıdır.</p>
+          <p class="dz-link-row" data-dz>
+            <a class="dz-link" href="muhendislik.html" data-testid="design-link-construction">Yapım ve mühendislik</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 · CLOSING -->
+    <section class="dz-sec dz-end" aria-labelledby="dz-t-end">
+      <div class="dz-wrap dz-end-head">
+        <h2 class="dz-statement dz-statement--m" id="dz-t-end" data-dz>Tasarım, yapımla <br />tamamlanır.</h2>
+        <div class="dz-copy dz-copy--centered">
+          <p class="dz-p" data-dz>Mimari; görünen yüzeylerin arkasında taşıyıcı sistem, cephe, su yalıtımı ve tesisatın koordinasyonuna dayanır. Nova'da tasarım kalitesi, projenin ne kadar sadık biçimde mühendisliğinin yapıldığı ve uygulandığıyla ölçülür.</p>
+        </div>
+      </div>
+      <figure class="dz-fig dz-end-fig" data-dz-fig>
+        <img src="/media/images/design/closing.webp" width="1264" height="848"
+             alt="Alacakaranlıkta çağdaş bir konut cephesi; derin nişlerin arkasında meşe kaplı odaları açığa çıkaran sıcak ışık"
+             loading="lazy" decoding="async" />
+      </figure>
+      <div class="dz-wrap dz-end-foot">
+        <p class="dz-end-mark" data-dz>Nova<span>Build beyond living</span></p>
+        <p class="dz-link-row" data-dz>
+          <a class="dz-link" href="projeler.html" data-testid="design-cta-projects">Projeleri görün</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <!-- Discover Our Residences — editorial row -->
+      <div class="footer-discover">
+        <h3 class="footer-discover-title">Projelerimizi Keşfedin</h3>
+        <ul class="footer-discover-row">
+          <li><a href="the-residences-east-west.html"><span class="fd-name">The Residences East West</span><span class="fd-meta">&Ccedil;iftehavuzlar</span></a></li>
+          <li><a href="the-apartments-tac.html"><span class="fd-name">The Apartments Ta&ccedil;</span><span class="fd-meta">Feneryolu</span></a></li>
+          <li><a href="the-apartments-ana.html"><span class="fd-name">The Apartments Ana</span><span class="fd-meta">Caddebostan</span></a></li>
+          <li><a href="projeler.html"><span class="fd-name">Tüm Projeler</span><span class="fd-meta">Ba&#287;dat Caddesi portf&ouml;y&uuml;</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-middle">
+        <div class="footer-globe-section">
+          <div class="footer-globe-icon">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1">
+              <circle cx="25" cy="25" r="23"/>
+              <ellipse cx="25" cy="25" rx="10" ry="23"/>
+              <line x1="2" y1="25" x2="48" y2="25"/>
+            </svg>
+          </div>
+        </div>
+        <div class="footer-menu-links">
+          <a href="projeler.html" data-testid="footer-link-portfolio">PORTFÖY</a>
+          <a href="medya.html" data-testid="footer-link-newsroom">MEDYA</a>
+          <a href="tasarim.html" data-testid="footer-link-design">TASARIM</a>
+          <a href="build-beyond-living.html" data-testid="footer-link-bbl">BUILD BEYOND LIVING</a>
+          <a href="#">EMLAK DANIŞMANI GİRİŞİ</a>
+          <a href="#">YATIRIMCI İLİŞKİLERİ</a>
+          <a href="#">BLOG</a>
+          <a href="#">BASIN</a>
+          <a href="kariyer.html" data-testid="footer-link-careers">KARİYER</a>
+          <a href="bildirim.html" data-testid="footer-link-speakup">BİLDİRİM HATTI</a>
+        </div>
+      </div>
+
+      <div class="footer-social-section">
+        <span class="social-label">BİZİ TAKİP EDİN</span>
+        <div class="social-icons-small">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/novakonut/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.1.3-1.9 2-1.9h2V2.1C16.7 2 15.6 2 14.4 2 11.7 2 10 3.7 10 6.7V10H7v4h3v8h3z"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.4 8.5L23 22h-6.8l-5.3-7-6.1 7H1.7l7.9-9.1L1 2h6.9l4.8 6.4L18.9 2z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5.01A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.6 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21h-4V9z"/></svg></a>
+          <a href="#" aria-label="Yıldız"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <div class="footer-bottom-links">
+          <a href="index.html#register" data-testid="footer-link-getintouch">İletişime Geçin</a>
+          <a href="gizlilik-bildirimi.html">Gizlilik Bildirimi</a>
+          <a href="cerez-bildirimi.html">Çerez Bildirimi</a>
+          <a href="etik-ilkeler.html">Etik İlkeler ve Çalışma Standartları</a>
+        </div>
+        <div class="footer-copyright-text">
+          <span>© 2026 Nova Konut. Tüm hakları saklıdır.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+  <script src="/js/design.js"></script>
+  <script src="/js/materials3d.js" type="module"></script>
+</body>
+</html>
