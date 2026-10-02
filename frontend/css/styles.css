@@ -2547,5 +2547,6 @@ body.no-scroll {
   position: absolute; top: 26px; right: 68px; z-index: 6;
   color: #fff;
 }
+.lang-switch--menu .lang-opt { padding: 14px 8px; margin: -14px -8px; }
 @media (max-width: 900px) { .lang-opt span { display: none; } .lang-switch { gap: 8px; } }
 @media (max-width: 900px) { .lang-switch--menu .lang-opt span { display: inline; } }

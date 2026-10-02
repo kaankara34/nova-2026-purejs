@@ -208,3 +208,48 @@ the user's concise copy. Do not remove it again. `nova_cookie_notice_dismissed` 
 flag only — never treat or describe it as a consent record, and never reuse it for marketing.
 The public Privacy Notice and Cookie Notice are back to their pre-29-September text; do not
 rewrite them again without an explicit request.
+
+## 2026-10-02 — Bilingual site: Turkish default (`/tr/`) + English (`/en/`)
+
+The site is now a complete two-language static website. **Turkish is the default language.**
+
+### Source of truth
+- `/app/source-pages/*.html` — the approved English pages. **These are the only place English
+  copy is edited.** They are not served.
+- `/app/scripts/i18n_tr/*.json` — the Turkish dictionaries (2061 entries). **The only place
+  Turkish copy is edited.** Build-time only; the browser never requests them.
+- `python3 scripts/build_i18n.py` — regenerates `frontend/en/` (33 pages), `frontend/tr/`
+  (33 pages), `sitemap.xml`, `robots.txt`, `.htaccess` and the `serve.json` redirects.
+  **Never hand-edit files inside `frontend/en/` or `frontend/tr/` — they are overwritten.**
+- `python3 scripts/i18n_report.py` — untranslated-string report (must stay at 0).
+- `python3 scripts/i18n_audit.py` — full static audit (must stay at 0 problems).
+- `python3 -m pytest tests/test_static_pages.py` — 98 HTTP/content checks.
+
+### Hard rules
+- No runtime translation: no framework, no i18n library, no JSON fetch, no JS text swapping.
+  Turkish text is static HTML.
+- The English site must stay unchanged in meaning, layout, visuals and interactions. The audit
+  compares `/en/` visible text against the sources; it must report 0 differences.
+- Protected project names, never translated or re-slugged: **The Residences East West**,
+  **The Apartments Taç**, **The Apartments Ana**. Brand-like and unchanged: Mercan Bosphorus,
+  Nisbetiye On, Falcon Plaza, Finance Nova, Build Beyond Living, Martı / Bahar / Doğan /
+  Mehtap Residence.
+- Turkish slugs are ASCII-safe. Pages that exist in `PAGE_MAP` in `build_i18n.py` are the
+  complete, deliberate URL map — add new pages there, in both languages.
+- Asset references in the pages must resolve from a subfolder: root-absolute `/css`, `/js`,
+  `/media`. `absolute_assets()` handles the pages; any **new shared JS/CSS** must use
+  root-absolute media paths itself (see `js/materials3d.js`, `js/ew-plans-data.js`,
+  `js/news.js`).
+- The language selector must always open the **same page** in the other language.
+- `serve.json` needs the explicit `/tr`, `/tr/`, `/en`, `/en/` redirects — without them
+  `serve` returns a directory listing. `routing()` generates them.
+
+### Status
+Complete and verified: 0 untranslated strings, 0 audit problems, 0 English differences,
+98/98 pytest, 0 4xx across all 66 pages, `test_reports/iteration_59.json` frontend 100%.
+
+### Still open (unchanged by this work)
+- P0: Register Interest / Careers / Speak Up form delivery — all three remain honest
+  frontend-only adapters that transmit nothing and never show a success state.
+- P0: NOVA legal confirmations listed in `memory/technical-inventory.md` §Open questions.
+- P1: production `.htaccess` verification on Turhost, sitemap submission for both languages.

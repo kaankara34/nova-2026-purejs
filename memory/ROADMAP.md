@@ -45,26 +45,16 @@
 - Footer link lists and every register-form project option list: now NOVA-only (June 2026).
 
 
-## P0 — finish the Turkish localisation (2026-10-02)
-Add entries to `scripts/i18n_tr/*.json` and re-run `python3 scripts/build_i18n.py`.
-Remaining page bodies (word counts from `scripts/i18n_missing.json`):
+## DONE — Turkish localisation (completed 2026-10-02)
+All 33 TR pages are fully localised; `scripts/i18n_report.py` reports 0 untranslated words and
+`scripts/i18n_audit.py` reports 0 problems. Do not re-open. To change Turkish copy, edit the
+matching entry in `scripts/i18n_tr/*.json` and re-run `python3 scripts/build_i18n.py`.
+To change English copy, edit the page in `/app/source-pages/` and rebuild.
 
-| /tr page | words |
-|---|---|
-| muhendislik.html | 5849 |
-| tasarim.html | 1502 |
-| build-beyond-living.html | 1147 |
-| gizlilik-bildirimi.html | 937 |
-| the-apartments-ana.html | 817 |
-| cerez-bildirimi.html | 814 |
-| aday-aydinlatma-metni.html | 722 |
-| the-apartments-tac.html | 648 |
-| leed.html | 630 |
-| the-residences-east-west.html | 499 |
-| finance-nova.html | 385 |
-| santiye-muduru-mimar.html | 377 |
-
-Total 14,327 words. Rules: protected names (The Residences East West / The Apartments Taç /
-The Apartments Ana, NOVA, place and person names, Falcon Plaza, Finance Nova, Build Beyond Living,
-X Residence) stay unchanged; never alter m², floor counts, dates, addresses or phone numbers.
-The legal pages must keep the same legal scope as the English source — no new Article 9 assertions.
+## P1 — bilingual follow-ups
+- Production verification on Turhost/cPanel: confirm `mod_rewrite` is enabled and
+  `frontend/.htaccess` sits in the document root, then check `/` → `/tr/` and a legacy URL such
+  as `/projects.html` → `/en/projects.html` on the live host.
+- Submit the new `sitemap.xml` (66 URLs) to Search Console for both language versions.
+- Turkish news feed: `news-tr.json` content is produced by the external GitHub Actions
+  repository — confirm the Turkish feed is being published as expected.
