@@ -99,7 +99,7 @@
   const detailHref = function (item) { return 'news-detail.html?id=' + encodeURIComponent(item.id); };
 
   function fallbackCover(category, variant) {
-    return 'media/news/fallback/' + (FALLBACK_SLUGS[category] || 'art') + '-' + variant + '.webp';
+    return '/media/news/fallback/' + (FALLBACK_SLUGS[category] || 'art') + '-' + variant + '.webp';
   }
 
   function remoteImage(item) {

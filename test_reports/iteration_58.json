@@ -1,0 +1,47 @@
+{
+  "summary": "Verified the TR/EN bilingual static site across all 66 pages. HTTP/content pytest suite (98 tests, all passing) covers: root redirect, legacy EN redirects, every page loads with correct `lang`, hreflang/canonical present, Ana hero poster path fixed, no runtime translation fetch, in-language internal links, and bidirectional language-switch targets. Browser (Playwright) tests confirmed language switcher keeps page context, mobile side-menu lang-switch is tappable, no horizontal overflow on TR pages, Ana poster asset loads, Speak-Up form shows no false success, cookie banner renders in Turkish, and the EN desktop homepage still renders correctly. Found and fixed one CRITICAL routing bug and surfaced one HIGH-priority build bug affecting both TR and EN pages.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Build pipeline (scripts/build_i18n.py absolute_assets)",
+        "issue": "Relative media paths inside inline style attributes (`style=\"background-image:url('./media/...')\"`) and inside JS string literals (`'./media/videos/hero-nova-' + rendition + '.mp4'`) are NOT rewritten to absolute `/media/...` by the build. Because every served page lives in a /tr/ or /en/ sub-folder, the browser resolves them as `/tr/media/...` or `/en/media/...` and gets 404. User-visible consequences: (a) three featured-project tile backgrounds on /tr/index.html and /en/index.html (east-west-cover.webp, tac/tac-render2.webp, ana/ana-render2.webp) are blank; (b) the hero-video 1600p rendition never upgrades on wide desktop (silent degradation — stays on 1280p source); (c) 13 of the 'nearby landmark' tiles on /tr/the-apartments-ana.html and /en/the-apartments-ana.html are blank (ew/bagdatcad, ana/buyuk_kulup, ew/goztepe_park, ew/caddebostan-plaji, ana/boyner-cadde, ew/kalamis_marina, ew/kalamis, ew/fb-stadium, ew/akasya-acibadem, ew/emaar, ew/avrasya, ew/15temmuz, ew/zorlu); (d) 3 walnut-texture swatches on /tr/tasarim.html and /en/tasarim.html (tex-walnut, tex-walnut-n, tex-walnut-r). The physical files all exist under /app/frontend/media/… so this is purely a path-rewriting miss in absolute_assets(). Fix: extend the regex in absolute_assets() to also match `url(['\"]?\\./(media/[^'\")]+)` inside `style=` attributes AND `['\"]\\./(media/[^'\"]+)` inside <script> blocks, then prefix with '/'. Rebuild /tr/ and /en/.",
+        "selector": "div.bg[style*='./media'], div.ana-nearby-img[style*='./media'], script containing './media/videos/hero-nova-'",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "fixed_issues": [
+    {
+      "component": "serve.json routing",
+      "issue": "CRITICAL BLOCKER: With `trailingSlash: false`, the chain /→/tr/→/tr caused `serve` to return a RAW DIRECTORY LISTING of frontend/tr instead of /tr/index.html. Same for /en and /en/. The Turkish homepage was unreachable from the preview root URL — the user saw an auto-generated file index with every .html filename listed as a link.",
+      "fix_applied": "Added explicit 301 redirects in /app/frontend/serve.json for /, /tr, /tr/, /en, /en/, /index.html → /tr/index.html or /en/index.html respectively. Restarted frontend. Verified /, /tr/, /tr, /en/, /en all now resolve to the real localized homepage with html lang=tr/en and the Turkish/English copy renders.",
+      "priority": "CRITICAL"
+    }
+  ],
+  "test_report_links": [
+    "/app/tests/test_static_pages.py",
+    "/app/test_reports/pytest/static_pages.xml"
+  ],
+  "action_items": [
+    "FIX build_i18n.py absolute_assets(): rewrite `./media/...` paths that live inside `style=\"...url(...)...\"` attributes AND inside <script> string literals. After rebuild, verify no 404s on /tr/index.html, /en/index.html, /tr/the-apartments-ana.html, /en/the-apartments-ana.html, /tr/tasarim.html, /en/tasarim.html.",
+    "KEEP the serve.json redirect additions I made for /tr, /tr/, /en, /en/, /index.html so the preview root and bare /tr /en URLs don't fall back to the directory listing. If the build script regenerates serve.json, port these rules into it (they come from scripts/build_i18n.py routing())."
+  ],
+  "critical_code_review_comments": [
+    "scripts/build_i18n.py absolute_assets() scope is incomplete: it only rewrites href/src attributes but not url() inside inline style or JS string literals. This is why identical bugs appear on both /tr/ and /en/ copies of three heavy pages — the English source already had the issue and the build silently propagated it.",
+    "serve.json combination of `trailingSlash:false` with a `/` → `/tr/` redirect produces a 2-step 301 chain whose final step strips the slash to `/tr` and then falls through to serve's built-in directory listing. The build's routing() generator should output the final direct destination (`/tr/index.html`) rather than `/tr/`, or it should ship additional redirects for `/tr` and `/en` without slash."
+  ],
+  "updated_files": [
+    "/app/frontend/serve.json",
+    "/app/tests/test_static_pages.py"
+  ],
+  "success_rate": {"backend": "N/A (static site)", "frontend": "~95% (66/66 pages reachable with correct lang/content/lang-switch; blocking routing bug fixed; 1 build-level 404 class remains on 4 pages)"},
+  "test_credentials": "N/A - public static site",
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "After main agent patches absolute_assets() in /app/scripts/build_i18n.py and regenerates /tr/ and /en/, re-run `pytest /app/tests/test_static_pages.py` (should stay at 98/98) and additionally verify in a headless browser that the following URLs produce ZERO 4xx responses: /tr/index.html, /en/index.html, /tr/the-apartments-ana.html, /en/the-apartments-ana.html, /tr/tasarim.html, /en/tasarim.html. The protected English brand/project names (Mercan Bosphorus, Nisbetiye On, Falcon Plaza, Finance Nova, The Residences East West, The Apartments Taç/Ana, Build Beyond Living, Martı/Bahar/Doğan/Mehtap Residence) are EXPECTED on Turkish pages — don't flag them. 'Home office' appearing on /tr/finance-nova.html is a Turkish real-estate loanword, not an untranslated string. Forms (Careers application, Speak Up, Register Interest) are intentionally stub adapters that never show success — don't flag.",
+  "rca_of_the_issue": "Root/subfolder routing bug RCA: `serve.json` sets `trailingSlash:false`, which causes `serve` to strip trailing slashes before matching redirects. Original rules were `/ → /tr/`. Flow: GET / → 301 /tr/ → request /tr/ → serve strips slash → 301 /tr → request /tr → serve finds a directory, no index-without-slash handling → emits built-in directory listing HTML. Reproduction: `curl -L https://darg-clone-1.preview.emergentagent.com/` returns `<title>Files within frontend/tr</title>`. Mitigation applied: added redirect rules for /tr, /tr/, /en, /en/ → /tr/index.html|/en/index.html and changed the / and /index.html destinations to the .html file directly. Verified cURL chain: / → 301 /tr/index.html (final 200, lang=tr). 404 asset bug RCA: build_i18n.py's absolute_assets() uses a regex that only touches href=\"...\" and src=\"...\" attributes. The approved English source pages contain two other kinds of asset references — `style=\"background-image:url('./media/…')\"` (used on hero/project tiles and the ana-nearby grid) and JS string concatenations `'./media/videos/hero-nova-' + rendition + '.mp4'` (used by the hero video resolution switcher). These remain relative, so when served from /tr/foo.html or /en/foo.html the browser requests /tr/media/… or /en/media/… and gets 404. The fix is a two-line regex extension in absolute_assets() to also normalise url() inside style attributes and literal './media/…' inside <script> blocks."
+}

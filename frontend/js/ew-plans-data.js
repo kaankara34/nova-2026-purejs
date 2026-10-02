@@ -73,7 +73,7 @@ window.EW_PLANS = (function () {
     ];
   }
 
-  var P = 'media/images/ew/plans/';
+  var P = '/media/images/ew/plans/';
 
   return {
     EAST: [

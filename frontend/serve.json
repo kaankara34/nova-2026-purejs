@@ -69,12 +69,32 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/tr/",
+      "destination": "/tr/index.html",
       "type": 301
     },
     {
       "source": "/index.html",
-      "destination": "/tr/",
+      "destination": "/tr/index.html",
+      "type": 301
+    },
+    {
+      "source": "/tr",
+      "destination": "/tr/index.html",
+      "type": 301
+    },
+    {
+      "source": "/tr/",
+      "destination": "/tr/index.html",
+      "type": 301
+    },
+    {
+      "source": "/en",
+      "destination": "/en/index.html",
+      "type": 301
+    },
+    {
+      "source": "/en/",
+      "destination": "/en/index.html",
       "type": 301
     },
     {

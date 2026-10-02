@@ -58,17 +58,25 @@ def main():
 
             # local assets must exist
             refs = re.findall(r'(?:href|src|poster)="(/(?:css|js|media)/[^"]+)"', html)
-            refs += [u.strip('\'"') for u in re.findall(r'url\((/(?:css|js|media)/[^)]+)\)', html)]
+            refs += [u.strip('\'"') for u in
+                     re.findall(r'url\(["\']?(/(?:css|js|media)/[^)\'"]+)', html)]
             for part in re.findall(r'srcset="([^"]+)"', html):
                 refs += [p.strip().split()[0] for p in part.split(',') if p.strip()]
+                for p in part.split(','):
+                    check(not p.strip().startswith(('./', 'css/', 'js/', 'media/')),
+                          '%s: relative srcset entry %s' % (tag, p.strip()))
             for ref in set(refs):
                 if ref.startswith('/'):
                     check(os.path.isfile(os.path.join(WEB, ref.lstrip('/').split('?')[0])),
                           '%s: missing asset %s' % (tag, ref))
 
             # no relative css/js/media paths left behind
-            check(not re.search(r'(?:href|src|poster)="(?:\./)?(?:css|js|media)/', html),
+            check(not re.search(r'(?:href|src|poster|srcset)="(?:\./)?(?:css|js|media)/', html),
                   '%s: relative asset path remains' % tag)
+            check(not re.search(r'["\']\./(?:css|js|media)/', html),
+                  '%s: relative asset path in style/script remains' % tag)
+            check(not re.search(r'url\(["\']?(?:\./)?(?:css|js|media)/', html),
+                  '%s: relative url() asset path remains' % tag)
 
     sm = open(os.path.join(WEB, 'sitemap.xml'), encoding='utf-8').read()
     locs = set(re.findall(r'<loc>([^<]+)</loc>', sm))

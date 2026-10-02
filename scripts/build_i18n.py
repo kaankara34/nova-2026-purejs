@@ -76,9 +76,13 @@ def load_dict():
 # ------------------------------------------------------------- asset paths
 def absolute_assets(html):
     html = re.sub(r'(href|src|poster)="(?:\./)?(css|js|media)/', r'\1="/\2/', html)
-    html = re.sub(r'(srcset)="(?:\./)?(css|js|media)/', r'\1="/\2/', html)
-    html = re.sub(r'url\((?:\./)?(css|js|media)/', r'url(/\1/', html)
-    html = html.replace('"./media/', '"/media/')
+    html = re.sub(r'srcset="([^"]*)"',
+                  lambda m: 'srcset="%s"' % re.sub(r'(^|,\s*)(?:\./)?(css|js|media)/',
+                                                   r'\1/\2/', m.group(1)), html)
+    # url() inside inline style attributes and stylesheets, with or without quotes
+    html = re.sub(r'url\((["\']?)(?:\./)?(css|js|media)/', r'url(\1/\2/', html)
+    # quoted literals in script blocks, data attributes and srcset lists
+    html = re.sub(r'(["\'])\./(css|js|media)/', r'\1/\2/', html)
     return html
 
 
@@ -293,8 +297,12 @@ def routing():
               'ErrorDocument 404 /tr/index.html']
     open(os.path.join(WEB, '.htaccess'), 'w', encoding='utf-8').write('\n'.join(rules) + '\n')
 
-    redirects = [{'source': '/', 'destination': '/tr/', 'type': 301},
-                 {'source': '/index.html', 'destination': '/tr/', 'type': 301}]
+    redirects = [{'source': '/', 'destination': '/tr/index.html', 'type': 301},
+                 {'source': '/index.html', 'destination': '/tr/index.html', 'type': 301},
+                 {'source': '/tr', 'destination': '/tr/index.html', 'type': 301},
+                 {'source': '/tr/', 'destination': '/tr/index.html', 'type': 301},
+                 {'source': '/en', 'destination': '/en/index.html', 'type': 301},
+                 {'source': '/en/', 'destination': '/en/index.html', 'type': 301}]
     for src, en in legacy:
         if src == 'index.html':
             continue
