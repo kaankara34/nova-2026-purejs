@@ -896,3 +896,22 @@ etik-ilkeler, aday-aydinlatma-metni. Visible Turkish titles: "Bildirim Hattı" (
 - Headless sweep of all 66 pages: **0 4xx/5xx responses**.
 - `test_reports/iteration_59.json`: frontend 100%, no open issues (one accessibility nit on
   the side-menu tap targets was raised and fixed).
+
+## 2026-10-07 — Navbar BOARD removed + Turkish news detail route fixed
+
+- **BOARD / YÖNETİM KURULU removed** from the side menu on all 33 source pages (it was a dead
+  `href="#"` placeholder). Regenerated, so it is gone from all 66 served pages. The matching
+  dictionary entry in `scripts/i18n_tr/00-chrome.json` is now unused but harmless.
+- **Turkish news detail 404 fixed.** `js/news.js` built the card link as a relative
+  `news-detail.html?id=...`, which resolved to `/tr/news-detail.html` (404) once the pages moved
+  into language folders. It now uses a language-aware `PAGES` map
+  (`/tr/haber.html` vs `/en/news-detail.html`), also used for the JSON-LD breadcrumb items.
+- **Turkish news labels localised** (they were generated in JS, so the HTML dictionary could not
+  reach them): category display names via a new `CATEGORY_LABELS_TR` map (the English
+  `CATEGORY_LABELS` keys are still used for feed matching and the filter buttons, so filtering is
+  unaffected), plus `Kaynak ·`, `Özgün başlık:`, `Görsel:`, the fallback cover caption, the cover
+  `alt` text and `Uluslararası` / `Türkiye` region values.
+- Verified in the browser: `/tr/medya.html` cards link to `/tr/haber.html?id=...` and the article
+  renders fully in Turkish; `/en/newsroom.html` → `/en/news-detail.html?id=...` unchanged in
+  English; the Turkish category filter returns the right 5 articles; no BOARD item in either
+  side menu; 0 failed requests. Audit 0 problems, 98/98 pytest, ESLint 0 errors.

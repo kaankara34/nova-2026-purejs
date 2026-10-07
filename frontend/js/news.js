@@ -27,6 +27,17 @@
     TECHNICAL_AND_LEGAL: 'Technical & Legal',
     FASHION_AND_LUXURY: 'Fashion & Luxury'
   };
+  const CATEGORY_LABELS_TR = {
+    ART: 'Sanat ve Sergiler',
+    EXHIBITIONS: 'Sergiler',
+    GALLERIES_AND_MUSEUMS: 'Galeriler ve Müzeler',
+    ARCHITECTURE_AND_DESIGN: 'Mimarlık ve Tasarım',
+    CONSTRUCTION: 'İnşaat',
+    URBAN_TRANSFORMATION: 'Kentsel Dönüşüm',
+    KADIKOY: 'Kadıköy',
+    TECHNICAL_AND_LEGAL: 'Teknik ve Hukuki',
+    FASHION_AND_LUXURY: 'Moda ve Lüks'
+  };
   const FALLBACK_SLUGS = {
     ART: 'art',
     EXHIBITIONS: 'exhibitions',
@@ -43,13 +54,27 @@
       unavailable: 'News is temporarily unavailable.',
       empty: 'No articles are currently available in this category.',
       loading: 'Loading articles…',
-      missing: 'This article could not be found.'
+      missing: 'This article could not be found.',
+      source: 'Source · ',
+      originalHeadline: 'Original headline: ',
+      imageCredit: 'Image: ',
+      fallbackCaption: 'NOVA Journal category cover — not a photograph of the reported event.',
+      regionTr: 'Türkiye',
+      regionIntl: 'International',
+      coverAlt: ' — NOVA Journal category cover'
     },
     tr: {
       unavailable: 'Haberler geçici olarak kullanılamıyor.',
       empty: 'Bu kategoride şu anda görüntülenecek haber bulunmuyor.',
       loading: 'Haberler yükleniyor…',
-      missing: 'Bu haber bulunamadı.'
+      missing: 'Bu haber bulunamadı.',
+      source: 'Kaynak · ',
+      originalHeadline: 'Özgün başlık: ',
+      imageCredit: 'Görsel: ',
+      fallbackCaption: 'NOVA Journal kategori görseli — haberde aktarılan olayın fotoğrafı değildir.',
+      regionTr: 'Türkiye',
+      regionIntl: 'Uluslararası',
+      coverAlt: ' — NOVA Journal kategori görseli'
     }
   };
 
@@ -86,7 +111,8 @@
     return 'ART';
   }
 
-  const categoryLabel = function (key) { return CATEGORY_LABELS[key] || 'Journal'; };
+  const DISPLAY_LABELS = LANG === 'tr' ? CATEGORY_LABELS_TR : CATEGORY_LABELS;
+  const categoryLabel = function (key) { return DISPLAY_LABELS[key] || 'Journal'; };
 
   function formatDate(value) {
     const date = new Date(value);
@@ -96,7 +122,10 @@
   }
 
   const safeExternal = function (url) { return /^https:\/\//i.test(url || '') ? url : ''; };
-  const detailHref = function (item) { return 'news-detail.html?id=' + encodeURIComponent(item.id); };
+  const PAGES = LANG === 'tr'
+    ? { home: '/tr/index.html', journal: '/tr/medya.html', detail: '/tr/haber.html' }
+    : { home: '/en/index.html', journal: '/en/newsroom.html', detail: '/en/news-detail.html' };
+  const detailHref = function (item) { return PAGES.detail + '?id=' + encodeURIComponent(item.id); };
 
   function fallbackCover(category, variant) {
     return '/media/news/fallback/' + (FALLBACK_SLUGS[category] || 'art') + '-' + variant + '.webp';
@@ -215,7 +244,7 @@
     const remote = item.image;
     const local = fallbackCover(item.category, variant);
     img.src = remote || local;
-    img.alt = remote ? item.title : item.categoryLabel + ' — NOVA Journal category cover';
+    img.alt = remote ? item.title : item.categoryLabel + T.coverAlt;
     img.loading = eager ? 'eager' : 'lazy';
     img.decoding = 'async';
     img.width = variant === 'detail' ? 1600 : 1200;
@@ -224,7 +253,7 @@
       if (img.dataset.fallbackApplied) return;
       img.dataset.fallbackApplied = '1';
       img.src = local;
-      img.alt = item.categoryLabel + ' — NOVA Journal category cover';
+      img.alt = item.categoryLabel + T.coverAlt;
     }, { once: true });
     img.addEventListener('load', function () { wrap.classList.add('is-loaded'); }, { once: true });
     wrap.appendChild(img);
@@ -502,11 +531,11 @@
         time.dateTime = item.publishedAt;
       }
       setText('detailTitle', item.title);
-      setText('detailSource', 'Source · ' + (item.source || item.sourceDomain).toUpperCase());
+      setText('detailSource', T.source + (item.source || item.sourceDomain).toUpperCase());
 
       const originalTitle = document.getElementById('detailOriginalTitle');
       if (originalTitle && item.originalTitle && item.originalTitle !== item.title) {
-        originalTitle.textContent = 'Original headline: ' + item.originalTitle;
+        originalTitle.textContent = T.originalHeadline + item.originalTitle;
         originalTitle.hidden = false;
       }
 
@@ -523,8 +552,8 @@
         const caption = figure.querySelector('figcaption');
         if (caption) {
           caption.textContent = item.image
-            ? 'Image: ' + (item.source || item.sourceDomain)
-            : 'NOVA Journal category cover — not a photograph of the reported event.';
+            ? T.imageCredit + (item.source || item.sourceDomain)
+            : T.fallbackCaption;
         }
         figure.hidden = false;
       }
@@ -547,7 +576,7 @@
       setText('factPublished', formatDate(item.publishedAt));
       setText('factCategory', item.categoryLabel);
       const region = /\.tr$|^(t24|ntv|haberturk|hurriyet|milliyet|sozcu)\./i.test(item.sourceDomain)
-        ? 'Türkiye' : 'International';
+        ? T.regionTr : T.regionIntl;
       setText('factRegion', region);
 
       if (item.category === 'TECHNICAL_AND_LEGAL') {
@@ -581,8 +610,8 @@
           breadcrumb: {
             '@type': 'BreadcrumbList',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'index.html' },
-              { '@type': 'ListItem', position: 2, name: 'NOVA Journal', item: 'newsroom.html' },
+              { '@type': 'ListItem', position: 1, name: 'Home', item: PAGES.home },
+              { '@type': 'ListItem', position: 2, name: 'NOVA Journal', item: PAGES.journal },
               { '@type': 'ListItem', position: 3, name: item.title }
             ]
           }
