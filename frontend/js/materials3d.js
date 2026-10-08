@@ -15,7 +15,7 @@ function start() {
   const stage = canvas.closest('.dz-reg-stage');
   const items = Array.from(document.querySelectorAll('[data-mat-item]'));
   const tabs = Array.from(document.querySelectorAll('[data-mat]'));
-  const base = '/media/images/design/';
+  const base = new URL('media/images/design/', new URL('../', document.baseURI)).href;
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));

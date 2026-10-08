@@ -1,0 +1,37 @@
+{
+  "summary": "Frontend-only regression completed for bilingual static site in both serving modes (repo root with /frontend prefix and frontend-as-root cPanel simulation). Verified requested TR/EN pages, language switch mapping, news card/detail URL context, design/3D assets, East-West plan assets, and global path portability checks across all 66 generated pages.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/tests/test_static_pages.py",
+    "/app/test_reports/pytest/i18n_serving_modes.xml",
+    "/app/test_reports/pytest/static_pages.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "No critical functional defects found in build output for requested scope. All tested URL/path behaviors are consistent in both hosting contexts.",
+    "Non-blocking maintainability note: /app/tests/test_static_pages.py uses a hardcoded BASE preview URL, reducing portability of local/offline test runs."
+  ],
+  "updated_files": [
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/test_reports/iteration_60.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "100% (53/53 in new serving-modes suite, 98/98 existing static suite, Playwright flows passed in both modes)"
+  },
+  "test_credentials": "N/A - public static pages",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Two local servers were used for regression: 5501 (/app as root, /frontend prefix) and 5502 (/app/frontend as root). Added reusable regression file /app/tests/test_i18n_serving_modes.py to verify both serving modes, language-switch parity, absence of root-dependent links in all 66 pages, and EW/3D asset reachability.",
+  "rca of the issue": "No new issue reproduced in this run. Previously reported path portability regressions remain fixed under both serving contexts."
+}

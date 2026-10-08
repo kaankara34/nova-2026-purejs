@@ -2,7 +2,7 @@
 /tr/ (Turkish localisation) from the single set of source pages in /app/frontend.
 
 The English output is a byte-faithful copy of the approved source apart from
-absolute asset paths, the head link block, the language selector and the
+portable asset paths, the head link block, the language selector and the
 east-west / speak-up file renames. Turkish text comes exclusively from the
 hand-written dictionaries in /app/scripts/i18n_tr/*.json; anything not in a
 dictionary stays English and is listed by the coverage report.
@@ -74,15 +74,20 @@ def load_dict():
 
 
 # ------------------------------------------------------------- asset paths
-def absolute_assets(html):
-    html = re.sub(r'(href|src|poster)="(?:\./)?(css|js|media)/', r'\1="/\2/', html)
+def portable_assets(html):
+    """Resolve shared assets one level above /en and /tr in every environment.
+
+    ../css works both when frontend/ is the web root in cPanel and when the
+    repository root is served by VS Code Live Server as /frontend/.
+    """
+    html = re.sub(r'(href|src|poster)="(?:\./|/)?(css|js|media)/', r'\1="../\2/', html)
     html = re.sub(r'srcset="([^"]*)"',
-                  lambda m: 'srcset="%s"' % re.sub(r'(^|,\s*)(?:\./)?(css|js|media)/',
-                                                   r'\1/\2/', m.group(1)), html)
+                  lambda m: 'srcset="%s"' % re.sub(r'(^|,\s*)(?:\./|/)?(css|js|media)/',
+                                                   r'\1../\2/', m.group(1)), html)
     # url() inside inline style attributes and stylesheets, with or without quotes
-    html = re.sub(r'url\((["\']?)(?:\./)?(css|js|media)/', r'url(\1/\2/', html)
+    html = re.sub(r'url\((["\']?)(?:\./|/)?(css|js|media)/', r'url(\1../\2/', html)
     # quoted literals in script blocks, data attributes and srcset lists
-    html = re.sub(r'(["\'])\./(css|js|media)/', r'\1/\2/', html)
+    html = re.sub(r'(["\'])(?:\./|/)?(css|js|media)/', r'\1../\2/', html)
     return html
 
 
@@ -140,7 +145,7 @@ def selector(src_name, lang):
               '<path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/></svg>',
     }
     items = []
-    for code, href in (('tr', '/tr/' + tr_file), ('en', '/en/' + en_file)):
+    for code, href in (('tr', '../tr/' + tr_file), ('en', '../en/' + en_file)):
         active = ' is-active' if code == lang else ''
         items.append(
             '<a class="lang-opt%s" href="%s" hreflang="%s" lang="%s"%s>%s<span>%s</span></a>'
@@ -236,7 +241,7 @@ def build():
     missing = set()
     for src_name, (en_file, tr_file) in PAGE_MAP.items():
         raw = open(os.path.join(SRC, src_name), encoding='utf-8').read()
-        base = absolute_assets(raw)
+        base = portable_assets(raw)
 
         en = rewrite_links(base, 'en')
         en = apply_head(en, src_name, 'en')

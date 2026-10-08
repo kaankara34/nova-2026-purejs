@@ -1,17 +1,15 @@
 # Local preview
 
-The generated language pages use root-relative asset paths such as `/css`, `/js`, and
-`/media`, matching the cPanel `public_html` deployment layout.
+The generated language pages use portable asset paths such as `../css`, `../js`, and
+`../media`. They work both when `frontend/` is opened through VS Code Live Server and when
+the contents of `frontend/` are deployed directly into cPanel `public_html/`.
 
-When the full repository is opened in VS Code, the committed workspace setting makes
-`frontend/` the Live Server document root. Stop and restart Live Server after pulling the
-setting. A page URL should look like:
+When the full repository is opened in VS Code, either of these Live Server URL forms works:
 
 ```text
 http://127.0.0.1:5500/tr/index.html
+http://127.0.0.1:5500/frontend/tr/index.html
 ```
-
-It should not contain `/frontend/` in the browser URL.
 
 # Nova Konut İnşaat - DarGlobal Clone
 

@@ -236,10 +236,10 @@ The site is now a complete two-language static website. **Turkish is the default
   Mehtap Residence.
 - Turkish slugs are ASCII-safe. Pages that exist in `PAGE_MAP` in `build_i18n.py` are the
   complete, deliberate URL map — add new pages there, in both languages.
-- Asset references in the pages must resolve from a subfolder: root-absolute `/css`, `/js`,
-  `/media`. `absolute_assets()` handles the pages; any **new shared JS/CSS** must use
-  root-absolute media paths itself (see `js/materials3d.js`, `js/ew-plans-data.js`,
-  `js/news.js`).
+- Asset references in generated pages must resolve from both supported serving modes:
+  `../css`, `../js`, and `../media`. `portable_assets()` handles generated HTML. Shared
+  JavaScript that creates URLs must derive the site root from `document.baseURI` (see
+  `js/materials3d.js`, `js/ew-plans-data.js`, `js/news.js`) rather than starting paths with `/`.
 - The language selector must always open the **same page** in the other language.
 - `serve.json` needs the explicit `/tr`, `/tr/`, `/en`, `/en/` redirects — without them
   `serve` returns a directory listing. `routing()` generates them.
@@ -256,11 +256,14 @@ Complete and verified: 0 untranslated strings, 0 audit problems, 0 English diffe
 
 ## 2026-10-08 — VS Code Live Server local document root
 
-- Added the committed `.vscode/settings.json` setting `liveServer.settings.root: /frontend`.
-  Opening the full repository in VS Code and restarting Live Server now serves generated pages
-  from `/tr/...` and `/en/...`, matching the production document root instead of the broken
-  `/frontend/tr/...` and `/frontend/en/...` URLs.
-- Production HTML and cPanel paths were not changed. Root-relative `/css`, `/js`, and `/media`
-  references remain correct when the contents of `frontend/` are deployed into `public_html/`.
-- Local verification: Turkish privacy page, global CSS, legal CSS, and global JavaScript all
-  returned HTTP 200 when `frontend/` was served as the document root.
+- Generated HTML now uses portable `../css`, `../js`, `../media`, `../tr`, and `../en` paths.
+  Pages therefore work both when VS Code serves the repository as `/frontend/...` and when
+  cPanel serves the contents of `frontend/` directly from `public_html/` as `/tr/...`.
+- Dynamic paths in `news.js`, `materials3d.js`, and `ew-plans-data.js` derive the correct site
+  root from `document.baseURI`, preserving news routes, fallback covers, design textures, and
+  East West floor plans in both environments.
+- `.vscode/settings.json` still selects `/frontend` as the preferred Live Server root, but the
+  page paths no longer depend on that editor setting.
+- Verification: build generated 33 EN + 33 TR pages; 0 untranslated strings, 0 audit problems,
+  ESLint passed, dual-root regression 53/53 passed, existing static suite 98/98 passed, and
+  Playwright flows passed in both modes (`test_reports/iteration_60.json`).

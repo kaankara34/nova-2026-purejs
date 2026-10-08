@@ -86,6 +86,11 @@
   }
   const LANG = currentLanguage();
   const T = MESSAGES[LANG] || MESSAGES.en;
+  const SITE_ROOT = new URL('../', document.baseURI);
+
+  function siteUrl(path) {
+    return new URL(String(path).replace(/^\/+/, ''), SITE_ROOT).href;
+  }
 
   /* ---------------------------------------------------------------- helpers */
   function el(tag, className, text) {
@@ -123,12 +128,13 @@
 
   const safeExternal = function (url) { return /^https:\/\//i.test(url || '') ? url : ''; };
   const PAGES = LANG === 'tr'
-    ? { home: '/tr/index.html', journal: '/tr/medya.html', detail: '/tr/haber.html' }
-    : { home: '/en/index.html', journal: '/en/newsroom.html', detail: '/en/news-detail.html' };
+    ? { home: siteUrl('tr/index.html'), journal: siteUrl('tr/medya.html'), detail: siteUrl('tr/haber.html') }
+    : { home: siteUrl('en/index.html'), journal: siteUrl('en/newsroom.html'), detail: siteUrl('en/news-detail.html') };
   const detailHref = function (item) { return PAGES.detail + '?id=' + encodeURIComponent(item.id); };
 
   function fallbackCover(category, variant) {
-    return '/media/news/fallback/' + (FALLBACK_SLUGS[category] || 'art') + '-' + variant + '.webp';
+    return siteUrl('media/news/fallback/' +
+      (FALLBACK_SLUGS[category] || 'art') + '-' + variant + '.webp');
   }
 
   function remoteImage(item) {

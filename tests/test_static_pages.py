@@ -140,7 +140,8 @@ def test_lang_switch_tr_to_en(session, tr_url, en_url):
     m = re.search(r'data-testid="lang-switch".*?</div>', r.text, re.S)
     assert m, f"{tr_url} missing lang-switch block"
     block = m.group(0)
-    assert en_url in block, f"{tr_url} lang-switch does not point to {en_url}. Found: {block[:400]}"
+    assert '../' + en_url.lstrip('/') in block, \
+        f"{tr_url} lang-switch does not point to {en_url}. Found: {block[:400]}"
 
 LANG_PAIRS_EN_TO_TR = {
     "/en/build-beyond-living.html": "/tr/build-beyond-living.html",
@@ -155,7 +156,7 @@ def test_lang_switch_en_to_tr(session, en_url, tr_url):
     m = re.search(r'data-testid="lang-switch".*?</div>', r.text, re.S)
     assert m, f"{en_url} missing lang-switch block"
     block = m.group(0)
-    assert tr_url in block, f"{en_url} lang-switch does not point to {tr_url}"
+    assert '../' + tr_url.lstrip('/') in block, f"{en_url} lang-switch does not point to {tr_url}"
 
 # Canonical/hreflang alignment
 def test_canonical_tr(session):

@@ -1,8 +1,9 @@
 # 2026-10-08 — Local Live Server root
 
-- Added a tracked VS Code Live Server setting that serves `frontend/` as the site root.
-- Documented the correct local URL format (`/tr/...` or `/en/...`, without `/frontend/`).
-- Confirmed the Turkish privacy page and its CSS/JavaScript assets return HTTP 200 locally.
+- Replaced generated root-dependent asset and language links with portable `../` paths.
+- Updated dynamic news, 3D material, and floor-plan URLs to resolve from `document.baseURI`.
+- The same files now work under both `/frontend/tr|en/...` in VS Code and `/tr|en/...` in cPanel.
+- Added `tests/test_i18n_serving_modes.py`; 53/53 new and 98/98 existing tests passed.
 
 # CHANGELOG
 
