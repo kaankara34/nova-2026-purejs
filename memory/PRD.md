@@ -262,8 +262,9 @@ Complete and verified: 0 untranslated strings, 0 audit problems, 0 English diffe
 - Dynamic paths in `news.js`, `materials3d.js`, and `ew-plans-data.js` derive the correct site
   root from `document.baseURI`, preserving news routes, fallback covers, design textures, and
   East West floor plans in both environments.
-- `.vscode/settings.json` still selects `/frontend` as the preferred Live Server root, but the
-  page paths no longer depend on that editor setting.
+- No committed VS Code Live Server root override is used. This is deliberate: forcing
+  `/frontend` breaks when the developer has already opened `frontend/` as the workspace.
+  Portable page paths support both workspace choices without editor-specific configuration.
 - Verification: build generated 33 EN + 33 TR pages; 0 untranslated strings, 0 audit problems,
   ESLint passed, dual-root regression 53/53 passed, existing static suite 98/98 passed, and
   Playwright flows passed in both modes (`test_reports/iteration_60.json`).

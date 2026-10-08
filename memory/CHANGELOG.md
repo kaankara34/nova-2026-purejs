@@ -3,6 +3,8 @@
 - Replaced generated root-dependent asset and language links with portable `../` paths.
 - Updated dynamic news, 3D material, and floor-plan URLs to resolve from `document.baseURI`.
 - The same files now work under both `/frontend/tr|en/...` in VS Code and `/tr|en/...` in cPanel.
+- Removed the VS Code Live Server root override because it could point to a nonexistent nested
+  `frontend/frontend` folder when `frontend/` was already opened as the workspace.
 - Added `tests/test_i18n_serving_modes.py`; 53/53 new and 98/98 existing tests passed.
 
 # CHANGELOG

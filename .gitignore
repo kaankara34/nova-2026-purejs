@@ -2,8 +2,7 @@
 
 # IDE and editors
 .idea/
-.vscode/*
-!.vscode/settings.json
+.vscode/
 
 # Dependencies
 node_modules/

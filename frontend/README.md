@@ -4,7 +4,8 @@ The generated language pages use portable asset paths such as `../css`, `../js`,
 `../media`. They work both when `frontend/` is opened through VS Code Live Server and when
 the contents of `frontend/` are deployed directly into cPanel `public_html/`.
 
-When the full repository is opened in VS Code, either of these Live Server URL forms works:
+No custom Live Server root setting is required. Both of these URL forms work, depending on
+whether VS Code opened the repository folder or the `frontend` folder itself:
 
 ```text
 http://127.0.0.1:5500/tr/index.html
