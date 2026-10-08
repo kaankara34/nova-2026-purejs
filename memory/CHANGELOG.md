@@ -1,3 +1,9 @@
+# 2026-10-08 — Local Live Server root
+
+- Added a tracked VS Code Live Server setting that serves `frontend/` as the site root.
+- Documented the correct local URL format (`/tr/...` or `/en/...`, without `/frontend/`).
+- Confirmed the Turkish privacy page and its CSS/JavaScript assets return HTTP 200 locally.
+
 # CHANGELOG
 
 ## 2026-10-02 — Bilingual architecture (/tr default + /en), localised Turkish URLs, language selector

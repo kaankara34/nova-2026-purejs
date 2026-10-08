@@ -1,3 +1,18 @@
+# Local preview
+
+The generated language pages use root-relative asset paths such as `/css`, `/js`, and
+`/media`, matching the cPanel `public_html` deployment layout.
+
+When the full repository is opened in VS Code, the committed workspace setting makes
+`frontend/` the Live Server document root. Stop and restart Live Server after pulling the
+setting. A page URL should look like:
+
+```text
+http://127.0.0.1:5500/tr/index.html
+```
+
+It should not contain `/frontend/` in the browser URL.
+
 # Nova Konut İnşaat - DarGlobal Clone
 
 Tamamen vanilla HTML, CSS ve JavaScript ile yazılmış statik website.

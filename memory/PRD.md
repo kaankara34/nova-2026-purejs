@@ -253,3 +253,14 @@ Complete and verified: 0 untranslated strings, 0 audit problems, 0 English diffe
   frontend-only adapters that transmit nothing and never show a success state.
 - P0: NOVA legal confirmations listed in `memory/technical-inventory.md` §Open questions.
 - P1: production `.htaccess` verification on Turhost, sitemap submission for both languages.
+
+## 2026-10-08 — VS Code Live Server local document root
+
+- Added the committed `.vscode/settings.json` setting `liveServer.settings.root: /frontend`.
+  Opening the full repository in VS Code and restarting Live Server now serves generated pages
+  from `/tr/...` and `/en/...`, matching the production document root instead of the broken
+  `/frontend/tr/...` and `/frontend/en/...` URLs.
+- Production HTML and cPanel paths were not changed. Root-relative `/css`, `/js`, and `/media`
+  references remain correct when the contents of `frontend/` are deployed into `public_html/`.
+- Local verification: Turkish privacy page, global CSS, legal CSS, and global JavaScript all
+  returned HTTP 200 when `frontend/` was served as the document root.
