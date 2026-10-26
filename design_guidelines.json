@@ -7,7 +7,7 @@
     "labels": "TR and EN labels should be uppercase, font-size around 12-14px depending on breakpoint, semi-bold."
   },
   "colors": {
-    "track_background": "rgba(20, 20, 22, 0.4) - Neutral dark glassy.",
+    "track_background": "Authentic selected-country SVG covering the complete oval rail continuously beneath the knob. Local media/flags/tr.svg or gb.svg; cover/center, no-repeat, overflow:hidden.",
     "track_border": "rgba(255, 255, 255, 0.15)",
     "knob_background": "linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05))",
     "knob_border": "rgba(255, 255, 255, 0.4)",
@@ -16,7 +16,7 @@
     "text_inactive": "rgba(255, 255, 255, 0.5)"
   },
   "visual enhancers": {
-    "glassmorphism": "Apply backdrop-filter: blur(12px) to both the track and the knob to achieve the liquid/frosted glass Apple-like quality.",
+    "glassmorphism": "Knob has transparent base, specular layers and0.7px backdrop blur so the underlying flag remains visible. Do not restore a grey base or heavy blur. Rail flag stays crisp and stationary.",
     "depth": "Add subtle inner shadows to the track to make it feel recessed, and drop-shadow + inner highlight to the circular knob to make it pop out.",
     "prohibited": "No flat white, no green tones, no rounded-rect knob."
   },
@@ -24,9 +24,9 @@
   "layouts": {
     "overall": "Flex container with 'TR' text on the left, oval track in the center, and 'EN' text on the right. Align center vertically.",
     "track": "Horizontal oval rail, compact, with relative positioning.",
-    "flags": "Absolute positioned inside the rail. TR flag on the right side of the rail (exposed when knob is left), EN flag on the left side of the rail (exposed when knob is right).",
+    "flags": "One authentic full-rail SVG background, never a half-width flag or inline redraw. TR selected: entire Turkish flag; EN selected: entire UK flag. Background does not move or resize during dragging.",
     "knob": "Absolute positioned, perfectly circular (.lang-knob). Moves along the track using CSS transform.",
-    "sizing": "Keep within the existing header constraints. Track width ~48px, Track height ~24px, Knob ~20px diameter (leaving 2px padding inside)."
+    "sizing": "Preserve exact current dimensions:48x26 rail and22x22 knob; narrow tablet32x20 rail and16x16 knob. External labels and all header geometry unchanged."
   },
   "motion": {
     "transitions": "Use cubic-bezier easing for the knob sliding. Smooth iOS-like snap.",
@@ -36,13 +36,13 @@
     "guidelines": "Ensure keyboard focus is visible (outline-offset). Use aria-labels on the switch. Provide 'data-testid' for all interactive elements (e.g. data-testid='lang-switch-toggle', data-testid='lang-label-tr').",
     "motion": "Respect prefers-reduced-motion by disabling the sliding transition."
   },
-  "media": "Use existing TR and UK flag vectors inside the DOM (no external image URLs required).",
+  "media": "Unmodified public-domain Wikimedia Commons SVGs stored locally in media/flags/. See SOURCES.md for original URLs and SHA256. No generated or manually redrawn flags.",
   "3d libraries": "None required.",
   "image urls": {},
   "instructions_to_main_agent": [
-    "Update /app/scripts/language_toggle_markup.py to generate the new DOM structure. The new structure should be: A wrapper div or button, containing the 'TR' text span, the middle track div (containing TR flag, EN flag, and the sliding circular knob), and the 'EN' text span.",
-    "Refactor the CSS in /app/frontend/css/styles.css. Remove the old segmented control styles. Create styles for the true sliding toggle. Make sure the track is a dark frosted glass and the knob is a highlighted translucent circle.",
-    "Logic Mapping: TR active -> Knob is on the LEFT, exposing the TR (🇹🇷) flag on the RIGHT. EN active -> Knob is on the RIGHT, exposing the EN (🇬🇧) flag on the LEFT.",
+    "Keep current DOM geometry: external TR/EN native anchors, center switch with one full-background rail and circular knob. Do not reintroduce flag-window spans.",
+    "Only change the requested areas; preserve all rail/knob dimensions, label positions and header styles. Knob must remain glossy transparent glass, not grey metal/plastic.",
+    "Logic Mapping: TR active -> knob LEFT and Turkish flag across entire rail; EN active -> knob RIGHT and UK flag across entire rail. Flag remains continuous beneath knob.",
     "Add a standalone vanilla JS module in /app/frontend/js/script.js (or inline) to handle pointer events (pointerdown, pointermove, pointerup) on the switch.",
     "Gesture logic: On pointerdown, capture starting X. On pointermove, update the knob's transform interactively (knob follows pointer). On pointerup, check if dragged past midpoint. If yes, navigate to the other language's URL. If no, snap back. The navigation should happen ONLY on release.",
     "Ensure existing pages and URL routing are preserved. We are just changing the visual layout and interaction of the switch component.",
@@ -51,7 +51,7 @@
   "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
     "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
     "Create depth through layered design elements with z-index hierarchy.",
-    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "For this tiny knob use the approved0.7px backdrop blur; heavy12-24px blur hides the flag and is not appropriate.",
     "You MUST NOT apply universal transition (e.g., transition: all). Always add transitions for specific properties.",
     "You MUST NOT center align the app container in CSS.",
     "CRITICAL: DO NOT use complete transparent background in header, overlays, or surfaces with content under it.",

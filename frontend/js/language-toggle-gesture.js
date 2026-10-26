@@ -23,7 +23,7 @@ export function bindLanguageGesture(button, actions) {
     const knob = button.querySelector('.lang-knob').getBoundingClientRect();
     pointer = { id: event.pointerId, x: event.clientX, y: event.clientY,
       start: actions.position(), progress: actions.position(), travel: rail.width - knob.width - 4,
-      moved: false, lastX: event.clientX, lastTime: performance.now(), velocity: 0 };
+      moved: false };
     button.setPointerCapture(event.pointerId);
   });
 
@@ -38,10 +38,6 @@ export function bindLanguageGesture(button, actions) {
     if (Math.abs(dx) >= 4) pointer.moved = true;
     if (!pointer.moved) return;
     event.preventDefault();
-    const now = performance.now();
-    pointer.velocity = (event.clientX - pointer.lastX) / Math.max(1, now - pointer.lastTime);
-    pointer.lastX = event.clientX;
-    pointer.lastTime = now;
     pointer.progress = clamp(pointer.start + dx / pointer.travel);
     button.classList.add('is-dragging');
     actions.preview(pointer.progress);
@@ -53,14 +49,9 @@ export function bindLanguageGesture(button, actions) {
     endCapture();
     if (!gesture.moved) return; // Native click (including keyboard click) handles a tap.
     suppressClickUntil = performance.now() + 500;
-    let target = gesture.progress >= .5 ? 1 : 0;
-    const dx = event.clientX - gesture.x;
-    // A deliberate quick flick may finish the travel, but jitter never changes language.
-    if (Math.abs(dx) >= 8 && performance.now() - gesture.lastTime < 100 &&
-        Math.abs(gesture.velocity) > .5 && Math.sign(dx) === Math.sign(gesture.velocity)) {
-      target = dx > 0 ? 1 : 0;
-    }
-    actions.commit(target);
+    // Always settle to the nearest endpoint, independent of drag speed.
+    const progress = clamp(gesture.start + (event.clientX - gesture.x) / gesture.travel);
+    actions.commit(progress >= .5 ? 1 : 0);
   });
 
   button.addEventListener('click', event => {

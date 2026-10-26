@@ -1,3 +1,16 @@
+# 2026-10-26 — Full authentic flags + clear glossy knob refinement
+
+- Replaced split hand-drawn flag windows with original public-domain Wikimedia SVGs covering
+  the entire oval rail continuously beneath the knob. SVG geometry/bytes unmodified; source
+  pages, direct URLs and hashes documented in `frontend/media/flags/SOURCES.md`.
+- Removed opaque matte-grey knob fill; added transparent highlight layers, bright rim,
+  low-strength backdrop blur and subtle inner shadow. Existing sizes/label/header positions kept.
+- Release now always chooses nearest endpoint, without the earlier velocity/flick override.
+  Background stays fixed during drag and changes only on committed selection/restoration.
+- `iteration_63.json`:165tests passed plus browser checks; both serving modes, SVG integrity,
+  geometry across8widths, click/drag/cancel/keyboard/reduced-motion/history verified.
+- No unresolved issue found in requested scope; user visual approval pending.
+
 # 2026-10-26 — Reference-based circular glass switch + drag/swipe
 
 - Replaced segmented control with external TR/EN labels, one round glass knob and the current

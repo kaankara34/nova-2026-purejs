@@ -2588,24 +2588,16 @@ body.no-scroll {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 999px;
-  background: linear-gradient(155deg, rgba(255, 255, 255, .09), transparent 55%), rgba(23, 23, 25, .65);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3), 0 1px 0 rgba(255, 255, 255, .05), 0 2px 6px rgba(0, 0, 0, .15);
+  /* Unmodified national SVG: one continuous, stationary image beneath the knob. */
+  background-image: url('../media/flags/tr.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .12), 0 1px 0 rgba(255, 255, 255, .05), 0 2px 6px rgba(0, 0, 0, .15);
 }
-.lang-flag-window {
-  position: absolute;
-  pointer-events: none;
-  top: 2px; bottom: 2px;
-  width: calc((var(--lang-track-width) - 6px) / 2);
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity .24s ease;
-}
-.lang-flag-window[data-flag="tr"] { right: 1px; opacity: calc(1 - var(--lang-progress)); }
-.lang-flag-window[data-flag="en"] { left: 1px; opacity: var(--lang-progress); }
-.lang-switch .lang-flag-window .lang-flag {
-  width: 100%; height: 100%;
-  filter: saturate(.8) brightness(.9);
+.lang-switch[data-flag-language="en"] .lang-rail {
+  background-image: url('../media/flags/gb.svg');
 }
 .lang-knob {
   position: absolute;
@@ -2613,13 +2605,34 @@ body.no-scroll {
   width: var(--lang-knob-size); height: var(--lang-knob-size);
   pointer-events: none;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, .48);
-  background: linear-gradient(145deg, rgba(255, 255, 255, .32), rgba(255, 255, 255, .07) 55%, rgba(255, 255, 255, .15)), rgba(90, 90, 95, .55);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, .4), inset 0 -1px 2px rgba(0, 0, 0, .14), 0 2px 5px rgba(0, 0, 0, .35);
+  border: 1px solid rgba(255, 255, 255, .64);
+  background:
+    radial-gradient(ellipse at 28% 12%, rgba(255, 255, 255, .58), rgba(255, 255, 255, .12) 30%, transparent 62%),
+    linear-gradient(145deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .025) 45%, rgba(255, 255, 255, .035) 68%, rgba(255, 255, 255, .2));
+  -webkit-backdrop-filter: blur(.7px) saturate(1.12) brightness(1.04);
+  backdrop-filter: blur(.7px) saturate(1.12) brightness(1.04);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .75), inset 0 -1px 2px rgba(0, 0, 0, .13), 0 1px 3px rgba(0, 0, 0, .22);
   transform: translateX(calc(var(--lang-progress) * var(--lang-travel)));
   transition: transform .24s var(--lang-easing), box-shadow .2s ease;
+}
+.lang-knob::before,
+.lang-knob::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.lang-knob::before {
+  inset: 1px 2px auto;
+  height: 35%;
+  border-top: 1px solid rgba(255, 255, 255, .72);
+  transform: rotate(-24deg);
+}
+.lang-knob::after {
+  right: 2px; bottom: 1px;
+  width: 42%; height: 20%;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .36));
+  transform: rotate(-24deg);
 }
 .lang-opt {
   position: absolute;
@@ -2642,9 +2655,7 @@ body.no-scroll {
 .lang-opt:focus-visible,
 .lang-toggle:focus-visible { outline: 2px solid rgba(255, 255, 255, .9); outline-offset: 2px; }
 .lang-toggle.is-dragging { cursor: grabbing; }
-.lang-toggle.is-dragging .lang-knob,
-.lang-toggle.is-dragging .lang-flag-window { transition: none; }
-.lang-toggle.is-dragging .lang-knob { box-shadow: inset 0 1px 3px rgba(255, 255, 255, .55), 0 2px 6px rgba(0, 0, 0, .4); }
+.lang-toggle.is-dragging .lang-knob { transition: none; box-shadow: inset 0 1px 2px rgba(255, 255, 255, .8), inset 0 -1px 1px rgba(0, 0, 0, .12), 0 2px 5px rgba(0, 0, 0, .22); }
 @media (hover: hover) {
   .lang-opt:hover { color: #fff; }
   .lang-toggle:not(:disabled):hover .lang-knob { border-color: rgba(255, 255, 255, .7); }
@@ -2671,7 +2682,6 @@ body.no-scroll {
 }
 @media (prefers-reduced-motion: reduce) {
   .lang-switch .lang-knob,
-  .lang-switch .lang-flag-window,
   .lang-switch .lang-opt { transition: none; animation: none; }
 }
 @media (forced-colors: active) {

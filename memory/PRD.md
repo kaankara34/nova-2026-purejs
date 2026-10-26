@@ -2,7 +2,46 @@
 
 Last updated: 2026-10-26
 
-## Latest iteration — true circular glass toggle with release-to-commit gestures
+## Latest refinement — continuous authentic flag background and clear glossy knob
+
+### User request and boundaries
+- Preserve the current switch size, external TR/EN positions, header layout and existing URLs.
+- Entire oval rail must be covered edge-to-edge by the selected country's authentic SVG flag,
+  including continuously beneath the knob. Use centered `background-size: cover` and clipped
+  oval corners; never split/scale/redraw the flag according to knob position.
+- Obtain trusted SVG originals through web search; no AI-generated or distorted flag geometry.
+- Replace matte grey/metallic knob with glossy translucent glass: highlights, luminous rim,
+  subtle inner shadow and visible flag beneath; no solid white/grey plastic appearance.
+- Keep click and mouse/touch dragging. On release settle to the nearest endpoint; language
+  changes only after completing selection. Red/blue screenshot marks are annotations only.
+
+### Implemented 2026-10-26
+- Downloaded unmodified, public-domain SVGs from Wikimedia Commons: Turkish flag1200x800 and
+  UK1:2 flag1200x600. Local assets `frontend/media/flags/tr.svg` and `gb.svg`; original URLs,
+  source specifications and exact SHA-256 hashes recorded in `media/flags/SOURCES.md`.
+- `.lang-rail` now has one stationary full-size SVG background with cover/center/no-repeat,
+  border-box origin and overflow:hidden. Removed all half-width `.lang-flag-window` elements
+  and hand-drawn inline flag vectors from66pages. Selected SVG changes only on commit/restore,
+  not during drag; `data-flag-language` tracks the selected background separately from motion.
+- `.lang-knob` has transparent base color, low-alpha specular layers, bright rim and highlight
+  pseudo-elements,0.7px backdrop blur and subtle depth. Removed the opaque grey base/heavy blur.
+- No rail/knob dimensions, label positions, layout slots or surrounding header CSS changed.
+- Gesture velocity override removed: final pointerup position alone chooses nearest endpoint.
+  Existing click, pointer capture, cancellation, keyboard, history and reduced-motion remain.
+- Markup helper remains idempotent using `data-flag-source="wikimedia"`; full i18n rebuild was
+  NOT run because branch HTML is still newer than the authoring templates.
+
+### Verification / next steps
+- `test_reports/iteration_63.json`:100% requested frontend checks;165pytest checks passed
+  (6scope/link +61dual-serving-mode +98static pages). Both SVG hashes match original downloads.
+- Browser checks passed for full stationary backgrounds, glass transparency, nearest-endpoint
+  release, fast short8px snapback, Escape, keyboard, reduced motion and history restore.
+- Eight widths320/390/768/800/900/1024/1440/1920 checked; original rail/knob/header geometry held.
+  No mocked flow, new third-party integration or unresolved defect in requested scope.
+- P0: none. P1: user visual approval of the two refined areas. P2: maintain a visual-regression
+  baseline for this control; branch/source reconciliation and unrelated form/legal backlog remain.
+
+## Previous iteration — true circular glass toggle with release-to-commit gestures
 
 The user's follow-up replaces the earlier segmented design, not the underlying language URLs.
 Reference: `https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/0ba7fd6f31eb14e5_image.png`.

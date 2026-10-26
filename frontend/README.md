@@ -11,7 +11,10 @@ Glass toggle stilleri `css/styles.css` dosyasının sonundadır. Dil bağlantıl
 dizin yapısı değiştirilmemiştir.
 
 Son sürümde etiketler switch'in dışındadır; içeride yuvarlak cam knob ve açıkta kalan bayrak
-bulunur. `js/language-toggle.js` ve `js/language-toggle-gesture.js` yerel dosyaları tıklama,
+bulunur. Bayrak artık oval gövdenin tamamını ve şeffaf knob'un altını kesintisiz kaplar.
+Özgün Wikimedia Commons SVG'leri `media/flags/` içindedir; kaynak ve lisans bilgileri
+`media/flags/SOURCES.md` dosyasında kayıtlıdır. SVG'leri yeniden çizmeyin veya oranlarını değiştirmeyin.
+`js/language-toggle.js` ve `js/language-toggle-gesture.js` yerel dosyaları tıklama,
 sürükleme ve bırakınca dil değiştirme davranışını sağlar. JavaScript çalışmasa bile TR/EN
 etiketleri mevcut sayfa bağlantıları üzerinden çalışır. Bu dosyaları da diğer `js/` dosyalarıyla
 birlikte koruyun; ek hizmet veya kurulum gerekmez.

@@ -18,6 +18,7 @@ export function initLanguageToggles() {
       clearTimeout(navigationTimer);
       pending = false;
       paint(current);
+      control.dataset.flagLanguage = current ? 'en' : 'tr';
       button.setAttribute('aria-checked', String(Boolean(current)));
       button.removeAttribute('aria-busy');
     }
@@ -25,6 +26,7 @@ export function initLanguageToggles() {
     function commit(target) {
       if (pending) return;
       paint(target);
+      control.dataset.flagLanguage = target ? 'en' : 'tr';
       if (target === current) return;
       pending = true;
       button.setAttribute('aria-checked', String(Boolean(target)));

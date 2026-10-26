@@ -1,6 +1,10 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- Latest targeted refinement verified: authentic full-rail flag SVG + clear glossy knob,
+  unchanged geometry and nearest-endpoint release (`iteration_63.json`,165tests). Await visual
+  approval. Do not restore half-flag windows, hand-drawn flags, matte-grey fill or velocity flick.
+- Optional design-protection follow-up: persistent visual regression baseline for the switch.
 - Latest follow-up: true circular glass switch with click/drag/swipe and release-only commit is
   implemented and verified (`iteration_62.json`,63 final automated checks). Await user visual and
   physical-device gesture approval; do not restore the old segmented design.
