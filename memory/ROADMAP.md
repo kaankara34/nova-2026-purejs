@@ -1,6 +1,12 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- Current task implementation: shared hero lifecycle, menu visibility, perimeter transforms,
+  optimized header logos and theme-aware switch completed;242regression+10isolated tests pass.
+- **P0 verification:** real iOS Safari/Android Chrome app-switch/scroll/BFcache video acceptance
+  remains pending. Headless codec/decoder limitations are explicitly documented; do not claim
+  physical-device success or add playback-reset workarounds solely for the headless engine.
+- P1: user visual acceptance; checklist in `memory/UI_VIDEO_PERFORMANCE_REPORT.md`.
 - Latest request implemented: very light flag-only glass pane; desktop action order now enquiry,
   phone/message, then language. Knob and navigation/gesture JS unchanged.170tests passed;12/12
   follow-up short-touch trials passed after an initial unreproduced CDP observation. P1:visual approval.

@@ -5,11 +5,15 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+from runtime_markup import optimize_runtime_markup
 
 
 CURRENT_FRONTEND = Path("/app/frontend")
-BASELINE_CANDIDATE = Path("/tmp/nova-toggle-before-gesture/frontend")
+BASELINE_CANDIDATE = Path("/tmp/nova-before-lifecycle/frontend")
 FIXTURE_PATH = Path("/app/tests/fixtures/lang_toggle_baseline_fixture.json")
 
 LANG_BLOCK_RE = re.compile(r'<div class="lang-switch\b[^>]*>.*?</div>', re.S)
@@ -76,7 +80,7 @@ def test_all_66_pages_exist_against_baseline_snapshot_or_fixture():
         assert len(baseline) == 66
 
 
-def test_html_changes_are_limited_to_lang_switch_blocks():
+def test_html_changes_are_limited_to_authorized_header_media_and_language_updates():
     fixture = _load_fixture()
     for rel, cur_file, base_file in _html_pairs():
         cur_html = cur_file.read_text(encoding="utf-8")
@@ -85,11 +89,11 @@ def test_html_changes_are_limited_to_lang_switch_blocks():
         if base_file is not None:
             base_html = base_file.read_text(encoding="utf-8")
             assert cur_stripped == _strip_lang_switch_blocks(
-                base_html
+                optimize_runtime_markup(base_html)
             ), f"Unexpected non-lang-switch diff in {rel}"
         else:
             digest = hashlib.sha256(cur_stripped.encode("utf-8")).hexdigest()
-            assert digest == fixture["stripped_sha256"][rel], f"Hash mismatch in {rel}"
+            assert digest == fixture["runtime_stripped_sha256"][rel], f"Hash mismatch in {rel}"
 
 
 def test_lang_switch_link_semantics_preserved_from_baseline():
@@ -119,19 +123,21 @@ def test_lang_switch_link_semantics_preserved_from_baseline():
                 )
 
 
-def test_shared_css_before_language_selector_block_is_byte_identical():
+def test_shared_css_outside_authorized_language_and_perimeter_blocks_is_identical():
     marker = "/* ---------- Language selector (TR / EN) ---------- */"
     cur_css = (CURRENT_FRONTEND / "css/styles.css").read_text(encoding="utf-8")
-    cur_prefix = cur_css.split(marker, 1)[0]
+    def without_perimeter(css):
+        return re.sub(r'/\* Perimeter progress.*?(?=\.ew-feature-copy\s*\{)', '', css, flags=re.S)
+    cur_prefix = without_perimeter(cur_css.split(marker, 1)[0])
 
     if BASELINE_CANDIDATE.exists():
         base_css = (BASELINE_CANDIDATE / "css/styles.css").read_text(encoding="utf-8")
-        base_prefix = base_css.split(marker, 1)[0]
+        base_prefix = without_perimeter(base_css.split(marker, 1)[0])
         assert cur_prefix == base_prefix
     else:
         fixture = _load_fixture()
         digest = hashlib.sha256(cur_prefix.encode("utf-8")).hexdigest()
-        assert digest == fixture["css_prefix_sha256"]
+        assert digest == fixture["css_prefix_without_perimeter_sha256"]
 
 
 def test_language_toggle_enhancement_uses_native_anchor_hrefs():
@@ -157,12 +163,15 @@ def test_active_language_link_matches_document_lang():
         assert len(blocks) == 2, f"Expected 2 lang-switch blocks in {rel}"
         for idx, block in enumerate(blocks, start=1):
             active = re.search(
-                r'<a\b[^>]*class="[^"]*\bis-active\b[^"]*"[^>]*\blang="(tr|en)"[^>]*\baria-current="true"',
+                r'<a\b[^>]*class="[^"]*\bis-active\b[^"]*"[^>]*>',
                 block,
                 re.I,
             )
             assert active, f"Missing active link with aria-current in {rel} block#{idx}"
-            assert active.group(1).lower() == doc_lang, (
+            attrs = _extract_anchor_attrs(active.group(0))[0]
+            assert attrs.get('aria_current') in ('true', 'page'), f"Invalid aria-current in {rel}"
+            assert active.group(0).count('aria-current=') == 1, f"Duplicate aria-current in {rel}"
+            assert attrs.get('lang', '').lower() == doc_lang, (
                 f"Active lang mismatch in {rel} block#{idx}: "
-                f"active={active.group(1)} doc={doc_lang}"
+                f"active={attrs.get('lang')} doc={doc_lang}"
             )

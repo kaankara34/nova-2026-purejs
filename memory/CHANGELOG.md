@@ -1,3 +1,20 @@
+# 2026-10-26 — Shared hero recovery, smoother border, header performance and theme fixes
+
+- Shared lifecycle owner for12EN/TRhero pages; old duplicate playback/bootstrap handlers removed.
+  Visibility/viewport/BFcache recovery, intentional pause, bounded rejection handling and progress
+  checks without load/seek/reset. Responsive homepage sources selected by browser markup.
+- Mobile/tablet drawer hides both language controls; desktop preserved. Light page themes now
+  use scoped neumorphism; dark glass/geometry/mappings retained. DuplicateARIA cleanup included.
+- Perimeter changed from per-frame SVG repaint to4native transform animations with5s timing and
+  lifecycle pause/resume. Header scroll work coalesced and ordered read-before-write.
+- Header logos reduced~77–82% in bytes, matching critical preload/high priority and fixed ratios;
+  offscreen thumbnail preloads removed. Originals and existing inline SVG icons retained.
+-242 regression tests and10 isolated lifecycle checks pass; CDP touch follow-up passes. Actual
+  cold header sample: logo loaded370ms; logo+icons visible583.7ms, FCP572ms.
+- Important limit: physicaliOS/Android and realSafariFPS not tested. H.264-limited Chromium and
+  independently anomalous LinuxWebKit media behavior prevent full MP4 device sign-off.
+- Detailed causes/files/verification: `memory/UI_VIDEO_PERFORMANCE_REPORT.md`.
+
 # 2026-10-26 — Subtle flag glass overlay and rightmost desktop language switch
 
 - Added a thin flag-only glass pane with0.35px blur, low-opacity white sheen and light inset

@@ -1,5 +1,15 @@
 # Local preview
 
+## Header / hero güncellemesi — 26 Ekim 2026
+
+- `js/hero-video.js` tüm dekoratif hero videolarının ortak yaşam döngüsünü yönetir. Proje
+  dosyalarına ikinci bir autoplay/retry yöneticisi eklemeyin; `load()` veya başlangıca seek yoktur.
+- Menü mobil/tablet breakpoint'inde açıkken dil kontrolleri gizlenir. Açık navbar temaları mevcut
+  sayfa sınıflarından gelir; gerektiğinde header'ın `data-header-theme="light|dark"` durumu kullanılabilir.
+- Header logosu için `nova-logo-header.webp` / `nova-logo-dark-header.webp` dosyalarını koruyun.
+  Orijinal PNG'ler diğer kullanımlar için durur. Scoped güncelleme: `python scripts/runtime_markup.py`.
+- Tam test/cihaz sınırları raporu proje kökündeki `memory/UI_VIDEO_PERFORMANCE_REPORT.md` içindedir.
+
 ## Güncel sürüm notu — 26 Ekim 2026
 
 Site, `tr-destekli-versiyon` branch'inin `3a238f1` sürümü esas alınarak güncellendi.

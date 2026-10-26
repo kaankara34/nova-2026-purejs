@@ -7,6 +7,10 @@ import('./language-toggle.js')
   .then(({ initLanguageToggles }) => initLanguageToggles())
   .catch(() => { /* Native language links remain available if enhancement cannot load. */ });
 
+import('./hero-video.js')
+  .then(({ initHeroVideos }) => initHeroVideos())
+  .catch(error => console.warn('Hero video enhancement unavailable:', error));
+
 /* ========== GLOBAL scroll-lock (used by every lightbox / modal) =========
    `document.body.style.overflow='hidden'` alone is unreliable — iOS Safari
    and Android Chrome will still scroll the html element and rubber-band the
@@ -76,9 +80,11 @@ import('./language-toggle.js')
 
   let menuReturnFocus = null;
   function openMenu() {
+    if (menu.classList.contains('open')) return;
     menuReturnFocus = document.activeElement;
     menu.classList.add('open');
     overlay.classList.add('show');
+    document.body.classList.add('nova-menu-open');
     if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
     window.lockScroll();
     if (closeBtn) closeBtn.focus();
@@ -87,6 +93,7 @@ import('./language-toggle.js')
     if (!menu.classList.contains('open')) return;
     menu.classList.remove('open');
     overlay.classList.remove('show');
+    document.body.classList.remove('nova-menu-open');
     if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
     window.unlockScroll();
     setTimeout(resetMenuState, 500);
@@ -296,9 +303,12 @@ import('./language-toggle.js')
   const utilityBar = $('.utility-bar');
   const heroEl = $('.hero, .pj-hero, .ew-hero, .cx-hero, .bb-hero, .tac-hero');
   function onScroll() {
+    // Read geometry before any class writes; coalesce scroll events into one frame.
+    const scrolled = window.scrollY > 40;
+    const transparent = heroEl ? heroEl.getBoundingClientRect().bottom > 100 : false;
     // Hide utility bar when scrolled down past 40px
     if (utilityBar) {
-      if (window.scrollY > 40) {
+      if (scrolled) {
         utilityBar.classList.add('hidden');
         if (header) header.classList.add('bar-hidden');
       } else {
@@ -312,12 +322,17 @@ import('./language-toggle.js')
       header.classList.remove('transparent');
       return;
     }
-    const heroBottom = heroEl.getBoundingClientRect().bottom;
-    if (heroBottom > 100) header.classList.add('transparent');
+    if (transparent) header.classList.add('transparent');
     else header.classList.remove('transparent');
   }
   onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  let headerFrame = null;
+  window.addEventListener('scroll', () => {
+    if (headerFrame !== null) return;
+    headerFrame = requestAnimationFrame(() => { headerFrame = null; onScroll(); });
+  }, { passive: true });
+  window.addEventListener('pagehide', () => { cancelAnimationFrame(headerFrame); headerFrame = null; });
+  window.addEventListener('pageshow', onScroll);
 
   /* ========== Hero slideshow (Ken Burns) ========== */
   const slides = $$('.hero-media .slide');

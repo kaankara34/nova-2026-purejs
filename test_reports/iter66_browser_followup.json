@@ -1,0 +1,229 @@
+{
+  "browsers": {
+    "chromium": {
+      "available": false,
+      "error": "BrowserType.launch: Executable doesn't exist at /pw-browsers/chromium_headless_shell-1248/chrome-headless-shell-linux-arm64/chrome-headless-shell\n\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551 Looks like Playwright was just installed or updated.       \u2551\n\u2551 Please run the following command to download new browsers: \u2551\n\u2551                                                            \u2551\n\u2551     playwright install                                     \u2551\n\u2551                                                            \u2551\n\u2551 <3 Playwright Team                                         \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d"
+    },
+    "webkit": {
+      "available": true,
+      "hero_results": [
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/en/index.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/tr/index.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": false,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [
+            "no visible progress (1.198->0.721) - possible codec/autoplay/runtime limit"
+          ],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/en/mercan-bosphorus.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/mercan/videos/mercan-2k-web.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/tr/mercan-bosphorus.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": false,
+          "notes": [
+            "resume event did not restore playback: {'paused': False, 't': 1.133333333}"
+          ],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/mercan/videos/mercan-2k-web.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/en/marti-residence.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/marti/marti-video.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/tr/marti-residence.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": false,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [
+            "no visible progress (0.592->0.644) - possible codec/autoplay/runtime limit"
+          ],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/marti/marti-video.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/en/bahar-residence.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": false,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [
+            "no visible progress (0.667->0.467) - possible codec/autoplay/runtime limit"
+          ],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/bahar/videos/bahar-2k-web.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/tr/bahar-residence.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": false,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [
+            "no visible progress (0.800->0.716) - possible codec/autoplay/runtime limit"
+          ],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/bahar/videos/bahar-2k-web.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/en/the-residences-east-west.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/east-west/videos/ew-hero-web.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/tr/the-residences-east-west.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/images/east-west/videos/ew-hero-web.mp4",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/en/the-apartments-ana.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/video/ana-video.webm",
+            "error": null
+          }
+        },
+        {
+          "url": "https://darg-clone-1.preview.emergentagent.com/tr/the-apartments-ana.html",
+          "loaded": true,
+          "video_found": true,
+          "progress_ok": true,
+          "pause_persist_ok": true,
+          "resume_ok": true,
+          "notes": [],
+          "media_capability": {
+            "mp4": "probably",
+            "webm": "probably",
+            "ready": 4,
+            "network": 1,
+            "src": "https://darg-clone-1.preview.emergentagent.com/media/video/ana-video.webm",
+            "error": null
+          }
+        }
+      ]
+    }
+  },
+  "menu": null,
+  "east_west": null
+}

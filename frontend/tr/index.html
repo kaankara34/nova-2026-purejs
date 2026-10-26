@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
+  <link rel="preload" as="image" href="../media/images/nova-logo-header.webp" type="image/webp" fetchpriority="high" data-nova-header-preload="true" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0b" />
   <meta name="description" content="Nova Konut, İstanbul'un Anadolu Yakası'nda özgün mimariyi, nitelikli yapım ve kalıcı değer anlayışıyla buluşturan konut projeleri geliştirir." />
@@ -25,9 +26,6 @@
   <link rel="preload" as="image" href="../media/videos/hero-nova-poster.webp" type="image/webp" fetchpriority="high" />
 
   <!-- Preload menu project thumbnails (≤62KB each) for instant hover reveal -->
-  <link rel="preload" as="image" href="../media/images/menu-thumbs/dogubati_render.webp" type="image/webp" fetchpriority="low" />
-  <link rel="preload" as="image" href="../media/images/tac-new-render.webp" type="image/webp" fetchpriority="low" />
-  <link rel="preload" as="image" href="../media/images/menu-thumbs/tac_render.webp" type="image/webp" fetchpriority="low" />
 </head>
 <body>
   <!-- ============================= TOP UTILITY BAR ============================= -->
@@ -66,7 +64,7 @@
           <span></span><span></span><span></span>
         </button>
         <a href="#top" class="logo-mark" aria-label="Nova ana sayfa">
-          <img src="../media/images/nova-logo.png" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" / decoding="async">
+          <img src="../media/images/nova-logo-header.webp" alt="Nova Konut İnşaat Yatırım A.Ş" class="logo-img" width="768" height="768" loading="eager" decoding="sync" fetchpriority="high" data-testid="header-logo-image" />
         </a>
       </div>
 
@@ -217,29 +215,14 @@
     <div class="hero-media">
       <video class="hero-video" id="heroVideo" autoplay muted loop playsinline
              preload="metadata" poster="../media/videos/hero-nova-poster.webp"
-             aria-label="Nova Konut tanıtım filmi" data-testid="intro-video">
+             aria-label="Nova Konut tanıtım filmi" data-testid="intro-video" data-hero-video="true">
+        <source src="../media/videos/hero-nova-960.mp4" type="video/mp4" media="(max-width: 640px)" data-hero-rendition="960" />
+<source src="../media/videos/hero-nova-1280.mp4" type="video/mp4" media="(max-width: 1100px)" data-hero-rendition="1280" />
+<source src="../media/videos/hero-nova-1600.mp4" type="video/mp4" media="(min-width: 1101px)" data-hero-rendition="1600" />
         <source id="heroVideoSource" src="../media/videos/hero-nova-1280.mp4" type="video/mp4" />
         <source src="../media/videos/hero-nova-1280.webm" type="video/webm" />
       </video>
-      <script>
-        /* Pick the lightest intro-video rendition for the device before playback starts. */
-        (function () {
-          try {
-            var video = document.getElementById('heroVideo');
-            var source = document.getElementById('heroVideoSource');
-            if (!video || !source) return;
-            var width = window.innerWidth || document.documentElement.clientWidth;
-            var rendition = width <= 640 ? '960' : (width <= 1100 ? '1280' : '1600');
-            if (rendition !== '1280') {
-              source.src = '../media/videos/hero-nova-' + rendition + '.mp4';
-              video.load();
-            }
-            var start = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
-            if (video.readyState >= 2) start();
-            video.addEventListener('loadeddata', start, { once: true });
-          } catch (err) { /* the markup source keeps playing on its own */ }
-        })();
-      </script>
+      
     </div>
 
     <button class="hero-scroll" id="heroScroll" aria-label="Aşağı kaydır">

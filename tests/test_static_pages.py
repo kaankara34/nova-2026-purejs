@@ -2,8 +2,10 @@
 import re
 import requests
 import pytest
+from pathlib import Path
+from dotenv import dotenv_values
 
-BASE = "https://darg-clone-1.preview.emergentagent.com"
+BASE = dotenv_values(Path(__file__).resolve().parents[1] / 'frontend/.env')['REACT_APP_BACKEND_URL'].rstrip('/')
 
 TR_PAGES = [
     "index.html","projeler.html","hakkimizda.html","iletisim.html","organizasyon.html",

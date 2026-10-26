@@ -6,17 +6,7 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* hero: the poster stands in when motion is reduced */
-  const video = document.getElementById('anaHeroVideo');
-  if (video) {
-    if (reduce) {
-      video.pause();
-      video.removeAttribute('autoplay');
-    } else {
-      const play = video.play();
-      if (play && play.catch) play.catch(() => { /* poster remains */ });
-    }
-  }
+  /* Shared hero-video.js also respects reduced motion and deliberate pauses. */
 
   /* action bar + in-page anchors */
   const headerOffset = () => {

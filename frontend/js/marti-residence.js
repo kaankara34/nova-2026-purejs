@@ -9,31 +9,7 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-  /* ========== Hero video — force play the moment data is ready ==========
-     Removes the visible poster→video swap: as soon as the first frame is
-     decoded we start playback. Handles iOS Safari where autoplay can be
-     deferred until the video is fully parsed. */
-  (function initHeroVideo() {
-    const v = document.querySelector('.ew-hero-video');
-    if (!v) return;
-    v.muted = true;                       // required for iOS autoplay
-    const tryPlay = () => {
-      const p = v.play();
-      if (p && typeof p.catch === 'function') p.catch(() => { /* browsers block until user gesture */ });
-    };
-    if (v.readyState >= 2) tryPlay();
-    else v.addEventListener('loadeddata', tryPlay, { once: true });
-    v.addEventListener('canplay', tryPlay, { once: true });
-    // Retry once on first pointerdown / touchstart as a fallback for
-    // aggressive iOS power-saving modes.
-    const onFirstInteract = () => {
-      tryPlay();
-      window.removeEventListener('pointerdown', onFirstInteract);
-      window.removeEventListener('touchstart', onFirstInteract);
-    };
-    window.addEventListener('pointerdown', onFirstInteract, { passive: true });
-    window.addEventListener('touchstart', onFirstInteract, { passive: true });
-  })();
+  /* Hero playback is owned by the shared hero-video.js lifecycle controller. */
 
   /* ========== Lightbox Gallery (finger-tracking swipe) ==========
      Sources: manifesto grid images (3) + key-features block images (3).

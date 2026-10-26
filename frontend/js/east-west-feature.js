@@ -1,146 +1,131 @@
-/* ==========================================================
-   THE RESIDENCES EAST WEST — homepage media carousel.
-   Local East West renders only. One timing source drives both the
-   crossfade and the perimeter progress line, so they never drift.
-   ========================================================== */
+/* East West feature: compositor-friendly perimeter, one5s clock for line and slides. */
 (function () {
   'use strict';
-
   const section = document.getElementById('eastWestFeature');
   const media = document.getElementById('ewFeatureMedia');
   if (!section || !media) return;
-
   const panel = section.querySelector('.ew-feature-inner') || section;
-  const slides = Array.prototype.slice.call(media.querySelectorAll('[data-ew-slide]'));
+  const slides = [...media.querySelectorAll('[data-ew-slide]')];
   if (slides.length < 2) return;
-
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const canHover = matchMedia('(hover: hover) and (pointer: fine)');
   const DURATION = 5000;
-  const SVG_NS = 'http://www.w3.org/2000/svg';
+  let index = 0, animations = [], dimensions = '', running = false;
+  let inView = false, hovering = false, pagePresent = true, focused = true;
+  const frame = document.createElement('div');
+  frame.className = 'ew-progress';
+  frame.setAttribute('aria-hidden', 'true');
+  frame.dataset.testid = 'ew-feature-progress';
+  const edges = ['top', 'right', 'bottom', 'left'].map(edge => {
+    const node = document.createElement('span');
+    node.className = 'ew-progress-active ew-progress-' + edge;
+    node.dataset.testid = 'ew-progress-' + edge;
+    frame.appendChild(node);
+    return node;
+  });
+  panel.appendChild(frame);
+  const eligible = () => !reduced.matches && !document.hidden && pagePresent && focused && inView && !hovering;
 
-  let index = 0;
-  let elapsed = 0;
-  let lastFrame = 0;
-  let frame = null;
-  let inView = false;
-  let hovering = false;
-
-  /* ---------------------------------------------- perimeter progress line */
-  const svg = document.createElementNS(SVG_NS, 'svg');
-  svg.setAttribute('class', 'ew-progress');
-  svg.setAttribute('aria-hidden', 'true');
-  svg.setAttribute('preserveAspectRatio', 'none');
-  const base = document.createElementNS(SVG_NS, 'rect');
-  const active = document.createElementNS(SVG_NS, 'rect');
-  base.setAttribute('class', 'ew-progress-base');
-  active.setAttribute('class', 'ew-progress-active');
-  svg.appendChild(base);
-  svg.appendChild(active);
-  panel.appendChild(svg);
-
-  let perimeter = 0;
-
-  function measure() {
-    const rect = panel.getBoundingClientRect();
-    const w = Math.max(1, Math.round(rect.width));
-    const h = Math.max(1, Math.round(rect.height));
-    const inset = 1;
-    const rw = Math.max(1, w - inset * 2);
-    const rh = Math.max(1, h - inset * 2);
-    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-    [base, active].forEach(function (node) {
-      node.setAttribute('x', String(inset));
-      node.setAttribute('y', String(inset));
-      node.setAttribute('width', String(rw));
-      node.setAttribute('height', String(rh));
-    });
-    perimeter = (rw + rh) * 2;
-    active.style.strokeDasharray = perimeter + ' ' + perimeter;
-    paint();
-  }
-
-  function paint() {
-    const ratio = Math.min(1, elapsed / DURATION);
-    active.style.strokeDashoffset = String(perimeter * (1 - ratio));
-  }
-
-  /* ---------------------------------------------- slides */
   function preloadNext() {
     const next = slides[(index + 1) % slides.length];
-    if (next && next.dataset.srcDeferred) {
-      delete next.dataset.srcDeferred;
-      const preload = new Image();
-      preload.src = next.currentSrc || next.src;
-    }
+    if (!next?.dataset.srcDeferred) return;
+    delete next.dataset.srcDeferred;
+    const image = new Image();
+    image.src = next.currentSrc || next.src;
   }
-
   function advance() {
     slides[index].classList.remove('is-active');
     index = (index + 1) % slides.length;
     slides[index].classList.add('is-active');
     preloadNext();
   }
-
-  function tick(now) {
-    if (!lastFrame) lastFrame = now;
-    elapsed += now - lastFrame;
-    lastFrame = now;
-    if (elapsed >= DURATION) {
-      elapsed = 0;
-      advance();
-    }
-    paint();
-    frame = window.requestAnimationFrame(tick);
-  }
-
   function stop() {
-    if (frame) window.cancelAnimationFrame(frame);
-    frame = null;
-    lastFrame = 0;
+    animations.forEach(animation => animation.pause());
+    running = false;
   }
-
-  function start() {
-    if (frame) return;
-    if (reduced.matches || document.hidden || !inView || hovering) return;
-    preloadNext();
-    lastFrame = 0;
-    frame = window.requestAnimationFrame(tick);
-  }
-
-  function applyReducedMotion() {
-    if (reduced.matches) {
-      stop();
-      elapsed = 0;
-      svg.style.display = 'none';
-      paint();
-    } else {
-      svg.style.display = '';
-      start();
+  function sync() {
+    frame.hidden = reduced.matches;
+    if (!eligible()) { stop(); return; }
+    if (running || !animations.length) return;
+    if (Number(animations[0].currentTime) >= DURATION) {
+      advance();
+      animations.forEach(animation => { animation.currentTime = 0; });
     }
+    // Identical start time prevents the four sides from drifting apart.
+    const elapsed = Number(animations[0].currentTime) || 0;
+    const start = document.timeline.currentTime - elapsed;
+    animations.forEach(animation => { animation.play(); animation.startTime = start; });
+    running = true;
+    preloadNext();
   }
-
-  media.addEventListener('mouseenter', function () { hovering = true; stop(); });
-  media.addEventListener('mouseleave', function () { hovering = false; start(); });
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) stop(); else start();
+  function measure() {
+    const rect = panel.getBoundingClientRect();
+    const w = Math.max(1, Math.round(rect.width) - 2);
+    const h = Math.max(1, Math.round(rect.height) - 2);
+    const size = w + ':' + h;
+    if (size === dimensions) return;
+    dimensions = size;
+    const elapsed = Number(animations[0]?.currentTime) || 0;
+    animations.forEach(animation => { animation.onfinish = null; animation.cancel(); });
+    const lengths = [w, h, w, h];
+    const perimeter = (w + h) * 2;
+    let offset = 0;
+    animations = edges.map((edge, i) => {
+      const from = offset / perimeter;
+      offset += lengths[i];
+      const to = offset / perimeter;
+      const axis = i % 2 ? 'Y' : 'X';
+      const animation = edge.animate([
+        { transform: `scale${axis}(0)`, offset: 0 },
+        { transform: `scale${axis}(0)`, offset: from },
+        { transform: `scale${axis}(1)`, offset: to },
+        { transform: `scale${axis}(1)`, offset: 1 }
+      ], { duration: DURATION, easing: 'linear', fill: 'both' });
+      animation.pause();
+      animation.currentTime = Math.min(elapsed, DURATION);
+      return animation;
+    });
+    animations[0].onfinish = () => {
+      running = false;
+      if (!eligible()) return;
+      advance();
+      animations.forEach(animation => { animation.currentTime = 0; });
+      sync();
+    };
+    running = false;
+    sync();
+  }
+  function restore() {
+    hovering = false;
+    const rect = section.getBoundingClientRect();
+    inView = rect.bottom > -120 && rect.top < innerHeight + 120;
+    running = false;
+    sync();
+  }
+  // Real mouse movement, not synthetic touch hover or an element scrolling under a cursor.
+  media.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse' || !canHover.matches || hovering) return;
+    hovering = true;
+    sync();
   });
-  window.addEventListener('resize', measure);
+  media.addEventListener('pointerleave', () => { hovering = false; sync(); });
+  window.addEventListener('scroll', () => { if (hovering) { hovering = false; sync(); } }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else { focused = true; restore(); }
+  });
+  window.addEventListener('pagehide', () => { pagePresent = false; hovering = false; stop(); });
+  window.addEventListener('pageshow', () => { pagePresent = true; focused = true; restore(); });
+  window.addEventListener('blur', () => { focused = false; hovering = false; stop(); });
+  window.addEventListener('focus', () => { focused = true; restore(); });
   if ('ResizeObserver' in window) new ResizeObserver(measure).observe(panel);
-
+  else window.addEventListener('resize', measure);
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        inView = entry.isIntersecting;
-        if (inView) start(); else stop();
-      });
-    }, { rootMargin: '120px 0px' });
-    io.observe(section);
-  } else {
-    inView = true;
-  }
-
-  if (reduced.addEventListener) reduced.addEventListener('change', applyReducedMotion);
-
+    new IntersectionObserver(entries => entries.forEach(entry => {
+      inView = entry.isIntersecting;
+      sync();
+    }), { rootMargin: '120px 0px' }).observe(section);
+  } else inView = true;
+  reduced.addEventListener?.('change', sync);
   measure();
-  applyReducedMotion();
+  sync();
 })();

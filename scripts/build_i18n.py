@@ -13,6 +13,7 @@ import os
 import re
 import shutil
 from language_toggle_markup import enhance_language_switches
+from runtime_markup import optimize_runtime_markup
 
 SRC = '/app/source-pages'
 WEB = '/app/frontend'
@@ -163,7 +164,7 @@ def insert_selector(html, src_name, lang):
     mobile = block.replace('class="lang-switch"', 'class="lang-switch lang-switch--menu"')
     html = html.replace('<div class="side-menu-grid">',
                         '      ' + mobile + '\n    <div class="side-menu-grid">', 1)
-    return enhance_language_switches(html)
+    return optimize_runtime_markup(enhance_language_switches(html))
 
 
 # -------------------------------------------------------------- translation

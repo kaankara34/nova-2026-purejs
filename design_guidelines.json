@@ -22,7 +22,7 @@
   },
   "grids": "Not strictly applicable. Use flexbox for the inline component layout.",
   "layouts": {
-    "overall": "TR left, existing oval switch center, EN right; unchanged internal geometry. Desktop header action order is enquiry -> phone/message -> language (rightmost), in DOM and visual order. Mobile visible switch and menu placement unchanged.",
+    "overall": "TR left, existing oval switch center, EN right; unchanged geometry. Desktop order enquiry -> phone/message -> language. Mobile/tablet drawer <=1100px hides BOTH language controls while open and restores them on close. Light page/header themes use soft beige neumorphism; dark defaults retain approved glass. Theme is not inferred solely from scroll.",
     "track": "Horizontal oval rail, compact, with relative positioning.",
     "flags": "Use original SVG aspect ratios; derive country-specific placement from artwork coordinates so TR crescent/star and UK central cross are fully visible in the exposed side. Exact source-color field remains continuous beneath opaque knob. Stationary during dragging.",
     "knob": "Absolute positioned, perfectly circular (.lang-knob). Moves along the track using CSS transform.",
@@ -41,7 +41,7 @@
   "image urls": {},
   "instructions_to_main_agent": [
     "Keep current DOM geometry: external TR/EN native anchors, center switch with one full-background rail and circular knob. Do not reintroduce flag-window spans.",
-    "Latest refinement: add only a subtle flag pane below the opaque knob (panez0/knobz1, pointer-events:none). Keep24px/18px knob,1px gaps, material and flagfocus. Desktop language group must follow contact icons in DOM; preserve mobile appearance.",
+    "Dark theme keeps the approved subtle flag pane below opaque knob. Light page-design/page-contact/page-bbl headers and explicit data-header-theme=light use restrained neumorphic shadows and dark readable labels. Keep24px/18px knob,1px gaps and flag focus. Desktop group follows icons; mobile drawer hides both controls while open.",
     "Logic Mapping: TR active -> knob LEFT and Turkish flag across entire rail; EN active -> knob RIGHT and UK flag across entire rail. Flag remains continuous beneath knob.",
     "Add a standalone vanilla JS module in /app/frontend/js/script.js (or inline) to handle pointer events (pointerdown, pointermove, pointerup) on the switch.",
     "Gesture logic: On pointerdown, capture starting X. On pointermove, update the knob's transform interactively (knob follows pointer). On pointerup, check if dragged past midpoint. If yes, navigate to the other language's URL. If no, snap back. The navigation should happen ONLY on release.",

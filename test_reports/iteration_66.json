@@ -1,0 +1,63 @@
+{
+  "summary": "Frontend-only validation completed on public preview for menu language-switch hiding, hero lifecycle behavior, EastWest border lifecycle, and header logo/preload consistency. Chromium automation passed key interaction checks. Existing lang-toggle regression suite has 2 outdated assertions vs newly requested markup/animation scope.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Hero video progression on project pages in automation runner",
+        "issue": "In Chromium screenshot runner, 6 project hero pages reported currentTime 0.00->0.00 while homepage and ANA pages progressed. Pause persistence and resume hooks still passed. This is likely runner codec/decode capability mismatch, not confirmed app regression.",
+        "affected_selectors": [
+          "video[data-hero-video]"
+        ]
+      },
+      {
+        "flow": "Cross-browser (WebKit) verification",
+        "issue": "Could not execute independent WebKit automation in this environment because both Python and Node Playwright packages are unavailable for direct runner scripts (ERR_MODULE_NOT_FOUND / ModuleNotFoundError).",
+        "affected_selectors": [
+          "N/A"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_static_pages.py",
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/tests/test_header_assets_iter66.py",
+    "/app/tests/playwright_iter66_nova_checks.py",
+    "/app/tests/playwright_iter66_nova_checks.mjs",
+    "/app/test_reports/pytest/iter66_frontend_regression.xml",
+    "/app/test_reports/pytest/iter66_header_assets.xml"
+  ],
+  "action_items": [
+    "Update /app/tests/test_lang_toggle_regression.py expectations/fixture scope: current assertions still require non-language HTML/CSS byte identity, which conflicts with newly requested header preload and EastWest animation refactor changes.",
+    "If strict cross-browser verification is mandatory, run the same lifecycle suite in an environment with standalone Playwright runtimes (Chromium + WebKit) installed.",
+    "Optional: validate project-page hero decoding on physical Safari/iOS and Android Chrome before classifying project-page 0.00->0.00 in automation as product regression."
+  ],
+  "critical_code_review_comments": [
+    "runtime_markup.py now injects one header preload and standardized eager/sync/high logo attrs correctly across all 66 pages (validated via public endpoint tests).",
+    "Menu-open language hiding behavior is correctly gated by <=1100 breakpoint; desktop 1440/1920 remains visible as required.",
+    "EastWest border implementation is WAAPI transform-based and lifecycle-pauses/resumes correctly in Chromium automation checks.",
+    "test_lang_toggle_regression.py currently enforces a pre-change invariant (only lang-switch diffs allowed), which is no longer compatible with this feature scope and causes false failures."
+  ],
+  "updated_files": [
+    "/app/tests/playwright_iter66_nova_checks.py",
+    "/app/tests/playwright_iter66_nova_checks.mjs",
+    "/app/tests/test_header_assets_iter66.py",
+    "/app/test_reports/iteration_66.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "96%"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Executed pytest: static_pages + i18n_serving_modes + lang_toggle_regression => 163 pass, 2 fail (both in outdated lang-toggle strictness checks); header asset suite => 66/66 pass. Chromium automation confirmed menu hide/show behavior at 320/390/768/1024/1100/1440/1920, hero pause persistence + nova:hero-resume on all 12 pages, and EastWest border progress/pause/resume. Could not run standalone WebKit automation due missing direct Playwright runtime packages in this environment. Physical iOS app-switch was NOT tested.",
+  "rca of the issue": "Regression failures are test-baseline mismatches, not confirmed product breakage. Root cause: /app/tests/test_lang_toggle_regression.py still asserts full non-lang byte identity and CSS-prefix identity against old baseline, but current approved scope intentionally changed non-lang markup/CSS (header preload/logo attrs and EastWest border implementation). Mitigation: update fixture/snapshot to constrained new scope and keep semantic checks (link attrs, active language state) instead of whole-file byte locks."
+}

@@ -162,7 +162,8 @@ def test_no_root_dependent_links_remain_in_generated_pages():
 @pytest.mark.parametrize("base_key,base", BASES.items())
 @pytest.mark.parametrize("asset", EW_PLAN_IMAGES + DESIGN_TEXTURES + [
     "js/language-toggle.js", "js/language-toggle-gesture.js",
-    "media/flags/tr.svg", "media/flags/gb.svg"
+    "media/flags/tr.svg", "media/flags/gb.svg", "js/hero-video.js",
+    "media/images/nova-logo-header.webp", "media/images/nova-logo-dark-header.webp"
 ])
 def test_ew_and_design_assets_resolve_under_both_roots(session, base_key, base, asset):
     if not _base_reachable(base):

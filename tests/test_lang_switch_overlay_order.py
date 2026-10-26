@@ -57,15 +57,15 @@ def test_overlay_and_knob_css_values_are_preserved():
     css = CSS_PATH.read_text(encoding="utf-8")
     # Overlay pane values
     assert ".lang-rail::before" in css
-    assert "backdrop-filter: blur(.35px);" in css
-    assert "-webkit-backdrop-filter: blur(.35px);" in css
+    assert "backdrop-filter: blur(var(--lang-flag-blur, .35px));" in css
+    assert "-webkit-backdrop-filter: blur(var(--lang-flag-blur, .35px));" in css
     assert "pointer-events: none;" in css
     assert "z-index: 0;" in css
     assert "rgba(255, 255, 255, .13)" in css
     # Knob is above overlay and remains opaque
     assert ".lang-knob" in css
     assert "z-index: 1;" in css
-    assert "background-color: #ececec;" in css
+    assert "background-color: var(--lang-knob-fill, #ececec);" in css
     assert "backdrop-filter: none;" in css
 
 

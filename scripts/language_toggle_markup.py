@@ -27,6 +27,13 @@ def place_header_switch_last(html):
 def enhance_language_switches(html):
     def update(match):
         block = match.group(0)
+        def deduplicate_current(link):
+            tag = link.group(0)
+            attributes = list(re.finditer(r'\saria-current="[^"]*"', tag))
+            for duplicate in reversed(attributes[1:]):
+                tag = tag[:duplicate.start()] + tag[duplicate.end():]
+            return tag
+        block = re.sub(r'<a\b[^>]*>', deduplicate_current, block)
         if 'data-flag-source="wikimedia"' in block:
             return block
         placement = 'menu' if 'lang-switch--menu' in block else 'header'

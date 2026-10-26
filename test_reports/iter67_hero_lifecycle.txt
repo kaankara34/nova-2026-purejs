@@ -1,0 +1,11 @@
+PASS idempotent init and no duplicate listeners
+PASS max 3 attempts and bounded watchdog retries
+PASS only one pending play while unresolved
+PASS NotAllowed waits for real gesture then retries
+PASS late play resolution does not override latest token state
+PASS visibility/pagehide pauses and resume works
+PASS manual visible pause persists until explicit resume
+PASS reduced motion blocks autoplay until motion allowed
+PASS no load/seek/source mutation side-effects
+PASS progress proof accepts clock OR frame callback evidence
+ALL HERO LIFECYCLE ISOLATED TESTS PASSED

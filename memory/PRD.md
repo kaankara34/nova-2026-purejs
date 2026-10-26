@@ -2,7 +2,58 @@
 
 Last updated: 2026-10-26
 
-## Latest refinement — subtle flag-only glass pane and rightmost desktop placement
+## Latest task — UI, hero-video lifecycle, border and critical-header performance
+
+### User requirements and current status (2026-10-26)
+- Preserve the site's existing design/responsiveness/content and TR/EN mapping; fix only affected
+  areas. Mobile open menu must hide both switches; shared hero recovery on scroll/tab/BFcache/app
+  return must avoid source reload/seek, duplicate attempts and overriding intentional pause.
+- Smooth the East West perimeter without changing its visual character/speed; prioritize logo
+  and icons; keep dark glass and add a page/header-theme-based light neumorphic variant.
+- User explicitly requires a short cause/file/solution/test report and no invented device testing.
+- Implemented and tested as documented in `memory/UI_VIDEO_PERFORMANCE_REPORT.md`.
+
+### Implemented architecture
+- New `js/hero-video.js` is the sole lifecycle owner for the homepage + five hero project types
+  in both languages. Shared IntersectionObserver, visibility/pageshow/pagehide/focus/blur,
+  deliberate-pause state, single pending play and token cancellation, max3 attempts/activation,
+  gesture fallback for NotAllowed, bounded1800ms progress probe. No load/seek/source mutation.
+  Probe accepts actual time progression OR an advanced rendered frame; no restart solely because
+  WebKit throttled a frame callback. Native loop remains intact. Reduced motion respected.
+- Removed duplicate initial video handlers from five project scripts and homepage inline source
+  swap/load bootstrap. Homepage renditions use HTML source media conditions instead.
+- `script.js` manages `nova-menu-open`; both language controls disappear at the existing <=1100px
+  drawer breakpoint and return on close. Desktop untouched. Header scroll reads precede writes
+  and are coalesced to one rAF. Explicit pause/resume custom events available for future controls.
+- `east-west-feature.js`: four transform-only native animations, clockwise2px#9A8058 perimeter,
+  same5s slideshow clock. ResizeObserver only; hidden/offscreen pause, preserved lifecycle state,
+  stale touch/scroll-hover cleared. No permanent per-frame SVG dash-offset writes.
+- Light skins use existing page-design/page-contact/page-bbl header classes plus explicit
+  data-header-theme override, not scroll position alone. All switch geometry/foci/URLs/gesture
+  logic retained. Two inherited duplicate aria-current attributes cleaned up.
+- Header-only white/dark768px square WebPs preserve original canvas/brand proportions. White
+ 205905->36456bytes;dark153486->35026bytes. Original PNGs unchanged. Exactly one matching critical
+  preload plus eager/high-priority logo; offscreen thumbnail preloads removed. Icons already
+  inline SVG: no icon-font issue or icon restyling introduced.
+- `scripts/runtime_markup.py` patches66pages idempotently; hooked into the future builder.
+  No full rebuild of stale authoring templates. Existing branch/manual content remains authoritative.
+
+### Verification / limits
+-242 regression tests +10 isolated lifecycle cases passed. Follow-up real CDP touch emulation
+  verified menu hiding/restoration,14px release-only swipe and8px snapback on the light header.
+- One cache-disabled Chromium contact run: logo responseEnd370ms, first contentful paint572ms,
+  logo+2inline icons visible583.7ms. Sample only, not a production promise or before/after benchmark.
+- Chromium runner lacks H.264; MP4-only project decode cannot be certified there. Linux WebKit
+  accepted H.264 but displayed independently observed early-clock loops without app play/pause/
+  seek/load calls. Do not label these failed media-engine checks as passing physical Safari tests.
+- Physical iOS Safari/Android Chrome OS app-switch recovery and real Safari frame-rate testing
+  were unavailable. **P0 verification: real-device video sign-off remains pending.** No confirmed
+  failing application regression remains. Reports: iteration_66/67, iter67_final.xml and report above.
+- P1: user visual/device acceptance. P2: durable visual regression and source-template reconciliation;
+  unrelated historical form/legal backlog remains outside this task. Do not rewrite native looping
+  or reset playback just to accommodate a headless test engine.
+
+## Previous refinement — subtle flag-only glass pane and rightmost desktop placement
 
 ### User requirements
 - Keep the existing switch, opaque glossy knob/material/size/travel, flag focal points and URLs.

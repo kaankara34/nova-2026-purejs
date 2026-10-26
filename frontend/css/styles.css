@@ -1662,7 +1662,7 @@ body.no-scroll {
      content, so the logo, heading, paragraph and CTA always stay on the blue. */
   min-height: clamp(460px, 31vw, 540px);
 }
-/* Perimeter progress line — one SVG overlay, no layout impact. */
+/* Perimeter progress — four transform-only layers, no per-frame SVG repaint. */
 .ew-progress {
   position: absolute;
   inset: 0;
@@ -1670,14 +1670,19 @@ body.no-scroll {
   height: 100%;
   pointer-events: none;
   z-index: 3;
+  contain: layout paint;
+  box-shadow: inset 0 0 0 2px rgba(138, 116, 78, .18);
 }
-.ew-progress-base,
 .ew-progress-active {
-  fill: none;
-  vector-effect: non-scaling-stroke;
+  position: absolute;
+  display: block;
+  background: #9A8058;
+  will-change: transform;
 }
-.ew-progress-base { stroke: rgba(138, 116, 78, 0.18); stroke-width: 2; }
-.ew-progress-active { stroke: #9A8058; stroke-width: 2; }
+.ew-progress-top { top: 0; left: 0; width: 100%; height: 2px; transform-origin: left center; }
+.ew-progress-right { top: 0; right: 0; width: 2px; height: 100%; transform-origin: center top; }
+.ew-progress-bottom { bottom: 0; right: 0; width: 100%; height: 2px; transform-origin: right center; }
+.ew-progress-left { bottom: 0; left: 0; width: 2px; height: 100%; transform-origin: center bottom; }
 .ew-feature-copy {
   display: flex;
   flex-direction: column;
@@ -2590,7 +2595,7 @@ body.no-scroll {
   width: var(--lang-track-width); height: var(--lang-track-height);
   flex: 0 0 auto;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .2);
+  border: 1px solid var(--lang-rail-border, rgba(255, 255, 255, .2));
   border-radius: 999px;
   /* Country-specific focus comes from the original SVG geometry, never a redraw.
      The SVG's own field color continues beneath the opaque knob without a seam. */
@@ -2600,7 +2605,7 @@ body.no-scroll {
   background-position: left var(--lang-tr-image-left) center;
   background-repeat: no-repeat;
   background-origin: border-box;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .12), 0 1px 0 rgba(255, 255, 255, .05), 0 2px 6px rgba(0, 0, 0, .15);
+  box-shadow: var(--lang-rail-shadow, inset 0 1px 2px rgba(0, 0, 0, .12), 0 1px 0 rgba(255, 255, 255, .05), 0 2px 6px rgba(0, 0, 0, .15));
 }
 .lang-switch[data-flag-language="en"] .lang-rail {
   background-color: #012169;
@@ -2618,8 +2623,8 @@ body.no-scroll {
   border-radius: inherit;
   pointer-events: none;
   background: linear-gradient(150deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .025) 50%, rgba(255, 255, 255, .055));
-  -webkit-backdrop-filter: blur(.35px);
-  backdrop-filter: blur(.35px);
+  -webkit-backdrop-filter: blur(var(--lang-flag-blur, .35px));
+  backdrop-filter: blur(var(--lang-flag-blur, .35px));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13), inset 0 -1px 2px rgba(0, 0, 0, .055);
 }
 .lang-knob {
@@ -2629,14 +2634,14 @@ body.no-scroll {
   width: var(--lang-knob-size); height: var(--lang-knob-size);
   pointer-events: none;
   border-radius: 50%;
-  border: 1px solid #fafafa;
-  background-color: #ececec;
+  border: 1px solid var(--lang-knob-border, #fafafa);
+  background-color: var(--lang-knob-fill, #ececec);
   background-image:
-    radial-gradient(ellipse at 28% 12%, #fff, rgba(255, 255, 255, .8) 16%, rgba(255, 255, 255, .2) 44%, transparent 68%),
-    linear-gradient(145deg, #f8f8f8, #ebebeb 46%, #d9d9d9 76%, #f6f6f6);
+    var(--lang-knob-image, radial-gradient(ellipse at 28% 12%, #fff, rgba(255, 255, 255, .8) 16%, rgba(255, 255, 255, .2) 44%, transparent 68%),
+    linear-gradient(145deg, #f8f8f8, #ebebeb 46%, #d9d9d9 76%, #f6f6f6));
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  box-shadow: inset 0 1px 2px #fff, inset 0 -1px 2px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .24);
+  box-shadow: var(--lang-knob-shadow, inset 0 1px 2px #fff, inset 0 -1px 2px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .24));
   transform: translateX(calc(var(--lang-progress) * var(--lang-travel)));
   transition: transform .24s var(--lang-easing), box-shadow .2s ease;
 }
@@ -2646,6 +2651,7 @@ body.no-scroll {
   position: absolute;
   pointer-events: none;
   border-radius: 50%;
+  opacity: var(--lang-knob-glint, 1);
 }
 .lang-knob::before {
   inset: 1px 2px auto;
@@ -2666,7 +2672,7 @@ body.no-scroll {
   display: flex; align-items: center; justify-content: center;
   width: 24px; height: 44px;
   font-family: var(--font-sans); font-size: inherit; font-weight: 500; letter-spacing: 0;
-  color: rgba(255, 255, 255, .68);
+  color: var(--lang-label-ink, rgba(255, 255, 255, .68));
   text-decoration: none;
   border-radius: 4px;
   -webkit-tap-highlight-color: transparent;
@@ -2676,18 +2682,38 @@ body.no-scroll {
 .lang-opt[lang="tr"] { right: calc(50% + var(--lang-width) / 2 - 19px); }
 .lang-opt[lang="en"] { left: calc(50% + var(--lang-width) / 2 - 19px); }
 .lang-label { display: inline; }
-.lang-opt.is-active { color: #fff; }
+.lang-opt.is-active { color: var(--lang-label-active, #fff); }
 .lang-opt:focus-visible,
-.lang-toggle:focus-visible { outline: 2px solid rgba(255, 255, 255, .9); outline-offset: 2px; }
+.lang-toggle:focus-visible { outline: 2px solid var(--lang-focus, rgba(255, 255, 255, .9)); outline-offset: 2px; }
 .lang-toggle.is-dragging { cursor: grabbing; }
-.lang-toggle.is-dragging .lang-knob { transition: none; box-shadow: inset 0 1px 2px rgba(255, 255, 255, .8), inset 0 -1px 1px rgba(0, 0, 0, .12), 0 2px 5px rgba(0, 0, 0, .22); }
+.lang-toggle.is-dragging .lang-knob { transition: none; box-shadow: var(--lang-knob-shadow, inset 0 1px 2px rgba(255, 255, 255, .8), inset 0 -1px 1px rgba(0, 0, 0, .12), 0 2px 5px rgba(0, 0, 0, .22)); }
 @media (hover: hover) {
-  .lang-opt:hover { color: #fff; }
-  .lang-toggle:not(:disabled):hover .lang-knob { border-color: #fff; }
+  .lang-opt:hover { color: var(--lang-label-active, #fff); }
+  .lang-toggle:not(:disabled):hover .lang-knob { border-color: var(--lang-knob-border, #fff); }
 }
 .lang-switch--menu {
   position: absolute; top: 26px; right: 68px; z-index: 6;
   color: #fff;
+}
+/* The real light-header page themes, not scroll position. Explicit theme overrides
+   also let a header skin change without changing the language-control geometry. */
+:is(.page-design, .page-contact, .page-bbl) .site-header:not([data-header-theme="dark"]),
+.site-header[data-header-theme="light"] {
+  --lang-label-ink: #685e51;
+  --lang-label-active: #342e26;
+  --lang-focus: #68563e;
+  --lang-flag-blur: .15px;
+  --lang-rail-border: rgba(149, 132, 105, .25);
+  --lang-rail-shadow: inset 2px 2px 4px rgba(93, 77, 54, .2), inset -1px -1px 3px rgba(255, 255, 255, .45), 1px 1px 3px rgba(93, 77, 54, .12), -1px -1px 3px rgba(255, 255, 255, .7);
+  --lang-knob-fill: #eee8df;
+  --lang-knob-border: #e9e2d8;
+  --lang-knob-image: linear-gradient(145deg, #f4efe8, #e9e2d8);
+  --lang-knob-shadow: 1px 1px 3px rgba(113, 95, 70, .25), -1px -1px 3px rgba(255, 255, 255, .8), inset 0 1px 0 rgba(255, 255, 255, .45);
+  --lang-knob-glint: .2;
+}
+/* Same breakpoint as the existing mobile/tablet drawer, including its own switch. */
+@media (max-width: 1100px) {
+  body.nova-menu-open .lang-switch { display: none; }
 }
 /* The narrow tablet control occupies its existing gaps without moving its neighbors. */
 @media (min-width: 769px) and (max-width: 900px) {
