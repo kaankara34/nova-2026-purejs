@@ -2,6 +2,78 @@
 
 Last updated: 2026-10-26
 
+## Latest iteration — true circular glass toggle with release-to-commit gestures
+
+The user's follow-up replaces the earlier segmented design, not the underlying language URLs.
+Reference: `https://customer-assets-agu9un31.emergentagent.net/job_darg-clone-1/artifacts/0ba7fd6f31eb14e5_image.png`.
+User explicitly chose **Parmağı bırakınca**: commit language only after finger/pointer release.
+
+### Original follow-up request
+> Ekte paylaştığım referans görseli incele. Mevcut TR / EN dil seçicisini, bu referanstaki yerleşim mantığını koruyarak yeniden tasarla.
+> İstediğim yapı:
+> - Gerçek bir **sliding toggle switch** olsun.
+> - Switch yatay, oval ve kompakt yapıda olsun.
+> - Referanstaki gibi **bayrak switch’in içinde**, knob’un açıkta bıraktığı alanda görünsün.
+> - Referanstaki gibi **yuvarlak switch knob’u** sağa-sola kayan ana parça olsun.
+> - Sol tarafta **TR**, sağ tarafta **EN** yazsın.
+> - Türkiye için **🇹🇷**, İngilizce için **🇬🇧** bayrağı kullan.
+> Ama görünüm şu şekilde olsun:
+> - Beyaz flat tasarım istemiyorum.
+> - Bunun yerine **glassy / liquid glass / frosted glass** estetiğinde olsun.
+> - Switch zemini yarı saydam, premium, hafif blur’lu ve sofistike görünsün.
+> - Knob da cam hissi veren, yarı saydam, yumuşak highlight’lı ve hafif derinlikli olsun.
+> - Genel görünüm Apple kalitesinde, modern, minimal ve lüks dursun.
+> - Yeşil ton kullanma; nötr, şık, premium bir cam etkisi kullan.
+> Davranış:
+> - Sadece click ile değil, **drag / swipe / slide gesture** ile de değişebilsin.
+> - Yani kullanıcı knob’u sağa veya sola sürükleyerek dili değiştirebilsin.
+> - Click, drag ve swipe davranışları doğal ve akıcı olsun.
+> - Geçiş animasyonu smooth, iOS kalitesinde ve fiziksel hissiyatlı olsun.
+> Kısıtlar:
+> - Mevcut dil değiştirme mantığını koru.
+> - URL yönlendirmeleri, TR/EN sayfa eşleşmeleri ve mevcut işlev bozulmasın.
+> - Header yüksekliğini, genel hizalamayı ve diğer header elemanlarını bozma.
+> - Mobil uyumlu olsun.
+> Önemli:
+> - Önceki segmented control veya düz buton mantığını kullanma.
+> - Referanstaki gibi gerçek bir **toggle switch yerleşimi** istiyorum.
+> - Referanstaki bayrak yerleşimini ve knob kullanım mantığını koru, ama tasarımı **glassy premium versiyon** olarak yeniden yorumla.
+
+### Implemented architecture
+- External TR/EN native links flank a real oval rail and one circular glass knob. TR selected:
+  knob LEFT, Turkish flag exposed RIGHT. EN selected: knob RIGHT, UK flag exposed LEFT.
+- `styles.css`: only final language section replaced; neutral dark translucent rail, highlighted
+  frosted knob, reduced-motion/forced-color/focus styles. Standard track48x26, circular knob22x22;
+  narrow-tablet track32x20 with16px knob. The existing desktop75.25px, mobile88px and narrow-tablet
+ 28px layout slots remain, without changing parent header styles.
+- `scripts/language_toggle_markup.py`: idempotent v2 markup migration inside existing controls on
+  66 pages. Original href/hreflang/lang/aria-current preserved. No changes elsewhere in page HTML.
+  Old segmented `.lang-indicator` removed. Builder helper retained; full rebuild still prohibited
+  until branch/manual source differences have been reconciled.
+- `js/script.js` imports `js/language-toggle.js`; controller imports `language-toggle-gesture.js`.
+  Local static modules only, no external library/service/storage. Native label links are the sole
+  source of navigation URLs and remain usable with JavaScript disabled or module load failure.
+- Real Pointer Events/capture support mouse/touch/pen; live drag position, clamping, deliberate
+  flick, release-only commit, short/return drag snapback, vertical/cancel/Escape/blur cancellation,
+  synthesized-click suppression, pending-navigation guard and back/forward state reset.
+- Center switch supports click, Space/Enter, arrows/Home/End; role=switch, aria-checked, pending
+  aria-busy. Release settles for240ms before following exact existing href (0ms with reduced motion).
+
+### Verified results and remaining work
+- `test_reports/iteration_62.json`: preview browser tests passed for click roundtrip, mouse drag
+  and hold/release, partial cancel, right-click no-op, keyboard, reduced motion, history reset,
+  real mobile touch swipe via CDP, offcanvas and responsive320/390/768/800/900/1024/1440/1920.
+- Final local regression: **63 passed, 0 skipped** (6 content/link scope checks +57 dual-root
+  checks including the two new JS modules). XML: `test_reports/pytest/toggle_and_serving_modes_iter62_final.xml`.
+  Temporary helper servers were started for this run then stopped; initial skips were resolved.
+- Durable baseline fixture added to `tests/fixtures/lang_toggle_baseline_fixture.json`; tests no
+  longer depend on the previous branch archive remaining in /tmp. Updater second run changes0 pages.
+- Test-only limitation: very rapid public-preview reload sweeps briefly hit edge429 throttling;
+  focused browser reruns passed. This is not an application navigation defect or a mocked flow.
+- P0 current task: none outstanding. P1: user's visual/gesture approval on their own device;
+  previous local Live Server verification remains user-unconfirmed. P2: authoring source reconciliation,
+  existing independent form/legal backlog, optional project-image optimization for mobile speed.
+
 ## Current source of truth — 2026-10-26
 
 - User requested the latest `tr-destekli-versiyon` branch of
@@ -15,7 +87,7 @@ Last updated: 2026-10-26
   until those authoring sources have been reconciled.** The older build/source instructions
   below are historical and must not overwrite this branch's approved content.
 
-### Latest user request (Turkish)
+### Previous user request (first glass iteration, Turkish)
 > https://github.com/kaankara34/nova-2026-purejs/tree/tr-destekli-versiyon bu branchden projenin son halini çek daha sonra Mevcut header'daki TR / EN dil seçicisini, Apple'ın iOS switch tasarımından ilham alan, ancak NOVA'nın premium ve kurumsal kimliğine özgü bir glassmorphism language toggle olarak yeniden tasarla.
 > Koyu, yarı saydam, frosted glass yüzey; hafif backdrop blur, ince beyaz kenarlık ve zarif ışık yansımaları kullan. Yeşil renk kullanma.
 > Yatay, kompakt ve oval formda olsun. İçerisinde 🇹🇷 TR ve 🇬🇧 EN seçenekleri yan yana bulunsun.
@@ -25,7 +97,7 @@ Last updated: 2026-10-26
 > Mevcut dil değiştirme mantığını, URL yönlendirmelerini ve tüm işlevselliği aynen koru. Yalnızca dil seçicinin tasarımını değiştir.
 > Sonuç Apple Liquid Glass estetiğinde, gösterişsiz, sofistike ve NOVA'nın lüks mimari kimliğine uygun olmalı.
 
-### Implementation and verification
+### First glass iteration — historical implementation and verification
 - Dark neutral frosted glass rail, thin white rim, translucent sliding indicator, unchanged
   flag artwork, visible TR/EN labels at every breakpoint. Header and offcanvas share the style.
 - Changes restricted to the last language-selector section in `css/styles.css`, language-control

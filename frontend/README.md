@@ -10,6 +10,12 @@ Dil seçici tasarımını tek başına güncellemek için proje kökünden
 Glass toggle stilleri `css/styles.css` dosyasının sonundadır. Dil bağlantıları ve cPanel
 dizin yapısı değiştirilmemiştir.
 
+Son sürümde etiketler switch'in dışındadır; içeride yuvarlak cam knob ve açıkta kalan bayrak
+bulunur. `js/language-toggle.js` ve `js/language-toggle-gesture.js` yerel dosyaları tıklama,
+sürükleme ve bırakınca dil değiştirme davranışını sağlar. JavaScript çalışmasa bile TR/EN
+etiketleri mevcut sayfa bağlantıları üzerinden çalışır. Bu dosyaları da diğer `js/` dosyalarıyla
+birlikte koruyun; ek hizmet veya kurulum gerekmez.
+
 The generated language pages use portable asset paths such as `../css`, `../js`, and
 `../media`. They work both when `frontend/` is opened through VS Code Live Server and when
 the contents of `frontend/` are deployed directly into cPanel `public_html/`.

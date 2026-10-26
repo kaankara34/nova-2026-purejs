@@ -1,3 +1,17 @@
+# 2026-10-26 — Reference-based circular glass switch + drag/swipe
+
+- Replaced segmented control with external TR/EN labels, one round glass knob and the current
+  language's flag inside the exposed opposite side of the rail. Neutral frosted glass, no green.
+- Added real mouse/touch/pen pointer gestures and release-to-commit behavior (user selected).
+  Click, keyboard, short-drag snapback, cancellation, reduced motion and history reset supported.
+- Preserved all66 pages outside the controls, existing language link attributes and header CSS
+  outside the language section. Native labels provide no-JS fallback and exact URL authority.
+- Added isolated local controller/gesture modules; no third-party integration or mocked flow.
+- `iteration_62.json`: browser interactions and mobile CDP swipe passed. Final targeted + dual-root
+  tests **63/63, 0 skipped**; includes reachability of both new modules in both serving layouts.
+- Historical transient429 during heavy preview automation; focused reruns succeeded. User visual
+  and physical-device approval pending, no unresolved application defect found in requested scope.
+
 # 2026-10-26 — Branch synchronization and glass language toggle
 
 - Imported user-approved `tr-destekli-versiyon` commit `3a238f1c6ef793f1cd75583ca6f9bbd7bb6a88f9`;

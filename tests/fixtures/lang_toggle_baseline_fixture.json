@@ -1,0 +1,2055 @@
+{
+  "source_snapshot": "/tmp/nova-toggle-before-gesture/frontend",
+  "total_pages": 66,
+  "stripped_sha256": {
+    "tr/aday-aydinlatma-metni.html": "e39aecf7722396c8dcb6026d39a50f74acb5755646e22859578fb0f9137f8db9",
+    "tr/bahar-residence.html": "3704905dc53ad0434268ed9b475c2255c4ac42669c6ae3b476986aee87e64c06",
+    "tr/bildirim.html": "d82f761724d38bc4e877ee7c211c9b96d7cdb8f7c900c887249a886086520b28",
+    "tr/build-beyond-living.html": "c94dab280391a080d3b531b6c65b6217403b31f345edc9c996ef22aef18b4360",
+    "tr/cerez-bildirimi.html": "21733e9cb03b83343999266af9756f7d73b4fd09182e7a61521fedc3c1c6b02f",
+    "tr/dogan-residence.html": "08995dd1fbfc64bfef056396698231cb9e54e1f40cc37e1bbf4b40c1242171ed",
+    "tr/etik-ilkeler.html": "7565907884fc492cd663eda0fa73258265a5ffb21c0bcaa9fe63f38039eda528",
+    "tr/falcon-lojistik-merkezi.html": "58976a53ebc44555581d40c73aeabc9a9c18e64fc6f3552881b1a70f32aff536",
+    "tr/falcon-plaza.html": "6debc22ef44f47888a5b83067fe12d78e598e4cac3e3eab92905c39455c24c09",
+    "tr/finance-nova.html": "ce84f22583182e4ca9dd819aa403699c5a3e779dc3bbb4bc6961be57b2332706",
+    "tr/gebze-osb-yonetim-binasi.html": "5dfdec79e8f97fa36f561e702af0203e90ea343df59574e5b457be4e5dac1f66",
+    "tr/gizlilik-bildirimi.html": "a0645bcb38d771e98a67078c2700d90624e8efb042b4f83db025622eb89221da",
+    "tr/haber.html": "61ac9e02fea9681e996d732b3531105e42c052c33f5f53b97849306475c93e3f",
+    "tr/hakkimizda.html": "c2b52652b67bd458e560edd2c418619a3b7ff88e8a385d8f66ea63df2a59241b",
+    "tr/iletisim.html": "db6a17417f7affd45e9245375b4f50f4c61fed0692dcea93e2d5caeef597f8c6",
+    "tr/index.html": "cbba1f90d6f746e049e926cc6b493425e87f8e141a9742d3e9d7b1456f4f02f5",
+    "tr/kariyer.html": "9fde81e366b43682bf1ab88114c58e1d083919d92d56a4b70526ff11cb609d51",
+    "tr/konelsis-merkezi.html": "de298691810fb7fcb371bd347fd101d399db8de661627d8479b7485300172040",
+    "tr/leed.html": "d2e88cd93568d1c01c8153005524e40db840827be99bfe2f3c3c1100fd230227",
+    "tr/marti-residence.html": "b52f199ede9d9c0ab72c09ea7b482d61aa2a056bce976a750f57261d6d9def93",
+    "tr/medya.html": "e9a042b620d5d2eb2de2d6fe419f3be038ce7a7e1b04a717b9c8233ae1674e57",
+    "tr/mehtap-residence.html": "fe728acee15397f6a4d8e626f6dbfac46977f77dd12db4b125ff4a87116b60ac",
+    "tr/mercan-bosphorus.html": "25d0fe9f9a56473d1d5be6a9f54f9e37f90ed338d20e3bd7818a51f298991a86",
+    "tr/muhendislik.html": "a9e8bfa537195e3e99067deb7c0b015e909fa46798362f4748c3c2dd89aba0d3",
+    "tr/nisbetiye-on.html": "b2f19e962d9106e643a992c68cd2f90cc0a5f0c90f5c302f0b8e846ff453a2d2",
+    "tr/organizasyon.html": "343d8fcd1287996ecce8faab88a73127fdaf32ae8037e203a194a94f161e0b8c",
+    "tr/partnerler.html": "d768a01cf50bfe72336625de95197d00388743dffb2514662db05979168b3c0a",
+    "tr/projeler.html": "6bb62e8d4e10a61ceee9dd1a99ffde0560f0ac522dae0b7fd9b68914ae98f75f",
+    "tr/santiye-muduru-mimar.html": "699dd1929a5718bc4729b1b3025ac8cc5016162cf7d454b75747ae712906eee3",
+    "tr/tasarim.html": "4613b2e010d4d44e62fa62b1a79a00eafdcd055a804328c9a3df189b064eafe6",
+    "tr/the-apartments-ana.html": "c97448fbc4ccafe3ebf288af3ce52990302a4eddb7db1d3a6d3769c87fadf8af",
+    "tr/the-apartments-tac.html": "91b69720a062163244b585c29b24a8c188e6bdd2ed019d4874fb3929dd8c03cb",
+    "tr/the-residences-east-west.html": "f7c2cc794223e48593fc949c004e25acf516b51862e71823e12f1b826b916a4d",
+    "en/about.html": "9dde6cde2f88e3154e8a9bd9701c0235f86d5a6829bdc26a09831c7870ba7cf9",
+    "en/applicant-privacy-notice.html": "5287e8a406960153704055abc4f0445be7eabe70daec27d32de3a85f2ceeeabf",
+    "en/bahar-residence.html": "496e41f591621dfca0377696a91475b06ec7984068761d13702713c1ff3d9ee5",
+    "en/build-beyond-living.html": "d2c563437a0c9c7159e8396bdcd49e5a27059334641253b850935fe597703ef2",
+    "en/careers.html": "5576b0622feb63ecdf71b9c14cb6ab80729c49800412c704793c27a021e422fc",
+    "en/construction-site-manager-architect.html": "62ec62cb4d90e38037b2e162a04cb45df21c58f3e883e6f7e61e525f9aeb19eb",
+    "en/construction.html": "70564d77fa4947c4eba7c7f385ebacf8774a08b0da0c3adaa2fee2db9a3bb555",
+    "en/contact.html": "93b664897d8499df063f1fe920bef0fca7c017888565d26d0d2c57a5fdc16769",
+    "en/cookie-notice.html": "f72fee4239cf28268497f75654cf445a672a7cb04f81f79ee8cc3ab1a5215fbb",
+    "en/design.html": "447b8c2a57e9f94fe372949e5c2efe62b6d217e9202d1c17ddf9cb6a91d9f3e2",
+    "en/dogan-residence.html": "45ac6d6c40b02baade1d9d11ed05ab926cb256ff53e4a6933f7142f0e6b01bb5",
+    "en/ethical-principles.html": "fc7121b48c49d3a7832f59d433a6bfaad0bcd9bce7910c509a6d53e2c2e654c5",
+    "en/falcon-logistic.html": "31711bf304f2bb26fdd657f640fef54bb96d0086eab2b8d4112233cfad932704",
+    "en/falcon-plaza.html": "dd212c50f8c90c43ec6bbf251c6cdede7591f276ecdc549fa20929a7a7954ebf",
+    "en/finance-nova.html": "1255ef8e36209e5c282f672b30ccc2390704eb5f35ef88023e10db631edd63da",
+    "en/gebze-osb-management.html": "834675ac15524ae5d21bf66ddb52d1e81991f2127482aee174eec03900064428",
+    "en/index.html": "ee304debbd9aac1229ca6746acbf1518cf97582dd7abcb22ac697aa1b0afe6d2",
+    "en/konelsis-center.html": "969af8f0436da8a8493d110ac8fe3a91449eee08ce40ddb62d063a9b8cd17302",
+    "en/leed.html": "e3ff623624441fd4671b934faa8e29174c3d5102412d2541ca357519e4da8e9e",
+    "en/marti-residence.html": "66c5da1bde31171dcfc141697dc4674a31144cc2ab19421f8904b61358dc6dc7",
+    "en/mehtap-residence.html": "690be7f6b007cf46cfb1badc10d17158a6894db0bd05edc6f46970aa81f5bf71",
+    "en/mercan-bosphorus.html": "1efd90e720336f3cb8c17a208c80d90bc825a53074452fddb8164e9f059929f1",
+    "en/news-detail.html": "7ff423437f944239bcd3984f94b570a9bf59f58563c98085a5d9c7114ab22014",
+    "en/newsroom.html": "3f4f9149bb6adcbb8e82af03f0c47b023a2161be0971730dfbc79c2e8851b929",
+    "en/nisbetiye-on.html": "1f5cf06b3cb7b624f903ab46258b21e49bf39a5b5dcb8f047b4fd8b3b5d0e5bb",
+    "en/partners.html": "2e57388334a0fc1058eb7544832dde314ef98de1665f5dd1354b3e6310d7b397",
+    "en/privacy-notice.html": "3e7458041434ff1d9f62e4c0ed2a3d32c21413949c96575217286df2a26b990f",
+    "en/projects.html": "57c6c82098e0cbd77a297d081f58fd91b653143949103e1789d8a55cfdb5b07c",
+    "en/speak-up.html": "51be667a491ddd297be44506bf7c0e6c910792973ce29d165b6d1be0263b42e5",
+    "en/team.html": "77ce7d0b2c829a0489c6df518107b6a854f3b14e3339147c671fe265c6cde51b",
+    "en/the-apartments-ana.html": "8e5ed4d61d1669a0dc07d9e85bdf19f1a9968259cd34b6736180689ad73c5a1b",
+    "en/the-apartments-tac.html": "6154943667953b58bad7895efba81929edaa6502159da52385fa3dabf63225fe",
+    "en/the-residences-east-west.html": "a7fb3ba143aa61892bfb45910cf987ff2e3145c83852531ebe41c0ae105dfb5e"
+  },
+  "lang_link_attrs": {
+    "tr/aday-aydinlatma-metni.html": [
+      [
+        {
+          "href": "../tr/aday-aydinlatma-metni.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/applicant-privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/aday-aydinlatma-metni.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/applicant-privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/bahar-residence.html": [
+      [
+        {
+          "href": "../tr/bahar-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/bahar-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/bahar-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/bahar-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "tr/bildirim.html": [
+      [
+        {
+          "href": "../tr/bildirim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/speak-up.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/bildirim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/speak-up.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/build-beyond-living.html": [
+      [
+        {
+          "href": "../tr/build-beyond-living.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/build-beyond-living.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/build-beyond-living.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/build-beyond-living.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/cerez-bildirimi.html": [
+      [
+        {
+          "href": "../tr/cerez-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/cookie-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/cerez-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/cookie-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/dogan-residence.html": [
+      [
+        {
+          "href": "../tr/dogan-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/dogan-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/dogan-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/dogan-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "tr/etik-ilkeler.html": [
+      [
+        {
+          "href": "../tr/etik-ilkeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/ethical-principles.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/etik-ilkeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/ethical-principles.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/falcon-lojistik-merkezi.html": [
+      [
+        {
+          "href": "../tr/falcon-lojistik-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/falcon-logistic.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/falcon-lojistik-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/falcon-logistic.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/falcon-plaza.html": [
+      [
+        {
+          "href": "../tr/falcon-plaza.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/falcon-plaza.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/falcon-plaza.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/falcon-plaza.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/finance-nova.html": [
+      [
+        {
+          "href": "../tr/finance-nova.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/finance-nova.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/finance-nova.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/finance-nova.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/gebze-osb-yonetim-binasi.html": [
+      [
+        {
+          "href": "../tr/gebze-osb-yonetim-binasi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/gebze-osb-management.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/gebze-osb-yonetim-binasi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/gebze-osb-management.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/gizlilik-bildirimi.html": [
+      [
+        {
+          "href": "../tr/gizlilik-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/gizlilik-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/haber.html": [
+      [
+        {
+          "href": "../tr/haber.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/news-detail.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/haber.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/news-detail.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/hakkimizda.html": [
+      [
+        {
+          "href": "../tr/hakkimizda.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/about.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/hakkimizda.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/about.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/iletisim.html": [
+      [
+        {
+          "href": "../tr/iletisim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/contact.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/iletisim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/contact.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/index.html": [
+      [
+        {
+          "href": "../tr/index.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/index.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/index.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/index.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/kariyer.html": [
+      [
+        {
+          "href": "../tr/kariyer.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/careers.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/kariyer.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/careers.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/konelsis-merkezi.html": [
+      [
+        {
+          "href": "../tr/konelsis-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/konelsis-center.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/konelsis-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/konelsis-center.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/leed.html": [
+      [
+        {
+          "href": "../tr/leed.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/leed.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/leed.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/leed.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/marti-residence.html": [
+      [
+        {
+          "href": "../tr/marti-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/marti-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/marti-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/marti-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/medya.html": [
+      [
+        {
+          "href": "../tr/medya.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/newsroom.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/medya.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/newsroom.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/mehtap-residence.html": [
+      [
+        {
+          "href": "../tr/mehtap-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/mehtap-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/mehtap-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/mehtap-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/mercan-bosphorus.html": [
+      [
+        {
+          "href": "../tr/mercan-bosphorus.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/mercan-bosphorus.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/mercan-bosphorus.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/mercan-bosphorus.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/muhendislik.html": [
+      [
+        {
+          "href": "../tr/muhendislik.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/construction.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/muhendislik.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/construction.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/nisbetiye-on.html": [
+      [
+        {
+          "href": "../tr/nisbetiye-on.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/nisbetiye-on.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/nisbetiye-on.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/nisbetiye-on.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/organizasyon.html": [
+      [
+        {
+          "href": "../tr/organizasyon.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/team.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/organizasyon.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/team.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/partnerler.html": [
+      [
+        {
+          "href": "../tr/partnerler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/partners.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/partnerler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/partners.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/projeler.html": [
+      [
+        {
+          "href": "../tr/projeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/projects.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/projeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/projects.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/santiye-muduru-mimar.html": [
+      [
+        {
+          "href": "../tr/santiye-muduru-mimar.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/construction-site-manager-architect.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/santiye-muduru-mimar.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/construction-site-manager-architect.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/tasarim.html": [
+      [
+        {
+          "href": "../tr/tasarim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/design.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/tasarim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/design.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/the-apartments-ana.html": [
+      [
+        {
+          "href": "../tr/the-apartments-ana.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/the-apartments-ana.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/the-apartments-ana.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/the-apartments-ana.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/the-apartments-tac.html": [
+      [
+        {
+          "href": "../tr/the-apartments-tac.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/the-apartments-tac.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/the-apartments-tac.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/the-apartments-tac.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "tr/the-residences-east-west.html": [
+      [
+        {
+          "href": "../tr/the-residences-east-west.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/the-residences-east-west.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ],
+      [
+        {
+          "href": "../tr/the-residences-east-west.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": "true"
+        },
+        {
+          "href": "../en/the-residences-east-west.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": null
+        }
+      ]
+    ],
+    "en/about.html": [
+      [
+        {
+          "href": "../tr/hakkimizda.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/about.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/hakkimizda.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/about.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/applicant-privacy-notice.html": [
+      [
+        {
+          "href": "../tr/aday-aydinlatma-metni.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/applicant-privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/aday-aydinlatma-metni.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/applicant-privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/bahar-residence.html": [
+      [
+        {
+          "href": "../tr/bahar-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/bahar-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/bahar-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/bahar-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/build-beyond-living.html": [
+      [
+        {
+          "href": "../tr/build-beyond-living.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/build-beyond-living.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/build-beyond-living.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/build-beyond-living.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/careers.html": [
+      [
+        {
+          "href": "../tr/kariyer.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/careers.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/kariyer.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/careers.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/construction-site-manager-architect.html": [
+      [
+        {
+          "href": "../tr/santiye-muduru-mimar.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/construction-site-manager-architect.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/santiye-muduru-mimar.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/construction-site-manager-architect.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/construction.html": [
+      [
+        {
+          "href": "../tr/muhendislik.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/construction.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/muhendislik.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/construction.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/contact.html": [
+      [
+        {
+          "href": "../tr/iletisim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/contact.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/iletisim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/contact.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/cookie-notice.html": [
+      [
+        {
+          "href": "../tr/cerez-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/cookie-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/cerez-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/cookie-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/design.html": [
+      [
+        {
+          "href": "../tr/tasarim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/design.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/tasarim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/design.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/dogan-residence.html": [
+      [
+        {
+          "href": "../tr/dogan-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/dogan-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/dogan-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/dogan-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/ethical-principles.html": [
+      [
+        {
+          "href": "../tr/etik-ilkeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/ethical-principles.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/etik-ilkeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/ethical-principles.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/falcon-logistic.html": [
+      [
+        {
+          "href": "../tr/falcon-lojistik-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/falcon-logistic.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/falcon-lojistik-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/falcon-logistic.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/falcon-plaza.html": [
+      [
+        {
+          "href": "../tr/falcon-plaza.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/falcon-plaza.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/falcon-plaza.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/falcon-plaza.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/finance-nova.html": [
+      [
+        {
+          "href": "../tr/finance-nova.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/finance-nova.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/finance-nova.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/finance-nova.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/gebze-osb-management.html": [
+      [
+        {
+          "href": "../tr/gebze-osb-yonetim-binasi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/gebze-osb-management.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/gebze-osb-yonetim-binasi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/gebze-osb-management.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/index.html": [
+      [
+        {
+          "href": "../tr/index.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/index.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/index.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/index.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/konelsis-center.html": [
+      [
+        {
+          "href": "../tr/konelsis-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/konelsis-center.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/konelsis-merkezi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/konelsis-center.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/leed.html": [
+      [
+        {
+          "href": "../tr/leed.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/leed.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/leed.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/leed.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/marti-residence.html": [
+      [
+        {
+          "href": "../tr/marti-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/marti-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/marti-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/marti-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/mehtap-residence.html": [
+      [
+        {
+          "href": "../tr/mehtap-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/mehtap-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/mehtap-residence.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/mehtap-residence.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/mercan-bosphorus.html": [
+      [
+        {
+          "href": "../tr/mercan-bosphorus.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/mercan-bosphorus.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/mercan-bosphorus.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/mercan-bosphorus.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/news-detail.html": [
+      [
+        {
+          "href": "../tr/haber.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/news-detail.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/haber.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/news-detail.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/newsroom.html": [
+      [
+        {
+          "href": "../tr/medya.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/newsroom.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/medya.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/newsroom.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/nisbetiye-on.html": [
+      [
+        {
+          "href": "../tr/nisbetiye-on.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/nisbetiye-on.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/nisbetiye-on.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/nisbetiye-on.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/partners.html": [
+      [
+        {
+          "href": "../tr/partnerler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/partners.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/partnerler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/partners.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/privacy-notice.html": [
+      [
+        {
+          "href": "../tr/gizlilik-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/gizlilik-bildirimi.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/privacy-notice.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/projects.html": [
+      [
+        {
+          "href": "../tr/projeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/projects.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/projeler.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/projects.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/speak-up.html": [
+      [
+        {
+          "href": "../tr/bildirim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/speak-up.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/bildirim.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/speak-up.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/team.html": [
+      [
+        {
+          "href": "../tr/organizasyon.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/team.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/organizasyon.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/team.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/the-apartments-ana.html": [
+      [
+        {
+          "href": "../tr/the-apartments-ana.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/the-apartments-ana.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/the-apartments-ana.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/the-apartments-ana.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/the-apartments-tac.html": [
+      [
+        {
+          "href": "../tr/the-apartments-tac.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/the-apartments-tac.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/the-apartments-tac.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/the-apartments-tac.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ],
+    "en/the-residences-east-west.html": [
+      [
+        {
+          "href": "../tr/the-residences-east-west.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/the-residences-east-west.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ],
+      [
+        {
+          "href": "../tr/the-residences-east-west.html",
+          "hreflang": "tr",
+          "lang": "tr",
+          "aria_current": null
+        },
+        {
+          "href": "../en/the-residences-east-west.html",
+          "hreflang": "en",
+          "lang": "en",
+          "aria_current": "true"
+        }
+      ]
+    ]
+  },
+  "css_prefix_sha256": "88610532f4e34447d1dde61385c8f46da826adb9fcc7194313cb82cdf384c869"
+}

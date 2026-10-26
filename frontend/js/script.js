@@ -2,20 +2,10 @@
 
 /* Nova Konut — Interactions */
 
-/* Language glass: animate only an arrival from this page's other-language link.
-   No click interception, URL rewriting, saved preference or navigation delay. */
-(function () {
-  if (!document.referrer) return;
-  let previous;
-  try { previous = new URL(document.referrer); } catch (_) { return; }
-  if (previous.origin !== window.location.origin) return;
-  document.querySelectorAll('.lang-switch').forEach(control => {
-    const other = control.querySelector('.lang-opt:not(.is-active)');
-    if (other && new URL(other.href).pathname === previous.pathname) {
-      control.dataset.langFrom = other.lang;
-    }
-  });
-})();
+/* Progressive enhancement: the TR/EN anchors also work without this module. */
+import('./language-toggle.js')
+  .then(({ initLanguageToggles }) => initLanguageToggles())
+  .catch(() => { /* Native language links remain available if enhancement cannot load. */ });
 
 /* ========== GLOBAL scroll-lock (used by every lightbox / modal) =========
    `document.body.style.overflow='hidden'` alone is unreliable — iOS Safari

@@ -1,6 +1,9 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- Latest follow-up: true circular glass switch with click/drag/swipe and release-only commit is
+  implemented and verified (`iteration_62.json`,63 final automated checks). Await user visual and
+  physical-device gesture approval; do not restore the old segmented design.
 - P0 for branch import + glass language toggle: no remaining blockers; tested and ready for user review.
 - P1: user visual approval; user's own Live Server verification remains pending from the earlier task.
 - P2: reconcile branch-authored EN/TR HTML with source templates/dictionaries before any full rebuild.

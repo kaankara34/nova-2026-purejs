@@ -5,7 +5,9 @@ Mode B: frontend folder served as site root -> pages under /{lang}/...
 """
 
 import re
-from urllib.parse import urljoin
+import socket
+from functools import lru_cache
+from urllib.parse import urljoin, urlparse
 
 import pytest
 import requests
@@ -15,6 +17,20 @@ BASES = {
     "repo_root": "http://127.0.0.1:5501/frontend/",
     "frontend_root": "http://127.0.0.1:5502/",
 }
+
+
+@lru_cache(maxsize=16)
+def _base_reachable(base: str) -> bool:
+    parsed = urlparse(base)
+    host = parsed.hostname
+    if not host:
+        return False
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    try:
+        with socket.create_connection((host, port), timeout=2):
+            return True
+    except OSError:
+        return False
 
 
 PAGES = {
@@ -80,6 +96,8 @@ def _extract_local_assets(html):
 @pytest.mark.parametrize("base_key,base", BASES.items())
 @pytest.mark.parametrize("page_key", ["tr_privacy", "en_about"])
 def test_core_pages_open_styled_under_both_roots(session, base_key, base, page_key):
+    if not _base_reachable(base):
+        pytest.skip(f"{base_key} server not reachable: {base}")
     rel_path, lang = PAGES[page_key]
     r = _get(session, base, rel_path)
     assert r.status_code == 200, f"{base_key} {rel_path} -> {r.status_code}"
@@ -95,6 +113,8 @@ def test_core_pages_open_styled_under_both_roots(session, base_key, base, page_k
 @pytest.mark.parametrize("base_key,base", BASES.items())
 @pytest.mark.parametrize("page_key", ["tr_privacy", "en_about", "tr_design", "en_design"])
 def test_lang_switch_goes_to_counterpart_page(session, base_key, base, page_key):
+    if not _base_reachable(base):
+        pytest.skip(f"{base_key} server not reachable: {base}")
     rel_path, lang = PAGES[page_key]
     opposite = "en" if lang == "tr" else "tr"
     r = _get(session, base, rel_path)
@@ -140,7 +160,11 @@ def test_no_root_dependent_links_remain_in_generated_pages():
 
 
 @pytest.mark.parametrize("base_key,base", BASES.items())
-@pytest.mark.parametrize("asset", EW_PLAN_IMAGES + DESIGN_TEXTURES)
+@pytest.mark.parametrize("asset", EW_PLAN_IMAGES + DESIGN_TEXTURES + [
+    "js/language-toggle.js", "js/language-toggle-gesture.js"
+])
 def test_ew_and_design_assets_resolve_under_both_roots(session, base_key, base, asset):
+    if not _base_reachable(base):
+        pytest.skip(f"{base_key} server not reachable: {base}")
     r = session.get(urljoin(base, asset), timeout=20)
     assert r.status_code == 200, f"{base_key} missing {asset}: {r.status_code}"

@@ -1,75 +1,60 @@
 {
+  "theme": "dark",
+  "component_name": "Premium Glassy Language Toggle Switch",
+  "component_path": "/app/frontend/css/styles.css and /app/scripts/language_toggle_markup.py",
   "typography": {
-    "font_family": "var(--font-sans)",
-    "font_weight": "600",
-    "font_size": "11px",
-    "letter_spacing": "0.06em",
-    "text_transform": "uppercase"
+    "description": "Inherit existing header fonts. Use crisp, clear weights for the 'TR' and 'EN' labels outside the switch.",
+    "labels": "TR and EN labels should be uppercase, font-size around 12-14px depending on breakpoint, semi-bold."
   },
   "colors": {
-    "background_base": "rgba(20, 20, 22, 0.45)",
-    "border_color": "rgba(255, 255, 255, 0.12)",
-    "indicator_background": "rgba(255, 255, 255, 0.15)",
-    "indicator_border": "rgba(255, 255, 255, 0.15)",
-    "text_active": "rgba(255, 255, 255, 1)",
-    "text_inactive": "rgba(255, 255, 255, 0.55)",
-    "forbidden_colors": ["#3f6b4a", "green", "teal", "rgba(0, 255, 0, *)"]
+    "track_background": "rgba(20, 20, 22, 0.4) - Neutral dark glassy.",
+    "track_border": "rgba(255, 255, 255, 0.15)",
+    "knob_background": "linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05))",
+    "knob_border": "rgba(255, 255, 255, 0.4)",
+    "knob_shadow": "0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3)",
+    "text_active": "#ffffff",
+    "text_inactive": "rgba(255, 255, 255, 0.5)"
   },
-  "visual_enhancers": {
-    "backdrop_blur": "blur(12px)",
-    "shadow_base": "inset 0 1px 2px rgba(255, 255, 255, 0.05), inset 0 -1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15)",
-    "shadow_indicator": "0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.25)"
+  "visual enhancers": {
+    "glassmorphism": "Apply backdrop-filter: blur(12px) to both the track and the knob to achieve the liquid/frosted glass Apple-like quality.",
+    "depth": "Add subtle inner shadows to the track to make it feel recessed, and drop-shadow + inner highlight to the circular knob to make it pop out.",
+    "prohibited": "No flat white, no green tones, no rounded-rect knob."
+  },
+  "grids": "Not strictly applicable. Use flexbox for the inline component layout.",
+  "layouts": {
+    "overall": "Flex container with 'TR' text on the left, oval track in the center, and 'EN' text on the right. Align center vertically.",
+    "track": "Horizontal oval rail, compact, with relative positioning.",
+    "flags": "Absolute positioned inside the rail. TR flag on the right side of the rail (exposed when knob is left), EN flag on the left side of the rail (exposed when knob is right).",
+    "knob": "Absolute positioned, perfectly circular (.lang-knob). Moves along the track using CSS transform.",
+    "sizing": "Keep within the existing header constraints. Track width ~48px, Track height ~24px, Knob ~20px diameter (leaving 2px padding inside)."
   },
   "motion": {
-    "transition_timing_function": "cubic-bezier(0.2, 0.7, 0.2, 1)",
-    "transition_duration": "0.4s",
-    "effect": "Smooth sliding transform via CSS :has() selector on the pseudo-element indicator to create Apple Liquid Glass aesthetic."
+    "transitions": "Use cubic-bezier easing for the knob sliding. Smooth iOS-like snap.",
+    "interactions": "Knob highlights slightly on hover. Smooth transform X updates during drag."
   },
-  "layouts": {
-    "pill_container": {
-      "display": "inline-flex",
-      "align_items": "center",
-      "position": "relative",
-      "padding": "4px",
-      "border_radius": "100px",
-      "height": "36px",
-      "gap": "0"
-    },
-    "option_items": {
-      "position": "relative",
-      "z_index": "2",
-      "display": "inline-flex",
-      "align_items": "center",
-      "justify_content": "center",
-      "gap": "6px",
-      "padding": "0 12px",
-      "min_width": "64px",
-      "height": "100%",
-      "border_radius": "100px"
-    },
-    "mobile_900px": {
-      "pill_container": {
-        "height": "32px",
-        "padding": "3px"
-      },
-      "option_items": {
-        "min_width": "52px",
-        "padding": "0 8px",
-        "font_size": "10px",
-        "gap": "4px"
-      }
-    }
+  "accessibility": {
+    "guidelines": "Ensure keyboard focus is visible (outline-offset). Use aria-labels on the switch. Provide 'data-testid' for all interactive elements (e.g. data-testid='lang-switch-toggle', data-testid='lang-label-tr').",
+    "motion": "Respect prefers-reduced-motion by disabling the sliding transition."
   },
+  "media": "Use existing TR and UK flag vectors inside the DOM (no external image URLs required).",
+  "3d libraries": "None required.",
+  "image urls": {},
   "instructions_to_main_agent": [
-    "Target file: /app/frontend/css/styles.css.",
-    "Locate the `.lang-switch` and `.lang-opt` classes (around line 2545).",
-    "Completely overwrite the existing styles for `.lang-switch`, `.lang-opt`, and `.lang-switch--menu`.",
-    "Remove the old `.lang-switch svg { width: 10px; height: 10px; }` and old `gap: 10px;` to allow the pill indicator to work correctly.",
-    "Use `:has()` selector in CSS to control a `::before` pseudo-element on `.lang-switch`. This pseudo-element serves as the sliding Apple iOS glass indicator.",
-    "For the indicator logic: `.lang-switch::before { content: ''; position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc(50% - 4px); ... }`. Then use `.lang-switch:has(.lang-opt:nth-child(2).is-active)::before { transform: translateX(100%); }` (and similarly for `[aria-current='page']`).",
-    "IMPORTANT: In the `@media (max-width: 900px)` query, remove the `display: none;` on `.lang-opt span`. The user explicitly requested 'TR' and 'EN' text to remain side-by-side on mobile. Add `.lang-opt span { display: inline !important; }` to guarantee visibility.",
-    "Keep `.is-active` logic strictly CSS-based. Do NOT implement any JS event listeners for the toggle (user requested keeping native links and no-JS functionality intact).",
-    "If the HTML needs Turkish (🇹🇷) and UK (🇬🇧) flag emojis or SVGs, apply the dimensions using the new `.lang-flag` class (`width: 16px; height: 11px; flex-shrink: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.2)`)."
+    "Update /app/scripts/language_toggle_markup.py to generate the new DOM structure. The new structure should be: A wrapper div or button, containing the 'TR' text span, the middle track div (containing TR flag, EN flag, and the sliding circular knob), and the 'EN' text span.",
+    "Refactor the CSS in /app/frontend/css/styles.css. Remove the old segmented control styles. Create styles for the true sliding toggle. Make sure the track is a dark frosted glass and the knob is a highlighted translucent circle.",
+    "Logic Mapping: TR active -> Knob is on the LEFT, exposing the TR (🇹🇷) flag on the RIGHT. EN active -> Knob is on the RIGHT, exposing the EN (🇬🇧) flag on the LEFT.",
+    "Add a standalone vanilla JS module in /app/frontend/js/script.js (or inline) to handle pointer events (pointerdown, pointermove, pointerup) on the switch.",
+    "Gesture logic: On pointerdown, capture starting X. On pointermove, update the knob's transform interactively (knob follows pointer). On pointerup, check if dragged past midpoint. If yes, navigate to the other language's URL. If no, snap back. The navigation should happen ONLY on release.",
+    "Ensure existing pages and URL routing are preserved. We are just changing the visual layout and interaction of the switch component.",
+    "Test sizes on mobile breakpoints to ensure it fits the existing 88px/56px constraints without overflowing."
   ],
-  "UNIVERSAL GUIDELINES FOR MAIN AGENT": "All interactive and key informational elements MUST include a `data-testid` attribute to facilitate robust automated testing. Ensure all CSS relies on native CSS features without Javascript fallbacks. Do NOT use green/teal (#3f6b4a etc) for the language switch per user instruction. Maintain strict Apple Liquid Glass premium aesthetic."
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition (e.g., transition: all). Always add transitions for specific properties.",
+    "You MUST NOT center align the app container in CSS.",
+    "CRITICAL: DO NOT use complete transparent background in header, overlays, or surfaces with content under it.",
+    "All interactive and key informational elements MUST include a `data-testid` attribute."
+  ]
 }
