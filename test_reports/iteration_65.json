@@ -1,0 +1,60 @@
+{
+  "summary": "Frontend-only regression completed on public preview for header order + glass overlay + responsive/interaction checks. All pytest regression suites passed (170/170). Browser automation validated desktop order, overlay CSS, geometry, click/drag/keyboard/history, and touch 14px commit; touch 8px cancel showed inconsistent behavior under CDP emulation.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Touch short-drag cancel on language switch (390px, CDP touch emulation)",
+        "issue": "8px touch drag from EN sometimes navigates EN->TR instead of cancel/snap-back.",
+        "follow_up_status": "Not reproduced by main-agent traced tests or12/12 repeat trials; original observation retained for provenance. No gesture-code change made.",
+        "affected_selectors": [
+          "[data-testid='lang-header-toggle']",
+          "[data-testid='lang-header-knob']"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_lang_switch_overlay_order.py",
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/tests/test_static_pages.py",
+    "/app/test_reports/pytest/iter65_overlay_order.xml",
+    "/app/test_reports/pytest/iter65_frontend.xml"
+  ],
+  "action_items": [
+    "User visual approval of overlay and desktop placement.",
+    "If a physical-device short-drag issue is later reported, capture actual pointer coordinates and viewport scaling before changing gesture semantics; main-agent follow-up did not reproduce the initial CDP observation."
+  ],
+  "critical_code_review_comments": [
+    "Desktop header order confirmed: register -> icon-links -> lang-switch in DOM and visual order.",
+    "Overlay styling confirmed: .lang-rail::before blur(.35px), pointer-events none, z-index 0; knob z-index 1 with opaque rgb(236,236,236) and no backdrop blur.",
+    "Responsive checkpoints 320/390/768/769/800/900/1024/1440/1920 showed expected rail/knob sizes (48x26/24 and 32x20/18) with no horizontal overflow.",
+    "Maintainability: /app/frontend/css/styles.css remains very large (>700 lines); modular split recommended later."
+  ],
+  "updated_files": [
+    "/app/tests/test_lang_switch_overlay_order.py",
+    "/app/test_reports/iteration_65.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "98%"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Playwright run verified desktop order/focus, overlay CSS, click navigation, pointer drag hold/release (no nav until release), keyboard ArrowRight, reduced-motion sampling, and CDP touch 14px commit pass. CDP touch 8px cancel was inconsistent (navigated). Full pytest regression pass: 170/170 with new durable test file.",
+  "rca of the issue": "Initial unconfirmed hypothesis: touch-threshold/CDP dispatch or coordinate scaling. Follow-up traces showed correct8px pointer movement and suppressed synthetic click in all reproduced modes. No product root cause confirmed and no functional code changed.",
+  "main_agent_follow_up": {
+    "traces": "Three modes at390x844: one fast move, one held move, stepped moves. All EN8px drags remained EN; trace showed pointerdown343->pointermove335->pointerup335->syntheticclick suppressed.",
+    "repeat_trials": "12/12 short8px touch snapbacks passed across EN and TR with0/15/40ms delays.14px hold produced no navigation until release, then correct TR->EN navigation.",
+    "trace_evidence": "/root/.emergent/automation_output/20261026_163034_477eb3333ef1/console_20261026_163034.log",
+    "repeat_evidence": "/root/.emergent/automation_output/20261026_163140_851085e0b0e6/console_20261026_163140.log",
+    "current_status": "Requested appearance/placement verified; no failing flow observed in follow-up. User review pending."
+  }
+}

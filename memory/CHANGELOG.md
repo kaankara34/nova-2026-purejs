@@ -1,3 +1,16 @@
+# 2026-10-26 — Subtle flag glass overlay and rightmost desktop language switch
+
+- Added a thin flag-only glass pane with0.35px blur, low-opacity white sheen and light inset
+  shading. Opaque knob, sizes, artwork focus and gesture/navigation JavaScript unchanged.
+- Moved existing language node after contact icons on66pages: enquiry → phone/message → language.
+  Keyboard order follows the visible desktop order; mobile appearance and offcanvas unchanged.
+-170automated regression tests passed, including a new persistent overlay/order test file.
+  Updater rerun changed0pages; non-language page bytes remain identical.
+- Initial CDP short-touch anomaly was not reproduced in traced fast/held/stepped cases or12/12
+  additional short-drag trials across both languages.14px release-to-commit passed. No speculative
+  gesture-code change made; retain initial observation for any future physical-device report.
+- User visual approval pending; no confirmed remaining defect in requested scope.
+
 # 2026-10-26 — Opaque opal knob, equal gaps and country-specific flag focus
 
 - Latest user direction supersedes translucency: opaque neutral silver-white knob with glossy

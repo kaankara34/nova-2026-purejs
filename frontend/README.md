@@ -13,6 +13,8 @@ dizin yapısı değiştirilmemiştir.
 Son sürümde etiketler switch'in dışındadır; içeride yuvarlak cam knob ve açıkta kalan bayrak
 bulunur. Knob artık opak, gümüş-beyaz buzlu cam görünümündedir; arkasındaki bayrağı göstermez.
 Ay-yıldız sağdaki, Union Jack'in merkezi soldaki açık alana özgün SVG koordinatlarıyla odaklanır.
+Bayrağın üzerinde hafif bir cam katman bulunur; knob bu katmanın üstünde ve opaktır.
+Masaüstünde sıralama Bilgi talebi → Telefon/Mesaj → TR/EN şeklindedir; mobil konum korunur.
 Özgün Wikimedia Commons SVG'leri `media/flags/` içindedir; kaynak ve lisans bilgileri
 `media/flags/SOURCES.md` dosyasında kayıtlıdır. SVG'leri yeniden çizmeyin veya oranlarını değiştirmeyin.
 `js/language-toggle.js` ve `js/language-toggle-gesture.js` yerel dosyaları tıklama,

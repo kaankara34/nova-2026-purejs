@@ -2,7 +2,42 @@
 
 Last updated: 2026-10-26
 
-## Latest refinement — opaque opal-glass knob, larger diameter and flag focal points
+## Latest refinement — subtle flag-only glass pane and rightmost desktop placement
+
+### User requirements
+- Keep the existing switch, opaque glossy knob/material/size/travel, flag focal points and URLs.
+- Add only a thin, restrained frosted-glass overlay across the flag background: slight softening,
+  low-opacity white highlight and subtle depth. Flags must stay recognizable; weaker than knob.
+- Desktop order must be **Bilgi talebi → Telefon/Mesaj → TR/EN**, not language between the other
+  controls. Preserve header height, mobile appearance, click/drag/swipe and current functionality.
+
+### Implemented — 2026-10-26
+- `.lang-rail::before` covers the flag with0.35px backdrop blur, white gradient alpha0.025–0.13
+  and subtle inset shading. Decorative and pointer-events:none;z-index0. Knob atz-index1 retains
+  exactly the same opaque material/dimensions and is not softened by the overlay. Forced-colors
+  mode disables the pane for clarity. No flag SVG or focal geometry changes.
+- `place_header_switch_last()` in the existing markup helper moves the SAME header-language
+  block after `.icon-links` on all66pages. DOM and keyboard order match the new desktop order.
+  No CSS-only visual reorder, positive tabindex or navigation changes. Existing mobile-hidden
+  actions mean the visible mobile switch remains in its previous position; menu control unchanged.
+- Only matched language-block bytes moved: removing language blocks still yields exactly the
+  same page bytes as the baseline. All JavaScript and the rest of shared CSS are unchanged.
+- Updater remains idempotent: second run0pages. Full i18n rebuild was not run.
+
+### Verification / remaining work
+- `test_reports/iteration_65.json`:170regression tests passed, including new durable
+  `tests/test_lang_switch_overlay_order.py` checks. Desktop DOM/visual order, overlay layering,
+  native language links, keyboard order and responsive320/390/768/769/800/900/1024/1440/1920 checked.
+- Initial agent CDP run reported an inconsistent8px short-touch cancellation. Main-agent follow-up
+  could NOT reproduce it: fast single/held/stepped event traces all correct, then12/12 repeated
+  short-touch snapbacks across both languages with0/15/40ms timings passed.14px held touch still
+  changed language only on release. No gesture-code changes were made; root cause of the first
+  emulation observation remains unconfirmed. Keep this evidence if a real-device issue is reported.
+- No failing product flow observed in follow-up; no mocked integration or new external service.
+- P0:none confirmed. P1:user visual approval. P2:visual-regression coverage and the independent
+  authoring-source reconciliation/form/legal backlog remain; do not broaden this visual-only work.
+
+## Previous refinement — opaque opal-glass knob, larger diameter and flag focal points
 
 ### Current user requirements (supersede earlier translucency)
 - Preserve current switch structure/exterior dimensions, external TR/EN text and header.

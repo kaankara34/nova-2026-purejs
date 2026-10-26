@@ -1,6 +1,9 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- Latest request implemented: very light flag-only glass pane; desktop action order now enquiry,
+  phone/message, then language. Knob and navigation/gesture JS unchanged.170tests passed;12/12
+  follow-up short-touch trials passed after an initial unreproduced CDP observation. P1:visual approval.
 - Latest user override VERIFIED: OPAQUE neutral opal-glass knob, enlarged24px/18px diameter,
   equal1px gaps, country-specific authentic flag focus in exposed half; unchanged outer geometry.
   `iteration_64.json`,165tests plus CDP touch follow-up. Do not restore translucency or centered

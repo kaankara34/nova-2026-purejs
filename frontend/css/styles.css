@@ -2609,8 +2609,22 @@ body.no-scroll {
   background-size: auto 100%;
   background-position: left calc((var(--lang-track-width) - var(--lang-knob-size)) / 2 - var(--lang-track-height)) center;
 }
+/* A thin pane over the flag only; the opaque knob is painted above it. */
+.lang-rail::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(150deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .025) 50%, rgba(255, 255, 255, .055));
+  -webkit-backdrop-filter: blur(.35px);
+  backdrop-filter: blur(.35px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13), inset 0 -1px 2px rgba(0, 0, 0, .055);
+}
 .lang-knob {
   position: absolute;
+  z-index: 1;
   left: 0; top: 0;
   width: var(--lang-knob-size); height: var(--lang-knob-size);
   pointer-events: none;
@@ -2697,6 +2711,7 @@ body.no-scroll {
 }
 @media (forced-colors: active) {
   .lang-rail { background: Canvas; border-color: CanvasText; }
+  .lang-rail::before { display: none; }
   .lang-knob { background: Highlight; border-color: Highlight; forced-color-adjust: none; }
   .lang-opt { color: LinkText; }
   .lang-opt.is-active { color: LinkText; text-decoration: underline; }

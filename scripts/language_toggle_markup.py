@@ -3,6 +3,27 @@ import re
 from pathlib import Path
 
 
+def place_header_switch_last(html):
+    """Move the same control after contact icons; preserve every other byte and tab order."""
+    header = re.search(r'<div class="header-actions"[^>]*>', html)
+    if not header:
+        return html
+    depth = 1
+    for tag in re.finditer(r'</?div\b[^>]*>', html[header.end():]):
+        depth += -1 if tag.group().startswith('</') else 1
+        if depth:
+            continue
+        end = header.end() + tag.start()
+        inner = html[header.end():end]
+        control = re.search(r'<div class="lang-switch\b[^>]*>.*?</div>', inner, re.S)
+        if not control or 'class="icon-links"' not in inner[control.end():]:
+            return html
+        # Moving only the matched bytes also preserves original surrounding whitespace.
+        reordered = inner[:control.start()] + inner[control.end():] + control.group()
+        return html[:header.end()] + reordered + html[end:]
+    return html
+
+
 def enhance_language_switches(html):
     def update(match):
         block = match.group(0)
@@ -40,7 +61,8 @@ def enhance_language_switches(html):
                   '</span></button>')
         return opening + links['tr'] + track + links['en'] + '</div>'
 
-    return re.sub(r'<div class="lang-switch\b[^>]*>.*?</div>', update, html, flags=re.S)
+    updated = re.sub(r'<div class="lang-switch\b[^>]*>.*?</div>', update, html, flags=re.S)
+    return place_header_switch_last(updated)
 
 
 if __name__ == '__main__':
