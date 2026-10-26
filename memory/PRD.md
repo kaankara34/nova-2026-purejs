@@ -2,7 +2,46 @@
 
 Last updated: 2026-10-26
 
-## Latest refinement — continuous authentic flag background and clear glossy knob
+## Latest refinement — opaque opal-glass knob, larger diameter and flag focal points
+
+### Current user requirements (supersede earlier translucency)
+- Preserve current switch structure/exterior dimensions, external TR/EN text and header.
+- Fully opaque silver-white frosted/liquid-glass knob: no underlying flag or red tint visible;
+  retain elegant reflections, soft shadows and depth. Colored annotations are not UI elements.
+- Increase circular knob close to rail height with thin equal gaps and no overflow.
+- Keep authentic SVG geometry unchanged. TR: knob left, whole crescent+star centered in the
+  exposed right area. EN: knob right, Union Jack central pattern balanced in exposed left area.
+  Country-specific scale/focus must be derived deliberately, not random cropping/redrawing.
+- Keep click, realtime mouse/touch drag, nearest-endpoint settling and exact URL logic.
+
+### Implementation — 2026-10-26
+- Only two application source files changed: final language CSS block in `styles.css` and
+  measurement of pointer travel in `language-toggle-gesture.js`. All66HTML pages and
+  `language-toggle.js` controller remain byte-identical to the prior version.
+- Knob diameter now `track-height -2px`:24px inside48x26 rail;18px inside32x20 narrow-tablet rail.
+  Left/top0 inside1px border creates equal1px edge gaps. Travel22px/12px, measured directly
+  from rail inner width, knob width and inset so pointer displacement remains1:1.
+- Opaque neutral#ececec base and fully opaque neutral grey/white gradient, specular highlights,
+  white rim and soft depth. No backdrop-filter or transmitted flag colors.
+- Original SVG files unchanged. TR white-art bounds x14999.687..55318 in90000-unit viewBox
+  determine image scale: full white artwork fits80% of exposed width; its center is placed
+  at36px normally/25px on narrow tablets. Exact original red field#e30a17 fills behind knob.
+- UK2:1 image is height-fit, with its central cross aligned to exposed-left center12px/7px;
+  exact original blue field#012169 continues behind the opaque knob. No symbol deformation.
+- Earlier centered-cover and transparency settings below are historical, not current requirements.
+
+### Verified / next actions
+- `test_reports/iteration_64.json`:165tests passed (6scope,61dual-root,98static); eight responsive
+  widths, unchanged header/label/rail geometry,1px gaps, SVG hashes and page byte integrity checked.
+- Pixel comparison of knob interior between TR/EN differed by<=1RGB unit: no flag tint bleed.
+- Main-agent follow-up enabled real CDP touch emulation at390px:14px finger move produced14px
+  knob move with no navigation while held; release navigated to EN; short8px touch drag snapped
+  back without navigation. This resolves the testing agent's initial hasTouch-context limitation.
+- No mocked flow, new integration or unresolved issue found in requested scope.
+- P0:none. P1:user final visual approval. P2:durable visual-regression baseline; authoring-source
+  reconciliation before any full rebuild and the independent historical form/legal backlog.
+
+## Previous refinement — continuous authentic flag background and clear glossy knob
 
 ### User request and boundaries
 - Preserve the current switch size, external TR/EN positions, header layout and existing URLs.

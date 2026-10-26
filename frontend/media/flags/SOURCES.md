@@ -2,7 +2,16 @@
 
 Downloaded 2026-10-26 from Wikimedia Commons. Both files are public domain.
 The SVG bytes are stored unchanged: no AI generation, redrawing or aspect-ratio edits.
-CSS uses a centered `background-size: cover` crop inside the existing oval switch.
+CSS keeps the original aspect ratios and derives focal placement from each SVG, inside the
+existing oval switch. Current opaque knob hides the source-colored field continuation behind it.
+
+- TR: white-art bounds x14999.687..55318 in the90000-unit viewBox define the uniform scale and
+  horizontal placement. The complete crescent/star fits80% of the exposed right width, centered
+  at36px normally or25px on narrow tablets. Remaining field uses the SVG's exact#e30a17 red.
+- UK: the2:1 SVG is fitted to rail height with its center cross at the exposed-left midpoint,
+ 12px normally or7px on narrow tablets. Remaining field uses the SVG's exact#012169 blue.
+- These are intentional country-specific focal positions. SVG bytes/shapes are never edited,
+  stretched, reconstructed or generated; only source-image size/position are adjusted in CSS.
 
 ## Türkiye — `tr.svg`
 - File page: https://commons.wikimedia.org/wiki/File:Flag_of_Turkey.svg

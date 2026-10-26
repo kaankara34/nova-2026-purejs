@@ -19,10 +19,12 @@ export function bindLanguageGesture(button, actions) {
 
   button.addEventListener('pointerdown', event => {
     if (!event.isPrimary || event.button !== 0 || !actions.canStart()) return;
-    const rail = button.querySelector('.lang-rail').getBoundingClientRect();
-    const knob = button.querySelector('.lang-knob').getBoundingClientRect();
+    const rail = button.querySelector('.lang-rail');
+    const knob = button.querySelector('.lang-knob');
+    // Match the actual inner rail and knob inset, so pointer travel stays1:1 after resizing.
+    const travel = rail.clientWidth - knob.offsetWidth - 2 * parseFloat(getComputedStyle(knob).left);
     pointer = { id: event.pointerId, x: event.clientX, y: event.clientY,
-      start: actions.position(), progress: actions.position(), travel: rail.width - knob.width - 4,
+      start: actions.position(), progress: actions.position(), travel,
       moved: false };
     button.setPointerCapture(event.pointerId);
   });

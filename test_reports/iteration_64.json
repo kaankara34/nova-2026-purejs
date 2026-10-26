@@ -1,0 +1,49 @@
+{
+  "summary": "Frontend-only regression and UI verification completed for opaque language-toggle refinement on public preview and snapshot baseline. Core geometry, opacity/material, SVG integrity, drag/click/keyboard flows, and byte-level static constraints passed.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/tests/test_static_pages.py",
+    "/app/test_reports/pytest/lang_toggle_regression_iter64.xml",
+    "/app/test_reports/pytest/i18n_serving_modes_iter64.xml",
+    "/app/test_reports/pytest/static_pages_iter64.xml"
+  ],
+  "action_items": [
+    "No functional fixes required in requested scope.",
+    "Touch coverage completed in main-agent follow-up using CDP touch emulation; initial context limitation resolved."
+  ],
+  "critical_code_review_comments": [
+    "All 66 HTML pages are byte-identical to /tmp/nova-toggle-before-opaque/frontend (0 diffs).",
+    "language-toggle.js is byte-identical to baseline; language-toggle-gesture.js and language CSS block changed as expected.",
+    "CSS before language-selector marker is byte-identical to baseline; only toggle block changed.",
+    "SVG hashes match SOURCES.md exactly: tr.svg=5a47e932cdb371d9708d8c9a209d3acfd006cdd3ee7dd38ae44df6180e170e90, gb.svg=e00a356422bfd478c75491f4403f3c096799f4ebba56944eb520022975d06e13.",
+    "Knob is opaque in computed styles (background-color rgb(236,236,236), backdrop-filter none). Pixel check on central 11x11 area of knob screenshot between TR vs EN differs by <=1 RGB unit, indicating no underlying flag tint bleed in interior.",
+    "Maintainability note: /app/frontend/css/styles.css is >700 lines (current 2704), consider modular split later."
+  ],
+  "updated_files": [
+    "/app/test_reports/iteration_64.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "99%"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Executed pytest suites: 6/6 (lang toggle regression), 61/61 (serving modes), 98/98 (static pages). Browser automation on preview validated: 48x26 rail + 24x24 knob desktop, 32x20 rail + 18x18 knob narrow tablet, knob left/top 0 with 1px effective outer gaps, --lang-travel behavior via drag (~11px move produced ~11px knob translate), no navigation while held, release-to-commit endpoint behavior, click and keyboard navigation. Touchscreen-specific drag could not be directly simulated because hasTouch is disabled in this automation context.",
+  "rca of the issue": "No product defect reproduced in this run. One apparent failure in first script was test-logic error (a 3px micro-move was interpreted as a tap, which intentionally toggles language by design). Reproduced with proper return-gesture (>4px move then return), nearest-endpoint commit worked correctly.",
+  "main_agent_follow_up": {
+    "touch_status": "PASS: enabled CDP Emulation.setTouchEmulationEnabled and dispatched actual touchStart/Move/End at390x800.14px move followed1:1; no navigation while held; release navigatedTR->EN. Subsequent8px drag returned to EN position without navigation. No horizontal overflow.",
+    "touch_evidence": "/root/.emergent/automation_output/20261026_160142_808e4ce6c3de/console_20261026_160142.log",
+    "remaining_issues": "None found in requested scope after touch follow-up. User visual approval pending."
+  }
+}

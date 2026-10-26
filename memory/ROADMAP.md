@@ -1,6 +1,10 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- Latest user override VERIFIED: OPAQUE neutral opal-glass knob, enlarged24px/18px diameter,
+  equal1px gaps, country-specific authentic flag focus in exposed half; unchanged outer geometry.
+  `iteration_64.json`,165tests plus CDP touch follow-up. Do not restore translucency or centered
+  flag artwork hidden by knob. P1 remains final visual approval; no current P0 defect.
 - Latest targeted refinement verified: authentic full-rail flag SVG + clear glossy knob,
   unchanged geometry and nearest-endpoint release (`iteration_63.json`,165tests). Await visual
   approval. Do not restore half-flag windows, hand-drawn flags, matte-grey fill or velocity flick.

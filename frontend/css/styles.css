@@ -2548,8 +2548,12 @@ body.no-scroll {
   --lang-width: 88px;
   --lang-track-width: 48px;
   --lang-track-height: 26px;
-  --lang-knob-size: 22px;
-  --lang-travel: calc(var(--lang-track-width) - var(--lang-knob-size) - 4px);
+  --lang-knob-size: calc(var(--lang-track-height) - 2px);
+  --lang-travel: calc(var(--lang-track-width) - var(--lang-knob-size) - 2px);
+  /* Original TR SVG white-art bounds: x14999.687..55318 in its90000-unit viewBox.
+     Fit that complete artwork to80% of the exposed width, without deforming it. */
+  --lang-tr-image-width: calc((var(--lang-track-width) - var(--lang-knob-size) - 2px) * 1.785789);
+  --lang-tr-image-left: calc((var(--lang-track-width) + var(--lang-knob-size)) / 2 - var(--lang-tr-image-width) * .390653817);
   --lang-easing: cubic-bezier(.22, .85, .25, 1);
   position: relative;
   isolation: isolate;
@@ -2588,30 +2592,37 @@ body.no-scroll {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 999px;
-  /* Unmodified national SVG: one continuous, stationary image beneath the knob. */
+  /* Country-specific focus comes from the original SVG geometry, never a redraw.
+     The SVG's own field color continues beneath the opaque knob without a seam. */
+  background-color: #e30a17;
   background-image: url('../media/flags/tr.svg');
-  background-size: cover;
-  background-position: center;
+  background-size: var(--lang-tr-image-width) auto;
+  background-position: left var(--lang-tr-image-left) center;
   background-repeat: no-repeat;
   background-origin: border-box;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, .12), 0 1px 0 rgba(255, 255, 255, .05), 0 2px 6px rgba(0, 0, 0, .15);
 }
 .lang-switch[data-flag-language="en"] .lang-rail {
+  background-color: #012169;
   background-image: url('../media/flags/gb.svg');
+  /* The source is2:1: height-fit it and place its central cross in the open half. */
+  background-size: auto 100%;
+  background-position: left calc((var(--lang-track-width) - var(--lang-knob-size)) / 2 - var(--lang-track-height)) center;
 }
 .lang-knob {
   position: absolute;
-  left: 1px; top: 1px;
+  left: 0; top: 0;
   width: var(--lang-knob-size); height: var(--lang-knob-size);
   pointer-events: none;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, .64);
-  background:
-    radial-gradient(ellipse at 28% 12%, rgba(255, 255, 255, .58), rgba(255, 255, 255, .12) 30%, transparent 62%),
-    linear-gradient(145deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .025) 45%, rgba(255, 255, 255, .035) 68%, rgba(255, 255, 255, .2));
-  -webkit-backdrop-filter: blur(.7px) saturate(1.12) brightness(1.04);
-  backdrop-filter: blur(.7px) saturate(1.12) brightness(1.04);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .75), inset 0 -1px 2px rgba(0, 0, 0, .13), 0 1px 3px rgba(0, 0, 0, .22);
+  border: 1px solid #fafafa;
+  background-color: #ececec;
+  background-image:
+    radial-gradient(ellipse at 28% 12%, #fff, rgba(255, 255, 255, .8) 16%, rgba(255, 255, 255, .2) 44%, transparent 68%),
+    linear-gradient(145deg, #f8f8f8, #ebebeb 46%, #d9d9d9 76%, #f6f6f6);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: inset 0 1px 2px #fff, inset 0 -1px 2px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .24);
   transform: translateX(calc(var(--lang-progress) * var(--lang-travel)));
   transition: transform .24s var(--lang-easing), box-shadow .2s ease;
 }
@@ -2658,7 +2669,7 @@ body.no-scroll {
 .lang-toggle.is-dragging .lang-knob { transition: none; box-shadow: inset 0 1px 2px rgba(255, 255, 255, .8), inset 0 -1px 1px rgba(0, 0, 0, .12), 0 2px 5px rgba(0, 0, 0, .22); }
 @media (hover: hover) {
   .lang-opt:hover { color: #fff; }
-  .lang-toggle:not(:disabled):hover .lang-knob { border-color: rgba(255, 255, 255, .7); }
+  .lang-toggle:not(:disabled):hover .lang-knob { border-color: #fff; }
 }
 .lang-switch--menu {
   position: absolute; top: 26px; right: 68px; z-index: 6;
@@ -2670,7 +2681,7 @@ body.no-scroll {
     --lang-width: 56px;
     --lang-track-width: 32px;
     --lang-track-height: 20px;
-    --lang-knob-size: 16px;
+    --lang-knob-size: calc(var(--lang-track-height) - 2px);
     width: 28px; font-size: 8px;
   }
   .site-header .lang-opt { width: 12px; }

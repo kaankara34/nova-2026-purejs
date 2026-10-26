@@ -7,16 +7,16 @@
     "labels": "TR and EN labels should be uppercase, font-size around 12-14px depending on breakpoint, semi-bold."
   },
   "colors": {
-    "track_background": "Authentic selected-country SVG covering the complete oval rail continuously beneath the knob. Local media/flags/tr.svg or gb.svg; cover/center, no-repeat, overflow:hidden.",
+    "track_background": "Authentic SVG with country-specific geometric focus. TR full crescent/star centered in exposed right area; UK central cross centered in exposed left area. Exact original flag field color continues behind opaque knob. No deformation or redraw.",
     "track_border": "rgba(255, 255, 255, 0.15)",
-    "knob_background": "linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05))",
+    "knob_background": "Fully opaque neutral#ececec base and silver-white opaque gradient with glossy highlights. No flag tint/transmission; latest user explicitly forbids translucency.",
     "knob_border": "rgba(255, 255, 255, 0.4)",
     "knob_shadow": "0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3)",
     "text_active": "#ffffff",
     "text_inactive": "rgba(255, 255, 255, 0.5)"
   },
   "visual enhancers": {
-    "glassmorphism": "Knob has transparent base, specular layers and0.7px backdrop blur so the underlying flag remains visible. Do not restore a grey base or heavy blur. Rail flag stays crisp and stationary.",
+    "glassmorphism": "OPAQUE opal/frosted glass appearance using neutral highlight layers and subtle depth. backdrop-filter:none; the flag must not be visible through the knob. No red tint.",
     "depth": "Add subtle inner shadows to the track to make it feel recessed, and drop-shadow + inner highlight to the circular knob to make it pop out.",
     "prohibited": "No flat white, no green tones, no rounded-rect knob."
   },
@@ -24,9 +24,9 @@
   "layouts": {
     "overall": "Flex container with 'TR' text on the left, oval track in the center, and 'EN' text on the right. Align center vertically.",
     "track": "Horizontal oval rail, compact, with relative positioning.",
-    "flags": "One authentic full-rail SVG background, never a half-width flag or inline redraw. TR selected: entire Turkish flag; EN selected: entire UK flag. Background does not move or resize during dragging.",
+    "flags": "Use original SVG aspect ratios; derive country-specific placement from artwork coordinates so TR crescent/star and UK central cross are fully visible in the exposed side. Exact source-color field remains continuous beneath opaque knob. Stationary during dragging.",
     "knob": "Absolute positioned, perfectly circular (.lang-knob). Moves along the track using CSS transform.",
-    "sizing": "Preserve exact current dimensions:48x26 rail and22x22 knob; narrow tablet32x20 rail and16x16 knob. External labels and all header geometry unchanged."
+    "sizing": "Rails remain48x26 / narrowtablet32x20. Knobs now24x24 /18x18, equal1px edge gaps,22px/12px travel. External labels and header geometry unchanged."
   },
   "motion": {
     "transitions": "Use cubic-bezier easing for the knob sliding. Smooth iOS-like snap.",
@@ -41,7 +41,7 @@
   "image urls": {},
   "instructions_to_main_agent": [
     "Keep current DOM geometry: external TR/EN native anchors, center switch with one full-background rail and circular knob. Do not reintroduce flag-window spans.",
-    "Only change the requested areas; preserve all rail/knob dimensions, label positions and header styles. Knob must remain glossy transparent glass, not grey metal/plastic.",
+    "Only change requested areas; preserve rails, labels and header. Latest approved knob is enlarged opaque silver-white opal glass, not transparent. Preserve its24px/18px diameter and1px gaps.",
     "Logic Mapping: TR active -> knob LEFT and Turkish flag across entire rail; EN active -> knob RIGHT and UK flag across entire rail. Flag remains continuous beneath knob.",
     "Add a standalone vanilla JS module in /app/frontend/js/script.js (or inline) to handle pointer events (pointerdown, pointermove, pointerup) on the switch.",
     "Gesture logic: On pointerdown, capture starting X. On pointermove, update the knob's transform interactively (knob follows pointer). On pointerup, check if dragged past midpoint. If yes, navigate to the other language's URL. If no, snap back. The navigation should happen ONLY on release.",
@@ -51,7 +51,7 @@
   "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
     "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
     "Create depth through layered design elements with z-index hierarchy.",
-    "For this tiny knob use the approved0.7px backdrop blur; heavy12-24px blur hides the flag and is not appropriate.",
+    "Latest user explicitly requires opacity: no backdrop blur or transmission of the flag through the knob. Create depth with neutral opaque gradients, highlights and soft shadows.",
     "You MUST NOT apply universal transition (e.g., transition: all). Always add transitions for specific properties.",
     "You MUST NOT center align the app container in CSS.",
     "CRITICAL: DO NOT use complete transparent background in header, overlays, or surfaces with content under it.",

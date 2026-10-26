@@ -1,3 +1,16 @@
+# 2026-10-26 — Opaque opal knob, equal gaps and country-specific flag focus
+
+- Latest user direction supersedes translucency: opaque neutral silver-white knob with glossy
+  highlights/depth; pixel checks show no flag/red tint through its interior.
+- Enlarged circle24px (18px narrow tablets) while keeping existing48x26/32x20 rails, external
+  label positions and header. Equal1px gaps; gesture travel derived from actual DOM dimensions.
+- TR complete crescent+star focused in exposed right region using authentic SVG coordinate bounds;
+  UK central Union Jack cross focused left. Original assets/hashes unchanged, no distortion/redraw.
+- Only shared CSS and gesture measurement changed;66HTML pages and navigation controller unchanged.
+- `iteration_64.json`:165tests passed. Follow-up CDP touch test passed realtime14px movement,
+  hold/release navigation and8px short-drag snapback, resolving initial automation-context limitation.
+- Awaiting user visual approval; no unresolved functional defect in requested scope.
+
 # 2026-10-26 — Full authentic flags + clear glossy knob refinement
 
 - Replaced split hand-drawn flag windows with original public-domain Wikimedia SVGs covering
