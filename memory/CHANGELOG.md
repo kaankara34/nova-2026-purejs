@@ -1,3 +1,16 @@
+# 2026-10-26 — Branch synchronization and glass language toggle
+
+- Imported user-approved `tr-destekli-versiyon` commit `3a238f1c6ef793f1cd75583ca6f9bbd7bb6a88f9`;
+  updated/new branch content and assets preserved. No environment/platform reset.
+- Restyled both existing language controls on 66 pages with a neutral dark glass rail,
+  translucent sliding indicator and visible flags + labels, without changing native URL logic.
+- Added idempotent selector-only markup helper and builder hook. Did not regenerate whole pages:
+  branch HTML contains newer edits than the old authoring templates/dictionaries.
+- 157 automated regression checks passed. Follow-up expanded real touch targets and corrected
+  reduced-motion specificity; 6 targeted tests rerun successfully. Eight-viewport browser
+  comparison confirmed other header elements retain their exact geometry.
+- Evidence: `test_reports/iteration_61.json`. User visual/local-machine confirmation pending.
+
 # 2026-10-08 — Local Live Server root
 
 - Replaced generated root-dependent asset and language links with portable `../` paths.

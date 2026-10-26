@@ -1,0 +1,56 @@
+{
+  "summary": "Frontend-only regression completed for the glassmorphism TR/EN toggle redesign against archived branch SHA. Verified 66-page diff scope, language-link semantics, CSS prefix integrity, native navigation behavior, arrival-animation metadata, responsive visibility at required breakpoints, and serving-mode portability.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Header language toggle (mobile/touch)",
+        "issues": [
+          "Tap target remains visually compact (~33.6x16.5px on desktop profile; similarly compact on mobile variants). Functional, but below ideal touch accessibility target guidance."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/tests/test_static_pages.py",
+    "/app/test_reports/pytest/lang_toggle_regression_iter61.xml",
+    "/app/test_reports/pytest/i18n_serving_modes_iter61.xml",
+    "/app/test_reports/pytest/static_pages_iter61.xml"
+  ],
+  "action_items": [
+    "Optional accessibility polish: increase effective keyboard/touch target area for lang options while preserving visual footprint."
+  ],
+  "critical_code_review_comments": [
+    "Diff-to-baseline check passed: all 66 HTML files are byte-identical outside .lang-switch blocks.",
+    "CSS check passed: /app/frontend/css/styles.css content before 'Language selector (TR / EN)' block is byte-identical to archive.",
+    "Navigation logic preserved: script.js contains cosmetic data-lang-from helper and no lang-link click interception code."
+  ],
+  "updated_files": [
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/test_reports/iteration_61.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "98%"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Reusable regression added: test_lang_toggle_regression.py validates (1) 66-page scope constrained to .lang-switch blocks, (2) href/hreflang/lang/aria-current parity vs archive, (3) CSS pre-toggle byte-identity, (4) active indicator language consistency, (5) no lang-link JS interception pattern. Serving-mode suite and static suite both pass in this environment.",
+  "rca of the issue": "No functional regression reproduced in requested scope. One non-blocking observation is compact tap target size; root cause is intentionally compact visual sizing rules in the language toggle CSS block.",
+  "main_agent_follow_up": {
+    "status": "All reported actionable issues addressed and self-verified after the agent run.",
+    "tap_targets": "Expanded actual anchor padding with compensating negative margins; visible layout unchanged. Desktop TR44.625x48.5 / EN46.625x48.5; phones44x47; narrow tablet28x45.5 (minimum24px satisfied while keeping other controls fixed). Expanded area hit-testing passed at all eight widths.",
+    "reduced_motion": "Additional self-test found arrival selector specificity overriding reduced-motion. Fixed matching specificity; real TR->EN navigation verifies animation none for reduce, lang-glass-slide for no-preference.",
+    "geometry": "Compared original branch CSS to current CSS in browser: header/logo/menu/enquiry/contact rectangles match within0.1px at320/390/768/800/900/1024/1440/1920. No horizontal overflow.",
+    "regression": "6/6 targeted tests rerun successfully; markup updater rerun changes0 pages (idempotent). node --check passes.",
+    "test_credentials": "Not applicable: public static pages, no authentication changes."
+  }
+}

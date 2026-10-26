@@ -1,5 +1,15 @@
 # Local preview
 
+## Güncel sürüm notu — 26 Ekim 2026
+
+Site, `tr-destekli-versiyon` branch'inin `3a238f1` sürümü esas alınarak güncellendi.
+Bu branch'teki `en/` ve `tr/` sayfaları, eski `source-pages` şablonlarından daha yeni
+elle yapılmış düzenlemeler içeriyor. Şablonlar eşitlenmeden tam i18n derlemesini çalıştırmayın.
+Dil seçici tasarımını tek başına güncellemek için proje kökünden
+`python scripts/language_toggle_markup.py` kullanılabilir; diğer sayfa içeriğini değiştirmez.
+Glass toggle stilleri `css/styles.css` dosyasının sonundadır. Dil bağlantıları ve cPanel
+dizin yapısı değiştirilmemiştir.
+
 The generated language pages use portable asset paths such as `../css`, `../js`, and
 `../media`. They work both when `frontend/` is opened through VS Code Live Server and when
 the contents of `frontend/` are deployed directly into cPanel `public_html/`.

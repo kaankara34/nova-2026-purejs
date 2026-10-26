@@ -1,6 +1,59 @@
 # NOVA Konut — Product Requirements & State
 
-Last updated: 2026-09-19
+Last updated: 2026-10-26
+
+## Current source of truth — 2026-10-26
+
+- User requested the latest `tr-destekli-versiyon` branch of
+  `https://github.com/kaankara34/nova-2026-purejs` and approved using that version over local
+  differences. Imported commit: `3a238f1c6ef793f1cd75583ca6f9bbd7bb6a88f9`.
+- Downloaded and compared the exact public branch archive; synchronized 58 updated/new frontend
+  files, including six new image assets. Protected environment/platform files were not replaced.
+  Backend and existing source scripts already matched the branch.
+- **IMPORTANT: this branch contains manual updates to `frontend/en` and `frontend/tr` that are
+  newer than `source-pages` and the translation dictionaries. Do NOT run a full i18n rebuild
+  until those authoring sources have been reconciled.** The older build/source instructions
+  below are historical and must not overwrite this branch's approved content.
+
+### Latest user request (Turkish)
+> https://github.com/kaankara34/nova-2026-purejs/tree/tr-destekli-versiyon bu branchden projenin son halini çek daha sonra Mevcut header'daki TR / EN dil seçicisini, Apple'ın iOS switch tasarımından ilham alan, ancak NOVA'nın premium ve kurumsal kimliğine özgü bir glassmorphism language toggle olarak yeniden tasarla.
+> Koyu, yarı saydam, frosted glass yüzey; hafif backdrop blur, ince beyaz kenarlık ve zarif ışık yansımaları kullan. Yeşil renk kullanma.
+> Yatay, kompakt ve oval formda olsun. İçerisinde 🇹🇷 TR ve 🇬🇧 EN seçenekleri yan yana bulunsun.
+> Aktif dil, yumuşak geçişli, yarı saydam cam görünümlü bir sliding indicator ile vurgulansın.
+> Geçiş animasyonu Apple kalitesinde, akıcı ve minimal olsun.
+> Mevcut header yüksekliğini, hizalamaları ve diğer elementleri değiştirme. Mobil uyumlu olsun.
+> Mevcut dil değiştirme mantığını, URL yönlendirmelerini ve tüm işlevselliği aynen koru. Yalnızca dil seçicinin tasarımını değiştir.
+> Sonuç Apple Liquid Glass estetiğinde, gösterişsiz, sofistike ve NOVA'nın lüks mimari kimliğine uygun olmalı.
+
+### Implementation and verification
+- Dark neutral frosted glass rail, thin white rim, translucent sliding indicator, unchanged
+  flag artwork, visible TR/EN labels at every breakpoint. Header and offcanvas share the style.
+- Changes restricted to the last language-selector section in `css/styles.css`, language-control
+  markup on 66 pages, and a cosmetic arrival-animation helper in `js/script.js`. Native href,
+  hreflang, lang, aria-current and navigation behavior remain unchanged. No new integration,
+  storage, backend or mocked functionality. Referrer-based animation does not intercept links.
+- `scripts/language_toggle_markup.py` patches only existing controls, is idempotent, and is
+  also called by the existing builder's selector insertion for future use after source reconciliation.
+- Testing agent: `test_reports/iteration_61.json`; 6 targeted + 53 serving-mode + 98 static
+  tests passed (157 total). All 66 pages verified byte-identical to branch outside selectors;
+  shared CSS before the selector block also byte-identical.
+- Follow-up fixed compact hit areas: desktop >=44px wide x48.5px high; phones 44x47px;
+  constrained 769–900px tablet controls 28x45.5px (>=24px minimum without moving neighboring
+  elements). Expanded areas verified clickable. Reduced-motion CSS specificity corrected and
+  verified after real TR->EN navigation. Final targeted regression rerun: 6/6 passed.
+- Browser geometry comparison at 320/390/768/800/900/1024/1440/1920 confirmed unchanged header,
+  logo, menu, enquiry-button and contact-icon rectangles. No horizontal overflow.
+- Baseline-sensitive test `tests/test_lang_toggle_regression.py` currently requires the downloaded
+  archive at `/tmp/nova-branch/nova-2026-purejs-<commit>/frontend`; retrieve that exact commit if
+  running this comparison in a fresh environment.
+
+### Next actions / boundaries
+- P0 (current request): none remaining after verification.
+- P1: user visual approval; earlier local VS Code/Live Server issue remains agent-tested but
+  not confirmed on the user's machine. cPanel structure/rules were not changed by this work.
+- P2: reconcile branch-authored pages with authoring sources before any full regeneration;
+  existing form-delivery and legal-confirmation backlog remains outside this visual-only task.
+- Suggested future enhancement: optimize remaining project images for faster mobile browsing.
 
 ## Product
 Static NOVA Konut marketing website (vanilla HTML/CSS/JS in `/app/frontend`). **Since

@@ -181,6 +181,11 @@ body.page-about { transition: background-color .6s ease; }
   max-width: 880px;
   margin: 0 auto 40px;
 }
+@media (max-width: 768px) {
+  .ab-manifesto-desc {
+    text-align: left;
+  }
+}
 .ab-manifesto-btn {
   display: inline-block;
   border: 1px solid var(--c-text);

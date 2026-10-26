@@ -1,4 +1,15 @@
-# NOVA — Prioritised backlog (updated 2026-06)
+# NOVA — Prioritised backlog
+
+## Current priorities — 2026-10-26 (supersedes historical sections below)
+- P0 for branch import + glass language toggle: no remaining blockers; tested and ready for user review.
+- P1: user visual approval; user's own Live Server verification remains pending from the earlier task.
+- P2: reconcile branch-authored EN/TR HTML with source templates/dictionaries before any full rebuild.
+  Current authoritative branch commit is `3a238f1c6ef793f1cd75583ca6f9bbd7bb6a88f9` plus the targeted
+  toggle redesign. Do not run the old full i18n build and erase the user's manual edits.
+- Existing static form-delivery/legal confirmations remain separate, unmodified work.
+- Enhancement candidate: optimize remaining project images for faster mobile browsing.
+
+## Historical backlog (some infrastructure entries below are obsolete)
 
 ## P0 — production requirements for the newsroom
 - **Real production scheduler.** In this preview the 6-hour ingestion runs inside the
