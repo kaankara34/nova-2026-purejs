@@ -7,13 +7,14 @@ import json
 import re
 import sys
 from pathlib import Path
+from bs4 import BeautifulSoup
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from runtime_markup import optimize_runtime_markup
+from sync_site_chrome import REGIONS, region_span
 
 
 CURRENT_FRONTEND = Path("/app/frontend")
-BASELINE_CANDIDATE = Path("/tmp/nova-before-lifecycle/frontend")
+BASELINE_CANDIDATE = Path("/tmp/nova-before-chrome-sync/frontend")
 FIXTURE_PATH = Path("/app/tests/fixtures/lang_toggle_baseline_fixture.json")
 
 LANG_BLOCK_RE = re.compile(r'<div class="lang-switch\b[^>]*>.*?</div>', re.S)
@@ -25,7 +26,20 @@ def _strip_lang_switch_blocks(html: str) -> str:
 
 
 def _extract_lang_switch_blocks(html: str):
-    return LANG_BLOCK_RE.findall(html)
+    return [str(node) for node in BeautifulSoup(html, 'html.parser').select('.lang-switch')]
+
+
+def _outside_approved_chrome(html):
+    for kind in REGIONS:
+        span = region_span(html, kind)
+        if span:
+            html = html[:span[0]] + f'<!-- APPROVED {kind} CONTENT -->' + html[span[1]:]
+    def favicon_only(match):
+        link = BeautifulSoup(match[0], 'html.parser').link
+        return '' if link and set(link.get('rel', [])) & {'icon', 'apple-touch-icon'} else match[0]
+    html = re.sub(r'<link\b[^>]*>', favicon_only, html)
+    # Only blank-line formatting around removed favicon tags is irrelevant.
+    return '\n'.join(line for line in html.splitlines() if line.strip())
 
 
 def _extract_anchor_attrs(block: str):
@@ -80,20 +94,18 @@ def test_all_66_pages_exist_against_baseline_snapshot_or_fixture():
         assert len(baseline) == 66
 
 
-def test_html_changes_are_limited_to_authorized_header_media_and_language_updates():
+def test_html_changes_are_limited_to_authorized_chrome_and_favicon_updates():
     fixture = _load_fixture()
     for rel, cur_file, base_file in _html_pairs():
         cur_html = cur_file.read_text(encoding="utf-8")
-        cur_stripped = _strip_lang_switch_blocks(cur_html)
+        cur_stripped = _outside_approved_chrome(cur_html)
 
         if base_file is not None:
             base_html = base_file.read_text(encoding="utf-8")
-            assert cur_stripped == _strip_lang_switch_blocks(
-                optimize_runtime_markup(base_html)
-            ), f"Unexpected non-lang-switch diff in {rel}"
+            assert cur_stripped == _outside_approved_chrome(base_html), f"Unexpected body/head diff outside approved chrome in {rel}"
         else:
             digest = hashlib.sha256(cur_stripped.encode("utf-8")).hexdigest()
-            assert digest == fixture["runtime_stripped_sha256"][rel], f"Hash mismatch in {rel}"
+            assert digest == fixture["outside_chrome_sha256"][rel], f"Hash mismatch in {rel}"
 
 
 def test_lang_switch_link_semantics_preserved_from_baseline():
@@ -105,8 +117,8 @@ def test_lang_switch_link_semantics_preserved_from_baseline():
         if base_file is not None:
             base_html = base_file.read_text(encoding="utf-8")
             base_blocks = _extract_lang_switch_blocks(base_html)
-            assert len(cur_blocks) == len(base_blocks) == 2, f"Expected 2 lang-switch blocks in {rel}"
-            for idx, (cur_block, base_block) in enumerate(zip(cur_blocks, base_blocks), start=1):
+            assert len(cur_blocks) == 1, f"Expected header-only language switch in {rel}"
+            for idx, (cur_block, base_block) in enumerate(zip(cur_blocks, base_blocks[:1]), start=1):
                 cur_attrs = _extract_anchor_attrs(cur_block)
                 base_attrs = _extract_anchor_attrs(base_block)
                 assert cur_attrs == base_attrs, (
@@ -115,7 +127,7 @@ def test_lang_switch_link_semantics_preserved_from_baseline():
                 )
         else:
             expected = fixture["lang_link_attrs"][rel]
-            assert len(cur_blocks) == len(expected) == 2, f"Expected 2 lang-switch blocks in {rel}"
+            assert len(cur_blocks) == 1, f"Expected header-only language switch in {rel}"
             for idx, cur_block in enumerate(cur_blocks, start=1):
                 assert _extract_anchor_attrs(cur_block) == expected[idx - 1], (
                     f"Link attrs changed in {rel} block#{idx}. "
@@ -160,7 +172,7 @@ def test_active_language_link_matches_document_lang():
         doc_lang = m.group(1).lower()
 
         blocks = _extract_lang_switch_blocks(html)
-        assert len(blocks) == 2, f"Expected 2 lang-switch blocks in {rel}"
+        assert len(blocks) == 1, f"Expected header-only language switch in {rel}"
         for idx, block in enumerate(blocks, start=1):
             active = re.search(
                 r'<a\b[^>]*class="[^"]*\bis-active\b[^"]*"[^>]*>',

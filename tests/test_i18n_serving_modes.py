@@ -164,6 +164,7 @@ def test_no_root_dependent_links_remain_in_generated_pages():
     "js/language-toggle.js", "js/language-toggle-gesture.js",
     "media/flags/tr.svg", "media/flags/gb.svg", "js/hero-video.js",
     "media/images/nova-logo-header.webp", "media/images/nova-logo-dark-header.webp"
+    , "favicon.ico", "favicon-32.png", "favicon-192.png", "apple-touch-icon.png"
 ])
 def test_ew_and_design_assets_resolve_under_both_roots(session, base_key, base, asset):
     if not _base_reachable(base):

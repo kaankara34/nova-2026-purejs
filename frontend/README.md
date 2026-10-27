@@ -1,5 +1,18 @@
 # Local preview
 
+## Nihai navbar/footer içeriği ve favicon — 27 Ekim 2026
+
+- `en/index.html` ve `tr/index.html` kendi dillerindeki navbar/footer **içeriğinin** nihai kaynağıdır.
+  Metin veya bağlantı güncellemesinden sonra proje kökünde `python scripts/sync_site_chrome.py`
+  çalıştırın. Bu işlem diğer sayfaların renklerini, footer biçimini veya ana gövdesini değiştirmez.
+  Tekrar çalıştırılması yeni değişiklik üretmez. Eski i18n şablonlarını tam derlemeyin.
+- Yan menüde dil seçici yoktur; yalnızca header'daki seçici korunur. Mobil menü açıkken o da gizlenir.
+- Favicon kullanıcı tarafından verilen özgün görselden üretilmiştir; `favicon.ico`, `favicon-32.png`,
+  `favicon-192.png`, `apple-touch-icon.png` dosyalarını frontend kökünde koruyun. Kaynak bilgisi:
+  `media/images/nova-tab-source.md`.
+- Proje feature çerçevesi3px bronz iz ve hafif hareketli ışık vurgusudur. Ortak5s görünür-zaman
+  döngüsü kullanır; mobilde yalnızca window focus/blur durumuna göre durdurulmaz.
+
 ## Header / hero güncellemesi — 26 Ekim 2026
 
 - `js/hero-video.js` tüm dekoratif hero videolarının ortak yaşam döngüsünü yönetir. Proje

@@ -1,17 +1,19 @@
-/* East West feature: compositor-friendly perimeter, one5s clock for line and slides. */
+/* East West feature: one visible-time clock, compositor-only perimeter and glint. */
 (function () {
   'use strict';
   const section = document.getElementById('eastWestFeature');
   const media = document.getElementById('ewFeatureMedia');
-  if (!section || !media) return;
+  if (!section || !media || section.dataset.progressReady) return;
   const panel = section.querySelector('.ew-feature-inner') || section;
   const slides = [...media.querySelectorAll('[data-ew-slide]')];
   if (slides.length < 2) return;
+  section.dataset.progressReady = 'true';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const canHover = matchMedia('(hover: hover) and (pointer: fine)');
   const DURATION = 5000;
   let index = 0, animations = [], dimensions = '', running = false;
-  let inView = false, hovering = false, pagePresent = true, focused = true;
+  let inView = false, hovering = false, pagePresent = true;
+  let elapsed = 0, startedAt = 0, completedCycles = 0, cycleTimer = null, scrollFrame = null;
   const frame = document.createElement('div');
   frame.className = 'ew-progress';
   frame.setAttribute('aria-hidden', 'true');
@@ -23,9 +25,23 @@
     frame.appendChild(node);
     return node;
   });
+  const glint = document.createElement('span');
+  glint.className = 'ew-progress-glint';
+  glint.dataset.testid = 'ew-progress-glint';
+  frame.appendChild(glint);
   panel.appendChild(frame);
-  const eligible = () => !reduced.matches && !document.hidden && pagePresent && focused && inView && !hovering;
 
+  // Window focus is NOT visibility: mobile browser chrome may blur without a focus return.
+  const eligible = () => !reduced.matches && !document.hidden && pagePresent && inView && !hovering;
+  const clock = () => elapsed + (running ? performance.now() - startedAt : 0);
+  function showCycle(time) {
+    const cycle = Math.floor(time / DURATION);
+    if (cycle === completedCycles) return;
+    slides[index].classList.remove('is-active');
+    index = (index + cycle - completedCycles) % slides.length;
+    slides[index].classList.add('is-active');
+    completedCycles = cycle;
+  }
   function preloadNext() {
     const next = slides[(index + 1) % slides.length];
     if (!next?.dataset.srcDeferred) return;
@@ -33,90 +49,113 @@
     const image = new Image();
     image.src = next.currentSrc || next.src;
   }
-  function advance() {
-    slides[index].classList.remove('is-active');
-    index = (index + 1) % slides.length;
-    slides[index].classList.add('is-active');
-    preloadNext();
-  }
   function stop() {
-    animations.forEach(animation => animation.pause());
+    elapsed = clock();
     running = false;
+    clearTimeout(cycleTimer);
+    cycleTimer = null;
+    animations.forEach(animation => animation.pause());
+  }
+  function alignAnimations(time) {
+    const timeline = document.timeline.currentTime;
+    animations.forEach(animation => {
+      animation.currentTime = time;
+      animation.play();
+      if (timeline !== null) animation.startTime = timeline - time;
+    });
+  }
+  function scheduleCycle() {
+    clearTimeout(cycleTimer);
+    // One callback per slideshow cycle, never per frame. Infinite native animations
+    // do not depend on a finish event arriving to restart the border on mobile.
+    cycleTimer = setTimeout(() => {
+      cycleTimer = null;
+      if (!eligible()) { sync(); return; }
+      const time = clock();
+      showCycle(time);
+      preloadNext();
+      if (animations.some(a => a.playState !== 'running') ||
+          Math.abs(Number(animations[0]?.currentTime) - time) > 250) alignAnimations(time);
+      scheduleCycle();
+    }, DURATION - (clock() % DURATION) + 20);
   }
   function sync() {
     frame.hidden = reduced.matches;
-    if (!eligible()) { stop(); return; }
-    if (running || !animations.length) return;
-    if (Number(animations[0].currentTime) >= DURATION) {
-      advance();
-      animations.forEach(animation => { animation.currentTime = 0; });
+    if (!eligible()) { if (running) stop(); return; }
+    if (!animations.length) return;
+    if (running) {
+      if (animations.some(a => !a.pending && a.playState !== 'running')) alignAnimations(clock());
+      return;
     }
-    // Identical start time prevents the four sides from drifting apart.
-    const elapsed = Number(animations[0].currentTime) || 0;
-    const start = document.timeline.currentTime - elapsed;
-    animations.forEach(animation => { animation.play(); animation.startTime = start; });
+    startedAt = performance.now();
     running = true;
+    showCycle(elapsed);
+    alignAnimations(elapsed);
+    scheduleCycle();
     preloadNext();
   }
   function measure() {
     const rect = panel.getBoundingClientRect();
-    const w = Math.max(1, Math.round(rect.width) - 2);
-    const h = Math.max(1, Math.round(rect.height) - 2);
+    const w = Math.max(1, Math.round(rect.width));
+    const h = Math.max(1, Math.round(rect.height));
     const size = w + ':' + h;
     if (size === dimensions) return;
+    stop();
     dimensions = size;
-    const elapsed = Number(animations[0]?.currentTime) || 0;
-    animations.forEach(animation => { animation.onfinish = null; animation.cancel(); });
-    const lengths = [w, h, w, h];
-    const perimeter = (w + h) * 2;
+    animations.forEach(animation => animation.cancel());
+    const lengths = [w, h, w, h], perimeter = (w + h) * 2;
     let offset = 0;
     animations = edges.map((edge, i) => {
       const from = offset / perimeter;
       offset += lengths[i];
       const to = offset / perimeter;
       const axis = i % 2 ? 'Y' : 'X';
-      const animation = edge.animate([
+      return edge.animate([
         { transform: `scale${axis}(0)`, offset: 0 },
         { transform: `scale${axis}(0)`, offset: from },
         { transform: `scale${axis}(1)`, offset: to },
         { transform: `scale${axis}(1)`, offset: 1 }
-      ], { duration: DURATION, easing: 'linear', fill: 'both' });
-      animation.pause();
-      animation.currentTime = Math.min(elapsed, DURATION);
-      return animation;
+      ], { duration: DURATION, iterations: Infinity, easing: 'linear', fill: 'both' });
     });
-    animations[0].onfinish = () => {
-      running = false;
-      if (!eligible()) return;
-      advance();
-      animations.forEach(animation => { animation.currentTime = 0; });
-      sync();
-    };
-    running = false;
+    const x = Math.max(0, w - 5), y = Math.max(0, h - 5);
+    animations.push(glint.animate([
+      { transform: 'translate(0px, 0px)', offset: 0 },
+      { transform: `translate(${x}px, 0px)`, offset: w / perimeter },
+      { transform: `translate(${x}px, ${y}px)`, offset: (w + h) / perimeter },
+      { transform: `translate(0px, ${y}px)`, offset: (2 * w + h) / perimeter },
+      { transform: 'translate(0px, 0px)', offset: 1 }
+    ], { duration: DURATION, iterations: Infinity, easing: 'linear', fill: 'both' }));
+    animations.forEach(animation => { animation.pause(); animation.currentTime = elapsed; });
     sync();
   }
   function restore() {
     hovering = false;
     const rect = section.getBoundingClientRect();
     inView = rect.bottom > -120 && rect.top < innerHeight + 120;
-    running = false;
     sync();
   }
-  // Real mouse movement, not synthetic touch hover or an element scrolling under a cursor.
   media.addEventListener('pointermove', event => {
     if (event.pointerType !== 'mouse' || !canHover.matches || hovering) return;
     hovering = true;
     sync();
   });
   media.addEventListener('pointerleave', () => { hovering = false; sync(); });
-  window.addEventListener('scroll', () => { if (hovering) { hovering = false; sync(); } }, { passive: true });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop(); else { focused = true; restore(); }
+  // Touch/pointer recovery also clears a stale desktop-hover flag on hybrid devices.
+  section.addEventListener('pointerdown', event => { if (event.pointerType !== 'mouse') restore(); }, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (scrollFrame !== null) return;
+    scrollFrame = requestAnimationFrame(() => { scrollFrame = null; restore(); });
+  }, { passive: true });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else restore(); });
+  window.addEventListener('pagehide', () => {
+    pagePresent = false;
+    hovering = false;
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = null;
+    stop();
   });
-  window.addEventListener('pagehide', () => { pagePresent = false; hovering = false; stop(); });
-  window.addEventListener('pageshow', () => { pagePresent = true; focused = true; restore(); });
-  window.addEventListener('blur', () => { focused = false; hovering = false; stop(); });
-  window.addEventListener('focus', () => { focused = true; restore(); });
+  window.addEventListener('pageshow', () => { pagePresent = true; restore(); });
+  window.addEventListener('focus', restore); // Optional recovery, never a required gate.
   if ('ResizeObserver' in window) new ResizeObserver(measure).observe(panel);
   else window.addEventListener('resize', measure);
   if ('IntersectionObserver' in window) {

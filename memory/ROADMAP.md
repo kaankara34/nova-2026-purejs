@@ -1,6 +1,12 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+-2026-10-27 latest request complete in preview: recurring mobile bar freeze reproduced/fixed,
+ 3px bronze+glint, no side-menu switch, supplied favicon, all66pages follow final same-language
+  index navbar/footer CONTENT while retaining page styles.256tests pass and30s+ mobile loop test
+  passes. P1:user physical-phone confirmation; do not claim physical iOS/Android tests.
+- Canonical content maintenance: edit EN/TRindex, run `scripts/sync_site_chrome.py`, preserve page
+  palettes. Do not use a full stale i18n rebuild to synchronize chrome.
 - Current task implementation: shared hero lifecycle, menu visibility, perimeter transforms,
   optimized header logos and theme-aware switch completed;242regression+10isolated tests pass.
 - **P0 verification:** real iOS Safari/Android Chrome app-switch/scroll/BFcache video acceptance

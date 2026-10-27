@@ -15,7 +15,7 @@ def place_header_switch_last(html):
             continue
         end = header.end() + tag.start()
         inner = html[header.end():end]
-        control = re.search(r'<div class="lang-switch\b[^>]*>.*?</div>', inner, re.S)
+        control = re.search(r'<div\b[^>]*\bclass="lang-switch\b[^>]*>.*?</div>', inner, re.S)
         if not control or 'class="icon-links"' not in inner[control.end():]:
             return html
         # Moving only the matched bytes also preserves original surrounding whitespace.
@@ -34,6 +34,8 @@ def enhance_language_switches(html):
                 tag = tag[:duplicate.start()] + tag[duplicate.end():]
             return tag
         block = re.sub(r'<a\b[^>]*>', deduplicate_current, block)
+        if 'lang-switch--menu' in block:
+            return ''  # Only the header owns a language control, at every viewport.
         if 'data-flag-source="wikimedia"' in block:
             return block
         placement = 'menu' if 'lang-switch--menu' in block else 'header'
@@ -68,7 +70,7 @@ def enhance_language_switches(html):
                   '</span></button>')
         return opening + links['tr'] + track + links['en'] + '</div>'
 
-    updated = re.sub(r'<div class="lang-switch\b[^>]*>.*?</div>', update, html, flags=re.S)
+    updated = re.sub(r'<div\b[^>]*\bclass="lang-switch\b[^>]*>.*?</div>', update, html, flags=re.S)
     return place_header_switch_last(updated)
 
 

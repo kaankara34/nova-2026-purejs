@@ -1662,7 +1662,7 @@ body.no-scroll {
      content, so the logo, heading, paragraph and CTA always stay on the blue. */
   min-height: clamp(460px, 31vw, 540px);
 }
-/* Perimeter progress — four transform-only layers, no per-frame SVG repaint. */
+/* Perimeter progress — native repeating bronze trace and restrained travelling glint. */
 .ew-progress {
   position: absolute;
   inset: 0;
@@ -1671,18 +1671,28 @@ body.no-scroll {
   pointer-events: none;
   z-index: 3;
   contain: layout paint;
-  box-shadow: inset 0 0 0 2px rgba(138, 116, 78, .18);
+  box-shadow: inset 0 0 0 3px rgba(138, 116, 78, .18);
 }
 .ew-progress-active {
   position: absolute;
   display: block;
   background: #9A8058;
+  box-shadow: 0 0 5px rgba(154, 128, 88, .22);
   will-change: transform;
 }
-.ew-progress-top { top: 0; left: 0; width: 100%; height: 2px; transform-origin: left center; }
-.ew-progress-right { top: 0; right: 0; width: 2px; height: 100%; transform-origin: center top; }
-.ew-progress-bottom { bottom: 0; right: 0; width: 100%; height: 2px; transform-origin: right center; }
-.ew-progress-left { bottom: 0; left: 0; width: 2px; height: 100%; transform-origin: center bottom; }
+.ew-progress-top { top: 0; left: 0; width: 100%; height: 3px; transform-origin: left center; }
+.ew-progress-right { top: 0; right: 0; width: 3px; height: 100%; transform-origin: center top; }
+.ew-progress-bottom { bottom: 0; right: 0; width: 100%; height: 3px; transform-origin: right center; }
+.ew-progress-left { bottom: 0; left: 0; width: 3px; height: 100%; transform-origin: center bottom; }
+.ew-progress-glint {
+  position: absolute;
+  top: 0; left: 0;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #f3e4bc;
+  box-shadow: 0 0 5px 2px rgba(219, 191, 128, .55);
+  will-change: transform;
+}
 .ew-feature-copy {
   display: flex;
   flex-direction: column;

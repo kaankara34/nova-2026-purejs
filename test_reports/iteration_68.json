@@ -1,0 +1,60 @@
+{
+  "summary": "Frontend-only regression completed on public URL. Mobile 390 long-run East-West perimeter now advances continuously across 30s+ and survives blur/scroll/pagehide/pageshow recovery. 66-page chrome contract and favicon rollout validated via new reusable pytest; legacy lang-toggle tests still fail due outdated assumptions.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Legacy regression suite alignment",
+        "issue": "Existing tests in test_lang_switch_overlay_order.py and test_lang_toggle_regression.py assert outdated menu/header language-switch structure and brittle snippet parsing, producing false failures against approved new contract.",
+        "affected_selectors": [
+          "<div class=\"header-actions\"> parser logic",
+          "data-testid=\"lang-switch-menu\""
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_iter68_frontend_contract.py",
+    "/app/tests/test_header_assets_iter66.py",
+    "/app/tests/test_i18n_serving_modes.py",
+    "/app/tests/test_lang_switch_overlay_order.py",
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/test_reports/pytest/iter68_contract.xml",
+    "/app/test_reports/pytest/iter68_frontend_regression.xml"
+  ],
+  "action_items": [
+    "Resolved: DOM-aware overlay/order tests now expect exactly one header switch and zero side-menu switches.",
+    "Resolved: language/guard tests compare original header links and PRE-change body/head hashes outside explicitly approved chrome/favicon scope, rather than blindly refreshing full-page expected hashes.",
+    "Physical iOS Safari/Android validation is still pending; this run used emulated Chromium + CDP touch, not a physical device."
+  ],
+  "critical_code_review_comments": [
+    "east-west-feature.js correctly removed blur-gated dependency and uses infinite WAAPI iterations with one timed slideshow callback per cycle.",
+    "styles.css is very large (>700 lines), which increases regression risk; modularization recommended in a separate refactor.",
+    "Language-switch contract is consistent in current source: exactly one header switch per page and zero side-menu switches across all 66 pages."
+  ],
+  "updated_files": [
+    "/app/tests/test_iter68_frontend_contract.py",
+    "/app/test_reports/iteration_68.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "97%"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Dynamic checks done on public URL at 390 and 1920. Mobile 390: EW border lines are 3px and glint 5px; slide index advanced every ~5.2s over 6 cycles; WAAPI currentTime advanced across blur+scroll and resumed after pagehide/pageshow. Desktop 1920: hover pauses EW animation and pointerleave resumes; side-menu has no lang switch and header keeps one. CDP touch emulation (Emulation.setTouchEmulationEnabled + Input.dispatchTouchEvent) opened side menu successfully. New reusable test file /app/tests/test_iter68_frontend_contract.py passes 6/6 and validates 66-page content parity + favicon links + language switch placement.",
+  "rca of the issue": "The 5 initial legacy failures were outdated test expectations and attribute-order parsing. Those tests were aligned with the user's approved chrome/favicon scope and re-run successfully; the real mobile freeze was separately reproduced before changes as a blur/focus gate leaving visible animations paused.",
+  "main_agent_follow_up": {
+    "final_regression": "256passed; test_reports/pytest/iter68_final.xml. Includes new localfavicon paths in bothrootservingmodes.",
+    "scope_protection": "PRE-change snapshot hashes protect all body/head outside fiveapprovedchrome regions and favicon links. CSS outsideperimeter unchanged; originalheaderlinkattributes checked; helperrepeat0changes.",
+    "style_integrity": "For all66pages, footer/footer-inner/footer-bottom/footer-socials/siteHeader/logo-img/sideMenu class/style/width/height attributes match pre-change baseline. No duplicate data-testid values.",
+    "asset": "Userringfavicon visually inspected at192px; originalimage retained, no redraw/recolor. ICO16/32/48 andPNG32/192/Apple180 variants verified.",
+    "physical_device_limit": "Mobilebrowseremulation and30s+ automatedloop validated; physicaliOS/Android device test not available. User physical-phone confirmation remains appropriate, not a prerequisite to fixing the reproduced code bug."
+  }
+}

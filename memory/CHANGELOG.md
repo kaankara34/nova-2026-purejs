@@ -1,3 +1,20 @@
+# 2026-10-27 — Mobile bar recurrence, stronger perimeter and canonical chrome
+
+- Reproduced visible mobile border stuck after blur+scroll without focus. Removed focus gating
+  and one-shot finish-event dependence; infinite native trace with one5s visible-time slideshow
+  clock, lifecycle recovery and initialization guard.3px bronze trace + restrained leading glint.
+- Removed side-menu language controls across66pages; retained one header switch and its existing
+  URL/gesture behavior. Header-only/mobile menu visibility still applies.
+- Added `scripts/sync_site_chrome.py`: same-language index files are the canonical CONTENT source
+  for all utility/header/sidebar/footer content. Destination colors/classes/layouts preserved;
+  EN wrong-language local links corrected and home menu button given its native destination.
+- User's uploaded ring used directly for favicon ICO/PNG/Apple variants; source image retained,
+  no redraw. All66pages have working portable links.
+-256 automated checks pass;30s+ mobile browser run and lifecycle reproduction pass. Physical
+  device sign-off not claimed. Body/head beyond authorized regions and original styles protected.
+- New focused contract tests: `tests/test_iter68_frontend_contract.py`; final evidence in
+  `test_reports/iteration_68.json` and `test_reports/pytest/iter68_final.xml`.
+
 # 2026-10-26 — Shared hero recovery, smoother border, header performance and theme fixes
 
 - Shared lifecycle owner for12EN/TRhero pages; old duplicate playback/bootstrap handlers removed.

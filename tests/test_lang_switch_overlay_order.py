@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
+from bs4 import BeautifulSoup
 
 
 FRONTEND = Path("/app/frontend")
@@ -28,29 +29,20 @@ def test_total_page_count_is_stable():
 
 def test_header_action_order_register_icons_language_in_all_pages():
     for page in _all_pages():
-        html = page.read_text(encoding="utf-8")
-        start = html.find('<div class="header-actions">')
-        assert start != -1, f"missing header-actions in {page.name}"
-
-        end = html.find('</div>', start)
-        assert end != -1, f"header-actions close not found in {page.name}"
-        snippet = html[start : start + 5000]
-
-        pos_register = snippet.find('class="btn register"')
-        pos_icons = snippet.find('class="icon-links"')
-        pos_lang = snippet.find('<div class="lang-switch')
-
-        assert pos_register != -1, f"missing register control in {page.name}"
-        assert pos_icons != -1, f"missing icon-links in {page.name}"
-        assert pos_lang != -1, f"missing header lang-switch in {page.name}"
-        assert pos_register < pos_icons < pos_lang, f"header-actions order broken in {page.name}"
+        soup = BeautifulSoup(page.read_text(encoding="utf-8"), 'html.parser')
+        actions = soup.select_one('.header-actions')
+        assert actions, f"missing header-actions in {page.name}"
+        children = actions.find_all(recursive=False)
+        register, icons, language = [actions.select_one(selector) for selector in ('.register', '.icon-links', '.lang-switch')]
+        assert all((register, icons, language)), f"Missing header action in {page.name}"
+        assert children.index(register) < children.index(icons) < children.index(language), page.name
 
 
-def test_both_header_and_menu_language_switch_exist_per_page():
+def test_only_header_language_switch_exists_per_page():
     for page in _all_pages():
         html = page.read_text(encoding="utf-8")
         assert 'data-testid="lang-switch"' in html, f"Missing header switch in {page.name}"
-        assert 'data-testid="lang-switch-menu"' in html, f"Missing menu switch in {page.name}"
+        assert 'data-testid="lang-switch-menu"' not in html, f"Removed menu switch returned in {page.name}"
 
 
 def test_overlay_and_knob_css_values_are_preserved():

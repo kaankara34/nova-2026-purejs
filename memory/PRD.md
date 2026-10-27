@@ -1,6 +1,57 @@
 # NOVA Konut — Product Requirements & State
 
-Last updated: 2026-10-26
+Last updated: 2026-10-27
+
+## Latest task — recurring mobile perimeter freeze, clearer trace, canonical chrome and favicon
+
+### User request (original)
+> mobilde bar takılı kaldı yine düzelt, bir de bar biraz daha kalın olsun belli olmuyor ya da belli edici şık premium hareket veya bir animasyon da koyabilirsin bar ilerlerken Side navbar da language switcherı da kaldır desktopta. Ayrıca üçüncü ekteki iconu tab icon olarak koy. Ayrıca hem türkçe hem ingilizce index.html de bulunan navbar ve footer içeriği nihaidir. Diğer sayfalara da bu içerikleri uygula. (içerik dedim, biçim değil(diğer sayfalarda footer farklı renk olabilir sadece içerik değişecek .)
+
+### Findings and implementation — 2026-10-27
+- Reproduced the OLD mobile freeze at390px before editing: blur paused the border around960ms;
+  a visible scroll without a focus event left it at exactly that time. `focused=false` was a
+  mandatory gate even when the document/section were visible. Mobile browser chrome can blur
+  without delivering the expected focus return. Prior short tests missed this case.
+- `js/east-west-feature.js` now uses a visible-time clock, infinite native transform animations
+  and one slideshow callback per5s cycle, not a finish-event dependency. Blur is not a stop gate;
+  document visibility/pagehide/offscreen/reduced-motion still pause. Scroll/focus/pageshow/touch
+  reconcile actual animation state, including a browser-paused animation. Resize preserves time.
+  Initialization guard prevents duplicate layers/listeners. Real desktop hover pause retained.
+- `css/styles.css`: same clockwise bronze path#9A8058, now3px instead of2px; restrained5px travelling
+  champagne glint and soft glow follow its leading point. Five compositor-only animations.
+- Removed the SIDE-MENU language switch on every page (including desktop). Only the existing
+  header switch remains; its URLs/click/drag/swipe JS unchanged. The earlier mobile-open-menu rule
+  continues to hide the header switch and restore it on close. Language helper cannot reinsert
+  the menu control, and supports HTML attribute reordering by parsers.
+- **Canonical content rule:** `frontend/en/index.html` and `frontend/tr/index.html` are final
+  navbar/footer CONTENT sources for their respective languages. `scripts/sync_site_chrome.py`
+  updates only utility/header/mobile actions/sidebar/footer semantic content across66pages,
+  preserving destination wrapper/classes/styles, logo variants, CTA behavior and icon styling.
+  It does not copy index colors/layout or rebuild the page body. All footer texts/menu destinations,
+  social entries, project labels and utility contacts now match the corresponding index.
+- Existing wrong-language local footer filenames on the EN index were mapped to the proper EN
+  counterpart without changing approved copy. Home menu label became a working native link
+  rather than a dead button. Existing language mapping and per-page enquiry behavior retained.
+- User-supplied tab icon preserved byte-for-byte as `media/images/nova-tab-original.png`.
+  Faithful transparent ring crop with safety padding produced favicon.ico(16/32/48),32/192PNG
+  and180Apple touch variants. No AI generation/recolor/redraw. Source/provenance documented in
+  `media/images/nova-tab-source.md`; all66pages have portable local icon declarations.
+
+### Verification and remaining work
+- `test_reports/iteration_68.json`: mobile emulated390px long run30s+ / six5s cycles; slides and
+  trace advance continuously, blur+visible-scroll and pagehide/pageshow recovery pass. Desktop
+  hover/resume tested. Physical iOS/Android device confirmation remains unavailable, not claimed.
+- Final suite **256 passed** (`test_reports/pytest/iter68_final.xml`). Legacy tests were aligned
+  with the explicitly requested one-header-switch contract and approved chrome regions; body/head
+  hashes are from the PRE-change snapshot, not blind new-page snapshots. CSS outside perimeter
+  remains protected; language link attributes compare to the original header links.
+- Additional checks: footer/header classes/styles/dimensions match pre-change pages; no duplicate
+  data-testids; only perimeter JS/shared perimeter CSS changed outside the content updates.
+  New favicon resources resolve in both serving layouts. Sync and language helper reruns0changes.
+- P0 current request: no remaining confirmed failing test. P1: user physical-phone confirmation
+  of the previously recurring freeze. Prior video real-device acceptance remains independently
+  pending; this task did not modify video behavior. P2: source-template reconciliation before
+  any full i18n rebuild and independent form/legal backlog. No unrelated refactor.
 
 ## Latest task — UI, hero-video lifecycle, border and critical-header performance
 
