@@ -299,6 +299,14 @@
 .page-contact .site-footer .social-label,
 .page-contact .site-footer .footer-bottom-links a,
 .page-contact .site-footer .footer-copyright-text { color: var(--ct-ink-3); }
+/* Discover row — themed for the ivory footer (was white-on-ivory, unreadable) */
+.page-contact .site-footer .footer-discover { border-color: var(--ct-rule); }
+.page-contact .site-footer .footer-discover-title { color: var(--ct-ink); }
+.page-contact .site-footer .footer-discover-row li { border-color: var(--ct-rule); }
+.page-contact .site-footer .footer-discover-row .fd-name { color: var(--ct-ink); }
+.page-contact .site-footer .footer-discover-row .fd-meta { color: var(--ct-ink-3); }
+.page-contact .site-footer .footer-discover-row a:hover .fd-name { color: var(--ct-accent); }
+.page-contact .site-footer .footer-discover-row a:hover .fd-meta { color: var(--ct-brass); }
 
 /* =========================================================
    TABLET

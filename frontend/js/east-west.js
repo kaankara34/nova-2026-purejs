@@ -190,6 +190,40 @@
   const plansRoot = $('.ew-plans');
   if (plansRoot) {
     const PLANS_BY_TOWER = window.EW_PLANS;
+
+    /* Turkish labels for the plan data (data file stays in English). */
+    const LANG = (document.documentElement.lang || 'en').toLowerCase().indexOf('tr') === 0 ? 'tr' : 'en';
+    const TR_ROOMS = {
+      'Master Bedroom': 'Ebeveyn Yatak Odası',
+      'Master Bathroom': 'Ebeveyn Banyosu',
+      'Bedroom': 'Yatak Odası',
+      'Kitchen': 'Mutfak',
+      'Hall': 'Hol',
+      'Bathroom': 'Banyo',
+      'Guest WC': 'Misafir WC',
+      'Entrance Hall': 'Antre',
+      'Fire Lobby': 'Yangın Holü',
+      'Living / Dining Room': 'Salon / Yemek Odası',
+      'Balcony': 'Balkon',
+      'French Balconies (7)': 'Fransız Balkon (7)',
+      'French Balconies (4)': 'Fransız Balkon (4)',
+      'Utility Room': 'Çamaşır Odası',
+      'Shower Room': 'Duş Odası',
+      'Corridor': 'Koridor',
+      'Terraces (3)': 'Teraslar (3)'
+    };
+    const TR_TITLES = {
+      'DUPLEX — LOWER FLOOR': 'DUBLEKS ALT KAT',
+      'DUPLEX — UPPER FLOOR': 'DUBLEKS ÜST KAT'
+    };
+    const TR_LABELS = {
+      'Total Area': 'Toplam Alan',
+      'Duplex Total Area': 'Dubleks Toplam Alan'
+    };
+    const tRoom = (n) => LANG === 'tr' ? (TR_ROOMS[n] || n) : n;
+    const tTitle = (t) => LANG === 'tr' ? (TR_TITLES[t] || t) : t;
+    const tLabel = (l) => LANG === 'tr' ? (TR_LABELS[l] || l) : l;
+
     const towerTabs = $$('.ew-plans-tab--tower', plansRoot);
     const tabs = $$('.ew-plans-tab:not(.ew-plans-tab--tower)', plansRoot);
     const titleEl = $('#ewPlansTitle');
@@ -220,13 +254,13 @@
       planIdx = idx;
       const p = list[idx];
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
-      titleEl.textContent = p.title;
-      const rows = [`<div class="ew-plans-row ew-plans-row--total"><span>Total Area</span><span class="ew-plans-val">${p.total}</span></div>`];
+      titleEl.textContent = tTitle(p.title);
+      const rows = [`<div class="ew-plans-row ew-plans-row--total"><span>${tLabel('Total Area')}</span><span class="ew-plans-val">${p.total}</span></div>`];
       if (p.duplexTotal) {
-        rows.push(`<div class="ew-plans-row ew-plans-row--duplex"><span>Duplex Total Area</span><span class="ew-plans-val">${p.duplexTotal}</span></div>`);
+        rows.push(`<div class="ew-plans-row ew-plans-row--duplex"><span>${tLabel('Duplex Total Area')}</span><span class="ew-plans-val">${p.duplexTotal}</span></div>`);
       }
       p.rooms.forEach((r, i) => {
-        rows.push(`<div class="ew-plans-row"><span><em>${i + 1}.</em> ${r.name}</span><span class="ew-plans-val">${r.size}</span></div>`);
+        rows.push(`<div class="ew-plans-row"><span><em>${i + 1}.</em> ${tRoom(r.name)}</span><span class="ew-plans-val">${r.size}</span></div>`);
       });
       rowsEl.innerHTML = rows.join('');
     }
@@ -296,11 +330,11 @@
       const p = currentPlans()[planIdx];
       const w = window.open('', '_blank');
       if (!w) return;
-      const buildingLabel = 'THE RESIDENCES EAST WEST — ' + currentTower + ' BUILDING';
-      const planTitle = p.title + ' PLAN';
+      const buildingLabel = 'THE RESIDENCES EAST WEST — ' + currentTower + (LANG === 'tr' ? ' BLOK' : ' BUILDING');
+      const planTitle = tTitle(p.title) + (LANG === 'tr' ? ' PLANI' : ' PLAN');
       const netVal = p.total || '';
       w.document.write(
-        '<!doctype html><html lang="en"><head><title>' + planTitle + '</title>' +
+        '<!doctype html><html lang="' + LANG + '"><head><title>' + planTitle + '</title>' +
         '<meta charset="utf-8"/>' +
         '<style>' +
         '@page { size: A4 portrait; margin: 12mm; }' +
@@ -326,9 +360,9 @@
         '<div class="rule"></div>' +
         '<div class="plan-img-wrap"><img src="' + p.img + '" alt="' + p.title + ' floor plan" crossorigin="anonymous"/></div>' +
         '<div class="metrics">' +
-        '<div class="metric"><div class="metric-label">Total Area</div><div class="metric-value">' + netVal + '</div></div>' +
+        '<div class="metric"><div class="metric-label">' + tLabel('Total Area') + '</div><div class="metric-value">' + netVal + '</div></div>' +
         (p.duplexTotal
-          ? '<div class="divider-v"></div><div class="metric"><div class="metric-label">Duplex Total Area</div><div class="metric-value">' + p.duplexTotal + '</div></div>'
+          ? '<div class="divider-v"></div><div class="metric"><div class="metric-label">' + tLabel('Duplex Total Area') + '</div><div class="metric-value">' + p.duplexTotal + '</div></div>'
           : '') +
         '</div></div>' +
         '<script>window.onload = function(){ var img = document.querySelector("img"); function go(){ setTimeout(function(){ window.focus(); window.print(); }, 250); } if (img.complete) go(); else img.onload = go;'

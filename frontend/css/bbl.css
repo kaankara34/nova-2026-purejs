@@ -178,23 +178,25 @@ body.page-bbl { overflow-x: clip; }
 .page-bbl .bb-phone {
   --bb-phone-w: clamp(232px, 19vw, 292px);
   position: relative; width: var(--bb-phone-w); aspect-ratio: 9 / 19.3;
-  padding: 9px; border-radius: clamp(26px, 2.2vw, 38px);
+  padding: calc(var(--bb-phone-w) * .03);
+  border-radius: calc(var(--bb-phone-w) * .125);
   background: linear-gradient(150deg, #35322D 0%, #171614 46%, #2A2721 100%);
   box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7), 0 2px 0 0 rgba(255, 255, 255, .06) inset;
   /* the whole interface scales with the device, so the layout is scale-invariant */
   font-size: calc(var(--bb-phone-w) * .0415);
 }
 .page-bbl .bb-phone::after {
-  content: ''; position: absolute; left: 50%; top: 18px; transform: translateX(-50%);
-  width: 26%; height: 1.5em; border-radius: 1em; background: #100F0E; z-index: 3;
+  content: ''; position: absolute; left: 50%; top: calc(var(--bb-phone-w) * .052); transform: translateX(-50%);
+  width: 26%; height: calc(var(--bb-phone-w) * .05); border-radius: 999px; background: #100F0E; z-index: 3;
 }
 .page-bbl .bb-phone-screen {
   position: relative; height: 100%; overflow: hidden;
-  border-radius: clamp(19px, 1.7vw, 30px); background: #F3EFE7; color: #292927;
+  border-radius: calc(var(--bb-phone-w) * .098); background: #F3EFE7; color: #292927;
 }
 .page-bbl .bb-scr {
   --bg: #F3EFE7;
   --ink: #292927;
+  --stat: #2C2B28;
   --ac-rgb: 89 99 72;
   --st-rgb: var(--ac-rgb);
   --det: #A88A5B;
@@ -214,28 +216,28 @@ body.page-bbl { overflow-x: clip; }
 .page-bbl .bb-scr--sup       { --bg: #F2EDE2; --ac-rgb: 89 99 72;  --det: #8A6547; }
 .page-bbl .bb-scr--res       { --bg: #F2EDE2; --ac-rgb: 107 53 52; --det: #A88A5B; }
 
-/* status bar */
+/* status bar — consistent neutral ink on every screen, like a real device */
 .page-bbl .bb-ui-bar {
   display: flex; align-items: center; justify-content: space-between;
   font-family: var(--font-sans); font-size: .8em; font-weight: 500;
-  letter-spacing: .04em; color: rgb(var(--ac-rgb) / .9);
+  letter-spacing: .04em; color: var(--stat);
 }
 .page-bbl .bb-ui-bar-r { display: flex; align-items: center; gap: .45em; }
 .page-bbl .bb-ui-sig { display: flex; align-items: flex-end; gap: .16em; }
-.page-bbl .bb-ui-sig i { display: block; width: .22em; background: rgb(var(--ac-rgb) / .85); }
+.page-bbl .bb-ui-sig i { display: block; width: .22em; background: var(--stat); }
 .page-bbl .bb-ui-sig i:nth-child(1) { height: .3em; }
 .page-bbl .bb-ui-sig i:nth-child(2) { height: .46em; }
 .page-bbl .bb-ui-sig i:nth-child(3) { height: .62em; }
 .page-bbl .bb-ui-sig i:nth-child(4) { height: .78em; }
 .page-bbl .bb-ui-bat {
   position: relative; display: block; width: 1.5em; height: .72em;
-  border: 1px solid rgb(var(--ac-rgb) / .5); border-radius: .18em; padding: .1em;
+  border: 1px solid rgba(44, 43, 40, .5); border-radius: .18em; padding: .1em;
 }
 .page-bbl .bb-ui-bat::after {
   content: ''; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
-  width: .1em; height: .28em; background: rgb(var(--ac-rgb) / .5);
+  width: .1em; height: .28em; background: rgba(44, 43, 40, .5);
 }
-.page-bbl .bb-ui-bat i { display: block; width: 72%; height: 100%; background: rgb(var(--ac-rgb) / .8); }
+.page-bbl .bb-ui-bat i { display: block; width: 72%; height: 100%; background: var(--stat); }
 
 /* branded head */
 .page-bbl .bb-ui-head {
@@ -526,8 +528,7 @@ body.page-bbl { overflow-x: clip; }
   .page-bbl .bb-day-b { width: 70%; margin: 32px 0 0; }
 
   .page-bbl .bb-mem-intro-phone { justify-content: center; margin-top: 40px; }
-  .page-bbl .bb-phone { --bb-phone-w: min(66vw, 260px); padding: 7px; }
-  .page-bbl .bb-phone::after { top: 14px; }
+  .page-bbl .bb-phone { --bb-phone-w: min(66vw, 260px); }
   .page-bbl .bb-scr { padding: 1.7em 1.35em 1em; }
 
   /* the stage stays with the reader on its own dark band; the copy moves under it */

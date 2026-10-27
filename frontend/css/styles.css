@@ -482,8 +482,8 @@ body.no-scroll {
     background: rgba(255,255,255,0.2);
   }
   
-  /* Add bottom padding to body for fixed bar */
-  body {
+  /* Add bottom padding to body only on pages that actually render the fixed bar */
+  body:has(.mobile-bottom-bar) {
     padding-bottom: 60px;
   }
 }

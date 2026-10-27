@@ -1,3 +1,21 @@
+# 2026-06 — Mobile polish: footer, flags, EW TR rooms, news spacing, BBL phone
+
+- Mobile bottom white strip removed: global `body { padding-bottom:60px }` now scoped to
+  `body:has(.mobile-bottom-bar)` so pages without the fixed bar (newsroom, news-detail, contact) have no gap.
+  (frontend/css/styles.css)
+- Contact light footer "Discover" row was white-on-ivory (unreadable); added ink overrides for
+  .footer-discover-title / .fd-name / .fd-meta / borders / hover. (frontend/css/contact.css)
+- East West TR floor-plan room names, plan titles (DUBLEKS ALT/ÜST KAT) and labels (Toplam Alan /
+  Dubleks Toplam Alan) now translated via a lang-aware map; data file stays English. Also applied to the
+  A4 print export. (frontend/js/east-west.js)
+- Flag SVGs (tr.svg, gb.svg) now preloaded in <head> of all 68 pages so the language toggle shows the flag
+  immediately instead of loading late. (tr/*.html, en/*.html)
+- Newsroom hero + news-detail mobile padding-top now include the fixed utility bar height
+  (`var(--utility-h,36px)`), so titles clear the navbar (~78px gap vs ~4px). (frontend/css/newsroom.css)
+- BBL Nova Membership phone: single consistent iPhone — border-radius/padding/notch now proportional to
+  device width (ratio .125) so intro and stage phones match; status bar (clock/signal/battery) uses one
+  neutral ink (--stat #2C2B28) on every screen instead of the per-screen accent. (frontend/css/bbl.css)
+
 # 2026-10-27 — EDSAA bilingual corporate pages / mobile news / native scrollbar
 
 - Added staticTR/ENEDSAApages withapprovedone-paragraphcopy, originaluncroppedEastWestrender,
