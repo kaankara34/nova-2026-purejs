@@ -27,7 +27,21 @@
   --easing: cubic-bezier(.2, .7, .2, 1);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Native page scrollbar: no overlay widget or scroll interception. */
+  scrollbar-width: thin;
+  scrollbar-color: #6b5e43 #f1ebe3;
+}
+html::-webkit-scrollbar { width: 8px; height: 8px; }
+html::-webkit-scrollbar-track { background: #f1ebe3; }
+html::-webkit-scrollbar-thumb {
+  background: #6b5e43;
+  border: 2px solid #f1ebe3;
+  border-radius: 8px;
+}
+html::-webkit-scrollbar-thumb:hover { background: #564a34; }
+@media (forced-colors: active) { html { scrollbar-color: auto; } }
 html, body {
   font-family: var(--font-sans);
   color: var(--c-text);

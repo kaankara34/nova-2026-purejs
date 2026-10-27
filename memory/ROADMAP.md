@@ -1,6 +1,11 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+-2026-10-27 currentEDSAA/mobilejournal/scrollbarrequest COMPLETEinpreview:271tests pass.
+  P1:visualreview and,afterpublication, realproductionHTTP/indexabilitycheck plusSearchConsole
+  sitemap/URLInspection. NoSearchConsoleorindexingresultclaimed. Details:EDSAA_DELIVERY.md.
+- P2:monitorEDSAA-brandedqueriesafterpublicationwithoutaddingunapprovedcopy. Existingphysical
+  videoacceptance/source-template reconciliation remainindependent,unresolvedhistoricaltasks.
 -2026-10-27 latest request complete in preview: recurring mobile bar freeze reproduced/fixed,
  3px bronze+glint, no side-menu switch, supplied favicon, all66pages follow final same-language
   index navbar/footer CONTENT while retaining page styles.256tests pass and30s+ mobile loop test

@@ -1,5 +1,17 @@
 # Local preview
 
+## EDSAA ve mobil haberler — 27 Ekim 2026
+
+- Yeni kurumsal sayfalar `tr/edsaa.html` ve `en/edsaa.html`; metinleri
+  `scripts/edsaa_data.py` içindeki onaylı içerikle sınırlıdır.
+- Yalnızca bu sayfaları/menü bağlantısını/sitemap'i güncellemek için proje kökünde
+  `python scripts/build_edsaa.py` çalıştırın. Tam eski i18n derlemesini çalıştırmayın.
+- Mevcut East West renderı değiştirilmemiştir; `css/edsaa.css` yalnızca EDSAA'yı etkiler.
+- Mobil ana sayfada(<=767px)3haber, daha geniş ekranlarda6haber gösterilir. Tam newsroom değişmez.
+- Sağdaki ince scrollbar tarayıcının doğal scrollbar'ıdır; rengi#6b5e43. İşletim sistemi bazı
+  görünürlük ayrıntılarını yönetebilir. Menüdeki mevcut scroll-lock davranışı korunur.
+- Yayın sonrası Search Console/site sahibi adımları: `memory/EDSAA_DELIVERY.md`.
+
 ## Nihai navbar/footer içeriği ve favicon — 27 Ekim 2026
 
 - `en/index.html` ve `tr/index.html` kendi dillerindeki navbar/footer **içeriğinin** nihai kaynağıdır.

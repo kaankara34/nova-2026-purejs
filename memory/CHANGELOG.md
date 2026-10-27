@@ -1,3 +1,15 @@
+# 2026-10-27 — EDSAA bilingual corporate pages / mobile news / native scrollbar
+
+- Added staticTR/ENEDSAApages withapprovedone-paragraphcopy, originaluncroppedEastWestrender,
+  existinglightcorporateshell andsmallprojectlink. Noforms/inventedlogo/additionalcompanyfacts.
+- AddednormalEDSAAanchorwithinNOVAonall68pages;langswitchstaysEDSAA. Existing66bodies/titles/
+  footersunchangedapartfrommenuentry. NewpageCSSisolated;mobileheaderclearance/footercontrastverified.
+- Exacttitles/descriptions,selfcanonicals,hreflangs,AboutPage+verified-onlyOrganizationgraph,
+  localizedOG/Twitterandexistingsitemapintegration. Previewnoindexandrobotsretained;notpublished.
+- Homejournal3mobile/6desktopwithresizewithoutrefetch. Nativebronze#6b5e43scrollbar, noJSscrollhijack.
+-271checks pass,11focusedEDSAAcontracts,CDPtouch/menus/responsiveness/contrastchecks pass.
+  Scopedbuilderidempotent. Handoff/SearchConsoleownerchecklist:memory/EDSAA_DELIVERY.md.
+
 # 2026-10-27 — Mobile bar recurrence, stronger perimeter and canonical chrome
 
 - Reproduced visible mobile border stuck after blur+scroll without focus. Removed focus gating

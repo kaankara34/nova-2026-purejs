@@ -24,7 +24,7 @@ def _all_pages():
 
 def test_total_page_count_is_stable():
     pages = _all_pages()
-    assert len(pages) == 66
+    assert len(pages) == 68
 
 
 def test_header_action_order_register_icons_language_in_all_pages():

@@ -2,6 +2,49 @@
 
 Last updated: 2026-10-27
 
+## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
+
+### Requirements and boundaries
+- User requested mobile homepage journal3instead of6news items, thin native scrollbar matching
+  the site's premium palette (explicitchoice#6b5e43), and minimal bilingual EDSAA company pages.
+- Only approved EDSAAH1/intro + original EastWest render and restrained project link. No company
+  details beyond supplied facts, invented logo, new forms/sales sections or extra SEO copy.
+- Reuse current chrome/menu/cookie/language/theme; real NOVA submenu anchor per language.
+  Existing.htmlcanonicalstandard, exact usertitles/descriptions, reciprocals, verified-onlyschema,
+  sitemapintegration, preservepreviewnoindex andnoSearchConsole/indexing/rankingclaims.
+
+### Delivered — 2026-10-27
+- `frontend/{tr,en}/edsaa.html`, generated statically from the current corporate shell by
+  `scripts/build_edsaa.py`; exactapprovedcopy/metadata in `scripts/edsaa_data.py`.
+- Existing contactlightheader/footerstyles + isolated `.page-edsaa` styling; maincontent visible
+  fromfirstHTML withoutJS/consent. Noforms, only sharedscript.js; enquiryCTAsexistingcontactpage.
+- Original1901x1070`media/images/ew/render/ew-render1.webp` unchanged, fullaspect/contain onmobile,
+  highpriority/eager and explicitdimensions. NoEDSAAlogo found; typographyonly.
+- Bothcanonicallinks usehttps://nova.istanbul/{tr,en}/edsaa.html; correctsame-page languagelinks.
+  All68pages haveoneEDSAAentry inUL.submenu[data-id=nova-konut] withsameexistinglinkmarkup.
+- JSON-LDAboutPage+EDSAAOrganization; stableTR#organization@id sharedbothlanguages. Parent uses
+  onlyknownNova name+homepage because noexistingOrganization@idwasfound. LocalizedOG/Twitter
+  rendersnotlogos. Aboutaffiliatesectionabsent: noartificialnewsection orfooteraddition.
+- Sitemapbuiltthrough existingmechanism/PAGE_MAPspecialpagehook; nofabricatedlastmod. Only
+  productionApacheaddsEDSAAalias301to.html; previewusesadvertisedcanonical.htmlpages. robots.txt
+  andpreviewnoindexheader unchanged. serve.jsonsemanticallyunchanged.
+- Homepage `news.js` renders3at<=767px/6above, responds tobreakpointchange usingcachedfeed; full
+  newsroomlogicunchanged. RootnativeCSSscrollbarthin#6b5e43; noJSscrollwidget ormenulockchange.
+
+### Verification and next steps
+-271automatedtests pass (`iteration_70.json`, `pytest/iter70_final.xml`), includingnew11-testEDSAA
+  contract and unchangedold66pagecontentapartfromoneNOVAitem. Scopedbuildrerun0changes.
+- Actualbrowserchecks confirmedmobile/desktopmenus,languageclickandCDPtouchrelease,news3/6,
+  responsive320–1920, originalimage, noforms/overflow, footercontrast andheaderclearance.
+- Initialtestfoundwrongmenutagselectorandcopiedcontactform; bothfixedandretested. Latestpages
+  contain noform, no#register and noformsinjectionscript. NoAPI ismocked; noexternalintegrationadded.
+- ProductionURLs NOTpublished/verifiedlive, SearchConsole NOTused. Owner mustcheckproduction
+  HTTP200/robots, submitsitemap/inspectbothURLs andrequestindexingifappropriateafterpublication.
+  Noindexing/rankingpromise. Detailedhandoff: `memory/EDSAA_DELIVERY.md`.
+- P0:noneconfirmedremaininginthisrequest. P1:userreview+postpublicationSearchConsoleactions.
+  P2:monitorEDSAAbrandqueriesafterpublication; oldvideo/mobilephysical-deviceacceptance and
+  source-template reconciliation remain separatebacklog. DoNOTfullrebuildstalesourcepages.
+
 ## Latest task — recurring mobile perimeter freeze, clearer trace, canonical chrome and favicon
 
 ### User request (original)

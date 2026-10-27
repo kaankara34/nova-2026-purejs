@@ -1,0 +1,77 @@
+/* EDSAA: a short corporate introduction, using the existing light-page shell. */
+.page-edsaa .edsaa-main {
+  padding: calc(var(--header-h) + var(--utility-h) + 52px) 0 64px;
+}
+.page-edsaa .edsaa-wrap {
+  width: 100%;
+  max-width: var(--container);
+  padding: 0 var(--gutter);
+  margin: 0 auto;
+}
+.page-edsaa .edsaa-intro { max-width: 760px; margin-bottom: 36px; }
+.page-edsaa .edsaa-title {
+  margin: 0 0 18px;
+  font-family: var(--font-serif);
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--ct-ink);
+}
+.page-edsaa .edsaa-description {
+  margin: 0;
+  max-width: 68ch;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0;
+  color: var(--ct-ink-2);
+}
+.page-edsaa .edsaa-figure { margin: 0; }
+.page-edsaa .edsaa-render {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1901 / 1070;
+  object-fit: contain;
+}
+.page-edsaa .edsaa-caption { padding-top: 14px; }
+.page-edsaa .edsaa-project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: #6b5e43;
+  font-size: 13px;
+  letter-spacing: 0;
+  border-bottom: 1px solid transparent;
+  transition: color .25s ease, border-color .25s ease;
+}
+.page-edsaa .edsaa-project-link:hover { color: var(--ct-ink); border-color: currentColor; }
+.page-edsaa .edsaa-project-link:focus-visible { outline: 2px solid #6b5e43; outline-offset: 4px; }
+.page-edsaa #sideMenu a[aria-current="page"] .subitem { color: var(--c-gold); }
+/* Keep the shared light footer's newer residence labels readable on its own palette. */
+.page-edsaa .site-footer .footer-discover-title,
+.page-edsaa .site-footer .footer-discover-row .fd-name { color: var(--ct-ink); }
+.page-edsaa .site-footer .footer-discover-row .fd-meta,
+.page-edsaa .site-footer .social-label,
+.page-edsaa .site-footer .footer-bottom-links a,
+.page-edsaa .site-footer .footer-copyright-text { color: var(--ct-ink-2); }
+.page-edsaa .site-footer .footer-discover,
+.page-edsaa .site-footer .footer-discover-row li { border-color: var(--ct-rule); }
+.page-edsaa .site-footer .footer-discover-row a:hover .fd-name,
+.page-edsaa .site-footer .footer-discover-row a:hover .fd-meta { color: #6b5e43; }
+/* Critical copy and image remain visible without scripts or cookie interaction. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .page-edsaa .edsaa-title { font-size: 48px; }
+}
+@media (max-width: 767px) {
+  .page-edsaa .edsaa-main { padding: calc(var(--header-h) + var(--utility-h) + 38px) 0 38px; }
+  .page-edsaa .edsaa-title { font-size: 40px; margin-bottom: 16px; }
+  .page-edsaa .edsaa-description { font-size: 14px; line-height: 1.8; }
+  .page-edsaa .edsaa-intro { margin-bottom: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-edsaa .edsaa-project-link { transition: none; }
+}

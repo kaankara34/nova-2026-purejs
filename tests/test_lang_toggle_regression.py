@@ -14,7 +14,7 @@ from sync_site_chrome import REGIONS, region_span
 
 
 CURRENT_FRONTEND = Path("/app/frontend")
-BASELINE_CANDIDATE = Path("/tmp/nova-before-chrome-sync/frontend")
+BASELINE_CANDIDATE = Path("/tmp/nova-before-edsaa/frontend")
 FIXTURE_PATH = Path("/app/tests/fixtures/lang_toggle_baseline_fixture.json")
 
 LANG_BLOCK_RE = re.compile(r'<div class="lang-switch\b[^>]*>.*?</div>', re.S)
@@ -70,6 +70,8 @@ def _html_pairs():
     baseline_exists = BASELINE_CANDIDATE.exists()
     for lang in ("tr", "en"):
         for cur in sorted((CURRENT_FRONTEND / lang).glob("*.html")):
+            if cur.name == 'edsaa.html':
+                continue  # New pages have their own exact content/SEO/language contract.
             rel = cur.relative_to(CURRENT_FRONTEND)
             base = BASELINE_CANDIDATE / rel if baseline_exists else None
             if baseline_exists:
@@ -78,11 +80,12 @@ def _html_pairs():
     return pairs
 
 
-def test_all_66_pages_exist_against_baseline_snapshot_or_fixture():
+def test_all_original_66_pages_plus_two_new_edsaa_pages_exist():
     current = sorted((CURRENT_FRONTEND / "tr").glob("*.html")) + sorted(
         (CURRENT_FRONTEND / "en").glob("*.html")
     )
-    assert len(current) == 66
+    assert len(current) == 68
+    assert len([page for page in current if page.name != 'edsaa.html']) == 66
 
     fixture = _load_fixture()
     assert fixture["total_pages"] == 66
@@ -139,7 +142,9 @@ def test_shared_css_outside_authorized_language_and_perimeter_blocks_is_identica
     marker = "/* ---------- Language selector (TR / EN) ---------- */"
     cur_css = (CURRENT_FRONTEND / "css/styles.css").read_text(encoding="utf-8")
     def without_perimeter(css):
-        return re.sub(r'/\* Perimeter progress.*?(?=\.ew-feature-copy\s*\{)', '', css, flags=re.S)
+        css = re.sub(r'/\* Perimeter progress.*?(?=\.ew-feature-copy\s*\{)', '', css, flags=re.S)
+        # Normalize only the explicitly requested native root-scrollbar block.
+        return re.sub(r'html\s*\{.*?(?=\nhtml, body\s*\{)', '/* approved root scrollbar */', css, count=1, flags=re.S)
     cur_prefix = without_perimeter(cur_css.split(marker, 1)[0])
 
     if BASELINE_CANDIDATE.exists():

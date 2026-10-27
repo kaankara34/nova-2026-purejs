@@ -313,14 +313,20 @@
     const grid = document.getElementById('newsHomeGrid');
     if (!grid) return;
     let requested = false;
+    let currentFeed = null;
+    const mobile = window.matchMedia('(max-width: 767px)');
 
     function render(feed) {
+      currentFeed = feed;
       grid.textContent = '';
-      feed.articles.slice(0, 6).forEach(function (item, i) {
+      feed.articles.slice(0, mobile.matches ? 3 : 6).forEach(function (item, i) {
         grid.appendChild(buildCard(item, { eager: i < 3 }));
       });
       grid.setAttribute('aria-busy', 'false');
     }
+    function resizeHome() { if (currentFeed) render(currentFeed); }
+    if (mobile.addEventListener) mobile.addEventListener('change', resizeHome);
+    else mobile.addListener(resizeHome);
 
     function hydrate() {
       if (requested) return;

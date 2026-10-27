@@ -57,7 +57,12 @@ PAGE_MAP = {
     'bahar-residence.html': ('bahar-residence.html', 'bahar-residence.html'),
     'dogan-residence.html': ('dogan-residence.html', 'dogan-residence.html'),
     'mehtap-residence.html': ('mehtap-residence.html', 'mehtap-residence.html'),
+    'edsaa.html': ('edsaa.html', 'edsaa.html'),
 }
+
+# These pages use the current shared corporate shell and approved bilingual copy,
+# not stale source-page translations. The full legacy build remains opt-in/manual.
+SPECIAL_PAGES = {'edsaa.html'}
 
 SKIP_BLOCK = re.compile(r'<(script|style|svg|noscript)\b.*?</\1>', re.S | re.I)
 TRANSLATABLE_ATTRS = ('alt', 'title', 'placeholder', 'aria-label', 'data-title')
@@ -242,6 +247,8 @@ def build():
 
     missing = set()
     for src_name, (en_file, tr_file) in PAGE_MAP.items():
+        if src_name in SPECIAL_PAGES:
+            continue
         raw = open(os.path.join(SRC, src_name), encoding='utf-8').read()
         base = portable_assets(raw)
 
@@ -256,6 +263,8 @@ def build():
         tr = insert_selector(tr, src_name, 'tr')
         open(os.path.join(OUT_TR, tr_file), 'w', encoding='utf-8').write(tr)
 
+    from build_edsaa import build as build_edsaa_pages
+    build_edsaa_pages()
     sitemap()
     routing()
     print('pages: %d EN + %d TR' % (len(PAGE_MAP), len(PAGE_MAP)))
@@ -291,6 +300,8 @@ def routing():
     rules = ['RewriteEngine On', 'RewriteBase /', '',
              '# Default language is Turkish', 'RewriteRule ^$ /tr/ [R=301,L]',
              'RewriteRule ^index\\.html$ /tr/ [R=301,L]', '',
+             '# Canonical EDSAA URLs use the existing .html standard',
+             'RewriteRule ^(tr|en)/edsaa/?$ /$1/edsaa.html [R=301,L]', '',
              '# Legacy root-level English URLs -> /en/ (single hop)']
     for src, en in legacy:
         if src == 'index.html':

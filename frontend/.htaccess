@@ -5,6 +5,9 @@ RewriteBase /
 RewriteRule ^$ /tr/ [R=301,L]
 RewriteRule ^index\.html$ /tr/ [R=301,L]
 
+# EDSAA has one canonical URL per language, matching the site's .html standard.
+RewriteRule ^(tr|en)/edsaa/?$ /$1/edsaa.html [R=301,L]
+
 # Legacy root-level English URLs -> /en/ (single hop)
 RewriteRule ^projects\.html$ /en/projects.html [R=301,L]
 RewriteRule ^projects$ /en/projects.html [R=301,L]

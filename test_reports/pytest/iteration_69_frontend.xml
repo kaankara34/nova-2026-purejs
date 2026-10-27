@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="110" time="9.960" timestamp="2026-10-27T09:29:19.729092+00:00" hostname="agent-env-515dc9a7-0d61-46f2-bb41-31805466b8fc"><testcase classname="tests.test_iter68_frontend_contract" name="test_total_page_count_is_66" time="0.001"><failure message="AssertionError: assert 68 == 66&#10; +  where 68 = len([PosixPath('/app/frontend/tr/aday-aydinlatma-metni.html'), PosixPath('/app/frontend/tr/bahar-residence.html'), PosixPa...ng.html'), PosixPath('/app/frontend/tr/cerez-bildirimi.html'), PosixPath('/app/frontend/tr/dogan-residence.html'), ...])&#10; +    where [PosixPath('/app/frontend/tr/aday-aydinlatma-metni.html'), PosixPath('/app/frontend/tr/bahar-residence.html'), PosixPa...ng.html'), PosixPath('/app/frontend/tr/cerez-bildirimi.html'), PosixPath('/app/frontend/tr/dogan-residence.html'), ...] = _all_pages()">def test_total_page_count_is_66():
+&gt;       assert len(_all_pages()) == 66
+E       AssertionError: assert 68 == 66
+E        +  where 68 = len([PosixPath('/app/frontend/tr/aday-aydinlatma-metni.html'), PosixPath('/app/frontend/tr/bahar-residence.html'), PosixPa...ng.html'), PosixPath('/app/frontend/tr/cerez-bildirimi.html'), PosixPath('/app/frontend/tr/dogan-residence.html'), ...])
+E        +    where [PosixPath('/app/frontend/tr/aday-aydinlatma-metni.html'), PosixPath('/app/frontend/tr/bahar-residence.html'), PosixPa...ng.html'), PosixPath('/app/frontend/tr/cerez-bildirimi.html'), PosixPath('/app/frontend/tr/dogan-residence.html'), ...] = _all_pages()
+
+tests/test_iter68_frontend_contract.py:68: AssertionError</failure></testcase><testcase classname="tests.test_iter68_frontend_contract" name="test_header_has_exactly_one_lang_switch_and_side_menu_has_zero_for_all_pages" time="0.867" /><testcase classname="tests.test_iter68_frontend_contract" name="test_canonical_index_chrome_content_matches_other_pages[tr]" time="0.576" /><testcase classname="tests.test_iter68_frontend_contract" name="test_canonical_index_chrome_content_matches_other_pages[en]" time="0.594" /><testcase classname="tests.test_iter68_frontend_contract" name="test_all_pages_use_local_favicon_links_and_assets_resolve_publicly" time="1.209" /><testcase classname="tests.test_iter68_frontend_contract" name="test_east_west_progress_contract_in_source_files" time="0.000" /><testcase classname="tests.test_static_pages" name="test_root_redirects_to_tr" time="0.142" /><testcase classname="tests.test_static_pages" name="test_legacy_redirects[/projects.html-/en/projects.html]" time="0.064" /><testcase classname="tests.test_static_pages" name="test_legacy_redirects[/about.html-/en/about.html]" time="0.064" /><testcase classname="tests.test_static_pages" name="test_legacy_redirects[/contact.html-/en/contact.html]" time="0.058" /><testcase classname="tests.test_static_pages" name="test_legacy_redirects[/careers.html-/en/careers.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_legacy_redirects[/design.html-/en/design.html]" time="0.068" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[index.html]" time="0.066" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[projeler.html]" time="0.068" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[hakkimizda.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[iletisim.html]" time="0.088" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[organizasyon.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[partnerler.html]" time="0.068" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[tasarim.html]" time="0.066" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[muhendislik.html]" time="0.081" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[leed.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[build-beyond-living.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[medya.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[kariyer.html]" time="0.065" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[santiye-muduru-mimar.html]" time="0.068" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[bildirim.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[gizlilik-bildirimi.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[cerez-bildirimi.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[etik-ilkeler.html]" time="0.077" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[aday-aydinlatma-metni.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[the-residences-east-west.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[the-apartments-tac.html]" time="0.067" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[the-apartments-ana.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[finance-nova.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[mercan-bosphorus.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[nisbetiye-on.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[falcon-plaza.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[falcon-lojistik-merkezi.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[gebze-osb-yonetim-binasi.html]" time="0.069" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[konelsis-merkezi.html]" time="0.058" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[marti-residence.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[bahar-residence.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[dogan-residence.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[mehtap-residence.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_page_loads[haber.html]" time="0.066" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[index.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[projects.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[about.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[contact.html]" time="0.065" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[team.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[partners.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[design.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[construction.html]" time="0.068" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[leed.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[build-beyond-living.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[newsroom.html]" time="0.072" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[careers.html]" time="0.058" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[construction-site-manager-architect.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[speak-up.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[privacy-notice.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[cookie-notice.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[ethical-principles.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[applicant-privacy-notice.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[the-residences-east-west.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[the-apartments-tac.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[the-apartments-ana.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[finance-nova.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[mercan-bosphorus.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[nisbetiye-on.html]" time="0.318" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[falcon-plaza.html]" time="0.084" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[falcon-logistic.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[gebze-osb-management.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[konelsis-center.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[marti-residence.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[bahar-residence.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[dogan-residence.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[mehtap-residence.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_en_page_loads[news-detail.html]" time="0.066" /><testcase classname="tests.test_static_pages" name="test_tr_has_hreflang_en[index.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_tr_has_hreflang_en[projeler.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_has_hreflang_en[hakkimizda.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_has_hreflang_en[iletisim.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_tr_has_hreflang_en[organizasyon.html]" time="0.058" /><testcase classname="tests.test_static_pages" name="test_ana_hero_poster_tr" time="0.061" /><testcase classname="tests.test_static_pages" name="test_ana_hero_poster_en" time="0.060" /><testcase classname="tests.test_static_pages" name="test_ana_poster_asset" time="0.068" /><testcase classname="tests.test_static_pages" name="test_tr_no_runtime_translation[index.html]" time="0.064" /><testcase classname="tests.test_static_pages" name="test_tr_no_runtime_translation[projeler.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_tr_no_runtime_translation[tasarim.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_tr_no_runtime_translation[the-apartments-ana.html]" time="0.062" /><testcase classname="tests.test_static_pages" name="test_tr_links_stay_in_tr" time="0.063" /><testcase classname="tests.test_static_pages" name="test_en_links_stay_in_en" time="0.063" /><testcase classname="tests.test_static_pages" name="test_lang_switch_tr_to_en[/tr/projeler.html-/en/projects.html]" time="0.059" /><testcase classname="tests.test_static_pages" name="test_lang_switch_tr_to_en[/tr/muhendislik.html-/en/construction.html]" time="0.067" /><testcase classname="tests.test_static_pages" name="test_lang_switch_tr_to_en[/tr/the-apartments-tac.html-/en/the-apartments-tac.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_lang_switch_tr_to_en[/tr/kariyer.html-/en/careers.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_lang_switch_tr_to_en[/tr/bildirim.html-/en/speak-up.html]" time="0.069" /><testcase classname="tests.test_static_pages" name="test_lang_switch_tr_to_en[/tr/tasarim.html-/en/design.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_lang_switch_en_to_tr[/en/build-beyond-living.html-/tr/build-beyond-living.html]" time="0.063" /><testcase classname="tests.test_static_pages" name="test_lang_switch_en_to_tr[/en/careers.html-/tr/kariyer.html]" time="0.061" /><testcase classname="tests.test_static_pages" name="test_lang_switch_en_to_tr[/en/projects.html-/tr/projeler.html]" time="0.060" /><testcase classname="tests.test_static_pages" name="test_lang_switch_en_to_tr[/en/construction.html-/tr/muhendislik.html]" time="0.071" /><testcase classname="tests.test_static_pages" name="test_canonical_tr" time="0.060" /><testcase classname="tests.test_static_pages" name="test_sitemap_exists" time="0.064" /><testcase classname="tests.test_lang_toggle_regression" name="test_all_66_pages_exist_against_baseline_snapshot_or_fixture" time="0.001"><failure message="AssertionError: assert 68 == 66&#10; +  where 68 = len([PosixPath('/app/frontend/tr/aday-aydinlatma-metni.html'), PosixPath('/app/frontend/tr/bahar-residence.html'), PosixPa...ng.html'), PosixPath('/app/frontend/tr/cerez-bildirimi.html'), PosixPath('/app/frontend/tr/dogan-residence.html'), ...])">def test_all_66_pages_exist_against_baseline_snapshot_or_fixture():
+        current = sorted((CURRENT_FRONTEND / "tr").glob("*.html")) + sorted(
+            (CURRENT_FRONTEND / "en").glob("*.html")
+        )
+&gt;       assert len(current) == 66
+E       AssertionError: assert 68 == 66
+E        +  where 68 = len([PosixPath('/app/frontend/tr/aday-aydinlatma-metni.html'), PosixPath('/app/frontend/tr/bahar-residence.html'), PosixPa...ng.html'), PosixPath('/app/frontend/tr/cerez-bildirimi.html'), PosixPath('/app/frontend/tr/dogan-residence.html'), ...])
+
+tests/test_lang_toggle_regression.py:85: AssertionError</failure></testcase><testcase classname="tests.test_lang_toggle_regression" name="test_html_changes_are_limited_to_authorized_chrome_and_favicon_updates" time="0.001"><failure message="AssertionError: Missing baseline file for tr/edsaa.html&#10;assert False&#10; +  where False = exists()&#10; +    where exists = PosixPath('/tmp/nova-before-chrome-sync/frontend/tr/edsaa.html').exists">def test_html_changes_are_limited_to_authorized_chrome_and_favicon_updates():
+        fixture = _load_fixture()
+&gt;       for rel, cur_file, base_file in _html_pairs():
+                                        ^^^^^^^^^^^^^
+
+tests/test_lang_toggle_regression.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _html_pairs():
+        pairs = []
+        baseline_exists = BASELINE_CANDIDATE.exists()
+        for lang in ("tr", "en"):
+            for cur in sorted((CURRENT_FRONTEND / lang).glob("*.html")):
+                rel = cur.relative_to(CURRENT_FRONTEND)
+                base = BASELINE_CANDIDATE / rel if baseline_exists else None
+                if baseline_exists:
+&gt;                   assert base.exists(), f"Missing baseline file for {rel}"
+E                   AssertionError: Missing baseline file for tr/edsaa.html
+E                   assert False
+E                    +  where False = exists()
+E                    +    where exists = PosixPath('/tmp/nova-before-chrome-sync/frontend/tr/edsaa.html').exists
+
+tests/test_lang_toggle_regression.py:76: AssertionError</failure></testcase><testcase classname="tests.test_lang_toggle_regression" name="test_lang_switch_link_semantics_preserved_from_baseline" time="0.001"><failure message="AssertionError: Missing baseline file for tr/edsaa.html&#10;assert False&#10; +  where False = exists()&#10; +    where exists = PosixPath('/tmp/nova-before-chrome-sync/frontend/tr/edsaa.html').exists">def test_lang_switch_link_semantics_preserved_from_baseline():
+        fixture = _load_fixture()
+&gt;       for rel, cur_file, base_file in _html_pairs():
+                                        ^^^^^^^^^^^^^
+
+tests/test_lang_toggle_regression.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _html_pairs():
+        pairs = []
+        baseline_exists = BASELINE_CANDIDATE.exists()
+        for lang in ("tr", "en"):
+            for cur in sorted((CURRENT_FRONTEND / lang).glob("*.html")):
+                rel = cur.relative_to(CURRENT_FRONTEND)
+                base = BASELINE_CANDIDATE / rel if baseline_exists else None
+                if baseline_exists:
+&gt;                   assert base.exists(), f"Missing baseline file for {rel}"
+E                   AssertionError: Missing baseline file for tr/edsaa.html
+E                   assert False
+E                    +  where False = exists()
+E                    +    where exists = PosixPath('/tmp/nova-before-chrome-sync/frontend/tr/edsaa.html').exists
+
+tests/test_lang_toggle_regression.py:76: AssertionError</failure></testcase><testcase classname="tests.test_lang_toggle_regression" name="test_shared_css_outside_authorized_language_and_perimeter_blocks_is_identical" time="0.005"><failure message="AssertionError: assert '\n\n/* =====...9a3b33; }\n\n' == '\n\n/* =====...9a3b33; }\n\n'&#10;  &#10;  Skipping 795 identical leading characters in diff, use -v to show&#10;    &#10;    }&#10;    &#10;  + html {&#10;  - html { scroll-behavior: smooth; }...&#10;  &#10;  ...Full output truncated (2514 lines hidden), use '-vv' to show">def test_shared_css_outside_authorized_language_and_perimeter_blocks_is_identical():
+        marker = "/* ---------- Language selector (TR / EN) ---------- */"
+        cur_css = (CURRENT_FRONTEND / "css/styles.css").read_text(encoding="utf-8")
+        def without_perimeter(css):
+            return re.sub(r'/\* Perimeter progress.*?(?=\.ew-feature-copy\s*\{)', '', css, flags=re.S)
+        cur_prefix = without_perimeter(cur_css.split(marker, 1)[0])
+    
+        if BASELINE_CANDIDATE.exists():
+            base_css = (BASELINE_CANDIDATE / "css/styles.css").read_text(encoding="utf-8")
+            base_prefix = without_perimeter(base_css.split(marker, 1)[0])
+&gt;           assert cur_prefix == base_prefix
+E           AssertionError: assert '\n\n/* =====...9a3b33; }\n\n' == '\n\n/* =====...9a3b33; }\n\n'
+E             
+E             Skipping 795 identical leading characters in diff, use -v to show
+E               
+E               }
+E               
+E             + html {
+E             - html { scroll-behavior: smooth; }...
+E             
+E             ...Full output truncated (2514 lines hidden), use '-vv' to show
+
+tests/test_lang_toggle_regression.py:148: AssertionError</failure></testcase><testcase classname="tests.test_lang_toggle_regression" name="test_language_toggle_enhancement_uses_native_anchor_hrefs" time="0.000" /><testcase classname="tests.test_lang_toggle_regression" name="test_active_language_link_matches_document_lang" time="0.000"><failure message="AssertionError: Missing baseline file for tr/edsaa.html&#10;assert False&#10; +  where False = exists()&#10; +    where exists = PosixPath('/tmp/nova-before-chrome-sync/frontend/tr/edsaa.html').exists">def test_active_language_link_matches_document_lang():
+        html_lang_re = re.compile(r"&lt;html[^&gt;]*\blang=\"(tr|en)\"", re.I)
+&gt;       for rel, cur_file, _base_file in _html_pairs():
+                                         ^^^^^^^^^^^^^
+
+tests/test_lang_toggle_regression.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _html_pairs():
+        pairs = []
+        baseline_exists = BASELINE_CANDIDATE.exists()
+        for lang in ("tr", "en"):
+            for cur in sorted((CURRENT_FRONTEND / lang).glob("*.html")):
+                rel = cur.relative_to(CURRENT_FRONTEND)
+                base = BASELINE_CANDIDATE / rel if baseline_exists else None
+                if baseline_exists:
+&gt;                   assert base.exists(), f"Missing baseline file for {rel}"
+E                   AssertionError: Missing baseline file for tr/edsaa.html
+E                   assert False
+E                    +  where False = exists()
+E                    +    where exists = PosixPath('/tmp/nova-before-chrome-sync/frontend/tr/edsaa.html').exists
+
+tests/test_lang_toggle_regression.py:76: AssertionError</failure></testcase></testsuite></testsuites>

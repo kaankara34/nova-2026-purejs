@@ -1,0 +1,74 @@
+{
+  "summary": "Frontend-only verification completed on public preview URL. Mobile homepage news card behavior works (3 on <=767, 6 on >=768, and 3->6->3 on resize without extra feed fetch). EDSAA page metadata/text checks mostly pass, but key navigation/routing/scope regressions remain.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "EDSAA page content scope",
+        "issue": "EDSAA pages include a full register-interest form section, violating the requested minimal EDSAA page scope (no extra forms/sections).",
+        "selector": "[data-testid='contact-register-form']",
+        "priority": "CRITICAL"
+      },
+      {
+        "component": "NOVA submenu across pages",
+        "issue": "Required EDSAA submenu link is missing in both languages across site pages (0/68 pages contain href='edsaa.html' in NOVA submenu).",
+        "selector": "#sideMenu .submenu[data-id='nova-konut'] a[href='edsaa.html']",
+        "priority": "CRITICAL"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Extensionless EDSAA routing",
+        "issue": "Expected /tr/edsaa and /en/edsaa -> 301 to .html is not active on preview; both return 404 (curl) and browser stays on /en/edsaa 404 page.",
+        "affected_selectors": [
+          "URL /tr/edsaa",
+          "URL /en/edsaa"
+        ]
+      },
+      {
+        "flow": "Existing regression suite reliability",
+        "issue": "Legacy tests still encode old 66-page assumptions and stale baseline paths; current run failed 6 tests mainly due count/baseline drift, masking real product regressions.",
+        "affected_selectors": [
+          "tests/test_iter68_frontend_contract.py::test_total_page_count_is_66",
+          "tests/test_lang_toggle_regression.py"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_iter68_frontend_contract.py",
+    "/app/tests/test_static_pages.py",
+    "/app/tests/test_lang_toggle_regression.py",
+    "/app/test_reports/pytest/iteration_69_frontend.xml",
+    "/app/test_reports/screenshots_iter69_frontend/automation_output/20261027_093015_fc9463679cbb/console_20261027_093015.log",
+    "/app/test_reports/screenshots_iter69_frontend_en/automation_output/20261027_093121_3e46f5c5ab01/console_20261027_093121.log"
+  ],
+  "action_items": [
+    "Insert exactly one standard EDSAA <a href='edsaa.html'> under .submenu[data-id='nova-konut'] in both TR/EN templates so all 68 pages include it.",
+    "Remove register-interest/contact form block from TR/EN EDSAA pages; keep only approved intro + existing EastWest render + small project link.",
+    "Fix preview routing so /tr/edsaa and /en/edsaa return single-hop 301 to /tr/edsaa.html and /en/edsaa.html.",
+    "Update/replace stale regression tests with 68-page aware assertions and EDSAA-specific contracts to prevent false failures."
+  ],
+  "critical_code_review_comments": [
+    "build_edsaa.py add_menu_link() regex targets <div class='submenu' ...>, but real markup uses <ul class='submenu' ...>; this explains missing EDSAA links site-wide.",
+    "EDSAA build currently starts from contact pages and retains full register section/footer shell content blocks not permitted by the requested EDSAA scope.",
+    "Scrollbar implementation is correct and native: html scrollbar-width: thin and color resolves to rgb(107, 94, 67) with light track; no JS interception detected.",
+    "Newsroom homepage cap logic is correctly implemented in js/news.js (matchMedia max-width:767, slice(0,3/6), resize listener with cached feed; no extra network fetch on resize observed)."
+  ],
+  "updated_files": [
+    "/app/test_reports/iteration_69.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "78%"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Verified on public URL from frontend/.env. Confirmed exact TR/EN titles/meta/intro/canonical/hreflang and X-Robots-Tag noindex,nofollow are correct on EDSAA pages. JSON-LD uses shared TR @id and only minimal keys. Major remaining failures are functional: missing EDSAA menu link across all pages, extensionless EDSAA routes 404 (no 301), and disallowed extra form section on EDSAA pages. Home news cards pass dynamic count contract (TR+EN mobile=3, tablet=6, TR resize 3->6->3 without new feed request).",
+  "rca of the issue": "RCA-1 Missing EDSAA menu link: build script regex mismatch (expects div.submenu, actual files use ul.submenu), so insertion never occurs. RCA-2 Extensionless EDSAA 404: preview runtime routing does not currently apply intended redirect rules for /tr/edsaa and /en/edsaa. RCA-3 Extra form section: EDSAA pages are generated from contact shell and retain register-interest block, conflicting with strict content scope requirements."
+}

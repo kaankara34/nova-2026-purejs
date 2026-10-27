@@ -397,4 +397,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/mehtap-residence.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/mehtap-residence.html"/>
   </url>
+  <url>
+    <loc>https://nova.istanbul/tr/edsaa.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/edsaa.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/edsaa.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/edsaa.html"/>
+  </url>
+  <url>
+    <loc>https://nova.istanbul/en/edsaa.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://nova.istanbul/tr/edsaa.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nova.istanbul/en/edsaa.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nova.istanbul/tr/edsaa.html"/>
+  </url>
 </urlset>

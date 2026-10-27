@@ -64,8 +64,9 @@ def _utility_signature(soup: BeautifulSoup):
     return out
 
 
-def test_total_page_count_is_66():
-    assert len(_all_pages()) == 66
+def test_total_page_count_includes_two_edsaa_pages():
+    assert len(_all_pages()) == 68
+    assert all((ROOT / lang / 'edsaa.html').is_file() for lang in ('tr', 'en'))
 
 
 # language-switch and side-menu contract checks

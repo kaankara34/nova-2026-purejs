@@ -1,0 +1,44 @@
+{
+  "summary": "Frontend retest completed for EDSAA scope. Added focused regression suite and reran full static suite. All requested EDSAA contracts now pass on current preview/public .html routes.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/tests/test_edsaa_pages.py",
+    "/app/test_reports/pytest/iter70_edsaa_pages.xml",
+    "/app/test_reports/pytest/iter70_full_static_suite.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "No blocking frontend contract issues found in this retest run.",
+    "Route behavior matches clarified contract: canonical /tr/edsaa.html and /en/edsaa.html are 200; extensionless preview aliases are not required for this request."
+  ],
+  "updated_files": [
+    "/app/tests/test_edsaa_pages.py",
+    "/app/test_reports/iteration_70.json"
+  ],
+  "success_rate": {
+    "backend": "N/A (frontend-only request)",
+    "frontend": "100% (271/271 full suite + 11/11 focused EDSAA suite)"
+  },
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Focused coverage added in test_edsaa_pages.py for: exact one EDSAA menu link on all 68 pages, no-form EDSAA content constraints, metadata/JSON-LD contract, sitemap entries, .htaccess vs serve.json serving-mode separation, canonical .html HTTP200 + preview noindex header, and baseline-unchanged check for prior 66 pages excluding injected EDSAA menu item.",
+  "rca of the issue": "Previous failures (iteration_69) were resolved before this retest: menu insertion now targets UL.submenu[data-id=nova-konut], #register/form JS removed from EDSAA pages, and canonical .html routing used as contract source.",
+  "main_agent_follow_up": {
+    "generation": "Scopedbuildrerunchanged0files;robots.txtunchangedandserve.jsonsemanticallyunchanged.",
+    "touch": "At320px, originalimageaspectintactandnooverflow/forms;realCDPtouch14pxholdstaysonTRandonlyreleasenavigatestoENEDSAA;actualmobileNOVAentryvisibleandclickable. Deviceemulationnotphysicaldevice.",
+    "touch_evidence": "/root/.emergent/automation_output/20261027_094109_ae3d53faede0/console_20261027_094109.log",
+    "visual_fix": "Additionalmainagentsmokeidentifiedmobileutilitystripclearanceandoldlightfooterresidencelabelcolors. FixedONLYinpage-edsaaCSS. Verified320/390/768/1024/1440:headergap>=30px,nooverflow,imagefullyloaded;footertitle/namecontrast12.86:1,metacontrast7.19:1.",
+    "visual_evidence": "/root/.emergent/automation_output/20261027_094248_c4ee0249d9fc/console_20261027_094248.log",
+    "final_tests": "271passedafterfinalCSSfixes;test_reports/pytest/iter70_final.xml. Pythoncompileandnews.jsnodecheckpass.",
+    "production_limit": "PreviewcanonicalURLs200andnoindexpreserved. NewproductionURLsnotdeployed/checked;SearchConsoleaccess/submission/indexingnotperformedorclaimed."
+  }
+}

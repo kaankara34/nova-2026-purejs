@@ -138,7 +138,7 @@ def test_no_root_dependent_links_remain_in_generated_pages():
             p for p in __import__("pathlib").Path(folder).glob("*.html")
             if p.is_file()
         )
-        assert len(pages) == 33, f"Expected 33 pages in {folder}, found {len(pages)}"
+        assert len(pages) == 34, f"Expected 34 pages in {folder}, found {len(pages)}"
 
         for page in pages:
             html = page.read_text(encoding="utf-8")
@@ -165,6 +165,7 @@ def test_no_root_dependent_links_remain_in_generated_pages():
     "media/flags/tr.svg", "media/flags/gb.svg", "js/hero-video.js",
     "media/images/nova-logo-header.webp", "media/images/nova-logo-dark-header.webp"
     , "favicon.ico", "favicon-32.png", "favicon-192.png", "apple-touch-icon.png"
+    , "css/edsaa.css", "media/images/ew/render/ew-render1.webp"
 ])
 def test_ew_and_design_assets_resolve_under_both_roots(session, base_key, base, asset):
     if not _base_reachable(base):
