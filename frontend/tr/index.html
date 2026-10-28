@@ -23,6 +23,7 @@
 
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/newsroom.css" />
+  <link rel="stylesheet" href="../css/republic-day-modal.css" />
 
   <!-- Intro video poster — reserves and paints the hero before video metadata arrives -->
   <link rel="preload" as="image" href="../media/videos/hero-nova-poster.webp" type="image/webp" fetchpriority="high" />
@@ -34,6 +35,16 @@
   <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180" />
 </head>
 <body>
+  <section aria-hidden="true" aria-label="29 Ekim Cumhuriyet Bayramı mesajı" class="republic-day-modal" data-republic-day-modal data-testid="republic-day-modal" hidden>
+    <div aria-label="29 Ekim Cumhuriyet Bayramı mesajı" aria-modal="true" class="republic-day-modal__dialog" role="dialog">
+      <img alt="29 Ekim Cumhuriyet Bayramı kutlama mesajı" class="republic-day-modal__image" data-testid="republic-day-modal-image" height="1350" src="../media/images/campaigns/29-ekim-cumhuriyet-bayrami-2026.png" width="1080" />
+      <div class="republic-day-modal__actions">
+        <button class="republic-day-modal__button republic-day-modal__button--exit" data-republic-day-exit data-testid="republic-day-modal-exit-button" type="button">ÇIKIŞ</button>
+        <button class="republic-day-modal__button republic-day-modal__button--enter" data-republic-day-enter data-testid="republic-day-modal-enter-button" type="button">SİTEYE GİRİŞ</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
 <div class="utility-bar-inner">
@@ -660,6 +671,7 @@
   <div id="root"></div>
 
   <script src="../js/script.js"></script>
+  <script src="../js/republic-day-modal.js"></script>
   <script src="../js/architects.js" defer></script>
   <script src="../js/east-west-feature.js" defer></script>
   <script src="../js/news.js" defer></script>

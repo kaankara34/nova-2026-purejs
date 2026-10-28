@@ -1,0 +1,128 @@
+/* 29 October Republic Day campaign — homepage only */
+.republic-day-modal[hidden] {
+  display: none;
+}
+
+.republic-day-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 42px);
+  background: rgba(18, 11, 10, .78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity .36s ease;
+}
+
+.republic-day-modal--visible {
+  opacity: 1;
+}
+
+.republic-day-modal__dialog {
+  width: min(100%, 650px);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  background: #f7f2ec;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, .52), 0 0 0 1px rgba(255, 255, 255, .28);
+  transform: translateY(16px) scale(.985);
+  transition: transform .42s cubic-bezier(.2, .7, .2, 1);
+}
+
+.republic-day-modal--visible .republic-day-modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.republic-day-modal__image {
+  width: 100%;
+  max-height: min(70dvh, 790px);
+  object-fit: contain;
+  object-position: center;
+  background: #c72525;
+}
+
+.republic-day-modal__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px;
+  background: #f7f2ec;
+}
+
+.republic-day-modal__button {
+  min-height: 48px;
+  border: 1px solid #70252a;
+  padding: 12px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition: background-color .24s ease, color .24s ease, transform .24s ease;
+}
+
+.republic-day-modal__button:focus-visible {
+  outline: 2px solid #101010;
+  outline-offset: 3px;
+}
+
+.republic-day-modal__button--exit {
+  background: transparent;
+  color: #4e3933;
+}
+
+.republic-day-modal__button--enter {
+  background: #70252a;
+  color: #fff;
+}
+
+@media (hover: hover) {
+  .republic-day-modal__button:hover {
+    transform: translateY(-2px);
+  }
+
+  .republic-day-modal__button--exit:hover {
+    background: #70252a;
+    color: #fff;
+  }
+
+  .republic-day-modal__button--enter:hover {
+    background: #351717;
+  }
+}
+
+@media (max-width: 560px) {
+  .republic-day-modal {
+    padding: 14px;
+    align-items: center;
+  }
+
+  .republic-day-modal__dialog {
+    width: min(100%, 390px);
+  }
+
+  .republic-day-modal__image {
+    max-height: calc(100dvh - 130px);
+  }
+
+  .republic-day-modal__actions {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .republic-day-modal__button {
+    min-height: 46px;
+    padding-inline: 10px;
+    font-size: 10px;
+    letter-spacing: .1em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .republic-day-modal,
+  .republic-day-modal__dialog,
+  .republic-day-modal__button {
+    transition: none;
+  }
+}

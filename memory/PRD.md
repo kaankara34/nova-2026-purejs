@@ -2,6 +2,32 @@
 
 Last updated: 2026-10-27
 
+## Current task — time-limited 29 October homepage modal
+
+### Requirements and implementation — 2026-10-28
+- User supplied the Republic Day visual and requested a premium, responsive opening modal on both
+  Turkish and English homepages, active from 29 October through 6 November. Both **Çıkış/Exit**
+  and **Siteye Giriş/Enter Site** only close the modal, as explicitly selected by the user.
+- Added the supplied source unchanged as
+  `frontend/media/images/campaigns/29-ekim-cumhuriyet-bayrami-2026.png`; homepages reference the
+  local shared asset rather than an external temporary URL.
+- `css/republic-day-modal.css` provides an accessible, premium dark-overlay dialog with responsive
+  image sizing, two clear actions, focus styles and reduced-motion support. It only loads on the
+  two homepage files.
+- `js/republic-day-modal.js` evaluates the visitor's Europe/Istanbul calendar day and shows only
+  between **2026-10-29** and **2026-11-06** (inclusive). A same-tab session dismissal prevents a
+  repeat after either button or Escape, while a fresh visit in the campaign window opens normally.
+  The modal locks background scroll and restores it on close. `?campaign-preview=1` is a manual
+  preview path for review outside the date window.
+
+### Verification
+- Static JavaScript syntax validation passed; CSS and campaign image returned HTTP 200 from the
+  external preview.
+- Browser verification at 1920px showed the supplied visual, loaded image, visible modal,
+  initial keyboard focus on “Siteye Giriş”, correct `aria-hidden=false`, and background scroll lock.
+  Earlier mobile 390px run confirmed the image and both controls fit without overflow; both entry
+  and exit controls close the modal. User device/production confirmation remains pending.
+
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 
 ### Requirements and boundaries

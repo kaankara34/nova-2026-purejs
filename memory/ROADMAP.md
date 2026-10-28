@@ -1,6 +1,9 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- 2026-10-28: time-limited 29 October campaign modal is implemented in preview for both homepages;
+  P1: user review on a physical mobile device and post-cPanel confirmation during the campaign.
+  It self-disables outside 29 October–6 November (Europe/Istanbul), so no manual removal is required.
 -2026-10-27 currentEDSAA/mobilejournal/scrollbarrequest COMPLETEinpreview:271tests pass.
   P1:visualreview and,afterpublication, realproductionHTTP/indexabilitycheck plusSearchConsole
   sitemap/URLInspection. NoSearchConsoleorindexingresultclaimed. Details:EDSAA_DELIVERY.md.

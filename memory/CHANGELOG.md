@@ -1,3 +1,13 @@
+# 2026-10-28 — Time-limited 29 October homepage modal
+
+- Added the supplied Republic Day artwork as a local shared asset and introduced a premium,
+  responsive opening modal on `tr/index.html` and `en/index.html` only.
+- The modal automatically appears from 29 October through 6 November in Europe/Istanbul time.
+  **Çıkış/Exit**, **Siteye Giriş/Enter Site** and Escape close it; same-tab dismissal prevents
+  repetition. Background scroll is locked while it is open.
+- Verified preview asset/CSS HTTP 200, JavaScript syntax, desktop modal/focus/scroll lock and mobile
+  390px fitting/action closure. `?campaign-preview=1` enables review before the live date window.
+
 # 2026-06 — Mobile polish: footer, flags, EW TR rooms, news spacing, BBL phone
 
 - Mobile bottom white strip removed: global `body { padding-bottom:60px }` now scoped to
