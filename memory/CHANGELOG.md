@@ -10,6 +10,8 @@
 - Follow-up: removed session dismissal so the modal returns on every homepage refresh during the
   campaign, and removed the injected red image backdrop. The supplied PNG now scales proportionally
   with no cropped artwork or synthetic coloured side panels.
+- The platform preview environment bypasses the campaign date guard so the standard preview URL
+  shows the modal immediately for review; the production hostname still honors 29 October–6 November.
 
 # 2026-06 — Mobile polish: footer, flags, EW TR rooms, news spacing, BBL phone
 

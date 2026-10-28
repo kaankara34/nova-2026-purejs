@@ -17,8 +17,9 @@ Last updated: 2026-10-27
 - `js/republic-day-modal.js` evaluates the visitor's Europe/Istanbul calendar day and shows only
   between **2026-10-29** and **2026-11-06** (inclusive). It reopens on every homepage refresh in
   that date window, as requested; either button or Escape closes only the current display. The
-  modal locks background scroll and restores it on close. `?campaign-preview=1` is a manual preview
-  path for review outside the date window.
+  modal locks background scroll and restores it on close. The platform preview host deliberately
+  bypasses the calendar gate for immediate review; production remains date-gated. `?campaign-preview=1`
+  is also available as a manual preview path outside the date window.
 
 ### Verification
 - Static JavaScript syntax validation passed; CSS and campaign image returned HTTP 200 from the
@@ -27,7 +28,8 @@ Last updated: 2026-10-27
   initial keyboard focus on “Siteye Giriş”, correct `aria-hidden=false`, and background scroll lock.
   A follow-up verified refresh reopening plus a 390px modal whose image and dialog have identical
   width (no synthetic red side background); both controls close the current display. User
-  device/production confirmation remains pending.
+  device/production confirmation remains pending. The normal preview base URL was subsequently
+  tested without a query parameter and now opens the modal.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

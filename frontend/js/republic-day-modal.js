@@ -5,7 +5,8 @@
   const modal = document.querySelector('[data-republic-day-modal]');
   if (!modal) return;
 
-  const previewMode = new URLSearchParams(window.location.search).get('campaign-preview') === '1';
+  const previewMode = new URLSearchParams(window.location.search).get('campaign-preview') === '1'
+    || window.location.hostname.endsWith('.preview.emergentagent.com');
   const exitButton = modal.querySelector('[data-republic-day-exit]');
   const enterButton = modal.querySelector('[data-republic-day-enter]');
   let scrollLocked = false;
