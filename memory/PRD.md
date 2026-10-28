@@ -30,6 +30,10 @@ Last updated: 2026-10-27
   width (no synthetic red side background); both controls close the current display. User
   device/production confirmation remains pending. The normal preview base URL was subsequently
   tested without a query parameter and now opens the modal.
+- Follow-up performance optimization: converted the supplied 839,700-byte PNG into a visually
+  equivalent 137,488-byte WebP (about 84% smaller). Both homepages preload this WebP at high
+  priority and use a PNG fallback only for browsers without WebP support. Preview browser evidence
+  confirmed the active image `currentSrc` is the WebP, with its natural 1080px image width intact.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 
