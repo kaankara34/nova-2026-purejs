@@ -6,17 +6,17 @@ Last updated: 2026-10-27
 
 ### Requirements and implementation — 2026-10-28
 - User supplied the Republic Day visual and requested a premium, responsive opening modal on both
-  Turkish and English homepages, active from 29 October through 6 November. Both **Çıkış/Exit**
-  and **Siteye Giriş/Enter Site** only close the modal, as explicitly selected by the user.
+  Turkish and English homepages, active from 29 October through 6 November. The top-left **×** and
+  **Siteye Giriş/Enter Site** only close the modal.
 - Added the supplied source unchanged as
   `frontend/media/images/campaigns/29-ekim-cumhuriyet-bayrami-2026.png`; homepages reference the
   local shared asset rather than an external temporary URL.
 - `css/republic-day-modal.css` provides an accessible, premium dark-overlay dialog with responsive
-  image sizing, two clear actions, focus styles and reduced-motion support. It only loads on the
-  two homepage files.
+  image sizing, a top-left × close control, one entry action, focus styles and reduced-motion support.
+  It only loads on the two homepage files.
 - `js/republic-day-modal.js` evaluates the visitor's Europe/Istanbul calendar day and shows only
   between **2026-10-29** and **2026-11-06** (inclusive). It reopens on every homepage refresh in
-  that date window, as requested; either button or Escape closes only the current display. The
+  that date window, as requested; the ×, entry action or Escape closes only the current display. The
   modal locks background scroll and restores it on close. The platform preview host deliberately
   bypasses the calendar gate for immediate review; production remains date-gated. `?campaign-preview=1`
   is also available as a manual preview path outside the date window.
@@ -27,13 +27,15 @@ Last updated: 2026-10-27
 - Browser verification at 1920px showed the supplied visual, loaded image, visible modal,
   initial keyboard focus on “Siteye Giriş”, correct `aria-hidden=false`, and background scroll lock.
   A follow-up verified refresh reopening plus a 390px modal whose image and dialog have identical
-  width (no synthetic red side background); both controls close the current display. User
+  width (no synthetic red side background); the × and entry control close the current display. User
   device/production confirmation remains pending. The normal preview base URL was subsequently
   tested without a query parameter and now opens the modal.
 - Follow-up performance optimization: converted the supplied 839,700-byte PNG into a visually
   equivalent 137,488-byte WebP (about 84% smaller). Both homepages preload this WebP at high
   priority and use a PNG fallback only for browsers without WebP support. Preview browser evidence
   confirmed the active image `currentSrc` is the WebP, with its natural 1080px image width intact.
+- Follow-up interface simplification: removed the redundant Exit button. A compact, keyboard-accessible
+  top-left × now dismisses the modal; the remaining entry action spans the full width.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

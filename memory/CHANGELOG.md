@@ -3,8 +3,8 @@
 - Added the supplied Republic Day artwork as a local shared asset and introduced a premium,
   responsive opening modal on `tr/index.html` and `en/index.html` only.
 - The modal automatically appears from 29 October through 6 November in Europe/Istanbul time.
-  **Çıkış/Exit**, **Siteye Giriş/Enter Site** and Escape close it; same-tab dismissal prevents
-  repetition. Background scroll is locked while it is open.
+  The top-left **×**, **Siteye Giriş/Enter Site** and Escape close it. Background scroll is locked
+  while it is open.
 - Verified preview asset/CSS HTTP 200, JavaScript syntax, desktop modal/focus/scroll lock and mobile
   390px fitting/action closure. `?campaign-preview=1` enables review before the live date window.
 - Follow-up: removed session dismissal so the modal returns on every homepage refresh during the
@@ -15,6 +15,9 @@
 - Performance: added a 137 KB WebP rendition of the supplied 824 KB PNG (approximately 84% smaller),
   preloaded at high priority in both homepage heads. Modern browsers render the WebP; the original
   PNG remains a compatible fallback. Preview network inspection confirmed the WebP is selected.
+- Simplified the modal controls: removed the redundant Exit button, added an accessible top-left ×
+  close control and made the sole entry action span the modal width. Preview browser test confirmed
+  the old button is absent and × closes the modal.
 
 # 2026-06 — Mobile polish: footer, flags, EW TR rooms, news spacing, BBL phone
 

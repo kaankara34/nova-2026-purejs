@@ -7,7 +7,7 @@
 
   const previewMode = new URLSearchParams(window.location.search).get('campaign-preview') === '1'
     || window.location.hostname.endsWith('.preview.emergentagent.com');
-  const exitButton = modal.querySelector('[data-republic-day-exit]');
+  const closeButton = modal.querySelector('[data-republic-day-close]');
   const enterButton = modal.querySelector('[data-republic-day-enter]');
   let scrollLocked = false;
 
@@ -47,7 +47,7 @@
 
   if (!previewMode && !campaignIsLive()) return;
 
-  exitButton?.addEventListener('click', dismissModal);
+  closeButton?.addEventListener('click', dismissModal);
   enterButton?.addEventListener('click', dismissModal);
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !modal.hidden) dismissModal();
