@@ -7,8 +7,7 @@
   while it is open.
 - Verified preview asset/CSS HTTP 200, JavaScript syntax, desktop modal/focus/scroll lock and mobile
   390px fitting/action closure. `?campaign-preview=1` enables review before the live date window.
-- Follow-up: removed session dismissal so the modal returns on every homepage refresh during the
-  campaign, and removed the injected red image backdrop. The supplied PNG now scales proportionally
+- Follow-up: removed the injected red image backdrop. The supplied PNG now scales proportionally
   with no cropped artwork or synthetic coloured side panels.
 - The platform preview environment bypasses the campaign date guard so the standard preview URL
   shows the modal immediately for review; the production hostname still honors 29 October–6 November.
@@ -18,6 +17,9 @@
 - Simplified the modal controls: removed the redundant Exit button, added an accessible top-left ×
   close control and made the sole entry action span the modal width. Preview browser test confirmed
   the old button is absent and × closes the modal.
+- Added same-tab session memory: after the visitor closes or enters through the modal, it remains
+  hidden across internal site navigation and refreshes. A fresh browser tab/session can see it again;
+  `?campaign-preview=1` remains available to force an editorial preview.
 
 # 2026-06 — Mobile polish: footer, flags, EW TR rooms, news spacing, BBL phone
 

@@ -5,8 +5,9 @@
   const modal = document.querySelector('[data-republic-day-modal]');
   if (!modal) return;
 
-  const previewMode = new URLSearchParams(window.location.search).get('campaign-preview') === '1'
-    || window.location.hostname.endsWith('.preview.emergentagent.com');
+  const forcePreview = new URLSearchParams(window.location.search).get('campaign-preview') === '1';
+  const previewHost = window.location.hostname.endsWith('.preview.emergentagent.com');
+  const sessionKey = 'nova-republic-day-modal-2026-dismissed';
   const closeButton = modal.querySelector('[data-republic-day-close]');
   const enterButton = modal.querySelector('[data-republic-day-enter]');
   let scrollLocked = false;
@@ -24,12 +25,25 @@
     return today >= 20261029 && today <= 20261106;
   }
 
+  function wasDismissed() {
+    try {
+      return window.sessionStorage.getItem(sessionKey) === 'true';
+    } catch (_) {
+      return false;
+    }
+  }
+
   function dismissModal() {
     modal.classList.remove('republic-day-modal--visible');
     modal.setAttribute('aria-hidden', 'true');
     if (scrollLocked && typeof window.unlockScroll === 'function') {
       window.unlockScroll();
       scrollLocked = false;
+    }
+    try {
+      window.sessionStorage.setItem(sessionKey, 'true');
+    } catch (_) {
+      /* The campaign remains usable if session storage is unavailable. */
     }
     window.setTimeout(() => { modal.hidden = true; }, 360);
   }
@@ -45,7 +59,8 @@
     enterButton?.focus();
   }
 
-  if (!previewMode && !campaignIsLive()) return;
+  if (!forcePreview && wasDismissed()) return;
+  if (!forcePreview && !previewHost && !campaignIsLive()) return;
 
   closeButton?.addEventListener('click', dismissModal);
   enterButton?.addEventListener('click', dismissModal);

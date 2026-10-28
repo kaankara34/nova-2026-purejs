@@ -15,11 +15,12 @@ Last updated: 2026-10-27
   image sizing, a top-left × close control, one entry action, focus styles and reduced-motion support.
   It only loads on the two homepage files.
 - `js/republic-day-modal.js` evaluates the visitor's Europe/Istanbul calendar day and shows only
-  between **2026-10-29** and **2026-11-06** (inclusive). It reopens on every homepage refresh in
-  that date window, as requested; the ×, entry action or Escape closes only the current display. The
-  modal locks background scroll and restores it on close. The platform preview host deliberately
-  bypasses the calendar gate for immediate review; production remains date-gated. `?campaign-preview=1`
-  is also available as a manual preview path outside the date window.
+  between **2026-10-29** and **2026-11-06** (inclusive). Once dismissed with the ×, entry action or
+  Escape, the modal stays hidden through all same-tab page refreshes and internal navigation; a new
+  browser tab/session opens it again during the campaign. The modal locks background scroll and
+  restores it on close. The platform preview host deliberately bypasses the calendar gate for
+  immediate review, while production remains date-gated. `?campaign-preview=1` forces preview even
+  after an in-session dismissal.
 
 ### Verification
 - Static JavaScript syntax validation passed; CSS and campaign image returned HTTP 200 from the
@@ -29,7 +30,8 @@ Last updated: 2026-10-27
   A follow-up verified refresh reopening plus a 390px modal whose image and dialog have identical
   width (no synthetic red side background); the × and entry control close the current display. User
   device/production confirmation remains pending. The normal preview base URL was subsequently
-  tested without a query parameter and now opens the modal.
+  tested without a query parameter and now opens the modal for a new session. A later test confirmed
+  that it stays hidden after visiting an internal page and returning home in the same session.
 - Follow-up performance optimization: converted the supplied 839,700-byte PNG into a visually
   equivalent 137,488-byte WebP (about 84% smaller). Both homepages preload this WebP at high
   priority and use a PNG fallback only for browsers without WebP support. Preview browser evidence
