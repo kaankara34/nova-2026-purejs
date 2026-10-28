@@ -22,7 +22,7 @@
 }
 
 .republic-day-modal__dialog {
-  width: min(100%, 650px);
+  width: min(100%, 650px, calc((100dvh - 170px) * .8));
   max-height: calc(100dvh - 32px);
   overflow: auto;
   background: #f7f2ec;
@@ -37,10 +37,10 @@
 
 .republic-day-modal__image {
   width: 100%;
-  max-height: min(70dvh, 790px);
-  object-fit: contain;
-  object-position: center;
-  background: #c72525;
+  height: auto;
+  max-height: none;
+  object-fit: initial;
+  background: transparent;
 }
 
 .republic-day-modal__actions {
@@ -103,7 +103,7 @@
   }
 
   .republic-day-modal__image {
-    max-height: calc(100dvh - 130px);
+    max-height: none;
   }
 
   .republic-day-modal__actions {

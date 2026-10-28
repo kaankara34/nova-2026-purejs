@@ -7,6 +7,9 @@
   repetition. Background scroll is locked while it is open.
 - Verified preview asset/CSS HTTP 200, JavaScript syntax, desktop modal/focus/scroll lock and mobile
   390px fitting/action closure. `?campaign-preview=1` enables review before the live date window.
+- Follow-up: removed session dismissal so the modal returns on every homepage refresh during the
+  campaign, and removed the injected red image backdrop. The supplied PNG now scales proportionally
+  with no cropped artwork or synthetic coloured side panels.
 
 # 2026-06 — Mobile polish: footer, flags, EW TR rooms, news spacing, BBL phone
 

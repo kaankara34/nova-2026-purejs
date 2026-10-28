@@ -15,18 +15,19 @@ Last updated: 2026-10-27
   image sizing, two clear actions, focus styles and reduced-motion support. It only loads on the
   two homepage files.
 - `js/republic-day-modal.js` evaluates the visitor's Europe/Istanbul calendar day and shows only
-  between **2026-10-29** and **2026-11-06** (inclusive). A same-tab session dismissal prevents a
-  repeat after either button or Escape, while a fresh visit in the campaign window opens normally.
-  The modal locks background scroll and restores it on close. `?campaign-preview=1` is a manual
-  preview path for review outside the date window.
+  between **2026-10-29** and **2026-11-06** (inclusive). It reopens on every homepage refresh in
+  that date window, as requested; either button or Escape closes only the current display. The
+  modal locks background scroll and restores it on close. `?campaign-preview=1` is a manual preview
+  path for review outside the date window.
 
 ### Verification
 - Static JavaScript syntax validation passed; CSS and campaign image returned HTTP 200 from the
   external preview.
 - Browser verification at 1920px showed the supplied visual, loaded image, visible modal,
   initial keyboard focus on “Siteye Giriş”, correct `aria-hidden=false`, and background scroll lock.
-  Earlier mobile 390px run confirmed the image and both controls fit without overflow; both entry
-  and exit controls close the modal. User device/production confirmation remains pending.
+  A follow-up verified refresh reopening plus a 390px modal whose image and dialog have identical
+  width (no synthetic red side background); both controls close the current display. User
+  device/production confirmation remains pending.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

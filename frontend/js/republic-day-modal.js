@@ -5,7 +5,6 @@
   const modal = document.querySelector('[data-republic-day-modal]');
   if (!modal) return;
 
-  const sessionKey = 'nova-republic-day-modal-2026-dismissed';
   const previewMode = new URLSearchParams(window.location.search).get('campaign-preview') === '1';
   const exitButton = modal.querySelector('[data-republic-day-exit]');
   const enterButton = modal.querySelector('[data-republic-day-enter]');
@@ -24,25 +23,12 @@
     return today >= 20261029 && today <= 20261106;
   }
 
-  function wasDismissed() {
-    try {
-      return window.sessionStorage.getItem(sessionKey) === 'true';
-    } catch (_) {
-      return false;
-    }
-  }
-
   function dismissModal() {
     modal.classList.remove('republic-day-modal--visible');
     modal.setAttribute('aria-hidden', 'true');
     if (scrollLocked && typeof window.unlockScroll === 'function') {
       window.unlockScroll();
       scrollLocked = false;
-    }
-    try {
-      window.sessionStorage.setItem(sessionKey, 'true');
-    } catch (_) {
-      /* The campaign remains usable if session storage is unavailable. */
     }
     window.setTimeout(() => { modal.hidden = true; }, 360);
   }
@@ -58,7 +44,7 @@
     enterButton?.focus();
   }
 
-  if (!previewMode && (!campaignIsLive() || wasDismissed())) return;
+  if (!previewMode && !campaignIsLive()) return;
 
   exitButton?.addEventListener('click', dismissModal);
   enterButton?.addEventListener('click', dismissModal);
