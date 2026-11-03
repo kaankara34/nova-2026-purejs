@@ -2,42 +2,25 @@
 
 Last updated: 2026-10-27
 
-## Current task — time-limited 29 October homepage modal
+## Latest update — campaign modal removal, partner curation and Turkish news detail
 
-### Requirements and implementation — 2026-10-28
-- User supplied the Republic Day visual and requested a premium, responsive opening modal on both
-  Turkish and English homepages, active from 29 October through 6 November. The top-left **×** and
-  **Siteye Giriş/Enter Site** only close the modal.
-- Added the supplied source unchanged as
-  `frontend/media/images/campaigns/29-ekim-cumhuriyet-bayrami-2026.png`; homepages reference the
-  local shared asset rather than an external temporary URL.
-- `css/republic-day-modal.css` provides an accessible, premium dark-overlay dialog with responsive
-  image sizing, a top-left × close control, one entry action, focus styles and reduced-motion support.
-  It only loads on the two homepage files.
-- `js/republic-day-modal.js` evaluates the visitor's Europe/Istanbul calendar day and shows only
-  between **2026-10-29** and **2026-11-06** (inclusive). Once dismissed with the ×, entry action or
-  Escape, the modal stays hidden through all same-tab page refreshes and internal navigation; a new
-  browser tab/session opens it again during the campaign. The modal locks background scroll and
-  restores it on close. The platform preview host deliberately bypasses the calendar gate for
-  immediate review, while production remains date-gated. `?campaign-preview=1` forces preview even
-  after an in-session dismissal.
+### Requirements and implementation — 2026-11-03
+- The temporary Republic Day modal was withdrawn in full: its markup, stylesheet reference, preload,
+  JavaScript reference, CSS/JS implementation files and local PNG/WebP campaign assets were removed
+  from both homepages. No campaign modal code or asset remains in `frontend/`.
+- Removed the Neo Portföy and Tera Portföy partner cards from both Turkish and English Partners
+  pages, including their unused image assets. The historical Tera image used the misleading internal
+  filename `turkiye-petrolleri.webp`; its visible brand was verified before removal.
+- Turkish news detail links now resolve from the active Turkish page directory (`haber.html`) rather
+  than relying on a root-derived URL. This preserves the correct page when the site is served from
+  either cPanel's document root or a portable static preview layout.
 
 ### Verification
-- Static JavaScript syntax validation passed; CSS and campaign image returned HTTP 200 from the
-  external preview.
-- Browser verification at 1920px showed the supplied visual, loaded image, visible modal,
-  initial keyboard focus on “Siteye Giriş”, correct `aria-hidden=false`, and background scroll lock.
-  A follow-up verified refresh reopening plus a 390px modal whose image and dialog have identical
-  width (no synthetic red side background); the × and entry control close the current display. User
-  device/production confirmation remains pending. The normal preview base URL was subsequently
-  tested without a query parameter and now opens the modal for a new session. A later test confirmed
-  that it stays hidden after visiting an internal page and returning home in the same session.
-- Follow-up performance optimization: converted the supplied 839,700-byte PNG into a visually
-  equivalent 137,488-byte WebP (about 84% smaller). Both homepages preload this WebP at high
-  priority and use a PNG fallback only for browsers without WebP support. Preview browser evidence
-  confirmed the active image `currentSrc` is the WebP, with its natural 1080px image width intact.
-- Follow-up interface simplification: removed the redundant Exit button. A compact, keyboard-accessible
-  top-left × now dismisses the modal; the remaining entry action spans the full width.
+- A static search confirmed no Republic Day modal/asset references remain. The preview homepage
+  contains no modal markup; both removed Partner cards are absent and the remaining partner grid has
+  10 cards.
+- Preview browser automation opened a Turkish homepage news card at
+  `/tr/haber.html?id=…`, confirmed the article content loads, and did not redirect to `index.html`.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

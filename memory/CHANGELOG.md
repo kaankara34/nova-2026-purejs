@@ -1,4 +1,13 @@
-# 2026-10-28 — Time-limited 29 October homepage modal
+# 2026-11-03 — Campaign modal removal, partner logo curation and Turkish news links
+
+- Removed the Republic Day modal completely: both homepage markup/preloads/references, its CSS and
+  JavaScript files, and local PNG/WebP campaign assets. No modal code remains in the delivered site.
+- Removed Neo Portföy and Tera Portföy (internally misnamed `turkiye-petrolleri.webp`) from both
+  bilingual Partners grids and deleted those now-unused image assets.
+- Made news-detail URLs resolve from the current language directory. Preview click verification now
+  opens `/tr/haber.html?id=…` with its article content instead of returning to the Turkish home page.
+
+# 2026-10-28 — Time-limited 29 October homepage modal (withdrawn 2026-11-03)
 
 - Added the supplied Republic Day artwork as a local shared asset and introduced a premium,
   responsive opening modal on `tr/index.html` and `en/index.html` only.

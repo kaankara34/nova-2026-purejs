@@ -127,9 +127,10 @@
   }
 
   const safeExternal = function (url) { return /^https:\/\//i.test(url || '') ? url : ''; };
+  const languagePageUrl = function (filename) { return new URL(filename, document.baseURI).href; };
   const PAGES = LANG === 'tr'
-    ? { home: siteUrl('tr/index.html'), journal: siteUrl('tr/medya.html'), detail: siteUrl('tr/haber.html') }
-    : { home: siteUrl('en/index.html'), journal: siteUrl('en/newsroom.html'), detail: siteUrl('en/news-detail.html') };
+    ? { home: languagePageUrl('index.html'), journal: languagePageUrl('medya.html'), detail: languagePageUrl('haber.html') }
+    : { home: languagePageUrl('index.html'), journal: languagePageUrl('newsroom.html'), detail: languagePageUrl('news-detail.html') };
   const detailHref = function (item) { return PAGES.detail + '?id=' + encodeURIComponent(item.id); };
 
   function fallbackCover(category, variant) {
