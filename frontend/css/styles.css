@@ -1172,6 +1172,29 @@ body.no-scroll {
   .hero-scroll { animation: none; }
 }
 
+/* Homepage scroll-over: the video remains a real, sticky layer while the
+   first opaque content band follows the visitor's native scroll position. */
+.home-hero-scrollover {
+  position: relative;
+  isolation: isolate;
+}
+html.home-page,
+body.home-page {
+  overflow-x: clip;
+}
+.home-scrollover-content {
+  position: relative;
+  z-index: 1;
+  background: var(--c-bg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero-scrollover .hero {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+  }
+}
+
 /* =========================================================
    Build Beyond Living section
    ========================================================= */

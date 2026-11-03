@@ -1,0 +1,25 @@
+{
+  "summary": "Retested all three iteration_71 regressions on public preview: resolved in TR/EN at 1920x1080 and 390x844. Static HTTP suite 16/16 passed; all 16 tower/unit selections and Bahar rendering passed. No runtime or project-media failures observed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_scrollover_static_assets.py",
+    "/app/test_reports/pytest/iter72_static_assets.xml",
+    "/app/tests/playwright_iter72_home.py",
+    "/app/tests/playwright_iter72_projects.py",
+    "/app/tests/playwright_iter71_projects.py"
+  ],
+  "action_items": ["Validate physical iOS Safari and production/cPanel asset deployment separately; neither was tested here."],
+  "critical_code_review_comments": [
+    "No blocking defect found in the scoped fixes. Header uses covering-content geometry; arrow targets existing buildBeyondLiving; register waits for news-ready before scrolling.",
+    "Existing maintainability/testability debt outside the fixes: script.js is 754 lines and styles.css exceeds 700 lines; several homepage form controls and links lack data-testid. No application edits made.",
+    "Fresh-feed success was verified against the real feed. Stale-cache refresh, unavailable-feed timing, and production artifact persistence were not exercised."
+  ],
+  "updated_files": ["/app/tests/playwright_iter72_home.py", "/app/tests/playwright_iter72_projects.py", "/app/test_reports/iteration_72.json"],
+  "success_rate": {"backend": "100% (16/16 static-serving/markup checks; unrelated backend APIs not tested)", "frontend": "100% of executed scoped checks"},
+  "seed_data_creation": "None; no mocked APIs or integrations. Browser cache keys cleared solely to exercise fresh-load news hydration.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Browser-tool Chromium preview only. At white content top about39.5px, desktop/mobile header bottom110/85px, transparent=false, background rgba(11,11,11,.94), white controls readable. Native wheel: sticky heroTop0, video time advances, reverse returns scrollY0/content origin, no horizontal overflow or page snap. Arrow reaches targetTop about-0.4px in all four combinations. Fresh first CTA hydrates real news (6 desktop/3 mobile cards) then reaches registerTop0.05-0.44px; stable after another second, no second click. Reduced-motion TR/EN hero position relative and moves naturally. TR/EN projects at both widths retain nonsticky hero, transparent-to-dark header, no overflow, working open/close menu. Bahar lowercase JPEG HTTP200/signature valid/rendered width1002; obsolete uppercase404. All eight plan WebPs HTTP200/signature valid; 16 TR/EN tower/unit selections loaded width1240 and selected image visible. No JS errors or failed project media. Browser scripts saved and invoked via tool import; project wrapper reuses iteration71 tests. Forms were not submitted; no authentication requested.",
+  "rca of the issue": "Confirmed previous root causes are addressed: covering-content geometry replaces sticky hero bottom; correct section ID resolves arrow no-op; news-ready synchronization eliminates observed first-click lazy-grid destination shift. No unresolved scoped functional failure."
+}

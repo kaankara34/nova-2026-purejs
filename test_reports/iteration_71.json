@@ -1,0 +1,49 @@
+{
+  "summary": "Public preview verified: 16/16 static HTTP/markup pytest checks passed; TR/EN desktop/mobile sticky scroll-over, reverse scrolling, continuous video and reduced-motion natural flow passed. Bahar and every East/West plan load correctly. Found three unresolved homepage navigation/visibility regressions.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Homepage fixed header", "issue": "TR/EN header stays transparent after white scroll-over content covers the video. At scrollY1100: contentTop=-280.4, heroBottom=819.6, header background rgba(0,0,0,0), menu strokes rgb(255,255,255). White menu/actions disappear against white content.", "selector": "#siteHeader.transparent", "priority": "HIGH"},
+      {"component": "TR/EN hero down arrow", "issue": "Click is a no-op: scrollY remains 0. Handler targets nonexistent #liveAllIn; current section is #buildBeyondLiving.", "selector": "[data-testid='hero-scroll-button']", "priority": "MEDIUM"},
+      {"component": "TR/EN register-interest shortcuts", "issue": "First mobile CTA click stops approximately 1375px above #register, even after 5.5 seconds. TR desktop header CTA also stops approximately 1054px early. A second click succeeds after content has hydrated.", "selector": "[data-testid='bottom-control-1'], [data-testid='header-control-3']", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_scrollover_static_assets.py",
+    "/app/test_reports/pytest/iter71_static_assets.xml",
+    "/app/tests/playwright_iter71_home.py",
+    "/app/tests/playwright_iter71_projects.py",
+    "/app/tests/playwright_iter71_navigation_regressions.py"
+  ],
+  "action_items": [
+    "Update homepage header transparency detection to use the covering content's geometry, not the sticky hero bottom; preserve non-home behavior.",
+    "Point hero arrow to #buildBeyondLiving.",
+    "Reserve homepage news-grid space or hydrate it before calculating a long smooth-scroll destination, then ensure first-click register navigation reaches the form.",
+    "Retest those three regressions and verify actual iOS Safari and production/cPanel deployment separately."
+  ],
+  "critical_code_review_comments": [
+    "script.js:308 evaluates hero.getBoundingClientRect().bottom > 100; sticky geometry keeps this true while opaque white content is under the navbar.",
+    "script.js:407 still targets #liveAllIn although both homepages now expose #buildBeyondLiving.",
+    "news.js:341-347 hydrates a short placeholder only when it enters the viewport. CTA scrollIntoView uses the pre-hydration target position; grid growth shifts #register by 1375px mobile / 1054px desktop.",
+    "East West scripts are ordered synchronously and plan URLs resolve correctly; no console/page errors or media HTTP failures observed during core runs."
+  ],
+  "updated_files": [
+    "/app/frontend/tr/index.html",
+    "/app/frontend/en/index.html",
+    "/app/frontend/tr/the-residences-east-west.html",
+    "/app/frontend/en/the-residences-east-west.html",
+    "/app/backend/tests/test_scrollover_static_assets.py",
+    "/app/tests/playwright_iter71_home.py",
+    "/app/tests/playwright_iter71_projects.py",
+    "/app/tests/playwright_iter71_navigation_regressions.py",
+    "/app/test_reports/iteration_71.json"
+  ],
+  "success_rate": {"backend": "100% (16/16 static-serving checks; unrelated APIs not tested)", "frontend": "Core motion/media checks passed; three navigation/visibility regressions remain"},
+  "seed_data_creation": "None. No mocked APIs or integrations.",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Source edits add data-testid only; no functionality fixes. Browser-tool Chromium runs covered desktop 1920x1080 and mobile 390x844 plus 390x800. TR/EN hero remains top 0 while content rises; reverse restores origin; video time progresses, reduced motion relative/paused, no horizontal overflow. Bahar complete naturalWidth1002; 16 plan selections naturalWidth1240; synthetic persisted pageshow retained selected plan. Eight WebP assets200 correct MIME; lowercase JPG200 image/jpeg, old uppercase404. Public-preview only, not production or physical iOS. Saved browser scripts require Playwright in their runner; local venv lacked Playwright, so equivalent scripts ran through browser automation tool. One runner screenshot-path formatting error and hidden-cookie selector error were test harness issues, corrected without product edits.",
+  "rca of the issue": "Header: sticky hero bounding bottom never retreats below100 while content overlaps; inspect full cover at scrollY1100. Arrow: missing selector confirmed both languages. Contact jump: mobile TR initial #register absoluteTop7037/htmlHeight9155; after first click scrollY7037 but absoluteTop8412/htmlHeight10530, targetTop1375. Second/warm click reaches targetTop0. Source lazy news hydration accounts for growing content ahead of form; reserve layout or synchronize hydration before scrolling."
+}

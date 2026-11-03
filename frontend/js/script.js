@@ -302,10 +302,14 @@ import('./hero-video.js')
   const header = $('.site-header');
   const utilityBar = $('.utility-bar');
   const heroEl = $('.hero, .pj-hero, .ew-hero, .cx-hero, .bb-hero, .tac-hero');
+  const scrolloverContent = $('.home-scrollover-content');
   function onScroll() {
     // Read geometry before any class writes; coalesce scroll events into one frame.
     const scrolled = window.scrollY > 40;
-    const transparent = heroEl ? heroEl.getBoundingClientRect().bottom > 100 : false;
+    const headerBottom = header ? header.getBoundingClientRect().bottom : 100;
+    const transparent = scrolloverContent
+      ? scrolloverContent.getBoundingClientRect().top > headerBottom
+      : (heroEl ? heroEl.getBoundingClientRect().bottom > 100 : false);
     // Hide utility bar when scrolled down past 40px
     if (utilityBar) {
       if (scrolled) {
@@ -404,15 +408,24 @@ import('./hero-video.js')
 
   /* ========== Smooth scroll-down button in hero ========== */
   $('#heroScroll')?.addEventListener('click', () => {
-    const next = $('#liveAllIn');
+    const next = $('#buildBeyondLiving');
     if (next) next.scrollIntoView({ behavior: 'smooth' });
   });
 
   /* ========== Register Interest button scrolls to form ========== */
+  function scrollToRegister() {
+    $('#register')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   $$('[data-scroll="register"]').forEach(b => b.addEventListener('click', (e) => {
     e.preventDefault();
-    $('#register')?.scrollIntoView({ behavior: 'smooth' });
     closeMenu();
+    const newsGrid = $('#newsHomeGrid');
+    if (newsGrid?.getAttribute('aria-busy') === 'true' && window.NovaNewsHome?.hydrate) {
+      newsGrid.addEventListener('nova:news-ready', () => requestAnimationFrame(scrollToRegister), { once: true });
+      window.NovaNewsHome.hydrate();
+      return;
+    }
+    scrollToRegister();
   }));
 
   /* ========== Projects Carousel ========== */

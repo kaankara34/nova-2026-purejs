@@ -324,6 +324,7 @@
         grid.appendChild(buildCard(item, { eager: i < 3 }));
       });
       grid.setAttribute('aria-busy', 'false');
+      grid.dispatchEvent(new CustomEvent('nova:news-ready'));
     }
     function resizeHome() { if (currentFeed) render(currentFeed); }
     if (mobile.addEventListener) mobile.addEventListener('change', resizeHome);
@@ -335,8 +336,14 @@
       loadFeed(render, function () {
         renderState(grid, T.unavailable, 'news-home-empty');
         grid.setAttribute('aria-busy', 'false');
+        grid.dispatchEvent(new CustomEvent('nova:news-ready'));
       });
     }
+
+    window.NovaNewsHome = {
+      hydrate,
+      isReady: () => grid.getAttribute('aria-busy') === 'false'
+    };
 
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(function (entries) {

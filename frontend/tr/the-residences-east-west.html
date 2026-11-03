@@ -20,6 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="../media/images/east-west/videos/ew-hero-poster.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="../media/images/ew/plans/east-3plus1.webp" type="image/webp" fetchpriority="high" />
   <link rel="preload" as="video" href="../media/images/east-west/videos/ew-hero-web.mp4" type="video/mp4" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
 
@@ -385,14 +386,14 @@
   <section class="ew-plans reveal-up">
     <div class="ew-plans-eyebrow">TİP DAİRELER</div>
     <div class="ew-plans-tabs ew-plans-tabs--tower" role="tablist">
-      <button class="ew-plans-tab ew-plans-tab--tower active" data-tower="EAST" role="tab">EAST</button>
-      <button class="ew-plans-tab ew-plans-tab--tower" data-tower="WEST" role="tab">WEST</button>
+      <button class="ew-plans-tab ew-plans-tab--tower active" data-tower="EAST" role="tab" data-testid="ew-tower-east">EAST</button>
+      <button class="ew-plans-tab ew-plans-tab--tower" data-tower="WEST" role="tab" data-testid="ew-tower-west">WEST</button>
     </div>
     <div class="ew-plans-tabs" role="tablist">
-      <button class="ew-plans-tab active" data-idx="0" role="tab">3+1</button>
-      <button class="ew-plans-tab" data-idx="1" role="tab">4+1</button>
-      <button class="ew-plans-tab" data-idx="2" role="tab">DUBLEKS ALT KAT</button>
-      <button class="ew-plans-tab" data-idx="3" role="tab">DUBLEKS ÜST KAT</button>
+      <button class="ew-plans-tab active" data-idx="0" role="tab" data-testid="ew-plan-tab-0">3+1</button>
+      <button class="ew-plans-tab" data-idx="1" role="tab" data-testid="ew-plan-tab-1">4+1</button>
+      <button class="ew-plans-tab" data-idx="2" role="tab" data-testid="ew-plan-tab-2">DUBLEKS ALT KAT</button>
+      <button class="ew-plans-tab" data-idx="3" role="tab" data-testid="ew-plan-tab-3">DUBLEKS ÜST KAT</button>
     </div>
 
     <div class="ew-plans-body">

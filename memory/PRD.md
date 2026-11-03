@@ -2,25 +2,32 @@
 
 Last updated: 2026-10-27
 
-## Latest update — campaign modal removal, partner curation and Turkish news detail
+## Latest update — homepage scroll-over, asset hardening and plan reliability
 
 ### Requirements and implementation — 2026-11-03
-- The temporary Republic Day modal was withdrawn in full: its markup, stylesheet reference, preload,
-  JavaScript reference, CSS/JS implementation files and local PNG/WebP campaign assets were removed
-  from both homepages. No campaign modal code or asset remains in `frontend/`.
-- Removed the Neo Portföy and Tera Portföy partner cards from both Turkish and English Partners
-  pages, including their unused image assets. The historical Tera image used the misleading internal
-  filename `turkiye-petrolleri.webp`; its visible brand was verified before removal.
-- Turkish news detail links now resolve from the active Turkish page directory (`haber.html`) rather
-  than relying on a root-derived URL. This preserves the correct page when the site is served from
-  either cPanel's document root or a portable static preview layout.
+- Added a scoped native-scroll transition on both homepages: the existing video hero is sticky only
+  for users without reduced-motion preference, while one opaque `home-scrollover-content` surface
+  rises naturally over it. Hero height, video, text, section layouts and all non-home pages remain
+  unchanged. Reduced-motion users retain normal document flow.
+- The original global `overflow-x: hidden` made the root a scroll container and prevented sticky
+  positioning. Only homepage `html/body` now use `overflow-x: clip`, preserving no-horizontal-overflow
+  without blocking sticky behavior anywhere else.
+- Header transparency now follows the covering content surface, the hero arrow targets the real
+  `#buildBeyondLiving` section, and first-click register shortcuts hydrate the lazy home news grid
+  before calculating their form destination.
+- Bahar Residence was already an exact `.JPG` source match and served as a valid JPEG in preview;
+  nevertheless, the image was two-step renamed to lowercase `bahar-cover.jpg` and both TR/EN
+  references were updated to remove case-sensitive deployment ambiguity.
+- East West asset paths and synchronous script order were valid. Added plan-data validation, a
+  `pageshow` carousel refresh and initial-plan preload; no retries, polling or placeholder imagery.
 
 ### Verification
-- A static search confirmed no Republic Day modal/asset references remain. The preview homepage
-  contains no modal markup; both removed Partner cards are absent and the remaining partner grid has
-  10 cards.
-- Preview browser automation opened a Turkish homepage news card at
-  `/tr/haber.html?id=…`, confirmed the article content loads, and did not redirect to `index.html`.
+- Testing iteration 72 passed all scoped checks in preview: TR/EN desktop/mobile sticky/reverse
+  scrolling, video continuity, reduced motion, no overflow, readable header, hero arrow and first
+  register click. Bahar rendered from lowercase JPEG; all 16 TR/EN East/West tower/unit selections
+  and all eight direct plan assets loaded successfully. **No flows or APIs are mocked.**
+- Physical iOS Safari and the user's production/cPanel deployment were not accessible for this work;
+  stale-cache and feed-failure timing remain explicit live-environment follow-up checks.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

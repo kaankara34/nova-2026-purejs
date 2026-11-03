@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html class="home-page" lang="en">
 <head>
   <meta charset="utf-8" />
   <link rel="preload" as="image" href="../media/images/nova-logo-header.webp" type="image/webp" fetchpriority="high" data-nova-header-preload="true" />
@@ -33,7 +33,7 @@
   <link rel="icon" type="image/png" href="../favicon-192.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180" />
 </head>
-<body>
+<body class="home-page">
   <!-- ============================= TOP UTILITY BAR ============================= -->
   <div class="utility-bar" id="utilityBar">
 <div class="utility-bar-inner">
@@ -208,6 +208,7 @@
 </div>
 </aside>
 
+  <div class="home-hero-scrollover">
   <!-- ============================= INTRODUCTION VIDEO ============================= -->
   <section class="hero" id="top" data-testid="intro-video-hero">
     <div class="hero-media">
@@ -223,12 +224,13 @@
       
     </div>
 
-    <button class="hero-scroll" id="heroScroll" aria-label="Scroll down">
+    <button class="hero-scroll" id="heroScroll" aria-label="Scroll down" data-testid="hero-scroll-button">
       <svg viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l12 11L25 1"/></svg>
       <svg viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:-6px;opacity:.55;"><path d="M1 1l12 11L25 1"/></svg>
     </button>
   </section>
 
+  <div class="home-scrollover-content">
   <!-- ============================= BUILD BEYOND LIVING ============================= -->
   <section class="section-live-all-in" id="buildBeyondLiving">
     <div class="container">
@@ -578,6 +580,8 @@
     </div>
   </section>
 
+  </div>
+  </div>
  <!-- ============================= FOOTER ============================= -->
   <footer class="site-footer">
 <div class="container">

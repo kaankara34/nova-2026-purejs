@@ -1,6 +1,9 @@
 # NOVA — Prioritised backlog
 
 ## Current priorities — 2026-10-26 (supersedes historical sections below)
+- 2026-11-03: homepage sticky scroll-over, lowercase Bahar asset and East West plan hardening passed
+  iteration 72 in preview. P0 live validation: physical iOS Safari plus cPanel upload (including
+  cold-cache `bahar-cover.jpg` and all plan assets). Do not claim production confirmation before it.
 - 2026-10-28: time-limited 29 October campaign modal is implemented in preview for both homepages;
   P1: user review on a physical mobile device and post-cPanel confirmation during the campaign.
   It self-disables outside 29 October–6 November (Europe/Istanbul), so no manual removal is required.

@@ -1,3 +1,14 @@
+# 2026-11-03 — Sticky scroll-over, asset reliability and navigation regression fixes
+
+- Added the homepage’s CSS-native video scroll-over on TR/EN: a sticky hero stays behind one opaque
+  content surface as it rises with native scroll; reduced motion keeps normal flow. Scoped
+  `overflow-x: clip` fixes the prior root scroll-container conflict without touching other pages.
+- Fixed the header’s white-on-white state after content covers the hero, corrected the hero arrow’s
+  target and synchronized first register CTA scrolling with the lazy homepage news render.
+- Standardized Bahar Residence to `bahar-cover.jpg` in both languages after verifying the original
+  `JPG` asset and references; hardened East West plans with data validation, BFCache refresh and an
+  initial image preload. Iteration 72: all 16 scoped tests passed; no mocked flow.
+
 # 2026-11-03 — Campaign modal removal, partner logo curation and Turkish news links
 
 - Removed the Republic Day modal completely: both homepage markup/preloads/references, its CSS and

@@ -190,6 +190,14 @@
   const plansRoot = $('.ew-plans');
   if (plansRoot) {
     const PLANS_BY_TOWER = window.EW_PLANS;
+    const hasPlanData = PLANS_BY_TOWER
+      && ['EAST', 'WEST'].every(tower => Array.isArray(PLANS_BY_TOWER[tower])
+        && PLANS_BY_TOWER[tower].every(plan => plan && typeof plan.img === 'string' && plan.img));
+    if (!hasPlanData) {
+      plansRoot.dataset.plansState = 'unavailable';
+      console.error('East West plan data is unavailable.');
+      return;
+    }
 
     /* Turkish labels for the plan data (data file stays in English). */
     const LANG = (document.documentElement.lang || 'en').toLowerCase().indexOf('tr') === 0 ? 'tr' : 'en';
@@ -245,7 +253,7 @@
       if (!trackEl) return;
       const list = currentPlans();
       trackEl.innerHTML = list.map((p) =>
-        `<div class="ew-plans-slide"><div class="ew-plans-figure"${p.dim ? ` data-dim="${p.dim}"` : ''}><img src="${p.img}" alt="${p.title} floor plan" draggable="false"/></div></div>`
+        `<div class="ew-plans-slide"><div class="ew-plans-figure"${p.dim ? ` data-dim="${p.dim}"` : ''}><img src="${p.img}" alt="${p.title} floor plan" decoding="async" draggable="false"/></div></div>`
       ).join('');
     }
 
@@ -253,6 +261,7 @@
       const list = currentPlans();
       planIdx = idx;
       const p = list[idx];
+      if (!p) return;
       tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
       titleEl.textContent = tTitle(p.title);
       const rows = [`<div class="ew-plans-row ew-plans-row--total"><span>${tLabel('Total Area')}</span><span class="ew-plans-val">${p.total}</span></div>`];
@@ -282,6 +291,7 @@
     }
 
     function setTower(tower) {
+      if (!PLANS_BY_TOWER[tower]) return;
       currentTower = tower;
       towerTabs.forEach(t => t.classList.toggle('active', t.dataset.tower === tower));
       // Rebuild slides for new tower, keep index
@@ -306,6 +316,9 @@
 
     // Initial setup
     initPlanSwiper();
+    window.addEventListener('pageshow', () => {
+      if (planSwiper && typeof planSwiper.refresh === 'function') planSwiper.refresh();
+    });
 
     function openPlanLightbox() {
       if (!lightbox) return;
