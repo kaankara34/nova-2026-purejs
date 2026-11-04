@@ -1,0 +1,633 @@
+{
+  "checks": [
+    {
+      "name": "tr-1920 first register CTA",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": -0.359375,
+        "width": 1920,
+        "height": 711.28125
+      }
+    },
+    {
+      "name": "tr-1920 video initial",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 4.1183,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4"
+        },
+        "second": {
+          "time": 4.8247,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "tr-1920 native sticky notch boundary",
+      "passed": true,
+      "detail": {
+        "heroTop": 0,
+        "contentTop": 99.59375,
+        "heroPosition": "sticky",
+        "clip": "polygon(0px 0px, calc(50% - 20px) 0px, 50% 18px, calc(50% + 20px) 0px, 100% 0px, 100% 100%, 0px 100%)",
+        "notchWidth": "20px",
+        "notchHeight": "18px",
+        "overflow": 0
+      }
+    },
+    {
+      "name": "tr-1920 video during boundary",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 5.987,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4"
+        },
+        "second": {
+          "time": 6.7886,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "tr-1920 dark header over white content",
+      "passed": true,
+      "detail": {
+        "transparent": false,
+        "background": "rgba(11, 11, 11, 0.94)",
+        "color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "tr-1920 native reverse origin",
+      "passed": true,
+      "detail": {
+        "y": 0,
+        "hero": 0,
+        "content": 819.59375
+      }
+    },
+    {
+      "name": "tr-1920 video after reverse",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 8.3418,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4"
+        },
+        "second": {
+          "time": 9.047,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "tr-1920 arrow navigation",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": -0.40625,
+        "width": 1920,
+        "height": 453.1875
+      }
+    },
+    {
+      "name": "tr-1920 localized section and metrics",
+      "passed": true,
+      "detail": {
+        "previous": "projects",
+        "next": "section-architects",
+        "values": [
+          "3",
+          "10",
+          "3"
+        ],
+        "overflow": 0,
+        "rect": {
+          "x": 0,
+          "y": 70.5,
+          "width": 1920,
+          "height": 939.296875,
+          "top": 70.5,
+          "right": 1920,
+          "bottom": 1009.796875,
+          "left": 0
+        }
+      }
+    },
+    {
+      "name": "tr-1920 portfolio CTA and page isolation",
+      "passed": true,
+      "detail": {
+        "url": "https://darg-clone-1.preview.emergentagent.com/tr/projeler.html",
+        "title": "Projeler | Nova Konut"
+      }
+    },
+    {
+      "name": "tr-1920 reduced motion natural flow",
+      "passed": true,
+      "detail": {
+        "top": -300,
+        "position": "relative"
+      }
+    },
+    {
+      "name": "en-1920 first register CTA",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": -0.4375,
+        "width": 1920,
+        "height": 694.78125
+      }
+    },
+    {
+      "name": "en-1920 video initial",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 4.0439,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4"
+        },
+        "second": {
+          "time": 4.7507,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "en-1920 native sticky notch boundary",
+      "passed": true,
+      "detail": {
+        "heroTop": 0,
+        "contentTop": 99.59375,
+        "heroPosition": "sticky",
+        "clip": "polygon(0px 0px, calc(50% - 20px) 0px, 50% 18px, calc(50% + 20px) 0px, 100% 0px, 100% 100%, 0px 100%)",
+        "notchWidth": "20px",
+        "notchHeight": "18px",
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-1920 video during boundary",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 5.7366,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4"
+        },
+        "second": {
+          "time": 6.4428,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "en-1920 dark header over white content",
+      "passed": true,
+      "detail": {
+        "transparent": false,
+        "background": "rgba(11, 11, 11, 0.94)",
+        "color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "en-1920 native reverse origin",
+      "passed": true,
+      "detail": {
+        "y": 0,
+        "hero": 0,
+        "content": 819.59375
+      }
+    },
+    {
+      "name": "en-1920 video after reverse",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 7.9936,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-1600.mp4"
+        },
+        "second": {
+          "time": 8.7009,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "en-1920 arrow navigation",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 0.59375,
+        "width": 1920,
+        "height": 453.1875
+      }
+    },
+    {
+      "name": "en-1920 localized section and metrics",
+      "passed": true,
+      "detail": {
+        "previous": "projects",
+        "next": "section-architects",
+        "values": [
+          "3",
+          "10",
+          "3"
+        ],
+        "overflow": 0,
+        "rect": {
+          "x": 0,
+          "y": 41.5,
+          "width": 1920,
+          "height": 997.609375,
+          "top": 41.5,
+          "right": 1920,
+          "bottom": 1039.109375,
+          "left": 0
+        }
+      }
+    },
+    {
+      "name": "en-1920 portfolio CTA and page isolation",
+      "passed": true,
+      "detail": {
+        "url": "https://darg-clone-1.preview.emergentagent.com/en/projects.html",
+        "title": "Projects | Nova Konut"
+      }
+    },
+    {
+      "name": "en-1920 reduced motion natural flow",
+      "passed": true,
+      "detail": {
+        "top": -300,
+        "position": "relative"
+      }
+    },
+    {
+      "name": "tr-390 first register CTA",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": -0.234375,
+        "width": 390,
+        "height": 1058.296875
+      }
+    },
+    {
+      "name": "tr-390 video initial",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 3.9258,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-960.mp4"
+        },
+        "second": {
+          "time": 4.6316,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "tr-390 native sticky notch boundary",
+      "passed": true,
+      "detail": {
+        "heroTop": 0,
+        "contentTop": 99.515625,
+        "heroPosition": "sticky",
+        "clip": "polygon(0px 0px, calc(50% - 15px) 0px, 50% 14px, calc(50% + 15px) 0px, 100% 0px, 100% 100%, 0px 100%)",
+        "notchWidth": "15px",
+        "notchHeight": "14px",
+        "overflow": 0
+      }
+    },
+    {
+      "name": "tr-390 video during boundary",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 5.4519,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-960.mp4"
+        },
+        "second": {
+          "time": 6.1577,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "tr-390 dark header over white content",
+      "passed": true,
+      "detail": {
+        "transparent": false,
+        "background": "rgba(11, 11, 11, 0.94)",
+        "color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "tr-390 native reverse origin",
+      "passed": true,
+      "detail": {
+        "y": 0,
+        "hero": 0,
+        "content": 610.515625
+      }
+    },
+    {
+      "name": "tr-390 video after reverse",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 7.5189,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-960.mp4"
+        },
+        "second": {
+          "time": 8.2248,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "tr-390 arrow navigation",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 1.515625,
+        "width": 390,
+        "height": 416.5
+      }
+    },
+    {
+      "name": "tr-390 localized section and metrics",
+      "passed": true,
+      "detail": {
+        "previous": "projects",
+        "next": "section-architects",
+        "values": [
+          "3",
+          "10",
+          "3"
+        ],
+        "overflow": 0,
+        "rect": {
+          "x": 0,
+          "y": -109.5,
+          "width": 390,
+          "height": 1063.703125,
+          "top": -109.5,
+          "right": 390,
+          "bottom": 954.203125,
+          "left": 0
+        }
+      }
+    },
+    {
+      "name": "tr-390 portfolio CTA and page isolation",
+      "passed": true,
+      "detail": {
+        "url": "https://darg-clone-1.preview.emergentagent.com/tr/projeler.html",
+        "title": "Projeler | Nova Konut"
+      }
+    },
+    {
+      "name": "tr-390 reduced motion natural flow",
+      "passed": true,
+      "detail": {
+        "top": -300,
+        "position": "relative"
+      }
+    },
+    {
+      "name": "en-390 first register CTA",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 0.328125,
+        "width": 390,
+        "height": 1050.890625
+      }
+    },
+    {
+      "name": "en-390 video initial",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 3.9041,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-960.mp4"
+        },
+        "second": {
+          "time": 4.6105,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "en-390 native sticky notch boundary",
+      "passed": true,
+      "detail": {
+        "heroTop": 0,
+        "contentTop": 99.515625,
+        "heroPosition": "sticky",
+        "clip": "polygon(0px 0px, calc(50% - 15px) 0px, 50% 14px, calc(50% + 15px) 0px, 100% 0px, 100% 100%, 0px 100%)",
+        "notchWidth": "15px",
+        "notchHeight": "14px",
+        "overflow": 0
+      }
+    },
+    {
+      "name": "en-390 video during boundary",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 5.4321,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-960.mp4"
+        },
+        "second": {
+          "time": 6.1381,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "en-390 dark header over white content",
+      "passed": true,
+      "detail": {
+        "transparent": false,
+        "background": "rgba(11, 11, 11, 0.94)",
+        "color": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "name": "en-390 native reverse origin",
+      "passed": true,
+      "detail": {
+        "y": 0,
+        "hero": 0,
+        "content": 610.515625
+      }
+    },
+    {
+      "name": "en-390 video after reverse",
+      "passed": true,
+      "detail": {
+        "first": {
+          "time": 7.5157,
+          "paused": false,
+          "error": null,
+          "source": "https://darg-clone-1.preview.emergentagent.com/media/videos/hero-nova-960.mp4"
+        },
+        "second": {
+          "time": 8.2216,
+          "paused": false,
+          "error": null
+        }
+      }
+    },
+    {
+      "name": "en-390 arrow navigation",
+      "passed": true,
+      "detail": {
+        "x": 0,
+        "y": 1.515625,
+        "width": 390,
+        "height": 439.75
+      }
+    },
+    {
+      "name": "en-390 localized section and metrics",
+      "passed": true,
+      "detail": {
+        "previous": "projects",
+        "next": "section-architects",
+        "values": [
+          "3",
+          "10",
+          "3"
+        ],
+        "overflow": 0,
+        "rect": {
+          "x": 0,
+          "y": -129.25,
+          "width": 390,
+          "height": 1101.5,
+          "top": -129.25,
+          "right": 390,
+          "bottom": 972.25,
+          "left": 0
+        }
+      }
+    },
+    {
+      "name": "en-390 portfolio CTA and page isolation",
+      "passed": true,
+      "detail": {
+        "url": "https://darg-clone-1.preview.emergentagent.com/en/projects.html",
+        "title": "Projects | Nova Konut"
+      }
+    },
+    {
+      "name": "en-390 reduced motion natural flow",
+      "passed": true,
+      "detail": {
+        "top": -300,
+        "position": "relative"
+      }
+    },
+    {
+      "name": "tr project isolation the-residences-east-west.html",
+      "passed": true,
+      "detail": [
+        {
+          "class": "ew-hero",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "name": "tr project isolation the-apartments-tac.html",
+      "passed": true,
+      "detail": [
+        {
+          "class": "tac-hero",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "name": "tr project isolation the-apartments-ana.html",
+      "passed": true,
+      "detail": [
+        {
+          "class": "ana-hero",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "name": "en project isolation the-residences-east-west.html",
+      "passed": true,
+      "detail": [
+        {
+          "class": "ew-hero",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "name": "en project isolation the-apartments-tac.html",
+      "passed": true,
+      "detail": [
+        {
+          "class": "tac-hero",
+          "position": "relative"
+        }
+      ]
+    },
+    {
+      "name": "en project isolation the-apartments-ana.html",
+      "passed": true,
+      "detail": [
+        {
+          "class": "ana-hero",
+          "position": "relative"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

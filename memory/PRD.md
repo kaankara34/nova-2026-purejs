@@ -8,7 +8,9 @@ Last updated: 2026-10-27
 - Added a scoped native-scroll transition on both homepages: the existing video hero is sticky only
   for users without reduced-motion preference, while one opaque `home-scrollover-content` surface
   rises naturally over it. Hero height, video, text, section layouts and all non-home pages remain
-  unchanged. Reduced-motion users retain normal document flow.
+  unchanged. The surface now carries the same centered downward triangular cutout as the video hero
+  (20×18px desktop; 15×14px mobile), so the signature transition is retained while scrolling.
+  Reduced-motion users retain normal document flow.
 - The original global `overflow-x: hidden` made the root a scroll container and prevented sticky
   positioning. Only homepage `html/body` now use `overflow-x: clip`, preserving no-horizontal-overflow
   without blocking sticky behavior anywhere else.
@@ -20,6 +22,9 @@ Last updated: 2026-10-27
   references were updated to remove case-sensitive deployment ambiguity.
 - East West asset paths and synchronous script order were valid. Added plan-data validation, a
   `pageshow` carousel refresh and initial-plan preload; no retries, polling or placeholder imagery.
+- Added a bilingual editorial portfolio-facts section directly after the current projects section,
+  informed by the hierarchy (not the copy or facts) of darglobal.co.uk. Its 3 / 10 / 3 metrics are
+  derived only from Nova’s existing visible project selection and stated core disciplines.
 
 ### Verification
 - Testing iteration 72 passed all scoped checks in preview: TR/EN desktop/mobile sticky/reverse
@@ -28,6 +33,8 @@ Last updated: 2026-10-27
   and all eight direct plan assets loaded successfully. **No flows or APIs are mocked.**
 - Physical iOS Safari and the user's production/cPanel deployment were not accessible for this work;
   stale-cache and feed-failure timing remain explicit live-environment follow-up checks.
+- Testing iteration 73 then passed 64/64 TR/EN desktop/mobile checks for the preserved notch,
+  reverse scroll, localized facts/CTA, mobile clearance and all existing hero/navigation regressions.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 
