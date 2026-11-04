@@ -40,6 +40,10 @@ Last updated: 2026-10-27
 - Follow-up browser check confirmed the refreshed 27+ / 385,000 m²+ / 1,090 units section has no
   imagery, correct #D7E3EB typography, no unneeded labels/CTA/note and no horizontal overflow in
   either language. The independent-units value and label are vertically stacked and center-aligned.
+- Refined the metric band’s visual rhythm: desktop rows are 112 / 112 / 92px and mobile rows are
+  98 / 98 / 82px, with balanced divider, value and label spacing. Architects now visually appear as
+  Ömer Çamoğlu, Boran Ekinci, Kay Ngee Tan, Philippe Starck, then the remaining collaborators on
+  both homepage marquees and bilingual Partners pages.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

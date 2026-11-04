@@ -1251,15 +1251,15 @@ body.home-page {
    Nova approach — editorial portfolio facts
    ========================================================= */
 .section-nova-foundations {
-  padding: clamp(52px, 6vw, 88px) 0;
+  padding: clamp(44px, 5vw, 72px) 0;
   background: #625b48;
   border-top: 1px solid rgba(247, 243, 234, .18);
   color: #D7E3EB;
 }
 .nova-foundations-grid {
   display: grid;
-  grid-template-columns: minmax(0, .93fr) minmax(360px, 1.07fr);
-  gap: clamp(54px, 9vw, 160px);
+  grid-template-columns: minmax(0, .92fr) minmax(340px, .88fr);
+  gap: clamp(42px, 6vw, 96px);
   align-items: center;
 }
 .nova-foundations-intro {
@@ -1289,10 +1289,16 @@ body.home-page {
   font-size: 15px;
   line-height: 1.72;
 }
-.nova-foundations-metrics { align-self: center; }
+.nova-foundations-metrics {
+  width: 100%;
+  max-width: 620px;
+  margin-left: auto;
+  border-top: 1px solid rgba(215, 227, 235, .42);
+  align-self: center;
+}
 .nova-foundation-metric {
   display: flex;
-  min-height: 132px;
+  min-height: 112px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1304,40 +1310,45 @@ body.home-page {
 .nova-foundation-value {
   color: #D7E3EB;
   font-family: var(--font-serif);
-  font-size: clamp(52px, 5.2vw, 82px);
+  font-size: clamp(48px, 3.6vw, 66px);
   font-weight: 400;
   line-height: .9;
   font-variant-numeric: lining-nums;
 }
-.nova-foundation-value--area { font-size: clamp(39px, 4vw, 65px); white-space: nowrap; }
-.nova-foundation-value--minor { font-size: clamp(34px, 3.2vw, 52px); }
+.nova-foundation-value--area { font-size: clamp(36px, 3vw, 54px); white-space: nowrap; }
+.nova-foundation-value--minor { font-size: clamp(32px, 2.6vw, 46px); }
 .nova-foundation-value small { font-size: .54em; font-weight: 400; }
 .nova-foundation-label {
-  margin-top: 16px;
+  margin-top: 10px;
   color: #D7E3EB;
   font-size: 10px;
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 .nova-foundations-data-line {
   display: flex;
-  min-height: 66px;
+  min-height: 92px;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   color: #D7E3EB;
   text-align: center;
 }
 .nova-foundations-data-line .nova-foundation-label { margin-top: 0; }
 @media (max-width: 820px) {
-  .nova-foundations-grid { grid-template-columns: 1fr; gap: 52px; }
-  .nova-foundations-metrics { border-top: 1px solid rgba(215, 227, 235, .42); }
+  .nova-foundations-grid { grid-template-columns: 1fr; gap: 34px; }
+  .nova-foundations-metrics { max-width: none; border-top: 1px solid rgba(215, 227, 235, .42); }
 }
 @media (max-width: 480px) {
-  .section-nova-foundations { padding: 48px 0 54px; }
+  .section-nova-foundations { padding: 40px 0 44px; }
   .nova-foundations-title { max-width: none; font-size: 33px; }
-  .nova-foundation-metric { min-height: 116px; }
+  .nova-foundation-metric { min-height: 98px; }
+  .nova-foundations-data-line { min-height: 82px; }
+  .nova-foundation-value { font-size: 52px; }
+  .nova-foundation-value--area { font-size: 42px; }
+  .nova-foundation-value--minor { font-size: 40px; }
+  .nova-foundation-label { font-size: 9px; }
 }
 .section-head {
   display: flex; align-items: center; justify-content: space-between;
@@ -1704,6 +1715,13 @@ body.home-page {
   align-items: stretch;
   gap: clamp(18px, 1.6vw, 24px);
 }
+.ad-group > .ad-card:nth-child(1) { order: 1; }
+.ad-group > .ad-card:nth-child(2) { order: 4; }
+.ad-group > .ad-card:nth-child(3) { order: 3; }
+.ad-group > .ad-card:nth-child(4) { order: 2; }
+.ad-group > .ad-card:nth-child(5) { order: 5; }
+.ad-group > .ad-card:nth-child(6) { order: 6; }
+.ad-group > .ad-card:nth-child(7) { order: 7; }
 .ad-card {
   position: relative;
   flex: 0 0 auto;
