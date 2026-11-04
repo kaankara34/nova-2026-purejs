@@ -22,9 +22,10 @@ Last updated: 2026-10-27
   references were updated to remove case-sensitive deployment ambiguity.
 - East West asset paths and synchronous script order were valid. Added plan-data validation, a
   `pageshow` carousel refresh and initial-plan preload; no retries, polling or placeholder imagery.
-- Added a bilingual editorial portfolio-facts section directly after the current projects section,
-  informed by the hierarchy (not the copy or facts) of darglobal.co.uk. Its 3 / 10 / 3 metrics are
-  derived only from Nova’s existing visible project selection and stated core disciplines.
+- Added a bilingual, photo-free editorial experience section directly after current projects,
+  informed by the hierarchy (not the copy or facts) of darglobal.co.uk. It uses a dark olive-brown,
+  premium surface and the user-confirmed Nova facts: **27+ years of experience** and **235,000 m²+
+  of residential, commercial and industrial buildings**, alongside three core disciplines.
 
 ### Verification
 - Testing iteration 72 passed all scoped checks in preview: TR/EN desktop/mobile sticky/reverse
@@ -35,6 +36,8 @@ Last updated: 2026-10-27
   stale-cache and feed-failure timing remain explicit live-environment follow-up checks.
 - Testing iteration 73 then passed 64/64 TR/EN desktop/mobile checks for the preserved notch,
   reverse scroll, localized facts/CTA, mobile clearance and all existing hero/navigation regressions.
+- Follow-up browser check confirmed the refreshed 27+ / 235,000 m²+ section has no imagery,
+  correct high-contrast olive/ivory styling and no horizontal overflow in either language.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

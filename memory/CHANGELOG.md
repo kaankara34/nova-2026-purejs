@@ -7,6 +7,13 @@
   portfolio CTA and scope note. The layout hierarchy references darglobal.co.uk without using its copy.
 - Iteration 73: 64/64 preview Chromium checks passed; no mocked integrations or scoped failures.
 
+## Follow-up — Nova experience facts and dark olive editorial treatment
+
+- Reframed the new section around user-confirmed Nova facts: 27+ years of experience and 235,000 m²+
+  of residential, commercial and industrial buildings; retained the three core disciplines.
+- Reworked the band into a photo-free dark olive-brown surface with ivory typography, warm-gold
+  details and fine divider lines. TR/EN browser verification confirmed the values, contrast and no overflow.
+
 # 2026-11-03 — Sticky scroll-over, asset reliability and navigation regression fixes
 
 - Added the homepage’s CSS-native video scroll-over on TR/EN: a sticky hero stays behind one opaque
