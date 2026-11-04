@@ -2,17 +2,17 @@
 
 - Restored the original centered downward hero notch inside the rising opaque scroll-over surface:
   20×18px on desktop and 15×14px on mobile, matching the existing video-hero geometry.
-- Added a bilingual Nova editorial portfolio-facts band below current projects: existing-site-derived
-  3 current residential projects, 10 completed projects and 3 core disciplines, plus localized
-  portfolio CTA and scope note. The layout hierarchy references darglobal.co.uk without using its copy.
+- Added a bilingual Nova editorial data band below current projects. The layout hierarchy references
+  darglobal.co.uk without using its copy.
 - Iteration 73: 64/64 preview Chromium checks passed; no mocked integrations or scoped failures.
 
 ## Follow-up — Nova experience facts and dark olive editorial treatment
 
-- Reframed the new section around user-confirmed Nova facts: 27+ years of experience and 235,000 m²+
-  of residential, commercial and industrial buildings; retained the three core disciplines.
+- Reframed the new section around only two user-confirmed Nova facts: 27+ years of experience and
+  235,000 m²+ of completed residential, commercial and industrial built area.
 - Reworked the band into a photo-free dark olive-brown surface with ivory typography, warm-gold
-  details and fine divider lines. TR/EN browser verification confirmed the values, contrast and no overflow.
+  details and fine divider lines. Removed the label, note, CTA and third metric; TR/EN browser
+  verification confirmed the values, contrast and no overflow.
 
 # 2026-11-03 — Sticky scroll-over, asset reliability and navigation regression fixes
 

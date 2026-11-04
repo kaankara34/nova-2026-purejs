@@ -24,8 +24,8 @@ Last updated: 2026-10-27
   `pageshow` carousel refresh and initial-plan preload; no retries, polling or placeholder imagery.
 - Added a bilingual, photo-free editorial experience section directly after current projects,
   informed by the hierarchy (not the copy or facts) of darglobal.co.uk. It uses a dark olive-brown,
-  premium surface and the user-confirmed Nova facts: **27+ years of experience** and **235,000 m²+
-  of residential, commercial and industrial buildings**, alongside three core disciplines.
+  premium surface and only two user-confirmed Nova facts: **27+ years of experience** and
+  **235,000 m²+ of completed residential, commercial and industrial built area**.
 
 ### Verification
 - Testing iteration 72 passed all scoped checks in preview: TR/EN desktop/mobile sticky/reverse
@@ -35,9 +35,10 @@ Last updated: 2026-10-27
 - Physical iOS Safari and the user's production/cPanel deployment were not accessible for this work;
   stale-cache and feed-failure timing remain explicit live-environment follow-up checks.
 - Testing iteration 73 then passed 64/64 TR/EN desktop/mobile checks for the preserved notch,
-  reverse scroll, localized facts/CTA, mobile clearance and all existing hero/navigation regressions.
+  reverse scroll, localized facts, mobile clearance and all existing hero/navigation regressions.
 - Follow-up browser check confirmed the refreshed 27+ / 235,000 m²+ section has no imagery,
-  correct high-contrast olive/ivory styling and no horizontal overflow in either language.
+  correct high-contrast olive/ivory styling, no unneeded labels/CTA/note/third metric and no
+  horizontal overflow in either language.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

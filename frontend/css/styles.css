@@ -1251,7 +1251,7 @@ body.home-page {
    Nova approach — editorial portfolio facts
    ========================================================= */
 .section-nova-foundations {
-  padding: clamp(72px, 9vw, 148px) 0;
+  padding: clamp(52px, 6vw, 88px) 0;
   background: #625b48;
   border-top: 1px solid rgba(247, 243, 234, .18);
 }
@@ -1259,72 +1259,39 @@ body.home-page {
   display: grid;
   grid-template-columns: minmax(0, .93fr) minmax(360px, 1.07fr);
   gap: clamp(54px, 9vw, 160px);
-  align-items: stretch;
+  align-items: center;
 }
 .nova-foundations-intro {
   display: flex;
-  min-height: 100%;
   flex-direction: column;
   align-items: flex-start;
 }
-.nova-foundations-kicker,
-.nova-foundation-label,
-.nova-foundations-link,
-.nova-foundations-note,
-.nova-foundations-pair-copy {
+.nova-foundation-label {
   font-family: var(--font-sans);
   letter-spacing: .19em;
   text-transform: uppercase;
 }
-.nova-foundations-kicker {
-  margin: 0 0 clamp(22px, 3vw, 38px);
-  color: #d8c99c;
-  font-size: 10px;
-  font-weight: 600;
-}
 .nova-foundations-title {
-  max-width: 16ch;
+  max-width: 18ch;
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(32px, 3.45vw, 57px);
+  font-size: clamp(30px, 3vw, 48px);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: .01em;
   color: #f7f3ea;
 }
 .nova-foundations-copy {
-  max-width: 53ch;
-  margin: clamp(26px, 3vw, 40px) 0 0;
+  max-width: 48ch;
+  margin: clamp(18px, 2vw, 26px) 0 0;
   color: #e4ded0;
-  font-size: 14.5px;
-  line-height: 1.86;
-}
-.nova-foundations-link {
-  display: inline-flex;
-  gap: 12px;
-  margin-top: clamp(30px, 4vw, 54px);
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 7px;
-  color: #f4ead4;
-  font-size: 10px;
-  font-weight: 600;
-  transition: color .25s var(--easing), gap .25s var(--easing);
-}
-.nova-foundations-link:hover { gap: 18px; color: #fffaf1; }
-.nova-foundations-link:focus-visible { outline: 2px solid #f4ead4; outline-offset: 5px; }
-.nova-foundations-note {
-  max-width: 42ch;
-  margin: auto 0 0;
-  padding-top: clamp(38px, 6vw, 94px);
-  color: #d8d0c0;
-  font-size: 9px;
-  font-weight: 500;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.72;
 }
 .nova-foundations-metrics { align-self: center; }
 .nova-foundation-metric {
   display: flex;
-  min-height: 156px;
+  min-height: 132px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1350,35 +1317,14 @@ body.home-page {
   font-weight: 600;
   line-height: 1.45;
 }
-.nova-foundations-metric-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 184px;
-}
-.nova-foundations-metric-pair > * + * {
-  border-left: 1px solid rgba(247, 243, 234, .34);
-}
-.nova-foundations-pair-copy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #f8f3e9;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 2.05;
-  text-align: center;
-}
 @media (max-width: 820px) {
   .nova-foundations-grid { grid-template-columns: 1fr; gap: 52px; }
-  .nova-foundations-note { margin-top: 44px; padding-top: 0; }
   .nova-foundations-metrics { border-top: 1px solid rgba(247, 243, 234, .34); }
 }
 @media (max-width: 480px) {
-  .section-nova-foundations { padding: 58px 0 66px; }
-  .nova-foundations-title { max-width: none; font-size: 35px; }
-  .nova-foundation-metric { min-height: 128px; }
-  .nova-foundations-metric-pair { min-height: 148px; }
-  .nova-foundations-pair-copy { font-size: 9px; letter-spacing: .13em; }
+  .section-nova-foundations { padding: 48px 0 54px; }
+  .nova-foundations-title { max-width: none; font-size: 33px; }
+  .nova-foundation-metric { min-height: 116px; }
 }
 .section-head {
   display: flex; align-items: center; justify-content: space-between;
