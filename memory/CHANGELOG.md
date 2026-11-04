@@ -8,11 +8,13 @@
 
 ## Follow-up — Nova experience facts and dark olive editorial treatment
 
-- Reframed the new section around only two user-confirmed Nova facts: 27+ years of experience and
-  235,000 m²+ of completed residential, commercial and industrial built area.
+- Reframed the new section around user-confirmed Nova facts: 27+ years of experience, 385,000 m²+
+  of completed residential, commercial and industrial built area, and 1,090 independent units.
 - Reworked the band into a photo-free dark olive-brown surface with ivory typography, warm-gold
   details and fine divider lines. Removed the label, note, CTA and third metric; TR/EN browser
   verification confirmed the values, contrast and no overflow.
+- Updated the data treatment to #D7E3EB typography and added the compact independent-units line;
+  TR/EN browser verification confirmed 27+ / 385,000 m²+ / 1,090 with no mobile overflow.
 
 # 2026-11-03 — Sticky scroll-over, asset reliability and navigation regression fixes
 
