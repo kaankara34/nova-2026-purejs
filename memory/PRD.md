@@ -39,7 +39,7 @@ Last updated: 2026-10-27
   reverse scroll, localized facts, mobile clearance and all existing hero/navigation regressions.
 - Follow-up browser check confirmed the refreshed 27+ / 385,000 m²+ / 1,090 units section has no
   imagery, correct #D7E3EB typography, no unneeded labels/CTA/note and no horizontal overflow in
-  either language.
+  either language. The independent-units value and label are vertically stacked and center-aligned.
 
 ## Latest task — EDSAA corporate pages, mobile journal cap and native scrollbar
 

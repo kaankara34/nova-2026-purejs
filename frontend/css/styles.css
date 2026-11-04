@@ -1323,9 +1323,11 @@ body.home-page {
   display: flex;
   min-height: 66px;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
-  gap: 16px;
+  gap: 8px;
   color: #D7E3EB;
+  text-align: center;
 }
 .nova-foundations-data-line .nova-foundation-label { margin-top: 0; }
 @media (max-width: 820px) {

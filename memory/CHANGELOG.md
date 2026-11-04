@@ -15,6 +15,7 @@
   verification confirmed the values, contrast and no overflow.
 - Updated the data treatment to #D7E3EB typography and added the compact independent-units line;
   TR/EN browser verification confirmed 27+ / 385,000 m²+ / 1,090 with no mobile overflow.
+- Stacked the independent-units value above its label, rather than side by side, in both languages.
 
 # 2026-11-03 — Sticky scroll-over, asset reliability and navigation regression fixes
 
