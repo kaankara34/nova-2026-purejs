@@ -1,5 +1,6 @@
 RewriteEngine On
 RewriteBase /
+Options -Indexes
 
 # Default language is Turkish
 RewriteRule ^$ /tr/ [R=301,L]

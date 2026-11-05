@@ -9,6 +9,12 @@
   Register enquiries require `/api/enquiries`; careers/report routes are not configured for online
   delivery on a pure static host. These flows were not mocked or submitted.
 
+## Emergency root-entry fix
+
+- Added `frontend/index.html` with an immediate relative redirect to `tr/` and `Options -Indexes` to
+  `.htaccess`. This prevents an Apache/LiteSpeed directory listing when the public root is visited;
+  preview root verification reached the Turkish homepage.
+
 # 2026-11-04 — Preserved scroll-over notch and Nova portfolio facts
 
 - Restored the original centered downward hero notch inside the rising opaque scroll-over surface:

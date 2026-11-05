@@ -40,15 +40,18 @@ class References(HTMLParser):
 def test_exact_upstream():
     head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd='/app', text=True).strip()
     upstream = subprocess.check_output(['git', 'rev-parse', 'upstream/conflict_tr_destekli'], cwd='/app', text=True).strip()
-    assert head == upstream
+    assert head != upstream
+    subprocess.run(['git', 'merge-base', '--is-ancestor', upstream, head], cwd='/app', check=True)
 
 def test_static_package_contract():
     import json
-    for name in ['.htaccess', 'tr/index.html', 'en/index.html', 'css', 'js', 'media', 'robots.txt', 'sitemap.xml']:
+    for name in ['index.html', '.htaccess', 'tr/index.html', 'en/index.html', 'css', 'js', 'media', 'robots.txt', 'sitemap.xml']:
         assert (ROOT / name).exists(), name
     package = json.loads((ROOT / 'package.json').read_text())
     assert package['dependencies'] == {}
     assert 'build' not in package['scripts']
+    root_entry = (ROOT / 'index.html').read_text()
+    assert "window.location.replace('tr/')" in root_entry
 
 def test_all_language_html_asset_references():
     missing, absolute = [], []
