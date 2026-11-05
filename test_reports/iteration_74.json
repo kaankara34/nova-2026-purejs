@@ -1,0 +1,37 @@
+{
+  "summary": "Frontend-only cPanel readiness audit: HEAD equals upstream 7db949f0395550338955c90a0d636bc19cc79bdf. Static pytest checks 10/10 passed; all 1,652 local CSS/JS/media references across TR/EN HTML exist and none use root-absolute /css, /js or /media paths. Six requested pages rendered at desktop/mobile; all 14 browser scenarios passed after one animation-wait correction and one rate-limit retry.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [{"flow": "Public preview under repeated page loads", "issue": "Transient HTTP 429 affected /en/index.html and nine media/script requests; a Cloudflare challenge generated CSP console messages and a challenge-service 401. English desktop retry passed. Initial run had zero console/page/HTTP errors. Not attributable to upstream HTML changes; exact rate-limit rule unavailable.", "affected_selectors": ["[data-testid=header-control-1]"]}],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/tests/test_cpanel_static_contract.py", "/app/tests/playwright_iter74_static.py", "/app/test_reports/pytest/iter74_static_contract.xml"],
+  "action_items": [
+    "Upload frontend CONTENTS directly to public_html, preserving the hidden .htaccess at public_html/.htaccess. No build/install required.",
+    "On actual Apache/cPanel, verify mod_rewrite and AllowOverride, directory index handling, root and root index.html redirects to /tr/, language extensionless URLs and ErrorDocument behavior. Source-level checks passed; production server unavailable.",
+    "Configure a real external enquiry endpoint before expecting form delivery; separately configure careers/report endpoints and optional Instagram backend if those features are required.",
+    "If preview 429s persist, inspect edge/WAF rate-limiting analytics and response headers; avoid treating challenge-page errors as application JavaScript regressions."
+  ],
+  "critical_code_review_comments": [
+    "No blocking static deployment regression identified; frontend/package.json has no dependencies or build script. Existing serve script is preview-only, not required by cPanel.",
+    "Existing testability debt: homepage register inputs/submit, cookie controls and several content links lack data-testid. Existing styles.css (2919 lines) and script.js (754 lines) exceed the 700-line maintainability guideline.",
+    "Existing placeholder social/location links use href=#; they do not lead to real destinations. Not introduced by the index-content merge.",
+    "Shared enquiry validation/status text remains English even on TR pages; source-only observation, submission intentionally not tested."
+  ],
+  "external_dependencies": [
+    {"feature": "Register-interest/enquiry forms", "dependency": "nova-forms.js POSTs to (window.NOVA_API_BASE || '') + /api/enquiries. Pure static cPanel does not supply this endpoint; submissions were not exercised."},
+    {"feature": "Careers applications", "dependency": "careers.js APPLICATION_ENDPOINT is null; online delivery is explicitly unavailable until a backend is configured."},
+    {"feature": "Speak-up reporting", "dependency": "speak-up.js REPORT_ENDPOINT is null; online delivery is explicitly unavailable until a backend is configured."},
+    {"feature": "Contact Instagram refresh", "dependency": "contact.js GETs /api/instagram/latest; bundled static snapshot is retained when unavailable."},
+    {"feature": "Nova Journal and fonts", "dependency": "Journal reads public raw.githubusercontent.com TR/EN JSON feeds; Google Fonts is external. These remain static-host compatible but need client network access; feed failure scenarios not tested in this run."}
+  ],
+  "updated_files": ["/app/tests/test_cpanel_static_contract.py", "/app/tests/playwright_iter74_static.py", "/app/test_reports/iteration_74.json"],
+  "success_rate": {"backend": "Not tested (frontend-only request)", "frontend": "Static 10/10; browser 14/14 eventually, final batch 13/14 plus successful English desktop retry"},
+  "flaky_tests": [{"test": "English desktop homepage", "result": "Failed once with preview HTTP 429/challenge, passed one targeted retry; no reproducible HTML regression."}],
+  "seed_data_creation": "None; no form submissions or database changes. No MOCKED APIs or integrations.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Preview Chromium only: 1920x1080 and 390x844. All six requested paths returned usable HTML and matched language, logo loaded, horizontal overflow <=1px. Both homepage videos readyState4/videoWidth1600 desktop and960 mobile. Header menu open/close passed after650ms transition wait. Both language workflows: homepage menu -> portfolio -> logo home -> East West CTA -> opposite-language East West page passed. Mobile and desktop hero screenshots reviewed; no scoped visual defects observed. Apache behavior audited as source only. Initial close-click failures were testing timing (forced clicks skip actionability animation waits), not application defects. No application files changed.",
+  "rca of the issue": "Preview batch intermittently returned HTTP429 including EN HTML, causing selector timeout and Cloudflare challenge-script CSP errors. Isolated EN retry rendered normally with working menu and media. The 429 source rule cannot be established without edge analytics/headers; source audit found no missing assets or content-change runtime exception. Actual cPanel delivery and external submission integrations remain unverified."
+}

@@ -6,6 +6,8 @@
   cold-cache `bahar-cover.jpg` and all plan assets). Do not claim production confirmation before it.
 - 2026-11-04: preserved scroll-over notch and bilingual portfolio-facts section passed iteration 73
   in preview. P1: visual acceptance on a physical mobile device after deployment.
+- 2026-11-05: cPanel static package audit passed at GitHub head `7db949f`. P0 live validation:
+  Apache `mod_rewrite`/`AllowOverride`, root redirect and an external enquiry endpoint if submissions are needed.
 - 2026-10-28: time-limited 29 October campaign modal is implemented in preview for both homepages;
   P1: user review on a physical mobile device and post-cPanel confirmation during the campaign.
   It self-disables outside 29 October–6 November (Europe/Istanbul), so no manual removal is required.

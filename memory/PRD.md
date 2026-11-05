@@ -27,6 +27,8 @@ Last updated: 2026-10-27
   premium surface and three user-confirmed Nova facts: **27+ years of experience**,
   **385,000 m²+ of completed residential, commercial and industrial built area**, and
   **1,090 independent units**.
+- GitHub `conflict_tr_destekli` branch was safely fast-forwarded to `7db949f`; the delivered
+  `frontend/` remains a no-build static cPanel package (upload its contents with `.htaccess`).
 
 ### Verification
 - Testing iteration 72 passed all scoped checks in preview: TR/EN desktop/mobile sticky/reverse
@@ -40,6 +42,8 @@ Last updated: 2026-10-27
 - Follow-up browser check confirmed the refreshed 27+ / 385,000 m²+ / 1,090 units section has no
   imagery, correct #D7E3EB typography, no unneeded labels/CTA/note and no horizontal overflow in
   either language. The independent-units value and label are vertically stacked and center-aligned.
+- CPanel audit: 10/10 static checks plus 14/14 browser scenarios passed; register enquiries still
+  need an external `/api/enquiries` endpoint for actual submission on a static host.
 - Refined the metric band’s visual rhythm: desktop rows are 112 / 112 / 92px and mobile rows are
   98 / 98 / 82px, with balanced divider, value and label spacing. Architects now visually appear as
   Ömer Çamoğlu, Boran Ekinci, Kay Ngee Tan, Philippe Starck, then the remaining collaborators on

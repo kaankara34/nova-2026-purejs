@@ -1,3 +1,14 @@
+# 2026-11-05 — Synced GitHub branch and audited cPanel static delivery
+
+- Safely fast-forwarded local source to `kaankara34/nova-2026-purejs` branch
+  `conflict_tr_destekli` at `7db949f`; upstream changed the two bilingual homepage files.
+- CPanel static audit passed: frontend root contains required `.htaccess`, TR/EN entries, CSS, JS,
+  media, sitemap and robots files; all 1,652 local asset references resolve with portable relative paths.
+  No build or package installation is required before upload.
+- Static pages/navigation/media passed 10/10 source checks and 14/14 preview browser scenarios.
+  Register enquiries require `/api/enquiries`; careers/report routes are not configured for online
+  delivery on a pure static host. These flows were not mocked or submitted.
+
 # 2026-11-04 — Preserved scroll-over notch and Nova portfolio facts
 
 - Restored the original centered downward hero notch inside the rising opaque scroll-over surface:
